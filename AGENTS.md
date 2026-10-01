@@ -5,7 +5,11 @@ UI только из `src/ui` и токенов, данные через `src/ap
 [AREAS.md](AREAS.md) (18 разделов: пути, ТЗ, меню, точки расширения).
 
 - Дев-сервер: только `bash scripts/ensure-dev.sh` (порт 3710). Замеры: `node scripts/measure.mjs --help`.
-- Коммит: `node scripts/commit.mjs "сообщение"` (системный git заблокирован лицензией Xcode). Разделы не коммитят.
+- Git и выкладка (02.10.2026): обычный `git` работает. Репозитории публичные — https://github.com/Arsen-001/booktime-web
+  (этот) и https://github.com/Arsen-001/booktime-api (сервер). Работаем в ветке `develop` → staging.booktime.am
+  (Vercel) + api-staging.booktime.am (Railway, своя база с демо-данными); в production попадает только слиянием
+  `develop` → `main` → booktime.am + api.booktime.am (Railway, база настоящих салонов) — по слову владельца.
+  Каждый push выкладывается сам. Секретов, скриншотов qa, дампов и логов в git нет (.gitignore). Разделы не коммитят.
 - ТЗ: `/Users/arsen/WebstormProjects/booking-research/functional-map/` (00 — наши решения, приоритет).
 - **«Чем мы лучше Altegio» — всегда актуально** (владелец, 29.09.2026). Сделали то, чего у Altegio нет или что у нас
   удобнее (⭐ в ТЗ, решение владельца в `docs/design/DESIGN.md`), — в той же работе допишите пункт в
