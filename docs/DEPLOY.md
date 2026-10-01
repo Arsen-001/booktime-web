@@ -8,6 +8,11 @@
 | Сервер (Railway, проект `booktime`, сервис `api`) | https://api-staging.booktime.am | https://api.booktime.am |
 | База и Redis | свои в окружении `staging`, демо-данные из сида | свои в окружении `production`, настоящие салоны |
 
+**Демо для показа клиентам — https://demo.booktime.am** (Vercel, отдельный проект `booktime-demo`, ветка `main`,
+`NEXT_PUBLIC_DATA=mock`): весь интерфейс на демо-данных в браузере посетителя, переключатель персон, вход кодом
+0000 — сервер не нужен, поэтому открыт всем. На booktime.am и staging кода 0000 нет (настоящий сервер,
+`NODE_ENV=production`) — вход только по коду из Telegram Gateway.
+
 - Репозитории (публичные): https://github.com/Arsen-001/booktime-web, https://github.com/Arsen-001/booktime-api.
 - Каждый push в `develop` / `main` выкладывается сам (GitHub-приложения Vercel и Railway).
 - В production попадает только слиянием `develop` → `main` (fast-forward) — по слову владельца.
