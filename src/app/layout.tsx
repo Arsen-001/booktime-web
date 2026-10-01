@@ -81,7 +81,8 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
               <Providers>
                 {children}
                 <SessionBridge />
-                <DemoSwitcher />
+                {/* Демо-персоны и сброс демо-данных — только без настоящего сервера (сборка с NEXT_PUBLIC_DATA=api — booktime.am, staging) */}
+                {process.env.NEXT_PUBLIC_DATA !== 'api' && <DemoSwitcher />}
                 <ToastViewport />
               </Providers>
               </SidebarHintProvider>

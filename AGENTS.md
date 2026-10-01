@@ -9,6 +9,7 @@ UI только из `src/ui` и токенов, данные через `src/ap
   (этот) и https://github.com/Arsen-001/booktime-api (сервер). Работаем в ветке `develop` → staging.booktime.am
   (Vercel) + api-staging.booktime.am (Railway, своя база с демо-данными); в production попадает только слиянием
   `develop` → `main` → booktime.am + api.booktime.am (Railway, база настоящих салонов) — по слову владельца.
+  Инфраструктура и как с ней работать — [docs/DEPLOY.md](docs/DEPLOY.md).
   Каждый push выкладывается сам. Секретов, скриншотов qa, дампов и логов в git нет (.gitignore). Разделы не коммитят.
 - ТЗ: `/Users/arsen/WebstormProjects/booking-research/functional-map/` (00 — наши решения, приоритет).
 - **«Чем мы лучше Altegio» — всегда актуально** (владелец, 29.09.2026). Сделали то, чего у Altegio нет или что у нас
