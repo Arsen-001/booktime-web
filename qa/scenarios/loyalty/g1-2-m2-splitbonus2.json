@@ -1,0 +1,53 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Нелли Симонян Аветисян"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "a:has-text(\"Открыть запись\") >> nth=0"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "role=tab[name=\"Лояльность\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "role=button[name=\"Разделить оплату\"] >> nth=0"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "fill": "text=Сумма бонусов >> xpath=following::input[1]",
+        "value": "1200"
+      },
+      {
+        "wait": 300
+      },
+      {
+        "click": "role=button[name=\"Применить\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "after-apply-split"
+      }
+    ]
+  }
+]

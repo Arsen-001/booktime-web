@@ -1,0 +1,21 @@
+{
+  "route": "/platform/ads",
+  "persona": "platform",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "click": "role=button[name=\"Новый баннер\"] >> nth=0" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "expectText": "Напишите заголовок" },
+    { "expectText": "Баннеру нужна картинка" },
+    { "fill": "[role=dialog] input >> nth=0", "value": "QA тестовый баннер" },
+    { "screenshot": "sheet-errors" },
+    { "click": "[role=dialog] >> role=radio[name=/Главная приложения/]" },
+    { "wait": 200 },
+    { "screenshot": "placement-picked" }
+  ]
+}

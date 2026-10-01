@@ -1,0 +1,232 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:36:38.855Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-032",
+      "F-06-035"
+    ],
+    "scenarioSteps": {
+      "ok": 18,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/promotions/new",
+      "url": "http://localhost:3710/biz/loyalty/promotions/new?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1205,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-032",
+        "F-06-035"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-032\"]"
+          },
+          "ok": true,
+          "ms": 14
+        },
+        {
+          "i": 2,
+          "step": {
+            "fill": "input[placeholder=\"Введите название акции\"]",
+            "value": "Тестовая акция"
+          },
+          "ok": true,
+          "ms": 28
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "step1-name"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step1-name.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Продолжить\"]"
+          },
+          "ok": true,
+          "ms": 240
+        },
+        {
+          "i": 5,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-033\"]"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "step2-kind"
+          },
+          "ok": true,
+          "ms": 73,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step2-kind.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Продолжить\"]"
+          },
+          "ok": true,
+          "ms": 191
+        },
+        {
+          "i": 8,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-034\"]"
+          },
+          "ok": true,
+          "ms": 9
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "step3-calc"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step3-calc.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=button[name=\"Продолжить\"]"
+          },
+          "ok": true,
+          "ms": 199
+        },
+        {
+          "i": 11,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-035\"]"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 12,
+          "step": {
+            "screenshot": "step4-rules"
+          },
+          "ok": true,
+          "ms": 41,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-rules.png"
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "role=button[name=\"Продолжить\"]"
+          },
+          "ok": true,
+          "ms": 408
+        },
+        {
+          "i": 14,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-036\"]"
+          },
+          "ok": true,
+          "ms": 1
+        },
+        {
+          "i": 15,
+          "step": {
+            "screenshot": "step5-scope"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step5-scope.png"
+        },
+        {
+          "i": 16,
+          "step": {
+            "click": "role=button[name=\"Назад\"]"
+          },
+          "ok": true,
+          "ms": 206
+        },
+        {
+          "i": 17,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-035\"]"
+          },
+          "ok": true,
+          "ms": 1
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "step4-back-preserved"
+          },
+          "ok": true,
+          "ms": 39,
+          "screenshot": "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-back-preserved.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step1-name.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step2-kind.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step3-calc.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-rules.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step5-scope.png",
+        "qa/measure/loyalty/shots-b02-wizard/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-back-preserved.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

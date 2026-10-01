@@ -1,0 +1,101 @@
+[
+  {
+    "route": "/biz/notifications/types/2/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "click": "role=button[name=/Email/]" },
+      { "wait": 200 },
+      { "screenshot": "type2-email-open" },
+      { "click": "text=Предпросмотр письма" },
+      { "wait": 300 },
+      { "expectVisible": "text=Вы записаны" },
+      { "screenshot": "type2-email-preview-modal" },
+      { "press": "Escape" },
+      { "wait": 200 },
+      { "click": "label:has-text(\"Показывать дополнительную информацию\")" },
+      { "wait": 200 },
+      { "click": "label:has-text(\"С отступом\")" },
+      { "fill": "textarea[placeholder=\"Свой текст…\"]", "value": "спасибо, что выбрали нас" },
+      { "screenshot": "type2-email-extra-filled" },
+      { "click": "text=Предпросмотр письма" },
+      { "wait": 300 },
+      { "expectVisible": "text=спасибо, что выбрали нас" },
+      { "screenshot": "type2-email-preview-with-extra" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type2-push-open" },
+      { "click": "textarea[placeholder=\"Текст сообщения…\"]" },
+      { "fill": "textarea[placeholder=\"Текст сообщения…\"]", "value": "Здравствуйте" },
+      { "click": "button[aria-label=\"Смайлик\"] >> nth=0" },
+      { "screenshot": "type2-push-after-emoji" },
+      { "click": "role=button[name=\"+ Переменная\"]" },
+      { "wait": 150 },
+      { "screenshot": "type2-variables-popover" },
+      { "click": "text=/Имя клиента/i >> nth=0" },
+      { "wait": 150 },
+      { "screenshot": "type2-push-after-variable" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "click": "role=button[name=/SMS/]" },
+      { "wait": 200 },
+      { "screenshot": "type2-sms-locked-not-connected" },
+      { "expectVisible": "text=Подключить" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/7/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type7-system-locked" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/19/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type19-system-locked" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/10/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type10-adminapp-open" },
+      { "click": "textarea[placeholder=\"Текст сообщения…\"]" },
+      { "fill": "textarea[placeholder=\"Текст сообщения…\"]", "value": "Новая онлайн-запись!" },
+      { "screenshot": "type10-adminapp-filled" }
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/clients/summary', { device: 'desktop' });
+const rev0 = (await text(page)).match(/Выручка\n([^\n]+)/)?.[1];
+await as(page, 'owner', '/biz/clients/cl_001');
+await page.getByRole('button', { name: 'Добавить визит' }).first().click(); await page.waitForTimeout(800);
+const sh = page.locator('[role=dialog]').last();
+await pick(page, sh.getByRole('combobox').nth(0), 'Ани Саргсян');
+await sh.getByRole('combobox').nth(1).click(); await page.waitForTimeout(400);
+const opts = await page.getByRole('option').allInnerTexts(); console.log('svc opts', opts.slice(0,6));
+await page.getByRole('option').nth(1).click(); await page.waitForTimeout(400);
+console.log('SHEET', (await sh.innerText()).replace(/\n+/g,' | ').slice(0,600));
+const ids0 = new Set((await db(page)).core.bookings.map(b=>b.id));
+const all = [];
+page.on('console', ()=>{});
+await sh.getByRole('button', { name: 'Сохранить визит' }).click();
+for (let i=0;i<8;i++){ all.push(...(await toasts(page))); await page.waitForTimeout(300); }
+console.log('toasts seen', [...new Set(all)]);
+const d = await db(page); const nb = d.core.bookings.filter(b=>!ids0.has(b.id)); console.log('new', JSON.stringify(nb.map(b=>[b.start,b.status,b.total,b.staffId,b.durationMin])));
+await as(page, 'owner', '/biz/clients/summary');
+console.log('revenue before', rev0, 'after', (await text(page)).match(/Выручка\n([^\n]+)/)?.[1], (await text(page)).match(/Визитов\n([^\n]+)/)?.[1]);
+await as(page, 'owner', '/biz/journal');
+await shot(page, 'c2-journal-today', true);
+await stop();

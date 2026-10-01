@@ -1,0 +1,171 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:59:10.932Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-061",
+      "F-02-001",
+      "F-02-002",
+      "F-02-003",
+      "F-02-004",
+      "F-02-005",
+      "F-02-006",
+      "F-02-009",
+      "F-02-010",
+      "F-02-012",
+      "F-02-013",
+      "F-02-014",
+      "F-02-016",
+      "F-02-030",
+      "F-02-032",
+      "F-02-034",
+      "F-02-085",
+      "F-02-086",
+      "F-02-087",
+      "F-02-099"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 901,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-061",
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-005",
+        "F-02-006",
+        "F-02-009",
+        "F-02-010",
+        "F-02-012",
+        "F-02-013",
+        "F-02-014",
+        "F-02-016",
+        "F-02-030",
+        "F-02-032",
+        "F-02-034",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "table tbody tr:nth-child(1) td:nth-child(2) button"
+          },
+          "ok": true,
+          "ms": 244
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "one-selected"
+          },
+          "ok": true,
+          "ms": 115,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule__owner-nails-ru-light-desktop__one-selected.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "table tbody tr:nth-child(1) td:nth-child(3) button"
+          },
+          "ok": true,
+          "ms": 231
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "table tbody tr:nth-child(2) td:nth-child(2) button"
+          },
+          "ok": true,
+          "ms": 195
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 404
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "panel-open"
+          },
+          "ok": true,
+          "ms": 121,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule__owner-nails-ru-light-desktop__panel-open.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule__owner-nails-ru-light-desktop__one-selected.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule__owner-nails-ru-light-desktop__panel-open.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

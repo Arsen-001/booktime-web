@@ -1,0 +1,44 @@
+[
+  {
+    "route": "/biz/finance/accounts",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "click": "text=Основная касса" },
+      { "wait": 400 },
+      { "expectText": "Основная касса" },
+      { "screenshot": "01-account-edit-prefilled" }
+    ]
+  },
+  {
+    "route": "/biz/finance",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "click": "role=link[name=/2026/] >> nth=0" },
+      { "wait": 700 },
+      { "screenshot": "01-operation-detail" },
+      { "click": "role=button[name=\"Отменить\"]" },
+      { "wait": 300 },
+      { "screenshot": "02-cancel-confirm" },
+      { "click": "role=button[name=\"Отменить операцию\"]" },
+      { "wait": 700 },
+      { "expectText": "Операция отменена" },
+      { "screenshot": "03-cancelled" }
+    ]
+  },
+  {
+    "route": "/biz/finance",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-desktop" }
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "expectVisible": "[data-f=\"F-01-037\"]" },
+      { "screenshot": "new-record-window" },
+      { "click": "text=Расширенные поля" },
+      { "wait": 300 },
+      { "screenshot": "expanded-fields" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "screenshot": "new-record-window-phone" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "role=button[name=/New|New appointment|Add/i]" },
+      { "wait": 500 },
+      { "screenshot": "new-record-window-en" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "hy",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "hy-list-check" }
+    ]
+  }
+]

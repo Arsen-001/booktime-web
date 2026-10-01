@@ -1,0 +1,19 @@
+{
+  "route": "/platform/moderation",
+  "persona": "platform",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=tab[name=\"Без проверки\"]" },
+    { "wait": 300 },
+    { "screenshot": "auto" },
+    { "click": "role=tab[name=\"Отклонено\"]" },
+    { "wait": 300 },
+    { "screenshot": "rejected" },
+    { "click": "text=Отклонено >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "rejected-detail" }
+  ]
+}

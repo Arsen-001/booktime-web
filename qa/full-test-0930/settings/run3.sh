@@ -1,0 +1,2 @@
+node run.mjs flow2:salon:desktop:NEWSALON flow2:individual:phone actions:owner:desktop > run3a.log 2>&1
+ROUTES=/biz/settings/gallery,/biz/settings/system,/biz/settings/add-location,/biz/settings/account,/biz/settings/legal,/biz/settings/help,/biz/billing/seats,/biz/settings/mobile-app,/biz/onboarding/invite/demo,/biz/settings/modules/journal,/biz/settings/sphere,/biz/billing/checkout,/biz/settings/categories,/biz/settings/languages node run.mjs explore:owner-phone-ru-error explore:owner-desktop explore:owner-phone > run3b.log 2>&1

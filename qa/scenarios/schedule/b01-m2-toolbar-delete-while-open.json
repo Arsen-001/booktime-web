@@ -1,0 +1,17 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+    { "expectVisible": "text=Настройка графика" },
+    { "expectText": "Выбрано ячеек: 1" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-after-udalit-click-while-panel-open" }
+  ]
+}

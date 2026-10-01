@@ -1,0 +1,556 @@
+{
+ "at": "2026-09-30T00:43:00.590Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/settings/modules/clients",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/settings/modules/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "div.mx-auto.flex.w-full in [data-f=F-15-120] «НазадКлиентыПоля ФИО, «п»",
+     "what": "div in [data-f=F-15-120]",
+     "sk": {
+      "h": 160,
+      "w": 358
+     },
+     "before": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 324
+     },
+     "after": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 292
+     },
+     "t": 1186,
+     "dh": -32,
+     "dhVis": -32,
+     "bad": true
+    },
+    {
+     "where": "div in [data-f=F-15-120] «КлиентыКак база считает »",
+     "what": "div.flex.flex-col.gap-6 in [data-f=F-15-120] «КлиентыКак база считает »",
+     "sk": {
+      "h": 128,
+      "w": 358
+     },
+     "before": {
+      "x": 16,
+      "y": 241,
+      "w": 358,
+      "h": 128
+     },
+     "after": {
+      "x": 16,
+      "y": 241,
+      "w": 358,
+      "h": 4265
+     },
+     "t": 1216,
+     "dh": 4137,
+     "dhVis": 475,
+     "bad": true
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 2935,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 16,
+     "y": 241,
+     "w": 358,
+     "h": 338,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "section.rounded-lg.border.border-border in [data-f=F-04-046] «КлиентыКак база считает »"
+    },
+    {
+     "x": 37,
+     "y": 361,
+     "w": 48,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 4,
+     "hint": "span.relative.inline-flex.h-7 in [data-f=F-04-046]"
+    },
+    {
+     "x": 59,
+     "y": 363,
+     "w": 24,
+     "h": 24,
+     "sk": false,
+     "fixed": false,
+     "parent": 5,
+     "hint": "span.inline-block.size-6.rounded-full in [data-f=F-04-046]"
+    },
+    {
+     "x": 33,
+     "y": 472,
+     "w": 324,
+     "h": 44,
+     "sk": false,
+     "fixed": false,
+     "parent": 4,
+     "hint": "button.w-full.rounded-xl.border in [data-f=F-04-046] «60 дней»"
+    },
+    {
+     "x": 16,
+     "y": 603,
+     "w": 358,
+     "h": 272,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "section.rounded-lg.border.border-border in [data-f=F-04-099] «Поиск по лояльности в ок»"
+    },
+    {
+     "x": 37,
+     "y": 781,
+     "w": 48,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 8,
+     "hint": "span.relative.inline-flex.h-7 in [data-f=F-04-099]"
+    },
+    {
+     "x": 39,
+     "y": 783,
+     "w": 24,
+     "h": 24,
+     "sk": false,
+     "fixed": false,
+     "parent": 9,
+     "hint": "span.inline-block.size-6.rounded-full in [data-f=F-04-099]"
+    }
+   ],
+   "gone": [],
+   "maxSkeletons": 4,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/r2c-biz-settings-modules-clients/biz-settings-modules-clients__phone__1-skeleton.png",
+    "qa/skeletons/shots/r2c-biz-settings-modules-clients/biz-settings-modules-clients__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": true,
+   "boxes0": {
+    "at": 1187,
+    "early": true,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 57,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 66,
+      "y": 8,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 340,
+      "y": 12,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 16,
+      "y": 241,
+      "w": 358,
+      "h": 128,
+      "sk": true,
+      "fixed": false,
+      "parent": -1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer in [data-f=F-15-120]"
+     }
+    ]
+   }
+  },
+  {
+   "route": "/biz/settings/modules/clients",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/settings/modules/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "div.mx-auto.flex.w-full in [data-f=F-15-120] «НазадКлиентыПоля ФИО, «п»",
+     "what": "div in [data-f=F-15-120]",
+     "sk": {
+      "h": 160,
+      "w": 760
+     },
+     "before": {
+      "x": 468,
+      "y": 93,
+      "w": 760,
+      "h": 299
+     },
+     "after": {
+      "x": 468,
+      "y": 93,
+      "w": 760,
+      "h": 267
+     },
+     "t": 1118,
+     "dh": -32,
+     "dhVis": -32,
+     "bad": true
+    },
+    {
+     "where": "div in [data-f=F-15-120] «КлиентыКак база считает »",
+     "what": "div.flex.flex-col.gap-6 in [data-f=F-15-120] «КлиентыКак база считает »",
+     "sk": {
+      "h": 128,
+      "w": 760
+     },
+     "before": {
+      "x": 468,
+      "y": 232,
+      "w": 760,
+      "h": 128
+     },
+     "after": {
+      "x": 468,
+      "y": 232,
+      "w": 760,
+      "h": 3599
+     },
+     "t": 1151,
+     "dh": 3471,
+     "dhVis": 540,
+     "bad": true
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "after": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "t": 3047,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.hidden.w-36.truncate «Нарине Акопян»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3047,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.w-36.truncate in [data-f=F-15-014] «Nuri Nail Studio»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3176,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 468,
+     "y": 232,
+     "w": 760,
+     "h": 286,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "section.rounded-lg.border.border-border in [data-f=F-04-046] «КлиентыКак база считает »"
+    },
+    {
+     "x": 493,
+     "y": 336,
+     "w": 48,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 8,
+     "hint": "span.relative.inline-flex.h-7 in [data-f=F-04-046]"
+    },
+    {
+     "x": 515,
+     "y": 338,
+     "w": 24,
+     "h": 24,
+     "sk": false,
+     "fixed": false,
+     "parent": 9,
+     "hint": "span.inline-block.size-6.rounded-full in [data-f=F-04-046]"
+    },
+    {
+     "x": 489,
+     "y": 427,
+     "w": 718,
+     "h": 44,
+     "sk": false,
+     "fixed": false,
+     "parent": 8,
+     "hint": "button.w-full.rounded-xl.border in [data-f=F-04-046] «60 дней»"
+    },
+    {
+     "x": 468,
+     "y": 542,
+     "w": 760,
+     "h": 193,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "section.rounded-lg.border.border-border in [data-f=F-04-099] «Поиск по лояльности в ок»"
+    },
+    {
+     "x": 493,
+     "y": 669,
+     "w": 48,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 12,
+     "hint": "span.relative.inline-flex.h-7 in [data-f=F-04-099]"
+    },
+    {
+     "x": 495,
+     "y": 671,
+     "w": 24,
+     "h": 24,
+     "sk": false,
+     "fixed": false,
+     "parent": 13,
+     "hint": "span.inline-block.size-6.rounded-full in [data-f=F-04-099]"
+    },
+    {
+     "x": 468,
+     "y": 759,
+     "w": 760,
+     "h": 3072,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "section.rounded-lg.border.border-border in [data-f=F-04-194] «Права доступа: Клиентска»"
+    },
+    {
+     "x": 489,
+     "y": 846,
+     "w": 718,
+     "h": 44,
+     "sk": false,
+     "fixed": false,
+     "parent": 15,
+     "hint": "button.w-full.rounded-xl.border in [data-f=F-04-194] «Нарине Акопян»"
+    }
+   ],
+   "gone": [],
+   "maxSkeletons": 4,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/r2c-biz-settings-modules-clients/biz-settings-modules-clients__desktop__1-skeleton.png",
+    "qa/skeletons/shots/r2c-biz-settings-modules-clients/biz-settings-modules-clients__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": true,
+   "boxes0": {
+    "at": 1119,
+    "early": true,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 900,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "aside.sticky.top-0.z-40 «BBookTimeКабинет бизнеса»"
+     },
+     {
+      "x": 16,
+      "y": 12,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 34,
+      "y": 764,
+      "w": 209,
+      "h": 544,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "ul.mb-1.ml-5.5.mt-1 «НастройкиБрендКонтактыГа»"
+     },
+     {
+      "x": 46,
+      "y": 764,
+      "w": 197,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 3,
+      "hint": "a.relative.flex.min-h-10 «Настройки»"
+     },
+     {
+      "x": 256,
+      "y": 0,
+      "w": 1184,
+      "h": 65,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 613,
+      "y": 12,
+      "w": 448,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 5,
+      "hint": "input.w-full.rounded-xl.border"
+     },
+     {
+      "x": 1192,
+      "y": 16,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 5,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 468,
+      "y": 232,
+      "w": 760,
+      "h": 128,
+      "sk": true,
+      "fixed": false,
+      "parent": -1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer in [data-f=F-15-120]"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,307 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-10-01T18:12:41.791Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 8,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-120",
+      "F-01-007",
+      "F-05-005",
+      "F-05-006",
+      "F-05-007",
+      "F-05-008",
+      "F-05-009",
+      "F-05-029",
+      "F-05-110",
+      "F-14-066",
+      "F-15-014"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 9307,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-120",
+        "F-01-007",
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110",
+        "F-14-066",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-ru-light-phone.png",
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 9305,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-05-005]",
+          "text": "Уведомления",
+          "w": 133,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-05-006 F-05-007 F-05-008 F-05-009 F-14-066]",
+          "text": "Подключить",
+          "w": 117,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-05-006 F-05-007 F-05-008 F-05-009 F-14-066]",
+          "text": "Подключить",
+          "w": 117,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-00-120",
+        "F-01-007",
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110",
+        "F-14-066",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-ru-light-desktop.png",
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 9302,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-120",
+        "F-01-007",
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110",
+        "F-14-066",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-en-light-phone.png",
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-en-light-phone__full.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1204,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-05-005]",
+          "text": "Notifications",
+          "w": 123,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-05-006 F-05-007 F-05-008 F-05-009 F-14-066]",
+          "text": "Connect",
+          "w": 85,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-05-006 F-05-007 F-05-008 F-05-009 F-14-066]",
+          "text": "Connect",
+          "w": 85,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-00-120",
+        "F-01-007",
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110",
+        "F-14-066",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-en-light-desktop.png",
+        "qa/queue-1001b/telegram/type1/biz-notifications-types-1__owner-nails-en-light-desktop__full.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    }
+  ]
+}

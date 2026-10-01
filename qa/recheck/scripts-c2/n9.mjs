@@ -1,0 +1,14 @@
+import { start, stop, open, as, text, pick } from './lib.mjs';
+await start();
+const { page } = await open('owner', `/biz/notifications/log`, { device: 'desktop' });
+const rows = async () => page.locator('main table tbody tr').allInnerTexts();
+let r = await rows(); console.log('all rows', r.length, (await text(page)).match(/\d+–\d+ из \d+/)?.[0]);
+await pick(page, page.getByRole('combobox').nth(2), 'SMS'); await page.waitForTimeout(800);
+r = await rows(); console.log('SMS rows', r.length, 'non-SMS', r.filter(x=>!x.includes('\tSMS\t')).length);
+await pick(page, page.getByRole('combobox').nth(1), 'Доставлено'); await page.waitForTimeout(800);
+r = await rows(); console.log('SMS+Доставлено', r.length, 'bad', r.filter(x=>!x.includes('\tSMS\t') || !x.includes('Доставлено')).length);
+await pick(page, page.getByRole('combobox').nth(0), 'Напоминание'); await page.waitForTimeout(800);
+r = await rows(); console.log('+Напоминание', r.length, 'bad', r.filter(x=>!x.includes('Напоминание')).length);
+const all = (await text(page)); console.log('future-dated rows?', (all.match(/25 сентября, (0[7-9]|1\d|2\d):\d\d/g)||[]).slice(0,3));
+await as(page, 'master', '/biz/notifications'); console.log('master direct', (await text(page)).slice(0,150).replace(/\n/g,' | '));
+await stop();

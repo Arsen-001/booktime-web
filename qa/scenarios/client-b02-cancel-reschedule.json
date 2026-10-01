@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/bookings",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "click": "css=a[href^='/bookings/'] >> nth=1" },
+      { "expectVisible": "[data-f=\"F-14-011 F-14-026\"]" },
+      { "click": "role=link[name=\"Перенести\"]" },
+      { "expectVisible": "[data-f=\"F-00-099 F-14-016 F-14-017\"]" },
+      { "screenshot": "b02-reschedule" }
+    ]
+  },
+  {
+    "route": "/bookings",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "click": "css=a[href^='/bookings/'] >> nth=1" },
+      { "click": "role=button[name=\"Отменить запись\"]" },
+      { "expectVisible": "text=Отменить запись?" },
+      { "screenshot": "b02-cancel-confirm" },
+      { "click": "role=button[name=\"Да, отменить\"]" },
+      { "wait": 500 },
+      { "expectText": "Запись отменена" },
+      { "screenshot": "b02-cancel-done" }
+    ]
+  }
+]

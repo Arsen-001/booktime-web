@@ -1,0 +1,251 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T15:11:22.520Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-005",
+      "F-05-006",
+      "F-05-007",
+      "F-05-008",
+      "F-05-009",
+      "F-05-010",
+      "F-05-011",
+      "F-05-012",
+      "F-05-013",
+      "F-05-017",
+      "F-05-018",
+      "F-05-019",
+      "F-05-021",
+      "F-05-022",
+      "F-05-023",
+      "F-05-024",
+      "F-05-110"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/types/2",
+      "url": "http://localhost:3710/biz/notifications/types/2?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1369,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-010",
+        "F-05-011",
+        "F-05-012",
+        "F-05-013",
+        "F-05-017",
+        "F-05-018",
+        "F-05-019",
+        "F-05-021",
+        "F-05-022",
+        "F-05-023",
+        "F-05-024",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=tab[name=\"Шаблоны уведомлений\"]"
+          },
+          "ok": true,
+          "ms": 269
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-022\"]"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=+ Переменная"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "type2-templates-variables"
+          },
+          "ok": true,
+          "ms": 58,
+          "screenshot": "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-ru-light-desktop__type2-templates-variables.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-ru-light-desktop.png",
+        "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-ru-light-desktop__type2-templates-variables.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/2",
+      "url": "http://localhost:3710/biz/notifications/types/2?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1369,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-010",
+        "F-05-011",
+        "F-05-012",
+        "F-05-013",
+        "F-05-017",
+        "F-05-018",
+        "F-05-019",
+        "F-05-021",
+        "F-05-022",
+        "F-05-023",
+        "F-05-024",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=tab[name=\"Templates\"]"
+          },
+          "ok": true,
+          "ms": 262
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-022\"]"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "type2-templates-phone-en"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-en-light-phone__type2-templates-phone-en.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-en-light-phone.png",
+        "qa/shots/notify/g3-1-templates2/biz-notifications-types-2__owner-nails-en-light-phone__type2-templates-phone-en.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

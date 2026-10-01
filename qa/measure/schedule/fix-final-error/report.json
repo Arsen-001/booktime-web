@@ -1,0 +1,332 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T12:20:44.655Z",
+  "summary": {
+    "pages": 6,
+    "consoleErrors": 0,
+    "consoleWarnings": 38,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-064",
+      "F-02-005",
+      "F-02-009",
+      "F-02-041",
+      "F-02-044",
+      "F-02-085",
+      "F-02-086",
+      "F-02-097",
+      "F-02-102"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1079,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"core\",\"staff\",\"get\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"viewConfig\",\"biz_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"planning-period\",\"biz_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"services\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"filters\",\"biz_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"serviceCategories\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"table\",\"biz_nuri\",\"loc_nuri\",\"2026-09-21\",\"2026-09-27\",{\"staffIds\":[],\"positions\":[],\"specializations\":[],\"hasSchedule\":\"all\",\"deleted\":\"active\",\"fired\":\"active\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-005",
+        "F-02-085",
+        "F-02-086"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1071,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"get\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule-calendar__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/templates",
+      "url": "http://localhost:3710/biz/schedule/templates?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1084,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"templates\",\"biz_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-009"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule-templates__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1278,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"schedule\",\"work-range\",\"location\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"unavailable\",\"location\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"slot-rules\",\"location\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"locations\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-044",
+        "F-02-097"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule-slots__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/series",
+      "url": "http://localhost:3710/biz/schedule/series?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1162,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"schedule\",\"series\",\"biz_nuri\",\"\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"get\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-064"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule-series__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/history",
+      "url": "http://localhost:3710/biz/schedule/history?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1140,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"core\",\"staff\",\"st_nuri_owner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"schedule\",\"history\",\"\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"staff\",\"list\",{\"businessId\":\"biz_nuri\"}] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[api] запрос не удался [\"core\",\"locations\",\"loc_nuri\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_02plty-._.js:114:37)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-085",
+        "F-02-102"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/fix-final-error/biz-schedule-history__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

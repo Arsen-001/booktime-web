@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Показать" },
+      { "wait": 300 },
+      { "screenshot": "quick-access-open" },
+      { "click": "text=Добавить рабочий день >> nth=0" },
+      { "wait": 500 },
+      { "expectText": "День добавлен" },
+      { "screenshot": "day-added" },
+      { "click": "text=Скачать PDF" },
+      { "wait": 500 },
+      { "screenshot": "after-pdf" }
+    ]
+  }
+]

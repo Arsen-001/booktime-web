@@ -1,0 +1,92 @@
+[
+  {
+    "route": "/biz/integrations/installed",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "installed-list" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_builtin_client",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "builtin-before-disconnect" },
+      { "click": "role=button[name=\"Отключить\"]" },
+      { "wait": 300 },
+      { "screenshot": "builtin-confirm-dialog" },
+      { "click": "[role=\"alertdialog\"] >> role=button[name=\"Отключить\"]" },
+      { "wait": 500 },
+      { "screenshot": "builtin-after-disconnect" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/e/mp_2_ватсчат-для-бизнеса",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "direct-link-result" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_2",
+    "persona": "admin",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "no-permission-card" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_33",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "coming-soon-app" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/category/payments",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "category-payments-before" },
+      { "click": "role=button[name=\"Узнавать о новых интеграциях\"]" },
+      { "wait": 400 },
+      { "screenshot": "category-payments-subscribed" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/category/chatbots",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "hidden-category-chatbots" }
+    ]
+  },
+  {
+    "route": "/biz/integrations",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "fill": "input[type=search], input[placeholder*=Поиск]", "value": "чат" },
+      { "wait": 500 },
+      { "screenshot": "search-chat-results" }
+    ]
+  }
+]

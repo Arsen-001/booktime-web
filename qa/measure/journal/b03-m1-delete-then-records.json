@@ -1,0 +1,532 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T02:04:55.795Z",
+  "summary": {
+    "pages": 3,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 11,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-009",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-018",
+      "F-01-019",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-034",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-119",
+      "F-01-120",
+      "F-01-181",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 21,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal?date=2026-10-20",
+      "url": "http://localhost:3710/biz/journal?date=2026-10-20&demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 8510,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4244:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_1tebm5_._.js:21:131)\n    at flushDraftSync (http://localhost:3710/_next/static/chunks/src_0-op53c._.js:471:141)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "17:30–17:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "16:30–16:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 6,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-119",
+        "F-01-120",
+        "F-01-181",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "[data-testid='booking-block'] >> nth=0"
+          },
+          "ok": true,
+          "ms": 368
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Удалить\"]"
+          },
+          "ok": true,
+          "ms": 673
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "deleted-toast"
+          },
+          "ok": true,
+          "ms": 368,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-desktop__deleted-toast.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "goto": "/biz/records"
+          },
+          "ok": true,
+          "ms": 2482
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 506
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "records-with-deleted"
+          },
+          "ok": true,
+          "ms": 73,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-desktop__records-with-deleted.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-desktop__deleted-toast.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-desktop__records-with-deleted.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal?date=2026-10-20",
+      "url": "http://localhost:3710/biz/journal?date=2026-10-20&demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 8492,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4244:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_1tebm5_._.js:21:131)\n    at flushDraftSync (http://localhost:3710/_next/static/chunks/src_0-op53c._.js:471:141)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "17:30–17:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "16:30–16:50Снятие покрытия",
+          "w": 196,
+          "h": 28,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-119",
+        "F-01-120",
+        "F-01-181",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "[data-testid='booking-block'] >> nth=0"
+          },
+          "ok": true,
+          "ms": 389
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 405
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Удалить\"]"
+          },
+          "ok": true,
+          "ms": 694
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 707
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "deleted-toast-phone"
+          },
+          "ok": true,
+          "ms": 392,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-phone__deleted-toast-phone.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "goto": "/biz/records"
+          },
+          "ok": true,
+          "ms": 2460
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "records-with-deleted-phone"
+          },
+          "ok": true,
+          "ms": 122,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-phone__records-with-deleted-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-phone.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-phone__deleted-toast-phone.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__owner-nails-ru-light-phone__records-with-deleted-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal?date=2026-10-20",
+      "url": "http://localhost:3710/biz/journal?date=2026-10-20&demo=master&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 8562,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "17:30–17:50Снятие покрытия",
+          "w": 754,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 3,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-181",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "master-view"
+          },
+          "ok": true,
+          "ms": 67,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__master-nails-ru-light-desktop__master-view.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "goto": "/biz/records"
+          },
+          "ok": true,
+          "ms": 1928
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "master-records"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__master-nails-ru-light-desktop__master-records.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__master-nails-ru-light-desktop.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__master-nails-ru-light-desktop__master-view.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-then-records/biz-journal__master-nails-ru-light-desktop__master-records.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

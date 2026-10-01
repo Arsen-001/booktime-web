@@ -1,0 +1,13 @@
+{
+  "route": "/biz/payroll/charts",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить схему\"]" },
+    { "wait": 800 },
+    { "expectVisible": "[data-f=\"F-09-053 F-09-054\"]" },
+    { "screenshot": "after-create" }
+  ]
+}

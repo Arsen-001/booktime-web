@@ -1,0 +1,161 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T22:14:30.095Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-168",
+      "F-00-179"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/moderation",
+      "url": "http://localhost:3710/platform/moderation?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 756,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-168",
+        "F-00-179"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 400
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Фото — Nuri Nail Studio >> nth=0"
+          },
+          "ok": true,
+          "ms": 263
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "01-detail"
+          },
+          "ok": true,
+          "ms": 105,
+          "screenshot": "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__01-detail.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Одобрить\"]"
+          },
+          "ok": true,
+          "ms": 395
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 506
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "02-after-approve"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__02-after-approve.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Одобрено"
+          },
+          "ok": true,
+          "ms": 415
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "03-approved-tab"
+          },
+          "ok": true,
+          "ms": 56,
+          "screenshot": "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__03-approved-tab.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__01-detail.png",
+        "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__02-after-approve.png",
+        "qa/measure/platform/g2-1-moderation-approve/platform-moderation__platform-nails-ru-light-desktop__03-approved-tab.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"00:00\"]" },
+    { "wait": 1500 },
+    { "screenshot": "single-slot-off-longwait" }
+  ]
+}

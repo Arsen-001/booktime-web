@@ -1,0 +1,58 @@
+{
+  "route": "/biz/notifications/channels/promotion",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "00-initial"
+    },
+    {
+      "click": "text=Присылать картинку в Telegram по расписанию"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "01-enabled"
+    },
+    {
+      "click": "role=button[name=/Завтра/i]"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "02-tomorrow"
+    },
+    {
+      "click": "role=button[name=/Скачать картинку/i]"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "03-download-toast"
+    },
+    {
+      "click": "role=button[name=\"Отправить\"] >> nth=0"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "04-invite-sent"
+    },
+    {
+      "click": "text=Показывать витрину в уведомлении о записи"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "05-gift-showcase"
+    }
+  ]
+}

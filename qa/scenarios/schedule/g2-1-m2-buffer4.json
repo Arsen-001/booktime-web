@@ -1,0 +1,14 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 900},
+    {"click": "text=Технический перерыв после каждой записи"},
+    {"wait": 300},
+    {"screenshot": "persisted"}
+  ]
+}

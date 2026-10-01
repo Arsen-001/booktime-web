@@ -1,0 +1,18 @@
+{
+  "route": "/favorites",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "01-before" },
+    { "click": "role=switch >> nth=0" },
+    { "wait": 400 },
+    { "screenshot": "02-toggled" },
+    { "goto": "/favorites" },
+    { "wait": 600 },
+    { "screenshot": "03-after-reload" },
+    { "goto": "/profile/notifications" },
+    { "wait": 500 },
+    { "screenshot": "04-settings-same-state" }
+  ]
+}

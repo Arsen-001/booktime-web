@@ -1,0 +1,64 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Добавить клиента"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "fill": "input[placeholder='Как зовут клиента']",
+      "value": "Тест Полеm141b"
+    },
+    {
+      "fill": "input[placeholder='Номер телефона']",
+      "value": "77002233"
+    },
+    {
+      "click": "text=Ещё о клиенте"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "click": "role=button[name='Добавить поле']"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "fill": "input[aria-label='Добавить поле']",
+      "value": "VIP код B"
+    },
+    {
+      "click": "text=Всегда показывать в карточке клиента"
+    },
+    {
+      "click": "text=Всегда показывать в окне записи"
+    },
+    {
+      "click": "role=button[name='Создать']"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "fill": "input[value='']",
+      "value": "VIP-777"
+    },
+    {
+      "click": "role=button[name='Добавить']"
+    },
+    {
+      "wait": 900
+    },
+    {
+      "screenshot": "after-submit"
+    }
+  ]
+}

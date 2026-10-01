@@ -1,0 +1,30 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=+ Добавить" },
+      { "wait": 300 },
+      { "click": "text=Выберите период" },
+      { "wait": 300 },
+      { "screenshot": "calendar-open" },
+      { "click": "text=30" },
+      { "wait": 150 },
+      { "click": "role=button[name=\"2\"] >> nth=0" },
+      { "wait": 200 },
+      { "screenshot": "range-picked" },
+      { "click": "role=button[name=\"+ Добавить\"]" },
+      { "wait": 500 },
+      { "screenshot": "after-add" },
+      { "click": "role=button[name=\"Удалить\"]" },
+      { "wait": 300 },
+      { "screenshot": "confirm-delete-dialog" },
+      { "click": "role=button[name=\"Удалить\"] >> nth=-1" },
+      { "wait": 400 },
+      { "screenshot": "after-delete" }
+    ]
+  }
+]

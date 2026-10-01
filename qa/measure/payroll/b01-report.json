@@ -1,0 +1,1734 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T15:25:53.493Z",
+  "summary": {
+    "pages": 36,
+    "consoleErrors": 0,
+    "consoleWarnings": 36,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 8,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-07-159",
+      "F-09-001",
+      "F-09-004",
+      "F-09-005",
+      "F-09-011",
+      "F-09-013",
+      "F-09-014",
+      "F-09-016",
+      "F-09-017",
+      "F-09-026",
+      "F-09-031",
+      "F-09-036",
+      "F-09-039",
+      "F-09-042",
+      "F-09-043",
+      "F-09-058",
+      "F-09-062",
+      "F-09-106",
+      "F-09-111",
+      "F-09-112"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/payroll",
+      "url": "http://localhost:3710/biz/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3390,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll",
+      "url": "http://localhost:3710/biz/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3339,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll",
+      "url": "http://localhost:3710/biz/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3323,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll",
+      "url": "http://localhost:3710/biz/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1189,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/settings",
+      "url": "http://localhost:3710/biz/payroll/settings?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1404,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-004",
+        "F-09-005"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-settings__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/settings",
+      "url": "http://localhost:3710/biz/payroll/settings?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1158,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-004",
+        "F-09-005"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-settings__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/settings",
+      "url": "http://localhost:3710/biz/payroll/settings?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1362,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-004",
+        "F-09-005"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-settings__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/settings",
+      "url": "http://localhost:3710/biz/payroll/settings?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1360,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-004",
+        "F-09-005"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-settings__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/daily",
+      "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1320,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-058",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-daily__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/daily",
+      "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1690,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-058",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-daily__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/daily",
+      "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1679,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-058",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-daily__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/daily",
+      "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1573,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-058",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-daily__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/period",
+      "url": "http://localhost:3710/biz/payroll/period?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1560,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-062",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-period__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/period",
+      "url": "http://localhost:3710/biz/payroll/period?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1535,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-062",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-period__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/period",
+      "url": "http://localhost:3710/biz/payroll/period?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1328,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-062",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-period__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/period",
+      "url": "http://localhost:3710/biz/payroll/period?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1073,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-017",
+        "F-09-026",
+        "F-09-062",
+        "F-09-106",
+        "F-09-111",
+        "F-09-112"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-period__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/finance/settlements",
+      "url": "http://localhost:3710/biz/finance/settlements?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1140,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-07-159"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-finance-settlements__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/finance/settlements",
+      "url": "http://localhost:3710/biz/finance/settlements?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1119,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-07-159"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-finance-settlements__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/finance/settlements",
+      "url": "http://localhost:3710/biz/finance/settlements?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 985,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-07-159"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-finance-settlements__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/finance/settlements",
+      "url": "http://localhost:3710/biz/finance/settlements?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1257,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-07-159"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-finance-settlements__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/bonuses",
+      "url": "http://localhost:3710/biz/payroll/bonuses?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1047,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-bonuses__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/bonuses",
+      "url": "http://localhost:3710/biz/payroll/bonuses?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1040,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-bonuses__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/bonuses",
+      "url": "http://localhost:3710/biz/payroll/bonuses?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1003,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-bonuses__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/payroll/bonuses",
+      "url": "http://localhost:3710/biz/payroll/bonuses?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 874,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/biz-payroll-bonuses__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/payroll",
+      "url": "http://localhost:3710/dev/ext/staffCard/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1680,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-09-011 F-09-014]",
+          "text": "%",
+          "w": 36,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-011",
+        "F-09-013",
+        "F-09-014",
+        "F-09-016",
+        "F-09-026",
+        "F-09-031",
+        "F-09-036",
+        "F-09-039",
+        "F-09-042",
+        "F-09-043"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-staffCard-payroll__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/payroll",
+      "url": "http://localhost:3710/dev/ext/staffCard/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1705,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-09-011 F-09-014]",
+          "text": "%",
+          "w": 36,
+          "h": 40,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-011",
+        "F-09-013",
+        "F-09-014",
+        "F-09-016",
+        "F-09-026",
+        "F-09-031",
+        "F-09-036",
+        "F-09-039",
+        "F-09-042",
+        "F-09-043"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-staffCard-payroll__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/payroll",
+      "url": "http://localhost:3710/dev/ext/staffCard/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1465,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-09-011 F-09-014]",
+          "text": "%",
+          "w": 36,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-011",
+        "F-09-013",
+        "F-09-014",
+        "F-09-016",
+        "F-09-026",
+        "F-09-031",
+        "F-09-036",
+        "F-09-039",
+        "F-09-042",
+        "F-09-043"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-staffCard-payroll__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/payroll",
+      "url": "http://localhost:3710/dev/ext/staffCard/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1618,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-09-011 F-09-014]",
+          "text": "%",
+          "w": 36,
+          "h": 40,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-011",
+        "F-09-013",
+        "F-09-014",
+        "F-09-016",
+        "F-09-026",
+        "F-09-031",
+        "F-09-036",
+        "F-09-039",
+        "F-09-042",
+        "F-09-043"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-staffCard-payroll__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/payroll",
+      "url": "http://localhost:3710/dev/ext/serviceCard/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1594,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.text-fg.hover:underline in [data-f=F-09-016]",
+          "text": "Ани Саргсян",
+          "w": 97,
+          "h": 24,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-016"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-serviceCard-payroll__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/payroll",
+      "url": "http://localhost:3710/dev/ext/serviceCard/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1641,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.text-fg.hover:underline in [data-f=F-09-016]",
+          "text": "Ани Саргсян",
+          "w": 97,
+          "h": 24,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-016"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-serviceCard-payroll__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/payroll",
+      "url": "http://localhost:3710/dev/ext/serviceCard/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2543,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.text-fg.hover:underline in [data-f=F-09-016]",
+          "text": "Ани Саргсян",
+          "w": 97,
+          "h": 24,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-016"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-serviceCard-payroll__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/payroll",
+      "url": "http://localhost:3710/dev/ext/serviceCard/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3424,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.text-fg.hover:underline in [data-f=F-09-016]",
+          "text": "Ани Саргсян",
+          "w": 97,
+          "h": 24,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-09-016"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-serviceCard-payroll__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/payroll",
+      "url": "http://localhost:3710/dev/ext/settingsHub/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3280,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-settingsHub-payroll__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/payroll",
+      "url": "http://localhost:3710/dev/ext/settingsHub/payroll?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1147,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-settingsHub-payroll__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/payroll",
+      "url": "http://localhost:3710/dev/ext/settingsHub/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1578,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-settingsHub-payroll__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/payroll",
+      "url": "http://localhost:3710/dev/ext/settingsHub/payroll?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1554,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-09-001"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/payroll-b01/dev-ext-settingsHub-payroll__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

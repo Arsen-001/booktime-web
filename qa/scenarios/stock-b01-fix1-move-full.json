@@ -1,0 +1,22 @@
+{
+  "route": "/biz/stock/warehouses",
+  "persona": "owner",
+  "sphere": "nails",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Переместить товары" },
+    { "click": "role=combobox[name=\"На склад\"]" },
+    { "click": "[role=listbox] >> text=Товары" },
+    { "click": "role=combobox[name=\"Товар\"]" },
+    { "click": "text=Обезжириватель" },
+    { "fill": "input[type=number]", "value": "2" },
+    { "click": "role=dialog >> role=button[name=\"Переместить\"]" },
+    { "wait": 300 },
+    { "screenshot": "click-plus300" },
+    { "wait": 1500 },
+    { "screenshot": "after-move" },
+    { "goto": "/biz/stock/operations" },
+    { "expectVisible": "text=Перемещение товара" },
+    { "screenshot": "operations-after-move" }
+  ]
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "route": "/biz/finance/adyen",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "screenshot": "01-not-connected" },
+      { "fill": "label:has-text('Название юрлица') input", "value": "ИП Акопян Нарине" },
+      { "fill": "label:has-text('Shopper statement') input", "value": "SALON*NURI" },
+      { "screenshot": "02-form-filled" },
+      { "click": "role=button[name=\"Подключить\"]" },
+      { "wait": 400 },
+      { "screenshot": "03-onboarding" },
+      { "click": "role=button[name=\"Завершить онбординг (демо)\"]" },
+      { "wait": 400 },
+      { "screenshot": "04-connected" },
+      { "fill": "input[placeholder=\"881…\"]", "value": "881" },
+      { "wait": 300 },
+      { "screenshot": "05-psp-filter" }
+    ]
+  },
+  {
+    "route": "/biz/finance/adyen",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "screenshot": "06-admin-not-connected" }
+    ]
+  }
+]

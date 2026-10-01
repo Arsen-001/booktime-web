@@ -1,0 +1,53 @@
+{
+  "route": "/biz/notifications/channels/developer",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "00-empty"
+    },
+    {
+      "fill": "input[placeholder=\"https://example.com/hook\"]",
+      "value": "https://example.com/qa-hook"
+    },
+    {
+      "click": "role=button[name=/Добавить/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "01-added"
+    },
+    {
+      "goto": "/biz/notifications/channels/developer"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "02-after-reload"
+    },
+    {
+      "click": "role=switch"
+    },
+    {
+      "wait": 600
+    },
+    {
+      "screenshot": "03-toggled-off"
+    },
+    {
+      "click": "role=button[name=/Смоделировать запись от агента|Simulate agent booking/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "04-agent-simulate-flags-default"
+    }
+  ]
+}

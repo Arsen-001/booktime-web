@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "dental",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "click": ".rounded-lg.bg-surface, [class*='booking'], [data-f='F-01-024'] >> nth=3" },
+    { "wait": 400 },
+    { "screenshot": "01-window" }
+  ]
+}

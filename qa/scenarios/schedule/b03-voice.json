@@ -1,0 +1,15 @@
+[
+  {
+    "route": "/biz/schedule/calendar",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "fill": "[data-f=\"F-00-063\"] input", "value": "Мария, четверг, 15:00, маникюр" },
+      { "click": "[data-f=\"F-00-063\"] >> text=Разобрать" },
+      { "wait": 300 },
+      { "screenshot": "draft" }
+    ]
+  }
+]

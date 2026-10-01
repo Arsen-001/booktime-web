@@ -1,0 +1,179 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:22:01.978Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-103"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1081,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=checkbox[name=/Вечер/]"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 4,
+          "step": {
+            "expectVisible": "text=Вечер (0 из 12)"
+          },
+          "ok": true,
+          "ms": 186
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "evening-off"
+          },
+          "ok": true,
+          "ms": 49,
+          "screenshot": "qa/shots/schedule-b02-manual/biz-schedule-slots__owner-nails-ru-light-desktop__evening-off.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=button[name=\"00:00\"]"
+          },
+          "ok": true,
+          "ms": 188
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 8,
+          "step": {
+            "expectVisible": "text=Утро (23 из 24)"
+          },
+          "ok": true,
+          "ms": 180
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "one-slot-off"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/shots/schedule-b02-manual/biz-schedule-slots__owner-nails-ru-light-desktop__one-slot-off.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/schedule-b02-manual/biz-schedule-slots__owner-nails-ru-light-desktop.png",
+        "qa/shots/schedule-b02-manual/biz-schedule-slots__owner-nails-ru-light-desktop__evening-off.png",
+        "qa/shots/schedule-b02-manual/biz-schedule-slots__owner-nails-ru-light-desktop__one-slot-off.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

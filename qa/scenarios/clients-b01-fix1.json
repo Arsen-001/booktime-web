@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=button[name=\"Добавить клиента\"]" },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Тестовый Клиент" },
+      { "fill": "input[placeholder=\"00 123 456\"]", "value": "00 199 911" },
+      { "click": "role=button[name=\"Добавить\"]" },
+      { "expectText": "Клиент добавлен" },
+      { "expectVisible": "text=Тестовый Клиент" },
+      { "screenshot": "after-add-client" },
+      { "press": "Escape" },
+      { "fill": "input[placeholder^=\"Поиск (по имени\"]", "value": "Тестовый" },
+      { "click": "role=button[name=\"Найти\"]" },
+      { "expectVisible": "text=Тестовый Клиент" },
+      { "screenshot": "after-search" },
+      { "click": "role=button[name=\"Операции с Excel\"]" },
+      { "expectVisible": "text=Выгрузить в Excel" },
+      { "screenshot": "excel-menu-open" },
+      { "press": "Escape" }
+    ]
+  }
+]

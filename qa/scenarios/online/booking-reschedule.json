@@ -1,0 +1,30 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "guest",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=Маникюр классический" },
+    { "wait": 200 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 300 },
+    { "click": "text=Гаяне Оганесян" },
+    { "wait": 300 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 600 },
+    { "click": "button >> text=/^\\d{1,2}:\\d{2}$/ >> nth=0" },
+    { "wait": 300 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "fill": "input[placeholder='Введите имя']", "value": "Реванш Тестов" },
+    { "fill": "input[placeholder='91 234 567']", "value": "91234568" },
+    { "click": "text=Записываясь, вы соглашаетесь" },
+    { "click": "role=button[name=/Записаться/]" },
+    { "wait": 1200 },
+    { "click": "role=button[name=/Перенести/]" },
+    { "wait": 700 },
+    { "screenshot": "reschedule-open" }
+  ]
+}

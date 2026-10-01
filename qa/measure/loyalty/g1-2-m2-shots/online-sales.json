@@ -1,0 +1,93 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:16:06.143Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-152"
+    ],
+    "scenarioSteps": {
+      "ok": 2,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/online-sales/orders",
+      "url": "http://localhost:3710/biz/loyalty/online-sales/orders?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 921,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-152"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "orders-list"
+          },
+          "ok": true,
+          "ms": 41,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/online-sales/biz-loyalty-online-sales-orders__owner-nails-ru-light-desktop__orders-list.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/online-sales/biz-loyalty-online-sales-orders__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-2-m2-shots/online-sales/biz-loyalty-online-sales-orders__owner-nails-ru-light-desktop__orders-list.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

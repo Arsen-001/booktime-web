@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/notifications/channels",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "click": "role=checkbox[name=\"Операции с записями (создание, перенос, удаление, оплата)\"]" },
+      { "wait": 400 },
+      { "screenshot": "bookingops-toggled-off" },
+      { "goto": "/biz/notifications/inbox" },
+      { "wait": 500 },
+      { "screenshot": "inbox-after-toggle-off" },
+      { "goto": "/biz/notifications/channels" },
+      { "wait": 400 },
+      { "click": "role=checkbox[name=\"Операции с записями (создание, перенос, удаление, оплата)\"]" },
+      { "wait": 400 },
+      { "screenshot": "bookingops-toggled-back-on" }
+    ]
+  }
+]

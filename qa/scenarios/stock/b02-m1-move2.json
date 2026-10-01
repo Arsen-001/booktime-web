@@ -1,0 +1,23 @@
+{
+  "route": "/biz/stock/operations/new/move",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "click": "text=Выберите склад" },
+    { "wait": 300 },
+    { "screenshot": "m1-40-warehouse-dropdown" },
+    { "click": "role=option >> nth=0" },
+    { "wait": 300 },
+    { "fill": "input[placeholder*=\"штрихкод\"]", "value": "Гель-лак" },
+    { "wait": 400 },
+    { "click": "text=Гель-лак «Бордо»" },
+    { "wait": 300 },
+    { "screenshot": "m1-41-move-filled" },
+    { "click": "role=button[name=\"Переместить\"]" },
+    { "wait": 1200 },
+    { "screenshot": "m1-42-move-result" }
+  ]
+}

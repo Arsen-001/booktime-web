@@ -1,0 +1,33 @@
+{
+  "route": "/biz/schedule/slots/st_nuri_ani",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "before" },
+    { "click": "role=radio[name=\"Свои правила\"]" },
+    { "wait": 300 },
+    { "expectVisible": "text=У мастера теперь свои правила" },
+    { "screenshot": "after-own-mode" },
+    { "click": "role=button[name=\"Добавить исключение\"]" },
+    { "wait": 300 },
+    { "screenshot": "wizard-open" },
+    { "click": "role=dialog >> text=Вт" },
+    { "click": "role=dialog >> text=Ср" },
+    { "click": "role=dialog >> input[name=\"density\"] >> nth=2" },
+    { "screenshot": "wizard-dynamic" },
+    { "click": "role=button[name=\"Далее\"]" },
+    { "wait": 200 },
+    { "screenshot": "wizard-step-2" },
+    { "click": "role=button[name=\"Далее\"]" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Завершить настройку\"]" },
+    { "wait": 300 },
+    { "expectText": "Правила сохранены" },
+    { "expectVisible": "text=/^Исключение$/" },
+    { "click": "text=/^Исключение$/" },
+    { "screenshot": "after-exception-saved-full" }
+  ]
+}

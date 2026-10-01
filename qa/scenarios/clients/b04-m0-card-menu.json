@@ -1,0 +1,15 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 500},
+     {"click": "table tbody tr >> nth=0"},
+     {"wait": 600},
+     {"screenshot": "card-open"},
+     {"click": "[aria-label=\"Ещё\"]"},
+     {"wait": 300},
+     {"screenshot": "card-menu-open"},
+     {"click": "text=Пересчитать автоправила"},
+     {"wait": 500},
+     {"screenshot": "after-recalc-click"}
+   ]}
+]

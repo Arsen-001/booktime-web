@@ -1,0 +1,24 @@
+[
+  {
+    "route": "/biz/loyalty/auto-apply",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=switch" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "expectText": "Настройки автоприменения сохранены" },
+      { "screenshot": "auto-apply-saved" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/referral",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=switch" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "expectText": "Настройки реферальной программы сохранены" },
+      { "screenshot": "referral-saved" }
+    ]
+  }
+]

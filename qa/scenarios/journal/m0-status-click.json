@@ -1,0 +1,17 @@
+[
+  {
+    "route": "/biz/journal?date=2026-09-25",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "[data-f*='F-01-026'] button svg >> nth=1" },
+      { "wait": 300 },
+      { "screenshot": "01-card-open" },
+      { "click": "button:has-text('Пришёл')" },
+      { "wait": 500 },
+      { "screenshot": "02-after-status-click" }
+    ]
+  }
+]

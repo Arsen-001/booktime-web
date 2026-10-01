@@ -1,0 +1,23 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&start=19:15&date=2026-10-16",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=tab[name=\"Клиент\"]" },
+    { "wait": 200 },
+    { "screenshot": "client-tab" },
+    { "fill": "input[placeholder='00 123 456']", "value": "00177001" },
+    { "fill": "input[placeholder='Имя']", "value": "ЖивойТестКлиент" },
+    { "click": "role=button[name=\"Создавать записи\"]" },
+    { "click": "role=button[name=\"Да\"]" },
+    { "expectText": "Сохранено" },
+    { "wait": 400 },
+    { "goto": "/biz/notifications/log" },
+    { "fill": "input[placeholder='Поиск по телефону или email']", "value": "00177001" },
+    { "wait": 300 },
+    { "expectText": "Создание записи через журнал записи" },
+    { "screenshot": "log-after-journal-create" }
+  ]
+}

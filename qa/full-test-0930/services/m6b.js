@@ -1,0 +1,11 @@
+const page = state.e;
+log('sel before', (await page.innerText('main')).match(/Выбрано: \d+/)?.[0]);
+await page.getByText('Снятие покрытия', { exact: true }).click(); await page.waitForTimeout(300);
+log('sel', (await page.innerText('main')).match(/Выбрано: \d+/)?.[0]);
+await L.shot(page, 'services', 'e01b-templates-selected');
+await page.getByRole('button', { name: /Добавить выбранные|Добавить/ }).last().click(); await page.waitForTimeout(2000);
+log('url', page.url(), await page.locator('[data-sonner-toast]').allInnerTexts());
+await L.go(page, '/biz/services'); await page.waitForTimeout(1500);
+log('AFTER:', (await page.innerText('main')).replace(/\n\s*\n+/g, '\n').slice(0, 700));
+await L.shot(page, 'services', 'e02-after-templates');
+log('ERR', page.errors);

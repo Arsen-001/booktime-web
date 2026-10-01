@@ -1,0 +1,87 @@
+===== g-decisions.mjs
+makeMain toast: Главный филиал изменён — он теперь первый в списке
+rows: [
+  'Manana Beauty · Шенгавит | ID локации: #biz_manana_sh | Главный филиал',
+  'Manana Beauty · Нор-Норк | ID локации: #biz_manana_nn | Сделать главным'
+]
+overview main badge row: Manana Beauty · Шенгавит | Главный филиал | ул. Гарегина Нжде, 30 | 0 ֏ | 14 зап
+1st request: Заявка отправлена в поддержку
+2nd dialog: Запросить удаление | Своей кнопки удаления локации нет — заявку рассматривает поддержка. «Manana Beauty · Нор-Норк» пропадёт из переключателя и из сети; данные бизнес забирает с собой. | Заявка уже отправлена 01.10.2026, 02:59 — поддержка её рассматривает | Закрыть
+open 2nd network h1: Сеть QA Вторая сеть
+open Manana h1: Сеть Manana Beauty
+switch after deleting all: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Manana Beauty · Нор-Норк | до 20.03.2027 | 0 ֏ | 12 записей сегодня | Manana Beauty · Шенгавит | до 26.04.2027 | 0 ֏ | 14 записей сегодня | Сети | Добавить | Вас не добавили в сеть | Попросите владельца добавить вас в разделе «Пользователи» сети | Закрыть
+overview after deleting all: Сеть «Manana Beauty» удалена | Данные сети сохранены. Восстановите её или создайте новую сеть из своих филиалов. | Восстановить сеть | Создать сеть
+clients after deleting all: Сеть «Manana Beauty» удалена | Данные сети сохранены. Восстановите её или создайте новую сеть из своих филиалов. | Восстановить сеть | Создать сеть
+restore toast: Сеть восстановлена h1: Сеть Manana Beauty
+switch after restore: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Manana Beauty · Нор-Норк | до 20.03.2027 | 0 ֏ | 12 записей сегодня | Manana Beauty · Шенгавит | до 26.04.2027 | 0 ֏ | 14 записей сегодня | Сети | Добавить | Manana Beauty | Закрыть
+row with 2 branches: 	 | Нелли Манукян | 	+374 77 560 936	32 500 ֏	30.09.2026	Серебро	2 филиала
+2-branch card: К клиентам | Нелли Манукян | +374 77 560 936 | Записать в филиал | Карточка клиента | Доп. поля | История визитов | Отправленные сообщения | Лояльность | Счета клиентов | Карточка клиента | Филиал	Категория	Скидка	Продано | Manana Beauty · Нор-Норк	—	—	15 000 ֏ | Manana Beauty · Шенгавит	сотрудник	50%	17 500 ֏ | Рекламные рассылки | Не отправлять | Клиент не получит ни одной сетевой SMS- или push-
+ERRORS desktop network []
+phone card: К клиентам | Нелли Манукян | +374 77 560 936 | Записать в филиал | Карточка клиента | Доп. поля | История визитов | Отправленные сообщения | Лояльность | Счета клиентов | Карточка клиента | Филиал	Категория	Скидка	Продано | Manana Beauty · Нор-Норк	—	—	15 000 ֏ | Manana Beauty · Шенгавит	сотрудник	50%	17 500 ֏ | Рекламные рассылки | Не отправлять | Клиент не получит ни одной сетевой SMS- или push-
+phone tab История визитов:  | Предстоящие записи | 1 октября, 13:15 | Manana Beauty · Шенгавит | Чистка лица · 14 000 ֏ | 27 октября, 13:45 | Manana Beauty · Шенгавит | Женская стрижка · 7 000 ֏ | История визитов | 30 сентября, 15:30 | Manana Beauty · Шенгавит | Женская стрижка · 7 500 ֏ | 11 сентября, 12:00 | Manana Beauty ·
+phone tab Лояльность:  | Manana Beauty · Нор-Норк | Manana Beauty · Шенгавит | Лояльность | В этом филиале у клиента нет карт лояльности | Тип карты | Постоянный гость | Тип карты | Выдать карту
+phone tab Счета клиентов:  | Депозит | Баланс: 15 000 ֏ | Пополнение доступно только в кабинете локации
+phone tab Отправленные сообщения:  | Отправленные сообщения | Сообщений пока не отправляли
+phone tab Доп. поля:  | Доп. поля | Сетевых доп. полей пока нет — создайте их в Настройках → Доп. поля
+phone overflow: false
+phone list first card: ИмяКонтактыПроданоПоследний визитКлассФилиалы
+ERRORS phone []
+===== c-roles.mjs
+owner /biz/network: Сеть Nuri Nail Studio | Сводка владельца по всем филиалам сети | Выручка сети сегодня | 0 ֏ | Записей сегодня | 25 | Филиалов | 1 | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Nuri Nail Studio | Главный фили errs 0
+owner /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | 	Имя	Контакты	Продано | 	Последний визит	Класс	Филиалы | 	 | Анаит Гукасян | 	+374 95 936 399	18 500 ֏	14.09.2026	Бронз errs 0
+owner /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Добавить | Nuri Nail Studio | Закрыть errs 0
+admin /biz/network: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+admin /biz/network/clients: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+admin /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Вас не добавили в сеть | Попросите владельца добавить вас в разделе «Пользователи» сети | Закрыть errs 0
+master /biz/network: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+master /biz/network/clients: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+master /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Вас не добавили в сеть | Попросите владельца добавить вас в разделе «Пользователи» сети | Закрыть errs 0
+owner-empty /biz/network: Сеть Новый салон | Сводка владельца по всем филиалам сети | Выручка сети сегодня | 0 ֏ | Записей сегодня | 0 | Филиалов | 1 | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Новый салон | Главный филиал | ул. Аб errs 0
+owner-empty /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | Клиентов пока нет | Дубли и переходы в карточку клиента сети | Из любой строки операции лояльности сети (карта, акция,  errs 1
+owner-empty /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Своих филиалов пока нет | Сети | Добавить | Новый салон | Закрыть errs 0
+&api=error /biz/network: Не удалось загрузить | Проверьте соединение и попробуйте ещё раз. | Повторить
+&api=error /biz/network/clients: Не удалось загрузить | Проверьте соединение и попробуйте ещё раз. | Повторить
+&api=error /biz/network/settings: Не удалось загрузить | Проверьте соединение и попробуйте ещё раз. | Повторить
+&api=slow /biz/network: Сводка владельца по всем филиалам сети | Выручка сети сегодня | Записей сегодня | Филиалов | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Главный филиал | Отк
+&api=slow /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | 	Имя	Контакты	Продано | 	Последний визит	Класс	Филиалы | 	 | 	 | 	 | 
+&api=slow /biz/network/settings: Управление сетью | Название, филиалы и удаление сети | Филиалов в сети | Лицензия, в месяц | Название сети | Название сети* | Сохранить | Внимание: объединять и удалять услуги, сотрудников и товары мо
+settings hub network block: подписка и монеты, аккаунт — всё управление кабинетом в одном месте. | Заполните профиль компании — сейчас заполнено 83% | Компания | Бренд | Имя для клиентов, описание, логотип | Контакты | Адрес, телефоны, соцсети, мессенджеры | Галерея | До 6 фото компании | Реквизиты | Юридическая информация и банк | Мобильные приложения | Своя ссылка, значок на экран телефона, своё приложение | Подписка и монеты | Подписка | Срок действия, тариф, история оплат | Монеты | Баланс, покупка, на что тратятся | С
+phone-ru /biz/network raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/settings raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/clients raw= overflow=false small=Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку title= cyr= errs=
+phone-ru /biz/network/settings/users raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/switch raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/analytics raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/staff raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/services raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr= errs=
+phone-ru /biz/network/records raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/loyalty raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	0 ֏	0	0 ֏	1 errs=
+desktop-en /biz/network/settings raw= overflow=false small=Request deletion|Remove from network|Request deletion|Remove from network title= cyr=Нор-Норк / Шенгавит / Нор-Норк	3	12 000 ֏ errs=
+desktop-en /biz/network/clients raw= overflow=false small=Select all|Select row|Select row|Select row|Select row|Select row|Select row|Select row title= cyr=Ани Мелкумян / Ани Нерсесян / Ани Петросян errs=
+desktop-en /biz/network/settings/users raw= overflow=false small= title= cyr=Гоар Арутюнян errs=
+desktop-en /biz/network/switch raw= overflow=false small=Network settings|Delete network title= cyr=Нор-Норк / Шенгавит errs=
+desktop-en /biz/network/analytics raw= overflow=false small=How it's calculated|How it's calculated|How it's calculated|How it's calculated|How it's calculated|How it's calculated title= cyr= errs=
+desktop-en /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/staff raw= overflow=false small= title= cyr=Владелец сети / Администратор / Стилист-парикмахер errs=
+desktop-en /biz/network/services raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr=Салфетки косметические / Перчатки одноразовые / Подарочная свеча errs=
+desktop-en /biz/network/records raw= overflow=false small=Previous page|Next page title= cyr=Нор-Норк / Шенгавит / Шенгавит errs=
+desktop-en /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/loyalty raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	0 ֏	0	0 ֏	1 errs=
+phone-en /biz/network/settings raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	3	12 000 ֏ errs=
+phone-en /biz/network/clients raw= overflow=false small=Select row|Select row|Select row|Select row|Select row|Select row|Select row|Select row title= cyr=Ани Мелкумян / Ани Нерсесян / Ани Петросян errs=
+phone-en /biz/network/settings/users raw= overflow=false small= title= cyr=Гоар Арутюнян errs=
+phone-en /biz/network/switch raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит errs=
+phone-en /biz/network/analytics raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/staff raw= overflow=false small= title= cyr=Владелец сети / Администратор / Стилист-парикмахер errs=
+phone-en /biz/network/services raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr=Салфетки косметические / Перчатки одноразовые / Подарочная свеча errs=
+phone-en /biz/network/records raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Шенгавит errs=
+phone-en /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/loyalty raw= overflow=false small= title= cyr= errs=

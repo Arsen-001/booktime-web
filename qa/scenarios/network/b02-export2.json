@@ -1,0 +1,18 @@
+{
+  "route": "/biz/network/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "text=Excel" },
+    { "wait": 300 },
+    { "click": "text=Выгрузить всю базу" },
+    { "wait": 900 },
+    { "click": "text=Журнал выгрузок" },
+    { "wait": 900 },
+    { "screenshot": "log-after-clientnav" }
+  ]
+}

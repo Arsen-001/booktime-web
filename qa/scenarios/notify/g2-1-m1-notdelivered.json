@@ -1,0 +1,16 @@
+{
+  "route": "/biz/notifications/log",
+  "persona": "owner",
+  "sphere": "hair",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "text=Статус" },
+    { "wait": 200 },
+    { "click": "text=Не доставлено" },
+    { "wait": 500 },
+    { "screenshot": "not-delivered-filtered" }
+  ]
+}

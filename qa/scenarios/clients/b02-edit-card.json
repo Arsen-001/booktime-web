@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Лусине Овсепян" },
+      { "wait": 700 },
+      { "screenshot": "01-before-edit" },
+      { "click": "button:has-text(\"Изменить\")" },
+      { "wait": 400 },
+      { "screenshot": "02-edit-mode" },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Лусине Новая" },
+      { "click": "button:has-text(\"Сохранить\")" },
+      { "wait": 200 },
+      { "screenshot": "03a-right-after-click" },
+      { "wait": 1200 },
+      { "screenshot": "03-name-change-confirm" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Рипсиме Гаспарян" },
+      { "wait": 700 },
+      { "screenshot": "04-before-paid-edit" },
+      { "click": "button:has-text(\"Изменить\")" },
+      { "wait": 400 },
+      { "fill": "input[inputmode=numeric]:not([disabled])", "value": "5000" },
+      { "screenshot": "05-paid-filled" },
+      { "click": "button:has-text(\"Сохранить\")" },
+      { "wait": 600 },
+      { "screenshot": "06-balance-recalculated" }
+    ]
+  }
+]

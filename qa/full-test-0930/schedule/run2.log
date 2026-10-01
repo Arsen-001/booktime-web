@@ -1,0 +1,11 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+file:///Users/arsen/WebstormProjects/booking-platform/scripts/pw-slots.mjs:39
+    if (Date.now() - start > timeoutMs) throw new Error('[pw-slots] не дождался слота браузера');
+                                              ^
+
+Error: [pw-slots] не дождался слота браузера
+    at acquireBrowserSlot (file:///Users/arsen/WebstormProjects/booking-platform/scripts/pw-slots.mjs:39:47)
+    at async withBrowser (file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/schedule/lib.mjs:6:19)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/schedule/run.mjs:3:1
+
+Node.js v26.4.0

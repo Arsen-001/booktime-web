@@ -1,0 +1,37 @@
+[
+  {"route": "/", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/search", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/search", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/bookings", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/bookings", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/favorites", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/favorites", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/profile", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/profile", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/profile/notifications", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/profile/notifications", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/loyalty-cards", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/loyalty-cards", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/memberships", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/certificates", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/diary", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/stories", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/news", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/promotion", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/reminders", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/branded", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/biz/apps/translations", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/login", "persona": "guest", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {"route": "/login", "persona": "guest", "sphere": "nails", "lang": "en", "device": "desktop"},
+  {"route": "/register-business", "persona": "guest", "sphere": "nails", "lang": "ru", "device": "phone"},
+  {
+    "route": "/bookings", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [ {"click": "[data-f] a, [data-f] button"}, {"wait": 500}, {"screenshot": "booking-detail"} ]
+  },
+  {
+    "route": "/search", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [ {"fill": "input[type=search], input[placeholder]", "value": "Nuri"}, {"wait": 600}, {"screenshot": "search-query"} ]
+  }
+]

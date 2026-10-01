@@ -1,0 +1,23 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&start=13:00&date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "screenshot": "new-default-status" },
+    { "fill": "input[placeholder='91 234 567']", "value": "77001122" },
+    { "fill": "input[placeholder='Имя']", "value": "Статус Тест" },
+    { "click": "role=button[name=\"Записать\"]" },
+    { "expectText": "Сохранено" },
+    { "screenshot": "grid-after-create-scheduled" },
+    { "goto": "/biz/journal?date=2026-10-20" },
+    { "click": "[data-testid='booking-block']" },
+    { "wait": 400 },
+    { "screenshot": "edit-window-opened" },
+    { "click": "role=button[name=\"Клиент подтвердил\"]" },
+    { "screenshot": "confirmed-selected-unsaved" },
+    { "click": "role=button[name=\"Сохранить изменения\"]" },
+    { "expectText": "Сохранено" },
+    { "screenshot": "grid-after-confirmed" }
+  ]
+}

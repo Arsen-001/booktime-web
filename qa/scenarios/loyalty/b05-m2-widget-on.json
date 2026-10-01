@@ -1,0 +1,18 @@
+{
+  "route": "/biz/loyalty/online-sales",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Виджет"},
+    {"wait": 300},
+    {"click": "role=switch"},
+    {"wait": 400},
+    {"screenshot": "widget-on"},
+    {"click": "role=button[name=\"Сохранить\"]"},
+    {"wait": 500},
+    {"screenshot": "widget-on-saved"}
+  ]
+}

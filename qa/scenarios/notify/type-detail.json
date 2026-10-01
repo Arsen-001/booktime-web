@@ -1,0 +1,93 @@
+[
+  {
+    "route": "/biz/notifications/types/2",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type-2-basic" },
+      { "click": "role=tab[name=/Шаблоны/]" },
+      { "wait": 300 },
+      { "screenshot": "type-2-templates" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type-2-basic-phone" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/19",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type-19-basic" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings/new",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "mailing-new" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings/new",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "mailing-new-phone" }
+    ]
+  },
+  {
+    "route": "/biz/notifications",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "master-access" }
+    ]
+  },
+  {
+    "route": "/biz/notifications",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "hy",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "types-hy" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "hy",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "mailings-hy" }
+    ]
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "route": "/biz/notifications/channels/catalog",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "00-list"
+    },
+    {
+      "click": "text=Apifonica"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "01-modal-open"
+    },
+    {
+      "click": "role=button[name=/Подключить|Connect/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "02-after-connect"
+    },
+    {
+      "goto": "/biz/notifications/channels/catalog"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "03-after-reload-list"
+    },
+    {
+      "click": "text=Apifonica"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "04-reopen-connected"
+    }
+  ]
+}

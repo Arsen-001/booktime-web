@@ -1,0 +1,46 @@
+[
+  {
+    "route": "/",
+    "persona": "guest",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-00-161\"]" },
+      { "screenshot": "b05m1-home-guest-stories" }
+    ]
+  },
+  {
+    "route": "/",
+    "persona": "client",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-00-161\"]" },
+      { "screenshot": "b05m1-home-client-stories" },
+      { "click": "a[href^='/stories/']:visible >> nth=0" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-00-159 F-00-162 F-14-033 F-14-035\"]" },
+      { "screenshot": "b05m1-story-view" },
+      { "click": "role=button[name=\"Записаться\"]" },
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-00-004 F-00-007 F-00-031 F-00-108 F-00-092\"]" },
+      { "screenshot": "b05m1-story-to-book" }
+    ]
+  },
+  {
+    "route": "/places/biz_nuri",
+    "persona": "client",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-14-032 F-14-033\"]" },
+      { "screenshot": "b05m1-place-promo" }
+    ]
+  }
+]

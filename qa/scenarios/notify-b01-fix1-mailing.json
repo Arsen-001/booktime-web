@@ -1,0 +1,12 @@
+{
+  "route": "/biz/notifications/mailings/new",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"click": "text=Неважно"},
+    {"click": "role=option[name=\"Получал(и)\"]"},
+    {"wait": 300},
+    {"screenshot": "received-selected"}
+  ]
+}

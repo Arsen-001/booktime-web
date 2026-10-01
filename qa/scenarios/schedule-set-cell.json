@@ -1,0 +1,22 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "table tbody tr:nth-child(2) td:nth-child(3) button" },
+    { "expectVisible": "text=Настройка графика" },
+    { "expectText": "Добавим рабочих дней: 1" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 1500 },
+    { "expectText": "Добавлен 1 рабочий день" },
+    { "screenshot": "after-save" },
+    { "click": "role=button[name=\"Отменить\"]" },
+    { "wait": 1200 },
+    { "expectText": "Вернули как было" },
+    { "screenshot": "after-undo" }
+  ]
+}

@@ -1,0 +1,14 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+await page.goto('http://localhost:3710/b/mariam-nails?demo=guest&sphere=nails&lang=ru&theme=light&empty=0', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1200);
+const txt = page.locator(':text("Записаться")');
+console.log('text count', await txt.count());
+const html = await page.locator('main, body').first().innerHTML();
+console.log(html.slice(0, 4000));
+await browser.close();
+release();

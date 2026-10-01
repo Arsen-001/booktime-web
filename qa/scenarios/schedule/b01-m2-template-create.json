@@ -1,0 +1,16 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+    { "expectVisible": "text=Настройка графика" },
+    { "click": "role=button[name=\"+ Создать шаблон\"]" },
+    { "wait": 400 },
+    { "screenshot": "01-create-template-modal" }
+  ]
+}

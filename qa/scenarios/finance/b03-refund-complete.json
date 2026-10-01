@@ -1,0 +1,15 @@
+{
+  "route": "/dev/ext/bookingWindow/finance",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Полный возврат"},
+    {"wait": 300},
+    {"fill": "input[placeholder*=некачественно]", "value": "Услуга не понравилась клиенту"},
+    {"click": "text=Вернуть деньги"},
+    {"wait": 600},
+    {"screenshot": "after-refund"}
+  ]
+}

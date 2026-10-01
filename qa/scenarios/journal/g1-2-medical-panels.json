@@ -1,0 +1,25 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "dental",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Лечение каналов" },
+    { "wait": 500 },
+    { "click": "text=Текущий приём" },
+    { "wait": 400 },
+    { "screenshot": "visit-panel" },
+    { "click": "role=button[name=\"Закрыть\"]" },
+    { "wait": 200 },
+    { "click": "text=Медкарта" },
+    { "wait": 400 },
+    { "screenshot": "medcard-panel" },
+    { "click": "role=button[name=\"Закрыть\"]" },
+    { "wait": 200 },
+    { "click": "text=План лечения" },
+    { "wait": 400 },
+    { "screenshot": "treatment-plan-panel" }
+  ]
+}

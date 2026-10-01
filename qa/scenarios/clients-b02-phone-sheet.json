@@ -1,0 +1,15 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "expectVisible": "input[placeholder=\"Как зовут клиента\"]" },
+    { "screenshot": "01-sheet-phone" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Телефонный Тест" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "99005566" },
+    { "click": "details summary" },
+    { "screenshot": "02-custom-fields-open" }
+  ]
+}

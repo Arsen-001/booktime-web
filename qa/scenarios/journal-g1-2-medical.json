@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "dental",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-testid=booking-block]" },
+    { "wait": 700 },
+    { "screenshot": "booking-open" },
+    { "click": "text=Текущий приём" },
+    { "wait": 300 },
+    { "screenshot": "medical-visit" },
+    { "click": "text=Медкарта" },
+    { "wait": 300 },
+    { "screenshot": "medical-card" },
+    { "click": "role=button[name=\"✕\"]" }
+  ]
+}

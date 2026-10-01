@@ -1,0 +1,192 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:22:20.747Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-103"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 913,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[Fast Refresh] performing full reload\n\nFast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.\nYou might have a file which exports a React component but also exports a value that is imported by a non-React component file.\nConsider migrating the non-React component export to a separate file and importing it into both files.\n\nIt is also possible the parent component of the component you edited is a class component, which disables"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=checkbox[name=/Вечер/]"
+          },
+          "ok": true,
+          "ms": 197
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 4,
+          "step": {
+            "expectVisible": "text=Вечер (0 из 12)"
+          },
+          "ok": true,
+          "ms": 290
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "evening-off"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__evening-off.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=button[name=\"00:00\"]"
+          },
+          "ok": true,
+          "ms": 192
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 305
+        },
+        {
+          "i": 8,
+          "step": {
+            "expectVisible": "text=Утро (23 из 24)"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "one-slot-off"
+          },
+          "ok": true,
+          "ms": 53,
+          "screenshot": "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__one-slot-off.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "goto": "/biz/schedule/slots"
+          },
+          "ok": false,
+          "ms": 1043,
+          "error": "page.goto: net::ERR_ABORTED at http://localhost:3710/biz/schedule/slots?demo=owner&sphere=nails&lang=ru&theme=light",
+          "screenshot": "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__fail-10.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop.png",
+        "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__evening-off.png",
+        "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__one-slot-off.png",
+        "qa/shots/schedule-b02-manual2/biz-schedule-slots__owner-nails-ru-light-desktop__fail-10.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

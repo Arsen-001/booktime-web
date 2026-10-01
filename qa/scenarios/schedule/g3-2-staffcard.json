@@ -1,0 +1,18 @@
+{
+  "route": "/dev/ext/staffCard/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "initial" },
+    { "click": "[data-f=\"F-02-081\"] input[type=checkbox]" },
+    { "wait": 300 },
+    { "click": "[data-f=\"F-02-082\"] input[type=checkbox]" },
+    { "wait": 300 },
+    { "screenshot": "toggled" },
+    { "goto": "/dev/ext/staffCard/schedule" },
+    { "wait": 600 },
+    { "screenshot": "after-reload" }
+  ]
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/biz/loyalty/cards",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-06-059\"]" },
+      { "screenshot": "card-detail" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/certificates",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-06-188 F-06-195\"]" },
+      { "screenshot": "certificate-detail" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/memberships",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-06-187 F-06-194\"]" },
+      { "screenshot": "membership-detail" }
+    ]
+  }
+]

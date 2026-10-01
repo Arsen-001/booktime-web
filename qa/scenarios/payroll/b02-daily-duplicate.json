@@ -1,0 +1,16 @@
+{ "route": "/biz/payroll/daily", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"click": "role=row[name=/Мариам Петросян/] >> role=button[name=\"Создать ведомость\"]"},
+    {"wait": 700},
+    {"click": "role=row[name=/Мариам Петросян/] >> role=button[name=\"Создать ведомость\"]"},
+    {"wait": 700},
+    {"goto": "/biz/finance/settlements"},
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"click": "text=Мариам Петросян"},
+    {"wait": 500},
+    {"screenshot": "01-duplicate-check"}
+  ]
+}

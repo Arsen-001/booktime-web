@@ -1,0 +1,170 @@
+[
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "page-ru-desktop"
+      },
+      {
+        "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "page-expanded-ru-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "page-ru-phone"
+      },
+      {
+        "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "page-expanded-ru-phone"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "screenshot": "journal-ru-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "goto": "/biz/journal"
+      },
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "journal-ru-phone"
+      }
+    ]
+  },
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "page-en-desktop"
+      },
+      {
+        "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "page-expanded-en-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "page-en-phone"
+      },
+      {
+        "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "page-expanded-en-phone"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "screenshot": "journal-en-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "goto": "/biz/journal"
+      },
+      {
+        "wait": 1500
+      },
+      {
+        "screenshot": "journal-en-phone"
+      }
+    ]
+  }
+]

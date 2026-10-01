@@ -1,0 +1,20 @@
+[
+  {
+    "route": "/biz/network/clients",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "screenshot": "before-search" },
+      { "fill": "input[placeholder=\"Имя, телефон, email или номер карты\"]", "value": "Мелкумян" },
+      { "click": "text=Показать" },
+      { "wait": 400 },
+      { "screenshot": "after-search-name" },
+      { "fill": "input[placeholder=\"Имя, телефон, email или номер карты\"]", "value": "+374 00 160 001" },
+      { "click": "text=Показать" },
+      { "wait": 400 },
+      { "screenshot": "after-search-phone" }
+    ]
+  }
+]

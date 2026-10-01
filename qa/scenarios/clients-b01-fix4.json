@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=button[name=\"Добавить клиента\"]" },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Клиент Двадцать Шесть" },
+      { "fill": "input[placeholder=\"00 123 456\"]", "value": "00 199 926" },
+      { "click": "role=button[name=\"Добавить\"]" },
+      { "expectText": "Клиент добавлен" },
+      { "wait": 400 },
+      { "press": "Escape" },
+      { "wait": 400 },
+      { "expectText": "1–25 из 26" },
+      { "screenshot": "page-1-of-26" },
+      { "click": "role=button[name=\"2\"]" },
+      { "expectText": "26–26 из 26" },
+      { "screenshot": "page-2-of-26" }
+    ]
+  }
+]

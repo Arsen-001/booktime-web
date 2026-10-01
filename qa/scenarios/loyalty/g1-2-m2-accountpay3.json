@@ -1,0 +1,56 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Нелли Симонян Аветисян"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "a:has-text(\"Открыть запись\") >> nth=0"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "role=tab[name=\"Оплата\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "text=Личный счёт клиента"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "fill": "text=Сумма к оплате >> xpath=following::input[1]",
+        "value": "3000"
+      },
+      {
+        "wait": 300
+      },
+      {
+        "screenshot": "amount-filled"
+      },
+      {
+        "click": "role=button[name=\"Оплатить со счёта\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "screenshot": "after-account-pay"
+      }
+    ]
+  }
+]

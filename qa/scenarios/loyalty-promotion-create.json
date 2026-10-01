@@ -1,0 +1,21 @@
+{
+  "route": "/biz/loyalty/promotions",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Добавить акцию\"]" },
+    { "wait": 300 },
+    { "screenshot": "form-open" },
+    { "fill": "input[placeholder*=\"Скидка\"]", "value": "Скидка 15% на маникюр" },
+    { "click": "role=checkbox[name=\"Постоянный гость\"]" },
+    { "click": "role=switch[name=\"Все услуги\"]" },
+    { "wait": 400 },
+    { "screenshot": "form-scope-open" },
+    { "click": "role=button[name=\"Создать акцию\"]" },
+    { "wait": 500 },
+    { "expectText": "Акция создана" },
+    { "screenshot": "form-created" }
+  ]
+}

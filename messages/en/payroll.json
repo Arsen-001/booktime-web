@@ -1,0 +1,780 @@
+{
+  "access": {
+    "accrueLabel": "Accrual access",
+    "calcLabel": "Calculation access",
+    "deniedHint": "No access to this payroll section",
+    "description": "Who in this location can see schemes, calculation and accrual",
+    "empty": "No staff in this location yet",
+    "foundationHint": "Dedicated payroll permissions are pending the foundation (for now this section's own setting).",
+    "ownOnly": "Own payroll only (can't pick another staff member)",
+    "saveFailed": "Couldn't save rights",
+    "saved": "Rights saved",
+    "schemes": "Access to calculation schemes",
+    "scope": {
+      "all": "No restriction",
+      "none": "No access",
+      "today": "Today only"
+    },
+    "title": "Payroll access",
+    "save": "Save rights",
+    "unsaved": "There are unsaved rights"
+  },
+  "analytics": {
+    "avgPayout": "Average payout",
+    "empty": "No data for this period yet",
+    "fund": "Payroll fund",
+    "fundShare": "Share of turnover",
+    "risk": {
+      "noScheme": "Staff without a scheme",
+      "unmarkedPayout": "Unmarked payouts",
+      "unsignedStatement": "Unsigned statements"
+    },
+    "risksTitle": "Risks",
+    "subtitle": "Payroll share of turnover and risks that need attention",
+    "target": "target {pct}%",
+    "title": "Payroll fund",
+    "topAccruals": "Top accruals",
+    "turnover": "Turnover",
+    "warnOverThreshold": "Payroll share {pct}% is over the warning threshold {warnPct}%"
+  },
+  "bonuses": {
+    "add": {
+      "bonus": "Add a bonus type",
+      "penalty": "Add a penalty type"
+    },
+    "cancel": "Cancel",
+    "deleteConfirm": "Delete",
+    "deleteEntry": "Delete",
+    "deleteText": "«{name}» will no longer be offered when adding a bonus or a penalty",
+    "deleteTitle": "Delete this type?",
+    "deleted": "Deleted",
+    "description": "Templates with a standard amount — pick one when adding a bonus or a penalty and the amount fills in by itself",
+    "empty": {
+      "bonus": "No bonus types yet",
+      "penalty": "No penalty types yet"
+    },
+    "kind": {
+      "bonus": "Bonuses",
+      "penalty": "Penalties"
+    },
+    "namePlaceholder": "Name",
+    "save": "Save",
+    "saveFailed": "Couldn't save",
+    "saved": "Saved"
+  },
+  "classic": {
+    "charts": {
+      "add": "Add chart",
+      "assignAction": "Assign",
+      "assignDateHint": "A chart change with a start date does not alter periods already calculated before it",
+      "assignDateLabel": "Start date",
+      "assignEmpty": "Nobody is assigned to this chart yet",
+      "assignError": "Couldn't assign the chart",
+      "assignRemove": "Remove assignment",
+      "assignSince": "since {date}",
+      "assignStaffLabel": "Staff member",
+      "assignStaffPlaceholder": "Choose a staff member",
+      "assignSuccess": "Chart assigned",
+      "assignTitle": "Assign to staff",
+      "back": "Back to charts",
+      "created": "Chart created",
+      "deleteConfirm": "Delete",
+      "deleteFailed": "Couldn't delete the chart",
+      "deleteText": "“{name}” and its staff assignments will be deleted.",
+      "deleteTitle": "Delete chart?",
+      "deleted": "Chart deleted",
+      "empty": "No charts yet",
+      "emptyHint": "Build a chart from your rules",
+      "nameLabel": "Chart name",
+      "newName": "New chart",
+      "planRowAdd": "Add row",
+      "planRowRemove": "Remove row",
+      "planRowsEmpty": "No rows yet",
+      "planRowsHint": "Checked top to bottom, the first met criterion wins",
+      "planRowsLabel": "Criterion → rule",
+      "save": "Save",
+      "saveError": "Couldn't save the chart",
+      "saveSuccess": "Chart saved",
+      "standardRuleFallbackHint": "Used when none of the criteria below are met",
+      "standardRuleLabel": "Rule",
+      "standardRulePlaceholder": "Choose a rule",
+      "subtitle": "Link rules and criteria, assigned to staff with a start date",
+      "tabSetup": "Setup",
+      "tabStaff": "Staff",
+      "title": "Calculation charts",
+      "type": {
+        "planned": "Planned",
+        "standard": "Standard"
+      },
+      "typeLabel": "Chart type"
+    },
+    "criteria": {
+      "add": "Add criterion",
+      "back": "Back to criteria",
+      "byLabel": "By what",
+      "byProducts": "By products",
+      "byServices": "By services",
+      "created": "Criterion created",
+      "deleteConfirm": "Delete",
+      "deleteFailed": "Couldn't delete the criterion",
+      "deleteText": "“{name}” will be removed from every planned chart.",
+      "deleteTitle": "Delete criterion?",
+      "deleted": "Criterion deleted",
+      "empty": "No criteria yet",
+      "emptyHint": "Criteria are only used by planned charts",
+      "example": "Threshold {threshold}: at 510,000 it {over}, at 490,000 it {under}",
+      "forWhatHint": "Tick the categories that count toward the quantity",
+      "forWhatLabel": "What counts",
+      "includeDiscounts": "Including client discounts",
+      "met": "fires",
+      "metric": {
+        "count": "Count",
+        "profit": "Profit",
+        "turnover": "Turnover"
+      },
+      "metricLabel": "What to count",
+      "nameLabel": "Criterion name",
+      "newName": "New criterion",
+      "notMet": "doesn't fire",
+      "period": {
+        "day": "Day",
+        "month": "Month"
+      },
+      "periodLabel": "Period",
+      "save": "Save",
+      "saveError": "Couldn't save the criterion",
+      "saveSuccess": "Criterion saved",
+      "scope": {
+        "location": "Whole location",
+        "staff": "One staff member"
+      },
+      "scopeLabel": "For whom",
+      "subtitle": "Plan conditions a planned chart checks to pick a different rule",
+      "thresholdCountLabel": "Threshold, pcs.",
+      "thresholdHint": "The criterion fires when the value is strictly above the threshold",
+      "thresholdLabel": "Threshold",
+      "thresholdMoneyLabel": "Threshold, ֏",
+      "title": "Calculation criteria"
+    },
+    "rules": {
+      "add": "Add rule",
+      "back": "Back to rules",
+      "costBasis": {
+        "costFirst": "Cost first, then discount",
+        "description": "Pay the staff percentage on price minus cost, not on the full price",
+        "discountFirst": "Discount first, then cost",
+        "enable": "Calculate payout as price minus its cost",
+        "example": "Example at price 1,000 ֏, 10% discount, cost 300 ֏: “discount first” — {discountFirst}, “cost first” — {costFirst}",
+        "title": "Service cost basis"
+      },
+      "created": "Rule created",
+      "deleteConfirm": "Delete",
+      "deleteFailed": "Couldn't delete the rule",
+      "deleteText": "“{name}” will be deleted. Charts that used it will keep working without it.",
+      "deleteTitle": "Delete rule?",
+      "deleted": "Rule deleted",
+      "editSubtitle": "Name and rate blocks — the same as a staff member's scheme",
+      "empty": "No rules yet",
+      "emptyHint": "Create your first rule — a chart is built from it later",
+      "nameLabel": "Rule name",
+      "newName": "New rule",
+      "packageDescription": "When several masters share one package booking, each has their own payout base",
+      "packageHint": "“Sum from services” (default): each master's base is their own service price inside the package, unchanged",
+      "packageTitle": "Package service (“4 hands”)",
+      "save": "Save",
+      "saveError": "Couldn't save the rule",
+      "saveSuccess": "Rule saved",
+      "subtitle": "Rate sets that classic-model charts are built from",
+      "title": "Calculation rules"
+    }
+  },
+  "daily": {
+    "breakdownTitle": "What the amount is made of",
+    "clippedByConsumables": "Consumables cost more than the master's share — counted as 0",
+    "columns": {
+      "operations": "Operations",
+      "settlements": "Statement",
+      "staff": "Staff",
+      "total": "For the day"
+    },
+    "commissionLine": "Card acquiring fee",
+    "createSheet": "Create statement",
+    "createSheetAll": "Create statements for everyone",
+    "dayTotal": "Total for the day",
+    "emptyDay": "Nobody worked on this day",
+    "exportExcel": "Export to Excel",
+    "sheetAlreadyExistsAll": "Sheets already created for everyone",
+    "sheetCreateFailed": "Couldn't create the statement",
+    "sheetCreated": "Statement created",
+    "sheetCreatedAll": "Statements created for {count} staff"
+  },
+  "me": {
+    "scheduledAhead": "Scheduled until the end of the period: {days} d · {hours} h — not included in pay",
+    "chooseStaff": "Choose a staff member",
+    "daysWorked": "Days worked",
+    "earned": "Earned for the period",
+    "empty": "Nothing accrued for this period",
+    "entriesEmpty": "No accruals or payouts yet",
+    "entryKind": {
+      "adjustment": "One-off accrual",
+      "bonus": "Bonus",
+      "payout": "Payout",
+      "penalty": "Penalty",
+      "sheet": "Statement"
+    },
+    "hoursWorked": "Hours worked",
+    "noAccess": "No access to the payroll section",
+    "openSettlements": "Open settlements",
+    "paid": "Paid",
+    "remaining": "Remaining to pay",
+    "servicesCount": "Services provided",
+    "servicesValue": "Services value",
+    "subtitle": "Calculation and payouts — like in the phone app",
+    "tabCalc": "Calculation",
+    "tabPayouts": "Payouts",
+    "title": "My payroll",
+    "todayOnly": "Only today's calculation is available",
+    "totalSalary": "Payroll for the period"
+  },
+  "nav": {
+    "analytics": "Payroll analytics",
+    "bonuses": "Bonuses & penalties",
+    "charts": "Calculation charts",
+    "criteria": "Calculation criteria",
+    "daily": "Daily calculation",
+    "me": "My payroll",
+    "period": "Period calculation",
+    "rules": "Calculation rules",
+    "schemes": "Pay schemes",
+    "settings": "General settings",
+    "settlements": "Settlements",
+    "setup": "Quick setup"
+  },
+  "notConfigured": {
+    "description": "Set up the general settings and staff schemes to see a calculation",
+    "settingsAction": "General settings",
+    "staffAction": "Staff",
+    "title": "Payroll is not set up yet"
+  },
+  "period": {
+    "accrueAllLabel": "Accrue all · {count, plural, one {# staff member} other {# staff members}} · {amount}",
+    "allPositions": "All positions",
+    "columns": {
+      "paidAmount": "Paid to the register, AMD",
+      "productsAmount": "Products amount, AMD",
+      "productsCount": "Products sold",
+      "salary": "Pay, AMD",
+      "servicesAmount": "Services amount, AMD",
+      "servicesCount": "Services done",
+      "settlements": "Statement",
+      "settlementsLink": "Settlements",
+      "staff": "Staff",
+      "totalAmount": "Total amount, AMD",
+      "workTime": "Work time",
+      "position": "Position",
+      "workDays": "Working days",
+      "workHours": "Scheduled hours",
+      "bonuses": "Bonuses, ֏",
+      "penalties": "Penalties, ֏",
+      "toPay": "To pay, ֏"
+    },
+    "createSheet": "Create statement",
+    "createSheetAll": "Create statements for everyone",
+    "createdOn": "Accrued {date}",
+    "empty": "Nobody worked in this period",
+    "exportExcel": "Export to Excel",
+    "moreActions": "More actions",
+    "positionFilter": "Position",
+    "rangeLabel": "Period",
+    "sheetAlreadyExistsAll": "Sheets already created for everyone",
+    "sheetCreateFailed": "Couldn't create the statement",
+    "sheetCreated": "Statement created",
+    "sheetCreatedAll": "Statements created for {count} staff",
+    "subtitle": "Pay and statements for staff over a period",
+    "total": "Total",
+    "totalPaidToRegister": "Paid to the register",
+    "totalRevenue": "Revenue",
+    "totalToPay": "To pay",
+    "hoursBySchedule": "{hours} scheduled",
+    "toPayHint": "incl. bonuses +{bonuses} · penalties −{penalties}",
+    "paidHint": "Revenue minus unpaid visits",
+    "unpaidNotice": "{count, plural, one {# visit} other {# visits}} for {amount} not paid — not included in pay until payment is entered in the journal",
+    "unpaidLink": "Open records",
+    "accrueAllExtras": "with bonuses and penalties",
+    "closePeriod": "Close period",
+    "closePeriodTitle": "Close the period through {date}?",
+    "closePeriodText": "Rates and statements through {date} can no longer change. Backdated edits go as an adjustment into the next period.",
+    "closedThrough": "Period closed through {date}",
+    "periodClosed": "Period closed",
+    "closeFailed": "Could not close the period",
+    "breakdown": {
+      "services": "Services",
+      "products": "Products",
+      "workday": "Working day",
+      "records": "Bookings",
+      "extra": "Extra revenue",
+      "minimumTopUp": "Top-up to minimum",
+      "bonuses": "Bonuses",
+      "penalties": "Penalties",
+      "salary": "Pay by scheme",
+      "toPay": "To pay"
+    },
+    "notes": {
+      "workdayNoSchedule": "Working-day pay not accrued — the employee has no schedule in this period",
+      "minimumProrated": "Monthly minimum {amount} is prorated by schedule: {worked} of {month} h worked, {prorated} so far. The full minimum applies with the full schedule",
+      "minimumNotWholeMonth": "The {amount} monthly minimum applies only to a whole calendar month — pick a period from the 1st to the last day",
+      "minimumApplied": "Topped up to the guaranteed minimum {amount}",
+      "unpaid": "{count, plural, one {# visit} other {# visits}} for {amount} not paid — the unpaid part is not in the percentage",
+      "productsNotLinked": "No percentage from product sales yet: a sale is not linked to a specialist — 0 will be accrued",
+      "extraProfitAssumed": "Extra reward from profit is provisional — no expenses recorded: 70% of turnover assumed as expenses. Record expenses in Finance and it will be recalculated."
+    }
+  },
+  "scheme": {
+    "blankBadge": "All blocks are off",
+    "blocks": {
+      "extraRevenue": {
+        "base": {
+          "profit": "Of the location's daily profit",
+          "turnover": "Of the location's daily turnover"
+        },
+        "baseAriaLabel": "Calculation base",
+        "percentLabel": "Payout amount",
+        "products": {
+          "description": "Same, but from product turnover or profit",
+          "short": "Extra for products",
+          "title": "Extra reward for product sales"
+        },
+        "services": {
+          "description": "A share of the whole location's daily result — for key employees",
+          "short": "Extra for services",
+          "title": "Extra reward for services performed"
+        }
+      },
+      "personalServices": {
+        "assistAs": "Payout as an assistant",
+        "assistExampleAssistant": "Assistant {n}",
+        "assistExampleMaster": "Master",
+        "assistExampleTitle": "Example: service 1,000 ֏, two assistants at full share",
+        "assistTitle": "Rates with an assistant",
+        "assistWith": "Payout with an assistant",
+        "assistWithHint": "Leave at 0 to pay the master \"without an assistant\" rate minus what the assistants received.",
+        "assistWithout": "Payout without an assistant",
+        "consumablesDiscount": "Apply the client's discount to consumables",
+        "consumablesDiscountHint": "Off by default — the consumables cost doesn't shrink because the client got a discount.",
+        "consumablesHint": "Demo simplification: a percent of the service amount, until stock can compute the real cost. If the payout would go negative, this service pays 0",
+        "consumablesLabel": "Consumables, %",
+        "consumablesMode": {
+          "full": "Deduct 100% of the consumables cost",
+          "off": "Don't deduct consumables from staff",
+          "proportional": "Deduct consumables proportionally to the commission rate"
+        },
+        "consumablesModeAriaLabel": "How consumables are deducted",
+        "consumablesToggle": "Deduct consumables",
+        "defaultLabel": "Default value",
+        "description": "Calculated from the amount actually paid at the register — visits marked «Client arrived»",
+        "groupAtLeastOneLabel": "Payout amount",
+        "groupAtLeastOneToggle": "Payout if at least one client showed up",
+        "groupAttendee": {
+          "aboveThreshold": "Extra payout for everyone above a threshold",
+          "each": "Extra payout for every client who showed up",
+          "none": "Don't pay extra for attendance — only the minimum or the \"at least one\" payout"
+        },
+        "groupAttendeeAriaLabel": "Extra payout per attendee",
+        "groupDescription": "For a trainer or host running a class, workshop or group training. Assistants aren't paid in group events.",
+        "groupExampleThree": "3 attendees",
+        "groupExampleTitle": "Example: service price 1,000 ֏",
+        "groupExampleZero": "0 attendees",
+        "groupMinHint": "Paid even if the event had zero attendees.",
+        "groupMinLabel": "Minimum payout amount",
+        "groupMinToggle": "Minimum payout (nobody showed up)",
+        "groupThresholdLabel": "Threshold — minimum number of participants",
+        "groupTitle": "Payment for group events",
+        "groupToggle": "Pay for group events",
+        "overridesToggle": "Set custom values for services or categories",
+        "short": "Personal services",
+        "title": "Pay for personally performed services"
+      },
+      "productSales": {
+        "costHint": "Pay the rate on the markup (price minus cost), not on the full price.",
+        "costLabel": "Demo cost — % of the product price",
+        "costOrder": {
+          "costFirst": "Deduct the cost price first, then apply the discount",
+          "costFirstHint": "",
+          "discountFirst": "Apply the discount first, then deduct the cost price",
+          "discountFirstHint": "Default."
+        },
+        "costOrderAriaLabel": "Adjustment order",
+        "costToggle": "Account for cost price",
+        "defaultLabel": "Payout amount",
+        "description": "A percentage or a fixed amount from the products the employee sold",
+        "kindCertificate": "Certificates",
+        "kindSubscription": "Memberships",
+        "overridesToggle": "Set a custom value for specific products",
+        "short": "Products",
+        "title": "Pay for product sales"
+      },
+      "records": {
+        "description": "A reward to the administrator for every booking they created",
+        "onlineWidgetHint": "Paid to whoever first marked the booking \"Client arrived\" — an online booking has no staff creator.",
+        "onlineWidgetLabel": "Reward per service",
+        "onlineWidgetToggle": "Reward for a booking closed from the online widget",
+        "overridesToggle": "Set individual values for services or categories",
+        "perBookingLabel": "Reward per created booking",
+        "perBookingHint": "Once for every booking this staff member created, however many services it has.",
+        "perServiceHint": "Per service line in the booking, not once per booking.",
+        "perServiceLabel": "Reward for every service in a booking this staff member created",
+        "short": "Bookings",
+        "title": "Pay for handling bookings"
+      },
+      "workday": {
+        "baseHint": "Hours and days are taken from the employee's schedule",
+        "baseLabel": "Base pay",
+        "description": "Pay for showing up for a shift, by schedule — usually for administrators",
+        "minHint": "Guarantees the staff member at least this amount for the day or the month, even if salary and rates add up to less.",
+        "minLabel": "Guaranteed minimum, ֏",
+        "minPeriodAriaLabel": "Minimum period",
+        "minToggle": "Guaranteed minimum",
+        "monthlyHint": "A monthly salary is credited once, on the 1st of the next month, only for a month with at least one scheduled hour where the scheme was already active from day one.",
+        "period": {
+          "day": "Day",
+          "hour": "Hour",
+          "month": "Month"
+        },
+        "periodAriaLabel": "Base pay period",
+        "short": "Workday",
+        "title": "Pay for a work shift"
+      }
+    },
+    "copy": {
+      "action": "Copy from another employee",
+      "cancel": "Cancel",
+      "confirm": "Copy",
+      "description": "Pick a sample employee — every block will be replaced with theirs. You still need to save the result.",
+      "empty": "No employees with a scheme set up",
+      "placeholder": "Pick an employee",
+      "title": "Copy scheme"
+    },
+    "errors": {
+      "amountMax": "The amount is too large",
+      "negative": "The rate can't be negative",
+      "notNumber": "Enter a number",
+      "percentMax": "Percent can't be more than 100",
+      "percentRange": "Percent must be from 0 to 100",
+      "amountNegative": "Amount cannot be negative"
+    },
+    "hint": "Turn on only the blocks you need — each is calculated independently and added to the total",
+    "loyalty": {
+      "exampleResult": "Price 1,600 ֏, rate 50%, 80 ֏ paid with bonuses, promotion rate 22% → {amount} ֏",
+      "exampleTitle": "Example",
+      "hint": "Off — the rate is paid on the amount after discounts and loyalty payments. On — choose below what still counts as full price.",
+      "includeBonus": "Include the amount paid with bonuses",
+      "includeCertificate": "Include the amount paid with a certificate",
+      "includeClientAccount": "Include the amount paid from the client's personal account (incl. into debt)",
+      "includeDiscount": "Include the client's discount",
+      "includeMembership": "Include the amount paid from a membership",
+      "includePromotion": "Include the amount paid during a promotion",
+      "promoHint": "Used when the promotion checkbox above is on and there is no rate for that specific promotion.",
+      "promoLabel": "Payout from the amount paid during a promotion",
+      "toggle": "Loyalty and discount adjustment"
+    },
+    "notFound": "Employee not found",
+    "overrides": {
+      "categoryTag": "category",
+      "empty": "No custom values yet",
+      "pickEmpty": "Nothing found",
+      "pickPlaceholder": "Add a category or item",
+      "remove": "Remove"
+    },
+    "pageDescription": "Pay scheme: six independent blocks — turn on the ones you need",
+    "pageTitle": "Payroll · {name}",
+    "promo": {
+      "action": "Set up",
+      "description": "Set up how this employee's pay is calculated — the system will do it for you, accurately and without mistakes",
+      "title": "Payroll is not set up"
+    },
+    "readOnlyHint": "View only — your role can't change this scheme",
+    "save": "Save",
+    "saveError": "Couldn't save the scheme",
+    "saveSuccess": "Scheme saved",
+    "summary": {
+      "blankHint": "Turn on at least one block below to start calculating pay",
+      "blankTitle": "Pay isn't calculated",
+      "guaranteedMin": {
+        "day": "at least {amount} a day",
+        "month": "at least {amount} a month"
+      },
+      "personalServices": "{value} of services",
+      "prefix": "{name} gets",
+      "productSales": "{value} of product sales",
+      "records": "{value} per booking",
+      "workday": {
+        "day": "{amount} per day",
+        "hour": "{amount} per hour",
+        "month": "{amount} salary"
+      }
+    },
+    "unit": {
+      "amount": "AMD",
+      "percent": "%"
+    },
+    "unitAriaLabel": "Rate unit",
+    "issues": "{count, plural, one {# error} other {# errors}} — fix to save",
+    "issuesShow": "Show",
+    "effectiveFrom": "Effective from",
+    "effectiveFromHint": "Visits before this date use the previous version of the scheme — past accruals do not change",
+    "versionsTitle": "Scheme history",
+    "versionFrom": "from {date}",
+    "versionSince": "from the start",
+    "versionCurrent": "current",
+    "saveErrorOverlap": "“Effective from” is earlier than the current version — versions cannot overlap",
+    "saveErrorClosed": "This period is closed — pick a later “Effective from” date",
+    "saveErrorValidation": "The scheme has errors — fix the highlighted fields",
+    "reset": "Discard changes",
+    "reset_done": "Changes discarded",
+    "templates": {
+      "action": "Templates",
+      "title": "Scheme templates",
+      "description": "A template replaces the blocks in the draft — save to make it effective",
+      "master40": "Specialist: 40% of services",
+      "master50Min": "Specialist: 50% of services, minimum 150,000 ֏ a month",
+      "adminSalary": "Administrator: salary 200,000 ֏ + 3% of created bookings",
+      "trainee": "Trainee: 25% of services + 5,000 ֏ per working day",
+      "apply": "Use"
+    },
+    "applyTo": {
+      "action": "Apply to…",
+      "title": "Apply this scheme to employees",
+      "description": "The saved scheme replaces the selected employees’ schemes from the “Effective from” date. Past visits use their previous schemes.",
+      "placeholder": "Choose employees",
+      "confirm": "Apply",
+      "confirmTitle": "Replace schemes for {count, plural, one {# employee} other {# employees}}?",
+      "confirmText": "Their current rates stop applying from {date}",
+      "done": "Scheme applied: {count}",
+      "failed": "Could not apply the scheme",
+      "saveFirst": "Save the changes first"
+    },
+    "productsNotLinked": "A product sale is not linked to a specialist yet — this block accrues 0"
+  },
+  "schemes": {
+    "configuredSummary": "{configured} of {total} set up",
+    "description": "Every staff member has their own pay scheme — set it up on the staff card",
+    "emptyText": "Add staff in the «Staff» section to set up their pay",
+    "emptyTitle": "No staff yet",
+    "status": {
+      "blank": "Set up, but everything is off",
+      "notConfigured": "Not set up"
+    }
+  },
+  "serviceCard": {
+    "empty": "No staff member has a personal-service rate for this service",
+    "hint": "Staff rates for this service — change them on the staff member's scheme",
+    "saveFirst": "Save the service first"
+  },
+  "settings": {
+    "accrual": {
+      "description": "Which date the client's money counts toward in the pay period",
+      "received": {
+        "description": "For banks with delayed settlement — pay never runs ahead of the real money",
+        "title": "Date the money reaches the bank account"
+      },
+      "title": "Payout accrual date",
+      "visit": {
+        "description": "The usual choice — pay is calculated by the service date",
+        "title": "Visit or sale date"
+      }
+    },
+    "approval": {
+      "description": "A statement goes through review, owner approval and staff signature before it can be marked paid",
+      "title": "Statement approval",
+      "toggle": "Turn on approval and signature"
+    },
+    "assist": {
+      "configure": "Configure staff",
+      "configureHint": "Assistant compensation is set up separately for each staff member.",
+      "description": "Pay for helpers who take part in a service alongside the main staff member",
+      "multipleHint": "Allows adding several assistants to one service in the booking window.",
+      "multipleToggle": "This service can have more than one assistant",
+      "split": {
+        "fullEach": {
+          "description": "Regardless of how many assistants are on the service.",
+          "title": "Each assistant gets the full rate"
+        },
+        "shared": {
+          "description": "Shared by their share of the booking.",
+          "title": "The rate is split between all assistants"
+        }
+      },
+      "splitAriaLabel": "How several assistants split the commission",
+      "title": "Assisting compensation",
+      "toggle": "Pay extra for assisting in a service (individual bookings only)"
+    },
+    "commission": {
+      "businessOnly": {
+        "description": "The business pays the whole commission — default.",
+        "title": "Not deducted from pay"
+      },
+      "description": "Who pays the bank's card processing fee",
+      "example": {
+        "assistant": "Assistant",
+        "business": "Business",
+        "master": "Master",
+        "title": "Example: commission 10 ֏, master's rate 40%, assistant's rate 10%"
+      },
+      "sourceHint": "The commission amount comes from Finance → Payment methods and commissions — only card payments create it, and a new rate only affects new payments.",
+      "staffAssist": {
+        "description": "Split between the master and assistants by their rate, business pays nothing: rates 40%/10% → 8 from the master, 2 from the assistant.",
+        "title": "Staff and assistants"
+      },
+      "staffAssistBusiness": {
+        "description": "Split by salary rate: commission 10, rates 40% and 10% → 4 from the master, 1 from the assistant, 5 paid by the business.",
+        "title": "Staff, assistants and business"
+      },
+      "staffBusiness": {
+        "description": "Split between the master and the business only: rate 60% → 6 from the master, 4 paid by the business.",
+        "title": "Staff and business"
+      },
+      "staffOnly": {
+        "description": "The whole commission is deducted from the master: commission 10 → 10 from the master.",
+        "title": "Staff only"
+      },
+      "title": "Card processing fee"
+    },
+    "description": "Shared pay rules for every employee of this location",
+    "fund": {
+      "description": "Target payroll share of turnover — an overage is highlighted in analytics",
+      "targetLabel": "Target share, %",
+      "title": "Payroll fund",
+      "warnLabel": "Warning threshold, %"
+    },
+    "model": {
+      "classic": "Classic",
+      "classicHint": "Classic model: rules, criteria and charts live in their own catalogs, assigned to staff with a start date.",
+      "description": "How staff pay rules are configured",
+      "simplified": "Simplified",
+      "title": "Payroll setup model"
+    },
+    "readOnlyHint": "View only — you don't have the “Payroll: manage” permission to change these settings",
+    "save": "Save",
+    "saveError": "Couldn't save the settings",
+    "saveSuccess": "Settings saved",
+    "tips": {
+      "description": "Cash tips go straight to the staff member's hand — they never touch the till or payroll. We don't accept card or transfer tips yet (no payment method for it); once one appears in Finance, we'll decide whether it becomes its own payroll line.",
+      "title": "Tips"
+    },
+    "autoPayroll": {
+      "title": "External payroll services",
+      "description": "We don't connect third-party services like AutoPayroll — all of their functions (pay terms with a start date, payroll fund target, risk warnings) are already built into this section, with no extra subscription."
+    }
+  },
+  "settingsHub": {
+    "hint": "Staff schemes, calculations and settings"
+  },
+  "setup": {
+    "allDone": "Every staff member already has a scheme",
+    "applied": "Scheme applied: {count}",
+    "apply": "Apply to selected",
+    "rateHint": "Applies only to staff without a scheme yet",
+    "rateLabel": "Services payout, %",
+    "rateTitle": "Default rate",
+    "selectAll": "Select all",
+    "selectedCount": "Selected: {count}",
+    "subtitle": "One personal-services rate for every selected master in one pass",
+    "title": "Quick scheme setup"
+  },
+  "statement": {
+    "accrueAction": "Accrue",
+    "accrued": "Accrued",
+    "actionFailed": "Couldn't complete the action",
+    "addBonus": "Add bonus",
+    "addPenalty": "Add penalty",
+    "amount": "Amount",
+    "approval": {
+      "advanceTo": {
+        "approved": "Approve",
+        "paid": "Mark paid",
+        "pendingReview": "Send for review",
+        "reviewed": "Mark reviewed",
+        "sentToStaff": "Send to staff",
+        "signed": "Mark signed"
+      },
+      "advanced": "Status updated",
+      "sign": "Sign",
+      "signed": "Statement signed",
+      "status": {
+        "approved": "Approved",
+        "paid": "Paid",
+        "pendingReview": "Awaiting review",
+        "reviewed": "Reviewed",
+        "sentToStaff": "Sent to staff",
+        "signed": "Signed"
+      },
+      "statusLabel": "Status"
+    },
+    "comment": "Comment",
+    "commentPlaceholder": "Optional",
+    "createConfirm": "Save and accrue",
+    "createFailed": "Couldn't create the statement",
+    "created": "Statement created and accrued",
+    "draftBadge": "Draft",
+    "draftCreated": "Draft saved",
+    "draftHint": "Not accrued yet — not counted in the staff member's balance",
+    "deleteConfirm": "Delete",
+    "deleteEntry": "Delete",
+    "deleteEntryTitle": "Delete this entry?",
+    "deleteSheet": "Delete statement",
+    "deleteSheetText": "Its accrual will disappear from settlements and the balance will go down",
+    "deleteSheetTitle": "Delete this statement?",
+    "deleted": "Deleted",
+    "empty": "No paid visits in this period",
+    "entry": {
+      "bonus": "Add bonus",
+      "penalty": "Add penalty"
+    },
+    "entryAdded": "Added",
+    "entryConfirm": "Save",
+    "entryType": "Type",
+    "entryTypePlaceholder": "Pick a type or leave blank",
+    "export": {
+      "date": "Date",
+      "item": "Item",
+      "payout": "Payout",
+      "revenue": "Price",
+      "time": "Time"
+    },
+    "exportExcel": "Export to Excel",
+    "extrasTitle": "Bonuses and penalties",
+    "findDescription": "Already made a statement for this staff member and period — open it instead of creating a new one",
+    "findSubmit": "Find and open",
+    "findTitle": "Find a statement",
+    "newDescription": "Create a statement for one staff member for a period",
+    "newTitle": "New payroll calculation",
+    "noExtras": "None added for this period yet",
+    "noParams": "Pick a staff member and a period to open a statement",
+    "noStaff": "No staff yet",
+    "operationsTitle": "Visits and sales",
+    "period": "Period",
+    "recalculate": "Recalculate and accrue",
+    "recalculateConfirmText": "The old accrual will be deleted, a new one will be computed from current visits and rates",
+    "recalculateConfirmTitle": "Recalculate this sheet?",
+    "recalculateFailed": "Could not recalculate the sheet",
+    "recalculated": "Sheet recalculated",
+    "saveDraft": "Save as draft",
+    "schemeChanged": "The payout rate changed after this sheet was created — the amount may be outdated",
+    "staff": "Staff member",
+    "staffPlaceholder": "Pick a staff member",
+    "stale": "Changed after accrual",
+    "title": "Payroll statement",
+    "toSettlements": "Settlements",
+    "total": "Pay",
+    "unpaidLine": "not paid — not included",
+    "breakdownTitle": "How the pay adds up",
+    "toPay": "To pay",
+    "correctionHint": "The period is closed — the statement cannot be recalculated. The difference is accrued as an adjustment in the current period.",
+    "correctionAction": "Accrue the difference {amount}",
+    "correctionLabel": "Adjustment for {period}",
+    "correctionDone": "Adjustment accrued",
+    "noDifference": "No difference from the accrued amount",
+    "sheetAmount": "Accrued by statement"
+  },
+  "title": "Payroll"
+}

@@ -1,0 +1,21 @@
+/*
+ * F-01-119 «Готово, когда»: удалённая запись в «Записях» — красная строка целиком, не только
+ * текст/бейдж. `Table` (src/ui/Table.tsx, фундамент) даёт только статический `classNames.row` — один
+ * класс на ВСЕ строки, построчного условия нет (просьба фундаменту — qa/requests/journal.md
+ * «Table: построчный класс», ждёт ответа). Красим целиком строку/карточку изнутри своего файла через
+ * `:has()`: маркер — невидимый span с `data-row-danger` в первой ячейке (RecordsScreen.tsx), выше по
+ * специфичности, чем `bg-surface`/`hover:bg-surface-2` у `Table`, так что побеждает без правки
+ * фундамента.
+ */
+.table :global(tbody tr):has([data-row-danger]) {
+  background-color: var(--color-danger-soft);
+}
+
+.table :global(tbody tr):has([data-row-danger]):hover {
+  background-color: var(--color-danger-soft);
+}
+
+.table :global(li):has([data-row-danger]) {
+  background-color: var(--color-danger-soft);
+  border-color: var(--color-danger);
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "route": "/memberships",
+    "persona": "client",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "memberships-list"},
+      {"click": "a[href^='/memberships/']"},
+      {"wait": 300},
+      {"screenshot": "membership-detail"}
+    ]
+  },
+  {
+    "route": "/certificates",
+    "persona": "client",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "certificates-list"},
+      {"click": "a[href^='/certificates/']"},
+      {"wait": 300},
+      {"screenshot": "certificate-detail"}
+    ]
+  },
+  {
+    "route": "/loyalty-cards",
+    "persona": "client",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "loyalty-cards"}
+    ]
+  }
+]

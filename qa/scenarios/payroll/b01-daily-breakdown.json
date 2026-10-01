@@ -1,0 +1,14 @@
+{
+  "route": "/biz/payroll/daily",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "01-day" },
+    { "click": "text=3 200 ֏ >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "02-breakdown" }
+  ]
+}

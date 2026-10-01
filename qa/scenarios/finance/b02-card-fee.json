@@ -1,0 +1,23 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "[data-testid=\"booking-block\"]:has-text(\"13:00\")"},
+    {"wait": 500},
+    {"click": "role=tab[name=\"Оплата\"]"},
+    {"wait": 400},
+    {"click": "[aria-label=\"Отменить платёж\"]"},
+    {"wait": 400},
+    {"click": "button.bg-danger:has-text(\"Отменить платёж\")"},
+    {"wait": 700},
+    {"click": "text=Банковская карта"},
+    {"wait": 900},
+    {"screenshot": "01-paid-card"},
+    {"goto": "/biz/finance"},
+    {"wait": 900},
+    {"screenshot": "02-operations-list"}
+  ]
+}

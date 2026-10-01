@@ -1,0 +1,18 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "guest",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=Маникюр классический" },
+    { "wait": 200 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 300 },
+    { "click": "text=Ани Саргсян" },
+    { "wait": 300 },
+    { "screenshot": "gender-modal" },
+    { "expectVisible": "text=принимает только" }
+  ]
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Кастомполе Тест" },
+      { "fill": "input[type=tel] >> nth=0", "value": "93456789" },
+      { "click": "text=Дополнительные параметры" },
+      { "click": "[role=dialog] button:has-text(\"Добавить поле\")" },
+      { "fill": "input[placeholder]:visible >> nth=-1", "value": "Марка авто" },
+      { "click": "[role=dialog] button:has-text(\"Создать\")" },
+      { "wait": 300 },
+      { "screenshot": "01-field-def-created" },
+      { "fill": "label:has-text(\"Марка авто\") >> xpath=following::input[1]", "value": "Toyota Camry" },
+      { "click": "[role=dialog] button:has-text(\"Добавить\")" },
+      { "wait": 700 },
+      { "click": "button:has-text(\"Изменить\")" },
+      { "wait": 400 },
+      { "click": "text=Дополнительные параметры" },
+      { "wait": 200 },
+      { "screenshot": "02-persisted-on-reopen" }
+    ]
+  }
+]

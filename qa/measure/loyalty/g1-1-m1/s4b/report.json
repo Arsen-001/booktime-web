@@ -1,0 +1,173 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:29:35.567Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-032",
+      "F-06-036",
+      "F-06-082",
+      "F-06-183"
+    ],
+    "scenarioSteps": {
+      "ok": 11,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/promotions/new",
+      "url": "http://localhost:3710/biz/loyalty/promotions/new?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1758,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-032",
+        "F-06-036",
+        "F-06-082",
+        "F-06-183"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 2,
+          "step": {
+            "fill": "input[placeholder='Введите название акции']",
+            "value": "Тест дат"
+          },
+          "ok": true,
+          "ms": 18
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=/Продолжить/]"
+          },
+          "ok": true,
+          "ms": 198
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=/Продолжить/]"
+          },
+          "ok": true,
+          "ms": 180
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=/Продолжить/]"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "role=button[name=/Продолжить/]"
+          },
+          "ok": true,
+          "ms": 391
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 11,
+          "step": {
+            "screenshot": "01-step5"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s4b/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__01-step5.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-1-m1/s4b/biz-loyalty-promotions-new__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-1-m1/s4b/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__full.png",
+        "qa/measure/loyalty/g1-1-m1/s4b/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__01-step5.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

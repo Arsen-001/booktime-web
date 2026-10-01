@@ -1,0 +1,20 @@
+{
+  "route": "/bookings",
+  "persona": "client",
+  "sphere": "nails",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "wait": 700 },
+    { "click": "a[href^='/bookings/'] >> nth=0" },
+    { "wait": 600 },
+    { "click": "a:has-text(\"Manana Beaut\")" },
+    { "wait": 700 },
+    { "screenshot": "01-place-page" },
+    { "expectText": "Отзывы о месте" },
+    { "press": "End" },
+    { "wait": 400 },
+    { "screenshot": "02-place-reviews" }
+  ]
+}

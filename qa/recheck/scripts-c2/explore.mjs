@@ -1,0 +1,11 @@
+import { start, stop, open, text, shot } from './lib.mjs';
+const [persona, route, device='desktop', sphere='nails'] = process.argv.slice(2);
+await start();
+const { page } = await open(persona, route, { device, sphere });
+console.log('URL', page.url());
+console.log((await text(page)).slice(0, +process.env.N || 3500));
+const btns = await page.$$eval('button, a[href], [role=tab], [role=switch], input, [role=combobox]', els => els.filter(e=>e.offsetParent!==null).map(e => `${e.tagName}${e.getAttribute('role')?'['+e.getAttribute('role')+']':''}${e.name?'{'+e.name+'}':''}${e.getAttribute('href')?'<'+e.getAttribute('href')+'>':''} ${(e.innerText||e.getAttribute('aria-label')||e.placeholder||'').trim().replace(/\s+/g,' ').slice(0,50)}`));
+console.log('--- controls', btns.length); console.log(btns.slice(0, +process.env.B || 120).join('\n'));
+console.log('ERR', page.errors.slice(0,5));
+await shot(page, 'x-' + route.replace(/\W+/g,'_') + '-' + persona);
+await stop();

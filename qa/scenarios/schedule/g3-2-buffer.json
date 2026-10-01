@@ -1,0 +1,20 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "before" },
+    { "click": "[data-f=\"F-02-059 F-00-057\"] button" },
+    { "wait": 300 },
+    { "screenshot": "dropdown-open" },
+    { "click": "text=15 мин" },
+    { "wait": 600 },
+    { "expectText": "Изменения сохранены" },
+    { "screenshot": "after-set-15" },
+    { "goto": "/biz/schedule/slots" },
+    { "wait": 500 },
+    { "screenshot": "after-reload" }
+  ]
+}

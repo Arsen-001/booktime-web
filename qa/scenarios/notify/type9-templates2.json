@@ -1,0 +1,13 @@
+{
+  "route": "/biz/notifications/types/9",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=tab[name=\"Шаблоны уведомлений\"]" },
+    { "wait": 500 },
+    { "expectText": "Отправитель" },
+    { "screenshot": "after-role-tab-click" }
+  ]
+}

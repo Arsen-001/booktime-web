@@ -1,0 +1,15 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "guest",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-services" },
+    { "click": "li >> nth=0" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 500 },
+    { "screenshot": "02-staff-or-time" }
+  ]
+}

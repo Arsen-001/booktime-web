@@ -1,0 +1,68 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T21:52:35.186Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform",
+      "url": "http://localhost:3710/platform?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1311,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/g1-1-perm/platform__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

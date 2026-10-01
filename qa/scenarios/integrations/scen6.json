@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/biz/integrations/installed",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "00-before-disconnect"},
+      {"click": "text=АрМ СМС Шлюз"},
+      {"wait": 500},
+      {"screenshot": "01-app-card-connected"},
+      {"click": "text=Отключить"},
+      {"wait": 500},
+      {"screenshot": "02-disconnect-confirm-dialog"}
+    ]
+  }
+]

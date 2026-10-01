@@ -1,0 +1,18 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "expectVisible": "input[placeholder=\"Как зовут клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "М2 Проверка Списка" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "77551122" },
+    { "screenshot": "01-filled" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "expectText": "Клиент добавлен" },
+    { "wait": 600 },
+    { "expectText": "М2 Проверка Списка" },
+    { "screenshot": "02-stayed-on-list-highlighted" }
+  ]
+}

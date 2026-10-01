@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/journal?new=1&staff=st_nuri_ani&start=19:15&date=2026-10-16",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "fill": "input[placeholder='00 123 456']", "value": "00199902" },
+      { "fill": "input[placeholder='Имя']", "value": "Измеритель B01" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Да\"]" },
+      { "wait": 500 },
+      { "expectText": "Измеритель B01" },
+      { "screenshot": "grid-with-new-booking" },
+      { "goto": "/biz/journal?date=2026-10-16" },
+      { "wait": 500 },
+      { "expectText": "Измеритель B01" },
+      { "screenshot": "after-reload-same-tab" }
+    ]
+  }
+]

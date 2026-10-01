@@ -1,0 +1,20 @@
+{
+  "route": "/biz/apps/visit",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "[data-f~=\"F-14-092\"] li:first-child" },
+    { "wait": 300 },
+    { "click": "role=tab[name=\"Оплата\"]" },
+    { "wait": 300 },
+    { "click": "text=Вся сумма" },
+    { "click": "role=button[name=\"Оплатить\"]" },
+    { "wait": 500 },
+    { "screenshot": "paid-with-receipt" },
+    { "click": "text=Отправить клиенту" },
+    { "wait": 400 },
+    { "screenshot": "receipt-sent" }
+  ]
+}

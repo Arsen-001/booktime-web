@@ -1,0 +1,30 @@
+{
+  "route": "/biz/notifications/channels/balance",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "before"
+    },
+    {
+      "click": "role=button[name=\"1 000 ֏\"]"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "after-click"
+    },
+    {
+      "goto": "/biz/notifications/channels/balance"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "after-reload"
+    }
+  ]
+}

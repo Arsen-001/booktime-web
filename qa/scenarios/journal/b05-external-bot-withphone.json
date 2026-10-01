@@ -1,0 +1,20 @@
+{
+  "route": "/biz/records",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-f=\"F-01-036\"]" },
+    { "wait": 300 },
+    { "fill": "text=Имя клиента >> xpath=following::input[1]", "value": "Бот Клиент" },
+    { "fill": "input[placeholder=\"91 234 567\"]", "value": "99887766" },
+    { "click": "text=Выберите услугу" },
+    { "wait": 300 },
+    { "click": "[role=\"option\"]>>nth=0" },
+    { "wait": 300 },
+    { "click": "button:has-text(\"Создать запись\")" },
+    { "wait": 700 },
+    { "screenshot": "created" }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "route": "/biz/finance/policy",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Зачислять депозит на баланс клиента при отмене" },
+      { "wait": 200 },
+      { "screenshot": "01-toggle-on" },
+      { "fill": "input[min='1'][max='72']", "value": "100" },
+      { "screenshot": "02-window-100" },
+      { "click": "text=Сохранить" },
+      { "wait": 600 },
+      { "screenshot": "03-after-save-window-100" }
+    ]
+  }
+]

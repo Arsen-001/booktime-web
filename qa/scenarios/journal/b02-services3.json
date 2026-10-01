@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "click": "role=tab[name=\"Услуги\"]" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Маникюр классический 5 000 ֏\"]" },
+      { "wait": 500 },
+      { "screenshot": "service-added-v3" },
+      { "click": "role=button[name=\"Снятие покрытия 2 000 ֏\"]" },
+      { "wait": 400 },
+      { "screenshot": "service-added-v3b" },
+      { "click": "role=tab[name=\"Товары\"]" },
+      { "wait": 300 },
+      { "screenshot": "goods-tab-v3" },
+      { "click": "role=tab[name=\"Запись\"]" },
+      { "wait": 300 },
+      { "screenshot": "record-tab-duration-v3" },
+      { "click": "role=button[name=\"Оплата\"]" },
+      { "wait": 300 },
+      { "screenshot": "payment-tab-v3" }
+    ]
+  }
+]

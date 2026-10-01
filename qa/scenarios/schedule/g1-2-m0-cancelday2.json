@@ -1,0 +1,14 @@
+[
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "click": "text=Ани Саргсян" },
+      { "wait": 300 },
+      { "screenshot": "menu-open" },
+      { "click": "role=menuitem[name=\"Отменить рабочий день\"]" },
+      { "wait": 200 },
+      { "screenshot": "right-after-click" },
+      { "wait": 600 },
+      { "screenshot": "600ms-after-click" }
+    ] }
+]

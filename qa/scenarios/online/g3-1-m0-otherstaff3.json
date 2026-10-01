@@ -1,0 +1,13 @@
+{
+  "route": "/biz/online/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "main >> text=Лилит Мкртчян" },
+    { "wait": 300 },
+    { "expectVisible": "text=Мастер решает сам" },
+    { "screenshot": "owner-other-staff3" }
+  ]
+}

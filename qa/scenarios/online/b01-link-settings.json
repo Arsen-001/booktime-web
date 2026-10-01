@@ -1,0 +1,14 @@
+[
+  {
+    "route": "/biz/online",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "role=link[name=\"Настроить\"]" },
+      { "wait": 1200 },
+      { "screenshot": "link-settings" }
+    ]
+  }
+]

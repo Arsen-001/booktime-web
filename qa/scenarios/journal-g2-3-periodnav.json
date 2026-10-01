@@ -1,0 +1,41 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "00-initial" },
+      { "click": "role=button[name=\"Следующий период\"]" },
+      { "wait": 400 },
+      { "screenshot": "01-after-next" },
+      { "expectVisible": "role=button[name=\"Сегодня\"]" },
+      { "click": "role=button[name=\"Следующий период\"]" },
+      { "wait": 300 },
+      { "screenshot": "02-after-next2" },
+      { "click": "role=button[name=\"Предыдущий период\"]" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Предыдущий период\"]" },
+      { "wait": 300 },
+      { "screenshot": "03-back-to-start" },
+      { "click": "role=button[name=\"Сегодня\"]" },
+      { "wait": 400 },
+      { "screenshot": "04-today" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "10-phone-initial" },
+      { "expectVisible": "role=button[name=\"Новая запись\"]" },
+      { "click": "role=button[name=\"Новая запись\"]" },
+      { "wait": 600 },
+      { "screenshot": "11-phone-fab-window" }
+    ]
+  }
+]

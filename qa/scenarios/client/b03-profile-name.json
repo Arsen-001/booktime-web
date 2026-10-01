@@ -1,0 +1,20 @@
+{
+  "route": "/profile",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=button[name=\"Изменить имя\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-name-modal" },
+    { "fill": "input:not([type=\"file\"])", "value": "Проверка Замера" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Проверка Замера" },
+    { "screenshot": "02-name-saved" },
+    { "goto": "/profile" },
+    { "wait": 600 },
+    { "expectText": "Проверка Замера" },
+    { "screenshot": "03-name-after-reload" }
+  ]
+}

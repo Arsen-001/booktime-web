@@ -1,0 +1,261 @@
+/**
+ * Подборки (F-04-011…016, F-04-157), поиск (F-04-002), конструктор фильтров (F-04-017…035) и сортировка
+ * списка клиентов — чистые функции. Вызывает api (`listClients`), экран только держит состояние фильтров
+ * (arch-a1 №1): на сервер переезжают как есть.
+ */
+import type { Certificate, ProductPurchase, Subscription } from '@/domain/clients/program';
+import type { ClientRow, ClientsFilterState, ClientsSort, QuickPickId, SegmentId } from '@/domain/clients/types';
+import { CHAT_LEAD_TAG } from '@/domain/clients/types';
+import type { BookingStatus, Id, ISODate, Money } from '@/domain/core';
+import { addDays, parse } from '@/lib/date';
+import { normalizeSearch } from '@/lib/text';
+
+export interface BookingIndexEntry {
+  clientId: Id;
+  status: BookingStatus;
+  start: string;
+  total: Money;
+  staffId: Id;
+  serviceIds: Id[];
+}
+
+export interface FilterContext {
+  bookings: BookingIndexEntry[];
+  certificates: Certificate[];
+  subscriptions: Subscription[];
+  /** Абонементы раздела лояльности (listMemberships) в той же форме — источник подборки «Заканчивается абонемент» */
+  memberships?: Subscription[];
+  productPurchases: ProductPurchase[];
+  lostAfterDays: number;
+  /** «Сегодня» по Еревану — передаётся снаружи, чтобы функции оставались чистыми */
+  today: ISODate;
+}
+
+function inRange(date: ISODate | undefined, range?: { from?: ISODate; to?: ISODate }): boolean {
+  if (!date) return false;
+  if (range?.from && date < range.from) return false;
+  if (range?.to && date > range.to) return false;
+  return true;
+}
+
+// ─────────────────────────── Подборки ───────────────────────────
+
+export function matchesSegment(row: ClientRow, segment: SegmentId, ctx: FilterContext): boolean {
+  const daysAgo = (n: number) => addDays(ctx.today, -n);
+  switch (segment) {
+    // ⭐ Пора записать: срок повтора услуги наступил, будущей записи нет (dueAt считает toRow)
+    case 'due':
+      return Boolean(row.dueAt) && row.dueAt! <= ctx.today;
+    case 'new':
+      return Boolean(row.firstVisit) && row.firstVisit! >= daysAgo(30);
+    case 'repeat':
+      return row.visits >= 2 && Boolean(row.lastVisit) && row.lastVisit! >= daysAgo(30);
+    case 'lost':
+      return row.visits > 0 && Boolean(row.lastVisit) && row.lastVisit! < daysAgo(ctx.lostAfterDays);
+    case 'subscriptionEnding':
+      return (ctx.memberships ?? ctx.subscriptions).some((s) => s.clientId === row.id && s.status === 'active' && (s.remainingVisits <= 1 || s.expiresAt <= daysAgo(-14)));
+    case 'chatLeads':
+      return row.tags.includes(CHAT_LEAD_TAG) && row.visits === 0;
+  }
+}
+
+/** Подборка из ряда чипов: сегмент ТЗ или «Часто не приходят» (есть хоть одна неявка, F-04-157) */
+export function matchesPick(row: ClientRow, pick: QuickPickId, ctx: FilterContext): boolean {
+  return pick === 'noShow' ? row.noShowCount > 0 : matchesSegment(row, pick, ctx);
+}
+
+// ─────────────────────────── Поиск (F-04-002) ───────────────────────────
+
+/**
+ * Имя, email, номер карты — по вхождению без регистра; телефон — по цифрам, так что «+374 00 196 143»,
+ * «196 143» и «00196143» находят одного клиента (recheck-c1 №1).
+ */
+export function matchesSearch(row: ClientRow, query: string): boolean {
+  const q = normalizeSearch(query);
+  if (!q) return true;
+  const qDigits = q.replace(/\D/g, '');
+  const name = normalizeSearch([row.name, row.lastName, row.middleName].filter(Boolean).join(' '));
+  return (
+    name.includes(q) ||
+    (qDigits.length >= 3 && (row.phone.replace(/\D/g, '').includes(qDigits) || (row.additionalPhone ?? '').replace(/\D/g, '').includes(qDigits))) ||
+    normalizeSearch(row.email ?? '').includes(q) ||
+    normalizeSearch(row.cardNumber ?? '')
+      .replace(/[\s-]/g, '')
+      .includes(q.replace(/[\s-]/g, ''))
+  );
+}
+
+// ─────────────────────────── Сортировка ───────────────────────────
+
+function sortValue(row: ClientRow, column: ClientsSort['columnId']): string | number {
+  switch (column) {
+    case 'name':
+      return normalizeSearch(row.name);
+    case 'phone':
+      return row.phone;
+    case 'email':
+      return row.email ?? '';
+    case 'sold':
+      return row.sold;
+    case 'balance':
+      return row.balance;
+    case 'visits':
+      return row.visits;
+    case 'discount':
+      return row.discount;
+    case 'lastVisit':
+      return row.lastVisit ?? '';
+    case 'firstVisit':
+      return row.firstVisit ?? '';
+  }
+}
+
+/** Пустые значения (нет визитов, нет email) — всегда в конце, в любую сторону сортировки */
+export function sortClientRows(rows: ClientRow[], sort: ClientsSort): ClientRow[] {
+  const dir = sort.dir === 'asc' ? 1 : -1;
+  return rows.slice().sort((a, b) => {
+    const va = sortValue(a, sort.columnId);
+    const vb = sortValue(b, sort.columnId);
+    const emptyA = va === '';
+    const emptyB = vb === '';
+    if (emptyA !== emptyB) return emptyA ? 1 : -1;
+    if (va < vb) return -dir;
+    if (va > vb) return dir;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+/**
+ * ⭐ «Пора записать» без выбранной сортировки: самые просроченные первыми (срок повтора раньше — выше),
+ * как «Кого позвать»; без срока — в конце.
+ */
+export function sortByDue(rows: ClientRow[]): ClientRow[] {
+  return rows.slice().sort((a, b) => {
+    if (!a.dueAt !== !b.dueAt) return a.dueAt ? -1 : 1;
+    if (a.dueAt && b.dueAt && a.dueAt !== b.dueAt) return a.dueAt < b.dueAt ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+// ─────────────────────────── Конструктор фильтров ───────────────────────────
+
+function ageOf(birthday: ISODate | undefined, today: ISODate): number | undefined {
+  if (!birthday) return undefined;
+  return parse(today).diff(parse(birthday), 'year');
+}
+
+function birthdayInRange(birthday: ISODate | undefined, range?: { from?: ISODate; to?: ISODate }): boolean {
+  if (!birthday || !range?.from || !range.to) return false;
+  const md = (d: string) => d.slice(5); // 'MM-DD'
+  const from = md(range.from);
+  const to = md(range.to);
+  const value = md(birthday);
+  return from <= to ? value >= from && value <= to : value >= from || value <= to;
+}
+
+function matchVisitsGroup(row: ClientRow, f: ClientsFilterState['visits'], ctx: FilterContext, logic: 'and' | 'or'): boolean {
+  const own = ctx.bookings.filter((b) => b.clientId === row.id);
+  const checks: (boolean | undefined)[] = [];
+
+  if (f.presence) {
+    const inPeriod = f.presenceRange
+      ? own.filter((b) => b.start.slice(0, 10) >= (f.presenceRange!.from ?? '0000') && b.start.slice(0, 10) <= (f.presenceRange!.to ?? '9999'))
+      : own;
+    checks.push(f.presence === 'has' ? inPeriod.length > 0 : inPeriod.length === 0);
+  }
+  if (f.status?.length) checks.push(own.some((b) => f.status!.includes(b.status)));
+  if (f.visitsCount) {
+    const count = own.length;
+    checks.push((f.visitsCount.from === undefined || count >= f.visitsCount.from) && (f.visitsCount.to === undefined || count <= f.visitsCount.to));
+  }
+  if (f.period?.from || f.period?.to) checks.push(own.some((b) => inRange(b.start.slice(0, 10), f.period)));
+  if (f.staffIds?.length) checks.push(own.some((b) => f.staffIds!.includes(b.staffId)));
+  if (f.serviceIds?.length) checks.push(own.some((b) => b.serviceIds.some((id) => f.serviceIds!.includes(id))));
+  if (f.serviceAmount) {
+    const sum = own.reduce((s, b) => s + b.total, 0);
+    checks.push((f.serviceAmount.from === undefined || sum >= f.serviceAmount.from) && (f.serviceAmount.to === undefined || sum <= f.serviceAmount.to));
+  }
+
+  const active = checks.filter((c): c is boolean => c !== undefined);
+  if (active.length === 0) return true;
+  return logic === 'and' ? active.every(Boolean) : active.some(Boolean);
+}
+
+function matchClientsGroup(row: ClientRow, f: ClientsFilterState['clients'], logic: 'and' | 'or', today: ISODate): boolean {
+  const checks: (boolean | undefined)[] = [];
+  if (f.gender?.length) checks.push(f.gender.includes(row.gender === 'unknown' ? 'unset' : row.gender));
+  if (f.hasMobileApp) checks.push(f.hasMobileApp === 'yes' ? Boolean(row.appUserId) : !row.appUserId);
+  if (f.categoryTags?.length) checks.push(row.tags.some((tag) => f.categoryTags!.includes(tag)));
+  if (f.sold) checks.push((f.sold.from === undefined || row.sold >= f.sold.from) && (f.sold.to === undefined || row.sold <= f.sold.to));
+  if (f.balance) checks.push((f.balance.from === undefined || row.balance >= f.balance.from) && (f.balance.to === undefined || row.balance <= f.balance.to));
+  if (f.broadcastPeriod?.from || f.broadcastPeriod?.to) checks.push(row.broadcastDates.some((d) => inRange(d, f.broadcastPeriod)));
+  if (f.importance?.length) checks.push(f.importance.includes(row.importanceClass ?? 'none'));
+  if (f.birthdayPeriod?.from && f.birthdayPeriod.to) checks.push(birthdayInRange(row.birthday, f.birthdayPeriod));
+  if (f.age) {
+    const age = ageOf(row.birthday, today);
+    checks.push(age !== undefined && (f.age.from === undefined || age >= f.age.from) && (f.age.to === undefined || age <= f.age.to));
+  }
+
+  const active = checks.filter((c): c is boolean => c !== undefined);
+  if (active.length === 0) return true;
+  return logic === 'and' ? active.every(Boolean) : active.some(Boolean);
+}
+
+function matchSalesGroup(row: ClientRow, f: ClientsFilterState['sales'], ctx: FilterContext, logic: 'and' | 'or'): boolean {
+  const checks: (boolean | undefined)[] = [];
+  if (f.productNames?.length) {
+    const own = ctx.productPurchases.filter((p) => p.clientId === row.id);
+    checks.push(own.some((p) => f.productNames!.includes(p.productName)));
+  }
+  if (f.certificate && Object.keys(f.certificate).length > 0) {
+    const cert = ctx.certificates.find((c) => c.clientId === row.id && (!f.certificate!.name || c.name === f.certificate!.name));
+    checks.push(
+      Boolean(cert) &&
+        (!f.certificate.used || (f.certificate.used === 'yes' ? cert!.balance === 0 : cert!.balance > 0)) &&
+        (!f.certificate.balance ||
+          ((f.certificate.balance.from === undefined || cert!.balance >= f.certificate.balance.from) &&
+            (f.certificate.balance.to === undefined || cert!.balance <= f.certificate.balance.to))) &&
+        (!f.certificate.expiringSoon || cert!.expiresAt <= addDays(ctx.today, 14)) &&
+        (!f.certificate.soldAt || inRange(cert!.soldAt, f.certificate.soldAt)),
+    );
+  }
+  if (f.subscription && Object.keys(f.subscription).length > 0) {
+    const sub = ctx.subscriptions.find((s) => s.clientId === row.id && (!f.subscription!.name || s.name === f.subscription!.name));
+    checks.push(
+      Boolean(sub) &&
+        (!f.subscription.used || (f.subscription.used === 'yes' ? sub!.remainingVisits === 0 : sub!.remainingVisits > 0)) &&
+        (!f.subscription.status || sub!.status === f.subscription.status) &&
+        (f.subscription.frozen === undefined || sub!.frozen === f.subscription.frozen) &&
+        (!f.subscription.expiringSoon || sub!.expiresAt <= addDays(ctx.today, 14)) &&
+        (!f.subscription.soldAt || inRange(sub!.soldAt, f.subscription.soldAt)) &&
+        (!f.subscription.remainingVisits ||
+          ((f.subscription.remainingVisits.from === undefined || sub!.remainingVisits >= f.subscription.remainingVisits.from) &&
+            (f.subscription.remainingVisits.to === undefined || sub!.remainingVisits <= f.subscription.remainingVisits.to))),
+    );
+  }
+
+  const active = checks.filter((c): c is boolean => c !== undefined);
+  if (active.length === 0) return true;
+  return logic === 'and' ? active.every(Boolean) : active.some(Boolean);
+}
+
+export function isGroupActive(group: 'visits' | 'clients' | 'sales', f: ClientsFilterState): boolean {
+  if (group === 'visits') return Object.keys(f.visits).length > 0;
+  if (group === 'clients') return Object.keys(f.clients).length > 0;
+  return Object.keys(f.sales).some((k) => {
+    const v = f.sales[k as keyof typeof f.sales];
+    return v && (Array.isArray(v) ? v.length > 0 : Object.keys(v).length > 0);
+  });
+}
+
+export function activeFilterCount(f: ClientsFilterState): number {
+  return (['visits', 'clients', 'sales'] as const).filter((g) => isGroupActive(g, f)).length;
+}
+
+/** Все включённые группы — между группами всегда «И» (спецификация не описывает связку между группами) */
+export function matchesFilters(row: ClientRow, f: ClientsFilterState, ctx: FilterContext): boolean {
+  if (isGroupActive('visits', f) && !matchVisitsGroup(row, f.visits, ctx, f.logic.visits)) return false;
+  if (isGroupActive('clients', f) && !matchClientsGroup(row, f.clients, f.logic.clients, ctx.today)) return false;
+  if (isGroupActive('sales', f) && !matchSalesGroup(row, f.sales, ctx, f.logic.sales)) return false;
+  return true;
+}

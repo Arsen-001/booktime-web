@@ -1,0 +1,30 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"wait": 500},
+    {"screenshot": "01-links-list"},
+    {"click": "text=\"Настроить\""},
+    {"wait": 1500},
+    {"expectVisible": "[data-f=\"F-03-014\"]"},
+    {"screenshot": "02-link-settings-top"},
+    {"press": "PageDown"},
+    {"wait": 200},
+    {"screenshot": "03-link-settings-mid1"},
+    {"press": "PageDown"},
+    {"wait": 200},
+    {"screenshot": "04-link-settings-mid2"},
+    {"press": "PageDown"},
+    {"wait": 200},
+    {"screenshot": "05-link-settings-mid3"},
+    {"press": "PageDown"},
+    {"wait": 200},
+    {"screenshot": "06-link-settings-mid4"},
+    {"press": "End"},
+    {"wait": 200},
+    {"screenshot": "07-link-settings-bottom"}
+  ]
+}

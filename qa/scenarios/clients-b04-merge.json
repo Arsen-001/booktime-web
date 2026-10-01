@@ -1,0 +1,24 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "click": "text=Объединить с..." },
+    { "wait": 500 },
+    { "click": "role=combobox" },
+    { "wait": 300 },
+    { "press": "ArrowDown" },
+    { "press": "Enter" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "confirm-dialog" },
+    { "click": "role=button[name=\"Объединить\"]" },
+    { "wait": 1200 },
+    { "screenshot": "after-merge" }
+  ]
+}

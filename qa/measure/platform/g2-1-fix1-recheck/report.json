@@ -1,0 +1,122 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T22:36:15.875Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 3,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-009",
+      "F-00-151",
+      "F-00-152"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/ideas",
+      "url": "http://localhost:3710/platform/ideas?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 74663,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML ta"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-009"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/g2-1-fix1-recheck/platform-ideas__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/sphere-requests",
+      "url": "http://localhost:3710/platform/sphere-requests?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 87174,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead."
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundary errorComponent={function Error} errorStyles={<SegmentViewNode>} errorScripts={[...]}>\n     "
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-151",
+        "F-00-152"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/g2-1-fix1-recheck/platform-sphere-requests__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

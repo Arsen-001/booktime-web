@@ -1,0 +1,22 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+    { "expectVisible": "text=Настройка графика" },
+    { "screenshot": "01-panel-open-toolbar" },
+    { "expectText": "Выбрано ячеек: 1" },
+    { "click": "role=button[name=\"Отмена\"]" },
+    { "wait": 300 },
+    { "expectText": "Выбрано ячеек: 1" },
+    { "screenshot": "02-panel-closed-toolbar-kept" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 1200 },
+    { "screenshot": "03-after-delete" }
+  ]
+}

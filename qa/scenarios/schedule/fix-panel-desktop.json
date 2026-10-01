@@ -1,0 +1,10 @@
+{ "route": "/biz/schedule", "persona": "owner", "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+    { "wait": 600 },
+    { "screenshot": "panel-open" },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(4) button" },
+    { "wait": 400 },
+    { "screenshot": "panel-two-cells" }
+  ] }

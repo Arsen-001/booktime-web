@@ -1,0 +1,24 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 500 },
+    { "fill": "textarea[placeholder*=\"Нет примечания\"]", "value": "Аллергия на латекс — тест g1-2-m2" },
+    { "press": "Tab" },
+    { "wait": 600 },
+    { "screenshot": "01-note-saved-window" },
+    { "click": "text=Профиль клиента" },
+    { "wait": 500 },
+    { "screenshot": "02-client-profile-note" },
+    { "goto": "/biz/journal" },
+    { "wait": 600 },
+    { "fill": "input[placeholder*=\"Поиск\"]", "value": "латекс" },
+    { "wait": 700 },
+    { "screenshot": "03-search-note" }
+  ]
+}

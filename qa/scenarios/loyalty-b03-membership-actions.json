@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/memberships/types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Маникюр" },
+    { "wait": 400 },
+    { "screenshot": "memb-edit-open" },
+    { "click": "role=button[name=\"Дублировать абонемент\"]" },
+    { "wait": 500 },
+    { "expectText": "Создана копия" },
+    { "screenshot": "memb-duplicated" },
+    { "click": "role=button[name=\"Архивировать\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип отправлен в архив" },
+    { "screenshot": "memb-archived" }
+  ]
+}

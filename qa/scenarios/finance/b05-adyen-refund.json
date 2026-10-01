@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/finance/adyen",
+    "persona": "owner",
+    "sphere": "barber",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 700 },
+      { "fill": "input[placeholder='881…']", "value": "881214981139" },
+      { "wait": 400 },
+      { "screenshot": "01-psp-filtered" },
+      { "fill": "input[placeholder='881…']", "value": "" },
+      { "wait": 300 },
+      { "click": "table tr:has-text('8 000') >> text=Refund" },
+      { "wait": 300 },
+      { "screenshot": "02-confirm-dialog" },
+      { "click": "role=button[name=/Confirm|Подтвердить|Да/i]" },
+      { "wait": 500 },
+      { "screenshot": "03-after-refund" }
+    ]
+  }
+]

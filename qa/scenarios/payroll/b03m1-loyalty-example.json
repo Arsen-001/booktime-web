@@ -1,0 +1,11 @@
+{"route":"/dev/ext/staffCard/payroll","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"text=Корректировка для программ лояльности и скидок"},
+   {"click":"text=Пример (F-09-021)"},
+   {"wait":300},
+   {"screenshot":"loyalty-off"},
+   {"click":"text=Учитывать сумму, оплаченную бонусами"},
+   {"click":"text=Пример (F-09-021)"},
+   {"wait":300},
+   {"screenshot":"loyalty-bonus-on"}
+ ]}

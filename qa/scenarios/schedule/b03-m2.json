@@ -1,0 +1,59 @@
+[
+  {
+    "route": "/biz/staff/st_nuri_ani",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 1200 },
+      { "screenshot": "staffcard-before" },
+      { "expectVisible": "[data-f=\"F-02-089\"]" },
+      { "click": "text=Убрать из графика" },
+      { "wait": 600 },
+      { "screenshot": "staffcard-after-remove" },
+      { "wait": 5200 },
+      { "screenshot": "staffcard-after-undo-expired" }
+    ]
+  },
+  {
+    "route": "/biz/staff/st_nuri_mane",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 1200 },
+      { "screenshot": "assistant-card" },
+      { "expectVisible": "[data-f=\"F-02-098\"]" }
+    ]
+  },
+  {
+    "route": "/biz/schedule",
+    "persona": "owner-empty",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 1000 },
+      { "screenshot": "schedule-empty-no-positions" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/series",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=+ Новая серия" },
+      { "wait": 400 },
+      { "screenshot": "series-form" }
+    ]
+  }
+]

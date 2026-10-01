@@ -1,0 +1,14 @@
+{
+  "route": "/biz/loyalty/cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "fill": "input[placeholder=\"Телефон или номер карты\"]", "value": "798826" },
+    { "wait": 400 },
+    { "expectVisible": "text=+374 95 798 826" },
+    { "screenshot": "cards-filtered-by-phone" }
+  ]
+}

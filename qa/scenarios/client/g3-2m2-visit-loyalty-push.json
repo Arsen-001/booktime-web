@@ -1,0 +1,28 @@
+{
+  "route": "/biz/apps/visit",
+  "persona": "admin",
+  "sphere": "barber",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 700 },
+    { "click": "text=Армен Хачатрян" },
+    { "expectText": "Продажа" },
+    { "click": "[role=\"tab\"]:has-text(\"Лояльность\")" },
+    { "wait": 400 },
+    { "screenshot": "01-loyalty-tab" },
+    { "click": "text=Выдать карту" },
+    { "wait": 1000 },
+    { "screenshot": "02-card-issued" },
+    { "fill": "input[placeholder=\"Номер сертификата или карты\"]", "value": "ZZZ-NOPE" },
+    { "click": "text=Найти" },
+    { "wait": 800 },
+    { "screenshot": "03-code-not-found" },
+    { "click": "text=Написать клиенту" },
+    { "wait": 200 },
+    { "fill": "textarea", "value": "Спасибо за визит, ждём снова!" },
+    { "click": "text=Отправить" },
+    { "wait": 500 },
+    { "screenshot": "04-push-sent" }
+  ]
+}

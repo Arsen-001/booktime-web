@@ -1,0 +1,20 @@
+{
+  "route": "/biz/notifications/mailings/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "empty-form" },
+    { "expectVisible": "role=button[name=\"Отправить\"][disabled]" },
+    { "fill": "textarea", "value": "Скидка 20% на маникюр до конца недели!" },
+    { "wait": 500 },
+    { "screenshot": "filled-form" },
+    { "click": "role=button[name=\"Отправить\"]" },
+    { "wait": 700 },
+    { "screenshot": "after-send" },
+    { "expectText": "Скидка 20%" }
+  ]
+}

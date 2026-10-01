@@ -1,0 +1,17 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 300 },
+    { "click": "text=Лист ожидания" },
+    { "wait": 700 },
+    { "screenshot": "01-open" },
+    { "goto": "/biz/journal" },
+    { "wait": 800 },
+    { "screenshot": "02-after-reload" }
+  ]
+}

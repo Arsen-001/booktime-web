@@ -1,0 +1,12 @@
+import { start, stop, open, as, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('client', `/bookings`, { device: 'phone' });
+let d = await db(page);
+const mine = d.core.bookings.filter(b=>b.appUserId==='au_01'); console.log('azat bookings', JSON.stringify(mine.map(b=>[b.id,b.start,b.status,b.staffId])));
+console.log('ratings', JSON.stringify(d.areas.client.starRatings), 'reviews', JSON.stringify(d.areas.client.locationReviews).slice(0,300));
+await as(page, 'client', '/masters/st_nuri_ani'); const t0 = await text(page); console.log('ani card stars', (t0.match(/★\s*\d+[^\n]*/)||[])[0], '|', t0.slice(0,200).replace(/\n/g,' | '));
+await as(page, 'client', '/bookings/bk_0080');
+let t = await text(page); console.log('DETAIL', t.slice(0,900).replace(/\n/g,' | '));
+const ctr = await page.locator('main button, main a').evaluateAll(els=>els.map(e=>(e.innerText||e.getAttribute('aria-label')||'').trim()).filter(Boolean)); console.log('controls', ctr);
+await shot(page, 'k3-detail-0080', true);
+await stop();

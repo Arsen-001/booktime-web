@@ -1,0 +1,1133 @@
+{
+  "label": "kit-after3",
+  "at": "2026-09-27T23:41:19.680Z",
+  "base": "http://localhost:3710",
+  "runs": 2,
+  "scenarios": [
+    {
+      "key": "journal-create",
+      "id": "journal-create",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: создать запись (выбор типа → окно → услуга → сохранить)",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 2,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 759,
+      "mounts": 205,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0241,
+      "overlays": 4,
+      "noAnim": 1,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "без анимации ×1"
+      ],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 1588,
+            "shownMs": 363,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBРаботаЖурналНастройки журнал»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 1982,
+            "shownMs": 68,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBРаботаЖурналНастройки журнал»",
+            "mainShare": 0.11
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Что создать?Выберите, что поставить на это в",
+            "opened": true,
+            "closed": true,
+            "openMs": 350,
+            "closeMs": 153,
+            "frames": 35,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Новая записьАни СаргсянОтменаЗаписать ",
+            "opened": true,
+            "closed": false,
+            "openMs": 499,
+            "closeMs": null,
+            "frames": 694,
+            "startOpacity": 1
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Создать без клиента?Визит будет сохранён без",
+            "opened": true,
+            "closed": true,
+            "openMs": 399,
+            "closeMs": 20,
+            "frames": 26,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Вне графика мастераВ это время мастер не раб",
+            "opened": true,
+            "closed": false,
+            "openMs": 250,
+            "closeMs": null,
+            "frames": 569,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 551
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 2,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 759,
+          "mounts": 205,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0241,
+          "overlays": 4,
+          "noAnim": 1,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 2,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 827,
+          "mounts": 205,
+          "cls": 0.0113,
+          "clsLate": 0.0113,
+          "clsAll": 0.0354,
+          "overlays": 4,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "shell-sidebar",
+      "id": "shell-sidebar",
+      "section": "shell",
+      "device": "desktop",
+      "title": "Каркас: свернуть и развернуть левое меню",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 22,
+      "renders": 1031,
+      "mounts": 70,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.6516,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 22",
+        "сдвиг сразу после клика 0.6516"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "x:SPAN:BookTimeКабинет бизнеса",
+            "size": 3,
+            "where": "span.flex.min-w-0.flex-col «BookTimeКабинет бизнеса»"
+          },
+          {
+            "sig": "x:SPAN:Журнал",
+            "size": 1,
+            "where": "span.truncate «Журнал»"
+          },
+          {
+            "sig": "x:SPAN:Записи",
+            "size": 1,
+            "where": "span.truncate «Записи»"
+          },
+          {
+            "sig": "x:SPAN:График работы",
+            "size": 1,
+            "where": "span.truncate «График работы»"
+          },
+          {
+            "sig": "x:SPAN:Лист ожидания",
+            "size": 1,
+            "where": "span.truncate «Лист ожидания»"
+          },
+          {
+            "sig": "x:SPAN:Клиенты",
+            "size": 1,
+            "where": "span.truncate «Клиенты»"
+          },
+          {
+            "sig": "x:SPAN:Онлайн-запись",
+            "size": 1,
+            "where": "span.truncate «Онлайн-запись»"
+          },
+          {
+            "sig": "x:SPAN:Уведомления",
+            "size": 1,
+            "where": "span.truncate «Уведомления»"
+          },
+          {
+            "sig": "x:SPAN:Лояльность",
+            "size": 1,
+            "where": "span.truncate «Лояльность»"
+          },
+          {
+            "sig": "x:SPAN:Финансы",
+            "size": 1,
+            "where": "span.truncate «Финансы»"
+          },
+          {
+            "sig": "x:SPAN:Зарплата",
+            "size": 1,
+            "where": "span.truncate «Зарплата»"
+          },
+          {
+            "sig": "x:SPAN:Отчёты",
+            "size": 1,
+            "where": "span.truncate «Отчёты»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div#_R_6l5r5lb_[role=tooltip].pointer-events-none.z-[70].max-w-xs «Развернуть меню»",
+            "opened": true,
+            "closed": true,
+            "openMs": 182,
+            "closeMs": 122,
+            "frames": 21,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div#_R_6l5r5lb_[role=tooltip].pointer-events-none.z-[70].max-w-xs «Свернуть меню»",
+            "opened": true,
+            "closed": false,
+            "openMs": 183,
+            "closeMs": null,
+            "frames": 47,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": true,
+        "fibersAtStart": 942
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 22,
+          "renders": 1031,
+          "mounts": 70,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.6516,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 22,
+          "renders": 1031,
+          "mounts": 70,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.6516,
+          "overlays": 2,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-modal",
+      "id": "ui-modal",
+      "section": "ui",
+      "device": "desktop",
+      "title": "UI-кит: Modal — открыть и закрыть",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 52,
+      "mounts": 29,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Новая записьАни Акопян · Маникюр с покрытием",
+            "opened": true,
+            "closed": true,
+            "openMs": 349,
+            "closeMs": 137,
+            "frames": 61,
+            "startOpacity": 0,
+            "endOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 52,
+          "mounts": 29,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 52,
+          "mounts": 29,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-modal@phone",
+      "id": "ui-modal",
+      "section": "ui",
+      "device": "phone",
+      "title": "UI-кит: Modal — открыть и закрыть",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 54,
+      "mounts": 29,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Новая записьАни Акопян · Маникюр с покрытием",
+            "opened": true,
+            "closed": true,
+            "openMs": 482,
+            "closeMs": 203,
+            "frames": 64,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 54,
+          "mounts": 29,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 54,
+          "mounts": 29,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-popover",
+      "id": "ui-popover",
+      "section": "ui",
+      "device": "desktop",
+      "title": "UI-кит: Popover — открыть и «Понятно»",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 26,
+      "mounts": 5,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_R_392inebn5rl5r5lb_[role=dialog][Пример].z-[60].min-w-[12rem].max-w-[calc(100vw-2rem)",
+            "opened": true,
+            "closed": true,
+            "openMs": 249,
+            "closeMs": 138,
+            "frames": 28,
+            "startOpacity": 0,
+            "endOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 26,
+          "mounts": 5,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 26,
+          "mounts": 5,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-select",
+      "id": "ui-select",
+      "section": "ui",
+      "device": "desktop",
+      "title": "UI-кит: Select — открыть и выбрать другое значение",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 42,
+      "mounts": 11,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.002,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_R_2hn4inebn5rl5r5lb_[Выберите…].z-[60].min-w-[12rem].overscroll-contain «102050»",
+            "opened": true,
+            "closed": true,
+            "openMs": 266,
+            "closeMs": 138,
+            "frames": 45,
+            "startOpacity": 0,
+            "endOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 42,
+          "mounts": 11,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.002,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 42,
+          "mounts": 11,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.002,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-select@phone",
+      "id": "ui-select",
+      "section": "ui",
+      "device": "phone",
+      "title": "UI-кит: Select — открыть и выбрать другое значение",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 55,
+      "mounts": 16,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0001,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Выберите…102050»",
+            "opened": true,
+            "closed": true,
+            "openMs": 566,
+            "closeMs": 203,
+            "frames": 49,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 55,
+          "mounts": 16,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0001,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 55,
+          "mounts": 16,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0001,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-toast",
+      "id": "ui-toast",
+      "section": "ui",
+      "device": "desktop",
+      "title": "UI-кит: Toast — появиться и уйти самому",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 21,
+      "mounts": 10,
+      "cls": 0.0004,
+      "clsLate": 0.0004,
+      "clsAll": 0.0004,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "x:TITLE:UI-кит · оверлеи и данные · BookTime",
+            "size": 1,
+            "where": "title «UI-кит · оверлеи и данные · BookTime»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Запись сохранена»",
+            "opened": true,
+            "closed": true,
+            "openMs": 316,
+            "closeMs": 354,
+            "frames": 263,
+            "startOpacity": 0,
+            "endOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 4285,
+            "v": 0,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4304,
+            "v": 0.0001,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4319,
+            "v": 0.0001,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4336,
+            "v": 0.0001,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4352,
+            "v": 0,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 400,
+          "mounts": 13,
+          "cls": 0.0004,
+          "clsLate": 0.0004,
+          "clsAll": 0.0004,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 21,
+          "mounts": 10,
+          "cls": 0.0004,
+          "clsLate": 0.0004,
+          "clsAll": 0.0004,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-toast@phone",
+      "id": "ui-toast",
+      "section": "ui",
+      "device": "phone",
+      "title": "UI-кит: Toast — появиться и уйти самому",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 21,
+      "mounts": 10,
+      "cls": 0.0041,
+      "clsLate": 0.0041,
+      "clsAll": 0.0041,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Запись сохранена»",
+            "opened": true,
+            "closed": true,
+            "openMs": 366,
+            "closeMs": 369,
+            "frames": 263,
+            "startOpacity": 0,
+            "endOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 4302,
+            "v": 0.0004,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4318,
+            "v": 0.0007,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4334,
+            "v": 0.0012,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4351,
+            "v": 0.001,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          },
+          {
+            "t": 4367,
+            "v": 0.0005,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Запись сохранена»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 21,
+          "mounts": 10,
+          "cls": 0.0042,
+          "clsLate": 0.0042,
+          "clsAll": 0.0042,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 21,
+          "mounts": 10,
+          "cls": 0.0041,
+          "clsLate": 0.0041,
+          "clsAll": 0.0041,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "ui-confirm",
+      "id": "ui-confirm",
+      "section": "ui",
+      "device": "desktop",
+      "title": "UI-кит: useConfirm() — открыть, «Не отменять», тост",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 44,
+      "mounts": 18,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Отменить запись?Клиент получит уведомление о",
+            "opened": true,
+            "closed": true,
+            "openMs": 416,
+            "closeMs": 138,
+            "frames": 28,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Передумали»",
+            "opened": true,
+            "closed": false,
+            "openMs": 315,
+            "closeMs": null,
+            "frames": 53,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 838
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 423,
+          "mounts": 21,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 2,
+          "noAnim": 1,
+          "pageSwap": 0
+        },
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 44,
+          "mounts": 18,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    }
+  ]
+}

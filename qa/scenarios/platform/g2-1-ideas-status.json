@@ -1,0 +1,15 @@
+{
+  "route": "/platform/ideas",
+  "persona": "platform",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "01-list" },
+    { "click": "text=Кнопка «Повторить запись» в карточке клиента — та же услуга и мастер" },
+    { "screenshot": "02-sheet-open" },
+    { "click": "role=button[name=\"В работе\"]" },
+    { "expectText": "Статус сохранён" },
+    { "screenshot": "03-after-status" },
+    { "reload": true },
+    { "screenshot": "04-after-reload" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "route": "/biz/loyalty/card-types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Постоянный гость" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Удалить тип\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-confirm-dialog" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 800 },
+    { "screenshot": "02-right-after-delete" },
+    { "click": "text=Типы карт" },
+    { "wait": 500 },
+    { "screenshot": "03-cardtypes-list-same-page-nav" },
+    { "goto": "/biz/loyalty/card-types" },
+    { "wait": 800 },
+    { "screenshot": "04-cardtypes-after-hard-reload" }
+  ]
+}

@@ -1,0 +1,11 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('owner', '/biz/online', { device: 'desktop' });
+await page.getByRole('button', { name: 'Новая ссылка' }).click(); await page.waitForTimeout(1200);
+const dlg = page.locator('[role=dialog]').last();
+log('--- new link panel\n' + (await dlg.innerText()).slice(0, 1500));
+await shot(page, 'o7-newlink');
+log('ERR', page.errors.slice(0,3));
+await stop();

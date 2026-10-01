@@ -1,0 +1,19 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 400 },
+    { "click": "text=Записывает другого посетителя" },
+    { "wait": 300 },
+    { "fill": "input[placeholder=\"Введите имя посетителя\"]", "value": "Тест Посетитель" },
+    { "wait": 300 },
+    { "screenshot": "visitor-checked" },
+    { "click": "text=Сохранить изменения" },
+    { "wait": 700 },
+    { "screenshot": "after-save" }
+  ]
+}

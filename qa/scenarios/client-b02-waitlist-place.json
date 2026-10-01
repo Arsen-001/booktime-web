@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/masters/st_nuri_ani",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "click": "role=button[name=\"Сообщить, если освободится\"]" },
+      { "expectVisible": "text=Лист ожидания" },
+      { "screenshot": "b02-waitlist-modal" },
+      { "click": "role=button[name=\"Встать в очередь\"]" },
+      { "wait": 400 },
+      { "expectText": "Готово — сообщим, когда освободится время" }
+    ]
+  },
+  {
+    "route": "/bookings",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 300 },
+      { "expectVisible": "text=Мой лист ожидания" },
+      { "screenshot": "b02-waitlist-in-bookings" }
+    ]
+  },
+  {
+    "route": "/places/biz_nuri",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "expectVisible": "role=link[name=\"Записаться\"]" },
+      { "screenshot": "b02-place-book-button" }
+    ]
+  }
+]

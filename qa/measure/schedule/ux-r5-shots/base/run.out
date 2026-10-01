@@ -1,0 +1,40 @@
+Замер: 32 стр. → qa/measure/schedule/ux-r5-shots/base/ (по 2 одновременно)
+  1/32  2/32  3/32  4/32  5/32  6/32  7/32  8/32  9/32  10/32  11/32  12/32  13/32  14/32  15/32  16/32  17/32  18/32  19/32  20/32  21/32  22/32  23/32  24/32  25/32  26/32  27/32  28/32  29/32  30/32  31/32  32/32
+страница                       кто     яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр
+─────────────────────────────  ──────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ────
+/biz/schedule                  owner   ru  тел   0     0    0      —      0    10      ·         1.5с
+/biz/schedule                  owner   ru  деск  0     0    0      —      0    10      ·         1.5с
+/biz/schedule                  master  ru  тел   0     0    0      —      0    8       ·         1.3с
+/biz/schedule                  master  ru  деск  0     0    0      —      0    8       ·         1.3с
+/biz/schedule/calendar         owner   ru  тел   0     0    0      —      0    0       ·         1.3с
+/biz/schedule/calendar         owner   ru  деск  0     0    0      —      0    0       ·         1.2с
+/biz/schedule/calendar         master  ru  тел   0     0    0      —      0    12      ·         3.6с
+/biz/schedule/calendar         master  ru  деск  0     0    0      —      0    12      ·         3.6с
+/biz/schedule/templates        owner   ru  тел   0     0    0      —      0    1       ·         2.0с
+/biz/schedule/templates        owner   ru  деск  0     0    0      —      0    1       ·         1.7с
+/biz/schedule/templates        master  ru  тел   0     0    0      —      0    1       ·         1.1с
+/biz/schedule/templates        master  ru  деск  0     0    0      —      0    1       ·         2.4с
+/biz/schedule/slots            owner   ru  тел   0     0    0      —      0    27      ·         2.4с
+/biz/schedule/slots            owner   ru  деск  0     0    0      —      0    27      ·         2.3с
+/biz/schedule/slots            master  ru  тел   0     0    0      —      0    27      ·         1.7с
+/biz/schedule/slots            master  ru  деск  0     0    0      —      0    27      ·         4.9с
+/biz/schedule/series           owner   ru  тел   0     0    0      —      0    1       ·         6.0с
+/biz/schedule/series           owner   ru  деск  0     0    0      —      0    1       ·         4.3с
+/biz/schedule/series           master  ru  тел   0     0    0      —      0    1       ·         7.5с
+/biz/schedule/series           master  ru  деск  0     0    0      —      0    1       ·         5.8с
+/biz/schedule/history          owner   ru  тел   0     0    0      —      0    2       ·         5.2с
+/biz/schedule/history          owner   ru  деск  0     0    0      —      0    2       ·         4.9с
+/biz/schedule/history          master  ru  тел   0     0    0      —      0    2       ·         4.3с
+/biz/schedule/history          master  ru  деск  0     0    0      —      0    2       ·         3.9с
+/dev/ext/staffCard/schedule    owner   ru  тел   0     0    0      —      0    3       ·         4.7с
+/dev/ext/staffCard/schedule    owner   ru  деск  0     0    0      —      0    3       ·         4.8с
+/dev/ext/staffCard/schedule    master  ru  тел   0     0    0      —      0    3       ·         3.8с
+/dev/ext/staffCard/schedule    master  ru  деск  0     0    0      —      0    3       ·         3.7с
+/dev/ext/settingsHub/schedule  owner   ru  тел   0     0    0      —      0    3       ·         4.9с
+/dev/ext/settingsHub/schedule  owner   ru  деск  0     0    0      —      0    3       ·         5.4с
+/dev/ext/settingsHub/schedule  master  ru  тел   0     0    0      —      0    3       ·         7.5с
+/dev/ext/settingsHub/schedule  master  ru  деск  0     0    0      —      0    3       ·         7.2с
+
+Итог: страниц 32 · ошибок консоли 0 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 0 · висит загрузка 0 · data-f 56
+Отчёт: qa/measure/schedule/ux-r5-shots/base/report.json
+node scripts/measure.mjs --area schedule --persona owner,master --lang ru      37.57s user 8.15s system 65% cpu 1:10.31 total

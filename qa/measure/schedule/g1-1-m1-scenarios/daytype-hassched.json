@@ -1,0 +1,15 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "table tbody tr:nth-child(3) td:nth-child(3) button" },
+    { "wait": 300 },
+    { "click": "[role=dialog] >> text=Рабочий день" },
+    { "wait": 300 },
+    { "screenshot": "has-schedule-dropdown" }
+  ]
+}

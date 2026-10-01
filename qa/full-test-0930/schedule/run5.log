@@ -1,0 +1,68 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+
+===== e2e-sync
+[online 0-before] 5 13:40,15:00,17:55,18:00 … 17:55,18:00,18:30
+[journal 0-before hint] У Гаяне свободно 10:00–18:00. В листе ожидания на этот день пока никого.
+[journal 0-before] "учка\n5 свободных окон\n\nКолонки\nОбзор\nЛента\nСписок\nАни Саргсян\n3 записи\nМариам Петросян\n1 запись\nГаяне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\n11:00\n12:00\n13:00\n14:0"
+[cell] 10–19
+[affected] Настройка графика
+
+Ани Саргсян · чт, 8 октября
+
+2 записи в эти дни не помещаются в новые часы — сами записи мы не тронем
+
+Перенесите их к другому мастеру, отмените с уведомлением или оставьте — журнал покажет колонку с пометкой
+
+8 октября, 10:00 · Ани Саргсян · Лаура Мелкумян
+
+Перенести к…
+Гаяне Оганесян
+Ева Карапетян
+Перенести к…
+Отменить с уведомлением
+В журнале
+
+8 октября, 11:30 · Ани Саргсян ·
+[toast]  | Готово: 1 рабочий день · изменено 1
+
+Отменить
+[cell after] 15–21
+[online 1-evening] 8 15:00,17:55,18:00,18:30 … 19:30,20:00,20:30
+[journal 1-evening hint] У Гаяне свободно 10:00–18:00. В листе ожидания на этот день пока никого.
+[journal 1-evening] "учка\n5 свободных окон\n\nКолонки\nОбзор\nЛента\nСписок\nАни Саргсян\n3 записи\nМариам Петросян\n1 запись\nГаяне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\n11:00\n12:00\n13:00\n14:0"
+[cell] 15–21
+[confirm] есть записи → Всё равно удалить
+[cell deleted] —
+3
+[undo visible] 1
+[cell after undo] 15–21
+[cell deleted2] —
+3
+[online 2-off] 0  … 
+[journal 2-off hint] У Гаяне свободно 10:00–18:00. В листе ожидания на этот день пока никого.
+[journal 2-off] "яне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\nАни Саргсян\nНе работает · 3 записи — перенести\n11:00\n12:00\n13:00\n14:00\n15:00\n16:00\n17:00\n18:00\n19:00\n20:00\n15:15\nТагуи П"
+[errors] []
+{"before":5,"evening":8,"eveningFirst":"15:00","off":0}
+
+===== e2e-mode
+[online 0] 9 10:00,12:00,12:30 … 16:30,17:00
+[calendar] "Мой календарь\n\nКакие часы видят клиенты и что занято\n\nРежим:\nВсё свободно\n·\nИзменить\n\nЗанято сегодня\n\nНажмите на час — клиенты его не увидят. Нажмите ещё раз — снова свободно\n\n11:00\n12:00\n13:00\n14:00\n15:00\n16:00\n17:00\n18:00\nЗагрузка месяца\n28 сентября – 4 октября\nПн, 28 сентября\n2 записи\n10:00–18:00\nВт, 29 сентября\n1 запись\nВ салоне не работает\nВыезд 11:00–19:00\nСр, 30 сентября\n2 записи\n10:00–18:00\nЧт, 1 октября\nсегодня\n3 записи\nВ салоне не работает\nВыезд 11:00–19:00\nПт, 2 октября\n4 записи\n10:00–18:00\nСб, 3 октября\n2 записи\n10:00–16:00\nВс, 4 октября\nВыходной"
+[FAIL] e2e-mode locator.click: Timeout 60000ms exceeded. / Call log: / [2m  - waiting for getByRole('button', { name: 'Изменить' }).first()[22m / [2m    - locator resolved to <button type="button" data-variant="link" aria-haspopup="dialog" class="inline-flex items-center justify-center font-medium whitespace-nowrap select-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none aria-disabled:opacity-50 aria-disabled:pointer-events-none md:h-9 gap-1.5 rounded-md text-sm [&_svg…>…</button>[22m / [2m  - attempting click action[22m / [2m    2 × waiting for element to be visible, enabled and stable[22m
+
+===== e2e-slots
+[online 0] 5 13:40,15:00,17:55,18:00,18:30
+[FAIL] e2e-slots page.goto: Timeout 240000ms exceeded. / Call log: / [2m  - navigating to "http://localhost:3710/biz/schedule/slots/st_nuri_ani", waiting until "domcontentloaded"[22m / 
+
+===== e2e-screens
+[owner-phone] /biz/schedule overflow=0 raw= err= :: График работы Нажмите на дни в таблице, чтобы выбрать их и задать часы Настроить график 28 сентября – 4 октября Неделя Месяц Фильтры Ани Саргсян 6 дней · 45 ч 2
+[owner-phone] /biz/schedule/calendar overflow=0 raw= err= :: Календарь мастера Выберите мастера, чтобы увидеть его неделю Ани Саргсян Мастер маникюра Всё свободно Мариам Петросян Мастер педикюра Всё занято Сона Григорян Н
+[owner-phone] /biz/schedule/templates overflow=0 raw= err= :: Шаблоны графика Готовые схемы работы: выберите их в «Настроить график», чтобы не вводить часы заново Создать шаблон Пн–пт, 10:00–19:00 пн вт ср чт пт сб вс 10:0
+[owner-phone] /biz/schedule/slots overflow=0 raw= err= :: Окна для онлайн-записи Какое время из свободного клиент может выбрать сам. Часы работы здесь не меняются Окна для записи Нажмите на окно, чтобы клиенты его не в
+[owner-phone] /biz/schedule/slots/st_nuri_ani overflow=0 raw= err= :: Окна для записи: Ани Саргсян Какое время из свободного клиент может выбрать сам. Часы работы здесь не меняются Чьи правила действуют Как у всего филиала Свои пр
+[owner-phone] /biz/schedule/series FAIL page.goto: Timeout 240000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/biz/schedule/series", waiting until "domcontentloaded"[2
+[owner-phone] /biz/schedule/history FAIL page.goto: Timeout 240000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/biz/schedule/history", waiting until "domcontentloaded"[
+[FAIL] e2e-screens page.goto: Timeout 240000ms exceeded. / Call log: / [2m  - navigating to "http://localhost:3710/?demo=owner&lang=ru", waiting until "load"[22m / 

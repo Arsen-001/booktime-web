@@ -1,0 +1,10 @@
+{"route":"/dev/ext/staffCard/payroll","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"screenshot":"ext-top"},
+   {"click":"text=Есть ассистент(ы) на этой услуге"},
+   {"wait":300},
+   {"screenshot":"ext-assist-block"},
+   {"click":"text=Оплата за групповые события"},
+   {"wait":300},
+   {"screenshot":"ext-group-block"}
+ ]}

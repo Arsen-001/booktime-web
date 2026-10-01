@@ -1,0 +1,182 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:28:59.028Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-057",
+      "F-06-058",
+      "F-06-198"
+    ],
+    "scenarioSteps": {
+      "ok": 12,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1118,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=/Загрузить из Excel/]"
+          },
+          "ok": true,
+          "ms": 257
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "textarea",
+            "value": "+37495798826;Постоянный гость;-500"
+          },
+          "ok": true,
+          "ms": 14
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=/^Загрузить$/]"
+          },
+          "ok": true,
+          "ms": 1421
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "01-delta-result"
+          },
+          "ok": true,
+          "ms": 124,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s3/biz-loyalty-cards__owner-nails-ru-light-desktop__01-delta-result.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=button[name=/Закрыть/]"
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 10,
+          "step": {
+            "fill": "input[placeholder='Телефон или номер карты']",
+            "value": "798826"
+          },
+          "ok": true,
+          "ms": 18
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 12,
+          "step": {
+            "screenshot": "02-card-after-delta"
+          },
+          "ok": true,
+          "ms": 44,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s3/biz-loyalty-cards__owner-nails-ru-light-desktop__02-card-after-delta.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-1-m1/s3/biz-loyalty-cards__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-1-m1/s3/biz-loyalty-cards__owner-nails-ru-light-desktop__01-delta-result.png",
+        "qa/measure/loyalty/g1-1-m1/s3/biz-loyalty-cards__owner-nails-ru-light-desktop__02-card-after-delta.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "route": "/biz/notifications/channels/catalog",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Flowsell"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name=/Подключить/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "click": "text=Flowsell"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name=/Демо: подтвердить ближайшую запись/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "01-partner-confirm-result"
+    }
+  ]
+}

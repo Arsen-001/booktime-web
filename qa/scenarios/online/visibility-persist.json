@@ -1,0 +1,16 @@
+{
+  "route": "/biz/online/page",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "text=Только мои" },
+    { "wait": 500 },
+    { "screenshot": "01-set-mine" },
+    { "goto": "/biz/online/page" },
+    { "wait": 800 },
+    { "screenshot": "02-after-reload" }
+  ]
+}

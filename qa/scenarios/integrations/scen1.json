@@ -1,0 +1,93 @@
+[
+  {
+    "route": "/biz/integrations",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "01-overview"},
+      {"fill": "input[type=search], input[placeholder*=Найти], input[placeholder*=Поиск]", "value": "book"},
+      {"wait": 400},
+      {"screenshot": "02-search-book"}
+    ]
+  },
+  {
+    "route": "/biz/integrations",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "input[type=search], input[placeholder*=Найти], input[placeholder*=Поиск]", "value": "chat"},
+      {"wait": 400},
+      {"screenshot": "03-search-chat"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/category/notifications",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "04-category-notifications"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/category/fiscal",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "05-category-fiscal-empty"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/category/chatbots",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "06-category-chatbots-hidden"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_11",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "07-app-trial-days"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_16",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "08-app-no-price"}
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_2",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "09-app-channels-info"},
+      {"click": "text=Отзывы"},
+      {"wait": 300},
+      {"screenshot": "10-app-reviews"},
+      {"click": "text=Тарифы"},
+      {"wait": 300},
+      {"screenshot": "11-app-pricing-tab"}
+    ]
+  }
+]

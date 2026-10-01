@@ -1,0 +1,20 @@
+{
+  "route": "/biz/records",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Запись от бота (демо)" },
+    { "wait": 300 },
+    { "fill": "input[placeholder=\"Как представился клиент боту\"]", "value": "Бот-клиент Тест" },
+    { "click": "text=Выберите услугу" },
+    { "wait": 200 },
+    { "click": "[role=option]:first-child" },
+    { "fill": "input[placeholder=\"91 234 567\"]", "value": "91234567" },
+    { "wait": 200 },
+    { "click": "text=Создать запись" },
+    { "wait": 1200 },
+    { "screenshot": "after-submit" }
+  ]
+}

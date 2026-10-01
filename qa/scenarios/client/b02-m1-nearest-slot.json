@@ -1,0 +1,27 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "guest",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "a[href*='slot=']" },
+    { "wait": 600 },
+    { "click": "text=Маникюр классический" },
+    { "wait": 400 },
+    { "screenshot": "01b-service-picked" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-contact-step" },
+    { "fill": "input[placeholder='Как к вам обращаться']", "value": "Тест Тестов" },
+    { "fill": "input[type='tel']", "value": "00123456" },
+    { "click": "text=Согласен" },
+    { "screenshot": "03-form-filled" },
+    { "click": "text=Получить код" },
+    { "wait": 600 },
+    { "screenshot": "04-code-step" },
+    { "fill": "input[inputmode='numeric']", "value": "0000" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 900 },
+    { "screenshot": "05-after-confirm" }
+  ]
+}

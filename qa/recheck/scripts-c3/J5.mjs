@@ -1,0 +1,21 @@
+import { start, stop, open, go, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/journal?booking=bk_1605');
+const bk = async (id) => { const d = await db(page); return d.core.bookings.find(x => x.id === id); };
+const dlg = page.locator('[role=dialog]').last();
+const save = dlg.getByRole('button', { name: 'Сохранить изменения' });
+console.log('save enabled before', await save.isEnabled());
+await dlg.getByRole('button', { name: /Маникюр классический/ }).first().click(); await page.waitForTimeout(1000);
+console.log('save enabled after add', await save.isEnabled());
+await shot(page, 'J5-after-add');
+await save.click(); await page.waitForTimeout(2500);
+await shot(page, 'J5-after-save');
+console.log('toasts', await toasts(page), 'dialogs', await page.locator('[role=dialog],[role=alertdialog]').count());
+const b1 = await bk('bk_1605'); console.log('after', JSON.stringify(b1.services).slice(0, 300), b1.end, b1.durationMin);
+// status one click
+await go(page, '/biz/journal?booking=bk_1609');
+const d2 = page.locator('[role=dialog]').last();
+await d2.getByRole('button', { name: 'Клиент подтвердил' }).click(); await page.waitForTimeout(1500);
+console.log('status after 1 click', (await bk('bk_1609')).status, await toasts(page), 'save enabled', await d2.getByRole('button', { name: 'Сохранить изменения' }).isEnabled().catch(()=>'-'));
+await shot(page, 'J5-status-click');
+await stop();

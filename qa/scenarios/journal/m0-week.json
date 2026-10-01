@@ -1,0 +1,15 @@
+[
+  {
+    "route": "/biz/journal?date=2026-09-25",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "press": "ArrowDown", "selector": "[data-f*='F-01-012'] select >> nth=0" },
+      { "press": "Enter", "selector": "[data-f*='F-01-012'] select >> nth=0" },
+      { "wait": 400 },
+      { "screenshot": "week-view" }
+    ]
+  }
+]

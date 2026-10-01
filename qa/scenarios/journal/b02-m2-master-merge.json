@@ -1,0 +1,20 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "[data-testid=\"booking-block\"] >> nth=0" },
+      { "wait": 500 },
+      { "click": "text=Изменить" },
+      { "wait": 300 },
+      { "screenshot": "m2-existing-params-open" },
+      { "click": "[data-f=\"F-01-042 F-01-043 F-01-044\"] >> role=combobox >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "m2-staff-select-open" }
+    ]
+  }
+]

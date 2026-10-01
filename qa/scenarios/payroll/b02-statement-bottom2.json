@@ -1,0 +1,10 @@
+{ "route": "/biz/payroll/period", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"click": "role=row[name=/Мариам Петросян/] >> role=button[name=/Создать/]"},
+    {"wait": 900},
+    {"click": "text=Добавить премию"},
+    {"wait": 300},
+    {"screenshot": "01-add-bonus-modal"}
+  ]
+}

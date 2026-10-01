@@ -1,0 +1,82 @@
+PAGEERR Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundaryHandler pathname="/biz/reports" errorComponent={function Error} errorStyles={<SegmentViewNode>} ...>
+      <LoadingBoundary name="/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+          <HTTPAccessFallbackErrorBoundary pathname="/biz/reports" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/biz/reports" tree={[...]} params={{}} cacheNode={{rsc:Promise, ...}} ...>
+                  <SegmentViewNode type="layout" pagePath="biz/layout...">
+                    <SegmentTrieNode>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <script>
+                    <BizLayout>
+                      <ExtensionStubsProvider stubs={[...]}>
+                        <BizShell>
+                          <WorkspaceShell kind="biz" allowed={true} items={[...]} groups={[...]} caption="Кабинет би..." ...>
+                            <div
++                             className="flex min-h-dvh bg-bg"
+-                             className={null}
+-                             hidden=""
+                            >
++                             <a
++                               href="#content"
++                               className="sr-only z-50 rounded-lg bg-surface px-4 py-2 focus:not-sr-only focus:fixed ..."
++                             >
+-                             <Suspense>
+                              ...
+                ...
+
+all {"products":{"v":12000,"sub":"4 шт."},"services":{"v":1295500,"sub":"176 услуг"},"avg":null}
+positions ["Все","Владелец салона","Администратор","Мастер маникюра","Мастер педикюра","Нейл-дизайнер","Ассистент мастера"]
+pos Владелец салона {"products":{"v":12000,"sub":"4 шт."},"services":{"v":0,"sub":"0 услуг"},"occ":"0%"}
+pos Администратор {"products":{"v":0,"sub":"0 шт."},"services":{"v":0,"sub":"0 услуг"},"occ":"0%"}
+pos Мастер маникюра {"products":{"v":0,"sub":"0 шт."},"services":{"v":613000,"sub":"94 услуги"},"occ":"14.3%"}
+pos Мастер педикюра {"products":{"v":0,"sub":"0 шт."},"services":{"v":430000,"sub":"41 услуга"},"occ":"25.3%"}
+pos Нейл-дизайнер {"products":{"v":0,"sub":"0 шт."},"services":{"v":252500,"sub":"41 услуга"},"occ":"19.2%"}
+pos Ассистент мастера {"products":{"v":0,"sub":"0 шт."},"services":{"v":0,"sub":"0 услуг"},"occ":"0%"}
+visits head Все отчёты | Посещаемость | Визиты | Написать в поддержку | Предстоящие | 126 | Прошедшие | Четверг, 1 Октября |  | 10:00 · 20 мин |  | Гаяне Товмасян · +37498945562 |  | Снятие покрытия · Ани Саргсян |  | 10:15 · 45 мин |  | Ануш Папоян · +37494568435 |  | Мужской маникюр · Гаяне Оганесян |  | 11:00 · 1 ч |  | Тагуи Петросян · +37477957187 |  | Пе
+role admin Нет прав на это действие |  | Попросите владельца открыть доступ.
+role master Нет прав на это действие |  | Попросите владельца открыть доступ.
+role individual Все отчёты | Основные показатели | План месяца |  | октябрь 2026 |  | Поставить план |  | План ещё не поставлен — задайте цель выручки на месяц, чтобы видеть прогресс. |  | 2 сентября – 1 октября 2026 | Выбрано 30 дней | Фильтры | Продажи |  | Итого |  | 354 000 ֏ |  | 40 операций |  | +234%
+role network Все отчёты | Основные показатели | План месяца |  | октябрь 2026 |  | Поставить план |  | План ещё не поставлен — задайте цель выручки на месяц, чтобы видеть прогресс. |  | 2 сентября – 1 октября 2026 | Выбрано 30 дней | Фильтры | Продажи |  | Итого |  | 2 402 900 ֏ |  | 138 операций |  | +1
+empty Все отчёты | Основные показатели |  | Пока нет данных для отчёта |  | Как только появятся первые визиты и продажи, здесь будут продажи, посещаемость и заполненность. |  | Открыть журнал
+empty salesByStaff Все отчёты | Продажи | По сотрудникам | Выгрузить CSV | 2 сентября – 1 октября 2026 | Сотрудник	Выручка | 	Оказано услуг	Проданные товары	Будущие записи	Отработано часов	Стоимость часа работы	% от общей выручки | Тереза Мовсесян	0 ֏	0 ֏ · 0	0 ֏ · 0	0 ֏	0	—	0%
+empty finance Все отчёты | Финансы | Финансовый отчет | Выгрузить CSV | 2 сентября – 1 октября 2026 | Фильтры |  | За период нет операций |  | Отчёт заполнится, когда в выбранном периоде пройдут финансовые операции.
+empty cashDay Все отчёты | Финансы | Отчет по кассе за день | Выгрузить CSV | 1 октября 2026 | Выберите… | Все | Тереза Мовсесян | Все |  | Всего записей |  | 0 ֏ |  | 0 записей |  | С клиентами |  | 0 ֏ |  | 0 записей |  | Без клиентов |  | 0 ֏ |  | 0 записей |  | Клиентов |  | 0 |  | в среднем 0 ֏ |  | Оказанные услуги |  | 0 ֏ |  | 0 операций |  | Пополнений счетов |  | 0 ֏ |  | 0 операций |  | Товар
+empty appointments Все отчёты | Записи | Операции с Excel | Дата создания | 2 сентября – 1 октября 2026 | Дата визита | Выберите период | Выберите… | Все сотрудники | Тереза Мовсесян | Все сотрудники | Выберите… | Отменённые и не отменённые записи | Отменённые | Не отменённые | Отменённые и не отменённые записи | Выберите… | Все статусы визитов | Ждёт п
+error Все отчёты | Основные показатели | План месяца |  | октябрь 2026 |  | Поставить план |  | 2 сентября – 1 октября 2026 | Выбрано 30 дней | Фильтры |  | Не удалось загрузить |  | Проверьте соединение и попробуйте ещё раз. |  | Повторить
+phone dashboard overflowX 0
+phone all overflowX 0
+phone salesByStaff overflowX 0
+phone cashDay overflowX 0
+phone finance overflowX 0
+phone visits overflowX 0

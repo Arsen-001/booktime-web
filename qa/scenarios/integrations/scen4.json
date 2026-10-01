@@ -1,0 +1,24 @@
+[
+  {
+    "route": "/biz/integrations/apps/ia_4",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "01-app-free-before"},
+      {"click": "text=Подключить"},
+      {"wait": 500},
+      {"screenshot": "02-connect-sheet"},
+      {"click": "role=button[name=/Подключить|Продолжить|Готово/]"},
+      {"wait": 800},
+      {"screenshot": "03-after-connect"},
+      {"goto": "/biz/integrations/installed"},
+      {"wait": 400},
+      {"screenshot": "04-installed-list"},
+      {"goto": "/biz/integrations/apps/ia_4"},
+      {"wait": 400},
+      {"screenshot": "05-app-after-nav-shows-connected"}
+    ]
+  }
+]

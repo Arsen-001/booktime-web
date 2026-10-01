@@ -1,0 +1,27 @@
+{
+  "route": "/biz/stock/operations/new/sale",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "01-sale-form" },
+    { "click": "text=Добавить из списка" },
+    { "wait": 300 },
+    { "screenshot": "02-picker" },
+    { "click": "text=Пилка одноразовая 180/240" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Добавить (1)\"]" },
+    { "wait": 300 },
+    { "screenshot": "03-after-pick" },
+    { "fill": "input[type=number]", "value": "50" },
+    { "press": "Tab" },
+    { "wait": 300 },
+    { "screenshot": "04-qty-50" },
+    { "click": "text=Сохранить без оплаты" },
+    { "wait": 400 },
+    { "screenshot": "05-after-save-attempt" }
+  ]
+}

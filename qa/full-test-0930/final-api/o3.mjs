@@ -1,0 +1,20 @@
+export default async ({ go, shot, page }) => {
+  const r = {};
+  await go('/biz/online/requests', 4000);
+  const card = page.locator('div').filter({ hasText: 'QA Финал' }).filter({ has: page.getByRole('button', { name: 'Другое время' }) }).last();
+  await card.getByRole('button', { name: 'Другое время' }).click();
+  await page.waitForTimeout(2500);
+  const d = page.locator('[role=dialog]').last();
+  r.dlg = (await d.innerText()).slice(0, 700);
+  await shot('o3-offer-dlg', false);
+  r.ctrls = await d.locator('button, input, [role=checkbox], label').evaluateAll((els) => els.map((e) => `${e.tagName}|${e.getAttribute('role')||''}|${e.getAttribute('aria-pressed')||e.getAttribute('aria-checked')||''}|${e.disabled?'dis':''}|${(e.textContent||'').trim().slice(0,30)}`));
+  await d.getByRole('button', { name: /вт, 6 октября, 10:00/ }).click();
+  await page.waitForTimeout(500);
+  await d.getByRole('button', { name: /вт, 6 октября, 10:30/ }).click();
+  await page.waitForTimeout(500);
+  r.ctrls2 = await d.locator('button').evaluateAll((els) => els.map((e) => `${e.getAttribute('aria-pressed')||''}|${e.disabled?'dis':''}|${(e.textContent||'').trim().slice(0,30)}`));
+  await d.getByRole('button', { name: /^Отправить/ }).click({ timeout: 5000 }).catch((e) => { r.sendErr = String(e).slice(0, 100); });
+  await page.waitForTimeout(2500);
+  r.after = (await page.innerText('main')).slice(0, 400);
+  return r;
+};

@@ -1,0 +1,26 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+===  prepaid
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.moneyTitle` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+FAIL prepaid: сценарий упал page.goto: Timeout 180000ms exceeded.
+===  ops
+PASS ops: пустая форма — ошибки «Укажите сумму» 
+PASS ops: новая операция видна в списке 
+  op href /biz/finance/operations/op_muok4322lgzgeq
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.moneyTitle` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+  CONSOLE [i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.
+FAIL ops: сценарий упал page.goto: Timeout 180000ms exceeded.
+
+ИТОГ 2 / 4
+  FAIL prepaid: сценарий упал page.goto: Timeout 180000ms exceeded.
+  FAIL ops: сценарий упал page.goto: Timeout 180000ms exceeded.

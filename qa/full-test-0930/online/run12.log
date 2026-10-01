@@ -1,0 +1,8 @@
+
+==== sH.mjs
+G1 booking bk_muoou49cxtye4h awaiting_prepayment {"amount":2100,"paid":false,"holdUntil":"2026-10-01T02:54"}
+G1 dialog: Отменить запись? | Бесплатная отмена — до 4 октября, 07:00. | Предоплата 2 100 ֏ вернётся — мастер переведёт её обратно. | Причина (необязательно) | Изменились планы | Заболел(а) | Нужно другое время | Другое | Оставить запись | Да, отменить
+G1 db cancelled_by_client undefined {"amount":2100,"paid":true,"refundDue":2100} noShow 0
+G1 journal refund: Вернуть предоплату 1 клиенту | Верните клиенту 2 100 ֏ | Вернул | Верните клиенту 2 100 ֏ | Вернул
+G2 hidden badges 1
+errors []

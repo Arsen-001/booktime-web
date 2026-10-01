@@ -1,0 +1,8 @@
+[
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=tab[name=\"История визитов\"]"},{"wait":700},{"screenshot":"tab-history"},{"click":"role=tab[name=\"Статистика\"]"},{"wait":700},{"screenshot":"tab-stats"},{"click":"role=tab[name=\"Звонки\"]"},{"wait":700},{"screenshot":"tab-calls"},{"click":"role=tab[name=\"Файлы\"]"},{"wait":700},{"screenshot":"tab-files"},{"click":"role=tab >> nth=5"},{"wait":900},{"screenshot":"tab-ext5"},{"click":"role=tab >> nth=6"},{"wait":900},{"screenshot":"tab-ext6"},{"click":"role=tab >> nth=7"},{"wait":900},{"screenshot":"tab-ext7"},{"click":"role=tab >> nth=8"},{"wait":900},{"screenshot":"tab-ext8"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=tab[name=\"История визитов\"]"},{"wait":800},{"screenshot":"tab-history"},{"click":"role=tab[name=\"Статистика\"]"},{"wait":800},{"screenshot":"tab-stats"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=button[name=\"Изменить\"]"},{"wait":900},{"screenshot":"edit"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить визит\"]"},{"wait":900},{"screenshot":"add-visit"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить визит\"]"},{"wait":900},{"screenshot":"add-visit"},{"click":"role=button[name=\"Сохранить визит\"]"},{"wait":600},{"screenshot":"add-visit-errors"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Ещё\"]"},{"wait":500},{"screenshot":"more"}]}
+]

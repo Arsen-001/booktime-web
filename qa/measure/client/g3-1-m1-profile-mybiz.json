@@ -1,0 +1,167 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:03:05.248Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-003",
+      "F-00-005",
+      "F-00-036",
+      "F-00-124",
+      "F-01-005",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-016",
+      "F-01-017",
+      "F-01-018",
+      "F-01-132",
+      "F-01-133",
+      "F-01-167",
+      "F-01-184",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-220",
+      "F-14-037",
+      "F-14-040",
+      "F-14-054",
+      "F-14-059",
+      "F-14-061",
+      "F-14-062"
+    ],
+    "scenarioSteps": {
+      "ok": 4,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/profile",
+      "url": "http://localhost:3710/profile?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 822,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-036",
+        "F-00-124",
+        "F-01-005",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-016",
+        "F-01-017",
+        "F-01-018",
+        "F-01-132",
+        "F-01-133",
+        "F-01-167",
+        "F-01-184",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-220",
+        "F-14-037",
+        "F-14-040",
+        "F-14-054",
+        "F-14-059",
+        "F-14-061",
+        "F-14-062"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "before"
+          },
+          "ok": true,
+          "ms": 61,
+          "screenshot": "qa/shots/g3-1-m1/profile-mybiz/profile__client-nails-ru-light-phone__before.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "[data-f=\"F-00-036\"]"
+          },
+          "ok": true,
+          "ms": 242
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "after-click"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/shots/g3-1-m1/profile-mybiz/profile__client-nails-ru-light-phone__after-click.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/g3-1-m1/profile-mybiz/profile__client-nails-ru-light-phone.png",
+        "qa/shots/g3-1-m1/profile-mybiz/profile__client-nails-ru-light-phone__before.png",
+        "qa/shots/g3-1-m1/profile-mybiz/profile__client-nails-ru-light-phone__after-click.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

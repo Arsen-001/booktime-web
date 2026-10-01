@@ -1,0 +1,15 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный >> nth=0" },
+    { "wait": 400 },
+    { "fill": "textarea", "value": "проверка сохранения комментария" },
+    { "click": "text=Сохранить изменения" },
+    { "wait": 700 },
+    { "screenshot": "after-comment-save" }
+  ]
+}

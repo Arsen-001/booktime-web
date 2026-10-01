@@ -1,0 +1,93 @@
+{
+ "at": "2026-09-30T01:02:14.509Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/loyalty/purchase-requests",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/loyalty/purchase-requests?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "div.w-full «ДатаТоварКлиентСуммаСтат»",
+     "what": "ul.row-links.flex.flex-col «Абонемент «8 маникюров»Д»",
+     "sk": {
+      "h": 142,
+      "w": 154
+     },
+     "before": {
+      "x": 16,
+      "y": 313,
+      "w": 358,
+      "h": 309
+     },
+     "after": {
+      "x": 16,
+      "y": 313,
+      "w": 358,
+      "h": 309
+     },
+     "t": 2471,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 2713,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [],
+   "gone": [
+    {
+     "x": 33,
+     "y": 527,
+     "w": 148,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 7,
+     "hint": "span.inline-flex.shrink-0.items-center"
+    },
+    {
+     "x": 203,
+     "y": 527,
+     "w": 116,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 7,
+     "hint": "span.inline-flex.shrink-0.items-center"
+    }
+   ],
+   "maxSkeletons": 17,
+   "stuck": false,
+   "error": null,
+   "shots": [],
+   "inner": 2,
+   "boxesEarly": false
+  }
+ ]
+}

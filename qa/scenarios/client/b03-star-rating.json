@@ -1,0 +1,11 @@
+{
+  "route": "/bookings",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "wait": 700 },
+    { "screenshot": "01-past-list" }
+  ]
+}

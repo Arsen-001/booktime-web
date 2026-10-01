@@ -1,0 +1,31 @@
+{
+  "route": "/biz/notifications",
+  "persona": "owner-empty",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "00-with-banner"
+    },
+    {
+      "click": "role=button[name=/Закрыть/i]"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "01-dismissed"
+    },
+    {
+      "goto": "/biz/notifications"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "02-after-reload"
+    }
+  ]
+}

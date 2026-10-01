@@ -1,0 +1,17 @@
+{
+  "route": "/platform/ideas",
+  "persona": "platform",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "01-list" },
+    { "click": "text=Повторяющиеся записи — чтобы не создавать одну и ту же запись каждую неделю вручную" },
+    { "wait": 300 },
+    { "screenshot": "02-sheet-open" },
+    { "click": "role=button[name=\"Сделано\"]" },
+    { "wait": 200 },
+    { "screenshot": "03-toast-visible" },
+    { "wait": 3000 },
+    { "screenshot": "04-toast-gone" }
+  ]
+}

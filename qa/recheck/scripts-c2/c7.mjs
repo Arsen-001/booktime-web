@@ -1,0 +1,22 @@
+import { start, stop, open, as, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', `/biz/clients`, { device: 'desktop' });
+let d = await db(page);
+const cls = d.core.clients.filter(c=>c.businessId==='biz_nuri');
+const rows = cls.map(c=>({id:c.id,name:c.name,field:c.noShowCount, real:d.core.bookings.filter(b=>b.clientId===c.id && b.status==='no_show' && !b.deletedAt).length}));
+const mism = rows.filter(r=>r.field!==r.real); console.log('mismatch', mism.length, JSON.stringify(mism.slice(0,6)));
+const r = mism.find(x=>x.real>0 && x.field===0) || mism[0];
+await as(page, 'owner', `/biz/clients/${r.id}`);
+const t = await text(page); console.log('card', r.name, 'real no-shows', r.real, 'field', r.field, '| text:', (t.match(/Не пришёл[^\n]*/g)||[]).join(' / '), (t.match(/неяв[^\n]*/gi)||[]).join(' / '));
+await shot(page, 'c7-card-noshow');
+// booking window for a future booking of this client
+const fb = d.core.bookings.filter(b=>b.clientId===r.id && !b.deletedAt).sort((a,b)=>b.start.localeCompare(a.start))[0];
+console.log('booking', fb.id, fb.start, fb.status);
+await as(page, 'owner', `/biz/journal?date=${fb.start.slice(0,10)}`);
+await page.getByRole('button', { name: 'Статус и оплата' }).first().waitFor({timeout:15000}).catch(()=>{});
+const blk = page.locator('[data-testid="booking-block"]', { hasText: fb.start.slice(11,16) }).first();
+await blk.getByRole('button', { name: 'Статус и оплата' }).click().catch(e=>console.log('no hover btn'));
+await page.waitForTimeout(800);
+console.log('hovercard', (await page.locator('body').innerText()).match(/Визитов: \d+ · Не пришёл: \d+[^\n]*/)?.[0]);
+await shot(page, 'c7-hovercard');
+await stop();

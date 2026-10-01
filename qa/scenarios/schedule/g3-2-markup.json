@@ -1,0 +1,17 @@
+{
+  "route": "/dev/ext/staffCard/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-f=\"F-02-083\"] button" },
+    { "wait": 300 },
+    { "click": "text=30 мин" },
+    { "wait": 500 },
+    { "goto": "/dev/ext/staffCard/schedule" },
+    { "wait": 600 },
+    { "expectText": "30 мин" },
+    { "screenshot": "markup-persisted" }
+  ]
+}

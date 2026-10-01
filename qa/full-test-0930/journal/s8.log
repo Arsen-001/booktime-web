@@ -1,0 +1,28 @@
+WIN1: 30.09.2026, 11:30–12:45 · 1 ч 15 мин 
+URL next http://localhost:3710/biz/journal
+NEXT WINDOW head: NONE
+errors after next [
+  'PAGEERROR ReferenceError: addDays is not defined\n' +
+    '    at findNextVisitSlot (http://localhost:3710/_next/static/chunks/src_areas_journal_lib_0zj3fud._.js:1147:47)\n' +
+    '    at async JournalScreen.useEffectEvent[nextVisitHandler] (http://localhost:3710/_next/static/chunks/src_areas_journal_JournalScreen_tsx_0tip-fa._.js:857:26)'
+]
+inject: ok bp-mock-db:core:bookings bk_2388 bk_2462
+ATTN refund: Требует внимания | Все заявки на этот день подтверждены | Завтра 12 не подтвердили | Напомните в WhatsApp или позвоните — меньше неявок. | Напомнить | Свободно сегодня: 15 ч 45 мин | У 3 мастеров есть окна до конца дня. Предложите их листу ожидания и подписчикам одним сообщением. | Предложить окна | Дальше | 13:45 | Сирануш А. | Педикюр классический · Гаяне | 14:45 | Шушан Т. | Снятие покрытия · Г
+Вернул buttons 0
+NUNE window: undefined | toPay: undefined | policy: undefined
+!! master cancel prepaid: locator.click: Timeout 20000ms exceeded.
+errors [
+  'PAGEERROR ReferenceError: addDays is not defined\n' +
+    '    at findNextVisitSlot (http://localhost:3710/_next/static/chunks/src_areas_journal_lib_0zj3fud._.js:1147:47)\n' +
+    '    at async JournalScreen.useEffectEvent[nextVisitHandler] (http://localhost:3710/_next/static/chunks/src_areas_journal_JournalScreen_tsx_0tip-fa._.js:857:26)',
+  'Failed to load resource: net::ERR_CONNECTION_REFUSED',
+  "WebSocket connection to 'ws://localhost:3710/_next/hmr?id=V7Ja7p5BDXMoSgWcrowIi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "WebSocket connection to 'ws://localhost:3710/_next/hmr?id=V7Ja7p5BDXMoSgWcrowIi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "WebSocket connection to 'ws://localhost:3710/_next/hmr?id=V7Ja7p5BDXMoSgWcrowIi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "WebSocket connection to 'ws://localhost:3710/_next/hmr?id=V7Ja7p5BDXMoSgWcrowIi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  'Failed to load resource: net::ERR_CONNECTION_REFUSED',
+  'Failed to fetch RSC payload for http://localhost:3710/biz/journal?booking=bk_2388. Falling back to browser navigation. TypeError: Failed to fetch\n' +
+    '    at fetchInternal (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:10831:12)\n' +
+    '    at createFetch (http://localhost:',
+  'Failed to load resource: net::ERR_CONNECTION_REFUSED'
+]

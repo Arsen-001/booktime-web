@@ -1,0 +1,25 @@
+{
+  "route": "/biz/loyalty/promotions/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "fill": "input[placeholder=\"Введите название акции\"]", "value": "Телефон b02" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "click": "text=Накопительная скидка от визитов" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step3-phone" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step4-phone" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step5-phone" }
+  ]
+}

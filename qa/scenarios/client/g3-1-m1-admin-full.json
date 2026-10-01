@@ -1,0 +1,18 @@
+{
+  "route": "/login",
+  "persona": "guest",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"click": "text=Мастер или бизнес"},
+    {"click": "text=Логин и пароль"},
+    {"fill": "input[autocomplete=\"username\"]", "value": "owner1"},
+    {"fill": "input[autocomplete=\"current-password\"]", "value": "owner1"},
+    {"click": "role=button[name=\"Войти\"]"},
+    {"wait": 400},
+    {"fill": "[role=\"dialog\"] input", "value": "NewPass123"},
+    {"click": "role=button[name=\"Войти\"] >> nth=-1"},
+    {"wait": 2500},
+    {"screenshot": "after-submit-long-wait"}
+  ]
+}

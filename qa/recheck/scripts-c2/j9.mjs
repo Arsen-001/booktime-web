@@ -1,0 +1,15 @@
+import { start, stop, open, as, db, toasts } from './lib.mjs';
+await start();
+const DATE='2026-10-13';
+const { page } = await open('owner', `/biz/journal?new=1&staff=st_nuri_ani&start=13:00&date=${DATE}`, { device: 'desktop' });
+const win = page.locator('[role=dialog]').last();
+await win.getByRole('button', { name: /Маникюр классический\s*5 000/ }).first().click(); await page.waitForTimeout(600);
+await win.getByPlaceholder('91 234 567').fill('77001188'); await win.getByPlaceholder('Имя').fill('Гонка Тест'); await page.waitForTimeout(300);
+await win.getByRole('button', { name: 'Записать' }).last().click();
+await page.getByText('Сохранено').first().waitFor({ timeout: 10000 }); const t0 = Date.now();
+await page.waitForTimeout(300);
+await as(page, 'owner', `/biz/journal?date=${DATE}`);
+await page.waitForTimeout(3000);
+const d = await db(page); const b = d.core.bookings.filter(b=>b.staffId==='st_nuri_ani' && b.start===`${DATE}T13:00`);
+console.log('after quick nav', JSON.stringify(b.map(x=>({id:x.id,total:x.total,svc:x.services.length,client:x.clientId}))), JSON.stringify(d.core.clients.filter(c=>c.phone==='+37477001188').map(c=>c.id)));
+await stop();

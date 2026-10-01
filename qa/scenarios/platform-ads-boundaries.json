@@ -1,0 +1,16 @@
+[
+  { "route": "/platform/ads", "persona": "platform", "device": "phone", "steps": [
+    { "screenshot": "banners" },
+    { "click": "role=tab[name=\"Поставщики\"]" },
+    { "wait": 200 },
+    { "screenshot": "suppliers" },
+    { "click": "role=tab[name=\"Сторис\"]" },
+    { "wait": 300 },
+    { "screenshot": "stories" }
+  ] },
+  { "route": "/platform/ads", "persona": "platform", "device": "desktop", "steps": [
+    { "click": "role=tab[name=\"Сторис\"]" },
+    { "wait": 300 },
+    { "screenshot": "stories-desktop" }
+  ] }
+]

@@ -1,0 +1,8 @@
+[
+  { "route": "/biz/network/services/subdivisions", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 1000}, {"screenshot": "subdivisions-recheck2"}, {"click": "role=button[name=\"Добавить подразделение\"]"}, {"wait": 500}, {"screenshot": "subdivisions-add-form"} ] },
+  { "route": "/biz/network/services/subdivisions", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "phone",
+    "steps": [ {"wait": 1000}, {"screenshot": "subdivisions-phone"} ] },
+  { "route": "/biz/network/staff", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "phone",
+    "steps": [ {"wait": 1000}, {"screenshot": "staff-menu-phone"} ] }
+]

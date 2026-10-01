@@ -1,0 +1,17 @@
+{
+  "route": "/biz/clients/import",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "textarea", "value": "Name;Phone;Total spent;Total paid\nТестовый Клиент;37499001133;10000;10000" },
+    { "click": "role=button[name=\"Загрузить вставленное\"]" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Загрузить\"]" },
+    { "wait": 300 },
+    { "screenshot": "right-after-click" },
+    { "wait": 1500 },
+    { "screenshot": "1.5s-after" }
+  ]
+}

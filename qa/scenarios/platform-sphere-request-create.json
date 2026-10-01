@@ -1,0 +1,27 @@
+[
+  {
+    "route": "/platform/sphere-requests",
+    "persona": "platform",
+    "device": "phone",
+    "steps": [
+      { "wait": 600 },
+      { "click": "[data-fab]" },
+      { "click": "role=button[name=\"Создать заявку\"]" },
+      { "expectVisible": "text=Укажите имя мастера" },
+      { "screenshot": "validation-errors" },
+      { "fill": "[role=dialog] input >> nth=0", "value": "Артур Тестов" },
+      { "fill": "[role=dialog] input[type=tel]", "value": "55123456" },
+      { "fill": "[role=dialog] input[placeholder=\"Например: тату-мастер\"]", "value": "Мойщик машин" },
+      { "screenshot": "form-filled" },
+      { "click": "role=button[name=\"Создать заявку\"]" },
+      { "wait": 600 },
+      { "expectText": "Заявка создана" },
+      { "expectText": "Артур Тестов" },
+      { "screenshot": "after-save" },
+      { "goto": "/platform/sphere-requests" },
+      { "wait": 700 },
+      { "expectText": "Артур Тестов" },
+      { "screenshot": "after-reload" }
+    ]
+  }
+]

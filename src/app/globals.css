@@ -1,0 +1,319 @@
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+@import '../styles/polish.css';
+
+/* Тёмная тема по атрибуту на <html>, а не по системной настройке */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Стандартная палитра Tailwind выключена: доступны ТОЛЬКО токены ниже */
+@theme {
+  --color-*: initial;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-line: var(--line);
+  --color-border-strong: var(--border-strong);
+  --color-overlay: var(--overlay);
+
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-text: var(--primary-text);
+  --color-primary-contrast: var(--primary-contrast);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-focus: var(--focus);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
+
+  --shadow-xs: var(--sh-xs);
+  --shadow-sm: var(--sh-sm);
+  --shadow-md: var(--sh-md);
+  --shadow-lg: var(--sh-lg);
+  --shadow-xl: var(--sh-xl);
+
+  --font-sans: var(--font-noto-sans), var(--font-noto-armenian), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-in: fade-in 160ms ease-out both;
+  --animate-scale-in: scale-in 160ms ease-out both;
+  --animate-slide-up: slide-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-slide-left: slide-left 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-slide-right: slide-right 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pulse-soft: pulse-soft 1.4s ease-in-out infinite;
+  /* Полоска «страница открывается» (NavPendingFeedback): быстро до трети, дальше всё медленнее — только transform */
+  --animate-nav-progress: nav-progress 2.4s cubic-bezier(0.1, 0.7, 0.2, 1) both;
+}
+
+@keyframes nav-progress {
+  from { transform: scaleX(0); }
+  15% { transform: scaleX(0.35); }
+  to { transform: scaleX(0.92); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes slide-left {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-right {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  *, ::before, ::after {
+    border-color: var(--border);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+  button, [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled, [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * Ссылки внутри строк таблиц и карточек списка (Table): текст цвета ссылки без подчёркивания — строка не выглядит
+ * как страница 2005 года; подчёркивание — только при наведении и фокусе с клавиатуры (фокус ещё и с рамкой, см. base).
+ * Перебивает `underline` у отдельной ячейки (селектор с потомком сильнее одного класса). Кнопки-ссылки
+ * (LinkButton, data-variant) не трогаем.
+ */
+@utility row-links {
+  & a:not([data-variant]) {
+    text-decoration-line: none;
+  }
+  & a:not([data-variant]):hover,
+  & a:not([data-variant]):focus-visible {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: currentColor;
+  }
+  & a:not([data-variant]):focus-visible {
+    border-radius: 4px;
+  }
+}
+
+/* Нижний отступ под панель вкладок телефона и «чёлку» */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/*
+ * Переходы страниц (View Transitions API через React <ViewTransition>, см. src/shell/workspace/PageTransition.tsx).
+ * Только opacity и transform. Верхняя полоса и левое меню стоят на месте (свои имена, без анимации).
+ * Главное правило (owner 30.09.2026: «после каждого перехода мигает»): между страницами НЕТ провала в пустой фон и
+ * нет двух страниц одновременно (owner 29.09.2026: «всё наливается друг на друга»). Поэтому:
+ * - пункт меню, кнопка «назад» браузера — смена мгновенная, без анимации: новая страница встаёт за один кадр
+ *   (загружена заранее, сразу в своём точном скелете или с данными из кэша);
+ * - вглубь (карточка → страница) и «Назад» — старая исчезает сразу, новая приезжает на 24 px сбоку, непрозрачная.
+ */
+:root {
+  --vt-enter: 200ms;
+  --vt-move: 220ms;
+  --vt-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition {
+  pointer-events: none;
+}
+/* Всё, что не названо отдельно, — одним снимком root. Браузер по умолчанию сводит старый и новый root crossfade'ом
+   250 мс — две страницы просвечивают одна сквозь другую. Смена — мгновенная (кроме сворачивания меню, ниже) */
+html:not(.vt-sidebar)::view-transition-old(root),
+html:not(.vt-sidebar)::view-transition-new(root) {
+  animation: none;
+}
+/* Новая страница ещё ждёт данные (PageTransition → vt-hold): на экране остаётся старая, новая скрыта под ней.
+   Класс снимают, как только данные пришли, — анимации исчезают, и переход сразу заканчивается живой страницей */
+html.vt-hold::view-transition-old(root) {
+  animation: 300ms step-end both vt-hold-show;
+}
+html.vt-hold::view-transition-new(root) {
+  animation: 300ms step-end both vt-hold-hide;
+  opacity: 0;
+}
+@keyframes vt-hold-show {
+  from, to { opacity: 1; }
+}
+@keyframes vt-hold-hide {
+  from, to { opacity: 0; }
+}
+::view-transition-old(.page-forward),
+::view-transition-old(.page-back) {
+  animation: none;
+  opacity: 0;
+}
+::view-transition-new(.page-forward) {
+  --vt-offset: 24px;
+  animation: var(--vt-move) var(--vt-ease) both vt-slide-in;
+}
+::view-transition-new(.page-back) {
+  --vt-offset: -24px;
+  animation: var(--vt-move) var(--vt-ease) both vt-slide-in;
+}
+/* Общий элемент (SharedTransition): карточка → окно */
+::view-transition-group(.shared) {
+  animation-duration: var(--vt-move);
+  animation-timing-function: var(--vt-ease);
+}
+/* Каркас не движется: без анимации и поверх уезжающего содержимого */
+::view-transition-group(shell-topbar),
+::view-transition-group(shell-tabbar),
+::view-transition-group(shell-sidebar) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(shell-topbar),
+::view-transition-old(shell-tabbar),
+::view-transition-old(shell-sidebar) {
+  display: none;
+}
+::view-transition-new(shell-topbar),
+::view-transition-new(shell-tabbar),
+::view-transition-new(shell-sidebar) {
+  animation: none;
+}
+/* Свернуть/развернуть левое меню (src/shell/workspace/sidebarTransition.ts): полоса меню и верхняя полоса меняют
+   ширину/место плавно — браузер ведёт рамку снимка (UA-анимация группы), снимки не растягиваются, а обрезаются рамкой
+   и сменяются crossfade. */
+html.vt-sidebar::view-transition-group(shell-sidebar),
+html.vt-sidebar::view-transition-group(shell-topbar) {
+  animation: revert;
+  animation-duration: var(--vt-move);
+  animation-timing-function: var(--vt-ease);
+  overflow: clip;
+}
+html.vt-sidebar::view-transition-old(shell-sidebar),
+html.vt-sidebar::view-transition-new(shell-sidebar),
+html.vt-sidebar::view-transition-old(shell-topbar),
+html.vt-sidebar::view-transition-new(shell-topbar) {
+  display: block;
+  inline-size: auto;
+  block-size: 100%;
+  object-fit: none;
+  object-position: left top;
+  animation: revert;
+  animation-duration: var(--vt-enter);
+  animation-timing-function: var(--vt-ease);
+}
+html.vt-sidebar::view-transition-old(root),
+html.vt-sidebar::view-transition-new(root) {
+  animation-duration: var(--vt-enter);
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+}
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+@keyframes vt-slide-in {
+  from { transform: translateX(var(--vt-offset)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Переходы страниц — только короткий crossfade, без сдвигов */
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-name: vt-fade-out !important;
+    animation-duration: 120ms !important;
+    animation-delay: 0s !important;
+  }
+  ::view-transition-new(*) {
+    animation-name: vt-fade-in !important;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+  }
+  ::view-transition-new(shell-topbar),
+  ::view-transition-new(shell-tabbar),
+  ::view-transition-new(shell-sidebar) {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

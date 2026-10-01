@@ -1,0 +1,656 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:49:29.714Z",
+  "summary": {
+    "pages": 13,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 13
+    },
+    "dataF": [
+      "F-11-079",
+      "F-11-081",
+      "F-11-082",
+      "F-11-083",
+      "F-11-087",
+      "F-11-094",
+      "F-11-095",
+      "F-11-097",
+      "F-11-100",
+      "F-11-102",
+      "F-11-104",
+      "F-11-108",
+      "F-11-109",
+      "F-11-111",
+      "F-11-114",
+      "F-11-116",
+      "F-11-117",
+      "F-11-118",
+      "F-11-120"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/network/services",
+      "url": "http://localhost:3710/biz/network/services?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2737,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-079",
+        "F-11-095"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-services__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/services/subdivisions",
+      "url": "http://localhost:3710/biz/network/services/subdivisions?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2920,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-094"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-services-subdivisions__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/services/migration",
+      "url": "http://localhost:3710/biz/network/services/migration?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3134,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-087"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-services-migration__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/services/new",
+      "url": "http://localhost:3710/biz/network/services/new?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3123,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-081",
+        "F-11-082",
+        "F-11-083"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-services-new__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/staff",
+      "url": "http://localhost:3710/biz/network/staff?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2763,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-097",
+        "F-11-100"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-staff__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/staff/migration",
+      "url": "http://localhost:3710/biz/network/staff/migration?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1318,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-102"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-staff-migration__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/staff/positions",
+      "url": "http://localhost:3710/biz/network/staff/positions?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2775,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-104"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-staff-positions__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/staff/off-days",
+      "url": "http://localhost:3710/biz/network/staff/off-days?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2696,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-108"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-staff-off-days__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/staff/payroll",
+      "url": "http://localhost:3710/biz/network/staff/payroll?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2558,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 421,
+        "innerWidth": 421,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-109"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-staff-payroll__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/goods",
+      "url": "http://localhost:3710/biz/network/goods?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2370,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-111",
+        "F-11-114"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-goods__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/goods/migration",
+      "url": "http://localhost:3710/biz/network/goods/migration?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1147,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-116",
+        "F-11-117"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-goods-migration__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/goods/archive",
+      "url": "http://localhost:3710/biz/network/goods/archive?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2162,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-118"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-goods-archive__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/network/goods/stock",
+      "url": "http://localhost:3710/biz/network/goods/stock?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2227,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:338:97)\n    at readCore (http://localhost:3710/_next/static/chunks/src_16321gz._.js:30:138)\n    at networkBusinesses (http://localhost:3710/_next/static/chunks/src_0fr0rqp._.js:4225:152)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:338:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_16321gz._.js:17:138)\n    at getNetworkGoodsStock (http://localhost:3710/_next/static/chunks/src_0fr0rqp._.js:5005:155)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-120"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/network/shots-b03-hy/biz-network-goods-stock__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

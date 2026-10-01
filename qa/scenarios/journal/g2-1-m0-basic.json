@@ -1,0 +1,27 @@
+[
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"screenshot": "01-initial"},
+      {"click": "[data-f=\"F-01-024\"] >> nth=0"},
+      {"wait": 400},
+      {"screenshot": "02-after-empty-cell-click"}
+    ]
+  },
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "text=Неделя"},
+      {"wait": 400},
+      {"screenshot": "03-week-menu"}
+    ]
+  },
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "[data-f=\"F-01-011\"]"},
+      {"wait": 400},
+      {"screenshot": "04-day-summary"}
+    ]
+  }
+]

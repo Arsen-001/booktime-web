@@ -1,0 +1,12 @@
+import { start, stop, open, go, text, shot, db } from './lib.mjs';
+await start();
+const { page } = await open('client', '/', { device: 'phone' });
+console.log('--- home\n' + (await text(page)).slice(0,3000));
+const d = await db(page);
+console.log(Object.keys(d), Object.keys(d.core));
+const u = d.core.appUsers; console.log('appUsers', u.length, JSON.stringify(u.slice(0,2)).slice(0,600));
+const mine = d.core.bookings.filter(b => /bk_008/.test(b.id));
+console.log(JSON.stringify(mine.map(b=>({id:b.id,st:b.status,start:b.start,staff:b.staffId,src:b.source,client:b.clientId,app:b.appUserId}))));
+console.log(Object.keys(d.areas.client));
+console.log('ERR', page.errors.slice(0,5));
+await stop();

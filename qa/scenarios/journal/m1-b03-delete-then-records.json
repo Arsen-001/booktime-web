@@ -1,0 +1,47 @@
+[
+  {
+    "route": "/biz/journal?date=2026-10-20",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "click": "[data-testid='booking-block'] >> nth=0" },
+      { "wait": 400 },
+      { "click": "role=button[name=\"Удалить\"]" },
+      { "wait": 700 },
+      { "screenshot": "deleted-toast" },
+      { "goto": "/biz/records" },
+      { "wait": 500 },
+      { "screenshot": "records-with-deleted" }
+    ]
+  },
+  {
+    "route": "/biz/journal?date=2026-10-20",
+    "persona": "owner",
+    "device": "phone",
+    "lang": "ru",
+    "steps": [
+      { "click": "[data-testid='booking-block'] >> nth=0" },
+      { "wait": 400 },
+      { "click": "role=button[name=\"Удалить\"]" },
+      { "wait": 700 },
+      { "screenshot": "deleted-toast-phone" },
+      { "goto": "/biz/records" },
+      { "wait": 500 },
+      { "screenshot": "records-with-deleted-phone" }
+    ]
+  },
+  {
+    "route": "/biz/journal?date=2026-10-20",
+    "persona": "master",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "master-view" },
+      { "goto": "/biz/records" },
+      { "wait": 500 },
+      { "screenshot": "master-records" }
+    ]
+  }
+]

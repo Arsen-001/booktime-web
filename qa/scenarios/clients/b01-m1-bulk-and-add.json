@@ -1,0 +1,31 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":700},
+    {"click":"table tbody tr >> nth=0 >> input[type=checkbox]"},
+    {"click":"table tbody tr >> nth=1 >> input[type=checkbox]"},
+    {"wait":200},
+    {"expectText":"Отмечено: 2"},
+    {"click":"role=button[name=\"Действия\"]"},
+    {"wait":200},
+    {"screenshot":"m1-10-bulk-menu-open-2-selected"}
+  ]},
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":700},
+    {"click":"role=button[name=\"Добавить клиента\"]"},
+    {"wait":300},
+    {"screenshot":"m1-11-add-client-sheet-open"},
+    {"fill":"input[placeholder=\"Как зовут клиента\"]","value":"QA Тест Клиент 26"},
+    {"fill":"input[placeholder*=\"XX XXX\"], .flex.w-full.items-stretch input","value":"00199999"},
+    {"screenshot":"m1-12-add-client-filled"},
+    {"click":"role=button[name=\"Добавить\"]"},
+    {"wait":700},
+    {"screenshot":"m1-13-after-add-client-panel"},
+    {"press":"Escape"},
+    {"wait":300},
+    {"expectText":"1–25 из 26"},
+    {"screenshot":"m1-14-pagination-after-26"},
+    {"click":"role=button[name=\"Следующая страница\"]"},
+    {"wait":300},
+    {"screenshot":"m1-15-pagination-page-2"}
+  ]}
+]

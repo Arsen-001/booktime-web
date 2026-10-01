@@ -1,0 +1,821 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:27:54.375Z",
+  "summary": {
+    "pages": 12,
+    "consoleErrors": 6,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 40,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-009",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-018",
+      "F-01-019",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-214",
+      "F-01-215",
+      "F-03-123"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ui",
+      "url": "http://localhost:3710/dev/ui?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1234,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/dev-ui__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "UI-кит · Azat"
+    },
+    {
+      "route": "/dev/ui",
+      "url": "http://localhost:3710/dev/ui?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1237,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/dev-ui__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "UI-кит · Azat"
+    },
+    {
+      "route": "/dev/ui/a",
+      "url": "http://localhost:3710/dev/ui/a?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1204,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-a__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/dev-ui-a__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "UI-кит A · Azat"
+    },
+    {
+      "route": "/dev/ui/a",
+      "url": "http://localhost:3710/dev/ui/a?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2038,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead."
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ScrollAndMaybeFocusHandler cacheNode={{rsc:Promise, ...}}>\n      <InnerScrollHandlerNew focusAndScrollRef"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-a__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/dev-ui-a__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "UI-кит A · Azat"
+    },
+    {
+      "route": "/dev/ui/b",
+      "url": "http://localhost:3710/dev/ui/b?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2107,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead."
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ScrollAndMaybeFocusHandler cacheNode={{rsc:Promise, ...}}>\n      <InnerScrollHandlerNew focusAndScrollRef"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-b__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/dev-ui-b__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "UI-кит · оверлеи и данные · Azat"
+    },
+    {
+      "route": "/dev/ui/b",
+      "url": "http://localhost:3710/dev/ui/b?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2096,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead."
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ScrollAndMaybeFocusHandler cacheNode={{rsc:Promise, ...}}>\n      <InnerScrollHandlerNew focusAndScrollRef"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-b__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/dev-ui-b__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "UI-кит · оверлеи и данные · Azat"
+    },
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1055,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-c__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/dev-ui-c__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    },
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1044,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ui-c__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/dev-ui-c__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1205,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "12:30–12:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "10:00–10:20Снятие покрытия",
+          "w": 196,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 196,
+          "h": 21,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 12,
+      "dataF": [
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-214",
+        "F-01-215"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/biz-journal__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/biz-journal__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1369,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "12:30–12:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 28,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-214",
+        "F-01-215"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/biz-journal__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/online",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/online?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1345,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-03-123"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ext-bookingWindow-online__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/final-a/dev-ext-bookingWindow-online__owner-nails-ru-light-phone__full.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/online",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/online?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1330,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-03-123"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-a/dev-ext-bookingWindow-online__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/final-a/dev-ext-bookingWindow-online__owner-nails-ru-light-desktop__full.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

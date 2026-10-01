@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "[data-testid='booking-block']" },
+    { "wait": 300 },
+    { "screenshot": "before-delete" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 500 },
+    { "expectText": "Удалено" },
+    { "screenshot": "toast-with-undo" },
+    { "goto": "/biz/records" },
+    { "wait": 400 },
+    { "screenshot": "records-all-with-deleted" }
+  ]
+}

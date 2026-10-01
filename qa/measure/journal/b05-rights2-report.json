@@ -1,0 +1,91 @@
+{
+  "steps": [
+    {
+      "name": "выбран сотрудник = вошедший admin",
+      "ok": true,
+      "detail": "Лилит Мкртчян"
+    },
+    {
+      "name": "viewStaffScope вернули на \"Все сотрудники\"",
+      "ok": true
+    },
+    {
+      "name": "historyLimit=1 день выбран (для F-01-180)",
+      "ok": true
+    },
+    {
+      "name": "право \"Показывать номера телефонов\" = false",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "name": "право \"Изменять записи\" = true",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "право \"Доступ на редактирование оплаченной записи в статусе «Клиент пришел»\" = false",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "name": "право \"Удалять записи\" = true",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "право \"Удаление оплаченных записей\" = false",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "name": "право \"Изменять сотрудника и время записи\" = true",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "право \"Перенос записи (перетаскивание в сетке)\" = false",
+      "ok": true,
+      "detail": false
+    },
+    {
+      "name": "число видимых записей на сегодня в журнале",
+      "ok": true,
+      "detail": 13
+    },
+    {
+      "name": "F-01-179: телефон в списке поиска клиента замаскирован (bullet or X)",
+      "ok": false,
+      "detail": {
+        "hasBullet": false,
+        "hasX": false
+      }
+    },
+    {
+      "name": "найдена запись со статусом \"Пришёл\" в моковой базе",
+      "ok": true,
+      "detail": {
+        "id": "bk_2923",
+        "businessId": "biz_atam",
+        "paidAmount": 0
+      }
+    },
+    {
+      "name": "окно оплаченной=\"false\" записи \"Пришёл\" открыто по прямой ссылке",
+      "ok": true,
+      "detail": {
+        "commentDisabled": false
+      }
+    },
+    {
+      "name": "в базе не нашлось ОПЛАЧЕННОЙ записи \"Пришёл\" — проверили только статус без оплаты (не полный охват editArrivedPaid)",
+      "ok": false,
+      "detail": {
+        "id": "bk_2923",
+        "businessId": "biz_atam",
+        "paidAmount": 0
+      }
+    }
+  ],
+  "consoleErrors": []
+}

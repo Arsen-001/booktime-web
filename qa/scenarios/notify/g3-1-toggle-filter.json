@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/notifications",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=radio[name=\"Администратору\"]" },
+      { "wait": 300 },
+      { "screenshot": "filter-admin" },
+      { "click": "role=radio[name=\"Все\"]" },
+      { "wait": 200 },
+      { "click": "role=switch[name=/Клиент записался онлайн/]" },
+      { "wait": 300 },
+      { "screenshot": "after-toggle-off" },
+      { "goto": "/biz/notifications" },
+      { "wait": 400 },
+      { "screenshot": "after-reload" }
+    ]
+  }
+]

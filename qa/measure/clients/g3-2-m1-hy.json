@@ -1,0 +1,198 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T18:14:51.186Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 2
+    },
+    "dataF": [
+      "F-00-126",
+      "F-00-127",
+      "F-00-128",
+      "F-00-129",
+      "F-00-130",
+      "F-00-131",
+      "F-00-132",
+      "F-04-038",
+      "F-04-039",
+      "F-04-040",
+      "F-04-057",
+      "F-04-062",
+      "F-04-066",
+      "F-04-067",
+      "F-04-068",
+      "F-04-071",
+      "F-04-073",
+      "F-04-074",
+      "F-04-075",
+      "F-04-076",
+      "F-04-123",
+      "F-04-124",
+      "F-04-125",
+      "F-04-135",
+      "F-04-136",
+      "F-04-137",
+      "F-04-163",
+      "F-04-165",
+      "F-04-185",
+      "F-04-195",
+      "F-04-200",
+      "F-04-202",
+      "F-04-211",
+      "F-04-212",
+      "F-04-214",
+      "F-04-222",
+      "F-04-226"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients/cl_001",
+      "url": "http://localhost:3710/biz/clients/cl_001?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1445,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-128",
+        "F-00-129",
+        "F-00-130",
+        "F-00-132",
+        "F-04-057",
+        "F-04-062",
+        "F-04-066",
+        "F-04-067",
+        "F-04-068",
+        "F-04-071",
+        "F-04-073",
+        "F-04-074",
+        "F-04-075",
+        "F-04-076",
+        "F-04-135",
+        "F-04-136",
+        "F-04-137",
+        "F-04-165",
+        "F-04-195",
+        "F-04-200",
+        "F-04-202",
+        "F-04-211",
+        "F-04-212",
+        "F-04-214",
+        "F-04-226"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/clients-g3-2-hy/biz-clients-cl-001__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/clients/summary",
+      "url": "http://localhost:3710/biz/clients/summary?demo=owner&empty=0&sphere=nails&lang=hy&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1214,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-126",
+        "F-00-127",
+        "F-00-131",
+        "F-04-038",
+        "F-04-039",
+        "F-04-040",
+        "F-04-123",
+        "F-04-124",
+        "F-04-125",
+        "F-04-163",
+        "F-04-185",
+        "F-04-222"
+      ],
+      "armenianFont": {
+        "checked": false,
+        "ok": false,
+        "reason": "на экране нет армянского текста",
+        "fonts": []
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/clients-g3-2-hy/biz-clients-summary__owner-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

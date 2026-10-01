@@ -1,0 +1,58 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "screenshot": "01-form-opened" },
+      { "click": "[role=dialog] button:has-text(\"Добавить\")" },
+      { "wait": 400 },
+      { "screenshot": "02-empty-validation" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Тестклиент Пробный" },
+      { "screenshot": "03-name-filled-code-default" },
+      { "fill": "input[type=tel]", "value": "77001122" },
+      { "screenshot": "04-phone-masked" },
+      { "click": "text=Дополнительные параметры" },
+      { "wait": 300 },
+      { "screenshot": "05-custom-fields-open" },
+      { "click": "[role=dialog] button:has-text(\"Добавить поле\")" },
+      { "fill": "input[placeholder]:visible >> nth=-1", "value": "Марка авто" },
+      { "wait": 200 },
+      { "screenshot": "06-custom-field-added" },
+      { "click": "[role=dialog] button:has-text(\"Добавить\")" },
+      { "wait": 800 },
+      { "screenshot": "07-after-save" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Дубль Тест" },
+      { "fill": "input[type=tel]", "value": "00160001" },
+      { "click": "[role=dialog] button:has-text(\"Добавить\")" },
+      { "wait": 600 },
+      { "screenshot": "08-duplicate-phone-error" }
+    ]
+  }
+]

@@ -1,0 +1,187 @@
+[
+  {
+    "route": "/biz/notifications/types/74",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type74-before" },
+      { "click": "role=combobox >> nth=2" },
+      { "wait": 150 },
+      { "screenshot": "type74-threshold-menu" },
+      { "click": "role=option[name=\"Более 30 мин\"]" },
+      { "wait": 400 },
+      { "click": "role=combobox >> nth=3" },
+      { "wait": 150 },
+      { "click": "role=option[name=\"Сотрудник изменил запись\"]" },
+      { "wait": 400 },
+      { "screenshot": "type74-after-set" },
+      { "goto": "/biz/notifications/types/74" },
+      { "wait": 400 },
+      { "screenshot": "type74-after-reload" },
+      { "expectVisible": "text=\"Более 30 мин\"" },
+      { "expectVisible": "text=\"Сотрудник изменил запись\"" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/73",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type73-before" },
+      { "click": "label:has-text(\"в выбранное время\")" },
+      { "wait": 200 },
+      { "screenshot": "type73-specific-time-shown" },
+      { "goto": "/biz/notifications/types/73" },
+      { "wait": 400 },
+      { "screenshot": "type73-after-reload" },
+      { "expectVisible": "text=/14:00/" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/1",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type1-before" },
+      { "click": "role=combobox >> nth=2" },
+      { "wait": 150 },
+      { "screenshot": "type1-hours-menu" },
+      { "click": "role=option[name=\"3 ч\"]" },
+      { "wait": 400 },
+      { "screenshot": "type1-after-hours" },
+      { "click": "label:has-text(\"Другое время для Email\")" },
+      { "wait": 300 },
+      { "screenshot": "type1-email-time-shown" },
+      { "goto": "/biz/notifications/types/1" },
+      { "wait": 400 },
+      { "expectVisible": "text=\"3 ч\"" },
+      { "screenshot": "type1-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/3",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type3-before" },
+      { "click": "role=combobox >> nth=2" },
+      { "wait": 150 },
+      { "click": "role=option[name=\"За 5 дн. до дня рождения\"]" },
+      { "wait": 400 },
+      { "goto": "/biz/notifications/types/3" },
+      { "wait": 400 },
+      { "expectVisible": "text=\"За 5 дн. до дня рождения\"" },
+      { "screenshot": "type3-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/17",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type17-before" },
+      { "click": "role=combobox >> nth=2" },
+      { "wait": 150 },
+      { "click": "role=option[name=\"7 дн. до сгорания\"]" },
+      { "wait": 400 },
+      { "goto": "/biz/notifications/types/17" },
+      { "wait": 400 },
+      { "expectVisible": "text=\"7 дн. до сгорания\"" },
+      { "screenshot": "type17-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/55",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type55-before" },
+      { "click": "role=combobox >> nth=2" },
+      { "wait": 150 },
+      { "screenshot": "type55-menu" },
+      { "click": "role=option[name=\"7 дн. после визита\"]" },
+      { "wait": 400 },
+      { "goto": "/biz/notifications/types/55" },
+      { "wait": 400 },
+      { "expectVisible": "text=\"7 дн. после визита\"" },
+      { "screenshot": "type55-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/72",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type72-before" },
+      { "click": "role=combobox >> nth=3" },
+      { "wait": 150 },
+      { "screenshot": "type72-status-menu" },
+      { "click": "role=option[name=\"Клиент не пришёл\"]" },
+      { "wait": 400 },
+      { "goto": "/biz/notifications/types/72" },
+      { "wait": 400 },
+      { "expectVisible": "text=\"Клиент не пришёл\"" },
+      { "screenshot": "type72-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/6",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "type6-before" },
+      { "click": "label:has-text(\"На локацию\")" },
+      { "wait": 300 },
+      { "goto": "/biz/notifications/types/6" },
+      { "wait": 400 },
+      { "screenshot": "type6-after-reload" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "settings-before" },
+      { "click": "role=combobox[name=/Язык уведомлений/i]" },
+      { "wait": 150 },
+      { "click": "role=option[name=\"English\"]" },
+      { "wait": 400 },
+      { "screenshot": "settings-lang-en" },
+      { "click": "role=combobox[name=/Формат даты/i]" },
+      { "wait": 150 },
+      { "click": "role=option[name=/12-часовой/]" },
+      { "wait": 400 },
+      { "goto": "/biz/notifications/types/2/templates" },
+      { "wait": 400 },
+      { "screenshot": "settings-after-reload" }
+    ]
+  }
+]

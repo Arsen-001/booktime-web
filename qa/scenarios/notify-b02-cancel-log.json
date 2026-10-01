@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-testid=booking-block]" },
+    { "wait": 300 },
+    { "click": "button[aria-label=Удалить]" },
+    { "wait": 600 },
+    { "goto": "/biz/notifications/log" },
+    { "wait": 300 },
+    { "screenshot": "log-after-cancel" }
+  ]
+}

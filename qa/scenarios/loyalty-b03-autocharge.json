@@ -1,0 +1,20 @@
+{
+  "route": "/dev/ext/serviceCard/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=switch[name=\"Автоматическое списание с абонементов\"]" },
+    { "wait": 300 },
+    { "screenshot": "autocharge-enabled" },
+    { "fill": "input[type=number]", "value": "24" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Настройка автосписания сохранена" },
+    { "goto": "/dev/ext/serviceCard/loyalty" },
+    { "wait": 500 },
+    { "screenshot": "autocharge-after-reload" },
+    { "expectVisible": "input[type=number]" }
+  ]
+}

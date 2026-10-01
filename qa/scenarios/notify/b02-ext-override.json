@@ -1,0 +1,22 @@
+{
+  "route": "/dev/ext/bookingWindow/notify",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=combobox >> nth=0" },
+    { "wait": 200 },
+    { "click": "text=\"За 3 ч\"" },
+    { "wait": 250 },
+    { "click": "role=checkbox >> nth=2" },
+    { "wait": 250 },
+    { "screenshot": "before-save" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "screenshot": "after-save-toast" },
+    { "goto": "/dev/ext/bookingWindow/notify" },
+    { "wait": 500 },
+    { "screenshot": "after-reload" }
+  ]
+}

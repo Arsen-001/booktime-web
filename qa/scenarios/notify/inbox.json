@@ -1,0 +1,21 @@
+{
+  "route": "/biz/notifications/inbox",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "all" },
+    { "click": "role=radio[name=\"Удалённые\"]" },
+    { "wait": 300 },
+    { "screenshot": "deleted-filter" },
+    { "click": "role=radio[name=\"Все\"]" },
+    { "wait": 300 },
+    { "screenshot": "back-to-all" },
+    { "click": "role=button[name=\"Прочитать все\"]" },
+    { "wait": 400 },
+    { "screenshot": "after-mark-all-read" }
+  ]
+}

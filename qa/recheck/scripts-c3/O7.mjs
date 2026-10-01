@@ -1,0 +1,16 @@
+import { start, stop, open, go, as, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/online');
+const T = async (n=1200) => (await text(page, 'body')).slice(0, n);
+const linkHref = await page.locator('main a[href^="/biz/online/links/"]').filter({ hasText: 'Настроить' }).first().getAttribute('href');
+await go(page, linkHref);
+const order = async () => { const t = await T(20000); const i = t.indexOf('Порядок шагов'); return t.slice(i, i + 200).split('\n').slice(2, 5).join(' > '); };
+console.log('order before', await order());
+await page.getByRole('button', { name: 'Переместить ниже' }).first().click(); await page.waitForTimeout(400);
+console.log('order after move', await order());
+await page.getByRole('button', { name: 'Сохранить' }).last().click(); await page.waitForTimeout(1200); console.log('toasts', await toasts(page));
+await reload(page); console.log('order after reload', await order());
+await as(page, 'guest', '/b/nuri-nail-studio/book'); await page.getByRole('button', { name: 'Индивидуальная запись' }).click(); await page.waitForTimeout(1000);
+console.log('widget:', (await T(600)).split('\n').slice(0, 12).join(' | '));
+await shot(page, 'O7-widget-order');
+await stop();

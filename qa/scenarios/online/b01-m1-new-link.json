@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/online",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 900 },
+      { "click": "role=button[name=\"Новая ссылка\"]" },
+      { "wait": 400 },
+      { "screenshot": "1-sheet-open" },
+      { "expectVisible": "[data-f=\"F-03-005\"]" },
+      { "expectVisible": "[data-f=\"F-03-006\"]" },
+      { "fill": "[data-f=\"F-03-006\"] input[maxlength=\"60\"]", "value": "Тестовая ссылка m1" },
+      { "screenshot": "2-filled" },
+      { "click": "role=button[name=\"Создать\"]" },
+      { "wait": 900 },
+      { "screenshot": "3-after-create" },
+      { "expectText": "Тестовая ссылка m1" }
+    ]
+  }
+]

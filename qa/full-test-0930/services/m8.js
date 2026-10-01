@@ -1,0 +1,13 @@
+const page = state.m;
+await L.as(page, 'platform');
+await L.go(page, '/platform/moderation'); await page.waitForTimeout(1500);
+const row = page.locator('tr', { hasText: 'Фото мастера · Ани Саргсян' });
+log('rows', await row.count());
+await row.getByRole('button', { name: 'Отклонить — выбрать причину' }).click(); await page.waitForTimeout(600);
+await page.getByText('Плохое качество фото').click(); await page.waitForTimeout(1500);
+await L.as(page, 'owner');
+await L.go(page, '/biz/services/photos'); await page.waitForTimeout(2000);
+const t = await page.innerText('main');
+log('statuses:', t.match(/Одобрено|На проверке|Отклонено[^\n]*/g));
+log('reason shown:', t.includes('Плохое качество фото'));
+await L.shot(page, 'services', 'ph02-after-reject');

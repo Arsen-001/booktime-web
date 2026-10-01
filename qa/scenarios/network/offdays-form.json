@@ -1,0 +1,13 @@
+{
+  "route": "/biz/network/staff/off-days",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "offdays-list" },
+    { "click": "role=button[name=\"Добавить тип\"]" },
+    { "wait": 400 },
+    { "screenshot": "offdays-new-form" }
+  ]
+}

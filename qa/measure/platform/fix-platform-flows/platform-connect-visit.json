@@ -1,0 +1,427 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:34:58.770Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-019",
+      "F-00-176"
+    ],
+    "scenarioSteps": {
+      "ok": 41,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1414,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-019",
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "00-start"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__00-start.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Начать подключение\"] >> nth=0"
+          },
+          "ok": true,
+          "ms": 792
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 901
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "01-salon-empty"
+          },
+          "ok": true,
+          "ms": 66,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-empty.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 192
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 8,
+          "step": {
+            "expectVisible": "text=Укажите название салона"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 9,
+          "step": {
+            "expectVisible": "text=Выберите сферу — от неё зависят услуги"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "01-salon-errors"
+          },
+          "ok": true,
+          "ms": 67,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-errors.png"
+        },
+        {
+          "i": 11,
+          "step": {
+            "fill": "input[placeholder=\"Например: Nail Studio Ева\"]",
+            "value": "Салон Визит QA"
+          },
+          "ok": true,
+          "ms": 9
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "role=button[name=\"Маникюр\"]"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 13,
+          "step": {
+            "fill": "input[type=tel] >> nth=0",
+            "value": "91234567"
+          },
+          "ok": true,
+          "ms": 7
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "01-salon-filled"
+          },
+          "ok": true,
+          "ms": 86,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-filled.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 386
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 901
+        },
+        {
+          "i": 17,
+          "step": {
+            "expectVisible": "text=Я сейчас на месте работы"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "02-place"
+          },
+          "ok": true,
+          "ms": 58,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__02-place.png"
+        },
+        {
+          "i": 19,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 399
+        },
+        {
+          "i": 20,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 901
+        },
+        {
+          "i": 21,
+          "step": {
+            "screenshot": "03-photos"
+          },
+          "ok": true,
+          "ms": 63,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__03-photos.png"
+        },
+        {
+          "i": 22,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 394
+        },
+        {
+          "i": 23,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 901
+        },
+        {
+          "i": 24,
+          "step": {
+            "screenshot": "04-masters"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__04-masters.png"
+        },
+        {
+          "i": 25,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 389
+        },
+        {
+          "i": 26,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 902
+        },
+        {
+          "i": 27,
+          "step": {
+            "expectText": "Маникюр классический"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 28,
+          "step": {
+            "screenshot": "05-services"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__05-services.png"
+        },
+        {
+          "i": 29,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 376
+        },
+        {
+          "i": 30,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 902
+        },
+        {
+          "i": 31,
+          "step": {
+            "expectText": "Выходной"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 32,
+          "step": {
+            "screenshot": "06-hours"
+          },
+          "ok": true,
+          "ms": 76,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__06-hours.png"
+        },
+        {
+          "i": 33,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 370
+        },
+        {
+          "i": 34,
+          "step": {
+            "wait": 900
+          },
+          "ok": true,
+          "ms": 901
+        },
+        {
+          "i": 35,
+          "step": {
+            "expectText": "30 дней"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 36,
+          "step": {
+            "screenshot": "07-summary"
+          },
+          "ok": true,
+          "ms": 56,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__07-summary.png"
+        },
+        {
+          "i": 37,
+          "step": {
+            "click": "role=button[name=\"Подключить салон\"]"
+          },
+          "ok": true,
+          "ms": 792
+        },
+        {
+          "i": 38,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 39,
+          "step": {
+            "expectText": "«Салон Визит QA» подключён"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 40,
+          "step": {
+            "expectText": "Что сказать владельцу"
+          },
+          "ok": true,
+          "ms": 1
+        },
+        {
+          "i": 41,
+          "step": {
+            "screenshot": "08-handoff"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__08-handoff.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__00-start.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-empty.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-errors.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__01-salon-filled.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__02-place.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__03-photos.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__04-masters.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__05-services.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__06-hours.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__07-summary.png",
+        "qa/measure/platform/fix-platform-flows/platform-connect__platform-nails-ru-light-phone__08-handoff.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

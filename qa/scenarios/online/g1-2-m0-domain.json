@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/online/widget",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "role=tab[name=\"Адреса и номера\"]" },
+      { "wait": 400 },
+      { "fill": "input[placeholder=\"beauty-spa\"]", "value": "a" },
+      { "wait": 200 },
+      { "screenshot": "01-invalid-short" },
+      { "fill": "input[placeholder=\"beauty-spa\"]", "value": "nuri-nails-studio" },
+      { "wait": 200 },
+      { "screenshot": "02-valid-subdomain" },
+      { "click": "role=button[name=\"Сохранить\"] >> nth=0" },
+      { "wait": 500 },
+      { "screenshot": "03-saved-domain" }
+    ]
+  }
+]

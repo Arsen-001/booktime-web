@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+const page = await ctx.newPage();
+await page.goto('http://localhost:3710/b/nuri-nail-studio/booking/bk_mugp5av6c37ncw?h=mugp5av8glf44gkq5idz6f&persona=guest');
+await page.waitForTimeout(2500);
+await page.screenshot({ path: 'qa/shots/online/g1-2-m1/cancel-reschedule/7-reload-after-cancel.png', fullPage: true });
+const text = await page.locator('body').innerText();
+console.log(text.slice(0, 300));
+await browser.close();
+release();

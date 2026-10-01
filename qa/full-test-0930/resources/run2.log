@@ -1,0 +1,29 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+=== ./s3-actions.mjs
+FAIL package create page.waitForURL: Timeout 20000ms exceeded.
+FAIL package add services locator.click: Timeout 30000ms exceeded.
+core keys [ 'bp-mock-db:core:services' ]
+pkg stored: "sphereId":"hair","name":{"ru":"Праздничная укладка","hy":"Տոնական հարդարում","en":"Occasion styling"},"kind":"individual","durationMin":60,"priceMin":10000,"photos":[],"materials":[],"staffIds":["st_shushan"],"workplaces":["home","visit"],"onlineBookable":true,"active":true,"order":4},{"id":"pkg_muohucga201dwz","businessId":"biz_nuri","categoryId":"cat_nuri_mani","sphereId":"nails","name":{"ru":"QA Пакет"},"kind":"individual","durationMin":0,"priceMin":0,"photos":[],"materials":[],"staffIds":[],"workplaces":["salon"],"onlineBookable":false,"active":true,"order":1790796237707,"servicePackage":{"items":[],"mode":"sequentialAny"}}]
+QA Пакет on public page count: 0
+OK package in online widget
+OK package in journal service picker
+interval entry wishes: []
+OK waitlist interval
+journal url: http://localhost:3710/biz/journal?new=1&waitlist=wl_muohwxnthxqudl&name=QA+Интервал&phone=+37491000222&services=sv_nuri_classic
+booking window has name: 0 phone input: 0
+OK waitlist book → journal prefilled
+after create url http://localhost:3710/biz/resources
+list has QA Кресло: 2
+OK resource create
+errors: [
+  'Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).'
+]
+=== ./s4-groups.mjs
+desktop groups text: Групповые Групповые услуги и события — тренировки, мастер-классы, онлайн-занятия Настройки групповых событий Новое событие Групповые услуги 2 Ближайшие события 6 56 мест всего Групповые услуги Функциональная тренировка в группе 10 мест 1 ч Растяжка в группе 8 мест 1 ч Ближайшие события Серия Функциональная тренировка в группе 01.10.2026 · 19:00 · Арман Геворгян Серия Растяжка в группе 03.10.2026 · 11:00 · Арман Геворгян Серия Функциональная тренировка в группе 06.10.2026 · 19:00 · Арман Геворгян
+FAIL open event locator.click: Timeout 30000ms exceeded.
+FAIL add participant locator.click: Timeout 30000ms exceeded.
+OK journal shows event
+errors []
+phone groups text: Групповые Групповые услуги и события — тренировки, мастер-классы, онлайн-занятия Настройки групповых событий Групповые услуги 2 Ближайшие события 6 56 мест всего Групповые услуги Функциональная тренировка в группе 10 мест 1 ч Растяжка в группе 8 мест 1 ч Ближайшие события Серия Функциональная тренировка в группе 01.10.2026 · 19:00 · Арман Геворгян Серия Растяжка в группе 03.10.2026 · 11:00 · Арман Геворгян Серия Функциональная тренировка в группе 06.10.2026 · 19:00 · Арман Геворгян Серия Функцио
+errors []
+ALL DONE

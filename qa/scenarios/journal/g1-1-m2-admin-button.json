@@ -1,0 +1,13 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "expectVisible": "[data-f=\"F-01-001\"]" },
+    { "screenshot": "sidebar-before-click" }
+  ]
+}

@@ -1,0 +1,14 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+
+===== e2e-sync
+[online 0-before] 11 10:00,10:30,11:00,11:30 … 15:30,16:00,18:40
+[journal 0-before] "\n1 ждёт подтверждения\n\nКолонки\nОбзор\nЛента\nСписок\nАни Саргсян\n2 записи\nМариам Петросян\n1 запись\nГаяне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\n11:00\n12:00\n13:00\n14:0"
+[FAIL] e2e-sync locator.innerText: Error: strict mode violation: locator('[data-cell="st_nuri_ani|2026-10-08"]') resolved to 2 elements: /     1) <button type="button" aria-pressed="false" data-cell="st_nuri_ani|2026-10-08" class="block w-full touch-manipulation rounded-md select-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">…</button> aka locator('button').filter({ hasText: '810–19' }) /     2) <button type="button" aria-pressed="false" data-cell="st_nuri_ani|2026-10-08" class="block w-full touch-manipulation rounded-md select-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">…</button> aka getByRole('button', { name: 'чт, 8 октября · 10:00–19:00' }) /  / Call log: / [2m  - waiting for locator('[data-cell="st_nuri_ani|2026-10-08"]')[22m
+
+===== e2e-mode
+[online 0] 0  … 
+[calendar] "Мой календарь\n\nКакие часы видят клиенты и что занято\n\nРежим:\nВсё свободно\n·\nИзменить\n\nЗанято сегодня\n\nНажмите на час — клиенты его не увидят. Нажмите ещё раз — снова свободно\n\n10:00\n, Это время уже прошло\n11:00\n, Это время уже прошло\n12:00\n, Это время уже прошло\n13:00\n, Это время уже прошло\n14:00\n, Это время уже прошло\n15:00\n, Это время уже прошло\n16:00\n, Это время уже прошло\n17:00\n, Это время уже прошло\nЗагрузка месяца\n28 сентября – 4 октября\nПн, 28 сентября\n2 записи\n10:00–18:00\nВт, 29 сентября\n2 записи\nВ салоне не работает\nВыезд 11:00–19:00\nСр, 30 сентября\nсегодня\n3 записи\n10:00–18:00\nЧт, 1 октября\n2 записи\nВ салоне не работает\nВыезд 11:00–19:00\nПт, 2 октября\n4 записи\n10:00–18:00\nСб, 3 октября\n3 записи\n10:00–16:00\nВс, 4 октября\nВыходной\nСегодня: записи\n12:30\n\nАрмине Погосян\n\n14:15\n\nГоар Овсепян\n\n16:15\n\nГоар Оганесян"
+[no busy option visible]
+[after busy] "Мой календарь\n\nКакие часы видят клиенты и что занято\n\nРежим:\nВсё свободно\n·\nИзменить\n\nЗанято сегодня\n\nНажмите на час — клиенты его не увидят. Нажмите ещё раз — снова свободно\n\n10:00\n, Это время уже прошло\n11:00\n, Это время уже прошло\n12:00\n, Это время уже прошло\n13:00\n, Это время уже прошло\n14:00\n, Это время уже прошло\n15:00\n, Это время уже прошло\n16:00\n, Это время уже прошло\n17:00\n, Это время уже прошло\nЗагрузка месяца\n28 сентября – 4 октября\nПн, 28 сентября\n2 записи\n10:00–18:00\nВт, 29 сентября"
+[online 2-busy] 0  … 
+[errors] []

@@ -1,0 +1,16 @@
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+import { chromium } from '@playwright/test';
+const release = await acquireBrowserSlot();
+const b = await chromium.launch();
+const p = await b.newPage();
+await p.setViewportSize({ width: 1440, height: 900 });
+await p.goto('http://localhost:3710/biz/loyalty?demo=owner&sphere=nails&lang=ru&theme=light');
+await p.waitForTimeout(1200);
+const links = await p.locator('a[href^="/biz/loyalty/"]').evaluateAll(els => els.map(e => ({href: e.getAttribute('href'), text: e.textContent})));
+console.log('LINKS:', JSON.stringify(links, null, 2));
+await p.getByRole('link', { name: 'Настроить' }).first().click();
+await p.waitForTimeout(900);
+console.log('URL_AFTER_CARDS:', p.url());
+await p.screenshot({ path: 'qa/shots/loyalty-g1-2/hub-nav3/cards.png', fullPage: true });
+await b.close();
+release();

@@ -1,0 +1,12 @@
+{
+  "route": "/biz/journal/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-f=\"F-01-176\"] a, [data-f=\"F-01-176\"] button" },
+    { "wait": 400 },
+    { "screenshot": "settings-fio-link" }
+  ]
+}

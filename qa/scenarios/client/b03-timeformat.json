@@ -1,0 +1,16 @@
+{
+  "route": "/bookings",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "01-24h" },
+    { "goto": "/profile" },
+    { "wait": 500 },
+    { "click": "text=12 часов (AM/PM)" },
+    { "wait": 400 },
+    { "goto": "/bookings" },
+    { "wait": 600 },
+    { "screenshot": "02-12h" }
+  ]
+}

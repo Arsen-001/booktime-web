@@ -1,0 +1,15 @@
+import { start, stop, open, as, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', `/biz/notifications/inbox`, { device: 'desktop' });
+let d = await db(page); console.log('inboxRead before', (d.areas.notify.inboxRead.biz_nuri||[]).length);
+const unreadDots = async () => page.locator('main [data-unread="true"], main .bg-primary.rounded-full, main [aria-label*="Непрочитан"]').count();
+console.log('unread markers before', await unreadDots());
+await page.getByRole('button', { name: 'Прочитать все' }).click(); await page.waitForTimeout(1500);
+d = await db(page); console.log('inboxRead after', (d.areas.notify.inboxRead.biz_nuri||[]).length, 'markers', await unreadDots());
+await reload(page); console.log('markers after reload', await unreadDots());
+await shot(page, 'n6-inbox-after-readall');
+const b = d.core.bookings.find(x=>x.id==='bk_1941'); console.log('bk_1941', JSON.stringify(b && {start:b.start, staff:b.staffId, st:b.status, del:b.deletedAt, biz:b.businessId}));
+await as(page, 'owner', '/biz/journal?booking=bk_1941'); await page.waitForTimeout(1500);
+console.log('journal dialog', (await page.locator('[role=dialog]').last().innerText().catch(()=>'none')).slice(0,200).replace(/\n/g,' | '));
+await shot(page, 'n6-journal-open-booking');
+await stop();

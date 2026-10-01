@@ -1,0 +1,15 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+    { "wait": 250 },
+    { "click": "table tbody tr:nth-child(1) td:nth-child(4) button" },
+    { "wait": 250 },
+    { "screenshot": "strip-only" }
+  ]
+}

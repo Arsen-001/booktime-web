@@ -1,0 +1,28 @@
+{
+  "route": "/biz/notifications/channels/promotion",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "role=checkbox[name=/Показывать витрину/i]"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "06-gift-enabled"
+    },
+    {
+      "goto": "/biz/notifications/channels/promotion"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "07-gift-after-reload"
+    }
+  ]
+}

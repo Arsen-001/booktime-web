@@ -1,0 +1,16 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });
+page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
+await page.goto('http://localhost:3710/b/nuri-nail-studio?demo=guest&sphere=nails&lang=ru&theme=light', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1000);
+console.log(await page.locator('body').innerText());
+await page.screenshot({ path: 'qa/shots/online/g1-3-m1/f130-public.png', fullPage: true });
+console.log('errs', errs);
+await browser.close();
+release();

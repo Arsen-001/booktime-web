@@ -1,0 +1,50 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+
+===== s1d-z
+PREP: {"ok":"bk_4104","appUser":"au_01","total":2000}
+Z1 total: Итого за день | 95 000 ֏ | Наличные | 95 000 ֏ | Карта | 0 ֏ | Лояльность | 0 ֏ | Нелли Симонян | Гаяне Оганесян | 2 000 ֏ | Эмма Алексаня has Гаяне Товмасян: true
+bk_4104: ["arrived","2026-10-01T10:00","st_nuri_ani",2000,null] now Thu Oct 01 2026 02:01:22 GMT+0400 (Armenia Standard Time)
+ERRORS: [
+  'console: Failed to load resource: the server responded with a status of 500 (Internal Server Error)',
+  'pageerror: ./src/areas/stock/GoodPicker.tsx:189:9\n' +
+    "Error: Expected ',', got 'ident'\n" +
+    '  187 | /** «Добавить из списка»: выбор категории → отметить товары → «Добавить» (F-08-055) */\n' +
+    '  188 | export function GoodListPickerModal({\n' +
+    '> 189 |   const unitShort = useUnitShort();\n' +
+    '      |         ^^^^^^^^^\n' +
+    '  190 |   open,\n' +
+    '  191 |   onOpenChange,\n' +
+    '  192 |   goods,\n' +
+    '\n' +
+    'Parsing ecmascript source code failed\n' +
+    '\n' +
+    'Generated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/stock/GoodPicker.tsx:\n' +
+    './src/areas/stock/GoodPicker.tsx:189:9\n' +
+    '  187 | /** «Добавить из списка»: выбор категории → отметить товары → «Добавить» (F-08-055) */\n' +
+    '  188 | export function GoodListPickerModal({\n' +
+    '> 189 |   const unitShort = useUnitShort();\n' +
+    '      |         ^^^^^^^^^\n' +
+    '  190 |   open,\n' +
+    '  191 |   onOpenChange,\n' +
+    '  192 |   goods,\n' +
+    '\n' +
+    'Import traces:\n' +
+    '  Client Component Browser:\n' +
+    '    ./src/areas/stock/GoodPicker.tsx [Client Component Browser]\n' +
+    '    ./src/areas/stock/extensions/BookingWindow.tsx [Client Component Browser]\n' +
+    '    ./src/extensions/registry.ts [Client Component Browser]\n' +
+    '    ./src/extensions/useExtensions.ts [Client Component Browser]\n' +
+    '    ./src/areas/client/profile/ProfileScreen.tsx [Client Component Browser]\n' +
+    '    ./src/areas/client/profile/ProfileScreen.tsx [Server Component]\n' +
+    '    ./src/app/(client)/profile/page.tsx [Server Component]\n' +
+    '\n' +
+    '  Client Component SSR:\n' +
+    '    ./src/areas/stock/GoodPicker.tsx [Client Component SSR]\n' +
+    '    ./src/areas/stock/extensions/BookingWindow.tsx [Client Component SSR]\n' +
+    '    ./src/extensions/registry.ts [Client Component SSR]\n' +
+    '    ./src/extensions/useExtensions.ts [Client Component SSR]\n' +
+    '    ./src/areas/client/profile/ProfileScreen.tsx [Client Component SSR]\n' +
+    '    ./src/areas/client/profile/ProfileScreen.tsx [Server Component]\n' +
+    '    ./src/app/(client)/profile/page.tsx [Server Component]\n' +
+    '\n'
+]

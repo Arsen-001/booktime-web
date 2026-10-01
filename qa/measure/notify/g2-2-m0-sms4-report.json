@@ -1,0 +1,157 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:47:46.315Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-068",
+      "F-05-092",
+      "F-05-093",
+      "F-05-094",
+      "F-05-096",
+      "F-05-097",
+      "F-05-098",
+      "F-05-099",
+      "F-05-110"
+    ],
+    "scenarioSteps": {
+      "ok": 8,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/channels/sms",
+      "url": "http://localhost:3710/biz/notifications/channels/sms?demo=network&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 919,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-068",
+        "F-05-092",
+        "F-05-093",
+        "F-05-094",
+        "F-05-096",
+        "F-05-097",
+        "F-05-098",
+        "F-05-099",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "fill": "input[placeholder=\"AGG-XXXX-XXXX\"]",
+            "value": "AGG-TEST-1234"
+          },
+          "ok": true,
+          "ms": 22
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Подключить\"]"
+          },
+          "ok": true,
+          "ms": 443
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 4,
+          "step": {
+            "goto": "/biz/notifications/mailings/new"
+          },
+          "ok": true,
+          "ms": 691
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=SMS"
+          },
+          "ok": true,
+          "ms": 193
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 1200
+          },
+          "ok": true,
+          "ms": 1203
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "full-view"
+          },
+          "ok": true,
+          "ms": 43,
+          "screenshot": "qa/shots/notify-g2-2-m0-sms4/biz-notifications-channels-sms__network-nails-ru-light-desktop__full-view.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g2-2-m0-sms4/biz-notifications-channels-sms__network-nails-ru-light-desktop.png",
+        "qa/shots/notify-g2-2-m0-sms4/biz-notifications-channels-sms__network-nails-ru-light-desktop__full.png",
+        "qa/shots/notify-g2-2-m0-sms4/biz-notifications-channels-sms__network-nails-ru-light-desktop__full-view.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

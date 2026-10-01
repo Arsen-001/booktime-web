@@ -1,0 +1,8 @@
+[
+{ "route": "/book?staff=st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [ { "wait": 2000 }, { "click": "role=radio[name=/Маникюр классический/]" }, { "wait": 800 }, { "screenshot": "r5-book-service-picked" },
+    { "click": "role=button[name=\"Продолжить\"]" }, { "wait": 1500 }, { "screenshot": "r5-book-slot-step" },
+    { "click": "css=main .grid button >> nth=0" }, { "wait": 1500 }, { "screenshot": "r5-book-after-slot" } ] },
+{ "route": "/masters/st_nuri_ani", "persona": "guest", "lang": "ru", "device": "phone",
+  "steps": [ { "wait": 2000 }, { "click": "css=a[href*='slot='] >> nth=0" }, { "wait": 3000 }, { "screenshot": "r5-guest-from-slot" } ] }
+]

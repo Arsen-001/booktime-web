@@ -1,0 +1,19 @@
+{
+  "route": "/dev/ext/clientCard/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "before" },
+    { "click": "role=button[name=\"Пополнить\"]" },
+    { "fill": "role=dialog >> input", "value": "1500" },
+    { "screenshot": "modal-filled" },
+    { "click": "role=dialog >> role=button[name=\"Сохранить\"]" },
+    { "expectText": "Счёт пополнен" },
+    { "wait": 400 },
+    { "screenshot": "receipt" }
+  ]
+}

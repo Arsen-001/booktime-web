@@ -1,0 +1,15 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "role=button[name=\"Статус и оплата\"] >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "hovercard-open" },
+    { "click": "role=button[name=\"Пришёл\"] >> nth=0" },
+    { "wait": 300 },
+    { "expectText": "Статус изменён" },
+    { "screenshot": "hovercard-status-changed-toast" }
+  ]
+}

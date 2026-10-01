@@ -1,0 +1,12 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-testid=booking-block]" },
+    { "click": "text=Изменить" },
+    { "screenshot": "expanded" },
+    { "click": "button[aria-label=Удалить]" },
+    { "screenshot": "after-delete" }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+ "at": "2026-09-30T00:42:34.440Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/onboarding/restore",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/onboarding/restore?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 2715,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 3,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/r2c-biz-onboarding-restore/biz-onboarding-restore__phone__1-skeleton.png",
+    "qa/skeletons/shots/r2c-biz-onboarding-restore/biz-onboarding-restore__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false,
+   "boxes0": {
+    "at": 934,
+    "early": false,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 57,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 66,
+      "y": 8,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 340,
+      "y": 12,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 16,
+      "y": 209,
+      "w": 358,
+      "h": 198,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-15-012] «Email или телефонТот же »"
+     },
+     {
+      "x": 37,
+      "y": 256,
+      "w": 316,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 4,
+      "hint": "input.w-full.rounded-xl.border in [data-f=F-15-012]"
+     },
+     {
+      "x": 37,
+      "y": 342,
+      "w": 316,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 4,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-15-012] «Прислать код»"
+     }
+    ]
+   }
+  },
+  {
+   "route": "/biz/onboarding/restore",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/onboarding/restore?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "after": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "t": 3008,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.hidden.w-36.truncate «Нарине Акопян»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3008,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.w-36.truncate in [data-f=F-15-014] «Nuri Nail Studio»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3082,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 3,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/r2c-biz-onboarding-restore/biz-onboarding-restore__desktop__1-skeleton.png",
+    "qa/skeletons/shots/r2c-biz-onboarding-restore/biz-onboarding-restore__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false,
+   "boxes0": {
+    "at": 1085,
+    "early": false,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 900,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "aside.sticky.top-0.z-40 «BBookTimeКабинет бизнеса»"
+     },
+     {
+      "x": 16,
+      "y": 12,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 12,
+      "y": 760,
+      "w": 231,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "a.group/n.relative.flex «Быстрый старт»"
+     },
+     {
+      "x": 256,
+      "y": 0,
+      "w": 1184,
+      "h": 65,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 613,
+      "y": 12,
+      "w": 448,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 4,
+      "hint": "input.w-full.rounded-xl.border"
+     },
+     {
+      "x": 1192,
+      "y": 16,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 4,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 656,
+      "y": 230,
+      "w": 384,
+      "h": 202,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-15-012] «Email или телефонТот же »"
+     },
+     {
+      "x": 681,
+      "y": 281,
+      "w": 334,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 7,
+      "hint": "input.w-full.rounded-xl.border in [data-f=F-15-012]"
+     },
+     {
+      "x": 681,
+      "y": 367,
+      "w": 334,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 7,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-15-012] «Прислать код»"
+     }
+    ]
+   }
+  }
+ ]
+}

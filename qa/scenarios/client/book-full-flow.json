@@ -1,0 +1,22 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "guest",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "a[href^='/book']" },
+    { "wait": 500 },
+    { "screenshot": "book-screen" },
+    { "fill": "input[placeholder='Как к вам обращаться']", "value": "Тест Тестов" },
+    { "fill": "input[type='tel']", "value": "00123456" },
+    { "click": "text=Согласен" },
+    { "screenshot": "book-form-filled" },
+    { "click": "text=Получить код" },
+    { "wait": 600 },
+    { "screenshot": "book-code-step" },
+    { "fill": "input[inputmode='numeric']", "value": "0000" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 700 },
+    { "screenshot": "book-after-confirm" }
+  ]
+}

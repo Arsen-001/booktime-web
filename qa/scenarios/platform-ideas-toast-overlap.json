@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/platform/ideas",
+    "persona": "platform",
+    "device": "phone",
+    "steps": [
+      { "wait": 600 },
+      { "click": "li button:has-text(\"Фильтр клиентов\") >> nth=0" },
+      { "wait": 300 },
+      { "click": "[role=dialog] >> role=radio[name=\"Сделано\"]" },
+      { "wait": 300 },
+      { "expectText": "Отметить сделанным?" },
+      { "click": "role=button[name=\"Сделано, уведомить\"]" },
+      { "wait": 600 },
+      { "expectText": "получил уведомление" },
+      { "screenshot": "toast-and-banner" }
+    ]
+  }
+]

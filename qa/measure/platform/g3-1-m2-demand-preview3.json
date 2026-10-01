@@ -1,0 +1,97 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T00:25:49.473Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 9,
+    "consoleWarnings": 0,
+    "badResponses": 1,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/demand",
+      "url": "http://localhost:3710/platform/demand?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 811,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla",
+          "./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/Transla"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/app/biz/apps/page.tsx:1:1\nError: Module not found: Can't resolve '@/areas/client/translations/TranslationsScreen'\n> 1 | import { TranslationsScreen } from '@/areas/client/translations/TranslationsScreen';\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  2 |\n  3 | // /biz/apps — раздел «client»: перевод текстов мастера на en (F-00-174).\n  4 | export default function Page() {\n\nImport map: aliased to relative './src/areas/client/translations/TranslationsScreen' inside of [project]/\n\n\nhttps://nextjs.org/docs/messages/module-not-found\n\n\n    at <unknown> (Error: ./src/app/biz/apps/page.tsx:1:1)\n    at <unknown> (https://nextjs.org/docs/messages/module-not-found)\n    at Object.getCompilationErrors (file:///Users/arsen/WebstormProjects/booki"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/platform/demand",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Показать все запросы"
+          },
+          "ok": false,
+          "ms": 8066,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/measure/platform/g3-1-m2-demand-preview3/platform-demand__platform-nails-ru-light-desktop__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/g3-1-m2-demand-preview3/platform-demand__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/g3-1-m2-demand-preview3/platform-demand__platform-nails-ru-light-desktop__full.png",
+        "qa/measure/platform/g3-1-m2-demand-preview3/platform-demand__platform-nails-ru-light-desktop__fail-1.png"
+      ],
+      "title": ""
+    }
+  ]
+}

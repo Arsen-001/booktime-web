@@ -1,0 +1,23 @@
+{
+  "route": "/biz/notifications/types/2/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=\"Email\"" },
+    { "wait": 600 },
+    { "screenshot": "before-toggle" },
+    { "click": "text=\"Показывать дополнительную информацию\"" },
+    { "wait": 200 },
+    { "click": "textarea[placeholder='Свой текст...']" },
+    { "fill": "textarea[placeholder='Свой текст...']", "value": "Приходите за 10 минут" },
+    { "wait": 150 },
+    { "click": "text=\"С отступом\"" },
+    { "wait": 200 },
+    { "screenshot": "indent-and-text" },
+    { "click": "role=button[name=\"Предпросмотр письма\"]" },
+    { "wait": 400 },
+    { "screenshot": "preview-with-extra" }
+  ]
+}

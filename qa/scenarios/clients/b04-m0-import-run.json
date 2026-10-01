@@ -1,0 +1,13 @@
+[
+  {"route": "/biz/clients/import", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 400},
+     {"fill": "textarea", "value": "Name;Phone;Email;Gender;Date of birth\nAnna Petrosyan;37493123456;anna@test.com;F;15-03\nBad Phone;+374 93 111222;bad@test.com;1;01-01\nBad Email;37493222333;notanemail;2;05-06"},
+     {"click": "text=Загрузить вставленное"},
+     {"wait": 400},
+     {"screenshot": "mapping-step"},
+     {"click": "role=button[name=\"Загрузить\"]"},
+     {"wait": 700},
+     {"screenshot": "result-step"}
+   ]}
+]

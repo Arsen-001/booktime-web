@@ -1,0 +1,31 @@
+{
+  "route": "/biz/schedule/series",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=+ Новая серия" },
+    { "wait": 400 },
+    { "click": "role=combobox[name=\"Сотрудник\"]" },
+    { "wait": 250 },
+    { "click": "role=option >> nth=0" },
+    { "wait": 250 },
+    { "fill": "input[placeholder]:below(:text('Имя нового клиента'))", "value": "Тест Серия" },
+    { "wait": 100 },
+    { "click": "role=combobox[name=\"Услуга\"]" },
+    { "wait": 250 },
+    { "click": "role=option >> nth=0" },
+    { "wait": 250 },
+    { "screenshot": "form-filled" },
+    { "click": "text=Создать серию" },
+    { "wait": 500 },
+    { "screenshot": "creating-progress" },
+    { "wait": 4000 },
+    { "screenshot": "creating-progress-2" },
+    { "wait": 8000 },
+    { "screenshot": "after-create" }
+  ]
+}

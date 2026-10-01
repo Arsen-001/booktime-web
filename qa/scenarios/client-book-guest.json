@@ -1,0 +1,25 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "guest",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-00-123\"]" },
+    { "click": "css=a[href^='/book?staff=']" },
+    { "expectVisible": "[data-f=\"F-00-004 F-00-007 F-00-031 F-00-108 F-00-092\"]" },
+    { "click": "role=radio >> nth=0" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "screenshot": "book-guest-form" },
+    { "fill": "input[placeholder='Как к вам обращаться']", "value": "Тест Тестов" },
+    { "fill": "input[type='tel']", "value": "77123456" },
+    { "click": "role=checkbox" },
+    { "click": "role=button[name=\"Получить код\"]" },
+    { "expectVisible": "text=Код отправлен" },
+    { "fill": "input[inputmode='numeric']", "value": "0000" },
+    { "screenshot": "book-guest-code" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "expectText": "Запись создана" },
+    { "wait": 500 },
+    { "screenshot": "book-guest-done" }
+  ]
+}

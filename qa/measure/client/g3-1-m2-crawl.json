@@ -1,0 +1,1442 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:10:38.934Z",
+  "summary": {
+    "pages": 29,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-001",
+      "F-00-002",
+      "F-00-003",
+      "F-00-005",
+      "F-00-008",
+      "F-00-010",
+      "F-00-031",
+      "F-00-032",
+      "F-00-035",
+      "F-00-036",
+      "F-00-103",
+      "F-00-108",
+      "F-00-109",
+      "F-00-110",
+      "F-00-111",
+      "F-00-112",
+      "F-00-113",
+      "F-00-115",
+      "F-00-122",
+      "F-00-124",
+      "F-00-161",
+      "F-00-163",
+      "F-00-167",
+      "F-00-172",
+      "F-00-173",
+      "F-00-175",
+      "F-14-006",
+      "F-14-007",
+      "F-14-008",
+      "F-14-009",
+      "F-14-010",
+      "F-14-011",
+      "F-14-025",
+      "F-14-027",
+      "F-14-031",
+      "F-14-037",
+      "F-14-038",
+      "F-14-040",
+      "F-14-041",
+      "F-14-042",
+      "F-14-046",
+      "F-14-048",
+      "F-14-054",
+      "F-14-058",
+      "F-14-059",
+      "F-14-060",
+      "F-14-061",
+      "F-14-062",
+      "F-14-064"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/",
+      "url": "http://localhost:3710/?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 985,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-008",
+        "F-00-010",
+        "F-00-103",
+        "F-00-108",
+        "F-00-161",
+        "F-00-163",
+        "F-00-167",
+        "F-00-172",
+        "F-00-175",
+        "F-14-009",
+        "F-14-010",
+        "F-14-046",
+        "F-14-048"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/home__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/",
+      "url": "http://localhost:3710/?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 984,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-008",
+        "F-00-010",
+        "F-00-103",
+        "F-00-108",
+        "F-00-161",
+        "F-00-163",
+        "F-00-167",
+        "F-00-172",
+        "F-00-175",
+        "F-14-009",
+        "F-14-010",
+        "F-14-046",
+        "F-14-048"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/home__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1099,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-103",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-167"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/search__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 875,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-103",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-111",
+        "F-00-167"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/search__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/bookings",
+      "url": "http://localhost:3710/bookings?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1406,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-011",
+        "F-14-025"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/bookings__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/bookings",
+      "url": "http://localhost:3710/bookings?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2196,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-011",
+        "F-14-025"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/bookings__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/favorites",
+      "url": "http://localhost:3710/favorites?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 721,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-113",
+        "F-00-115",
+        "F-14-027",
+        "F-14-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/favorites__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/favorites",
+      "url": "http://localhost:3710/favorites?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 959,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-113",
+        "F-00-115",
+        "F-14-027",
+        "F-14-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/favorites__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/profile",
+      "url": "http://localhost:3710/profile?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1107,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-036",
+        "F-00-124",
+        "F-14-037",
+        "F-14-040",
+        "F-14-054",
+        "F-14-059",
+        "F-14-061",
+        "F-14-062"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/profile__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/profile",
+      "url": "http://localhost:3710/profile?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 714,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-036",
+        "F-00-124",
+        "F-14-037",
+        "F-14-040",
+        "F-14-054",
+        "F-14-059",
+        "F-14-061",
+        "F-14-062"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/profile__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/profile/notifications",
+      "url": "http://localhost:3710/profile/notifications?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 711,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-058",
+        "F-14-060",
+        "F-14-064"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/profile-notifications__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/profile/notifications",
+      "url": "http://localhost:3710/profile/notifications?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 893,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-058",
+        "F-14-060",
+        "F-14-064"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/profile-notifications__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/loyalty-cards",
+      "url": "http://localhost:3710/loyalty-cards?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 912,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-042",
+        "F-14-054"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/loyalty-cards__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/loyalty-cards",
+      "url": "http://localhost:3710/loyalty-cards?demo=client&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 894,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-042",
+        "F-14-054"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/loyalty-cards__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/memberships",
+      "url": "http://localhost:3710/memberships?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 710,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-037",
+        "F-14-038",
+        "F-14-041",
+        "F-14-042"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/memberships__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/certificates",
+      "url": "http://localhost:3710/certificates?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 910,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-040",
+        "F-14-041",
+        "F-14-042"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/certificates__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/diary",
+      "url": "http://localhost:3710/diary?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 948,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-122",
+        "F-00-173"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/diary__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps",
+      "url": "http://localhost:3710/biz/apps?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 906,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/stories",
+      "url": "http://localhost:3710/biz/apps/stories?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 813,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-stories__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/news",
+      "url": "http://localhost:3710/biz/apps/news?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 769,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-news__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/promotion",
+      "url": "http://localhost:3710/biz/apps/promotion?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 730,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-promotion__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/reminders",
+      "url": "http://localhost:3710/biz/apps/reminders?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 801,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-reminders__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/branded",
+      "url": "http://localhost:3710/biz/apps/branded?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 742,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-branded__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/apps/translations",
+      "url": "http://localhost:3710/biz/apps/translations?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 779,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 395,
+        "innerWidth": 395,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/biz-apps-translations__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/login",
+      "url": "http://localhost:3710/login?demo=guest&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 759,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-002",
+        "F-00-003",
+        "F-00-005",
+        "F-00-032",
+        "F-14-006",
+        "F-14-007",
+        "F-14-008"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/login__guest-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/login",
+      "url": "http://localhost:3710/login?demo=guest&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 787,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-002",
+        "F-00-003",
+        "F-00-005",
+        "F-00-032",
+        "F-14-006",
+        "F-14-007",
+        "F-14-008"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/login__guest-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/register-business",
+      "url": "http://localhost:3710/register-business?demo=guest&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 761,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-035"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/register-business__guest-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/bookings",
+      "url": "http://localhost:3710/bookings?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1170,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-14-011",
+        "F-14-025"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "[data-f] a, [data-f] button"
+          },
+          "ok": true,
+          "ms": 181
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 504
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "booking-detail"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/shots/g3-1-m2-crawl/bookings__client-nails-ru-light-phone__booking-detail.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/bookings__client-nails-ru-light-phone.png",
+        "qa/shots/g3-1-m2-crawl/bookings__client-nails-ru-light-phone__booking-detail.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 752,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-103",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-112",
+        "F-00-167"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "fill": "input[type=search], input[placeholder]",
+            "value": "Nuri"
+          },
+          "ok": true,
+          "ms": 24
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "search-query"
+          },
+          "ok": true,
+          "ms": 65,
+          "screenshot": "qa/shots/g3-1-m2-crawl/search__client-nails-ru-light-phone__search-query.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/g3-1-m2-crawl/search__client-nails-ru-light-phone.png",
+        "qa/shots/g3-1-m2-crawl/search__client-nails-ru-light-phone__search-query.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

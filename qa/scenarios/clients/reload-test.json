@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/clients/import",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "textarea", "value": "Name\tPhone\tTotal spent\tTotal paid\nReloadTest\t37493007777\t500\t500"},
+      {"click": "text=Загрузить вставленное"},
+      {"wait": 300},
+      {"click": "role=button[name=\"Загрузить\"]"},
+      {"wait": 1500},
+      {"goto": "/biz/clients"},
+      {"wait": 800},
+      {"fill": "input[placeholder*=\"номеру карты\"]", "value": "37493007777"},
+      {"wait": 500},
+      {"screenshot": "after-goto"}
+    ]
+  }
+]

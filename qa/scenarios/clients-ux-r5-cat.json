@@ -1,0 +1,6 @@
+[
+ {"route":"/biz/clients/categories","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить категорию\"]"},{"wait":800},{"screenshot":"add"}]},
+ {"route":"/biz/clients/categories","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить категорию\"]"},{"wait":800},{"screenshot":"add"},{"click":"role=button[name=\"Сохранить\"] >> nth=-1"},{"wait":400},{"screenshot":"add-empty-submit"}]},
+ {"route":"/biz/clients/categories","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button >> nth=-1"},{"wait":700},{"screenshot":"delete"}]},
+ {"route":"/biz/clients/summary","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"text=1 сентября"},{"wait":800},{"screenshot":"period"}]}
+]

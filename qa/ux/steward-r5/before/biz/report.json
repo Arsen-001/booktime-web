@@ -1,0 +1,548 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T01:51:51.472Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 40,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-129",
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-009",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-018",
+      "F-01-019",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220",
+      "F-04-001",
+      "F-04-002",
+      "F-04-003",
+      "F-04-006",
+      "F-04-007",
+      "F-04-009",
+      "F-04-010",
+      "F-04-011",
+      "F-04-012",
+      "F-04-013",
+      "F-04-014",
+      "F-04-015",
+      "F-04-016",
+      "F-04-037",
+      "F-04-157",
+      "F-04-187"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 29878,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "12:30–12:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "10:00–10:20Снятие покрытия",
+          "w": 196,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 196,
+          "h": 21,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 12,
+      "dataF": [
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r5/before/biz/biz-journal__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 28020,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "12:30–12:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 28,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r5/before/biz/biz-journal__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/clients",
+      "url": "http://localhost:3710/biz/clients?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 25458,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-129",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-016",
+        "F-04-037",
+        "F-04-157",
+        "F-04-187"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r5/before/biz/biz-clients__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/clients",
+      "url": "http://localhost:3710/biz/clients?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 28733,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-129",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-016",
+        "F-04-037",
+        "F-04-157",
+        "F-04-187"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r5/before/biz/biz-clients__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

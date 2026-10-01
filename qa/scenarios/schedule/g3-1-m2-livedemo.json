@@ -1,0 +1,27 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "expectVisible": "text=Проверить на реальных данных" },
+      { "screenshot": "01-slots-page" },
+      { "click": "main :text(\"Нарине Акопян\")" },
+      { "wait": 300 },
+      { "screenshot": "01b-staff-dropdown" },
+      { "click": "[role=option]:nth-child(2)" },
+      { "wait": 500 },
+      { "screenshot": "01c-staff2-selected" },
+      { "click": "button:has-text(\"Занять слот\")" },
+      { "wait": 500 },
+      { "expectText": "Занято" },
+      { "screenshot": "02-booked" },
+      { "click": "button:has-text(\"Освободить слот\")" },
+      { "wait": 500 },
+      { "screenshot": "03-freed" }
+    ]
+  }
+]

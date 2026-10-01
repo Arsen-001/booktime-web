@@ -1,0 +1,12 @@
+{
+  "route": "/diary",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "01-diary" },
+    { "click": "role=button[name=\"Добавить расход\"]" },
+    { "wait": 400 },
+    { "screenshot": "02-add-modal" }
+  ]
+}

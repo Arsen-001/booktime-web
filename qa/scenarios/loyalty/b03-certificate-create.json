@@ -1,0 +1,16 @@
+{
+  "route": "/biz/loyalty/certificates/types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "[data-f=\"F-06-087 F-06-088\"] input", "value": "Сертификат на 5000" },
+    { "screenshot": "filled-name" },
+    { "click": "role=radio[name=/Однократный/]" },
+    { "screenshot": "single-charge" },
+    { "click": "text=Сохранить" },
+    { "wait": 800 },
+    { "screenshot": "after-save" }
+  ]
+}

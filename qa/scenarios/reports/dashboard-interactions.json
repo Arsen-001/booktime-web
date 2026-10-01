@@ -1,0 +1,65 @@
+[
+  {
+    "route": "/biz/reports",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "role=button[name=\"Добавить в избранное\"]" },
+      { "wait": 300 },
+      { "screenshot": "02-favorited" },
+      { "click": "role=button[name=\"Помощь по разделу\"]" },
+      { "wait": 300 },
+      { "expectText": "Помощь по разделу" },
+      { "screenshot": "03-help-open" },
+      { "press": "Escape" },
+      { "click": "role=button[name=\"Основные показатели\"]" },
+      { "wait": 300 },
+      { "screenshot": "04-switcher-open" },
+      { "click": "role=menuitem[name=\"Визиты\"]" },
+      { "wait": 500 },
+      { "expectVisible": "[data-f=\"F-12-029\"]" },
+      { "screenshot": "05-switched-to-visits" }
+    ]
+  },
+  {
+    "route": "/biz/reports",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "text=Фильтры" },
+      { "wait": 300 },
+      { "screenshot": "06-filters-open" },
+      { "click": "text=Сбросить все" },
+      { "wait": 300 },
+      { "screenshot": "07-filters-reset" },
+      { "click": "role=button[name=\"Отмена\"]" },
+      { "wait": 300 },
+      { "click": "role=link[name=\"Настроить период потери\"]" },
+      { "wait": 700 },
+      { "screenshot": "08-lost-clients-link-target" }
+    ]
+  },
+  {
+    "route": "/biz/reports/churn",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "fill": "role=textbox[name=\"Считать потерянными клиентов, не посещавших более\"]", "value": "10" },
+      { "click": "text=Сохранить" },
+      { "wait": 500 },
+      { "screenshot": "09-churn-saved" },
+      { "goto": "/biz/reports" },
+      { "wait": 700 },
+      { "screenshot": "10-dashboard-after-churn-change" }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {
+      "wait": 500
+    },
+    {
+      "click": "role=button[name=\"Закрыть дни\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "click": "role=dialog >> role=button[name=\"Закрыть для записи\"]"
+    },
+    {
+      "expectText": "Выберите первый и последний день"
+    },
+    {
+      "screenshot": "error-under-field"
+    }
+  ]
+}

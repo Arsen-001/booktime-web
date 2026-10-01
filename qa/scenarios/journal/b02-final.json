@@ -1,0 +1,27 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "click": "text=Расширенные поля" },
+      { "wait": 300 },
+      { "screenshot": "expanded-open" },
+      { "fill": "textarea", "value": "Комментарий теста" },
+      { "wait": 200 },
+      { "click": "text=Сохранить пустую запись" },
+      { "wait": 600 },
+      { "screenshot": "after-save-empty" },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "click": "text=Отмена" },
+      { "wait": 300 },
+      { "screenshot": "after-cancel" }
+    ]
+  }
+]

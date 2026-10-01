@@ -1,0 +1,15 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "device": "desktop",
+  "steps": [
+    { "click": "table tbody tr:nth-child(1) input[type=checkbox]" },
+    { "expectVisible": "text=Выбрано" },
+    { "screenshot": "bulk-bar" },
+    { "click": "text=Быстрое управление" },
+    { "expectVisible": "text=Быстрое управление · 1 товар" },
+    { "screenshot": "quick-edit-modal" },
+    { "click": "text=Отмена" }
+  ]
+}

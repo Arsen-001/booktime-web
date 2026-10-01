@@ -1,0 +1,239 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T14:44:57.609Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 26,
+    "consoleWarnings": 0,
+    "badResponses": 4,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/online",
+      "url": "http://localhost:3710/biz/online?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 941,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces:\n  Client Component Browser:\n    ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx [Client Component Browser]\n    ./src/areas/payroll/scheme/SchemeEditor.tsx [Client Component Browser]\n    ./src/areas/payroll/extensions/StaffCard.tsx [Client Component Browser]\n    ./src/extensions/regi"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/online",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-gaps4/biz-online__master-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/online",
+      "url": "http://localhost:3710/biz/online?demo=owner&empty=1&sphere=nails&lang=ru&theme=light",
+      "persona": "owner-empty",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 942,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces:\n  Client Component Browser:\n    ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx [Client Component Browser]\n    ./src/areas/payroll/scheme/SchemeEditor.tsx [Client Component Browser]\n    ./src/areas/payroll/extensions/StaffCard.tsx [Client Component Browser]\n    ./src/extensions/regi"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/online",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-gaps4/biz-online__owner-empty-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/b/novyi-salon",
+      "url": "http://localhost:3710/b/novyi-salon?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 943,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces:\n  Client Component Browser:\n    ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx [Client Component Browser]\n    ./src/areas/payroll/scheme/SchemeEditor.tsx [Client Component Browser]\n    ./src/areas/payroll/extensions/StaffCard.tsx [Client Component Browser]\n    ./src/extensions/regi"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/b/novyi-salon",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-gaps4/b-novyi-salon__master-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/b/novyi-salon",
+      "url": "http://localhost:3710/b/novyi-salon?demo=owner&empty=1&sphere=nails&lang=ru&theme=light",
+      "persona": "owner-empty",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 740,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces",
+          "./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:\n./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx:58:1\n  56 |     </BlockCard>\n  57 |   );\n> 58 | }\n     | ^\n  59 |\n\nImport traces:\n  Client Component Browser:\n    ./src/areas/payroll/scheme/blocks/ExtraRevenueBlock.tsx [Client Component Browser]\n    ./src/areas/payroll/scheme/SchemeEditor.tsx [Client Component Browser]\n    ./src/areas/payroll/extensions/StaffCard.tsx [Client Component Browser]\n    ./src/extensions/regi"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/b/novyi-salon",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-gaps4/b-novyi-salon__owner-empty-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    }
+  ]
+}

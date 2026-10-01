@@ -1,0 +1,81 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "fill": "input[placeholder='Имя, телефон, email или номер карты']", "value": "878" },
+      { "wait": 900 },
+      { "expectText": "Найдено 1 из" },
+      { "screenshot": "search-878" },
+      { "fill": "input[placeholder='Имя, телефон, email или номер карты']", "value": "zzzz" },
+      { "wait": 900 },
+      { "expectText": "Никого не нашли" },
+      { "screenshot": "search-empty" },
+      { "click": "role=button[name=\"Сбросить фильтры\"] >> visible=true" },
+      { "wait": 600 },
+      { "click": "role=button[name=\"Добавить клиента\"]" },
+      { "wait": 500 },
+      { "click": "role=dialog >> role=button[name=\"Добавить\"]" },
+      { "expectText": "Укажите имя" },
+      { "screenshot": "add-errors" },
+      { "fill": "role=dialog >> input[placeholder='Как зовут клиента']", "value": "Лилит Проверка" },
+      { "fill": "role=dialog >> input[type=tel]", "value": "91234567" },
+      { "screenshot": "add-filled" },
+      { "click": "role=dialog >> role=button[name=\"Добавить\"]" },
+      { "expectText": "Лилит Проверка — в базе" },
+      { "wait": 800 },
+      { "screenshot": "add-saved" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "device": "desktop",
+    "steps": [
+      { "expectText": "Записать" },
+      { "click": "role=button[name=\"Ещё\"] >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "card-menu" },
+      { "click": "role=menuitem[name=\"Изменить\"]" },
+      { "wait": 600 },
+      { "expectText": "Изменить клиента" },
+      { "screenshot": "card-edit" },
+      { "click": "role=dialog >> role=button[name=\"Сохранить\"]" },
+      { "expectText": "Изменения сохранены" },
+      { "click": "role=tab[name=\"О клиенте\"]" },
+      { "wait": 500 },
+      { "screenshot": "card-about" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "device": "phone",
+    "steps": [
+      { "click": "role=tab[name=\"История визитов\"]" },
+      { "click": "role=button[name=\"Внести прошлый визит\"]" },
+      { "wait": 600 },
+      { "screenshot": "add-visit" },
+      { "click": "role=dialog >> role=button[name=\"Сохранить визит\"]" },
+      { "expectText": "Выберите мастера" },
+      { "screenshot": "add-visit-errors" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "phone",
+    "steps": [
+      { "click": "role=button[name=\"Выбрать\"]" },
+      { "click": "role=checkbox >> nth=0" },
+      { "click": "role=checkbox >> nth=1" },
+      { "wait": 400 },
+      { "expectText": "Написать" },
+      { "screenshot": "bulk" },
+      { "click": "role=button[name=\"Фильтры\"]" },
+      { "wait": 600 },
+      { "screenshot": "filters" }
+    ]
+  }
+]

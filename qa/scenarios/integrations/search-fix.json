@@ -1,0 +1,15 @@
+{
+  "route": "/biz/integrations",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 300 },
+    { "fill": "input[placeholder=\"Название или что нужно сделать\"]", "value": "чат" },
+    { "wait": 500 },
+    { "screenshot": "search-chat-fixed" },
+    { "fill": "input[placeholder=\"Название или что нужно сделать\"]", "value": "book" },
+    { "wait": 500 },
+    { "screenshot": "search-book-empty" }
+  ]
+}

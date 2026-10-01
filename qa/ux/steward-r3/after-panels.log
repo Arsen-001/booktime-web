@@ -1,0 +1,17 @@
+Замер: 2 стр. → qa/ux/steward-r3/after-panels/ (по 3 одновременно)
+  1/2  2/2
+страница   кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр
+─────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ────
+/dev/ui/c  owner  ru  тел   2     0    0      —      0    0       ·         1.5с
+/dev/ui/c  owner  ru  деск  2     0    0      —      0    0       ·         1.5с
+
+Итог: страниц 2 · ошибок консоли 4 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 0 · висит загрузка 0 · data-f 0 · шагов сценария ok 52, упало 0
+Отчёт: qa/ux/steward-r3/after-panels/report.json
+
+• /dev/ui/c [owner/ru/phone]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th
+
+• /dev/ui/c [owner/ru/desktop]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th

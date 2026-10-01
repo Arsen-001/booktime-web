@@ -1,0 +1,30 @@
+{
+  "route": "/",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "goto": "/profile" },
+    { "wait": 300 },
+    { "screenshot": "profile" },
+    { "click": "role=button[name=\"Изменить имя\"]" },
+    { "wait": 300 },
+    { "screenshot": "profile-name-modal" },
+    { "click": "role=button[name=\"Отмена\"]" },
+    { "wait": 200 },
+    { "goto": "/notifications" },
+    { "wait": 500 },
+    { "screenshot": "notifications" },
+    { "goto": "/memberships" },
+    { "wait": 500 },
+    { "screenshot": "memberships" },
+    { "goto": "/search" },
+    { "wait": 500 },
+    { "screenshot": "search" },
+    { "goto": "/bookings" },
+    { "wait": 500 },
+    { "screenshot": "bookings" }
+  ]
+}

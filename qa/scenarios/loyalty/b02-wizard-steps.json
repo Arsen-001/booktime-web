@@ -1,0 +1,28 @@
+{
+  "route": "/biz/loyalty/promotions/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-06-032\"]" },
+    { "fill": "input[placeholder=\"Введите название акции\"]", "value": "Тестовая акция" },
+    { "screenshot": "step1-name" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "expectVisible": "[data-f=\"F-06-033\"]" },
+    { "screenshot": "step2-kind" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "expectVisible": "[data-f=\"F-06-034\"]" },
+    { "screenshot": "step3-calc" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "expectVisible": "[data-f=\"F-06-035\"]" },
+    { "screenshot": "step4-rules" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "expectVisible": "[data-f=\"F-06-036\"]" },
+    { "screenshot": "step5-scope" },
+    { "click": "role=button[name=\"Назад\"]" },
+    { "expectVisible": "[data-f=\"F-06-035\"]" },
+    { "screenshot": "step4-back-preserved" }
+  ]
+}

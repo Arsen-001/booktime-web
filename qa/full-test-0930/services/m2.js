@@ -1,0 +1,13 @@
+const page = state.m;
+await L.as(page, 'owner');
+await L.go(page, '/biz/services'); await page.waitForTimeout(2000);
+const t = await page.innerText('main');
+log('catalog row:', t.match(/QA Маникюр 0930[^\n]*(\n[^\n]*){0,6}/)?.[0]);
+log('ERR', page.errors.splice(0));
+await L.shot(page, 'services', 'c01-catalog-desktop');
+await L.as(page, 'client');
+await L.go(page, '/b/nuri-nail-studio'); await page.waitForTimeout(2500);
+const o = await page.innerText('body');
+log('online has QA:', o.includes('QA Маникюр 0930'), o.match(/QA Маникюр 0930[^\n]*(\n[^\n]*){0,4}/)?.[0]);
+await L.shot(page, 'services', 'o01-online-page');
+log('ERR', page.errors.splice(0));

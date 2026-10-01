@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "fitness",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1200 },
+    { "click": "[data-f='F-01-024']" },
+    { "wait": 600 },
+    { "screenshot": "01-window-open" },
+    { "fill": "input[placeholder], input[type='search']", "value": "Групп" },
+    { "wait": 400 },
+    { "screenshot": "02-search-group" }
+  ]
+}

@@ -1,0 +1,2560 @@
+{
+ "at": "2026-09-27T05:25:32.792Z",
+ "total": 281,
+ "bad": [],
+ "notReached": [
+  "/claim/[token]",
+  "/b/[slug]/booking/[bookingId]",
+  "/b/[slug]/embed",
+  "/b/[slug]/f/[formId]",
+  "/b/[slug]/me",
+  "/biz/clients/consent/[clientId]",
+  "/biz/finance/receipt/[bookingId]",
+  "/biz/groups/events/[eventId]",
+  "/biz/integrations/developers/apps/[devAppId]",
+  "/biz/integrations/e/[code]",
+  "/biz/loyalty/cards/[cardId]",
+  "/biz/notifications/types/[typeId]/templates",
+  "/biz/onboarding/invite/[token]",
+  "/biz/onboarding/sphere-request/[requestId]",
+  "/biz/payroll/charts/[chartId]",
+  "/biz/payroll/criteria/[criterionId]",
+  "/biz/payroll/rules/[ruleId]",
+  "/biz/schedule/slots/[staffId]",
+  "/biz/stock/goods/[goodId]/price-tag",
+  "/biz/stock/operations/[docId]",
+  "/biz/stock/operations/[docId]/receipt",
+  "/dev/ext/[host]/[area]"
+ ],
+ "results": [
+  {
+   "route": "/biz/apps",
+   "url": "/biz/apps?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/branded",
+   "url": "/biz/apps/branded?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/",
+   "url": "/?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/events",
+   "url": "/biz/apps/events?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/news",
+   "url": "/biz/apps/news?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/payroll",
+   "url": "/biz/apps/payroll?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz",
+   "url": "/biz?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/promotion",
+   "url": "/biz/apps/promotion?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/reminders",
+   "url": "/biz/apps/reminders?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/reports",
+   "url": "/biz/apps/reports?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/services",
+   "url": "/biz/apps/services?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/stories",
+   "url": "/biz/apps/stories?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/team",
+   "url": "/biz/apps/team?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/translations",
+   "url": "/biz/apps/translations?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/apps/visit",
+   "url": "/biz/apps/visit?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing",
+   "url": "/biz/billing?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/checkout",
+   "url": "/biz/billing/checkout?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/checkout/result",
+   "url": "/biz/billing/checkout/result?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/invoices",
+   "url": "/biz/billing/invoices?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/manage",
+   "url": "/biz/billing/manage?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/seats",
+   "url": "/biz/billing/seats?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/terms",
+   "url": "/biz/billing/terms?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients",
+   "url": "/biz/clients?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/categories",
+   "url": "/biz/clients/categories?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/import",
+   "url": "/biz/clients/import?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/integrations",
+   "url": "/biz/clients/integrations?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/log",
+   "url": "/biz/clients/log?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/loyalty",
+   "url": "/biz/clients/loyalty?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/summary",
+   "url": "/biz/clients/summary?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/coins",
+   "url": "/biz/coins?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance",
+   "url": "/biz/finance?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/account-types",
+   "url": "/biz/finance/account-types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/adyen",
+   "url": "/biz/finance/adyen?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/accounts",
+   "url": "/biz/finance/accounts?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/counterparties",
+   "url": "/biz/finance/counterparties?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/documents",
+   "url": "/biz/finance/documents?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/fiscal",
+   "url": "/biz/finance/fiscal?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/items",
+   "url": "/biz/finance/items?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/methods",
+   "url": "/biz/finance/methods?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/online",
+   "url": "/biz/finance/online?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/online/link",
+   "url": "/biz/finance/online/link?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/online/orders",
+   "url": "/biz/finance/online/orders?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/online/prepayment",
+   "url": "/biz/finance/online/prepayment?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/policy",
+   "url": "/biz/finance/policy?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/reports",
+   "url": "/biz/finance/reports?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/settings",
+   "url": "/biz/finance/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/settlements",
+   "url": "/biz/finance/settlements?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/groups",
+   "url": "/biz/groups?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/groups/events/new",
+   "url": "/biz/groups/events/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/groups/settings",
+   "url": "/biz/groups/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations",
+   "url": "/biz/integrations?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/api",
+   "url": "/biz/integrations/api?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/api/status",
+   "url": "/biz/integrations/api/status?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/developers",
+   "url": "/biz/integrations/developers?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/developers/apps/new",
+   "url": "/biz/integrations/developers/apps/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/developers/help",
+   "url": "/biz/integrations/developers/help?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/installed",
+   "url": "/biz/integrations/installed?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/journal",
+   "url": "/biz/journal?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/journal/settings",
+   "url": "/biz/journal/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty",
+   "url": "/biz/loyalty?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/auto-apply",
+   "url": "/biz/loyalty/auto-apply?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/card-types",
+   "url": "/biz/loyalty/card-types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/card-types/new",
+   "url": "/biz/loyalty/card-types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/cards",
+   "url": "/biz/loyalty/cards?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/certificates/types",
+   "url": "/biz/loyalty/certificates/types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/certificates",
+   "url": "/biz/loyalty/certificates?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/certificates/types/new",
+   "url": "/biz/loyalty/certificates/types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/deposits",
+   "url": "/biz/loyalty/deposits?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/deposits/operations",
+   "url": "/biz/loyalty/deposits/operations?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/deposits/types",
+   "url": "/biz/loyalty/deposits/types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/memberships",
+   "url": "/biz/loyalty/memberships?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/memberships/types",
+   "url": "/biz/loyalty/memberships/types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/memberships/types/new",
+   "url": "/biz/loyalty/memberships/types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/online-sales",
+   "url": "/biz/loyalty/online-sales?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/online-sales/orders",
+   "url": "/biz/loyalty/online-sales/orders?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/online-sales/preview",
+   "url": "/biz/loyalty/online-sales/preview?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/promotions",
+   "url": "/biz/loyalty/promotions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/promotions/new",
+   "url": "/biz/loyalty/promotions/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/purchase-requests",
+   "url": "/biz/loyalty/purchase-requests?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/referral",
+   "url": "/biz/loyalty/referral?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/transactions",
+   "url": "/biz/loyalty/transactions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network",
+   "url": "/biz/network?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/analytics",
+   "url": "/biz/network/analytics?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/clients",
+   "url": "/biz/network/clients?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/clients/log",
+   "url": "/biz/network/clients/log?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods",
+   "url": "/biz/network/goods?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods/archive",
+   "url": "/biz/network/goods/archive?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods/migration",
+   "url": "/biz/network/goods/migration?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods/stock",
+   "url": "/biz/network/goods/stock?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/loyalty",
+   "url": "/biz/network/loyalty?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/new",
+   "url": "/biz/network/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/records",
+   "url": "/biz/network/records?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/services",
+   "url": "/biz/network/services?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/services/migration",
+   "url": "/biz/network/services/migration?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/services/subdivisions",
+   "url": "/biz/network/services/subdivisions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/settings",
+   "url": "/biz/network/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/settings/fields",
+   "url": "/biz/network/settings/fields?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/settings/plans",
+   "url": "/biz/network/settings/plans?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/settings/users",
+   "url": "/biz/network/settings/users?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff",
+   "url": "/biz/network/staff?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/migration",
+   "url": "/biz/network/staff/migration?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/new",
+   "url": "/biz/network/staff/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/off-days",
+   "url": "/biz/network/staff/off-days?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/payroll",
+   "url": "/biz/network/staff/payroll?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/positions",
+   "url": "/biz/network/staff/positions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/switch",
+   "url": "/biz/network/switch?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/telephony",
+   "url": "/biz/network/telephony?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications",
+   "url": "/biz/notifications?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels",
+   "url": "/biz/notifications/channels?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/balance",
+   "url": "/biz/notifications/channels/balance?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/catalog",
+   "url": "/biz/notifications/channels/catalog?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/developer",
+   "url": "/biz/notifications/channels/developer?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/email",
+   "url": "/biz/notifications/channels/email?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/promotion",
+   "url": "/biz/notifications/channels/promotion?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/sms",
+   "url": "/biz/notifications/channels/sms?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/channels/whatsapp",
+   "url": "/biz/notifications/channels/whatsapp?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/inbox",
+   "url": "/biz/notifications/inbox?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/log",
+   "url": "/biz/notifications/log?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/loyalty",
+   "url": "/biz/notifications/loyalty?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/mailings",
+   "url": "/biz/notifications/mailings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/mailings/new",
+   "url": "/biz/notifications/mailings/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding",
+   "url": "/biz/onboarding?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/pricing",
+   "url": "/biz/onboarding/pricing?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/quick-start",
+   "url": "/biz/onboarding/quick-start?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/restore",
+   "url": "/biz/onboarding/restore?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/sphere-request",
+   "url": "/biz/onboarding/sphere-request?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/spheres",
+   "url": "/biz/onboarding/spheres?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/onboarding/tour",
+   "url": "/biz/onboarding/tour?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online",
+   "url": "/biz/online?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/page",
+   "url": "/biz/online/page?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/places",
+   "url": "/biz/online/places?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/requests",
+   "url": "/biz/online/requests?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/settings",
+   "url": "/biz/online/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/widget",
+   "url": "/biz/online/widget?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll",
+   "url": "/biz/payroll?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/analytics",
+   "url": "/biz/payroll/analytics?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/bonuses",
+   "url": "/biz/payroll/bonuses?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/charts",
+   "url": "/biz/payroll/charts?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/criteria",
+   "url": "/biz/payroll/criteria?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/daily",
+   "url": "/biz/payroll/daily?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/me",
+   "url": "/biz/payroll/me?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/period",
+   "url": "/biz/payroll/period?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/rules",
+   "url": "/biz/payroll/rules?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/settings",
+   "url": "/biz/payroll/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/settlements",
+   "url": "/biz/payroll/settlements?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/setup",
+   "url": "/biz/payroll/setup?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/statement",
+   "url": "/biz/payroll/statement?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/reports/all",
+   "url": "/biz/reports/all?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/statement/new",
+   "url": "/biz/payroll/statement/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/records",
+   "url": "/biz/records?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources",
+   "url": "/biz/resources?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/assistants",
+   "url": "/biz/resources/assistants?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/new",
+   "url": "/biz/resources/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/packages",
+   "url": "/biz/resources/packages?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/reports",
+   "url": "/biz/reports?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/packages/new",
+   "url": "/biz/resources/packages/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule",
+   "url": "/biz/schedule?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/reports/churn",
+   "url": "/biz/reports/churn?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/reports/visits",
+   "url": "/biz/reports/visits?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule/history",
+   "url": "/biz/schedule/history?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule/series",
+   "url": "/biz/schedule/series?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule/slots",
+   "url": "/biz/schedule/slots?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule/calendar",
+   "url": "/biz/schedule/calendar?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services",
+   "url": "/biz/services?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/documents",
+   "url": "/biz/services/documents?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/categories/new",
+   "url": "/biz/services/categories/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/materials",
+   "url": "/biz/services/materials?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/photos",
+   "url": "/biz/services/photos?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/new",
+   "url": "/biz/services/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/schedule/templates",
+   "url": "/biz/schedule/templates?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/templates",
+   "url": "/biz/services/templates?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/add-location",
+   "url": "/biz/settings/add-location?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/account",
+   "url": "/biz/settings/account?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/brand",
+   "url": "/biz/settings/brand?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/contacts",
+   "url": "/biz/settings/contacts?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/categories",
+   "url": "/biz/settings/categories?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/gallery",
+   "url": "/biz/settings/gallery?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings",
+   "url": "/biz/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/help",
+   "url": "/biz/settings/help?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/history",
+   "url": "/biz/settings/history?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/languages",
+   "url": "/biz/settings/languages?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/legal",
+   "url": "/biz/settings/legal?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/mobile-app",
+   "url": "/biz/settings/mobile-app?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/sphere",
+   "url": "/biz/settings/sphere?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/settings/system",
+   "url": "/biz/settings/system?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff/log",
+   "url": "/biz/staff/log?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff/license",
+   "url": "/biz/staff/license?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff",
+   "url": "/biz/staff?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff/roles",
+   "url": "/biz/staff/roles?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff/positions",
+   "url": "/biz/staff/positions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/archive",
+   "url": "/biz/stock/archive?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock",
+   "url": "/biz/stock?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/equipment",
+   "url": "/biz/stock/equipment?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/clients",
+   "url": "/biz/stock/clients?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/equipment/new",
+   "url": "/biz/stock/equipment/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/goods/new",
+   "url": "/biz/stock/goods/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/import",
+   "url": "/biz/stock/import?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/inventory",
+   "url": "/biz/stock/inventory?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/inventory/new",
+   "url": "/biz/stock/inventory/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/mass-edit",
+   "url": "/biz/stock/mass-edit?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/operations/new/income",
+   "url": "/biz/stock/operations/new/income?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/operations/new/move",
+   "url": "/biz/stock/operations/new/move?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/operations",
+   "url": "/biz/stock/operations?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/operations/new/sale",
+   "url": "/biz/stock/operations/new/sale?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/operations/new/write-off",
+   "url": "/biz/stock/operations/new/write-off?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/order",
+   "url": "/biz/stock/order?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/price-tags",
+   "url": "/biz/stock/price-tags?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/settings",
+   "url": "/biz/stock/settings?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/reminders",
+   "url": "/biz/stock/reminders?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/reports",
+   "url": "/biz/stock/reports?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/settings/access",
+   "url": "/biz/stock/settings/access?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/tech-cards",
+   "url": "/biz/stock/tech-cards?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/tech-cards/new",
+   "url": "/biz/stock/tech-cards/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/warehouses",
+   "url": "/biz/stock/warehouses?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/warehouses/new",
+   "url": "/biz/stock/warehouses/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/book",
+   "url": "/book?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/waitlist",
+   "url": "/biz/waitlist?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/bookings",
+   "url": "/bookings?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/certificates",
+   "url": "/certificates?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/diary",
+   "url": "/diary?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/login",
+   "url": "/login?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/favorites",
+   "url": "/favorites?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/loyalty-cards",
+   "url": "/loyalty-cards?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/notifications",
+   "url": "/notifications?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/memberships",
+   "url": "/memberships?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/ads",
+   "url": "/platform/ads?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/connect",
+   "url": "/platform/connect?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/businesses",
+   "url": "/platform/businesses?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform",
+   "url": "/platform?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/login",
+   "url": "/platform/login?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/ideas",
+   "url": "/platform/ideas?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/demand",
+   "url": "/platform/demand?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/moderation",
+   "url": "/platform/moderation?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/plan",
+   "url": "/platform/plan?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/promocodes",
+   "url": "/platform/promocodes?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/sphere-requests",
+   "url": "/platform/sphere-requests?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/support",
+   "url": "/platform/support?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/platform/visits",
+   "url": "/platform/visits?demo=platform",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/profile/notifications",
+   "url": "/profile/notifications?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/register-business",
+   "url": "/register-business?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/profile",
+   "url": "/profile?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/search",
+   "url": "/search?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/certificates/[certificateId]",
+   "url": "/certificates/gft_mujdixo91z3zeu?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/masters/[staffId]",
+   "url": "/masters/st_kaytsak_david?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/memberships/[membershipId]",
+   "url": "/memberships/mem_mujdj2b7y92qxu?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/bookings/[bookingId]",
+   "url": "/bookings/bk_0086?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/places/[businessId]",
+   "url": "/places/biz_atam?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/stories/[storyId]",
+   "url": "/stories/sty_mujdc76xlmac94?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/billing/invoices/[invoiceId]",
+   "url": "/biz/billing/invoices/inv_mujdcgkfpolodj?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/b/[slug]",
+   "url": "/b/nuri-nail-studio?demo=client",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/clients/[clientId]",
+   "url": "/biz/clients/summary?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/documents/[documentId]",
+   "url": "/biz/finance/documents/doc_mujdcs9hnwq1ha?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/finance/operations/[operationId]",
+   "url": "/biz/finance/operations/op_mujdcplwn2mebg?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/card-types/[typeId]",
+   "url": "/biz/loyalty/card-types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/apps/[appId]",
+   "url": "/biz/integrations/apps/ia_13?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/integrations/category/[categoryId]",
+   "url": "/biz/integrations/category/notifications?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/certificates/[certId]",
+   "url": "/biz/loyalty/certificates/types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/certificates/types/[typeId]",
+   "url": "/biz/loyalty/certificates/types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/memberships/[membershipId]",
+   "url": "/biz/loyalty/memberships/types?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/memberships/types/[typeId]",
+   "url": "/biz/loyalty/memberships/types/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/loyalty/promotions/[promotionId]",
+   "url": "/biz/loyalty/promotions/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/clients/[phone]",
+   "url": "/biz/network/clients/log?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/services/[serviceId]",
+   "url": "/biz/network/services/subdivisions?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods/categories/[categoryId]",
+   "url": "/biz/network/goods/categories/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/goods/[productId]",
+   "url": "/biz/network/goods/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/staff/[staffId]",
+   "url": "/biz/network/staff/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/network/services/categories/[categoryId]",
+   "url": "/biz/network/services/categories/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/notifications/types/[typeId]",
+   "url": "/biz/notifications/types/17?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/online/links/[linkId]",
+   "url": "/biz/online/links/lnk_mujdecosj6aoul?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/packages/[packageId]",
+   "url": "/biz/resources/packages/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/resources/[resourceId]",
+   "url": "/biz/resources/packages?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/payroll/staff/[staffId]",
+   "url": "/biz/payroll/staff/st_nuri_owner?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/reports/r/[slug]",
+   "url": "/biz/reports/r/appointments?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/[serviceId]",
+   "url": "/biz/services/photos?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/services/categories/[categoryId]",
+   "url": "/biz/services/categories/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/equipment/[itemId]",
+   "url": "/biz/stock/equipment/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/staff/[staffId]",
+   "url": "/biz/staff/st_nuri_owner?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/goods/[goodId]",
+   "url": "/biz/stock/goods/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/inventory/[inventoryId]",
+   "url": "/biz/stock/inventory/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/tech-cards/[cardId]",
+   "url": "/biz/stock/tech-cards/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  },
+  {
+   "route": "/biz/stock/warehouses/[warehouseId]",
+   "url": "/biz/stock/warehouses/new?demo=owner",
+   "status": 200,
+   "bad": false,
+   "crashed": false,
+   "empty": false,
+   "errors": []
+  }
+ ]
+}

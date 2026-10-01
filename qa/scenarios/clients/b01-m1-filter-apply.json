@@ -1,0 +1,21 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":600},
+    {"click":"role=button[name=\"Фильтры\"]"},
+    {"wait":400},
+    {"click":"text=По клиентам"},
+    {"wait":300},
+    {"click":"text=Золото"},
+    {"wait":200},
+    {"click":"role=button[name=\"Найти\"]"},
+    {"wait":400},
+    {"screenshot":"m1-30-filter-gold-applied"},
+    {"click":"role=button[name=\"Фильтры (1)\"]"},
+    {"wait":300},
+    {"click":"text=По визитам"},
+    {"wait":200},
+    {"click":"text=Очистить группу"},
+    {"wait":300},
+    {"screenshot":"m1-31-visits-group-cleared-clients-group-kept"}
+  ]}
+]

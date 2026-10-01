@@ -1,0 +1,12 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Ани Мелкумян" },
+    { "expectText": "Продано" },
+    { "screenshot": "panel-open" },
+    { "key": "Escape" },
+    { "screenshot": "panel-closed" }
+  ]
+}

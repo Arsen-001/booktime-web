@@ -1,0 +1,32 @@
+{
+  "route": "/biz/loyalty/card-types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "fill": "input[placeholder=\"Например, «Карта постоянного клиента»\"]", "value": "Роундтрип b02" },
+    { "click": "role=radio[name=\"Выдавать в подключённых салонах\"]" },
+    { "click": "role=combobox >> nth=1" },
+    { "wait": 150 },
+    { "click": "role=option[name=\"30 дней\"]" },
+    { "click": "role=radio[name=\"Не для услуг\"]" },
+    { "click": "role=radio[name=\"Некоторые товары\"]" },
+    { "fill": "input[type=number][max=\"100\"]", "value": "50" },
+    { "click": "role=radio[name=\"Не отображать\"]" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 700 },
+    { "expectText": "Тип карты создан" },
+    { "goto": "/biz/loyalty/card-types" },
+    { "wait": 400 },
+    { "click": "text=Роундтрип b02" },
+    { "wait": 400 },
+    { "screenshot": "reloaded-values" },
+    { "expectText": "30 дней" },
+    { "screenshot": "burn-persisted" },
+    { "press": "End" },
+    { "wait": 200 },
+    { "screenshot": "reloaded-values-bottom" }
+  ]
+}

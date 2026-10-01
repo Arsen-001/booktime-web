@@ -1,0 +1,62 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "fill": "input[type=tel]", "value": "00160001" },
+      { "wait": 700 },
+      { "screenshot": "m2-phone-existing-suggest" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "fill": "input[type=tel]", "value": "99912345" },
+      { "wait": 500 },
+      { "screenshot": "m2-phone-new-client" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "fill": "input[type=tel]", "value": "999" },
+      { "wait": 300 },
+      { "click": "text=Сохранить пустую запись" },
+      { "wait": 700 },
+      { "screenshot": "m2-phone-incomplete-save" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "screenshot": "m2-master-persona-new" }
+    ]
+  }
+]

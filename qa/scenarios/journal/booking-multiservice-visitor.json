@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 400 },
+    { "click": "role=tab[name=\"Клиент\"]" },
+    { "wait": 400 },
+    { "screenshot": "client-tab-in-booking" }
+  ]
+}

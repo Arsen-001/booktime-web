@@ -1,0 +1,41 @@
+[
+  {
+    "route": "/biz/notifications/inbox",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 500 },
+      { "click": "role=tab[name=\"Новости сервиса\"]" },
+      { "wait": 300 },
+      { "screenshot": "news-tab-open" },
+      { "click": "text=Чат с поддержкой" },
+      { "wait": 400 },
+      { "screenshot": "support-chat-modal-open" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/inbox",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=tab[name=\"Новости сервиса\"]" },
+      { "wait": 300 },
+      { "screenshot": "news-tab-desktop" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings/new",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "mailing-new-open" }
+    ]
+  }
+]

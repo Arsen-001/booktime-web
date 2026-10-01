@@ -1,0 +1,31 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Баланс Тест" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "99009900" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "expectText": "Клиент добавлен" },
+    { "wait": 600 },
+    { "screenshot": "01-new-client-card" },
+    { "fill": "textarea[placeholder=\"Новый комментарий\"]", "value": "Комментарий измерителя b02" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "wait": 400 },
+    { "expectText": "Комментарий измерителя b02" },
+    { "screenshot": "02-comment-added" },
+    { "click": "role=button[name=\"Изменить\"]" },
+    { "fill": "role=textbox[name=\"Оплачено, ֏\"]", "value": "5000" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 400 },
+    { "screenshot": "03-paid-edited" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "expectText": "Удалить клиента?" },
+    { "click": "role=dialog >> role=button[name=\"Удалить\"]" },
+    { "expectText": "Клиент удалён" },
+    { "wait": 500 },
+    { "screenshot": "04-deleted-redirected-to-list" }
+  ]
+}

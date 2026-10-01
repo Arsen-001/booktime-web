@@ -1,0 +1,584 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T21:38:12.458Z",
+  "summary": {
+    "pages": 12,
+    "consoleErrors": 0,
+    "consoleWarnings": 25,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-019",
+      "F-00-020",
+      "F-00-163",
+      "F-00-164",
+      "F-00-166",
+      "F-00-168",
+      "F-00-176",
+      "F-00-177",
+      "F-00-178",
+      "F-00-179",
+      "F-00-180",
+      "F-00-181",
+      "F-00-182",
+      "F-00-183",
+      "F-00-202",
+      "F-00-203",
+      "F-00-204",
+      "F-00-205",
+      "F-00-206",
+      "F-00-207",
+      "F-00-208"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform",
+      "url": "http://localhost:3710/platform?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1093,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"waves\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"demand\",\"week\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"moderation\",\"pending\",\"\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"support-open\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"app-bookings\",\"2026-09-19\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"visits\",\"connected\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"callbacks-today\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0-zt540._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/businesses",
+      "url": "http://localhost:3710/platform/businesses?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1092,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"businesses\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0715e_h._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0715e_h._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-183"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-businesses__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/plan",
+      "url": "http://localhost:3710/platform/plan?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1088,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"waves\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_1ks2qfa._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_1ks2qfa._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-203",
+        "F-00-204",
+        "F-00-205",
+        "F-00-206",
+        "F-00-207",
+        "F-00-208"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-plan__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/moderation",
+      "url": "http://localhost:3710/platform/moderation?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1020,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"moderation\",\"pending\",\"all\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_159csw-._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_159csw-._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"businesses-lite\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_159csw-._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_159csw-._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-168",
+        "F-00-179"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-moderation__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1016,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"connect-drafts\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_1o0wwrd._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_1o0wwrd._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"team\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_1o0wwrd._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_1o0wwrd._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-connect__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/visits",
+      "url": "http://localhost:3710/platform/visits?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1014,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"visits\",\"all\",\"all\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"team\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"callbacks-today\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_10kmdon._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-177"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-visits__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/promocodes",
+      "url": "http://localhost:3710/platform/promocodes?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1853,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"biz-meta\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"promocodes\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"businesses-lite\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04ktlbr._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 482,
+        "innerWidth": 482,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-019",
+        "F-00-020",
+        "F-00-178"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-promocodes__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/ads",
+      "url": "http://localhost:3710/platform/ads?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1954,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"ads\",\"banner\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_129h0a2._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_129h0a2._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"ad-placements\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_129h0a2._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_129h0a2._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-163",
+        "F-00-164",
+        "F-00-166"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-ads__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/demand",
+      "url": "http://localhost:3710/platform/demand?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1847,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"demand\",\"week\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_1dhoefe._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_1dhoefe._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"first-candidates\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_1dhoefe._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_1dhoefe._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-180",
+        "F-00-181",
+        "F-00-202"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-demand__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/sphere-requests",
+      "url": "http://localhost:3710/platform/sphere-requests?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4507,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-sphere-requests__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/ideas",
+      "url": "http://localhost:3710/platform/ideas?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4581,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-ideas__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/support",
+      "url": "http://localhost:3710/platform/support?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4515,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"support\",\"all\",\"all\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0l71fej._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0l71fej._.js:2129:38)",
+          "[api] запрос не удался [\"platform\",\"businesses-lite\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_0l71fej._.js:2087:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_0l71fej._.js:2129:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-182"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/ux-r1-shots/error/platform-support__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

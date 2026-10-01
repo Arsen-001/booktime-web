@@ -1,0 +1,6 @@
+[
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [ { "wait": 2000 }, { "click": "css=main button[aria-label] >> nth=0" }, { "wait": 1000 }, { "screenshot": "r5-search-filters" } ] },
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [ { "wait": 2000 }, { "fill": "main input[type=search], main input", "value": "йога на крыше" }, { "wait": 1500 }, { "screenshot": "r5-search-empty" } ] }
+]

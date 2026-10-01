@@ -1,0 +1,15 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":600},
+    {"click":"role=button[name=\"Фильтры\"]"},
+    {"wait":400},
+    {"click":"text=По продажам"},
+    {"wait":300},
+    {"click":"text=Сертификаты"},
+    {"wait":300},
+    {"screenshot":"37-cert-subfilters"},
+    {"click":"text=Абонементы"},
+    {"wait":300},
+    {"screenshot":"38-sub-subfilters"}
+  ]}
+]

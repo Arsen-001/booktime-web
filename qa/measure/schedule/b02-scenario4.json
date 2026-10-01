@@ -1,0 +1,299 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:13:45.567Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-103"
+    ],
+    "scenarioSteps": {
+      "ok": 23,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots/st_nuri_ani",
+      "url": "http://localhost:3710/biz/schedule/slots/st_nuri_ani?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1020,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "before"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__before.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=radio[name=\"Персонально\"]"
+          },
+          "ok": true,
+          "ms": 197
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 304
+        },
+        {
+          "i": 5,
+          "step": {
+            "expectVisible": "text=Готово: у сотрудника теперь свои правила"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "after-own-mode"
+          },
+          "ok": true,
+          "ms": 48,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__after-own-mode.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"+ Добавить исключение по дням недели\"]"
+          },
+          "ok": true,
+          "ms": 1018
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "wizard-open"
+          },
+          "ok": true,
+          "ms": 96,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-open.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=dialog >> text=Вт"
+          },
+          "ok": true,
+          "ms": 212
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "role=dialog >> text=Ср"
+          },
+          "ok": true,
+          "ms": 221
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "role=dialog >> input[name=\"density\"] >> nth=2"
+          },
+          "ok": true,
+          "ms": 212
+        },
+        {
+          "i": 13,
+          "step": {
+            "screenshot": "wizard-dynamic"
+          },
+          "ok": true,
+          "ms": 110,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-dynamic.png"
+        },
+        {
+          "i": 14,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 210
+        },
+        {
+          "i": 15,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 205
+        },
+        {
+          "i": 16,
+          "step": {
+            "screenshot": "wizard-step-2"
+          },
+          "ok": true,
+          "ms": 125,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-step-2.png"
+        },
+        {
+          "i": 17,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 18,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 19,
+          "step": {
+            "click": "role=button[name=\"Завершить настройку\"]"
+          },
+          "ok": true,
+          "ms": 383
+        },
+        {
+          "i": 20,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 21,
+          "step": {
+            "expectText": "Правила сохранены"
+          },
+          "ok": true,
+          "ms": 10
+        },
+        {
+          "i": 22,
+          "step": {
+            "expectVisible": "text=Исключение"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 23,
+          "step": {
+            "screenshot": "after-exception-saved"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__after-exception-saved.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__before.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__after-own-mode.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-open.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-dynamic.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__wizard-step-2.png",
+        "qa/shots/schedule-b02-scenario4/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__after-exception-saved.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

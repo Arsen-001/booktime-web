@@ -1,0 +1,180 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:36:04.563Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-103"
+    ],
+    "scenarioSteps": {
+      "ok": 8,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots/st_nuri_ani",
+      "url": "http://localhost:3710/biz/schedule/slots/st_nuri_ani?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 937,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=radio[name=\"Персонально\"]"
+          },
+          "ok": true,
+          "ms": 212
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"+ Добавить исключение по дням недели\"]"
+          },
+          "ok": true,
+          "ms": 1001
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 300
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=dialog >> text=Вт"
+          },
+          "ok": true,
+          "ms": 174
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=dialog >> text=Ср"
+          },
+          "ok": true,
+          "ms": 215
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "before-dynamic-click"
+          },
+          "ok": true,
+          "ms": 154,
+          "screenshot": "qa/measure/schedule/shots-m0-dynamic3/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__before-dynamic-click.png"
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "role=dialog >> role=radio[name=\"Динамичный\"]"
+          },
+          "ok": false,
+          "ms": 8131,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/measure/schedule/shots-m0-dynamic3/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__fail-9.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/shots-m0-dynamic3/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/shots-m0-dynamic3/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__before-dynamic-click.png",
+        "qa/measure/schedule/shots-m0-dynamic3/biz-schedule-slots-st-nuri-ani__owner-nails-ru-light-desktop__fail-9.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

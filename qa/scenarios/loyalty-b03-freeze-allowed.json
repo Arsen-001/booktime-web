@@ -1,0 +1,12 @@
+{
+  "route": "/biz/loyalty/memberships",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Маникюр × 5 >> nth=0" },
+    { "wait": 1200 },
+    { "screenshot": "membership-detail-freeze-allowed" }
+  ]
+}

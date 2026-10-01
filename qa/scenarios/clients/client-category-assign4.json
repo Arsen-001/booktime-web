@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"click": "role=button[name=\"Изменить\"]"},
+      {"wait": 400},
+      {"fill": "[data-f=\"F-04-058 F-04-111\"] input", "value": "Тест-метка-XYZ"},
+      {"wait": 300},
+      {"screenshot": "01-typing"},
+      {"press": "Enter"},
+      {"wait": 300},
+      {"screenshot": "02-tag-added"},
+      {"click": "role=button[name=\"Сохранить\"]"},
+      {"wait": 700},
+      {"screenshot": "03-saved"}
+    ]
+  }
+]

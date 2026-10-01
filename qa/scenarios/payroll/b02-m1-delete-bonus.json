@@ -1,0 +1,23 @@
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"click": "text=Мариам Петросян"},
+    {"wait": 500},
+    {"click": "text=Выписать премию"},
+    {"wait": 300},
+    {"fill": "input[placeholder]:visible >> nth=0", "value": "Премия-delete-test"},
+    {"click": "input[inputmode]"},
+    {"fill": "input[inputmode]", "value": "1234"},
+    {"click": "role=button[name=/Добавить|Сохранить/]"},
+    {"wait": 700},
+    {"screenshot": "01-after-bonus-1234"},
+    {"click": "role=button[name='Удалить']"},
+    {"wait": 400},
+    {"screenshot": "02-delete-confirm-dialog"},
+    {"click": "role=button[name='Удалить'] >> nth=-1"},
+    {"wait": 700},
+    {"screenshot": "03-after-delete-expect-0"}
+  ]
+}

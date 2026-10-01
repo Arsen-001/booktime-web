@@ -1,0 +1,27 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Изменить\"]" },
+    { "expectVisible": "input[placeholder=\"Как зовут клиента\"]" },
+    { "screenshot": "01-editing" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Ани Новое Имя" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "expectText": "Изменить имя клиента?" },
+    { "screenshot": "02-confirm-name-change" },
+    { "click": "role=button[name=\"Да\"]" },
+    { "expectText": "Изменения сохранены" },
+    { "wait": 400 },
+    { "screenshot": "03-saved" },
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "screenshot": "04-more-menu" },
+    { "click": "text=Удалить" },
+    { "expectText": "Удалить клиента?" },
+    { "screenshot": "05-confirm-delete" },
+    { "click": "role=button[name=\"Отмена\"]" },
+    { "wait": 200 },
+    { "screenshot": "06-delete-cancelled-still-on-card" }
+  ]
+}

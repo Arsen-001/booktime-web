@@ -1,0 +1,16 @@
+import { start, stop, open, as, text, shot, db, toasts } from './lib.mjs';
+await start();
+const DATE='2026-09-29';
+const { page } = await open('owner', `/biz/journal?date=${DATE}`, { device: 'desktop' });
+let d = await db(page); const n0 = d.core.bookings.length;
+await page.locator('[data-testid="booking-block"]', { hasText: '18:15' }).first().click(); await page.waitForTimeout(1500);
+const win = page.locator('[role=dialog]').last();
+await win.getByRole('button', { name: 'Повторение записи' }).click(); await page.waitForTimeout(800);
+const pressed = await win.getByRole('button', { name: /^(Пн|Вт|Ср|Чт|Пт|Сб|Вс)$/ }).evaluateAll(els=>els.map(e=>e.innerText+':'+(e.getAttribute('aria-pressed')||e.getAttribute('data-state')||e.className.includes('primary'))));
+console.log('weekday state', pressed.join(' '));
+await win.getByRole('button', { name: 'Создать повторения' }).click(); await page.waitForTimeout(2500);
+console.log('toasts', await toasts(page));
+d = await db(page); console.log('created', JSON.stringify(d.core.bookings.slice(n0).map(b=>[b.start,b.durationMin])));
+for (const f of ['2026-10-06','2026-10-13','2026-10-20']) console.log(f, JSON.stringify(d.core.bookings.filter(b=>b.staffId==='st_nuri_ani' && b.start.startsWith(f) && !b.deletedAt && d.core.bookings.indexOf(b)<n0).map(b=>[b.start,b.durationMin,b.status])));
+await shot(page, 'j6-repeat-toast');
+await stop();

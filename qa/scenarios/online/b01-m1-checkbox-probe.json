@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/b/nuri-nail-studio/book",
+    "persona": "guest",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "role=checkbox >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "after-checkbox-click" },
+      { "click": "role=button[name=\"Продолжить · 1\"]" },
+      { "wait": 900 },
+      { "screenshot": "step2" },
+      { "expectVisible": "[data-f=\"F-03-081\"]" }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+import { start, stop, open, go, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/schedule');
+await page.getByRole('button', { name: /Следующ/ }).first().click().catch(async () => { await page.locator('main button').nth(1).click(); }); await page.waitForTimeout(800);
+const row = () => page.locator('main tr').filter({ hasText: 'Лилит Мкртчян' }).locator('button');
+const sel = async () => (await text(page)).split('\n').find(l => /Выбрано ячеек/.test(l));
+await row().nth(1).click(); await page.waitForTimeout(700); console.log('after 1', await sel(), 'dialog', await page.locator('[role=dialog]').count());
+await page.keyboard.press('Escape'); await page.waitForTimeout(500); console.log('after esc', await sel(), 'dialog', await page.locator('[role=dialog]').count());
+await row().nth(3).click(); await page.waitForTimeout(700); console.log('after 3', await sel());
+await page.keyboard.press('Escape'); await page.waitForTimeout(400);
+await row().nth(5).click(); await page.waitForTimeout(700); console.log('after 5', await sel());
+const dlg = page.locator('[role=dialog]').last(); console.log('panel:', (await dlg.innerText().catch(()=>'')).split('\n').filter(l => /коснётся|Добавятся|Сотрудников/.test(l)));
+await dlg.getByRole('button', { name: 'Сохранить' }).click(); await page.waitForTimeout(1500); console.log('toasts', await toasts(page));
+await reload(page); await page.getByRole('button', { name: /Следующ/ }).first().click().catch(()=>{}); await page.waitForTimeout(800);
+console.log('row after reload:', (await page.locator('main tr').filter({ hasText: 'Лилит Мкртчян' }).innerText()).replace(/\s+/g, ' '));
+await shot(page, 'S5-after');
+await go(page, '/biz/schedule/history'); console.log('history:', (await text(page)).split('\n').slice(0, 14).join(' | '));
+await stop();

@@ -1,0 +1,10 @@
+{ "route": "/biz/payroll/daily", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"click": "role=button[name=\"Создать ведомость и начислить всем\"]"},
+    {"wait": 900},
+    {"goto": "/biz/payroll/daily"},
+    {"wait": 800},
+    {"screenshot": "01-after-reload"}
+  ]
+}

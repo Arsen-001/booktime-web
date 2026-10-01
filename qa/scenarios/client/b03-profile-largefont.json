@@ -1,0 +1,14 @@
+{
+  "route": "/profile",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "text=Крупный шрифт" },
+    { "wait": 400 },
+    { "screenshot": "01-large-font-on" },
+    { "goto": "/favorites" },
+    { "wait": 500 },
+    { "screenshot": "02-large-font-other-screen" }
+  ]
+}

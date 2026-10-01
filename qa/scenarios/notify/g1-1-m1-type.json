@@ -1,0 +1,80 @@
+[
+{
+  "route": "/biz/notifications/types/2/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "type2-templates-01" },
+    { "expectVisible": "text=Готовый вариант" },
+    { "click": "role=combobox >> nth=0" },
+    { "screenshot": "type2-variant-dropdown" },
+    { "press": "Escape" }
+  ]
+},
+{
+  "route": "/biz/notifications/types/2",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "text=Русский" },
+    { "click": "role=combobox[name=\"Язык уведомлений клиентам\"]" },
+    { "screenshot": "lang-dropdown" },
+    { "press": "Escape" }
+  ]
+},
+{
+  "route": "/biz/notifications/types/74",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "type74-conditions" },
+    { "expectVisible": "text=Источник изменения записи" },
+    { "expectVisible": "text=Сотрудник изменил запись" }
+  ]
+},
+{
+  "route": "/biz/notifications/types/73",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "type73-before-checkbox" },
+    { "click": "text=Отправлять в выбранное время" },
+    { "wait": 300 },
+    { "screenshot": "type73-after-checkbox" },
+    { "expectVisible": "input[type=\"time\"], [role=\"textbox\"]" }
+  ]
+},
+{
+  "route": "/biz/notifications",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Скорое завершение расписания" },
+    { "wait": 300 },
+    { "screenshot": "type19-before" },
+    { "expectVisible": "text=SMS" },
+    { "click": "role=switch" },
+    { "wait": 400 },
+    { "screenshot": "type19-toggled" },
+    { "click": "role=switch" },
+    { "wait": 400 },
+    { "screenshot": "type19-toggled-back" },
+    { "expectVisible": "text=SMS" }
+  ]
+}
+]

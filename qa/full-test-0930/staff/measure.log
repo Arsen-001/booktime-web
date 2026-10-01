@@ -1,0 +1,56 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+Замер: 24 стр. → qa/full-test-0930/shots/staff/ (по 3 одновременно)
+  1/24  2/24  3/24  4/24  5/24  6/24  7/24  8/24  9/24  10/24  11/24  12/24  13/24  14/24  15/24  16/24  17/24  18/24  19/24  20/24  21/24  22/24  23/24  24/24
+страница                    кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр  
+──────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ──────
+/biz/staff                  owner  ru  тел   0     0    0      —      9    26      ·         17.4с 
+/biz/staff                  owner  ru  деск  0     0    0      —      24   26      ·         17.4с 
+/biz/staff                  owner  en  тел   0     0    0      —      9    26      ·         17.4с 
+/biz/staff                  owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/positions        owner  ru  тел   0     0    0      —      0    6       ·         21.3с 
+/biz/staff/positions        owner  ru  деск  0     0    0      —      7    6       ·         21.3с 
+/biz/staff/positions        owner  en  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/staff/positions        owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/roles            owner  ru  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/staff/roles            owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/roles            owner  en  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/staff/roles            owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/log              owner  ru  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/staff/log              owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/log              owner  en  тел   0     0    0      —      0    12      ·         117.2с
+/biz/staff/log              owner  en  деск  0     0    0      —      1    12      ·         117.7с
+/biz/staff/st_nuri_ani      owner  ru  тел   0     0    0      —      0    16      ·         117.7с
+/biz/staff/st_nuri_ani      owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/staff/st_nuri_ani      owner  en  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/staff/st_nuri_ani      owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/dev/ext/settingsHub/staff  owner  ru  тел   1     0    0      —      0    0       ·         0.0с  
+/dev/ext/settingsHub/staff  owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/dev/ext/settingsHub/staff  owner  en  тел   1     0    0      —      0    0       ·         0.0с  
+/dev/ext/settingsHub/staff  owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+
+Итог: страниц 24 · ошибок консоли 16 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 50 · висит загрузка 0 · data-f 53
+Отчёт: qa/full-test-0930/shots/staff/report.json
+
+• /biz/staff [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/positions [owner/en/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/positions [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/roles [owner/ru/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/roles [owner/ru/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/roles [owner/en/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/roles [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/staff/log [owner/ru/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.

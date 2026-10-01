@@ -1,0 +1,16 @@
+{
+  "route": "/biz/payroll/period",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "01-left" },
+    { "evaluate": "document.querySelector('[data-f=\"F-09-062\"] table, table')?.scrollIntoView()" },
+    { "wait": 200 },
+    { "evaluate": "const el = document.querySelector('[data-f=\"F-09-062\"]')?.querySelector('.overflow-x-auto, [class*=overflow-x]') || document.querySelector('.overflow-x-auto'); if (el) el.scrollLeft = el.scrollWidth;" },
+    { "wait": 300 },
+    { "screenshot": "02-scrolled-right" }
+  ]
+}

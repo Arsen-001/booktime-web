@@ -1,0 +1,32 @@
+[
+  {
+    "route": "/biz/apps/news",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "expectVisible": "[data-f=\"F-00-114\"]" },
+      { "fill": "textarea", "value": "Новый оттенок гель-лака уже в наличии!" },
+      { "click": "role=button[name=\"Отправить\"]" },
+      { "wait": 400 },
+      { "expectText": "Новость отправлена подписчикам" },
+      { "screenshot": "b05-news-published" }
+    ]
+  },
+  {
+    "route": "/biz/apps/promotion",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "expectVisible": "[data-f=\"F-00-103\"]" },
+      { "screenshot": "b05-promotion-before" },
+      { "click": "role=button >> text=/Купить за/ >> nth=0" },
+      { "wait": 500 },
+      { "expectText": "Продвижение включено" },
+      { "screenshot": "b05-promotion-after" }
+    ]
+  }
+]

@@ -1,0 +1,229 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:18:10.732Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-019",
+      "F-00-020",
+      "F-00-178"
+    ],
+    "scenarioSteps": {
+      "ok": 18,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/promocodes",
+      "url": "http://localhost:3710/platform/promocodes?demo=platform&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1607,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-019",
+        "F-00-020",
+        "F-00-178"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "01-list"
+          },
+          "ok": true,
+          "ms": 65,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__01-list.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "[data-fab]"
+          },
+          "ok": true,
+          "ms": 296
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Создать промокод\"]"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 6,
+          "step": {
+            "expectText": "Код — от 3 до 24 знаков"
+          },
+          "ok": true,
+          "ms": 9
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Придумать код\"]"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 100
+          },
+          "ok": true,
+          "ms": 103
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "02-form"
+          },
+          "ok": true,
+          "ms": 187,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__02-form.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=button[name=\"Создать промокод\"]"
+          },
+          "ok": true,
+          "ms": 397
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 12,
+          "step": {
+            "expectText": "создан"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 13,
+          "step": {
+            "screenshot": "03-created"
+          },
+          "ok": true,
+          "ms": 67,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__03-created.png"
+        },
+        {
+          "i": 14,
+          "step": {
+            "click": "role=button[name=\"Ещё\"]"
+          },
+          "ok": true,
+          "ms": 197
+        },
+        {
+          "i": 15,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 16,
+          "step": {
+            "click": "text=Выдать бесплатный месяц >> nth=-1"
+          },
+          "ok": true,
+          "ms": 245
+        },
+        {
+          "i": 17,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "04-grant"
+          },
+          "ok": true,
+          "ms": 173,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__04-grant.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__01-list.png",
+        "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__02-form.png",
+        "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__03-created.png",
+        "qa/measure/platform/fix-platform-flows/platform-promocodes__platform-nails-ru-light-phone__04-grant.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

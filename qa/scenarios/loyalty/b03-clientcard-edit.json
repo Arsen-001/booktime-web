@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/dev/ext/clientCard/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "[data-f=\"F-06-093\"] button[aria-label=\"Изменить баланс и срок\"]" },
+      { "wait": 300 },
+      { "screenshot": "cert-edit-modal" },
+      { "fill": "input[type=text], input:not([type])", "value": "" },
+      { "screenshot": "cert-edit-modal-2" },
+      { "click": "text=Сохранить" },
+      { "wait": 500 },
+      { "expectText": "Баланс и срок сертификата обновлены" },
+      { "screenshot": "cert-edit-saved" }
+    ]
+  },
+  {
+    "route": "/dev/ext/clientCard/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "[data-f=\"F-06-111 F-06-112\"] button:has-text(\"Заморозить\")" },
+      { "wait": 500 },
+      { "expectText": "Абонемент заморожен" },
+      { "screenshot": "membership-frozen" }
+    ]
+  }
+]

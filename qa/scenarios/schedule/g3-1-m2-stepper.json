@@ -1,0 +1,32 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "text=Редактировать правила" },
+      { "wait": 300 },
+      { "click": "text=Фиксированный" },
+      { "wait": 200 },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "step3-fixed" },
+      { "click": "text=Назад" },
+      { "wait": 200 },
+      { "click": "text=Назад" },
+      { "wait": 200 },
+      { "click": "text=Динамичный" },
+      { "wait": 200 },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "step3-dynamic-lead-time-label" }
+    ]
+  }
+]

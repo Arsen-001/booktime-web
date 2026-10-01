@@ -1,0 +1,260 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T04:04:22.200Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 14,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-128",
+      "F-01-133",
+      "F-01-152",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 2,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1118,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.max-w-32.truncate.text-sm in [data-f=F-01-020]",
+          "text": "Ани Саргсян",
+          "w": 86,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "11:45–12:05Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.max-w-32.truncate.text-sm in [data-f=F-01-020]",
+          "text": "Мариам Петросян",
+          "w": 127,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.max-w-32.truncate.text-sm in [data-f=F-01-020]",
+          "text": "Сона Григорян",
+          "w": 102,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.max-w-32.truncate.text-sm in [data-f=F-01-020]",
+          "text": "Гаяне Оганесян",
+          "w": 109,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "Технический перерыв",
+          "w": 196,
+          "h": 14,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 14,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-133",
+        "F-01-152",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "journal-today"
+          },
+          "ok": true,
+          "ms": 71,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-journal__owner-nails-ru-light-desktop__journal-today.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-scenarios/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-journal__owner-nails-ru-light-desktop__journal-today.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

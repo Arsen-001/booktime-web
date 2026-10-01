@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/search",
+    "persona": "guest",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "01-before-freetoday" }
+    ]
+  },
+  {
+    "route": "/search",
+    "persona": "guest",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Свободно сегодня" },
+      { "wait": 600 },
+      { "screenshot": "02-after-freetoday" }
+    ]
+  }
+]

@@ -1,0 +1,709 @@
+{
+ "at": "2026-09-30T00:52:06.054Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/payroll/daily",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0021,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 2799,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "div.w-full in [data-f=F-09-058] «СотрудникОперацииЗа день»",
+     "what": "ul.row-links.flex.flex-col in [data-f=F-09-058] «Лилит Мкртчян1 500 ֏Созд»",
+     "sk": {
+      "h": 62,
+      "w": 146
+     },
+     "before": {
+      "x": 16,
+      "y": 283,
+      "w": 358,
+      "h": 179
+     },
+     "after": {
+      "x": 16,
+      "y": 283,
+      "w": 358,
+      "h": 159
+     },
+     "t": 3021,
+     "dh": -20,
+     "dhVis": -20,
+     "bad": true
+    },
+    {
+     "where": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058] «1 500 ֏»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 72
+     },
+     "before": {
+      "x": 265,
+      "y": 499,
+      "w": 92,
+      "h": 28
+     },
+     "after": {
+      "x": 287,
+      "y": 479,
+      "w": 70,
+      "h": 28
+     },
+     "t": 3021,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [
+    {
+     "t": 3024,
+     "v": 0.002124735125717106,
+     "src": [
+      {
+       "el": "div.flex.items-center.justify-between in [data-f=F-09-058] «Итого за день1 500 ֏»",
+       "prev": {
+        "x": 16,
+        "y": 486,
+        "w": 358,
+        "h": 54
+       },
+       "cur": {
+        "x": 16,
+        "y": 466,
+        "w": 358,
+        "h": 54
+       }
+      }
+     ]
+    }
+   ],
+   "moved": [
+    {
+     "x": 16,
+     "y": 283,
+     "w": 358,
+     "h": 159,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "li.flex.items-start.gap-2 in [data-f=F-09-058] «Лилит Мкртчян1 500 ֏Созд»"
+    },
+    {
+     "x": 33,
+     "y": 394,
+     "w": 324,
+     "h": 31,
+     "sk": false,
+     "fixed": false,
+     "parent": 7,
+     "hint": "dl.text-sm.mt-2.5.border-t in [data-f=F-09-058] «Операции»"
+    },
+    {
+     "x": 16,
+     "y": 466,
+     "w": 358,
+     "h": 54,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.flex.items-center.justify-between in [data-f=F-09-058] «Итого за день1 500 ֏»"
+    },
+    {
+     "x": 287,
+     "y": 479,
+     "w": 70,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 10,
+     "hint": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058] «1 500 ֏»"
+    }
+   ],
+   "gone": [
+    {
+     "x": 16,
+     "y": 283,
+     "w": 358,
+     "h": 179,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "li.flex.items-start.gap-2 in [data-f=F-09-058] «Создать ведомостьОпераци»"
+    },
+    {
+     "x": 33,
+     "y": 394,
+     "w": 324,
+     "h": 51,
+     "sk": false,
+     "fixed": false,
+     "parent": 7,
+     "hint": "dl.text-sm.mt-2.5.border-t in [data-f=F-09-058] «Операции»"
+    },
+    {
+     "x": 114,
+     "y": 405,
+     "w": 124,
+     "h": 40,
+     "sk": false,
+     "fixed": false,
+     "parent": 10,
+     "hint": "span.flex.min-h-10.items-center in [data-f=F-09-058]"
+    },
+    {
+     "x": 16,
+     "y": 486,
+     "w": 358,
+     "h": 54,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.flex.items-center.justify-between in [data-f=F-09-058] «Итого за день»"
+    },
+    {
+     "x": 265,
+     "y": 499,
+     "w": 92,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 12,
+     "hint": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058]"
+    }
+   ],
+   "maxSkeletons": 10,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/d1/biz-payroll-daily__phone__1-skeleton.png",
+    "qa/skeletons/shots/d1/biz-payroll-daily__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false,
+   "boxes0": {
+    "at": 859,
+    "early": false,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 57,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 66,
+      "y": 8,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 340,
+      "y": 12,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 16,
+      "y": 167,
+      "w": 221,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-058] «30 сентября 2026»"
+     },
+     {
+      "x": 16,
+      "y": 219,
+      "w": 358,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Выгрузить в Excel»"
+     },
+     {
+      "x": 16,
+      "y": 119,
+      "w": 358,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Создать ведомость и начи»"
+     },
+     {
+      "x": 16,
+      "y": 283,
+      "w": 358,
+      "h": 179,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "li.flex.items-start.gap-2 in [data-f=F-09-058] «Создать ведомостьОпераци»"
+     },
+     {
+      "x": 33,
+      "y": 305,
+      "w": 146,
+      "h": 12,
+      "sk": true,
+      "fixed": false,
+      "parent": 7,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-058]"
+     },
+     {
+      "x": 196,
+      "y": 344,
+      "w": 161,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 7,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Создать ведомость»"
+     },
+     {
+      "x": 33,
+      "y": 394,
+      "w": 324,
+      "h": 51,
+      "sk": false,
+      "fixed": false,
+      "parent": 7,
+      "hint": "dl.text-sm.mt-2.5.border-t in [data-f=F-09-058] «Операции»"
+     },
+     {
+      "x": 114,
+      "y": 405,
+      "w": 124,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 10,
+      "hint": "span.flex.min-h-10.items-center in [data-f=F-09-058]"
+     },
+     {
+      "x": 16,
+      "y": 486,
+      "w": 358,
+      "h": 54,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.flex.items-center.justify-between in [data-f=F-09-058] «Итого за день»"
+     },
+     {
+      "x": 265,
+      "y": 499,
+      "w": 92,
+      "h": 28,
+      "sk": false,
+      "fixed": false,
+      "parent": 12,
+      "hint": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058]"
+     }
+    ]
+   }
+  },
+  {
+   "route": "/biz/payroll/daily",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/payroll/daily?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0008,
+   "blocks": [
+    {
+     "where": "table.row-links.w-full.border-collapse in [data-f=F-09-058] «СотрудникОперацииЗа день»",
+     "what": "tbody.animate-fade-in in [data-f=F-09-058] «st_nuri_admin1 500 ֏Созд»",
+     "sk": {
+      "h": 66,
+      "w": 120
+     },
+     "before": {
+      "x": 289,
+      "y": 166,
+      "w": 1118,
+      "h": 105
+     },
+     "after": {
+      "x": 289,
+      "y": 166,
+      "w": 1118,
+      "h": 101
+     },
+     "t": 3341,
+     "dh": -4,
+     "dhVis": -4,
+     "bad": false
+    },
+    {
+     "where": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058] «1 500 ֏»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 72
+     },
+     "before": {
+      "x": 1299,
+      "y": 309,
+      "w": 92,
+      "h": 28
+     },
+     "after": {
+      "x": 1321,
+      "y": 305,
+      "w": 70,
+      "h": 28
+     },
+     "t": 3341,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.w-36.truncate in [data-f=F-15-014] «Nuri Nail Studio»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3411,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "after": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "t": 3505,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.hidden.w-36.truncate «Нарине Акопян»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3505,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [],
+   "gone": [
+    {
+     "x": 529,
+     "y": 221,
+     "w": 124,
+     "h": 40,
+     "sk": false,
+     "fixed": false,
+     "parent": 13,
+     "hint": "span.flex.min-h-10.items-center in [data-f=F-09-058]"
+    },
+    {
+     "x": 1299,
+     "y": 309,
+     "w": 92,
+     "h": 28,
+     "sk": false,
+     "fixed": false,
+     "parent": 16,
+     "hint": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058]"
+    }
+   ],
+   "maxSkeletons": 10,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/d1/biz-payroll-daily__desktop__1-skeleton.png",
+    "qa/skeletons/shots/d1/biz-payroll-daily__desktop__2-final.png"
+   ],
+   "inner": 1,
+   "boxesEarly": false,
+   "boxes0": {
+    "at": 939,
+    "early": false,
+    "moving": false,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 900,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "aside.sticky.top-0.z-40 «BBookTimeКабинет бизнеса»"
+     },
+     {
+      "x": 16,
+      "y": 12,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 34,
+      "y": 662,
+      "w": 209,
+      "h": 502,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "ul.mb-1.ml-5.5.mt-1 «Схемы расчётаОсновные на»"
+     },
+     {
+      "x": 46,
+      "y": 746,
+      "w": 197,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 3,
+      "hint": "a.relative.flex.min-h-10 «Расчёт за день»"
+     },
+     {
+      "x": 256,
+      "y": 0,
+      "w": 1184,
+      "h": 65,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 613,
+      "y": 12,
+      "w": 448,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 5,
+      "hint": "input.w-full.rounded-xl.border"
+     },
+     {
+      "x": 1192,
+      "y": 16,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 5,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 711,
+      "y": 97,
+      "w": 221,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-058] «30 сентября 2026»"
+     },
+     {
+      "x": 939,
+      "y": 101,
+      "w": 174,
+      "h": 36,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Выгрузить в Excel»"
+     },
+     {
+      "x": 1121,
+      "y": 101,
+      "w": 287,
+      "h": 36,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Создать ведомость и начи»"
+     },
+     {
+      "x": 288,
+      "y": 165,
+      "w": 1120,
+      "h": 107,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.relative.overflow-x-auto.rounded-xl in [data-f=F-09-058] «СотрудникОперацииЗа день»"
+     },
+     {
+      "x": 289,
+      "y": 166,
+      "w": 1118,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 11,
+      "hint": "thead.bg-surface-2/70.text-[13px].text-muted in [data-f=F-09-058] «СотрудникОперацииЗа день»"
+     },
+     {
+      "x": 289,
+      "y": 210,
+      "w": 1118,
+      "h": 61,
+      "sk": false,
+      "fixed": false,
+      "parent": 11,
+      "hint": "tr.border-t.border-border in [data-f=F-09-058] «Создать ведомость»"
+     },
+     {
+      "x": 529,
+      "y": 221,
+      "w": 124,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 13,
+      "hint": "span.flex.min-h-10.items-center in [data-f=F-09-058]"
+     },
+     {
+      "x": 1230,
+      "y": 223,
+      "w": 161,
+      "h": 36,
+      "sk": false,
+      "fixed": false,
+      "parent": 13,
+      "hint": "button.inline-flex.items-center.justify-center in [data-f=F-09-058] «Создать ведомость»"
+     },
+     {
+      "x": 288,
+      "y": 296,
+      "w": 1120,
+      "h": 54,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.flex.items-center.justify-between in [data-f=F-09-058] «Итого за день»"
+     },
+     {
+      "x": 1299,
+      "y": 309,
+      "w": 92,
+      "h": 28,
+      "sk": false,
+      "fixed": false,
+      "parent": 16,
+      "hint": "span.inline-flex.shrink-0.items-center in [data-f=F-09-058]"
+     }
+    ]
+   }
+  }
+ ]
+}

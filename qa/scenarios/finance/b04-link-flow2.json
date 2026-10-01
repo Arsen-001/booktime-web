@@ -1,0 +1,10 @@
+{ "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "text=Укрепление ногтей гелем"},
+    {"wait": 500},
+    {"screenshot": "record-tab-fresh"},
+    {"click": "role=tab[name=\"Оплата\"]"},
+    {"wait": 400},
+    {"screenshot": "pay-tab-fresh"}
+  ] }

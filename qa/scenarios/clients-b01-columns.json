@@ -1,0 +1,12 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Колонки\"]" },
+    { "expectText": "Телефон" },
+    { "screenshot": "columns-open" },
+    { "click": "text=Email >> nth=0" },
+    { "screenshot": "columns-email-off" }
+  ]
+}

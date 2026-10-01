@@ -1,0 +1,164 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:55:10.813Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-032",
+      "F-06-035",
+      "F-06-047"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/promotions/new",
+      "url": "http://localhost:3710/biz/loyalty/promotions/new?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 981,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-032",
+        "F-06-035",
+        "F-06-047"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "fill": "input[placeholder=\"Введите название акции\"]",
+            "value": "Тестовая накопительная"
+          },
+          "ok": true,
+          "ms": 20
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Бонусы"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Продолжить"
+          },
+          "ok": true,
+          "ms": 188
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Накопительные бонусы от визитов"
+          },
+          "ok": true,
+          "ms": 198
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "text=Продолжить"
+          },
+          "ok": true,
+          "ms": 214
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "step3-full",
+            "fullPage": true
+          },
+          "ok": true,
+          "ms": 67,
+          "screenshot": "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step3-full.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "text=Продолжить"
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Отменять скидку при долгом отсутствии"
+          },
+          "ok": true,
+          "ms": 195
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "text=Сжигать неиспользованные бонусы"
+          },
+          "ok": true,
+          "ms": 181
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "step4-toggled"
+          },
+          "ok": true,
+          "ms": 39,
+          "screenshot": "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-toggled.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop.png",
+        "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__full.png",
+        "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step3-full.png",
+        "qa/shots/loyalty-g2-1/wizard3/biz-loyalty-promotions-new__owner-nails-ru-light-desktop__step4-toggled.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

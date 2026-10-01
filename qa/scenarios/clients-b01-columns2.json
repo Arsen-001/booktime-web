@@ -1,0 +1,11 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Колонки\"]" },
+    { "click": "role=checkbox[name=\"Email\"]" },
+    { "wait": 700 },
+    { "screenshot": "email-hidden" }
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 800},
+     {"click": "tbody input[type=checkbox] >> nth=0"},
+     {"wait": 300},
+     {"click": "text=Написать"},
+     {"wait": 400},
+     {"fill": "textarea", "value": "Привет, [Имя]!"},
+     {"wait": 200},
+     {"click": "text=Пишу только тем, кто согласен получать сообщения"},
+     {"wait": 200},
+     {"screenshot": "05-sms-checked"},
+     {"click": "role=button[name=\"Отправить\"]"},
+     {"wait": 500},
+     {"screenshot": "06-sms-sent"}
+   ]},
+  {"route": "/biz/clients/log", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 800},
+     {"screenshot": "09-messages-report"}
+   ]}
+]

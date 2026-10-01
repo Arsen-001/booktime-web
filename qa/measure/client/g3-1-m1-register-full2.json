@@ -1,0 +1,161 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:03:37.896Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-003",
+      "F-00-005",
+      "F-00-035"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/register-business",
+      "url": "http://localhost:3710/register-business?demo=guest&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1007,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-003",
+        "F-00-005",
+        "F-00-035"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Салон"
+          },
+          "ok": true,
+          "ms": 208
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Барбер"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 185
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 182
+        },
+        {
+          "i": 6,
+          "step": {
+            "fill": "input[placeholder=\"Как назвать салон или себя\"]",
+            "value": "Тестовый салон"
+          },
+          "ok": true,
+          "ms": 14
+        },
+        {
+          "i": 7,
+          "step": {
+            "fill": "input[type=\"tel\"]",
+            "value": "91234567"
+          },
+          "ok": true,
+          "ms": 7
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=button[name=\"Зарегистрировать\"]"
+          },
+          "ok": true,
+          "ms": 397
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 1200
+          },
+          "ok": true,
+          "ms": 1202
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "after-submit"
+          },
+          "ok": true,
+          "ms": 44,
+          "screenshot": "qa/shots/g3-1-m1/register-full2/register-business__guest-nails-ru-light-phone__after-submit.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/g3-1-m1/register-full2/register-business__guest-nails-ru-light-phone.png",
+        "qa/shots/g3-1-m1/register-full2/register-business__guest-nails-ru-light-phone__after-submit.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

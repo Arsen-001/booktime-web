@@ -1,0 +1,633 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T22:13:20.964Z",
+  "summary": {
+    "pages": 12,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 216,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 12,
+      "ok": 12,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-019",
+      "F-00-020",
+      "F-00-163",
+      "F-00-164",
+      "F-00-166",
+      "F-00-168",
+      "F-00-176",
+      "F-00-177",
+      "F-00-178",
+      "F-00-179",
+      "F-00-180",
+      "F-00-181",
+      "F-00-182",
+      "F-00-183",
+      "F-00-202",
+      "F-00-203",
+      "F-00-204",
+      "F-00-205",
+      "F-00-206",
+      "F-00-207",
+      "F-00-208"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform",
+      "url": "http://localhost:3710/platform?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4270,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 13
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/businesses",
+      "url": "http://localhost:3710/platform/businesses?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4137,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 14
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-183"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-businesses__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/plan",
+      "url": "http://localhost:3710/platform/plan?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4177,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 13
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-203",
+        "F-00-204",
+        "F-00-205",
+        "F-00-206",
+        "F-00-207",
+        "F-00-208"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-plan__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/moderation",
+      "url": "http://localhost:3710/platform/moderation?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 10074,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 25
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-168",
+        "F-00-179"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-moderation__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 10927,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 5
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-176"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-connect__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/visits",
+      "url": "http://localhost:3710/platform/visits?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 12576,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 27
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-177"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-visits__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/promocodes",
+      "url": "http://localhost:3710/platform/promocodes?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4331,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 32
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-019",
+        "F-00-020",
+        "F-00-178"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-promocodes__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/ads",
+      "url": "http://localhost:3710/platform/ads?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4229,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 30
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-163",
+        "F-00-164",
+        "F-00-166"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-ads__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/demand",
+      "url": "http://localhost:3710/platform/demand?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3737,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 22
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-180",
+        "F-00-181",
+        "F-00-202"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-demand__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/sphere-requests",
+      "url": "http://localhost:3710/platform/sphere-requests?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2084,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-sphere-requests__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/ideas",
+      "url": "http://localhost:3710/platform/ideas?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1943,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-ideas__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/platform/support",
+      "url": "http://localhost:3710/platform/support?demo=platform&sphere=nails&lang=hy&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1953,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 35
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-182"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/shots-hy/platform-support__platform-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

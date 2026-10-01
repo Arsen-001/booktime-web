@@ -1,0 +1,31 @@
+{
+  "route": "/biz/loyalty/cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "wait": 500
+    },
+    {
+      "click": "role=button[name=/Загрузить из Excel/]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "fill": "textarea",
+      "value": "+37495798826;Постоянный гость;-500\n+37400000000;НесуществующийТип;100"
+    },
+    {
+      "click": "role=button[name=/^Загрузить$/]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "01-atomic-result"
+    }
+  ]
+}

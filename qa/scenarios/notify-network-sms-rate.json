@@ -1,0 +1,36 @@
+{
+  "route": "/biz/notifications/channels/sms",
+  "persona": "network",
+  "device": "phone",
+  "steps": [
+    {
+      "fill": "input[placeholder='AGG-XXXX-XXXX']",
+      "value": "demo-key-12345"
+    },
+    {
+      "click": "text=Подключить"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "goto": "/biz/notifications/mailings/new"
+    },
+    {
+      "click": "text=SMS"
+    },
+    {
+      "click": "text=По всей сети"
+    },
+    {
+      "fill": "textarea",
+      "value": "Скидка 10% на маникюр"
+    },
+    {
+      "wait": 1500
+    },
+    {
+      "screenshot": "network-sms-rate"
+    }
+  ]
+}

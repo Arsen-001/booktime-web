@@ -1,0 +1,13 @@
+import { start, stop, open, go, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/schedule');
+await page.getByRole('button', { name: /Следующ|›|→/ }).first().click().catch(()=>{}); await page.waitForTimeout(800);
+const row = page.locator('main tr').filter({ hasText: 'Лилит Мкртчян' });
+const cells = row.locator('td, [role=gridcell], button');
+console.log('cells', await cells.count(), (await cells.allInnerTexts()).map(s => s.replace(/\s+/g,' ')).slice(0, 12));
+const hdr = await page.locator('main thead').first().innerText().catch(()=>''); console.log('hdr', hdr.replace(/\s+/g,' '));
+const btns = row.locator('button'); console.log('row buttons', await btns.count(), await btns.evaluateAll(a => a.map(x => x.getAttribute('aria-label') || x.innerText).slice(0, 10)));
+await btns.nth(1).click(); await page.waitForTimeout(800);
+await shot(page, 'S4-panel');
+console.log('panel', (await text(page)).split('\n').filter(l => /Настройка|Добав|дней|Сохранить|Снять|Тип|шаблон/i.test(l)).slice(0, 15));
+await stop();

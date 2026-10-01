@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import { execSync } from 'node:child_process';
+const S = JSON.parse(fs.readFileSync(new URL('./sessions.json', import.meta.url)));
+export const A = process.env.API_URL ?? 'http://localhost:4011';
+const ck = (r) => (r ? S[r].map((c) => `${c.name}=${c.value}`).join('; ') : '');
+export const call = async (r, m, p, b) => { const res = await fetch(A + p, { method: m, headers: { cookie: ck(r), 'content-type': 'application/json', origin: 'http://localhost:3710', 'idempotency-key': crypto.randomUUID() }, body: b ? JSON.stringify(b) : undefined }); const t = await res.text(); let d; try { d = JSON.parse(t); } catch { d = t; } return { s: res.status, d }; };
+export const sql = (q) => execSync(`docker exec booktime-mysql-1 mysql -ubooktime -pbooktime booktime -N -e ${JSON.stringify(q)}`, { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+export const CLIENT = 'cl_01M3TB3D2V9D2QV73PAVJRYTF4';
+export const created = new URL('./created.txt', import.meta.url);
+export const remember = (kind, id) => fs.appendFileSync(created, `${kind} ${id}\n`);

@@ -1,0 +1,12 @@
+{
+  "route": "/biz/network/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Удалить сеть\"]" },
+    { "wait": 500 },
+    { "screenshot": "after-delete-click" }
+  ]
+}

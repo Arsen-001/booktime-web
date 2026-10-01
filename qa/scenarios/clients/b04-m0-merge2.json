@@ -1,0 +1,72 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 500
+      },
+      {
+        "click": "table tbody tr >> nth=0"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "click": "[aria-label=\"Ещё\"]"
+      },
+      {
+        "wait": 200
+      },
+      {
+        "click": "text=Объединить с..."
+      },
+      {
+        "wait": 400
+      },
+      {
+        "click": "[role=dialog] input"
+      },
+      {
+        "fill": "[role=dialog] input",
+        "value": "Нелли"
+      },
+      {
+        "wait": 400
+      },
+      {
+        "screenshot": "combobox-open"
+      },
+      {
+        "click": "[role=option] >> nth=0"
+      },
+      {
+        "wait": 300
+      },
+      {
+        "screenshot": "candidate-picked"
+      },
+      {
+        "click": "text=Продолжить"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "screenshot": "confirm-step"
+      },
+      {
+        "click": "role=button[name=\"Объединить\"]"
+      },
+      {
+        "wait": 2000
+      },
+      {
+        "screenshot": "after-merge"
+      }
+    ]
+  }
+]

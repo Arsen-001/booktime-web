@@ -1,0 +1,25 @@
+[
+{ "route": "/masters/st_nuri_ani", "persona": "guest", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "wait": 800 },
+    { "press": "End" }, { "wait": 500 },
+    { "screenshot": "ux-book-guest-bottom" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "wait": 800 },
+    { "press": "End" }, { "wait": 500 },
+    { "screenshot": "ux-book-client-bottom" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 300 },
+    { "screenshot": "ux-book-client-toast" },
+    { "wait": 1500 },
+    { "screenshot": "ux-book-client-after" }
+  ] },
+{ "route": "/places/biz_nuri", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [ { "press": "End" }, { "wait": 400 }, { "screenshot": "ux-place-bottom" } ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [ { "press": "End" }, { "wait": 400 }, { "screenshot": "ux-master-bottom" } ] }
+]

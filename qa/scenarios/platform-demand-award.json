@@ -1,0 +1,21 @@
+{
+  "route": "/platform/demand",
+  "persona": "platform",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=button[name=\"Наградить\"] >> nth=0" },
+    { "wait": 700 },
+    { "expectText": "получил награду" },
+    { "screenshot": "after-award" },
+    { "click": "role=button[name=\"Картинка для соцсетей\"] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "image-generator" },
+    { "click": "role=radio[name=\"Сторис 9:16\"]" },
+    { "wait": 300 },
+    { "screenshot": "image-story" }
+  ]
+}

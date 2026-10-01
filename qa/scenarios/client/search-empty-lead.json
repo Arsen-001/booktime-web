@@ -1,0 +1,14 @@
+{
+  "route": "/search",
+  "persona": "guest",
+  "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder]", "value": "zzzzznonsense" },
+    { "wait": 600 },
+    { "screenshot": "empty-before-submit" },
+    { "fill": "input[placeholder='00 123 456']", "value": "00123456" },
+    { "click": "role=button[name=\"Сообщить, когда появится\"]" },
+    { "wait": 500 },
+    { "screenshot": "empty-after-submit" }
+  ]
+}

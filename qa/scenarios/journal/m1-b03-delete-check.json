@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "[data-testid='booking-block'] >> nth=0" },
+    { "wait": 400 },
+    { "screenshot": "before" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 200 },
+    { "screenshot": "immediately-after-click" },
+    { "wait": 1000 },
+    { "screenshot": "one-sec-after" }
+  ]
+}

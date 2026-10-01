@@ -1,0 +1,15 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, btnTexts } from './lib.mjs';
+await start();
+const { page } = await open('master', '/biz/schedule/calendar', { device: 'desktop' });
+await page.locator('[data-f="F-00-060"]').first().click(); await page.waitForTimeout(600);
+const dlg = page.locator('[role=dialog]').last();
+await dlg.getByText('Лусине Овсепян').first().click(); await page.waitForTimeout(300);
+await shot(page, 's7-quick-dialog-selected');
+await dlg.getByRole('button', { name: 'Сохранить' }).click(); await page.waitForTimeout(2000);
+await as(page, 'owner', '/biz/journal');
+const t = await text(page);
+const i = t.indexOf('Ани Саргсян'); console.log(t.slice(0,200).replace(/\n/g,' | '));
+console.log('has Овсепян', /Овсепян/.test(t), 'blocks', await page.locator('[data-booking-id], [data-f*="F-01-0"]').count());
+const html = await page.content(); console.log('Лусине in html', html.includes('Лусине'));
+await shot(page, 's7-journal', true);
+await stop();

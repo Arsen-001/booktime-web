@@ -1,0 +1,20 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "guest",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=Маникюр классический" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "screenshot": "10-staff" },
+    { "click": "button >> nth=0" },
+    { "wait": 400 },
+    { "screenshot": "11-after-staff-select" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 600 },
+    { "screenshot": "12-time-step" }
+  ]
+}

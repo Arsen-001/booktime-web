@@ -1,0 +1,40 @@
+{
+  "route": "/biz/notifications/channels/developer",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "role=button[name=/Демо: запись через внешнего агента/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "05-agent-sim-both-on"
+    },
+    {
+      "click": "text=Отправлять уведомление клиенту"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "text=Отправлять уведомление администратору"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name=/Демо: запись через внешнего агента/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "06-agent-sim-both-off"
+    }
+  ]
+}

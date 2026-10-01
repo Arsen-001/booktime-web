@@ -1,0 +1,21 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 500 },
+    { "fill": "textarea[placeholder*=\"Нет примечания\"]", "value": "Аллергия на латекс — тест g1-2" },
+    { "press": "Tab" },
+    { "wait": 600 },
+    { "screenshot": "before-reload" },
+    { "goto": "/biz/journal" },
+    { "wait": 600 },
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 500 },
+    { "screenshot": "after-reload" }
+  ]
+}

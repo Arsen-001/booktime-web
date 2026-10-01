@@ -1,0 +1,547 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:29:32.770Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 52,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1657,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 804
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Панель с итогом\"]"
+          },
+          "ok": true,
+          "ms": 368
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "sticky-bar"
+          },
+          "ok": true,
+          "ms": 160,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__sticky-bar.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Продолжить\"]"
+          },
+          "ok": true,
+          "ms": 280
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 404
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "toast-above-bar"
+          },
+          "ok": true,
+          "ms": 91,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__toast-above-bar.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=button[name=\"Панель с итогом\"]"
+          },
+          "ok": true,
+          "ms": 251
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "#table >> role=checkbox >> nth=0"
+          },
+          "ok": true,
+          "ms": 236
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "#table >> role=checkbox >> nth=1"
+          },
+          "ok": true,
+          "ms": 248
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 13,
+          "step": {
+            "screenshot": "bulk-bar"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__bulk-bar.png"
+        },
+        {
+          "i": 14,
+          "step": {
+            "click": "role=button[name=\"Действия\"]"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 15,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 16,
+          "step": {
+            "screenshot": "menu-sheet"
+          },
+          "ok": true,
+          "ms": 154,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__menu-sheet.png"
+        },
+        {
+          "i": 17,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 155
+        },
+        {
+          "i": 18,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 19,
+          "step": {
+            "click": "role=button[name=\"Статус (шторкой на телефоне)\"]"
+          },
+          "ok": true,
+          "ms": 185
+        },
+        {
+          "i": 20,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 21,
+          "step": {
+            "screenshot": "popover-sheet"
+          },
+          "ok": true,
+          "ms": 158,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__popover-sheet.png"
+        },
+        {
+          "i": 22,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 154
+        },
+        {
+          "i": 23,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 24,
+          "step": {
+            "click": "#period >> role=button[name=/Сегодня, /]"
+          },
+          "ok": true,
+          "ms": 176
+        },
+        {
+          "i": 25,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 26,
+          "step": {
+            "screenshot": "period-sheet"
+          },
+          "ok": true,
+          "ms": 142,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__period-sheet.png"
+        },
+        {
+          "i": 27,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 155
+        },
+        {
+          "i": 28,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 29,
+          "step": {
+            "click": "role=button[name=\"Sheet size=xl\"]"
+          },
+          "ok": true,
+          "ms": 233
+        },
+        {
+          "i": 30,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 31,
+          "step": {
+            "click": "role=button[name=\"Записать\"]"
+          },
+          "ok": true,
+          "ms": 172
+        },
+        {
+          "i": 32,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 400
+        },
+        {
+          "i": 33,
+          "step": {
+            "screenshot": "toast-top-over-sheet"
+          },
+          "ok": true,
+          "ms": 162,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__toast-top-over-sheet.png"
+        }
+      ],
+      "screenshots": [
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__sticky-bar.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__toast-above-bar.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__bulk-bar.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__menu-sheet.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__popover-sheet.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__period-sheet.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-phone__toast-top-over-sheet.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    },
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1653,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 804
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Sheet size=xl\"]"
+          },
+          "ok": true,
+          "ms": 316
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Записать\"]"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 405
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "sheet-xl-toast-beside"
+          },
+          "ok": true,
+          "ms": 114,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sheet-xl-toast-beside.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 216
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 413
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "#table >> role=checkbox >> nth=1"
+          },
+          "ok": true,
+          "ms": 242
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 11,
+          "step": {
+            "screenshot": "bulk-desktop"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__bulk-desktop.png"
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "role=button[name=\"Немодальная (modal=false)\"]"
+          },
+          "ok": true,
+          "ms": 248
+        },
+        {
+          "i": 13,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "sheet-nonmodal"
+          },
+          "ok": true,
+          "ms": 44,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sheet-nonmodal.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 17,
+          "step": {
+            "click": "role=button[name=\"Панель с итогом\"]"
+          },
+          "ok": true,
+          "ms": 226
+        },
+        {
+          "i": 18,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 19,
+          "step": {
+            "screenshot": "sticky-desktop"
+          },
+          "ok": true,
+          "ms": 41,
+          "screenshot": "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sticky-desktop.png"
+        }
+      ],
+      "screenshots": [
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sheet-xl-toast-beside.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__bulk-desktop.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sheet-nonmodal.png",
+        "qa/ux/steward-r3/after-panels/dev-ui-c__owner-nails-ru-light-desktop__sticky-desktop.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    }
+  ]
+}

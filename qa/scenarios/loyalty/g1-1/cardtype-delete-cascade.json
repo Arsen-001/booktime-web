@@ -1,0 +1,22 @@
+{
+  "route": "/biz/loyalty/card-types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder*=\"постоянного клиента\"]", "value": "QA удаляемый тип" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "expectText": "Тип карты создан" },
+    { "screenshot": "01-created" },
+    { "click": "role=button[name=\"Удалить тип\"]" },
+    { "wait": 300 },
+    { "screenshot": "02-delete-confirm-dialog" },
+    { "expectText": "Удалить тип карты?" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 600 },
+    { "expectText": "Тип карты удалён" },
+    { "screenshot": "03-after-delete-list" }
+  ]
+}

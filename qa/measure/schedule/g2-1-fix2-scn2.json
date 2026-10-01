@@ -1,0 +1,163 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:50:14.910Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-053",
+      "F-00-054",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-063",
+      "F-02-001",
+      "F-02-002",
+      "F-02-003",
+      "F-02-004",
+      "F-02-016",
+      "F-02-027",
+      "F-02-030",
+      "F-02-035",
+      "F-02-039",
+      "F-02-065",
+      "F-02-085",
+      "F-02-086",
+      "F-02-087",
+      "F-02-099"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 957,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-063",
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-016",
+        "F-02-027",
+        "F-02-030",
+        "F-02-035",
+        "F-02-039",
+        "F-02-065",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Показать"
+          },
+          "ok": true,
+          "ms": 261
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 310
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "a:has-text(\"Неделя\") >> nth=0"
+          },
+          "ok": true,
+          "ms": 249
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 505
+        },
+        {
+          "i": 5,
+          "step": {
+            "expectVisible": "[data-f=\"F-02-027 F-02-035\"]"
+          },
+          "ok": true,
+          "ms": 2341
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "calendar-staff"
+          },
+          "ok": true,
+          "ms": 56,
+          "screenshot": "qa/shots/schedule-fix2-scn2/biz-schedule__owner-nails-ru-light-desktop__calendar-staff.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/schedule-fix2-scn2/biz-schedule__owner-nails-ru-light-desktop.png",
+        "qa/shots/schedule-fix2-scn2/biz-schedule__owner-nails-ru-light-desktop__calendar-staff.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

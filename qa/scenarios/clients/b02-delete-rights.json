@@ -1,0 +1,33 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Ани Мелкумян" },
+      { "wait": 700 },
+      { "click": "button:has-text(\"Удалить\")" },
+      { "wait": 400 },
+      { "screenshot": "01-delete-confirm" },
+      { "click": "text=Отмена" },
+      { "wait": 300 },
+      { "screenshot": "02-delete-cancelled-still-there" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "sphere": "barber",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1200 },
+      { "fill": "input[placeholder*=\"по имени\"]", "value": "Ани Мелкумян" },
+      { "click": "button:has-text(\"Найти\")" },
+      { "wait": 500 },
+      { "screenshot": "03-other-business-search" }
+    ]
+  }
+]

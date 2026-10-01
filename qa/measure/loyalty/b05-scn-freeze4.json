@@ -1,0 +1,225 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T15:31:18.015Z",
+  "summary": {
+    "pages": 3,
+    "consoleErrors": 0,
+    "consoleWarnings": 3,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-112",
+      "F-06-187",
+      "F-06-194"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/memberships/lm_biz_nuri_1",
+      "url": "http://localhost:3710/biz/loyalty/memberships/lm_biz_nuri_1?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2952,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-112",
+        "F-06-187",
+        "F-06-194"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "d1"
+          },
+          "ok": true,
+          "ms": 112,
+          "screenshot": "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-1__owner-nails-ru-light-phone__d1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-1__owner-nails-ru-light-phone.png",
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-1__owner-nails-ru-light-phone__d1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/lm_biz_nuri_2",
+      "url": "http://localhost:3710/biz/loyalty/memberships/lm_biz_nuri_2?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2947,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-112",
+        "F-06-187",
+        "F-06-194"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "d2"
+          },
+          "ok": true,
+          "ms": 111,
+          "screenshot": "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-2__owner-nails-ru-light-phone__d2.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-2__owner-nails-ru-light-phone.png",
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-2__owner-nails-ru-light-phone__d2.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/lm_biz_nuri_3",
+      "url": "http://localhost:3710/biz/loyalty/memberships/lm_biz_nuri_3?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2951,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-112",
+        "F-06-187",
+        "F-06-194"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "d3"
+          },
+          "ok": true,
+          "ms": 111,
+          "screenshot": "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-3__owner-nails-ru-light-phone__d3.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-3__owner-nails-ru-light-phone.png",
+        "qa/shots/loyalty-b05-scn5/biz-loyalty-memberships-lm-biz-nuri-3__owner-nails-ru-light-phone__d3.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

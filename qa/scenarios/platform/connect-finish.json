@@ -1,0 +1,107 @@
+{
+  "route": "/platform/connect",
+  "persona": "platform",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "role=button[name=\"Начать подключение\"]"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "fill": "input[placeholder]",
+      "value": "QA Тест-Салон g11"
+    },
+    {
+      "fill": "input[placeholder=\"00 123 456\"]",
+      "value": "10203040"
+    },
+    {
+      "screenshot": "01-info"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "02-here"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "03-photos"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "04-invites"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "05-services"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "06-hours"
+    },
+    {
+      "click": "text=Пн"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "07-promo"
+    },
+    {
+      "click": "role=button[name=\"Готово — подключить\"]"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "screenshot": "08-after-finish"
+    },
+    {
+      "goto": "/search"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "screenshot": "09-search"
+    },
+    {
+      "expectText": "QA Тест-Салон g11"
+    },
+    {
+      "screenshot": "10-search-found"
+    }
+  ]
+}

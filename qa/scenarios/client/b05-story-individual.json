@@ -1,0 +1,15 @@
+{
+  "route": "/biz/apps/stories",
+  "persona": "individual",
+  "sphere": "barber",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "b05m1-indiv-toggle-default" },
+    { "click": "role=button[name=\"HY\"]" },
+    { "click": "role=button[name=\"Собрать картинку\"]" },
+    { "wait": 500 },
+    { "screenshot": "b05m1-indiv-2lang-preview" }
+  ]
+}

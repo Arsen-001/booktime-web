@@ -1,0 +1,26 @@
+{
+  "route": "/notifications",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "notifications-list" },
+    { "goto": "/memberships" },
+    { "wait": 500 },
+    { "screenshot": "memberships-list" },
+    { "click": "a[href^='/memberships/'] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "membership-detail" },
+    { "goto": "/bookings" },
+    { "wait": 500 },
+    { "click": "a[href^='/bookings/'] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "booking-detail" },
+    { "click": "a[href^='/places/']" },
+    { "wait": 500 },
+    { "screenshot": "place-card" }
+  ]
+}

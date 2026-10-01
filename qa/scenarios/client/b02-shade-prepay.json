@@ -1,0 +1,15 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "guest",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "master-card" },
+    { "click": "text=Маникюр с покрытием гель-лаком" },
+    { "wait": 500 },
+    { "screenshot": "01-service-picked" },
+    { "click": "role=button[name=\"Записаться\"]" },
+    { "wait": 700 },
+    { "screenshot": "02-slot-step" }
+  ]
+}

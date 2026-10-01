@@ -1,0 +1,33 @@
+{
+  "route": "/biz/integrations/api?tab=webhooks",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "[data-f~=\"F-13-062\"]" },
+    { "expectVisible": "[data-f~=\"F-13-065\"]" },
+    { "screenshot": "01-webhooks-initial" },
+    { "click": "role=switch" },
+    { "wait": 400 },
+    { "screenshot": "02-webhooks-toggled" },
+    { "click": "label:has-text(\"Клиенты\") input[type=checkbox]" },
+    { "wait": 400 },
+    { "screenshot": "03-webhooks-entity-toggled" },
+    { "goto": "/biz/integrations/api?tab=keys" },
+    { "wait": 400 },
+    { "screenshot": "04-keys-tab" },
+    { "expectVisible": "[data-f~=\"F-13-052\"]" },
+    { "goto": "/biz/integrations/api?tab=identifiers" },
+    { "wait": 400 },
+    { "screenshot": "05-identifiers-tab" },
+    { "expectVisible": "[data-f~=\"F-13-056\"]" },
+    { "goto": "/biz/integrations/api?tab=mcp" },
+    { "wait": 400 },
+    { "screenshot": "06-mcp-tab" },
+    { "expectVisible": "[data-f~=\"F-13-071\"]" },
+    { "goto": "/biz/integrations/api?tab=docs" },
+    { "wait": 400 },
+    { "screenshot": "07-docs-tab" },
+    { "expectVisible": "[data-f~=\"F-13-054\"]" }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:52:53.400Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 1,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-11-102",
+      "F-11-103"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/network/staff/migration",
+      "url": "http://localhost:3710/biz/network/staff/migration?demo=network&empty=0&sphere=hair&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "hair",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1848,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Internal Next.js error: Router action dispatched before initialization.\n    at dispatchAppRouterAction (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15242:37)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1261:61\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at Object.hmrRefresh (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1260:40)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16069:64\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at processMessage (http://loc"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-102",
+        "F-11-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=combobox >> nth=1"
+          },
+          "ok": true,
+          "ms": 229
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 304
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=option >> nth=0"
+          },
+          "ok": true,
+          "ms": 380
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "location-picked"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/measure/network/shots-b03-scn7/biz-network-staff-migration__network-hair-ru-light-desktop__location-picked.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/network/shots-b03-scn7/biz-network-staff-migration__network-hair-ru-light-desktop.png",
+        "qa/measure/network/shots-b03-scn7/biz-network-staff-migration__network-hair-ru-light-desktop__full.png",
+        "qa/measure/network/shots-b03-scn7/biz-network-staff-migration__network-hair-ru-light-desktop__location-picked.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

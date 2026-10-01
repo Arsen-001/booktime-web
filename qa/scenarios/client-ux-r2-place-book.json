@@ -1,0 +1,11 @@
+[
+{ "route": "/book?business=biz_nuri", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=radio >> nth=0" },
+    { "wait": 1200 },
+    { "screenshot": "r2-place-service-picked" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-place-service-picked-bottom" }
+  ] }
+]

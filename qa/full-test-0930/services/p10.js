@@ -1,0 +1,12 @@
+const page = state.owner;
+await page.getByRole('tab', { name: /Новости сервиса/ }).click(); await page.waitForTimeout(1200);
+await page.getByRole('button', { name: /Чат с поддержкой/ }).first().click(); await page.waitForTimeout(800);
+const d = page.locator('[role=dialog]').last();
+await d.locator('textarea').fill('QA-0930 тест обращения из кабинета');
+await d.getByRole('button', { name: /Отправить/ }).click(); await page.waitForTimeout(1500);
+log('toast', await page.locator('[data-sonner-toast],[role=status]').allInnerTexts());
+const pl = state.pl;
+await L.go(pl, '/platform/support'); await pl.waitForTimeout(1200);
+const t = await pl.innerText('main');
+log('in platform:', t.includes('QA-0930 тест обращения'), t.match(/[^\n]*\n[^\n]*QA-0930[^\n]*\n[^\n]*\n[^\n]*/)?.[0]);
+await L.shot(pl, 'platform', 's01-support-new-ticket');

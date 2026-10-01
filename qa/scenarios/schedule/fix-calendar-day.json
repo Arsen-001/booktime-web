@@ -1,0 +1,9 @@
+{ "route": "/biz/schedule/calendar", "persona": "master", "device": "phone",
+  "steps": [
+    { "wait": 1000 },
+    { "press": "Escape" },
+    { "wait": 400 },
+    { "click": "section[aria-label] button[aria-current=date]" },
+    { "wait": 700 },
+    { "screenshot": "day-sheet" }
+  ] }

@@ -1,0 +1,12 @@
+{"route":"/biz/payroll/settings","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"screenshot":"before"},
+   {"click":"text=Доплачивать за ассистирование при оказании услуги"},
+   {"wait":200},
+   {"click":"role=button[name=\"Сохранить\"]"},
+   {"wait":800},
+   {"screenshot":"after-save-same-tab"},
+   {"goto":"/biz/payroll/settings"},
+   {"wait":800},
+   {"screenshot":"after-full-reload"}
+ ]}

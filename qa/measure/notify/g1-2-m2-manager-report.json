@@ -1,0 +1,313 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:59:46.775Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-061",
+      "F-05-062",
+      "F-05-132"
+    ],
+    "scenarioSteps": {
+      "ok": 12,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/inbox",
+      "url": "http://localhost:3710/biz/notifications/inbox?demo=owner&empty=0&sphere=hair&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "hair",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1320,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-061",
+        "F-05-062",
+        "F-05-132"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Новости сервиса"
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 299
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "manager-hair"
+          },
+          "ok": true,
+          "ms": 66,
+          "screenshot": "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-hair-ru-light-desktop__manager-hair.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-hair-ru-light-desktop.png",
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-hair-ru-light-desktop__manager-hair.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/inbox",
+      "url": "http://localhost:3710/biz/notifications/inbox?demo=owner&empty=0&sphere=barber&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "barber",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1319,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-061",
+        "F-05-062",
+        "F-05-132"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Новости сервиса"
+          },
+          "ok": true,
+          "ms": 235
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 299
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "manager-barber"
+          },
+          "ok": true,
+          "ms": 63,
+          "screenshot": "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-barber-ru-light-desktop__manager-barber.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-barber-ru-light-desktop.png",
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__owner-barber-ru-light-desktop__manager-barber.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/inbox",
+      "url": "http://localhost:3710/biz/notifications/inbox?demo=network&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1119,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-061",
+        "F-05-062",
+        "F-05-132"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Новости сервиса"
+          },
+          "ok": true,
+          "ms": 214
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "manager-network"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__network-nails-ru-light-desktop__manager-network.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__network-nails-ru-light-desktop.png",
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__network-nails-ru-light-desktop__manager-network.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/inbox",
+      "url": "http://localhost:3710/biz/notifications/inbox?demo=individual&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "individual",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 723,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-061",
+        "F-05-062",
+        "F-05-132"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Новости сервиса"
+          },
+          "ok": true,
+          "ms": 178
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "manager-individual"
+          },
+          "ok": true,
+          "ms": 62,
+          "screenshot": "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__individual-nails-ru-light-desktop__manager-individual.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__individual-nails-ru-light-desktop.png",
+        "qa/shots/notify-g1-2-m2/manager/biz-notifications-inbox__individual-nails-ru-light-desktop__manager-individual.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

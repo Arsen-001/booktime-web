@@ -1,0 +1,20 @@
+{
+  "route": "/biz/schedule/calendar",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "text=Следующий период"},
+    {"wait": 500},
+    {"click": "[data-f=\"F-02-027 F-02-035\"] >> nth=2 >> role=combobox"},
+    {"wait": 300},
+    {"click": "role=option[name=\"Нерабочий день\"]"},
+    {"wait": 600},
+    {"screenshot": "no-booking-day"},
+    {"wait": 5200},
+    {"screenshot": "no-booking-day-after-5s"}
+  ]
+}

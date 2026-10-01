@@ -1,0 +1,19 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "general",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "text=Укрепление ногтей гелем" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Пришёл\"]" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Сохранить изменения\"]" },
+    { "wait": 800 },
+    { "screenshot": "toast" },
+    { "click": "[aria-label=Закрыть], button:has(svg):near(:text(\"Не получилось\"))" }
+  ]
+}

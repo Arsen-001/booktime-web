@@ -1,0 +1,34 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "role=button[name=\"Новая запись\"]" },
+      { "wait": 400 },
+      { "click": "text=Обычная запись" },
+      { "wait": 700 },
+      { "fill": "input[placeholder=\"91 234 567\"]", "value": "95965289" },
+      { "wait": 700 },
+      { "click": "text=Нелли Симонян" },
+      { "wait": 400 },
+      { "click": "text=Прошлая услуга клиента" },
+      { "wait": 400 },
+      { "click": "role=button[name=\"Пришёл\"]" },
+      { "wait": 300 },
+      { "click": "text=Ещё поля" },
+      { "wait": 300 },
+      { "click": "text=Выберите дату" },
+      { "wait": 300 },
+      { "screenshot": "datepicker-open" },
+      { "click": "role=button[name=\"Сегодня\"]" },
+      { "wait": 300 },
+      { "screenshot": "date-picked" },
+      { "click": "role=button[name=\"Записать\"]" },
+      { "wait": 900 },
+      { "screenshot": "after-save" }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "route": "/platform/promocodes",
+    "persona": "platform",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-list" },
+      { "click": "[data-fab]" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Создать промокод\"]" },
+      { "expectText": "Код — от 3 до 24 знаков" },
+      { "click": "role=button[name=\"Придумать код\"]" },
+      { "wait": 100 },
+      { "screenshot": "02-form" },
+      { "click": "role=button[name=\"Создать промокод\"]" },
+      { "wait": 700 },
+      { "expectText": "создан" },
+      { "screenshot": "03-created" },
+      { "click": "role=button[name=\"Ещё\"]" },
+      { "wait": 300 },
+      { "click": "text=Выдать бесплатный месяц >> nth=-1" },
+      { "wait": 500 },
+      { "screenshot": "04-grant" }
+    ]
+  }
+]

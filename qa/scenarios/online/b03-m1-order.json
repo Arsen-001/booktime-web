@@ -1,0 +1,21 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=link[name=\"Настроить\"]" },
+    { "wait": 600 },
+    { "click": "text=Меню" },
+    { "wait": 200 },
+    { "click": "li:has-text(\"Выбор специалиста\") >> role=button[name=\"Переместить ниже\"]" },
+    { "wait": 150 },
+    { "click": "li:has-text(\"Выбор специалиста\") >> role=button[name=\"Переместить ниже\"]" },
+    { "wait": 150 },
+    { "screenshot": "02-staff-moved-last" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "screenshot": "03-saved" }
+  ]
+}

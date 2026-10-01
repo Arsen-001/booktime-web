@@ -1,0 +1,1004 @@
+Раздел        error  warn  по правилам
+client            2   129  A2:1 A4:1 A5:4 A8:2 A9:8 A10:6 A11:5 A12:59 A13:8 A14:32 A16:5
+platform          0     4  A14:4
+journal           0   119  A7:3 A8:10 A9:1 A10:40 A11:9 A12:3 A13:16 A14:22 A15:13 A16:2
+schedule          0     8  A13:4 A14:4
+online            2   128  A4:1 A5:2 A6:1 A8:2 A9:16 A10:3 A11:21 A12:58 A13:9 A14:16 A16:1
+clients           0    20  A7:1 A8:6 A12:1 A13:5 A14:7
+notify            0    30  A5:3 A9:3 A10:2 A11:1 A12:3 A13:7 A14:10 A16:1
+loyalty           0    67  A8:7 A9:2 A10:31 A12:4 A13:9 A14:14
+finance           0    46  A5:3 A7:1 A8:1 A9:5 A10:13 A12:1 A13:9 A14:13
+stock             0    63  A5:4 A9:3 A10:21 A12:6 A13:8 A14:20 A15:1
+payroll           1    24  A1:1 A5:5 A8:2 A10:1 A13:8 A14:8
+staff             0    38  A8:2 A11:14 A13:8 A14:14
+network           0    55  A9:4 A11:30 A13:10 A14:11
+reports           5    70  A1:1 A2:1 A4:3 A5:20 A7:1 A9:3 A10:3 A11:21 A12:11 A13:4 A14:7
+integrations      0    11  A7:1 A9:1 A10:2 A13:3 A14:4
+settings          1    47  A1:1 A8:2 A9:10 A10:8 A11:11 A12:6 A13:3 A14:7
+resources         0    25  A5:1 A8:1 A9:2 A10:9 A12:1 A13:5 A14:5 A16:1
+services          1    13  A4:1 A5:1 A8:1 A9:1 A10:5 A12:3 A13:1 A14:1
+foundation       29    45  A1:3 A2:21 A4:5 A5:10 A7:17 A9:7 A10:7 A11:4
+
+ERROR A2  src/api/client.ts:52  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/client.ts:1386  запись в чужой срез «online»
+ERROR A1  src/api/journal-offers.ts:29  фундамент импортирует раздел «journal» (только через src/extensions)
+ERROR A1  src/api/journal-offers.ts:30  фундамент импортирует раздел «notify» (только через src/extensions)
+ERROR A4  src/api/journal-offers.ts:254  запись в чужой срез «notify»
+ERROR A4  src/api/journal-offers.ts:260  запись в чужой срез «online»
+ERROR A4  src/api/journal-offers.ts:266  запись в чужой срез «client»
+ERROR A4  src/api/journal-offers.ts:287  запись в чужой срез «journal»
+ERROR A4  src/api/journal-offers.ts:316  запись в чужой срез «journal»
+ERROR A2  src/api/journal.server.ts:42  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/live.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/mirror.ts:27  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/notify.server.ts:25  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/online.ts:2818  запись в чужой срез «client»
+ERROR A2  src/api/payroll.server.ts:41  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/ads.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/businesses.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/connect.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/demand.server.ts:10  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/ideas.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/moderation.server.ts:14  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/plan.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/promo.server.ts:14  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/sphereRequests.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/support.server.ts:11  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/visits.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/reports.ts:112  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/reports.ts:2444  запись в чужой срез «client»
+ERROR A4  src/api/reports.ts:2459  запись в чужой срез «client»
+ERROR A4  src/api/reports.ts:2471  запись в чужой срез «client»
+ERROR A2  src/api/resources.server.ts:45  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/schedule/schedule.server.ts:17  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/services.server.ts:17  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/services.ts:1169  запись в чужой срез «schedule»
+ERROR A2  src/api/settings.server.ts:42  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/staff.server.ts:34  прямой доступ к моковой базе — только через src/api/*
+ERROR A1  src/app/biz/payroll/settlements/page.tsx:1  импорт внутренностей раздела «finance» из «payroll»
+ERROR A1  src/app/s/[code]/open/page.tsx:1  фундамент импортирует раздел «notify» (только через src/extensions)
+ERROR A6  src/areas/online/settings/StaffChoiceCard.tsx:38  any
+ERROR A1  src/areas/reports/StockBalanceScreen.tsx:15  импорт внутренностей раздела «stock» из «reports»
+ERROR A1  src/areas/settings/MobileAppsScreen.tsx:17  импорт внутренностей раздела «online» из «settings»
+warn  A13 src/api/client.ts:1  4400 строк (major: > 700) — разбить
+warn  A5  src/api/client.ts:394  чтение чужого среза «online» — лучше функцией src/api/online.ts
+warn  A5  src/api/client.ts:1337  чтение чужого среза «online» — лучше функцией src/api/online.ts
+warn  A5  src/api/client.ts:1818  чтение чужого среза «notify» — лучше функцией src/api/notify.ts
+warn  A16 src/api/client.ts:1867  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A5  src/api/client.ts:2815  чтение чужого среза «platform» — лучше функцией src/api/platform.ts
+warn  A11 src/api/client.ts:3631  вложенный вызов listGroupEvents() — отдельная задержка и не атомарно
+warn  A16 src/api/client.ts:3646  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A16 src/api/client.ts:3658  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A11 src/api/client.ts:3696  вложенный вызов createGroupEvent() — отдельная задержка и не атомарно
+warn  A11 src/api/client.ts:3727  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/client.ts:3865  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/client.ts:3896  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A7  src/api/core.ts:207  двойное приведение `as unknown as`
+warn  A7  src/api/core.ts:282  двойное приведение `as unknown as`
+warn  A7  src/api/core.ts:649  двойное приведение `as unknown as`
+warn  A7  src/api/core.ts:650  двойное приведение `as unknown as`
+warn  A7  src/api/core.ts:651  двойное приведение `as unknown as`
+warn  A13 src/api/finance.ts:1  3659 строк (major: > 700) — разбить
+warn  A7  src/api/finance.ts:595  двойное приведение `as unknown as`
+warn  A5  src/api/finance.ts:979  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/finance.ts:981  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A5  src/api/finance.ts:1048  чтение чужого среза «loyalty» — лучше функцией src/api/loyalty.ts
+warn  A9  src/api/finance.ts:2488  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/integrations.server.ts:177  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/integrations.server.ts:179  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/integrations.ts:1  1671 строк (major: > 700) — разбить
+warn  A5  src/api/journal-offers.ts:93  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/journal-offers.ts:94  чтение чужого среза «online» — лучше функцией src/api/online.ts
+warn  A5  src/api/journal-offers.ts:95  чтение чужого среза «client» — лучше функцией src/api/client.ts
+warn  A5  src/api/journal-offers.ts:123  чтение чужого среза «client» — лучше функцией src/api/client.ts
+warn  A5  src/api/journal-offers.ts:140  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/journal-offers.ts:146  чтение чужого среза «client» — лучше функцией src/api/client.ts
+warn  A5  src/api/journal-offers.ts:156  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/journal-offers.ts:187  чтение чужого среза «client» — лучше функцией src/api/client.ts
+warn  A5  src/api/journal-offers.ts:304  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/journal-offers.ts:328  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A7  src/api/journal.server.ts:477  двойное приведение `as unknown as`
+warn  A7  src/api/journal.server.ts:779  двойное приведение `as unknown as`
+warn  A11 src/api/journal.server.ts:779  вложенный вызов createGroupEvent() — отдельная задержка и не атомарно
+warn  A7  src/api/journal.server.ts:783  двойное приведение `as unknown as`
+warn  A11 src/api/journal.server.ts:783  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.server.ts:792  вложенный вызов updateGroupEvent() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.server.ts:793  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A13 src/api/journal.ts:1  3464 строк (major: > 700) — разбить
+warn  A11 src/api/journal.ts:339  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:1660  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:1941  вложенный вызов coreGet() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2193  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2575  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2577  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2598  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2756  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/journal.ts:2850  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A13 src/api/loyalty.ts:1  3550 строк (major: > 700) — разбить
+warn  A9  src/api/loyalty.ts:67  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/loyalty.ts:71  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/mirror.ts:276  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/mirror.ts:277  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/mirror.ts:278  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/network.ts:1  4811 строк (major: > 700) — разбить
+warn  A11 src/api/network.ts:185  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:307  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:344  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:432  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:457  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:496  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:665  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:1323  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A9  src/api/network.ts:1446  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/network.ts:1921  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/network.ts:2574  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2579  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2591  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2790  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2808  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2811  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2830  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2878  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2885  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2924  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2951  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:2974  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3030  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3048  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3149  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3152  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3176  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3215  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3243  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:3294  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:4682  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/network.ts:4698  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A13 src/api/notify.ts:1  1865 строк (major: > 700) — разбить
+warn  A5  src/api/notify.ts:211  чтение чужого среза «settings» — лучше функцией src/api/settings.ts
+warn  A5  src/api/notify.ts:649  чтение чужого среза «online» — лучше функцией src/api/online.ts
+warn  A16 src/api/notify.ts:767  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A5  src/api/notify.ts:804  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A11 src/api/notify.ts:1195  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A9  src/api/notify.ts:1488  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/online.ts:1  2828 строк (major: > 700) — разбить
+warn  A5  src/api/online.ts:95  чтение чужого среза «schedule» — лучше функцией src/api/schedule.ts
+warn  A5  src/api/online.ts:102  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A9  src/api/online.ts:351  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/online.ts:621  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/online.ts:646  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/online.ts:649  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/online.ts:825  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/online.ts:873  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:877  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:951  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1010  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1090  вложенный вызов coreGet() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1470  вложенный вызов coreGet() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1474  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1549  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A9  src/api/online.ts:1561  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/online.ts:1614  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1631  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:1643  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A9  src/api/online.ts:1668  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/online.ts:1999  вложенный вызов listGroupEvents() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2006  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2047  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2052  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2055  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2076  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2133  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2169  вложенный вызов updateBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2186  вложенный вызов coreGet() — отдельная задержка и не атомарно
+warn  A11 src/api/online.ts:2227  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A9  src/api/online.ts:2380  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A16 src/api/online.ts:2409  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A9  src/api/online.ts:2427  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/online.ts:2444  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/payroll.ts:1  1986 строк (major: > 700) — разбить
+warn  A5  src/api/payroll.ts:106  чтение чужого среза «loyalty» — лучше функцией src/api/loyalty.ts
+warn  A5  src/api/payroll.ts:136  чтение чужого среза «resources» — лучше функцией src/api/resources.ts
+warn  A5  src/api/payroll.ts:156  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A5  src/api/payroll.ts:182  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/payroll.ts:205  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A9  src/api/reports.server.ts:188  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/reports.ts:1  2754 строк (major: > 700) — разбить
+warn  A9  src/api/reports.ts:176  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/reports.ts:203  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A5  src/api/reports.ts:294  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:301  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:524  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:605  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:677  вложенный вызов deleteBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:724  вложенный вызов findClientByPhone() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:725  вложенный вызов createBooking() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:763  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:874  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:946  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:1021  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:1087  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/reports.ts:1321  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A11 src/api/reports.ts:1458  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:1459  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/reports.ts:1463  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A5  src/api/reports.ts:1486  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:1488  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:1610  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:1611  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:1635  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:1638  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:1763  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:1765  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A11 src/api/reports.ts:1817  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A9  src/api/reports.ts:1846  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A5  src/api/reports.ts:1893  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:2082  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:2214  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A5  src/api/reports.ts:2279  чтение чужого среза «loyalty» — лучше функцией src/api/loyalty.ts
+warn  A11 src/api/reports.ts:2283  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:2360  чтение чужого среза «loyalty» — лучше функцией src/api/loyalty.ts
+warn  A11 src/api/reports.ts:2362  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:2393  чтение чужого среза «client» — лучше функцией src/api/client.ts
+warn  A5  src/api/reports.ts:2485  чтение чужого среза «notify» — лучше функцией src/api/notify.ts
+warn  A5  src/api/reports.ts:2495  чтение чужого среза «notify» — лучше функцией src/api/notify.ts
+warn  A5  src/api/reports.ts:2572  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A5  src/api/reports.ts:2603  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A5  src/api/reports.ts:2625  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A11 src/api/reports.ts:2659  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A5  src/api/reports.ts:2727  чтение чужого среза «stock» — лучше функцией src/api/stock.ts
+warn  A11 src/api/reports.ts:2728  вложенный вызов listBookings() — отдельная задержка и не атомарно
+warn  A7  src/api/request.ts:72  двойное приведение `as unknown as`
+warn  A13 src/api/resources.ts:1  1974 строк (major: > 700) — разбить
+warn  A5  src/api/resources.ts:465  чтение чужого среза «journal» — лучше функцией src/api/journal.ts
+warn  A16 src/api/resources.ts:473  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A9  src/api/resources.ts:1458  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A7  src/api/schedule/schedule.server.ts:112  двойное приведение `as unknown as`
+warn  A13 src/api/services.ts:1  1342 строк (major: > 700) — разбить
+warn  A9  src/api/services.ts:306  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A5  src/api/services.ts:1340  чтение чужого среза «platform» — лучше функцией src/api/platform.ts
+warn  A9  src/api/settings.server.ts:45  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/api/settings.ts:1  2377 строк (major: > 700) — разбить
+warn  A9  src/api/settings.ts:465  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:467  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:481  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:525  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:559  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:561  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/settings.ts:577  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/settings.ts:1485  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:1621  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:1629  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:1678  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:1840  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:2160  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:2185  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:2200  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A9  src/api/settings.ts:2268  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A11 src/api/settings.ts:2367  вложенный вызов coreGet() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:2368  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/settings.ts:2374  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A13 src/api/staff.ts:1  1919 строк (major: > 700) — разбить
+warn  A11 src/api/staff.ts:297  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:456  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:546  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:790  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:897  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1003  вложенный вызов coreRemove() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1021  вложенный вызов coreCreate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1066  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1088  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1328  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1329  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1377  вложенный вызов setStaffPermissions() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1606  вложенный вызов coreUpdate() — отдельная задержка и не атомарно
+warn  A11 src/api/staff.ts:1857  вложенный вызов setStaffPermissions() — отдельная задержка и не атомарно
+warn  A13 src/api/stock.ts:1  3489 строк (major: > 700) — разбить
+warn  A5  src/api/stock.ts:82  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/stock.ts:93  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/stock.ts:169  чтение чужого среза «finance» — лучше функцией src/api/finance.ts
+warn  A5  src/api/stock.ts:2870  чтение чужого среза «platform» — лучше функцией src/api/platform.ts
+warn  A9  src/api/stock.ts:3341  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/api/stock.ts:3343  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A14 src/areas/client/apps/AppsHubScreen.tsx:1  2 компонентов в одном файле: AppsHubScreen, CashbackVisibilityCard
+warn  A12 src/areas/client/apps/AppsHubScreen.tsx:283  ключ запроса ['cashback-visible', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/apps/BrandedAppScreen.tsx:1  610 строк (> 400) — разбить
+warn  A14 src/areas/client/apps/BrandedAppScreen.tsx:1  4 компонентов в одном файле: BrandedAppScreen, BrandedAppForm, TextMaterialField, MaterialImage
+warn  A12 src/areas/client/apps/BrandedAppScreen.tsx:95  ключ запроса ['branded-app', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/apps/EventsAppScreen.tsx:1  3 компонентов в одном файле: EventsAppScreen, CreateEventModal, EventModal
+warn  A12 src/areas/client/apps/EventsAppScreen.tsx:53  ключ запроса ['app-events', …] — первым должен быть id раздела 'client'
+warn  A9  src/areas/client/apps/EventsAppScreen.tsx:88  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/client/apps/EventsAppScreen.tsx:128  ключ запроса ['app-services', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/EventsAppScreen.tsx:129  ключ запроса ['staff-brief', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/NewsScreen.tsx:32  ключ запроса ['news', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/NewsScreen.tsx:33  ключ запроса ['news-week', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/NewsScreen.tsx:34  ключ запроса ['coins', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/apps/PayrollAppScreen.tsx:1  3 компонентов в одном файле: PayrollAppScreen, CalculationTab, PayoutsTab
+warn  A12 src/areas/client/apps/PayrollAppScreen.tsx:36  ключ запроса ['app-staff-payroll', …] — первым должен быть id раздела 'client'
+warn  A8  src/areas/client/apps/PayrollAppScreen.tsx:39  проверка по персоне — используйте useCan(permission)
+warn  A12 src/areas/client/apps/PayrollAppScreen.tsx:102  ключ запроса ['payroll-calc', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/PayrollAppScreen.tsx:151  ключ запроса ['payroll-payouts', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/PromotionScreen.tsx:30  ключ запроса ['promotion', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/PromotionScreen.tsx:33  ключ запроса ['coins', …] — первым должен быть id раздела 'client'
+warn  A9  src/areas/client/apps/PromotionScreen.tsx:67  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/client/apps/RemindersScreen.tsx:22  ключ запроса ['no-app-reminders', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/apps/ReportsAppScreen.tsx:1  6 компонентов в одном файле: ReportsAppScreen, DailyReportTab, ZReportTab, PeriodReportTab, MyAnalyticsTab, NetworkTab
+warn  A9  src/areas/client/apps/ReportsAppScreen.tsx:27  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/client/apps/ReportsAppScreen.tsx:32  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/client/apps/ReportsAppScreen.tsx:76  ключ запроса ['daily-report', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/ReportsAppScreen.tsx:118  ключ запроса ['app-staff-brief', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/ReportsAppScreen.tsx:119  ключ запроса ['z-report', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/ReportsAppScreen.tsx:176  ключ запроса ['period-report', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/ReportsAppScreen.tsx:247  ключ запроса ['network-day-stats', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/apps/ServicesAppScreen.tsx:1  541 строк (> 400) — разбить
+warn  A14 src/areas/client/apps/ServicesAppScreen.tsx:1  5 компонентов в одном файле: ServicesAppScreen, ServiceRow, RenameCategoryForm, ServiceFormModal, PackageFormModal
+warn  A12 src/areas/client/apps/ServicesAppScreen.tsx:60  ключ запроса ['app-service-categories', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/ServicesAppScreen.tsx:63  ключ запроса ['app-services', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/apps/StoriesGeneratorScreen.tsx:1  432 строк (> 400) — разбить
+warn  A14 src/areas/client/apps/StoriesGeneratorScreen.tsx:1  4 компонентов в одном файле: StoriesGeneratorScreen, StoryRowSkeleton, StoryRow, Generator
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:61  ключ запроса ['coins', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:62  ключ запроса ['story-slots', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:63  ключ запроса ['business-stories', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:210  ключ запроса ['place-card', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:212  ключ запроса ['staff-brief', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/StoriesGeneratorScreen.tsx:214  ключ запроса ['story-slots', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/apps/TeamAppScreen.tsx:1  496 строк (> 400) — разбить
+warn  A14 src/areas/client/apps/TeamAppScreen.tsx:1  6 компонентов в одном файле: TeamAppScreen, CreateStaffModal, StaffModal, PushTab, PayrollAccessTab, AnalyticsTab
+warn  A12 src/areas/client/apps/TeamAppScreen.tsx:52  ключ запроса ['app-staff', …] — первым должен быть id раздела 'client'
+warn  A9  src/areas/client/apps/TeamAppScreen.tsx:468  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/client/apps/TeamAppScreen.tsx:469  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/client/apps/TeamAppScreen.tsx:471  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/client/apps/TeamAppScreen.tsx:473  ключ запроса ['my-analytics', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/apps/VisitAppScreen.tsx:1  708 строк (major: > 700) — разбить
+warn  A14 src/areas/client/apps/VisitAppScreen.tsx:1  7 компонентов в одном файле: VisitAppScreen, VisitModal, SaleTab, PayTab, ReceiptCard, LoyaltyTab, PushComposer
+warn  A12 src/areas/client/apps/VisitAppScreen.tsx:61  ключ запроса ['visit-candidates', …] — первым должен быть id раздела 'client'
+warn  A9  src/areas/client/apps/VisitAppScreen.tsx:91  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/client/apps/VisitAppScreen.tsx:117  ключ запроса ['visit-detail', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/VisitAppScreen.tsx:119  ключ запроса ['cash-desks', …] — первым должен быть id раздела 'client'
+warn  A10 src/areas/client/apps/VisitAppScreen.tsx:199  вызов sendOneOffPush() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/client/apps/VisitAppScreen.tsx:511  ключ запроса ['visit-detail-receipt', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/apps/VisitAppScreen.tsx:512  ключ запроса ['visit-receipt-sent', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/book/BookSummary.tsx:1  2 компонентов в одном файле: BookSummary, SummaryRow
+warn  A14 src/areas/client/bookings/BookingCard.tsx:1  2 компонентов в одном файле: BookingCard, BookingCardSkeleton
+warn  A16 src/areas/client/bookings/BookingCard.tsx:25  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A14 src/areas/client/bookings/BookingDetailBody.tsx:1  2 компонентов в одном файле: BookingDetailBody, Row
+warn  A12 src/areas/client/bookings/BookingDetailBody.tsx:46  ключ запроса ['online-business-rules', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/bookings/BookingsScreen.tsx:1  3 компонентов в одном файле: BookingsScreen, BookingsBody, BookingList
+warn  A16 src/areas/client/bookings/bookingTone.ts:28  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A14 src/areas/client/bookings/RescheduleScreen.tsx:1  2 компонентов в одном файле: RescheduleScreen, RescheduleBody
+warn  A14 src/areas/client/catalog/CatalogEntryCard.tsx:1  3 компонентов в одном файле: CatalogEntryCard, CatalogEntryCardSkeleton, SlotsRowSkeleton
+warn  A14 src/areas/client/certificates/CertificateDetailScreen.tsx:1  2 компонентов в одном файле: CertificateDetailScreen, Row
+warn  A12 src/areas/client/certificates/CertificateDetailScreen.tsx:25  ключ запроса ['certificate', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/certificates/CertificatesScreen.tsx:1  2 компонентов в одном файле: CertificatesScreen, CertificateCard
+warn  A12 src/areas/client/certificates/CertificatesScreen.tsx:24  ключ запроса ['certificates', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/diary/DiaryScreen.tsx:1  3 компонентов в одном файле: DiaryScreen, DiaryBody, DiaryRowCard
+warn  A12 src/areas/client/diary/DiaryScreen.tsx:62  ключ запроса ['diary', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/favorites/FavoritesScreen.tsx:1  4 компонентов в одном файле: FavoritesScreen, SubscriptionsTab, MyMastersTab, SubscriptionCardSkeleton
+warn  A12 src/areas/client/favorites/FavoritesScreen.tsx:71  ключ запроса ['favorites', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/favorites/FavoritesScreen.tsx:199  ключ запроса ['my-masters-full', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/home/MyMastersSection.tsx:1  2 компонентов в одном файле: MyMastersSection, MyMasterItem
+warn  A14 src/areas/client/login/LoginScreen.tsx:1  7 компонентов в одном файле: AgreementModal, LoginScreen, ClientLoginForm, BusinessLogin, BusinessPhoneLoginForm, AdminLoginForm, ChangePasswordForm
+warn  A14 src/areas/client/loyalty/CashbackDetailScreen.tsx:1  3 компонентов в одном файле: CashbackDetailScreen, SpendRules, EarnRuleLine
+warn  A12 src/areas/client/loyalty/CashbackDetailScreen.tsx:28  ключ запроса ['cashback-detail', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/loyalty/CashbackDetailScreen.tsx:31  ключ запроса ['place-card', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/loyalty/LoyaltyCardsScreen.tsx:1  2 компонентов в одном файле: LoyaltyCardsScreen, LoyaltyCardRowItem
+warn  A12 src/areas/client/loyalty/LoyaltyCardsScreen.tsx:34  ключ запроса ['loyalty-cards', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/masters/MasterCardScreen.tsx:1  2 компонентов в одном файле: MasterCardScreen, MasterCardBody
+warn  A14 src/areas/client/memberships/MembershipDetailScreen.tsx:1  2 компонентов в одном файле: MembershipDetailScreen, Row
+warn  A12 src/areas/client/memberships/MembershipDetailScreen.tsx:36  ключ запроса ['membership', …] — первым должен быть id раздела 'client'
+warn  A10 src/areas/client/memberships/MembershipDetailScreen.tsx:42  вызов findRenewTemplate() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/client/memberships/MembershipsScreen.tsx:1  2 компонентов в одном файле: MembershipsScreen, MembershipCard
+warn  A12 src/areas/client/memberships/MembershipsScreen.tsx:28  ключ запроса ['memberships', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/notifications/NotificationSettingsScreen.tsx:1  2 компонентов в одном файле: NotificationSettingsScreen, NotificationSettingsBody
+warn  A12 src/areas/client/notifications/NotificationSettingsScreen.tsx:54  ключ запроса ['favorites', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/notifications/NotificationSettingsScreen.tsx:56  ключ запроса ['news-push-optout', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/notifications/NotificationsScreen.tsx:1  3 компонентов в одном файле: NotificationsScreen, NotificationsBody, NotificationRow
+warn  A12 src/areas/client/notifications/NotificationsScreen.tsx:95  ключ запроса ['notifications', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/client/places/PlaceCardScreen.tsx:1  543 строк (> 400) — разбить
+warn  A14 src/areas/client/places/PlaceCardScreen.tsx:1  6 компонентов в одном файле: PlaceCardScreen, PlaceCardBody, NetworkBranchesSection, OpenHours, PurchaseMembershipRow, PurchaseCertificateRow
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:46  ключ запроса ['place-card', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:88  ключ запроса ['location-reviews', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:89  ключ запроса ['cashback-detail', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:92  ключ запроса ['purchasable-memberships', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:93  ключ запроса ['purchasable-certificates', …] — первым должен быть id раздела 'client'
+warn  A12 src/areas/client/places/PlaceCardScreen.tsx:388  ключ запроса ['default-network-location', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/profile/ProfileScreen.tsx:1  3 компонентов в одном файле: ProfileScreen, ProfileBody, NameModal
+warn  A12 src/areas/client/profile/ProfileScreen.tsx:107  ключ запроса ['client-profile', …] — первым должен быть id раздела 'client'
+warn  A10 src/areas/client/profile/ProfileScreen.tsx:121  вызов setProfilePhoto() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/client/purchases/PurchaseStatusCard.tsx:1  2 компонентов в одном файле: PurchaseStatusBadge, PurchaseStatusCard
+warn  A12 src/areas/client/purchases/PurchaseStatusCard.tsx:53  ключ запроса ['loyalty', …] — первым должен быть id раздела 'client'
+warn  A10 src/areas/client/purchases/PurchaseStatusCard.tsx:59  вызов markMembershipPaymentSent() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/client/purchases/PurchaseStatusCard.tsx:60  вызов markCertificatePaymentSent() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/client/register-business/RegisterBusinessScreen.tsx:85  вызов saveOnboardingGoals() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/client/stories/StoryViewScreen.tsx:19  ключ запроса ['story', …] — первым должен быть id раздела 'client'
+warn  A14 src/areas/client/translations/TranslationsScreen.tsx:1  3 компонентов в одном файле: TranslationsScreen, TranslationRow, TranslationRowSkeleton
+warn  A12 src/areas/client/translations/TranslationsScreen.tsx:29  ключ запроса ['translatable-texts', …] — первым должен быть id раздела 'client'
+warn  A8  src/areas/client/ui/useClientSession.ts:13  проверка по персоне — используйте useCan(permission)
+warn  A12 src/areas/client/useClientFormat.ts:21  ключ запроса ['client-profile', …] — первым должен быть id раздела 'client'
+warn  A13 src/areas/clients/ClientCardScreen.tsx:1  530 строк (> 400) — разбить
+warn  A13 src/areas/clients/ClientsListScreen.tsx:1  489 строк (> 400) — разбить
+warn  A14 src/areas/clients/components/card/ClientContactButtons.tsx:1  2 компонентов в одном файле: ContactIconLink, ClientContactButtons
+warn  A14 src/areas/clients/components/card/ClientMoneySummary.tsx:1  2 компонентов в одном файле: ClientMoneySummary, ClientMoneySummarySkeleton
+warn  A14 src/areas/clients/components/card/ClientProfileCard.tsx:1  2 компонентов в одном файле: ClientProfileCard, ClientProfileCardSkeleton
+warn  A14 src/areas/clients/components/HistoryTab.tsx:1  2 компонентов в одном файле: HistoryTab, HistoryTabSkeleton
+warn  A14 src/areas/clients/components/list/ClientMobileRow.tsx:1  2 компонентов в одном файле: ClientMobileRow, ClientMobileRowSkeleton
+warn  A14 src/areas/clients/components/summary/PendingMarkRow.tsx:1  2 компонентов в одном файле: PendingMarkRow, PendingMarkRowSkeleton
+warn  A13 src/areas/clients/extensions/BookingWindow.tsx:1  555 строк (> 400) — разбить
+warn  A13 src/areas/clients/ImportExportScreen.tsx:1  457 строк (> 400) — разбить
+warn  A12 src/areas/clients/IntegrationsScreen.tsx:60  ключ запроса ['integrations', …] — первым должен быть id раздела 'clients'
+warn  A8  src/areas/clients/lib/rights.ts:17  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/clients/lib/rights.ts:18  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/clients/lib/rights.ts:36  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/clients/lib/rights.ts:40  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/clients/lib/rights.ts:41  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/clients/lib/rights.ts:60  проверка по персоне — используйте useCan(permission)
+warn  A7  src/areas/clients/lib/xlsx.ts:59  двойное приведение `as unknown as`
+warn  A13 src/areas/clients/LoyaltyProgramScreen.tsx:1  484 строк (> 400) — разбить
+warn  A14 src/areas/clients/LoyaltyProgramScreen.tsx:1  6 компонентов в одном файле: LoyaltyProgramScreen, DiscountTiersTab, ClassRulesTab, RuleList, CategoryRulesTab, SettingsTab
+warn  A14 src/areas/finance/AccountsScreen.tsx:1  2 компонентов в одном файле: AccountCardSkeleton, AccountsScreen
+warn  A10 src/areas/finance/AccountsScreen.tsx:188  вызов reorderAccounts() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/finance/AccountTypesScreen.tsx:1  2 компонентов в одном файле: AccountTypesScreen, AccountTypeFormModal
+warn  A10 src/areas/finance/AccountTypesScreen.tsx:173  вызов updateAccountType() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/AccountTypesScreen.tsx:174  вызов createAccountType() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/finance/AdyenScreen.tsx:1  2 компонентов в одном файле: AdyenScreen, OnboardingStartCard
+warn  A8  src/areas/finance/AdyenScreen.tsx:42  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/finance/extensions/BookingWindow.tsx:1  867 строк (major: > 700) — разбить
+warn  A9  src/areas/finance/extensions/BookingWindow.tsx:568  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/finance/extensions/payment/useLoyaltyBridge.ts:30  ключ запроса ['loyalty', …] — первым должен быть id раздела 'finance'
+warn  A14 src/areas/finance/FiscalScreen.tsx:1  2 компонентов в одном файле: FiscalScreen, FiscalForm
+warn  A14 src/areas/finance/ItemsScreen.tsx:1  2 компонентов в одном файле: ItemRowSkeleton, ItemsScreen
+warn  A13 src/areas/finance/MethodsScreen.tsx:1  515 строк (> 400) — разбить
+warn  A14 src/areas/finance/MethodsScreen.tsx:1  4 компонентов в одном файле: NumberField, MethodsScreen, OnlineCardTab, MethodsForm
+warn  A14 src/areas/finance/online/LinkSettingsScreen.tsx:1  2 компонентов в одном файле: LinkSettingsScreen, LinkSettingsForm
+warn  A14 src/areas/finance/online/ManualOnlineOrdersScreen.tsx:1  3 компонентов в одном файле: ManualOnlineOrdersScreen, MoneyRow, ConfirmOrderModal
+warn  A13 src/areas/finance/online/PrepaymentSettingsScreen.tsx:1  445 строк (> 400) — разбить
+warn  A14 src/areas/finance/online/PrepaymentSettingsScreen.tsx:1  2 компонентов в одном файле: PrepaymentSettingsScreen, PrepaymentForm
+warn  A10 src/areas/finance/online/PrepaymentSettingsScreen.tsx:217  вызов setStaffPrepayment() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/online/PrepaymentSettingsScreen.tsx:230  вызов setServicePrepayment() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/finance/OperationsScreen.tsx:1  652 строк (> 400) — разбить
+warn  A14 src/areas/finance/OperationsScreen.tsx:1  4 компонентов в одном файле: OperationsScreen, DayMoneySummaryCard, OneLine, SummaryRow
+warn  A9  src/areas/finance/policy/ClientPolicyPreviewModal.tsx:45  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A14 src/areas/finance/policy/PolicyBookingBlock.tsx:1  2 компонентов в одном файле: PolicyBookingBlock, KV
+warn  A10 src/areas/finance/policy/PolicyBookingBlock.tsx:89  вызов resolvePolicyDecision() в обход useApiMutation/useApiQuery
+warn  A9  src/areas/finance/policy/PolicyBookingBlock.tsx:101  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A10 src/areas/finance/policy/PolicyBookingBlock.tsx:103  вызов resolvePolicyReschedule() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/policy/PolicyBookingBlock.tsx:122  вызов clientCancelBookingWithPolicy() в обход useApiMutation/useApiQuery
+warn  A9  src/areas/finance/policy/PolicyBookingBlock.tsx:132  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A10 src/areas/finance/policy/PolicyBookingBlock.tsx:132  вызов clientRescheduleBookingWithPolicy() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/policy/PolicyBookingBlock.tsx:142  вызов applyPolicyDepositAtCheckout() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/finance/PolicyScreen.tsx:1  631 строк (> 400) — разбить
+warn  A14 src/areas/finance/PolicyScreen.tsx:1  6 компонентов в одном файле: PolicyScreen, PolicyForm, KV, PolicySkeleton, AmountField, ServiceOverrideModal
+warn  A10 src/areas/finance/PolicyScreen.tsx:420  вызов setServicePolicyOverride() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/PolicyScreen.tsx:579  вызов setServicePolicyOverride() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/finance/PolicyScreen.tsx:592  вызов setServicePolicyOverride() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/finance/SettingsScreen.tsx:1  554 строк (> 400) — разбить
+warn  A14 src/areas/finance/SettingsScreen.tsx:1  2 компонентов в одном файле: SettingsScreen, PaymentNotificationsCard
+warn  A13 src/areas/finance/SettlementsScreen.tsx:1  506 строк (> 400) — разбить
+warn  A9  src/areas/integrations/api/StatusPage.tsx:50  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/areas/integrations/api/tabs/DocsTab.tsx:1  420 строк (> 400) — разбить
+warn  A14 src/areas/integrations/api/tabs/DocsTab.tsx:1  2 компонентов в одном файле: MethodDoc, DocsTab
+warn  A7  src/areas/integrations/api/tabs/DocsTab.tsx:281  двойное приведение `as unknown as`
+warn  A14 src/areas/integrations/components/AppTile.tsx:1  2 компонентов в одном файле: AppTile, AppTileSkeleton
+warn  A14 src/areas/integrations/components/CategoryOverviewBlock.tsx:1  2 компонентов в одном файле: CategoryOverviewBlock, CategoryOverviewBlockSkeleton
+warn  A14 src/areas/integrations/components/InstalledRowCard.tsx:1  2 компонентов в одном файле: InstalledRowCard, InstalledRowCardSkeleton
+warn  A10 src/areas/integrations/DirectLinkScreen.tsx:21  вызов getAppByCode() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/integrations/DirectLinkScreen.tsx:24  вызов getDevAppByCode() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/components/AttentionPanel.tsx:1  706 строк (major: > 700) — разбить
+warn  A14 src/areas/journal/components/AttentionPanel.tsx:1  4 компонентов в одном файле: AttentionPanel, AttentionContentSkeleton, StripButton, AttentionContent
+warn  A13 src/areas/journal/components/booking-window/ClientZone.tsx:1  620 строк (> 400) — разбить
+warn  A14 src/areas/journal/components/booking-window/ClientZone.tsx:1  6 компонентов в одном файле: MessengerLinks, ClientSectionTiles, ClientStatsCard, NetworkClientDataCard, ClientNoteBlock, ClientZone
+warn  A8  src/areas/journal/components/booking-window/ClientZone.tsx:275  проверка по персоне — используйте useCan(permission)
+warn  A14 src/areas/journal/components/booking-window/ConsumablesTile.tsx:1  2 компонентов в одном файле: ConsumablesTile, TechCardRowPicker
+warn  A14 src/areas/journal/components/booking-window/ExpandedFieldsPanel.tsx:1  2 компонентов в одном файле: PinButton, ExpandedFieldsPanel
+warn  A13 src/areas/journal/components/booking-window/LeftZone.tsx:1  439 строк (> 400) — разбить
+warn  A10 src/areas/journal/components/booking-window/LoyaltyBlock.tsx:140  вызов adjustCardBalance() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/booking-window/LoyaltyBlock.tsx:142  вызов adjustMembership() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/booking-window/LoyaltyBlock.tsx:144  вызов adjustCertificate() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/components/booking-window/MedicalRecordsPanel.tsx:1  522 строк (> 400) — разбить
+warn  A14 src/areas/journal/components/booking-window/MedicalRecordsPanel.tsx:1  3 компонентов в одном файле: MedicalVisitCard, MedicalCardModal, TreatmentPlanModal
+warn  A13 src/areas/journal/components/booking-window/PaymentSheet.tsx:1  505 строк (> 400) — разбить
+warn  A14 src/areas/journal/components/booking-window/PaymentSheet.tsx:1  2 компонентов в одном файле: PaymentSheet, PayTile
+warn  A12 src/areas/journal/components/booking-window/usePackageDraft.ts:31  ключ запроса ['resources', …] — первым должен быть id раздела 'journal'
+warn  A13 src/areas/journal/components/BookingBlock.tsx:1  435 строк (> 400) — разбить
+warn  A15 src/areas/journal/components/BookingHoverCard.tsx:73  ошибка проглочена молча
+warn  A13 src/areas/journal/components/BookingWindow.tsx:1  1932 строк (major: > 700) — разбить
+warn  A10 src/areas/journal/components/BookingWindow.tsx:283  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A15 src/areas/journal/components/BookingWindow.tsx:342  ошибка проглочена молча
+warn  A10 src/areas/journal/components/BookingWindow.tsx:390  вызов decidePrepayment() в обход useApiMutation/useApiQuery
+warn  A15 src/areas/journal/components/BookingWindow.tsx:390  ошибка проглочена молча
+warn  A7  src/areas/journal/components/BookingWindow.tsx:462  двойное приведение `as unknown as`
+warn  A7  src/areas/journal/components/BookingWindow.tsx:617  двойное приведение `as unknown as`
+warn  A15 src/areas/journal/components/BookingWindow.tsx:617  ошибка проглочена молча
+warn  A7  src/areas/journal/components/BookingWindow.tsx:648  двойное приведение `as unknown as`
+warn  A8  src/areas/journal/components/BookingWindow.tsx:658  проверка по персоне — используйте useCan(permission)
+warn  A15 src/areas/journal/components/BookingWindow.tsx:714  ошибка проглочена молча
+warn  A15 src/areas/journal/components/BookingWindow.tsx:864  ошибка проглочена молча
+warn  A10 src/areas/journal/components/BookingWindow.tsx:910  вызов decidePrepayment() в обход useApiMutation/useApiQuery
+warn  A15 src/areas/journal/components/BookingWindow.tsx:910  ошибка проглочена молча
+warn  A10 src/areas/journal/components/BookingWindow.tsx:932  вызов hasOverlap() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:946  вызов checkLinkedBookings() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:982  вызов isWithinWorkingHours() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:990  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:993  вызов coreCreate() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1009  вызов resolveVisitId() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1027  вызов getPackageSiblings() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1041  вызов updateBooking() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1060  вызов transferPackageTogether() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1067  вызов updateBooking() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1068  вызов changeBookingStatus() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1073  вызов syncArrivedConsequences() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1077  вызов createBooking() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1156  вызов logBookingHistory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1159  вызов logBookingHistory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1172  вызов logBookingHistory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1175  вызов logBookingHistory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1183  вызов setBookingExtras() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1200  вызов attachLinkedBookings() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1211  вызов setBookingBreakOverride() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1213  вызов syncVisitStatus() в обход useApiMutation/useApiQuery
+warn  A15 src/areas/journal/components/BookingWindow.tsx:1231  ошибка проглочена молча
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1251  вызов getPackageSiblings() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1265  вызов getDeletionImpact() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1285  вызов deleteWholePackage() в обход useApiMutation/useApiQuery
+warn  A15 src/areas/journal/components/BookingWindow.tsx:1289  ошибка проглочена молча
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1336  вызов changeBookingStatus() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1337  вызов syncArrivedConsequences() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/components/BookingWindow.tsx:1349  вызов cancelVisitPayments() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/components/DayGrid.tsx:1  814 строк (major: > 700) — разбить
+warn  A14 src/areas/journal/components/DayGrid.tsx:1  3 компонентов в одном файле: DayGrid, DroppableCell, DragHint
+warn  A10 src/areas/journal/components/DayListActions.tsx:69  вызов syncArrivedConsequences() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/components/DayTimeline.tsx:1  466 строк (> 400) — разбить
+warn  A14 src/areas/journal/components/DayTimeline.tsx:1  2 компонентов в одном файле: DayTimeline, GhostLayer
+warn  A14 src/areas/journal/components/DayTotals.tsx:1  2 компонентов в одном файле: DayTotals, DayTotalsSkeleton
+warn  A14 src/areas/journal/components/DayViewParts.tsx:1  2 компонентов в одном файле: BookingPeekCard, DropGhostBox
+warn  A14 src/areas/journal/components/JournalMoreSheet.tsx:1  3 компонентов в одном файле: Section, Row, JournalMoreSheet
+warn  A14 src/areas/journal/components/JournalPhone.tsx:1  6 компонентов в одном файле: PhoneHeader, WeekStrip, PendingBar, PendingBarSkeleton, AlertBar, JournalBottomNav
+warn  A14 src/areas/journal/components/JournalSidebar.tsx:1  5 компонентов в одном файле: JournalSidebar, SidebarUserFooter, AdministrationModeButton, FavoritesSection, QuickTile
+warn  A12 src/areas/journal/components/JournalSidebar.tsx:170  ключ запроса ['core', …] — первым должен быть id раздела 'journal'
+warn  A14 src/areas/journal/components/JournalToolbar.tsx:1  2 компонентов в одном файле: Label, JournalGridSettings
+warn  A14 src/areas/journal/components/MastersPicker.tsx:1  2 компонентов в одном файле: SectionTitle, MastersPicker
+warn  A14 src/areas/journal/components/SellMenu.tsx:1  2 компонентов в одном файле: SellClientField, SellMenu
+warn  A14 src/areas/journal/components/SharedBookingSlot.tsx:1  2 компонентов в одном файле: SharedBookingSlot, SharedWindowFrame
+warn  A13 src/areas/journal/components/WaitlistPanel.tsx:1  741 строк (major: > 700) — разбить
+warn  A14 src/areas/journal/components/WaitlistPanel.tsx:1  3 компонентов в одном файле: WaitlistPanel, WaitlistCard, WaitlistFormView
+warn  A15 src/areas/journal/components/WaitlistPanel.tsx:112  ошибка проглочена молча
+warn  A15 src/areas/journal/components/WaitlistPanel.tsx:149  ошибка проглочена молча
+warn  A13 src/areas/journal/components/WeekGrid.tsx:1  420 строк (> 400) — разбить
+warn  A14 src/areas/journal/components/WeekGrid.tsx:1  2 компонентов в одном файле: WeekGrid, DroppableCell
+warn  A14 src/areas/journal/components/WeekLoadSheet.tsx:1  5 компонентов в одном файле: WeekLoadSheet, TotalCell, CellTip, Legend, WeekLoadSkeleton
+warn  A10 src/areas/journal/components/WeekLoadSheet.tsx:72  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/JournalScreen.tsx:1  1411 строк (major: > 700) — разбить
+warn  A14 src/areas/journal/JournalScreen.tsx:1  2 компонентов в одном файле: JournalScreen, AttentionSheetTrigger
+warn  A15 src/areas/journal/JournalScreen.tsx:354  ошибка проглочена молча
+warn  A10 src/areas/journal/JournalScreen.tsx:527  вызов coreGet() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/journal/JournalSettingsScreen.tsx:1  734 строк (major: > 700) — разбить
+warn  A14 src/areas/journal/JournalSettingsScreen.tsx:1  7 компонентов в одном файле: JournalSettingsScreen, ElsewhereRow, VisitGroupingControl, SplitByResourceSwitch, BreakCombineControl, ChatSection, RightsSection
+warn  A12 src/areas/journal/JournalSettingsScreen.tsx:463  ключ запроса ['clients', …] — первым должен быть id раздела 'journal'
+warn  A10 src/areas/journal/JournalSettingsScreen.tsx:515  вызов simulateChatLead() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/JournalSettingsScreen.tsx:621  вызов setStaffJournalRights() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/journal/JournalSettingsScreen.tsx:630  вызов setStaffWindowRights() в обход useApiMutation/useApiQuery
+warn  A16 src/areas/journal/lib/board.ts:11  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A16 src/areas/journal/lib/moveBooking.ts:42  свой список отменённых статусов — нужен общий isActiveBooking() в domain
+warn  A8  src/areas/journal/lib/rights.ts:31  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:32  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:37  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:38  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:54  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:62  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:97  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/journal/lib/rights.ts:105  проверка по персоне — используйте useCan(permission)
+warn  A9  src/areas/journal/lib/rights.ts:217  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A15 src/areas/journal/lib/visitTiming.ts:95  ошибка проглочена молча
+warn  A13 src/areas/journal/RecordsScreen.tsx:1  862 строк (major: > 700) — разбить
+warn  A10 src/areas/journal/RecordsScreen.tsx:280  вызов logBookingHistory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/AccountsScreen.tsx:116  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/AccountsScreen.tsx:126  вызов listAccounts() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/AccountsScreen.tsx:127  вызов openAccount() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/AccountsScreen.tsx:128  вызов topupAccount() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/loyalty/card-types/CardTypeFormScreen.tsx:1  418 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/card-types/CardTypeFormScreen.tsx:1  2 компонентов в одном файле: CardTypeFormScreen, CardTypeFormBody
+warn  A10 src/areas/loyalty/card-types/CardTypeFormScreen.tsx:198  вызов deleteCardType() в обход useApiMutation/useApiQuery
+warn  A8  src/areas/loyalty/CardsScreen.tsx:32  проверка по персоне — используйте useCan(permission)
+warn  A10 src/areas/loyalty/CardsScreen.tsx:116  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/CardsScreen.tsx:130  вызов listCards() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/CardsScreen.tsx:131  вызов issueCard() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/CardsScreen.tsx:134  вызов adjustCardBalance() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/loyalty/certificate-types/CertificateTypeFormScreen.tsx:1  3 компонентов в одном файле: CertificateTypeFormScreen, CertificateTypeFormBody, LocationsPicker
+warn  A10 src/areas/loyalty/certificate-types/CertificateTypeFormScreen.tsx:171  вызов deleteCertificateType() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/loyalty/CertificatesScreen.tsx:1  485 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/CertificatesScreen.tsx:1  2 компонентов в одном файле: SellCertificateDialog, CertificatesScreen
+warn  A12 src/areas/loyalty/CertificatesScreen.tsx:44  ключ запроса ['staff', …] — первым должен быть id раздела 'loyalty'
+warn  A10 src/areas/loyalty/CertificatesScreen.tsx:73  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/CertificatesScreen.tsx:386  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/CertificatesScreen.tsx:396  вызов sellCertificate() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/loyalty/components/ClientAccountsSection.tsx:1  4 компонентов в одном файле: ReceiptModal, AccountHistory, ClientAccountsSectionSkeleton, ClientAccountsSection
+warn  A13 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:1  733 строк (major: > 700) — разбить
+warn  A12 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:138  ключ запроса ['finance', …] — первым должен быть id раздела 'loyalty'
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:213  вызов payVisitWithLoyalty() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:236  вызов changeBookingStatus() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:326  вызов getBonusChargeInfo() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:338  вызов getBonusChargeInfo() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:371  вызов findLoyaltyByCode() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/components/LoyaltyPaymentPanel.tsx:381  вызов getReferralEligibility() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/loyalty/components/Skeletons.tsx:1  3 компонентов в одном файле: BadgeSkeleton, TypeRowSkeleton, TypeListSkeleton
+warn  A10 src/areas/loyalty/extensions/BookingWindow.tsx:36  вызов getBookingExtras() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/extensions/BookingWindow.tsx:37  вызов visitPaymentsForCashback() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/extensions/BookingWindow.tsx:38  вызов syncBookingCashback() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/loyalty/extensions/ClientCard.tsx:1  671 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/extensions/ClientCard.tsx:1  3 компонентов в одном файле: CardSoldPaidTiles, ClientCardRowSkeleton, LoyaltyClientCard
+warn  A14 src/areas/loyalty/extensions/ClientProfile.tsx:1  3 компонентов в одном файле: CashbackCardDetails, BusinessLoyaltyCard, LoyaltyClientProfile
+warn  A14 src/areas/loyalty/extensions/ServiceCard.tsx:1  3 компонентов в одном файле: LoyaltyServiceCard, OnlineRequireMembershipToggle, LoyaltyServiceCardBody
+warn  A8  src/areas/loyalty/lib/accountRights.ts:28  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/loyalty/lib/accountRights.ts:29  проверка по персоне — используйте useCan(permission)
+warn  A12 src/areas/loyalty/lib/accountRights.ts:38  ключ запроса ['clients', …] — первым должен быть id раздела 'loyalty'
+warn  A8  src/areas/loyalty/lib/accountRights.ts:39  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/loyalty/lib/accountRights.ts:42  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/loyalty/lib/accountRights.ts:44  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/loyalty/LoyaltyHubScreen.tsx:85  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/loyalty/membership-types/MembershipTypeFormScreen.tsx:1  563 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/membership-types/MembershipTypeFormScreen.tsx:1  2 компонентов в одном файле: MembershipTypeFormScreen, MembershipTypeFormBody
+warn  A10 src/areas/loyalty/membership-types/MembershipTypeFormScreen.tsx:251  вызов deleteMembershipType() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/loyalty/memberships/MembershipDetailScreen.tsx:1  3 компонентов в одном файле: FreezeDialog, AdjustDialog, MembershipDetailScreen
+warn  A13 src/areas/loyalty/MembershipsScreen.tsx:1  490 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/MembershipsScreen.tsx:1  2 компонентов в одном файле: SellMembershipDialog, MembershipsScreen
+warn  A12 src/areas/loyalty/MembershipsScreen.tsx:65  ключ запроса ['staff', …] — первым должен быть id раздела 'loyalty'
+warn  A10 src/areas/loyalty/MembershipsScreen.tsx:94  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/MembershipsScreen.tsx:359  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/MembershipsScreen.tsx:368  вызов sellMembership() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/loyalty/online-sales/OnlineSalesScreen.tsx:1  3 компонентов в одном файле: PaymentTab, WidgetTab, OnlineSalesScreen
+warn  A14 src/areas/loyalty/promotions/PromotionEditScreen.tsx:1  2 компонентов в одном файле: PromotionEditScreen, PromotionEditBody
+warn  A10 src/areas/loyalty/promotions/PromotionEditScreen.tsx:100  вызов deletePromotion() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/loyalty/promotions/PromotionFormSections.tsx:1  554 строк (> 400) — разбить
+warn  A14 src/areas/loyalty/promotions/PromotionFormSections.tsx:1  6 компонентов в одном файле: Section1NameType, Section2Kind, ThresholdsTable, Section3Calc, Section4Rules, Section5Scope
+warn  A10 src/areas/loyalty/purchase-requests/PurchaseRequestsScreen.tsx:45  вызов confirmMembershipPurchase() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/purchase-requests/PurchaseRequestsScreen.tsx:46  вызов confirmCertificatePurchase() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/purchase-requests/PurchaseRequestsScreen.tsx:49  вызов rejectMembershipPurchase() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/loyalty/purchase-requests/PurchaseRequestsScreen.tsx:50  вызов rejectCertificatePurchase() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/network/analytics/AnalyticsReports.tsx:1  597 строк (> 400) — разбить
+warn  A14 src/areas/network/analytics/AnalyticsReports.tsx:1  9 компонентов в одном файле: ExportButton, LocationsDetailTab, DailyDetailTab, ParamsDetailTab, PlanExecutionTab, ServicesReportTab, StaffReportTab, HrReportTab, AnalyticsSettingsTab
+warn  A9  src/areas/network/analytics/AnalyticsReports.tsx:313  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A14 src/areas/network/AnalyticsScreen.tsx:1  2 компонентов в одном файле: BreakdownRowSkeleton, AnalyticsScreen
+warn  A13 src/areas/network/ClientCardScreen.tsx:1  549 строк (> 400) — разбить
+warn  A14 src/areas/network/ClientCardScreen.tsx:1  7 компонентов в одном файле: ClientCardScreen, LocationPicker, AboutTab, HistoryTab, MessagesTab, LoyaltyTab, AccountsTab
+warn  A13 src/areas/network/ClientsScreen.tsx:1  725 строк (major: > 700) — разбить
+warn  A9  src/areas/network/ExportLogScreen.tsx:70  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/areas/network/FieldsScreen.tsx:1  547 строк (> 400) — разбить
+warn  A14 src/areas/network/GoodsScreen.tsx:1  2 компонентов в одном файле: GoodRowSkeleton, GoodsScreen
+warn  A13 src/areas/network/MigrationScreen.tsx:1  635 строк (> 400) — разбить
+warn  A14 src/areas/network/MigrationScreen.tsx:1  2 компонентов в одном файле: ExcelMigrationCard, MigrationScreen
+warn  A14 src/areas/network/NetworkPageHelp.tsx:1  3 компонентов в одном файле: NetworkHelpButton, NetworkContactSupportButton, NetworkPageActions
+warn  A14 src/areas/network/OverviewScreen.tsx:1  3 компонентов в одном файле: BranchStatSkeleton, BranchRowSkeleton, OverviewScreen
+warn  A13 src/areas/network/ServiceFormScreen.tsx:1  406 строк (> 400) — разбить
+warn  A14 src/areas/network/ServicesScreen.tsx:1  3 компонентов в одном файле: CategoryRowSkeleton, PackageRowSkeleton, ServicesScreen
+warn  A13 src/areas/network/SettingsScreen.tsx:1  804 строк (major: > 700) — разбить
+warn  A14 src/areas/network/SettingsScreen.tsx:1  3 компонентов в одном файле: SortableLocationRow, LocationRowSkeleton, SettingsScreen
+warn  A14 src/areas/network/StaffScreen.tsx:1  3 компонентов в одном файле: SortableStaffRow, StaffRowSkeleton, StaffScreen
+warn  A13 src/areas/network/TelephonyScreen.tsx:1  651 строк (> 400) — разбить
+warn  A13 src/areas/network/UsersScreen.tsx:1  529 строк (> 400) — разбить
+warn  A14 src/areas/network/UsersScreen.tsx:1  4 компонентов в одном файле: InviteModal, CreateModal, UserCardModal, UsersScreen
+warn  A14 src/areas/notify/channels/CatalogScreen.tsx:1  2 компонентов в одном файле: AppDetailModal, CatalogScreen
+warn  A10 src/areas/notify/channels/CatalogScreen.tsx:199  вызов simulatePartnerConfirmBooking() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/notify/channels/DeveloperScreen.tsx:1  4 компонентов в одном файле: WebhooksCard, AgentFlagsCard, PartnerSummaryCard, DeveloperScreen
+warn  A14 src/areas/notify/channels/EmailChannelScreen.tsx:1  2 компонентов в одном файле: EmailForm, EmailChannelScreen
+warn  A14 src/areas/notify/channels/PromotionScreen.tsx:1  4 компонентов в одном файле: OpenSlotsCard, WhoToInviteCard, GiftShowcaseCard, PromotionScreen
+warn  A14 src/areas/notify/ChannelsTab.tsx:1  3 компонентов в одном файле: TeamSetupChecklist, WebPopupSettingsCard, ChannelsTab
+warn  A13 src/areas/notify/extensions/BookingWindow.tsx:1  609 строк (> 400) — разбить
+warn  A12 src/areas/notify/extensions/BookingWindow.tsx:83  ключ запроса ['core', …] — первым должен быть id раздела 'notify'
+warn  A10 src/areas/notify/extensions/BookingWindow.tsx:190  вызов clearChatUnread() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/notify/extensions/ClientCard.tsx:48  ключ запроса ['core', …] — первым должен быть id раздела 'notify'
+warn  A14 src/areas/notify/InboxScreen.tsx:1  3 компонентов в одном файле: InboxRowSkeleton, CallRowSkeleton, InboxScreen
+warn  A9  src/areas/notify/lib/liveLog.test.ts:84  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/areas/notify/lib/liveLog.ts:1  998 строк (major: > 700) — разбить
+warn  A9  src/areas/notify/lib/liveLog.ts:680  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/areas/notify/lib/registry.ts:1  932 строк (major: > 700) — разбить
+warn  A14 src/areas/notify/loyalty/LoyaltyNotifyScreen.tsx:1  2 компонентов в одном файле: RuleRow, LoyaltyNotifyScreen
+warn  A13 src/areas/notify/NewMailingScreen.tsx:1  406 строк (> 400) — разбить
+warn  A14 src/areas/notify/NotifyAccessGate.tsx:1  2 компонентов в одном файле: DeniedState, NotifyAccessGate
+warn  A14 src/areas/notify/types/TypeConditionsFields.tsx:1  3 компонентов в одном файле: Row, Label, TypeConditionsFields
+warn  A13 src/areas/notify/types/TypeDetailScreen.tsx:1  804 строк (major: > 700) — разбить
+warn  A12 src/areas/notify/types/TypeDetailScreen.tsx:127  ключ запроса ['core', …] — первым должен быть id раздела 'notify'
+warn  A14 src/areas/notify/TypesTab.tsx:1  3 компонентов в одном файле: TypeRow, TypeRowSkeleton, TypesTab
+warn  A8  src/areas/online/access.ts:29  проверка по персоне — используйте useCan(permission)
+warn  A8  src/areas/online/access.ts:30  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/online/booking/BookingConfirmedScreen.tsx:1  543 строк (> 400) — разбить
+warn  A12 src/areas/online/booking/BookingConfirmedScreen.tsx:60  ключ запроса ['online-booking', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingConfirmedScreen.tsx:61  ключ запроса ['online-booking-status-log', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingConfirmedScreen.tsx:64  ключ запроса ['online-cancel-window', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingConfirmedScreen.tsx:71  ключ запроса ['online-reviewed', …] — первым должен быть id раздела 'online'
+warn  A9  src/areas/online/booking/BookingConfirmedScreen.tsx:72  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/online/booking/BookingConfirmedScreen.tsx:77  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/online/booking/BookingConfirmedScreen.tsx:82  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/online/booking/BookingConfirmedScreen.tsx:191  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A13 src/areas/online/booking/BookingWizard.tsx:1  668 строк (> 400) — разбить
+warn  A14 src/areas/online/booking/BookingWizard.tsx:1  3 компонентов в одном файле: BookingWizard, WizardSkeleton, WizardBody
+warn  A12 src/areas/online/booking/BookingWizard.tsx:64  ключ запроса ['online-widget-data', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingWizard.tsx:122  ключ запроса ['online-business-rules', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingWizard.tsx:123  ключ запроса ['online-client-fields-widget', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingWizard.tsx:126  ключ запроса ['online-network-extra-fields', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingWizard.tsx:128  ключ запроса ['online-staff-rules-widget', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/BookingWizard.tsx:131  ключ запроса ['online-group-events', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/booking/SlotPicker.tsx:1  2 компонентов в одном файле: SlotPicker, SlotsSkeleton
+warn  A12 src/areas/online/booking/wizard/DetailsStep.tsx:138  ключ запроса ['online-details-deposit-rules', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/wizard/GroupBookingFlow.tsx:61  ключ запроса ['online-group-events', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/booking/wizard/GroupBookingFlow.tsx:63  ключ запроса ['online-group-flow-rules', …] — первым должен быть id раздела 'online'
+warn  A10 src/areas/online/booking/wizard/GroupBookingFlow.tsx:309  вызов createGroupOnlineBooking() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/online/booking/wizard/ServicesStep.tsx:1  4 компонентов в одном файле: ServicesStep, TagChip, TextLines, ServicesStepSkeleton
+warn  A14 src/areas/online/booking/wizard/StaffStep.tsx:1  2 компонентов в одном файле: StaffStep, NearestBadge
+warn  A12 src/areas/online/booking/wizard/WorkplaceStep.tsx:39  ключ запроса ['online-staff-travel', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/BookingWindow.tsx:19  ключ запроса ['online-booking-meta', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/BookingWindow.tsx:23  ключ запроса ['online-booking-link', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/BookingWindow.tsx:24  ключ запроса ['online-booking-fields', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/ClientCard.tsx:22  ключ запроса ['online-clientcard', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/ClientCard.tsx:23  ключ запроса ['online-clientcard-answers', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/ServiceCard.tsx:38  ключ запроса ['online-servicecard', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/ServiceCard.tsx:39  ключ запроса ['online-servicecard-config', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/StaffCard.tsx:32  ключ запроса ['online-staffcard', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/StaffCard.tsx:33  ключ запроса ['online-staffcard-rules', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/StaffCard.tsx:34  ключ запроса ['online-staffcard-services', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/extensions/StaffCard.tsx:35  ключ запроса ['online-staffcard-pairs', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/links/LinkCard.tsx:1  2 компонентов в одном файле: LinkCard, LinkCardSkeleton
+warn  A13 src/areas/online/links/LinkSettingsScreen.tsx:1  1076 строк (major: > 700) — разбить
+warn  A14 src/areas/online/links/LinkSettingsScreen.tsx:1  9 компонентов в одном файле: LinkSettingsScreen, StepsSection, DesignSection, SalesSection, AnalyticsSection, GroupBookingSection, PackagesSection, NewPackageForm, PackageCard
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:79  ключ запроса ['online-link', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:707  ключ запроса ['online-link-business', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:746  ключ запроса ['online-widget-events', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:797  ключ запроса ['online-group-rules', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:873  ключ запроса ['online-packages', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/LinkSettingsScreen.tsx:874  ключ запроса ['online-packages-services', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/links/LinksScreen.tsx:1  2 компонентов в одном файле: HubTile, LinksScreen
+warn  A12 src/areas/online/links/LinksScreen.tsx:52  ключ запроса ['online-links', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/links/NewLinkSheet.tsx:45  ключ запроса ['online-group-events', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/page/PagePreviewCard.tsx:1  2 компонентов в одном файле: EditRow, PagePreviewCard
+warn  A13 src/areas/online/page/PageScreen.tsx:1  406 строк (> 400) — разбить
+warn  A14 src/areas/online/page/PageScreen.tsx:1  4 компонентов в одном файле: PageScreen, StarsCard, PromoBlocksCard, PartnerBrandsCard
+warn  A12 src/areas/online/page/PageScreen.tsx:54  ключ запроса ['online-listability', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/page/PageScreen.tsx:58  ключ запроса ['online-page-client-fields', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/page/PageScreen.tsx:169  ключ запроса ['online-page-stars', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/page/PageScreen.tsx:194  ключ запроса ['online-promo', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/places/PlacesScreen.tsx:1  3 компонентов в одном файле: PlacesScreen, PlacesForm, PlacesFormSkeleton
+warn  A12 src/areas/online/places/PlacesScreen.tsx:54  ключ запроса ['online-places', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/public/AboutScreen.tsx:26  ключ запроса ['online-about', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/public/AboutScreen.tsx:28  ключ запроса ['online-about-brands', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/public/CabinetScreen.tsx:1  3 компонентов в одном файле: CabinetScreen, CabinetBody, BookingCard
+warn  A12 src/areas/online/public/CabinetScreen.tsx:30  ключ запроса ['online-cabinet-business', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/public/CabinetScreen.tsx:46  ключ запроса ['online-cabinet-data', …] — первым должен быть id раздела 'online'
+warn  A13 src/areas/online/public/PublicBusinessPage.tsx:1  551 строк (> 400) — разбить
+warn  A14 src/areas/online/public/PublicBusinessPage.tsx:1  2 компонентов в одном файле: PublicBusinessPage, PublicBusinessPageSkeleton
+warn  A12 src/areas/online/public/PublicBusinessPage.tsx:43  ключ запроса ['public-business', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/public/WidgetLocaleSync.tsx:29  ключ запроса ['widget-locale-sync', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/requests/RequestCard.tsx:1  2 компонентов в одном файле: RequestCard, RequestCardSkeleton
+warn  A9  src/areas/online/requests/RequestCard.tsx:16  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/online/requests/RequestsScreen.tsx:41  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A12 src/areas/online/requests/RequestsScreen.tsx:43  ключ запроса ['online-requests-staff', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/requests/WhoToInviteSection.tsx:43  ключ запроса ['online-slot-candidates', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/requests/WhoToInviteSection.tsx:46  ключ запроса ['online-slot-invites', …] — первым должен быть id раздела 'online'
+warn  A13 src/areas/online/settings/SettingsScreen.tsx:1  1024 строк (major: > 700) — разбить
+warn  A14 src/areas/online/settings/SettingsScreen.tsx:1  6 компонентов в одном файле: SettingsScreen, PauseBanner, ReviewModeCard, ClientTextsCard, StaffRulesForm, ClientFieldsCard
+warn  A12 src/areas/online/settings/SettingsScreen.tsx:80  ключ запроса ['online-business-rules', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/settings/SettingsScreen.tsx:83  ключ запроса ['online-client-fields', …] — первым должен быть id раздела 'online'
+warn  A14 src/areas/online/settings/WhenCanBookCard.tsx:1  2 компонентов в одном файле: WhenCanBookCard, WhenForm
+warn  A12 src/areas/online/settings/WhenCanBookCard.tsx:44  ключ запроса ['schedule', …] — первым должен быть id раздела 'online'
+warn  A13 src/areas/online/widget/WidgetScreen.tsx:1  808 строк (major: > 700) — разбить
+warn  A14 src/areas/online/widget/WidgetScreen.tsx:1  8 компонентов в одном файле: CodeBlock, WidgetScreen, ChannelsCard, ChannelRow, MobileAppCard, IdSearchList, WebsiteButtonCard, DomainCard
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:102  ключ запроса ['online-widget-business', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:105  ключ запроса ['online-widget-links', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:106  ключ запроса ['online-widget-staff', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:109  ключ запроса ['online-widget-services', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:112  ключ запроса ['online-widget-locations', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:322  ключ запроса ['online-integrations', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:323  ключ запроса ['online-api-credentials', …] — первым должен быть id раздела 'online'
+warn  A12 src/areas/online/widget/WidgetScreen.tsx:495  ключ запроса ['online-mobile-app', …] — первым должен быть id раздела 'online'
+warn  A10 src/areas/online/widget/WidgetScreen.tsx:746  вызов isSubdomainAvailable() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/online/widget/WidgetScreen.tsx:757  вызов isSubdomainAvailable() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/payroll/AnalyticsScreen.tsx:1  2 компонентов в одном файле: AnalyticsScreen, AnalyticsListSkeleton
+warn  A14 src/areas/payroll/BonusesScreen.tsx:1  2 компонентов в одном файле: KindList, BonusesScreen
+warn  A13 src/areas/payroll/charts/ChartEditorScreen.tsx:1  403 строк (> 400) — разбить
+warn  A14 src/areas/payroll/charts/ChartEditorScreen.tsx:1  2 компонентов в одном файле: ChartEditorScreen, ChartStaffTab
+warn  A13 src/areas/payroll/GeneralSettingsScreen.tsx:1  632 строк (> 400) — разбить
+warn  A14 src/areas/payroll/GeneralSettingsScreen.tsx:1  2 компонентов в одном файле: GeneralSettingsScreen, AccessRightsSection
+warn  A13 src/areas/payroll/MeScreen.tsx:1  402 строк (> 400) — разбить
+warn  A14 src/areas/payroll/MeScreen.tsx:1  4 компонентов в одном файле: MeScreen, CalcTab, CalcTabView, PayoutsTab
+warn  A8  src/areas/payroll/MeScreen.tsx:62  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/payroll/PeriodScreen.tsx:1  505 строк (> 400) — разбить
+warn  A10 src/areas/payroll/scheme/CopySchemeDialog.tsx:41  вызов getScheme() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/payroll/scheme/SchemeEditor.tsx:1  540 строк (> 400) — разбить
+warn  A14 src/areas/payroll/scheme/SchemeEditor.tsx:1  2 компонентов в одном файле: SchemeEditorSkeleton, SchemeEditor
+warn  A14 src/areas/payroll/SchemesListScreen.tsx:1  2 компонентов в одном файле: SchemeRowSkeleton, SchemesListScreen
+warn  A14 src/areas/payroll/StatementNewScreen.tsx:1  2 компонентов в одном файле: FindStatementCard, StatementNewScreen
+warn  A13 src/areas/payroll/StatementScreen.tsx:1  825 строк (major: > 700) — разбить
+warn  A8  src/areas/payroll/StatementScreen.tsx:201  проверка по персоне — используйте useCan(permission)
+warn  A14 src/areas/platform/ads/AdsScreen.tsx:1  2 компонентов в одном файле: AdsScreen, AdMobileCard
+warn  A14 src/areas/platform/components/CallbackList.tsx:1  2 компонентов в одном файле: CallbackList, CallbackRowSkeleton
+warn  A14 src/areas/platform/demand/DemandQueryRow.tsx:1  2 компонентов в одном файле: DemandQueryRow, DemandQueryRowSkeleton
+warn  A14 src/areas/platform/plan/WaveItemRow.tsx:1  2 компонентов в одном файле: WaveItemRow, WaveItemRowSkeleton
+warn  A14 src/areas/reports/AllReportsScreen.tsx:1  2 компонентов в одном файле: WeeklyReportCard, AllReportsScreen
+warn  A13 src/areas/reports/AppointmentsScreen.tsx:1  406 строк (> 400) — разбить
+warn  A14 src/areas/reports/AppointmentsScreen.tsx:1  2 компонентов в одном файле: AppointmentsUrlFilters, AppointmentsScreen
+warn  A10 src/areas/reports/AppointmentsScreen.tsx:249  вызов logAppointmentsExport() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/reports/CashDayScreen.tsx:1  2 компонентов в одном файле: CashDayUrlDate, CashDayScreen
+warn  A7  src/areas/reports/chartBuckets.ts:31  двойное приведение `as unknown as`
+warn  A14 src/areas/reports/components/ReportPeriodPicker.tsx:1  2 компонентов в одном файле: ReportPeriodPicker, ReportUrlSync
+warn  A13 src/areas/reports/DashboardScreen.tsx:1  581 строк (> 400) — разбить
+warn  A14 src/areas/reports/DashboardScreen.tsx:1  6 компонентов в одном файле: DashboardScreen, SalesSection, AttendanceSection, OccupancySection, ExtrasSection, StaffFilterFields
+warn  A10 src/areas/reports/EventsScreen.tsx:79  вызов updateGroupEvent() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/reports/ExternalAnalyticsScreen.tsx:1  2 компонентов в одном файле: LinkCard, ExternalAnalyticsScreen
+warn  A12 src/areas/reports/FinanceReportScreen.tsx:50  ключ запроса ['finance', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/FinanceReportScreen.tsx:51  ключ запроса ['finance', …] — первым должен быть id раздела 'reports'
+warn  A10 src/areas/reports/SalesByClientsScreen.tsx:72  вызов getClientVisitsForExport() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/reports/StockBalanceScreen.tsx:45  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockBalanceScreen.tsx:48  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockOrdersScreen.tsx:34  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockSalesAnalysisScreen.tsx:38  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockTurnoverScreen.tsx:36  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockTurnoverScreen.tsx:37  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockUsageAnalysisScreen.tsx:36  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockWriteOffAnalysisScreen.tsx:39  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A12 src/areas/reports/StockWriteOffAnalysisScreen.tsx:40  ключ запроса ['stock', …] — первым должен быть id раздела 'reports'
+warn  A14 src/areas/reports/VisitsScreen.tsx:1  5 компонентов в одном файле: VisitsScreen, VisitsDayGroup, VisitsDayGroupSkeleton, ActivityEntrySkeleton, ActivityFeed
+warn  A10 src/areas/resources/EventCreateScreen.tsx:73  вызов pickFreeResourceInstances() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/resources/EventWindowScreen.tsx:1  2421 строк (major: > 700) — разбить
+warn  A14 src/areas/resources/EventWindowScreen.tsx:1  18 компонентов в одном файле: EventWindowScreen, DetailsPanel, ManageCategoriesInline, ParticipantRow, PayButtons, EditParticipantSheet, AddExtraSheet, TransferSheet, AddParticipantSheet, RepeatPanel, DayRuleFields, CreateSeriesForm, SeriesManagePanel, SeriesDayEditSheet, SchedulePanel, JoinPanel, NotifyPanel, VisitScheduleSheet
+warn  A10 src/areas/resources/EventWindowScreen.tsx:627  вызов updateGroupEvent() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/resources/EventWindowScreen.tsx:1000  вызов removeParticipantExtra() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/resources/EventWindowScreen.tsx:1118  вызов addParticipantExtra() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/resources/EventWindowScreen.tsx:1131  вызов transferParticipant() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/resources/EventWindowScreen.tsx:2055  вызов addSeriesWeekday() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/resources/EventWindowScreen.tsx:2057  вызов editSeriesDayRule() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/resources/extensions/BookingWindow.tsx:1  2 компонентов в одном файле: ResourcesBookingWindow, AssistantsBlock
+warn  A9  src/areas/resources/GroupsListScreen.tsx:58  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A8  src/areas/resources/lib/rights.ts:27  проверка по персоне — используйте useCan(permission)
+warn  A10 src/areas/resources/PackageCreateScreen.tsx:63  вызов savePackage() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/resources/PackageFormScreen.tsx:1  522 строк (> 400) — разбить
+warn  A14 src/areas/resources/PackagesListScreen.tsx:1  2 компонентов в одном файле: PackagesListScreen, PackageRowSkeleton
+warn  A14 src/areas/resources/ResourcesListScreen.tsx:1  2 компонентов в одном файле: ResourcesListScreen, SplitByResourceCard
+warn  A12 src/areas/resources/ResourcesListScreen.tsx:245  ключ запроса ['journal', …] — первым должен быть id раздела 'resources'
+warn  A13 src/areas/resources/WaitlistScreen.tsx:1  740 строк (major: > 700) — разбить
+warn  A14 src/areas/resources/WaitlistScreen.tsx:1  4 компонентов в одном файле: WaitlistScreen, WaitlistRowSkeleton, WaitlistFormSheet, NotifiedRow
+warn  A10 src/areas/resources/WaitlistScreen.tsx:570  вызов findClientByPhone() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/schedule/calendar/CalendarStaffPicker.tsx:1  2 компонентов в одном файле: CalendarStaffPicker, CalendarStaffPickerSkeleton
+warn  A13 src/areas/schedule/CalendarScreen.tsx:1  461 строк (> 400) — разбить
+warn  A13 src/areas/schedule/components/SchedulePanel.tsx:1  445 строк (> 400) — разбить
+warn  A14 src/areas/schedule/history/HistoryEntryRow.tsx:1  2 компонентов в одном файле: HistoryEntryRow, HistoryEntryRowSkeleton
+warn  A13 src/areas/schedule/ScheduleScreen.tsx:1  531 строк (> 400) — разбить
+warn  A14 src/areas/schedule/series/SeriesCard.tsx:1  3 компонентов в одном файле: SeriesCard, OccurrencesSkeleton, SeriesCardSkeleton
+warn  A14 src/areas/schedule/TemplateCard.tsx:1  2 компонентов в одном файле: TemplateCard, TemplateCardSkeleton
+warn  A14 src/areas/services/catalog/CatalogSkeleton.tsx:1  2 компонентов в одном файле: SummarySkeleton, CatalogSkeleton
+warn  A12 src/areas/services/catalog/CategoryGroup.tsx:61  ключ запроса ['network', …] — первым должен быть id раздела 'services'
+warn  A10 src/areas/services/CategoryFormScreen.tsx:137  вызов deleteCategoryWithServices() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/services/components/ServiceReminderField.tsx:28  ключ запроса ['notify', …] — первым должен быть id раздела 'services'
+warn  A10 src/areas/services/components/TechBreakExcel.tsx:36  вызов logDataOperation() в обход useApiMutation/useApiQuery
+warn  A8  src/areas/services/components/useStaffPicker.ts:32  проверка по персоне — используйте useCan(permission)
+warn  A10 src/areas/services/DocumentsScreen.tsx:63  вызов getDocumentStatus() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/services/ServiceFormScreen.tsx:65  ключ запроса ['network', …] — первым должен быть id раздела 'services'
+warn  A10 src/areas/services/ServiceFormScreen.tsx:122  вызов getServiceDeleteImpact() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/services/ServiceFormScreen.tsx:136  вызов deleteService() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/settings/account/EmailTab.tsx:27  ключ запроса ['core', …] — первым должен быть id раздела 'settings'
+warn  A8  src/areas/settings/account/ManagementTab.tsx:55  проверка по персоне — используйте useCan(permission)
+warn  A12 src/areas/settings/account/ManagementTab.tsx:61  ключ запроса ['core', …] — первым должен быть id раздела 'settings'
+warn  A8  src/areas/settings/account/PasswordTab.tsx:33  проверка по персоне — используйте useCan(permission)
+warn  A12 src/areas/settings/account/PhoneTab.tsx:19  ключ запроса ['core', …] — первым должен быть id раздела 'settings'
+warn  A14 src/areas/settings/account/ProfileTab.tsx:1  2 компонентов в одном файле: ProfileTab, ProfileTabSkeleton
+warn  A12 src/areas/settings/account/ProfileTab.tsx:24  ключ запроса ['core', …] — первым должен быть id раздела 'settings'
+warn  A9  src/areas/settings/BillingManageScreen.tsx:204  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A9  src/areas/settings/BillingManageScreen.tsx:206  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A14 src/areas/settings/BrandScreen.tsx:1  2 компонентов в одном файле: BrandScreen, LogoSkeleton
+warn  A10 src/areas/settings/BrandScreen.tsx:83  вызов getMediaReviewStatus() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/settings/CoinsScreen.tsx:42  ключ запроса ['coins', …] — первым должен быть id раздела 'settings'
+warn  A12 src/areas/settings/CoinsScreen.tsx:43  ключ запроса ['coins', …] — первым должен быть id раздела 'settings'
+warn  A14 src/areas/settings/GalleryScreen.tsx:1  2 компонентов в одном файле: GalleryScreen, GallerySkeleton
+warn  A14 src/areas/settings/InviteAcceptScreen.tsx:1  2 компонентов в одном файле: LoadingTitle, InviteAcceptScreen
+warn  A14 src/areas/settings/OnboardingScreen.tsx:1  2 компонентов в одном файле: OnboardingScreen, ChecklistSkeleton
+warn  A14 src/areas/settings/PricingCalculatorScreen.tsx:1  2 компонентов в одном файле: Stepper, PricingCalculatorScreen
+warn  A10 src/areas/settings/QuickStartScreen.tsx:93  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:96  вызов coreCreate() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:99  вызов coreCreate() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:121  вызов addStaff() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:135  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:138  вызов coreUpdate() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/settings/QuickStartScreen.tsx:146  вызов addWorkDays() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/settings/SphereRequestScreen.tsx:1  2 компонентов в одном файле: SphereRequestScreen, SphereRequestRowSkeleton
+warn  A13 src/areas/settings/SubscriptionScreen.tsx:1  424 строк (> 400) — разбить
+warn  A13 src/areas/staff/components/AddStaffSheet.tsx:1  401 строк (> 400) — разбить
+warn  A14 src/areas/staff/components/card/cardForm.tsx:1  4 компонентов в одном файле: CardFormProvider, CardSaveBar, SaveButton, SavedInline
+warn  A13 src/areas/staff/components/card/StaffAccessTab.tsx:1  433 строк (> 400) — разбить
+warn  A8  src/areas/staff/components/card/StaffAccessTab.tsx:323  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/staff/components/card/StaffInfoTab.tsx:1  444 строк (> 400) — разбить
+warn  A14 src/areas/staff/components/card/StaffInfoTab.tsx:1  6 компонентов в одном файле: StaffInfoTab, StaffInfoTabSkeleton, FoldBlock, InfoSection, BioField, PhotoField
+warn  A14 src/areas/staff/components/card/StaffLegalTab.tsx:1  2 компонентов в одном файле: StaffLegalSection, LegalForm
+warn  A14 src/areas/staff/components/card/StaffSettingsTab.tsx:1  2 компонентов в одном файле: StaffExtraSection, ExtraForm
+warn  A14 src/areas/staff/components/DeleteStaffModal.tsx:1  2 компонентов в одном файле: DeleteStaffModal, DeleteBody
+warn  A14 src/areas/staff/components/DismissStaffModal.tsx:1  4 компонентов в одном файле: DismissStaffModal, DismissDescription, DismissTitle, DismissBody
+warn  A14 src/areas/staff/components/StaffCells.tsx:1  4 компонентов в одном файле: SeatLabel, ScheduleCell, ServicesCell, ContactsCell
+warn  A13 src/areas/staff/components/StaffTeamTable.tsx:1  489 строк (> 400) — разбить
+warn  A14 src/areas/staff/components/StaffTeamTable.tsx:1  7 компонентов в одном файле: StaffTeamTable, GroupRows, MobileGroup, DragHandle, StatusBadges, StaffTableRow, StaffMobileRow
+warn  A14 src/areas/staff/LicenseScreen.tsx:1  2 компонентов в одном файле: LicenseScreen, LicenseRow
+warn  A13 src/areas/staff/permissions/PermissionsEditor.tsx:1  735 строк (major: > 700) — разбить
+warn  A14 src/areas/staff/permissions/PermissionsEditor.tsx:1  2 компонентов в одном файле: PermissionsEditor, PermissionRow
+warn  A14 src/areas/staff/PositionsScreen.tsx:1  2 компонентов в одном файле: PositionsScreen, PositionsSkeleton
+warn  A14 src/areas/staff/RolesScreen.tsx:1  3 компонентов в одном файле: RolesScreen, RoleRow, RoleBody
+warn  A14 src/areas/staff/StaffCardScreen.tsx:1  2 компонентов в одном файле: StaffCardScreen, PanelSkeleton
+warn  A8  src/areas/staff/StaffCardScreen.tsx:64  проверка по персоне — используйте useCan(permission)
+warn  A13 src/areas/staff/StaffListScreen.tsx:1  454 строк (> 400) — разбить
+warn  A14 src/areas/staff/StaffListScreen.tsx:1  2 компонентов в одном файле: StaffListScreen, StaffTotals
+warn  A14 src/areas/stock/CameraScanner.tsx:1  2 компонентов в одном файле: CameraScanner, CameraScannerBody
+warn  A14 src/areas/stock/CategoryTree.tsx:1  3 компонентов в одном файле: Row, CategoryTree, CategoryTreeSkeleton
+warn  A14 src/areas/stock/ClientPurchasesScreen.tsx:1  3 компонентов в одном файле: ClientPurchasesScreen, ClientPurchaseModal, Stat
+warn  A14 src/areas/stock/equipment/EquipmentFormScreen.tsx:1  2 компонентов в одном файле: EquipmentFormScreen, EquipmentFormBody
+warn  A10 src/areas/stock/equipment/EquipmentFormScreen.tsx:110  вызов deleteEquipment() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/EquipmentScreen.tsx:1  2 компонентов в одном файле: EquipmentRowSkeleton, EquipmentScreen
+warn  A14 src/areas/stock/extensions/ServiceCard.tsx:1  2 компонентов в одном файле: StockServiceCard, PackageSummaryRow
+warn  A14 src/areas/stock/GoodPicker.tsx:1  2 компонентов в одном файле: GoodPicker, GoodListPickerModal
+warn  A10 src/areas/stock/GoodPicker.tsx:59  вызов searchGoods() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/GoodPicker.tsx:79  вызов searchGoods() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/GoodPicker.tsx:104  вызов searchGoods() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/goods/GoodFormScreen.tsx:1  2 компонентов в одном файле: GoodFormScreen, GoodFormBody
+warn  A12 src/areas/stock/goods/GoodFormScreen.tsx:127  ключ запроса ['core', …] — первым должен быть id раздела 'stock'
+warn  A10 src/areas/stock/goods/GoodFormScreen.tsx:229  вызов deleteGood() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/ImportScreen.tsx:65  вызов exportGoodsCsv() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/stock/InventoryDetailScreen.tsx:1  494 строк (> 400) — разбить
+warn  A14 src/areas/stock/InventoryDetailScreen.tsx:1  2 компонентов в одном файле: InventoryDetailScreen, InventoryLineCard
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:89  вызов setInventoryActual() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:100  вызов incrementInventoryActual() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:123  вызов incrementInventoryActual() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:147  вызов resetInventoryActual() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:157  вызов calculateInventoryActual() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:166  вызов finalizeInventory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:175  вызов deleteInventory() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/InventoryDetailScreen.tsx:185  вызов exportInventoryCsv() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/InventoryListScreen.tsx:1  2 компонентов в одном файле: InventoryRowSkeleton, InventoryListScreen
+warn  A14 src/areas/stock/MassEditScreen.tsx:1  2 компонентов в одном файле: MassEditScreen, MassEditTable
+warn  A13 src/areas/stock/operations/OperationDocScreen.tsx:1  476 строк (> 400) — разбить
+warn  A10 src/areas/stock/operations/OperationDocScreen.tsx:195  вызов deleteOperationDoc() в обход useApiMutation/useApiQuery
+warn  A13 src/areas/stock/operations/OperationFormScreen.tsx:1  460 строк (> 400) — разбить
+warn  A13 src/areas/stock/operations/SaleFormScreen.tsx:1  644 строк (> 400) — разбить
+warn  A14 src/areas/stock/operations/SaleFormScreen.tsx:1  3 компонентов в одном файле: SaleFormScreen, AddExtraModal, PaymentModal
+warn  A12 src/areas/stock/operations/SaleFormScreen.tsx:127  ключ запроса ['clients', …] — первым должен быть id раздела 'stock'
+warn  A10 src/areas/stock/operations/SaleFormScreen.tsx:180  вызов voidCertificateSale() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/operations/SaleFormScreen.tsx:181  вызов deleteMembershipSale() в обход useApiMutation/useApiQuery
+warn  A12 src/areas/stock/operations/SaleFormScreen.tsx:515  ключ запроса ['loyalty', …] — первым должен быть id раздела 'stock'
+warn  A12 src/areas/stock/operations/SaleFormScreen.tsx:516  ключ запроса ['loyalty', …] — первым должен быть id раздела 'stock'
+warn  A13 src/areas/stock/OperationsScreen.tsx:1  524 строк (> 400) — разбить
+warn  A14 src/areas/stock/OperationsScreen.tsx:1  2 компонентов в одном файле: OperationHistoryButton, OperationsScreen
+warn  A10 src/areas/stock/OperationsScreen.tsx:169  вызов exportOperationsCsv() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/OrderScreen.tsx:1  2 компонентов в одном файле: OrderItemSkeleton, OrderScreen
+warn  A12 src/areas/stock/OrderScreen.tsx:73  ключ запроса ['finance', …] — первым должен быть id раздела 'stock'
+warn  A15 src/areas/stock/OrderScreen.tsx:121  ошибка проглочена молча
+warn  A14 src/areas/stock/RemindersScreen.tsx:1  2 компонентов в одном файле: ReminderRowSkeleton, RemindersScreen
+warn  A13 src/areas/stock/ReportsScreen.tsx:1  508 строк (> 400) — разбить
+warn  A14 src/areas/stock/ReportsScreen.tsx:1  10 компонентов в одном файле: ReportsScreen, ExportButton, Clip, RemnantsReport, StatCard, SalesReport, ConsumablesReport, MovementReport, WriteoffsReport, TurnoverReport
+warn  A9  src/areas/stock/ReportsScreen.tsx:135  сырая дата — используйте @/lib/date (today, nowDateTime, parse, toISODate)
+warn  A10 src/areas/stock/StockCatalogScreen.tsx:92  вызов exportGoodsCsv() в обход useApiMutation/useApiQuery
+warn  A10 src/areas/stock/StockCatalogScreen.tsx:207  вызов searchGoods() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/StockStaffPermissionsScreen.tsx:1  2 компонентов в одном файле: StockStaffPermissionsScreen, StaffPermissionsModal
+warn  A12 src/areas/stock/SupplierField.tsx:32  ключ запроса ['finance', …] — первым должен быть id раздела 'stock'
+warn  A14 src/areas/stock/TechCardsScreen.tsx:1  2 компонентов в одном файле: TechCardRowSkeleton, TechCardsScreen
+warn  A14 src/areas/stock/warehouses/WarehouseFormScreen.tsx:1  2 компонентов в одном файле: WarehouseFormScreen, WarehouseFormBody
+warn  A10 src/areas/stock/warehouses/WarehouseFormScreen.tsx:114  вызов deleteWarehouse() в обход useApiMutation/useApiQuery
+warn  A14 src/areas/stock/WarehousesScreen.tsx:1  3 компонентов в одном файле: SortableWarehouseRow, WarehouseRowSkeleton, WarehousesScreen
+warn  A7  src/demo/settings.ts:112  двойное приведение `as unknown as`
+warn  A13 src/domain/client.ts:1  797 строк (major: > 700) — разбить
+warn  A13 src/domain/finance.ts:1  1581 строк (major: > 700) — разбить
+warn  A13 src/domain/integrations.ts:1  981 строк (major: > 700) — разбить
+warn  A13 src/domain/journal.ts:1  946 строк (major: > 700) — разбить
+warn  A13 src/domain/loyalty.ts:1  814 строк (major: > 700) — разбить
+warn  A13 src/domain/notify.ts:1  688 строк (> 400) — разбить
+warn  A13 src/domain/online.ts:1  663 строк (> 400) — разбить
+warn  A13 src/domain/payroll.ts:1  2126 строк (major: > 700) — разбить
+warn  A13 src/domain/reports.ts:1  1075 строк (major: > 700) — разбить
+warn  A13 src/domain/resources.ts:1  695 строк (> 400) — разбить
+warn  A13 src/domain/schedule.ts:1  428 строк (> 400) — разбить
+warn  A13 src/domain/settings.ts:1  459 строк (> 400) — разбить
+warn  A13 src/domain/staff.ts:1  568 строк (> 400) — разбить
+warn  A13 src/domain/stock.ts:1  574 строк (> 400) — разбить
+warn  A7  src/i18n/useTDynamic.ts:14  двойное приведение `as unknown as`
+warn  A7  src/mock/db.ts:206  двойное приведение `as unknown as`
+warn  A10 src/shell/dev/DevExtFrame.tsx:46  вызов listBookings() в обход useApiMutation/useApiQuery
+warn  A10 src/shell/dev/DevExtFrame.tsx:55  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A10 src/shell/dev/DevExtFrame.tsx:60  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A10 src/shell/dev/DevExtFrame.tsx:66  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A10 src/shell/dev/DevExtFrame.tsx:72  вызов coreList() в обход useApiMutation/useApiQuery
+warn  A7  src/shell/dev/DevExtFrame.tsx:149  двойное приведение `as unknown as`
+warn  A10 src/shell/workspace/NotificationsBell.tsx:64  вызов listInboxEvents() в обход useApiMutation/useApiQuery
+warn  A10 src/shell/workspace/NotificationsBell.tsx:66  вызов markInboxRead() в обход useApiMutation/useApiQuery
+warn  A7  src/ui/navigation/useNavigate.ts:8  двойное приведение `as unknown as`
+warn  A7  src/ui/Select.tsx:105  двойное приведение `as unknown as`
+warn  A7  src/ui/tone.ts:46  двойное приведение `as unknown as`

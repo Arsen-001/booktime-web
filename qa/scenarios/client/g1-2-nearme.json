@@ -1,0 +1,14 @@
+{
+  "route": "/search",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=button[name=\"Рядом со мной\"]" },
+    { "wait": 800 },
+    { "screenshot": "nearme-clicked" }
+  ]
+}

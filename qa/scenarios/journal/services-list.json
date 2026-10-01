@@ -1,0 +1,15 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Список услуг" },
+    { "wait": 400 },
+    { "screenshot": "services-list-open" },
+    { "fill": "input[placeholder=\"Поиск по названию услуги\"]", "value": "маник" },
+    { "wait": 400 },
+    { "screenshot": "services-search" }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:29:16.212Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-128",
+      "F-00-129",
+      "F-00-130",
+      "F-00-132",
+      "F-04-001",
+      "F-04-002",
+      "F-04-003",
+      "F-04-006",
+      "F-04-007",
+      "F-04-009",
+      "F-04-010",
+      "F-04-011",
+      "F-04-012",
+      "F-04-013",
+      "F-04-014",
+      "F-04-015",
+      "F-04-017",
+      "F-04-037",
+      "F-04-057",
+      "F-04-062",
+      "F-04-066",
+      "F-04-067",
+      "F-04-068",
+      "F-04-071",
+      "F-04-073",
+      "F-04-074",
+      "F-04-075",
+      "F-04-076",
+      "F-04-106",
+      "F-04-126",
+      "F-04-130",
+      "F-04-135",
+      "F-04-136",
+      "F-04-137",
+      "F-04-157",
+      "F-04-165",
+      "F-04-195",
+      "F-04-199",
+      "F-04-200",
+      "F-04-202",
+      "F-04-203",
+      "F-04-211",
+      "F-04-212",
+      "F-04-214",
+      "F-04-226"
+    ],
+    "scenarioSteps": {
+      "ok": 4,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients",
+      "url": "http://localhost:3710/biz/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1199,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-128",
+        "F-00-129",
+        "F-00-130",
+        "F-00-132",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-017",
+        "F-04-037",
+        "F-04-057",
+        "F-04-062",
+        "F-04-066",
+        "F-04-067",
+        "F-04-068",
+        "F-04-071",
+        "F-04-073",
+        "F-04-074",
+        "F-04-075",
+        "F-04-076",
+        "F-04-106",
+        "F-04-126",
+        "F-04-130",
+        "F-04-135",
+        "F-04-136",
+        "F-04-137",
+        "F-04-157",
+        "F-04-165",
+        "F-04-195",
+        "F-04-199",
+        "F-04-200",
+        "F-04-202",
+        "F-04-203",
+        "F-04-211",
+        "F-04-212",
+        "F-04-214",
+        "F-04-226"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Нелли Симонян Аветисян"
+          },
+          "ok": true,
+          "ms": 808
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "client-card"
+          },
+          "ok": true,
+          "ms": 49,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/clientcard2/biz-clients__owner-nails-ru-light-desktop__client-card.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/clientcard2/biz-clients__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-2-m2-shots/clientcard2/biz-clients__owner-nails-ru-light-desktop__client-card.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

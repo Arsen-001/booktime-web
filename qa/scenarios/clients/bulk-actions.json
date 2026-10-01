@@ -1,0 +1,28 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"screenshot": "bulk-menu-open"},
+     {"click": "text=Отправить сообщение"},
+     {"wait": 300},
+     {"expectVisible": "[data-f*=\"F-04-038\"]"},
+     {"screenshot": "bulk-sms-modal"},
+     {"click": "role=button[name=\"Отмена\"]"},
+     {"wait": 200},
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Добавить в категорию"},
+     {"wait": 300},
+     {"expectVisible": "[data-f*=\"F-04-041\"]"},
+     {"screenshot": "bulk-category-modal"},
+     {"click": "role=button[name=\"Отмена\"]"},
+     {"wait": 200},
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Удалить из базы"},
+     {"wait": 300},
+     {"expectVisible": "[data-f*=\"F-04-042\"]"},
+     {"screenshot": "bulk-delete-modal"}
+   ]}
+]

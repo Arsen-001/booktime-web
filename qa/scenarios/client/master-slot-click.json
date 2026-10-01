@@ -1,0 +1,12 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "guest",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "before-click" },
+    { "click": "a[href^='/book']" },
+    { "wait": 500 },
+    { "screenshot": "after-click-slot" }
+  ]
+}

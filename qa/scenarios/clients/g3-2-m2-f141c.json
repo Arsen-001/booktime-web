@@ -1,0 +1,28 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "fill": "input[placeholder='Имя, телефон, email или номер карты']",
+      "value": "Полем141b"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "search-result"
+    },
+    {
+      "click": "text=Тест Полем141b"
+    },
+    {
+      "wait": 600
+    },
+    {
+      "screenshot": "client-card"
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T01:11:53.300Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-052",
+      "F-00-053",
+      "F-00-054",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-063",
+      "F-02-017",
+      "F-02-039",
+      "F-02-065",
+      "F-02-105"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/calendar?staff=st_nuri_ani",
+      "url": "http://localhost:3710/biz/schedule/calendar?staff=st_nuri_ani&demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2404,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-052",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-063",
+        "F-02-017",
+        "F-02-039",
+        "F-02-065",
+        "F-02-105"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Задерживаюсь >> nth=0"
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 4,
+          "step": {
+            "expectText": "Клиент предупреждён о задержке"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "after-delay"
+          },
+          "ok": true,
+          "ms": 59,
+          "screenshot": "qa/shots/b03-scenario-actions/biz-schedule-calendar__owner-nails-ru-light-desktop__after-delay.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=Закончил раньше >> nth=1"
+          },
+          "ok": true,
+          "ms": 392
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 8,
+          "step": {
+            "expectText": "Остаток времени стал свободным окном"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "after-finish-early"
+          },
+          "ok": true,
+          "ms": 53,
+          "screenshot": "qa/shots/b03-scenario-actions/biz-schedule-calendar__owner-nails-ru-light-desktop__after-finish-early.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/b03-scenario-actions/biz-schedule-calendar__owner-nails-ru-light-desktop.png",
+        "qa/shots/b03-scenario-actions/biz-schedule-calendar__owner-nails-ru-light-desktop__after-delay.png",
+        "qa/shots/b03-scenario-actions/biz-schedule-calendar__owner-nails-ru-light-desktop__after-finish-early.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

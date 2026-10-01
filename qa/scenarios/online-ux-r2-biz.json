@@ -1,0 +1,26 @@
+[
+ {"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},
+  {"click":"role=button[name=\"Новая ссылка\"]"},{"wait":700},{"screenshot":"b01-newlink-sheet"},
+  {"press":"Escape"},{"wait":400},
+  {"click":"role=link[name=\"Настроить\"] >> nth=0"},{"wait":1200},{"screenshot":"b02-link-settings"}
+ ]},
+ {"route":"/biz/online/requests","persona":"individual","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},
+  {"click":"role=button[name=/Подтвердить/] >> nth=0"},{"wait":600},{"screenshot":"r01-after-confirm"},
+  {"click":"role=button[name=/Отклонить/] >> nth=0"},{"wait":600},{"screenshot":"r02-after-reject"}
+ ]},
+ {"route":"/biz/online/settings","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},
+  {"click":"text=Мариам Петросян"},{"wait":500},{"screenshot":"s01-expanded"},
+  {"click":"role=switch >> nth=0"},{"wait":500},{"screenshot":"s02-pause-on"}
+ ]},
+ {"route":"/b/mariam-nails/book","persona":"guest","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},
+  {"click":"text=Маникюр с выездом к вам"},{"wait":300},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},
+  {"click":"text=Мастер маникюра"},{"wait":600},{"screenshot":"m01-modal"},
+  {"click":"role=button[name=\"Понятно\"]"},{"wait":400},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1200},{"screenshot":"m02-time"}
+ ]}
+]

@@ -1,0 +1,20 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 900},
+    {"click": "text=Без перерыва"},
+    {"wait": 300},
+    {"screenshot": "open"},
+    {"click": "role=option[name=\"20 мин\"]"},
+    {"wait": 600},
+    {"screenshot": "saved-toast"},
+    {"goto": "/biz/schedule/slots"},
+    {"wait": 900},
+    {"screenshot": "after-reload"}
+  ]
+}

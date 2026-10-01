@@ -1,0 +1,20 @@
+import { chromium } from '@playwright/test';
+const BASE = 'http://localhost:3710';
+const OUT = '/Users/arsen/WebstormProjects/booking-platform/qa/shots/journal/b01-m1';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ru-RU', timezoneId: 'Asia/Yerevan' });
+const page = await ctx.newPage();
+await page.goto(`${BASE}/biz/journal?demo=owner&sphere=nails&lang=ru`, { waitUntil: 'networkidle' });
+await page.addStyleTag({ content: '[data-demo-fab]{display:none !important}' });
+await page.waitForTimeout(500);
+const btn = page.getByRole('button', { name: 'Календарь и быстрые действия' });
+const box = await btn.boundingBox();
+console.log('calendar btn box', box);
+await btn.click();
+await page.waitForTimeout(400);
+await page.screenshot({ path: `${OUT}/13-mobile-sheet-open.png` });
+// check status icon size on a booking block
+const statusBtn = page.locator('button.absolute.top-0.right-0.z-20').first();
+const sbox = await statusBtn.boundingBox().catch(()=>null);
+console.log('status button box', sbox);
+await browser.close();

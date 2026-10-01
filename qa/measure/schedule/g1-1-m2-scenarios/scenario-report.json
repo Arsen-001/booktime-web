@@ -1,0 +1,366 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T04:52:38.388Z",
+  "summary": {
+    "pages": 3,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-052",
+      "F-00-053",
+      "F-00-054",
+      "F-00-057",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-063",
+      "F-02-001",
+      "F-02-002",
+      "F-02-003",
+      "F-02-004",
+      "F-02-016",
+      "F-02-017",
+      "F-02-030",
+      "F-02-039",
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-057",
+      "F-02-064",
+      "F-02-065",
+      "F-02-069",
+      "F-02-070",
+      "F-02-072",
+      "F-02-073",
+      "F-02-078",
+      "F-02-080",
+      "F-02-085",
+      "F-02-086",
+      "F-02-087",
+      "F-02-097",
+      "F-02-099",
+      "F-02-103",
+      "F-02-105",
+      "F-02-107"
+    ],
+    "scenarioSteps": {
+      "ok": 12,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1183,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-016",
+        "F-02-030",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "table td:has-text('Работа')"
+          },
+          "ok": false,
+          "ms": 8047,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule__owner-nails-ru-light-desktop__fail-2.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule__owner-nails-ru-light-desktop__fail-2.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1743,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-057",
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-057",
+        "F-02-064",
+        "F-02-069",
+        "F-02-070",
+        "F-02-072",
+        "F-02-073",
+        "F-02-078",
+        "F-02-080",
+        "F-02-097",
+        "F-02-103",
+        "F-02-107"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Редактировать правила"
+          },
+          "ok": true,
+          "ms": 244
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 404
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "f02045-wizard-step1"
+          },
+          "ok": true,
+          "ms": 140,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__f02045-wizard-step1.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Далее"
+          },
+          "ok": true,
+          "ms": 204
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "f02045-wizard-step2"
+          },
+          "ok": true,
+          "ms": 100,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__f02045-wizard-step2.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__f02045-wizard-step1.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__f02045-wizard-step2.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2973,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-052",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-063",
+        "F-02-017",
+        "F-02-039",
+        "F-02-065",
+        "F-02-105"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "f00059-before"
+          },
+          "ok": true,
+          "ms": 72,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-calendar__master-nails-ru-light-phone__f00059-before.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Задерживаюсь"
+          },
+          "ok": true,
+          "ms": 590
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "f00059-after"
+          },
+          "ok": true,
+          "ms": 70,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-calendar__master-nails-ru-light-phone__f00059-after.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-calendar__master-nails-ru-light-phone.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-calendar__master-nails-ru-light-phone__f00059-before.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/biz-schedule-calendar__master-nails-ru-light-phone__f00059-after.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

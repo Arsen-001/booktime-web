@@ -1,0 +1,604 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T08:32:34.073Z",
+  "summary": {
+    "pages": 10,
+    "consoleErrors": 1,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 4,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-016",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-034",
+      "F-01-036",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-122",
+      "F-01-128",
+      "F-01-132",
+      "F-01-133",
+      "F-01-152",
+      "F-01-154",
+      "F-01-167",
+      "F-01-168",
+      "F-01-178",
+      "F-01-179",
+      "F-01-181",
+      "F-01-182",
+      "F-01-183",
+      "F-01-184",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-219",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1632,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114 F-01-178]",
+          "text": "18:00–18:20Снятие покрытия",
+          "w": 296,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114 F-01-178]",
+          "text": "18:30–18:50Снятие покрытия",
+          "w": 296,
+          "h": 28,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-01-005",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-016",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-167",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-journal__master-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1787,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114 F-01-178]",
+          "text": "18:00–18:20Снятие покрытия",
+          "w": 754,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114 F-01-178]",
+          "text": "18:30–18:50Снятие покрытия",
+          "w": 754,
+          "h": 28,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-009",
+        "F-01-010",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-152",
+        "F-01-154",
+        "F-01-167",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-journal__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal/settings",
+      "url": "http://localhost:3710/biz/journal/settings?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1353,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-168",
+        "F-01-178",
+        "F-01-179"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-journal-settings__master-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal/settings",
+      "url": "http://localhost:3710/biz/journal/settings?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 995,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-168",
+        "F-01-178",
+        "F-01-179"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-journal-settings__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/records",
+      "url": "http://localhost:3710/biz/records?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1707,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-036",
+        "F-01-122",
+        "F-01-181",
+        "F-01-182",
+        "F-01-183",
+        "F-01-219"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-records__master-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/records",
+      "url": "http://localhost:3710/biz/records?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1652,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-036",
+        "F-01-122",
+        "F-01-181",
+        "F-01-182",
+        "F-01-183",
+        "F-01-219"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/biz-records__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/journal",
+      "url": "http://localhost:3710/dev/ext/clientCard/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1502,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/dev-ext-clientCard-journal__master-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/journal",
+      "url": "http://localhost:3710/dev/ext/clientCard/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2154,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/dev-ext-clientCard-journal__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/journal",
+      "url": "http://localhost:3710/dev/ext/settingsHub/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1835,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Internal Next.js error: Router action dispatched before initialization.\n    at dispatchAppRouterAction (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15242:37)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1261:61\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at Object.hmrRefresh (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1260:40)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16069:64\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at processMessage (http://loc"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-168"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/dev-ext-settingsHub-journal__master-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/journal",
+      "url": "http://localhost:3710/dev/ext/settingsHub/journal?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2019,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-168"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/journal/b05-fix2/dev-ext-settingsHub-journal__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+pending hint: undefined
+!! next visit from open window: locator.click: Timeout 20000ms exceeded.
+DUP src: 30.09.2026, 15:00–16:00 · 1 ч 
+URL dup http://localhost:3710/biz/journal?new=1&staff=st_nuri_ani&date=2026-09-30&start=17%3A45&client=cl_009&services=sv_nuri_hardware TOAST 
+DUP window: undefined
+qty labels: 0
+split hint before: Осталось оплатить: 2 000 ֏ 
+split hint after 500: Осталось оплатить: 1 500 ֏ 
+RECORDS filters: undefined
+errors owner [
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.pendingHintOverdue` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.pendingHintOverdue` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.pendingHintOverdue` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.board.attention.pendingHintOverdue` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.',
+  '[i18n:missing] MISSING_MESSAGE: Could not resolve `journal.waitlist.card.openFull` in messages for locale `ru`.'
+]
+!! client I paid -> owner money received -> master cancel -> refund: page.goto: Timeout 120000ms exceeded.

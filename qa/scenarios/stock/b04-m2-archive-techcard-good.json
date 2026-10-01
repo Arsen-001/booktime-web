@@ -1,0 +1,23 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "01-catalog" },
+    { "click": "table >> role=row[name*=\"Гель-лак «Красный классик»\"] >> role=checkbox" },
+    { "wait": 300 },
+    { "screenshot": "02-selected" },
+    { "click": "role=button[name=\"Ещё действия\"]" },
+    { "wait": 300 },
+    { "screenshot": "03-menu-open" },
+    { "click": "role=menuitem[name=\"Архивировать выбранные\"]" },
+    { "wait": 300 },
+    { "screenshot": "04-confirm-dialog" },
+    { "click": "[role=\"dialog\"] >> nth=-1 >> button:has-text(\"Архивировать\")" },
+    { "wait": 600 },
+    { "screenshot": "05-after-archive-result" }
+  ]
+}

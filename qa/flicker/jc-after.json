@@ -1,0 +1,1830 @@
+{
+  "label": "jc-after",
+  "at": "2026-09-27T23:15:56.077Z",
+  "base": "http://localhost:3710",
+  "runs": 1,
+  "scenarios": [
+    {
+      "key": "journal-day",
+      "id": "journal-day",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: соседний день",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 4,
+      "renders": 351,
+      "mounts": 67,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0398,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 4"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "f:F-01-128 F-01-171:Лиана Г.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лиана Г.»"
+          },
+          {
+            "sig": "f:F-01-032 F-02-062:Технический перерыв",
+            "size": 1,
+            "where": "button[data-f=F-01-032][Технический перерыв].mt-0.5.block.w-full"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Диана А.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Диана А.»"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Лилит Т.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лилит Т.»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 536
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 4,
+          "renders": 351,
+          "mounts": 67,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0398,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-day@phone",
+      "id": "journal-day",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: соседний день",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 4,
+      "renders": 264,
+      "mounts": 66,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 4"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "f:F-01-128 F-01-171:Лиана Г.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лиана Г.»"
+          },
+          {
+            "sig": "f:F-01-032 F-02-062:Технический перерыв",
+            "size": 1,
+            "where": "button[data-f=F-01-032][Технический перерыв].mt-0.5.block.w-full"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Диана А.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Диана А.»"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Лилит Т.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лилит Т.»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 527
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 4,
+          "renders": 264,
+          "mounts": 66,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-view",
+      "id": "journal-view",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: День → Неделя → День",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 265,
+      "mounts": 77,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0035,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "x:SPAN:сегодня",
+            "size": 1,
+            "where": "span.shrink-0.text-sm.text-muted «сегодня»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 536
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 265,
+          "mounts": 77,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0035,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-open",
+      "id": "journal-open",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: открыть и закрыть окно записи",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 4,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 849,
+      "mounts": 142,
+      "cls": 0.0053,
+      "clsLate": 0.0053,
+      "clsAll": 0.0053,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 510,
+            "shownMs": 435,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 954,
+            "shownMs": 41,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0.11
+          },
+          {
+            "kind": "new-block",
+            "t": 1000,
+            "shownMs": 362,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 1008,
+            "shownMs": 371,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0.01
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ЗаписьАни СаргсянОтменаСохранить измен",
+            "opened": true,
+            "closed": true,
+            "openMs": 466,
+            "closeMs": 209,
+            "frames": 133,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 1381,
+            "v": 0.0053,
+            "src": [
+              "div[data-f=F-01-062].flex.flex-col.gap-1 «Данные записиДата создания: 21.09.2026",
+              "div[data-f=F-01-127].flex.flex-col.gap-2 «Записывает другого посетителя»"
+            ]
+          }
+        ],
+        "vt": true,
+        "fibersAtStart": 536
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 4,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 849,
+          "mounts": 142,
+          "cls": 0.0053,
+          "clsLate": 0.0053,
+          "clsAll": 0.0053,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-open@phone",
+      "id": "journal-open",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: открыть и закрыть окно записи",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 4,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 718,
+      "mounts": 139,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 725,
+            "shownMs": 413,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 1163,
+            "shownMs": 92,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 1272,
+            "shownMs": 283,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 1281,
+            "shownMs": 307,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ЗаписьАни СаргсянОтменаСохранить измен",
+            "opened": true,
+            "closed": false,
+            "openMs": 483,
+            "closeMs": null,
+            "frames": 589,
+            "startOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": true,
+        "fibersAtStart": 527
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 4,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 718,
+          "mounts": 139,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-status",
+      "id": "journal-status",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: смена статуса во всплывающей карточке",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 225,
+      "mounts": 19,
+      "cls": 0.0005,
+      "clsLate": 0.0005,
+      "clsAll": 0.0005,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_r_1c_[role=dialog][Статус и оплата].z-[60].min-w-[12rem].max-w-[calc(100vw-2rem)] «Ма",
+            "opened": false,
+            "closed": true,
+            "openMs": null,
+            "closeMs": 155,
+            "frames": 49,
+            "startOpacity": 1,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Статус изменён»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 74,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 653,
+            "v": 0.0005,
+            "src": [
+              "div[data-f=F-01-141].flex.flex-col.gap-1 «Мгновенная оплата — вся сумма в один к",
+              "p.text-xs.text-muted «Детали записи 10:15–11:45 · 1 ч 30 мин»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 552
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 225,
+          "mounts": 19,
+          "cls": 0.0005,
+          "clsLate": 0.0005,
+          "clsAll": 0.0005,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-status@phone",
+      "id": "journal-status",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: смена статуса во всплывающей карточке",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 198,
+      "mounts": 19,
+      "cls": 0.0032,
+      "clsLate": 0.0032,
+      "clsAll": 0.0032,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_r_1p_[role=dialog][Статус и оплата].z-[60].min-w-[12rem].max-w-[calc(100vw-2rem)] «Ма",
+            "opened": false,
+            "closed": true,
+            "openMs": null,
+            "closeMs": 153,
+            "frames": 51,
+            "startOpacity": 1,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Статус изменён»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 69,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 643,
+            "v": 0.0032,
+            "src": [
+              "div[data-f=F-01-141].flex.flex-col.gap-1 «Мгновенная оплата — вся сумма в один к",
+              "p.text-xs.text-muted «Детали записи 10:15–11:45 · 1 ч 30 мин»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 198,
+          "mounts": 19,
+          "cls": 0.0032,
+          "clsLate": 0.0032,
+          "clsAll": 0.0032,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-create",
+      "id": "journal-create",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: создать запись (выбор типа → окно → услуга → сохранить)",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 2,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 734,
+      "mounts": 205,
+      "cls": 0.0113,
+      "clsLate": 0.0113,
+      "clsAll": 0.0354,
+      "overlays": 4,
+      "noAnim": 1,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "сдвиг раскладки 0.0113",
+        "без анимации ×1"
+      ],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 4331,
+            "shownMs": 252,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBРаботаЖурналНастройки журнал»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 4594,
+            "shownMs": 56,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBРаботаЖурналНастройки журнал»",
+            "mainShare": 0.11
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Что создать?Выберите, что поставить на это в",
+            "opened": true,
+            "closed": true,
+            "openMs": 266,
+            "closeMs": 154,
+            "frames": 29,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Новая записьАни СаргсянОтменаЗаписать ",
+            "opened": true,
+            "closed": false,
+            "openMs": 516,
+            "closeMs": null,
+            "frames": 679,
+            "startOpacity": 1
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Создать без клиента?Визит будет сохранён без",
+            "opened": true,
+            "closed": true,
+            "openMs": 416,
+            "closeMs": 19,
+            "frames": 27,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Вне графика мастераВ это время мастер не раб",
+            "opened": true,
+            "closed": false,
+            "openMs": 266,
+            "closeMs": null,
+            "frames": 568,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 4634,
+            "v": 0.0061,
+            "src": [
+              "div[data-f=F-01-048].flex.flex-col.gap-4 «Комментарий»",
+              "div.flex.flex-col.gap-1 «Повторение записиСначала сохраните запись»",
+              "div[data-f=F-01-061].flex.flex-col.gap-2 «К оплате0 ֏Оплатить»"
+            ]
+          },
+          {
+            "t": 4719,
+            "v": 0.0052,
+            "src": [
+              "div.flex.flex-col.gap-1.5 «Все услугиМаникюр»",
+              "div[data-f=F-01-061].flex.flex-col.gap-2 «К оплате0 ֏Оплатить»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 551
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 2,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 734,
+          "mounts": 205,
+          "cls": 0.0113,
+          "clsLate": 0.0113,
+          "clsAll": 0.0354,
+          "overlays": 4,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-drag",
+      "id": "journal-drag",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: перетащить запись на час ниже",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 693,
+      "mounts": 13,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Это время у мастера уже занято другой записью»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 104,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 551
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 693,
+          "mounts": 13,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-attention",
+      "id": "journal-attention",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: свернуть и развернуть «Требует внимания»",
+      "failed": true
+    },
+    {
+      "key": "clients-search",
+      "id": "clients-search",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Клиенты: поиск «Ани»",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 406,
+      "mounts": 50,
+      "cls": 0.0009,
+      "clsLate": 0.0009,
+      "clsAll": 0.0009,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 773,
+            "v": 0.0009,
+            "src": [
+              "th.h-11.px-4.py-2 «Последний визит»",
+              "th.h-11.px-4.py-2 «Телефон»",
+              "th.h-11.px-4.py-2 «Баланс»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 942
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 406,
+          "mounts": 50,
+          "cls": 0.0009,
+          "clsLate": 0.0009,
+          "clsAll": 0.0009,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-search@phone",
+      "id": "clients-search",
+      "section": "clients",
+      "device": "phone",
+      "title": "Клиенты: поиск «Ани»",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 342,
+      "mounts": 32,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 342,
+          "mounts": 32,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-filter",
+      "id": "clients-filter",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Клиенты: быстрый фильтр «Новые»",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 494,
+      "mounts": 114,
+      "cls": 0,
+      "clsLate": 0.0001,
+      "clsAll": 0.0001,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 310,
+            "v": 0.0001,
+            "src": [
+              "th.h-11.px-4.py-2 «Последний визит»",
+              "th.h-11.px-4.py-2 «Телефон»",
+              "th.h-11.px-4.py-2 «Баланс»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 494,
+          "mounts": 114,
+          "cls": 0,
+          "clsLate": 0.0001,
+          "clsAll": 0.0001,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-filter@phone",
+      "id": "clients-filter",
+      "section": "clients",
+      "device": "phone",
+      "title": "Клиенты: быстрый фильтр «Новые»",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 644,
+      "mounts": 74,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.1824,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "сдвиг сразу после клика 0.1824"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 644,
+          "mounts": 74,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.1824,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-open",
+      "id": "clients-open",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Клиенты: открыть карточку из списка",
+      "control": false,
+      "newData": true,
+      "navigation": true,
+      "flashes": 0,
+      "flashesNewData": 2,
+      "refetch": 0,
+      "replace": 2,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 625,
+      "mounts": 198,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 1,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "скелетон вместо прежних данных ×2",
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "flash",
+            "t": 727,
+            "shownMs": 295,
+            "skel": "span.block.skeleton-shimmer.animate-shimmer",
+            "region": "main#content.flex-1.px-4.pt-5 «КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513алле»",
+            "mainShare": 0.05,
+            "similarity": 0.07,
+            "sub": "replace",
+            "before": "КлиентыВсе, кто записывался к вам или добавлен вручнуюДобавить клиентаФильтрыДобавить клиентаНовые11Повторные44Давно не были27Заканчивается абонемент0Часто не п",
+            "after": "КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513аллергияпо рекомендацииСледующая записьср, 30 сентября, 16:30 · Снятие покрытия · Гаяне ОганесянКлиент подтвердилВ"
+          },
+          {
+            "kind": "flash",
+            "t": 727,
+            "shownMs": 278,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "main#content.flex-1.px-4.pt-5 «КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513алле»",
+            "mainShare": 0.26,
+            "similarity": 0.07,
+            "sub": "replace",
+            "before": "КлиентыВсе, кто записывался к вам или добавлен вручнуюДобавить клиентаФильтрыДобавить клиентаНовые11Повторные44Давно не были27Заканчивается абонемент0Часто не п",
+            "after": "КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513аллергияпо рекомендацииВизиты4последний — ВчераПродано39 000 ֏оплачено 39 000 ֏История визитовО клиентеСтатистикаЕ"
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [
+          "удалено 1452 из 1452 элементов main"
+        ],
+        "lateShifts": [],
+        "vt": true,
+        "fibersAtStart": 942
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 2,
+          "refetch": 0,
+          "replace": 2,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 625,
+          "mounts": 198,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 1
+        }
+      ]
+    },
+    {
+      "key": "clients-open@phone",
+      "id": "clients-open",
+      "section": "clients",
+      "device": "phone",
+      "title": "Клиенты: открыть карточку из списка",
+      "control": false,
+      "newData": true,
+      "navigation": true,
+      "flashes": 0,
+      "flashesNewData": 2,
+      "refetch": 0,
+      "replace": 2,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 615,
+      "mounts": 220,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 1,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "скелетон вместо прежних данных ×2",
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "flash",
+            "t": 212,
+            "shownMs": 357,
+            "skel": "span.block.skeleton-shimmer.animate-shimmer",
+            "region": "main#content.flex-1.px-4.pt-5 «КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513алле»",
+            "mainShare": 0.08,
+            "similarity": 0.07,
+            "sub": "replace",
+            "before": "КлиентыВсе, кто записывался к вам или добавлен вручнуюДобавить клиентаДобавить клиентаНовые11Повторные44Давно не были27Заканчивается абонемент0Часто не приходят",
+            "after": "КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513аллергияпо рекомендацииСледующая записьср, 30 сентября, 16:30 · Снятие покрытия · Гаяне ОганесянКлиент подтвердилВ"
+          },
+          {
+            "kind": "flash",
+            "t": 212,
+            "shownMs": 207,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "main#content.flex-1.px-4.pt-5 «КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513алле»",
+            "mainShare": 0.13,
+            "similarity": 0.07,
+            "sub": "replace",
+            "before": "КлиентыВсе, кто записывался к вам или добавлен вручнуюДобавить клиентаДобавить клиентаНовые11Повторные44Давно не были27Заканчивается абонемент0Часто не приходят",
+            "after": "КлиентыАнаит ТовмасянЗаписатьАТ+374 95 582 513аллергияпо рекомендацииВизиты4последний — ВчераПродано39 000 ֏оплачено 39 000 ֏История визитовО клиентеСтатистикаЕ"
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div#_r_1k_[role=tooltip].pointer-events-none.z-[70].max-w-xs «Viber»",
+            "opened": true,
+            "closed": false,
+            "openMs": 182,
+            "closeMs": null,
+            "frames": 45,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [
+          "удалено 1172 из 1172 элементов main"
+        ],
+        "lateShifts": [],
+        "vt": true,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 2,
+          "refetch": 0,
+          "replace": 2,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 615,
+          "mounts": 220,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 1
+        }
+      ]
+    },
+    {
+      "key": "clients-card-tabs",
+      "id": "clients-card-tabs",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Карточка клиента: вкладки История → О клиенте → Статистика → История",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 262,
+      "mounts": 45,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 262,
+          "mounts": 45,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-card-tabs@phone",
+      "id": "clients-card-tabs",
+      "section": "clients",
+      "device": "phone",
+      "title": "Карточка клиента: вкладки История → О клиенте → Статистика → История",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 306,
+      "mounts": 45,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0039,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 570
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 306,
+          "mounts": 45,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0039,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-card-edit",
+      "id": "clients-card-edit",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Карточка клиента: «Изменить» → поправить email → сохранить",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 531,
+      "mounts": 141,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0007,
+      "overlays": 3,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_r_m_[Ещё].z-[60].max-w-[calc(100vw-2rem)].overflow-y-auto «ИзменитьВнести прошлый виз",
+            "opened": true,
+            "closed": true,
+            "openMs": 183,
+            "closeMs": 154,
+            "frames": 28,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Изменить клиентаФото клиентаВыбрать фо",
+            "opened": true,
+            "closed": true,
+            "openMs": 516,
+            "closeMs": 220,
+            "frames": 74,
+            "startOpacity": 1,
+            "endOpacity": 1
+          },
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Изменения сохранены»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 64,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 565
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 531,
+          "mounts": 141,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0007,
+          "overlays": 3,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-card-edit@phone",
+      "id": "clients-card-edit",
+      "section": "clients",
+      "device": "phone",
+      "title": "Карточка клиента: «Изменить» → поправить email → сохранить",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 616,
+      "mounts": 161,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 3,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ЕщёИзменитьВнести прошлый визитПриглас",
+            "opened": true,
+            "closed": true,
+            "openMs": 466,
+            "closeMs": 221,
+            "frames": 74,
+            "startOpacity": 1,
+            "endOpacity": 1
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Изменить клиентаФото клиентаВыбрать фо",
+            "opened": true,
+            "closed": true,
+            "openMs": 532,
+            "closeMs": 220,
+            "frames": 69,
+            "startOpacity": 1,
+            "endOpacity": 1
+          },
+          {
+            "kind": "div.w-full.max-w-sm.py-1 «Изменения сохранены»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 65,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 616,
+          "mounts": 161,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 3,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-dialogs",
+      "id": "clients-dialogs",
+      "section": "clients",
+      "device": "desktop",
+      "title": "Клиенты: «Добавить клиента» и «Фильтры» — открыть и закрыть",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 1380,
+      "mounts": 129,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Добавить клиентаИмя и телефон — осталь",
+            "opened": true,
+            "closed": true,
+            "openMs": 533,
+            "closeMs": 236,
+            "frames": 67,
+            "startOpacity": 1,
+            "endOpacity": 1
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ФильтрыПо визитамПоказывать, если выпо",
+            "opened": true,
+            "closed": true,
+            "openMs": 532,
+            "closeMs": 237,
+            "frames": 66,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 942
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 1380,
+          "mounts": 129,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "clients-dialogs@phone",
+      "id": "clients-dialogs",
+      "section": "clients",
+      "device": "phone",
+      "title": "Клиенты: «Добавить клиента» и «Фильтры» — открыть и закрыть",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 1431,
+      "mounts": 132,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Добавить клиентаИмя и телефон — осталь",
+            "opened": true,
+            "closed": true,
+            "openMs": 582,
+            "closeMs": 237,
+            "frames": 66,
+            "startOpacity": 1,
+            "endOpacity": 1
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ФильтрыПо визитамПоказывать, если выпо",
+            "opened": true,
+            "closed": true,
+            "openMs": 516,
+            "closeMs": 221,
+            "frames": 66,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 1431,
+          "mounts": 132,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    }
+  ]
+}

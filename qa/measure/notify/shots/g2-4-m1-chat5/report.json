@@ -1,0 +1,130 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T12:26:14.137Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 3,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-120",
+      "F-00-121",
+      "F-05-008",
+      "F-05-009",
+      "F-05-082",
+      "F-05-087"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ext/bookingWindow/notify",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/notify?demo=owner&empty=0&sphere=barber&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "barber",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1588,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-120",
+        "F-00-121",
+        "F-05-008",
+        "F-05-009",
+        "F-05-082",
+        "F-05-087"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Демо: получить входящее сообщение"
+          },
+          "ok": true,
+          "ms": 384
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Демо: получить входящее сообщение"
+          },
+          "ok": true,
+          "ms": 373
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "after-incoming2"
+          },
+          "ok": true,
+          "ms": 34,
+          "screenshot": "qa/measure/notify/shots/g2-4-m1-chat5/dev-ext-bookingWindow-notify__owner-barber-ru-light-desktop__after-incoming2.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/notify/shots/g2-4-m1-chat5/dev-ext-bookingWindow-notify__owner-barber-ru-light-desktop.png",
+        "qa/measure/notify/shots/g2-4-m1-chat5/dev-ext-bookingWindow-notify__owner-barber-ru-light-desktop__full.png",
+        "qa/measure/notify/shots/g2-4-m1-chat5/dev-ext-bookingWindow-notify__owner-barber-ru-light-desktop__after-incoming2.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

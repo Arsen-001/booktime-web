@@ -1,0 +1,16 @@
+{
+  "route": "/biz/apps/team",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "[data-f~=\"F-14-116\"] li:first-child" },
+    { "click": "text=Пуши" },
+    { "wait": 300 },
+    { "screenshot": "push-tab" },
+    { "click": "text=Зарплата" },
+    { "wait": 300 },
+    { "screenshot": "payroll-tab" }
+  ]
+}

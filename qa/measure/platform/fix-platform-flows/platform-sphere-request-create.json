@@ -1,0 +1,230 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:33:54.068Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-151",
+      "F-00-152"
+    ],
+    "scenarioSteps": {
+      "ok": 18,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/sphere-requests",
+      "url": "http://localhost:3710/platform/sphere-requests?demo=platform&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1878,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-151",
+        "F-00-152"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "[data-fab]"
+          },
+          "ok": true,
+          "ms": 236
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Создать заявку\"]"
+          },
+          "ok": true,
+          "ms": 275
+        },
+        {
+          "i": 4,
+          "step": {
+            "expectVisible": "text=Укажите имя мастера"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "validation-errors"
+          },
+          "ok": true,
+          "ms": 116,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__validation-errors.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "fill": "[role=dialog] input >> nth=0",
+            "value": "Артур Тестов"
+          },
+          "ok": true,
+          "ms": 7
+        },
+        {
+          "i": 7,
+          "step": {
+            "fill": "[role=dialog] input[type=tel]",
+            "value": "55123456"
+          },
+          "ok": true,
+          "ms": 8
+        },
+        {
+          "i": 8,
+          "step": {
+            "fill": "[role=dialog] input[placeholder=\"Например: тату-мастер\"]",
+            "value": "Мойщик машин"
+          },
+          "ok": true,
+          "ms": 6
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "form-filled"
+          },
+          "ok": true,
+          "ms": 136,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__form-filled.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=button[name=\"Создать заявку\"]"
+          },
+          "ok": true,
+          "ms": 386
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 12,
+          "step": {
+            "expectText": "Заявка создана"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 13,
+          "step": {
+            "expectText": "Артур Тестов"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "after-save"
+          },
+          "ok": true,
+          "ms": 72,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__after-save.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "goto": "/platform/sphere-requests"
+          },
+          "ok": true,
+          "ms": 871
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 17,
+          "step": {
+            "expectText": "Артур Тестов"
+          },
+          "ok": true,
+          "ms": 12
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "after-reload"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__after-reload.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__validation-errors.png",
+        "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__form-filled.png",
+        "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__after-save.png",
+        "qa/measure/platform/fix-platform-flows/platform-sphere-requests__platform-nails-ru-light-phone__after-reload.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

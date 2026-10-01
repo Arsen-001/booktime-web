@@ -1,0 +1,12 @@
+{
+  "route": "/notifications",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "01-list" },
+    { "goto": "/" },
+    { "wait": 400 },
+    { "screenshot": "02-home-badge" }
+  ]
+}

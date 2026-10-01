@@ -1,0 +1,20 @@
+{
+  "route": "/biz/stock/price-tags",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "text=Топовое покрытие" },
+    { "wait": 300 },
+    { "click": "text=58×40 мм" },
+    { "wait": 300 },
+    { "screenshot": "pricetags-dropdown-open" },
+    { "click": "role=option[name='90×50 мм']" },
+    { "wait": 300 },
+    { "click": "text=Показывать артикул" },
+    { "wait": 300 },
+    { "screenshot": "pricetags-size-and-sku" }
+  ]
+}

@@ -1,0 +1,725 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T16:55:05.271Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 46,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-001",
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-008",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-016",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-028",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-037",
+      "F-01-038",
+      "F-01-039",
+      "F-01-040",
+      "F-01-041",
+      "F-01-042",
+      "F-01-043",
+      "F-01-044",
+      "F-01-045",
+      "F-01-046",
+      "F-01-048",
+      "F-01-050",
+      "F-01-051",
+      "F-01-052",
+      "F-01-054",
+      "F-01-055",
+      "F-01-056",
+      "F-01-057",
+      "F-01-061",
+      "F-01-063",
+      "F-01-064",
+      "F-01-066",
+      "F-01-075",
+      "F-01-076",
+      "F-01-083",
+      "F-01-085",
+      "F-01-086",
+      "F-01-100",
+      "F-01-109",
+      "F-01-110",
+      "F-01-111",
+      "F-01-112",
+      "F-01-114",
+      "F-01-115",
+      "F-01-127",
+      "F-01-128",
+      "F-01-132",
+      "F-01-133",
+      "F-01-151",
+      "F-01-152",
+      "F-01-154",
+      "F-01-156",
+      "F-01-167",
+      "F-01-178",
+      "F-01-179",
+      "F-01-180",
+      "F-01-184",
+      "F-01-185",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 20,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1952,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Журнал",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Записи",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "График работы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лист ожидания",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Клиенты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Онлайн-запись",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Уведомления",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лояльность",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Финансы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Зарплата",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Отчёты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Услуги",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сотрудники",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Ресурсы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Склад",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сеть и филиалы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Настройки",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Быстрый старт",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Подписка",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Монеты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 34,
+      "dataF": [
+        "F-01-001",
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-008",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-151",
+        "F-01-152",
+        "F-01-154",
+        "F-01-156",
+        "F-01-167",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 800
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "00-initial"
+          },
+          "ok": true,
+          "ms": 48,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__00-initial.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Следующий период\"]"
+          },
+          "ok": true,
+          "ms": 289
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "01-after-next"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__01-after-next.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "expectVisible": "role=button[name=\"Сегодня\"]"
+          },
+          "ok": true,
+          "ms": 5
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Следующий период\"]"
+          },
+          "ok": true,
+          "ms": 215
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "02-after-next2"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__02-after-next2.png"
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=button[name=\"Предыдущий период\"]"
+          },
+          "ok": true,
+          "ms": 231
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "role=button[name=\"Предыдущий период\"]"
+          },
+          "ok": true,
+          "ms": 227
+        },
+        {
+          "i": 13,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "03-back-to-start"
+          },
+          "ok": true,
+          "ms": 69,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__03-back-to-start.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "role=button[name=\"Сегодня\"]"
+          },
+          "ok": false,
+          "ms": 8066,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__fail-15.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__00-initial.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__01-after-next.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__02-after-next2.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__03-back-to-start.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-desktop__fail-15.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1466,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-028 F-01-051 F-01-052 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114 F-01-178]",
+          "text": "12:30–12:50Снятие покрытия",
+          "w": 195,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 195,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 196,
+          "h": 14,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 196,
+          "h": 21,
+          "inline": false
+        },
+        {
+          "el": "button.mt-0.5.w-full.rounded-md in [data-f=F-01-032]",
+          "text": "",
+          "w": 196,
+          "h": 21,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 12,
+      "dataF": [
+        "F-01-005",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-016",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-037",
+        "F-01-038",
+        "F-01-039",
+        "F-01-040",
+        "F-01-041",
+        "F-01-042",
+        "F-01-043",
+        "F-01-044",
+        "F-01-045",
+        "F-01-046",
+        "F-01-048",
+        "F-01-050",
+        "F-01-051",
+        "F-01-052",
+        "F-01-054",
+        "F-01-055",
+        "F-01-056",
+        "F-01-057",
+        "F-01-061",
+        "F-01-063",
+        "F-01-064",
+        "F-01-066",
+        "F-01-075",
+        "F-01-076",
+        "F-01-083",
+        "F-01-085",
+        "F-01-086",
+        "F-01-100",
+        "F-01-109",
+        "F-01-110",
+        "F-01-111",
+        "F-01-112",
+        "F-01-114",
+        "F-01-115",
+        "F-01-127",
+        "F-01-128",
+        "F-01-167",
+        "F-01-178",
+        "F-01-179",
+        "F-01-180",
+        "F-01-185",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "10-phone-initial"
+          },
+          "ok": true,
+          "ms": 59,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-phone__10-phone-initial.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "role=button[name=\"Новая запись\"]"
+          },
+          "ok": true,
+          "ms": 19
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Новая запись\"]"
+          },
+          "ok": true,
+          "ms": 195
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "11-phone-fab-window"
+          },
+          "ok": true,
+          "ms": 142,
+          "screenshot": "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-phone__11-phone-fab-window.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-phone.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-phone__10-phone-initial.png",
+        "qa/shots/journal-g2-3-periodnav/biz-journal__owner-nails-ru-light-phone__11-phone-fab-window.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

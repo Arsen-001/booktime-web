@@ -1,0 +1,244 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:00:55.950Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 31,
+    "consoleWarnings": 0,
+    "badResponses": 4,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 1316,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:103\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nImport trace:\n  Server Component:\n    ./src/areas/clients/ClientCardScreen.tsx\n "
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/schedule",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/g2-1-recheck/biz-schedule__owner-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 1335,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:103\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nImport trace:\n  Server Component:\n    ./src/areas/clients/ClientCardScreen.tsx\n "
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/schedule",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/g2-1-recheck/biz-schedule__owner-nails-ru-light-desktop.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 1334,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:103\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nImport trace:\n  Server Component:\n    ./src/areas/clients/ClientCardScreen.tsx\n "
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/schedule/calendar",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/g2-1-recheck/biz-schedule-calendar__owner-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 976,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1",
+          "./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:1"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/clients/ClientCardScreen.tsx:815:103\nError: Expected '</', got '.'\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/clients/ClientCardScreen.tsx:\n./src/areas/clients/ClientCardScreen.tsx:815:103\n  813 | ...\n  814 | ...\n> 815 | ...ou')} canUpload={rights.uploadFiles} rights.deleteClients={rights.deleteFiles} />\n      |                                               ^\n  816 | ...\n  817 | ...\n  818 | ...\n\nImport trace:\n  Server Component:\n    ./src/areas/clients/ClientCardScreen.tsx\n "
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/schedule/calendar",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/schedule/g2-1-recheck/biz-schedule-calendar__owner-nails-ru-light-desktop.png"
+      ],
+      "title": ""
+    }
+  ]
+}

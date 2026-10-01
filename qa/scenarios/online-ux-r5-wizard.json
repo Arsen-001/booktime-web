@@ -1,0 +1,34 @@
+[
+ {"name":"wiz-nuri-phone","route":"/b/nuri-nail-studio/book","persona":"guest","device":"phone","steps":[
+  {"wait":2000},
+  {"click":"text=Ани Саргсян"},{"wait":700},{"shot":"w01-after-ani"},
+  {"click":"role=button[name=/Понятно|Продолжить с/]"},{"wait":500},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"w02-services","full":true},
+  {"click":"text=Маникюр классический"},{"wait":400},{"shot":"w03-service-picked"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"w04-time","full":true},
+  {"click":"css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']"},{"wait":400},{"shot":"w05-time-picked"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},{"shot":"w06-details","full":true},
+  {"click":"role=button[name=/Записаться/]"},{"wait":600},{"shot":"w07-errors","full":true},
+  {"fill":"role=textbox[name=\"Имя\"]","value":"Лилит Арутюнян"},
+  {"fill":"role=textbox[name=/Телефон/]","value":"77123456"},
+  {"wait":300},{"shot":"w08-filled"},
+  {"click":"role=button[name=\"Получить код\"]"},{"wait":800},{"shot":"w09-code","full":true}
+ ]},
+ {"name":"wiz-nuri-desk","route":"/b/nuri-nail-studio/book","persona":"guest","device":"desktop","steps":[
+  {"wait":2000},
+  {"click":"text=Сона Григорян"},{"wait":400},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"d01-services"},
+  {"click":"text=Маникюр классический"},{"wait":300},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"d02-time"},
+  {"click":"css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']"},{"wait":300},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},{"shot":"d03-details","full":true}
+ ]},
+ {"name":"wiz-mariam-phone","route":"/b/mariam-nails/book","persona":"guest","device":"phone","steps":[
+  {"wait":2000},
+  {"click":"text=Мариам Нерсесян >> nth=1"},{"wait":700},{"shot":"m01-after-pick"},
+  {"click":"role=button[name=/Понятно|Продолжить с/]"},{"wait":500},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"m02-services","full":true},
+  {"click":"text=Маникюр с выездом к вам"},{"wait":400},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},{"shot":"m03-time","full":true}
+ ]}
+]

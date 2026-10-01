@@ -1,0 +1,14 @@
+{
+  "route": "/bookings",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=tab[name=\"Отменённые\"]" },
+    { "wait": 700 },
+    { "screenshot": "01-cancelled-list" },
+    { "click": "a[href^='/bookings/'] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "02-cancelled-detail" }
+  ]
+}

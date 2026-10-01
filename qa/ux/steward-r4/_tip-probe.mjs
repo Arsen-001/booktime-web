@@ -1,0 +1,22 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+await ctx.addCookies([{ name: 'demo_persona', value: 'owner', url: 'http://localhost:3710' }]);
+const p = await ctx.newPage();
+const errs = []; p.on('console', m => m.type() === 'error' && errs.push(m.text()));
+await p.goto('http://localhost:3710/biz/clients?demo=owner', { waitUntil: 'networkidle' });
+const bell = p.locator('[data-icon-button]').first();
+const name = await bell.getAttribute('aria-label');
+await bell.hover(); await p.waitForTimeout(600);
+const tip = await p.locator('[role=tooltip]').allTextContents();
+console.log('hover', name, '->', tip, 'title attrs:', await p.locator('[title]').count());
+await p.screenshot({ path: 'qa/ux/steward-r4/tip-hover-desktop.png', clip: { x: 900, y: 0, width: 540, height: 200 } });
+await p.mouse.move(10, 500); await p.waitForTimeout(200);
+console.log('after leave', await p.locator('[role=tooltip]').count());
+// Tooltip-wrapped IconButton on showcase: only one tip
+await p.goto('http://localhost:3710/dev/ui/b', { waitUntil: 'networkidle' });
+const prof = p.getByRole('button', { name: 'Профиль' }).first();
+await prof.scrollIntoViewIfNeeded(); await prof.hover(); await p.waitForTimeout(600);
+console.log('wrapped tips', await p.locator('[role=tooltip]').allTextContents());
+console.log('errors', errs);
+await b.close();

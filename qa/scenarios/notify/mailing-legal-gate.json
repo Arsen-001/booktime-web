@@ -1,0 +1,12 @@
+{
+  "route": "/biz/notifications/mailings/new",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-initial" },
+    { "click": "role=radio[name=/PUSH в СМС|SMS/i]" },
+    { "screenshot": "02-sms-selected-if-clickable" }
+  ]
+}

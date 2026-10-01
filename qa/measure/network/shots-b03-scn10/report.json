@@ -1,0 +1,104 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:55:25.208Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-11-111",
+      "F-11-113",
+      "F-11-114"
+    ],
+    "scenarioSteps": {
+      "ok": 3,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/network/goods",
+      "url": "http://localhost:3710/biz/network/goods?demo=network&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1357,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-111",
+        "F-11-113",
+        "F-11-114"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Салфетки косметические >> nth=0"
+          },
+          "ok": true,
+          "ms": 235
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "card"
+          },
+          "ok": true,
+          "ms": 51,
+          "screenshot": "qa/measure/network/shots-b03-scn10/biz-network-goods__network-nails-ru-light-desktop__card.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/network/shots-b03-scn10/biz-network-goods__network-nails-ru-light-desktop.png",
+        "qa/measure/network/shots-b03-scn10/biz-network-goods__network-nails-ru-light-desktop__full.png",
+        "qa/measure/network/shots-b03-scn10/biz-network-goods__network-nails-ru-light-desktop__card.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

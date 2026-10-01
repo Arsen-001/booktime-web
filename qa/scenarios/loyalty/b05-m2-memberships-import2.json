@@ -1,0 +1,17 @@
+{
+  "route": "/biz/loyalty/memberships",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "role=button[name=\"Импорт из Excel\"]"},
+    {"wait": 300},
+    {"fill": "textarea", "value": "+374 95 798 826\tМаникюр × 5\n+374 99 374 181\tНесуществующий тип"},
+    {"screenshot": "before-run"},
+    {"click": "role=button[name=\"Загрузить\"]"},
+    {"wait": 800},
+    {"screenshot": "results"}
+  ]
+}

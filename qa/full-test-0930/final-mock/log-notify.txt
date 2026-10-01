@@ -1,0 +1,43 @@
+Замер: 36 стр. → qa/full-test-0930/final-mock/shots/notify/ (по 4 одновременно)
+  1/36  2/36  3/36  4/36  5/36  6/36  7/36  8/36  9/36  10/36  11/36  12/36  13/36  14/36  15/36  16/36  17/36  18/36  19/36  20/36  21/36  22/36  23/36  24/36  25/36  26/36  27/36  28/36  29/36  30/36  31/36  32/36  33/36  34/36  35/36  36/36
+страница                       кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр
+─────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ────
+/biz/notifications             owner  ru  тел   0/1w  0    0      —      0    11      ·         4.8с
+/biz/notifications             owner  ru  деск  0/1w  0    0      —      1    11      ·         5.1с
+/biz/notifications             owner  en  тел   0/1w  0    0      —      0    11      ·         5.0с
+/biz/notifications             owner  en  деск  0/1w  0    0      —      1    11      ·         5.1с
+/biz/notifications/channels    owner  ru  тел   0/1w  0    0      —      0    16      ·         3.4с
+/biz/notifications/channels    owner  ru  деск  0/1w  0    0      —      4    16      ·         3.2с
+/biz/notifications/channels    owner  en  тел   0/1w  0    0      —      0    16      ·         3.1с
+/biz/notifications/channels    owner  en  деск  0/1w  0    0      —      4    16      ·         3.1с
+/biz/notifications/mailings    owner  ru  тел   0/1w  0    0      —      0    7       ·         3.0с
+/biz/notifications/mailings    owner  ru  деск  0/1w  0    0      —      1    7       ·         3.0с
+/biz/notifications/mailings    owner  en  тел   0/1w  0    0      —      0    7       ·         2.9с
+/biz/notifications/mailings    owner  en  деск  0/1w  0    0      —      1    7       ·         3.0с
+/biz/notifications/log         owner  ru  тел   0/1w  0    0      —      0    16      ·         7.0с
+/biz/notifications/log         owner  ru  деск  0/1w  0    0      —      1    16      ·         6.9с
+/biz/notifications/log         owner  en  тел   0/1w  0    0      —      0    16      ·         6.8с
+/biz/notifications/log         owner  en  деск  0/1w  0    0      —      1    16      ·         6.8с
+/biz/notifications/inbox       owner  ru  тел   0/1w  0    0      —      0    5       ·         3.7с
+/biz/notifications/inbox       owner  ru  деск  0/1w  0    0      —      2    5       ·         3.6с
+/biz/notifications/inbox       owner  en  тел   0/1w  0    0      —      0    5       ·         3.6с
+/biz/notifications/inbox       owner  en  деск  0/1w  0    0      —      2    5       ·         3.5с
+/dev/ext/bookingWindow/notify  owner  ru  тел   0     0    0      —      0    17      ·         3.4с
+/dev/ext/bookingWindow/notify  owner  ru  деск  0     0    0      —      7    17      ·         3.4с
+/dev/ext/bookingWindow/notify  owner  en  тел   0     0    0      —      0    17      ·         3.4с
+/dev/ext/bookingWindow/notify  owner  en  деск  0     0    0      —      7    17      ·         3.3с
+/dev/ext/clientCard/notify     owner  ru  тел   0     0    0      —      0    5       ·         3.5с
+/dev/ext/clientCard/notify     owner  ru  деск  0     0    0      —      0    5       ·         3.5с
+/dev/ext/clientCard/notify     owner  en  тел   0     0    0      —      0    5       ·         3.4с
+/dev/ext/clientCard/notify     owner  en  деск  0     0    0      —      0    5       ·         3.5с
+/dev/ext/staffCard/notify      owner  ru  тел   0     0    0      —      0    6       ·         2.3с
+/dev/ext/staffCard/notify      owner  ru  деск  0     0    0      —      0    6       ·         2.3с
+/dev/ext/staffCard/notify      owner  en  тел   0     0    0      —      0    6       ·         2.2с
+/dev/ext/staffCard/notify      owner  en  деск  0     0    0      —      0    6       ·         2.2с
+/dev/ext/settingsHub/notify    owner  ru  тел   0     0    0      —      0    1       ·         3.6с
+/dev/ext/settingsHub/notify    owner  ru  деск  0     0    0      —      0    1       ·         3.6с
+/dev/ext/settingsHub/notify    owner  en  тел   0     0    0      —      0    1       ·         3.5с
+/dev/ext/settingsHub/notify    owner  en  деск  0     0    0      —      0    1       ·         3.5с
+
+Итог: страниц 36 · ошибок консоли 0 · предупреждений 20 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 32 · висит загрузка 0 · data-f 71
+Отчёт: qa/full-test-0930/final-mock/shots/notify/report.json

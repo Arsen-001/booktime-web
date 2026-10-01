@@ -1,0 +1,999 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:13:32.543Z",
+  "summary": {
+    "pages": 16,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-005",
+      "F-05-006",
+      "F-05-007",
+      "F-05-008",
+      "F-05-009",
+      "F-05-020",
+      "F-05-029",
+      "F-05-030",
+      "F-05-031",
+      "F-05-032",
+      "F-05-035",
+      "F-05-036",
+      "F-05-037",
+      "F-05-038",
+      "F-05-039",
+      "F-05-046",
+      "F-05-047",
+      "F-05-048",
+      "F-05-049",
+      "F-05-051",
+      "F-05-054",
+      "F-05-110"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 16
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1116,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-029\"]"
+          },
+          "ok": false,
+          "ms": 8058,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/1",
+      "url": "http://localhost:3710/biz/notifications/types/1?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1116,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-029",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-029\"]"
+          },
+          "ok": false,
+          "ms": 8035,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-en-light-desktop__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-en-light-desktop.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-1__owner-nails-en-light-desktop__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/4",
+      "url": "http://localhost:3710/biz/notifications/types/4?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1321,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-030",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-030\"]"
+          },
+          "ok": false,
+          "ms": 8072,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-4__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-4__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-4__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/75",
+      "url": "http://localhost:3710/biz/notifications/types/75?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1013,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-031",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-031\"]"
+          },
+          "ok": false,
+          "ms": 8048,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-75__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-75__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-75__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/72",
+      "url": "http://localhost:3710/biz/notifications/types/72?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 860,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-032",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-032\"]"
+          },
+          "ok": false,
+          "ms": 8047,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-72__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-72__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-72__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/16",
+      "url": "http://localhost:3710/biz/notifications/types/16?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1095,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-035",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-035\"]"
+          },
+          "ok": false,
+          "ms": 8053,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-16__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-16__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-16__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/17",
+      "url": "http://localhost:3710/biz/notifications/types/17?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 787,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-036",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-036\"]"
+          },
+          "ok": false,
+          "ms": 8045,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-17__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-17__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-17__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/55",
+      "url": "http://localhost:3710/biz/notifications/types/55?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 938,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-037",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-037\"]"
+          },
+          "ok": false,
+          "ms": 8052,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-55__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-55__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-55__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/85",
+      "url": "http://localhost:3710/biz/notifications/types/85?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 720,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-038",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-038\"]"
+          },
+          "ok": false,
+          "ms": 8054,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-85__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-85__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-85__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/7",
+      "url": "http://localhost:3710/biz/notifications/types/7?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 937,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-020",
+        "F-05-039",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-039\"]"
+          },
+          "ok": false,
+          "ms": 8046,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-7__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-7__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-7__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/41",
+      "url": "http://localhost:3710/biz/notifications/types/41?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 992,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-046",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-046\"]"
+          },
+          "ok": false,
+          "ms": 8071,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-41__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-41__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-41__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/12",
+      "url": "http://localhost:3710/biz/notifications/types/12?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1071,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-047",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-047\"]"
+          },
+          "ok": false,
+          "ms": 8052,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-12__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-12__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-12__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/19",
+      "url": "http://localhost:3710/biz/notifications/types/19?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 910,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-020",
+        "F-05-048",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-048\"]"
+          },
+          "ok": false,
+          "ms": 8077,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-19__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-19__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-19__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/11",
+      "url": "http://localhost:3710/biz/notifications/types/11?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 942,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-049",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-049\"]"
+          },
+          "ok": false,
+          "ms": 8055,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-11__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-11__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-11__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/42",
+      "url": "http://localhost:3710/biz/notifications/types/42?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 749,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-051",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-051\"]"
+          },
+          "ok": false,
+          "ms": 8051,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-42__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-42__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-42__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/notifications/types/43",
+      "url": "http://localhost:3710/biz/notifications/types/43?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 734,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-020",
+        "F-05-054",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-054\"]"
+          },
+          "ok": false,
+          "ms": 8050,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-2-m0/types/biz-notifications-types-43__owner-nails-ru-light-phone__fail-1.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-43__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-2-m0/types/biz-notifications-types-43__owner-nails-ru-light-phone__fail-1.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "route": "/biz/schedule/calendar",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 300 },
+    { "screenshot": "before" },
+    { "click": "text=Открыть весь день >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "after-open-day" },
+    { "click": "text=Задерживаюсь >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "after-delay-click" }
+  ]
+}

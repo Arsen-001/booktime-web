@@ -1,0 +1,71 @@
+{
+ "at": "2026-09-29T23:40:11.026Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/finance/items",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/finance/items?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/finance/items",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/finance/items?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/finance/account-types",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/finance/account-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/finance/account-types",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/finance/account-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 4,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/fin1/biz-finance-account-types__desktop__1-skeleton.png",
+    "qa/skeletons/shots/fin1/biz-finance-account-types__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  }
+ ]
+}

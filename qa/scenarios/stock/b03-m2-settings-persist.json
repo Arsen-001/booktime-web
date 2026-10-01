@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/biz/stock/settings",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "click": "text=Ограничено" },
+      { "wait": 400 },
+      { "screenshot": "01-checked" },
+      { "click": "role=combobox[name=/Алгоритм расчёта/]" },
+      { "wait": 300 },
+      { "screenshot": "02-dropdown-open" }
+    ]
+  }
+]

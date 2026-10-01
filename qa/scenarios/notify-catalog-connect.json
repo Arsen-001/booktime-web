@@ -1,0 +1,15 @@
+{
+  "route": "/biz/notifications/channels/catalog",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "click": "text=MESSAGGIO" },
+    { "expectVisible": "text=Подключение" },
+    { "click": "role=button[name=\"Подключить\"]" },
+    { "wait": 500 },
+    { "screenshot": "after-connect" }
+  ]
+}

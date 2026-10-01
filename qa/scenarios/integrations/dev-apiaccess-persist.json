@@ -1,0 +1,28 @@
+{
+  "route": "/biz/integrations/developers",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "label:has-text(\"Согласен\") input[type=checkbox]" },
+    { "fill": "label:has-text(\"Название компании-разработчика\") ~ input, label:has-text(\"Название компании-разработчика\") ~ div input", "value": "Test Dev Co" },
+    { "fill": "label:has-text(\"Для чего будет использоваться\") ~ textarea, label:has-text(\"Для чего будет использоваться\") ~ div textarea", "value": "Тестируем API" },
+    { "fill": "label:text-is(\"Имя\") ~ input, label:text-is(\"Имя\") ~ div input", "value": "Иван Тест" },
+    { "fill": "label:text-is(\"Email\") ~ input, label:text-is(\"Email\") ~ div input", "value": "dev@test.com" },
+    { "click": "role=button[name=\"Зарегистрироваться\"]" },
+    { "wait": 600 },
+    { "click": "role=link[name=\"Создать приложение\"]" },
+    { "wait": 400 },
+    { "fill": "label:has-text(\"Название приложения\") ~ input, label:has-text(\"Название приложения\") ~ div input", "value": "Токен Тест" },
+    { "click": "role=button[name=\"Создать\"]" },
+    { "wait": 600 },
+    { "click": "text=Доступ к API" },
+    { "wait": 300 },
+    { "fill": "label:has-text(\"User ID\") ~ input, label:has-text(\"User ID\") ~ div input", "value": "4242" },
+    { "click": "label:has-text(\"Записи\") input[type=checkbox]" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "screenshot": "01-token-after-save" },
+    { "expectText": "User token" }
+  ]
+}

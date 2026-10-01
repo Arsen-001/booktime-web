@@ -1,0 +1,75 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "screenshot": "01-form-open" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "phone",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Добавить клиента" },
+      { "wait": 500 },
+      { "screenshot": "02-form-open-phone" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "[role=button]:has-text(\"Действия\")" },
+      { "wait": 400 },
+      { "screenshot": "03-actions-menu" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "text=Фильтры" },
+      { "wait": 400 },
+      { "screenshot": "04-filters-open" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "screenshot": "05-card-open" },
+      { "click": "text=Посетители" },
+      { "wait": 400 },
+      { "screenshot": "06-visitors-tab" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "button:has-text(\"Изменить\")" },
+      { "wait": 400 },
+      { "screenshot": "07-edit-card" }
+    ]
+  }
+]

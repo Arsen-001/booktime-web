@@ -1,0 +1,12 @@
+[
+  { "route": "/biz/network/switch", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 800}, {"screenshot": "switch-recheck"} ] },
+  { "route": "/biz/network/settings/users", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 800}, {"screenshot": "users-recheck"} ] },
+  { "route": "/biz/network/settings/plans", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 800}, {"fill": "table tbody tr:first-child td:nth-child(2) input", "value": "777000"}, {"press": "Tab"}, {"wait": 400}, {"screenshot": "plans-after-fill"}, {"goto": "/biz/network/settings/plans"}, {"wait": 800}, {"screenshot": "plans-after-reload"} ] },
+  { "route": "/biz/network/staff", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 800}, {"screenshot": "staff-menu-recheck"} ] },
+  { "route": "/biz/network/services/subdivisions", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 800}, {"screenshot": "subdivisions-recheck"} ] }
+]

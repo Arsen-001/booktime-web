@@ -1,0 +1,16 @@
+{
+  "route": "/biz/schedule/calendar",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "[data-f=\"F-02-027 F-02-035\"] >> nth=0 >> role=combobox"},
+    {"wait": 300},
+    {"click": "role=option[name=\"Нерабочий день\"]"},
+    {"wait": 600},
+    {"screenshot": "after-blocked"}
+  ]
+}

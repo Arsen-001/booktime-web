@@ -1,0 +1,24 @@
+[
+  {
+    "route": "/biz/apps/news",
+    "persona": "owner-empty",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "expectVisible": "[data-f=\"F-00-114\"]" },
+      { "fill": "textarea", "value": "Новость раз" },
+      { "click": "role=button[name=\"Отправить\"]" },
+      { "wait": 300 },
+      { "fill": "textarea", "value": "Новость два" },
+      { "click": "role=button[name=\"Отправить\"]" },
+      { "wait": 300 },
+      { "fill": "textarea", "value": "Новость три" },
+      { "click": "role=button[name=\"Отправить\"]" },
+      { "wait": 300 },
+      { "screenshot": "b05m1-news-after3" },
+      { "fill": "textarea", "value": "Новость четыре" },
+      { "screenshot": "b05m1-news-before4" }
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "route": "/biz/notifications/channels",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Брендированное приложение >> xpath=../.. >> role=button[name=\"Подключить\"]" },
+    { "wait": 500 },
+    { "goto": "/biz/notifications/types/1" },
+    { "wait": 400 },
+    { "click": "text=Брендированное >> xpath=../.. >> role=combobox" },
+    { "wait": 300 },
+    { "screenshot": "branded-scenario-options" }
+  ]
+}

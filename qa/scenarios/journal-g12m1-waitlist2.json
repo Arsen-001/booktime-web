@@ -1,0 +1,27 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Лист ожидания" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"+ Создать\"]" },
+    { "wait": 200 },
+    { "fill": "#Имя, input:near(:text(\"Имя\"))", "value": "Тестовая Заявка" },
+    { "fill": "input[placeholder=\"91 234 567\"]", "value": "91234567" },
+    { "click": "text=Маникюр классический" },
+    { "click": "role=button[name=\"Создать заявку\"]" },
+    { "wait": 500 },
+    { "screenshot": "06-created" },
+    { "expectVisible": "[data-f=\"F-01-158 F-01-160\"]" },
+    { "click": "text=Маникюр классический >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "07-expanded-card" },
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "screenshot": "08-menu-open" }
+  ]
+}

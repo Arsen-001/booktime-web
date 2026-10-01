@@ -1,0 +1,14 @@
+{
+  "route": "/biz/stock/operations",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "30-fresh-load" },
+    { "fill": "input[placeholder*=\"номеру\"]", "value": "100009" },
+    { "wait": 500 },
+    { "screenshot": "31-filter-by-number" }
+  ]
+}

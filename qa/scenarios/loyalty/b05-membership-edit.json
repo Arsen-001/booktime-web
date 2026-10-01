@@ -1,0 +1,16 @@
+{
+  "route": "/dev/ext/clientCard/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "li:has-text(\"Безлимит на месяц\") >> role=button[name=\"Изменить баланс и срок\"]" },
+    { "screenshot": "edit-modal" },
+    { "click": "role=dialog >> role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "screenshot": "after-save" }
+  ]
+}

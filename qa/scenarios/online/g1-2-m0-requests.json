@@ -1,0 +1,25 @@
+[
+  {
+    "route": "/biz/online/requests",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 1000 },
+      { "screenshot": "01-list" },
+      { "click": "role=button[name=\"Подтвердить\"] >> nth=0" },
+      { "wait": 600 },
+      { "screenshot": "02-after-confirm" }
+    ]
+  },
+  {
+    "route": "/biz/online/requests",
+    "persona": "master",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 1000 },
+      { "screenshot": "03-master-own-only" }
+    ]
+  }
+]

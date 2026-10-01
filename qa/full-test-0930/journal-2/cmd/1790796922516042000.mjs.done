@@ -1,0 +1,11 @@
+const M = await import('/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/t/common.mjs?' + Date.now());
+const { waitReady, dlg, btns, toasts, go } = M;
+
+export default async ({ browser, lib, state }) => {
+  const p = state.owner; let o='';
+  await go(p, '/biz/journal'); await waitReady(p);
+  await p.getByRole('button', { name: 'Ещё', exact: true }).first().click(); await p.waitForTimeout(1000);
+  o += 'MORE ' + (await dlg(p)).slice(0,2000) + '\nB ' + await btns(p) + '\nF ' + (await lib.fids(p)).filter(f=>f>'F-01-110').join(' ') + '\n';
+  await lib.shot(p, 'o12-more');
+  return o;
+};

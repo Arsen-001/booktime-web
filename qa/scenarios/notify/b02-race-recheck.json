@@ -1,0 +1,19 @@
+{
+  "route": "/biz/notifications/types/1",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=\"1 ч\"" },
+    { "wait": 200 },
+    { "click": "text=\"3 ч\"" },
+    { "wait": 500 },
+    { "click": "text=\"Другое время для Email\"" },
+    { "wait": 700 },
+    { "screenshot": "after-both" },
+    { "goto": "/biz/notifications/types/1" },
+    { "wait": 400 },
+    { "screenshot": "after-reload" }
+  ]
+}

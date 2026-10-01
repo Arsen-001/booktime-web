@@ -1,0 +1,44 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+
+===== e2e-sync
+[online 0-before] 11 10:00,10:30,11:00,11:30 … 15:30,16:00,16:30
+[journal 0-before] "учка\n5 свободных окон\n\nКолонки\nОбзор\nЛента\nСписок\nАни Саргсян\n2 записи\nМариам Петросян\n0 записей\nГаяне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\n11:00\n12:00\n13:00\n14:"
+[cell] 10–19
+[affected] Настройка графика
+
+Ани Саргсян · чт, 8 октября
+
+1 запись в эти дни не помещается в новые часы — сами записи мы не тронем
+
+Перенесите их к другому мастеру, отмените с уведомлением или оставьте — журнал покажет колонку с пометкой
+
+8 октября, 12:45 · Ани Саргсян · Элен Зограбян
+
+Перенести к…
+Гаяне Оганесян
+Ева Карапетян
+Перенести к…
+Отменить с уведомлением
+В журнале
+Как повторять
+Выберите…
+Только выб
+[toast]  | Готово: 1 рабочий день · изменено 1
+
+Отменить
+[cell after] 15–21
+[online 1-evening] 8 15:00,15:30,16:00,16:30 … 19:30,20:00,20:30
+[journal 1-evening] "учка\n5 свободных окон\n\nКолонки\nОбзор\nЛента\nСписок\nАни Саргсян\n2 записи\nМариам Петросян\n0 записей\nГаяне Оганесян\n0 записей\nЕК\nЕва Карапетян\n0 записей\n11:00\n12:00\n13:00\n14:"
+[cell] 15–21
+[cell deleted] 15–21
+[undo visible] 0
+[FAIL] e2e-sync locator.click: Timeout 60000ms exceeded. / Call log: / [2m  - waiting for locator('[data-cell="st_nuri_ani|2026-10-08"]:visible')[22m / [2m    - locator resolved to <button type="button" aria-pressed="true" data-cell="st_nuri_ani|2026-10-08" class="block w-full touch-manipulation rounded-md select-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">…</button>[22m / [2m  - attempting click action[22m / [2m    2 × waiting for element to be visible, enabled and stable[22m
+
+===== e2e-mode
+[FAIL] e2e-mode page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/b/mariam-nails/book?step=time&s=sv_mar_plain&m=st_mariam&d=2026-10-09 / Call log: / [2m  - navigating to "http://localhost:3710/b/mariam-nails/book?step=time&s=sv_mar_plain&m=st_mariam&d=2026-10-09", waiting until "domcontentloaded"[22m / 
+
+===== e2e-slots
+[FAIL] e2e-slots page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=owner&lang=ru / Call log: / [2m  - navigating to "http://localhost:3710/?demo=owner&lang=ru", waiting until "load"[22m / 
+
+===== e2e-screens
+[FAIL] e2e-screens page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=owner&lang=ru / Call log: / [2m  - navigating to "http://localhost:3710/?demo=owner&lang=ru", waiting until "load"[22m / 

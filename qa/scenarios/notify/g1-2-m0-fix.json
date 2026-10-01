@@ -1,0 +1,31 @@
+[
+  { "route": "/dev/ext/clientCard/notify", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [
+      {"click": "role=tab[name=\"Уведомления\"]"},
+      {"wait": 300},
+      {"screenshot": "settings-tab-open"},
+      {"click": "text=\"Не отправлять рекламные рассылки\""},
+      {"click": "role=button[name=\"Сохранить\"]"},
+      {"wait": 500},
+      {"screenshot": "settings-saved"},
+      {"goto": "/dev/ext/clientCard/notify"},
+      {"click": "role=tab[name=\"Уведомления\"]"},
+      {"wait": 300},
+      {"screenshot": "settings-after-reload"}
+    ]
+  },
+  { "route": "/dev/ext/clientCard/notify", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [
+      {"click": "role=tab[name=\"Сообщения и звонки\"]"},
+      {"wait": 300},
+      {"screenshot": "history-tab"}
+    ]
+  },
+  { "route": "/biz/notifications/mailings/new", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [
+      {"click": "role=radio[name=\"SMS\"]"},
+      {"wait": 300},
+      {"screenshot": "mailing-sms-selected"}
+    ]
+  }
+]

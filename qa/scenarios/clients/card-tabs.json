@@ -1,0 +1,31 @@
+[
+  {"route": "/biz/clients/cl_001", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"expectVisible": "[data-f=\"F-04-091\"]"},
+     {"expectVisible": "[data-f=\"F-04-167\"]"},
+     {"screenshot": "card-tab-card"},
+     {"click": "text=История визитов"},
+     {"wait": 300},
+     {"expectVisible": "[data-f=\"F-04-075\"]"},
+     {"screenshot": "card-tab-history"},
+     {"click": "text=Статистика"},
+     {"wait": 300},
+     {"expectVisible": "[data-f=\"F-04-077\"]"},
+     {"screenshot": "card-tab-stats"},
+     {"click": "text=Звонки"},
+     {"wait": 300},
+     {"expectVisible": "[data-f=\"F-04-079\"]"},
+     {"screenshot": "card-tab-calls"},
+     {"click": "text=Файлы"},
+     {"wait": 300},
+     {"expectVisible": "[data-f=\"F-04-086\"]"},
+     {"screenshot": "card-tab-files"}
+   ]},
+  {"route": "/biz/clients/cl_001", "persona": "owner", "lang": "ru", "device": "phone",
+   "steps": [
+     {"click": "text=История визитов"},
+     {"wait": 300},
+     {"expectVisible": "[data-f=\"F-04-076\"]"},
+     {"screenshot": "card-tab-history-phone"}
+   ]}
+]

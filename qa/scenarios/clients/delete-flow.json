@@ -1,0 +1,16 @@
+[
+  {
+    "route": "/biz/clients/cl_002",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"click": "[data-f=\"F-00-130 F-04-073 F-04-135 F-04-136 F-04-137\"]"},
+      {"wait": 300},
+      {"click": "text=Удалить"},
+      {"wait": 400},
+      {"screenshot": "01-confirm-dialog"}
+    ]
+  }
+]

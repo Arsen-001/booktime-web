@@ -1,0 +1,21 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Гель-лак «Красный классик»" },
+    { "wait": 500 },
+    { "fill": "input[type=number] >> nth=3", "value": "999" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 800 },
+    { "screenshot": "01-good-saved" },
+    { "click": "text=Товары" },
+    { "wait": 500 },
+    { "screenshot": "02-catalog-badge" },
+    { "click": "role=button >> text=/ниже критичного/" },
+    { "wait": 600 },
+    { "screenshot": "03-order-screen" }
+  ]
+}

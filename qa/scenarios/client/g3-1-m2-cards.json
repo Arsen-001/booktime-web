@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/search", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [ {"wait": 800}, {"click": "a[href^='/masters/']"}, {"wait": 700}, {"screenshot": "master-card"} ]
+  },
+  {
+    "route": "/search", "persona": "client", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [ {"wait": 800}, {"click": "a[href^='/places/']"}, {"wait": 700}, {"screenshot": "place-card"} ]
+  },
+  {
+    "route": "/favorites", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"
+  },
+  {
+    "route": "/masters/st_nuri_ani", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"
+  },
+  {
+    "route": "/places/biz_nuri", "persona": "client", "sphere": "nails", "lang": "en", "device": "desktop"
+  }
+]

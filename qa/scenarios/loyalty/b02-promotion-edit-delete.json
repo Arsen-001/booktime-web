@@ -1,0 +1,26 @@
+{
+  "route": "/biz/loyalty/promotions",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "text=Скидка постоянному гостю" },
+    { "wait": 400 },
+    { "screenshot": "edit-all-sections" },
+    { "fill": "input[value=\"Скидка постоянному гостю\"]", "value": "Скидка постоянному гостю (правка)" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "expectText": "Изменения сохранены" },
+    { "screenshot": "saved-toast" },
+    { "click": "role=button[name=\"Удалить акцию\"]" },
+    { "wait": 300 },
+    { "screenshot": "delete-confirm" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 600 },
+    { "expectText": "Акция удалена" },
+    { "wait": 400 },
+    { "screenshot": "list-after-delete" }
+  ]
+}

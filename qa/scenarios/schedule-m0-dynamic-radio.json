@@ -1,0 +1,22 @@
+{
+  "route": "/biz/schedule/slots/st_nuri_ani",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "role=radio[name=\"Свои правила\"]" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Добавить исключение\"]" },
+    { "wait": 300 },
+    { "click": "role=dialog >> text=Вт" },
+    { "click": "role=dialog >> text=Ср" },
+    { "screenshot": "before-dynamic-click" },
+    { "click": "role=dialog >> role=radio[name=/Динамичный/]" },
+    { "screenshot": "after-dynamic-click" },
+    { "click": "role=dialog >> role=button[name=\"Далее\"]" },
+    { "screenshot": "step2" }
+  ]
+}

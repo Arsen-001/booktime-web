@@ -1,0 +1,25 @@
+[
+  {
+    "route": "/biz/online/settings",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "main >> text=Нарине Акопян" },
+      { "wait": 300 },
+      { "screenshot": "owner-own-staff" }
+    ]
+  },
+  {
+    "route": "/biz/online/settings",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "master-view" }
+    ]
+  }
+]

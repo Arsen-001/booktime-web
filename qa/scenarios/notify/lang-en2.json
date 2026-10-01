@@ -1,0 +1,18 @@
+{
+  "route": "/biz/notifications/types/1/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "[aria-label=\"Язык уведомлений клиентам\"]"},
+    {"wait": 200},
+    {"screenshot": "a-open"},
+    {"click": "li:has-text(\"English\"), [role=option]:has-text(\"English\")"},
+    {"wait": 200},
+    {"screenshot": "b-clicked"},
+    {"wait": 800},
+    {"screenshot": "c-settled"}
+  ]
+}

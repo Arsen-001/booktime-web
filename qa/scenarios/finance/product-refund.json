@@ -1,0 +1,12 @@
+{
+  "route": "/biz/finance",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 1000},
+    {"click": "tr:has-text(\"Продажа товаров\") a"},
+    {"wait": 600},
+    {"screenshot": "01-op-detail"}
+  ]
+}

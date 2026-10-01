@@ -1,0 +1,9 @@
+{"route":"/dev/ext/staffCard/payroll","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"role=checkbox[name=\"Оплата за групповые события\"]"},
+   {"click":"role=checkbox[name=\"Минимальная выплата (никто не пришёл)\"]"},
+   {"wait":300},
+   {"click":"text=Доплата за каждого пришедшего сверх порога"},
+   {"wait":300},
+   {"screenshot":"group-full-open"}
+ ]}

@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Нелли Симонян Аветисян"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Открыть запись"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "booking-open"
+      },
+      {
+        "click": "role=tab[name=\"Оплата\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "payment-view"
+      }
+    ]
+  }
+]

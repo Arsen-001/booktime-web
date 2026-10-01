@@ -1,0 +1,22 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "table tbody tr:first-child" },
+    { "wait": 800 },
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "screenshot": "menu-open" },
+    { "click": "text=Пересчитать автоправила" },
+    { "wait": 1000 },
+    { "screenshot": "after-recalc" },
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "click": "text=Объединить с..." },
+    { "wait": 500 },
+    { "screenshot": "merge-modal" }
+  ]
+}

@@ -1,0 +1,144 @@
+/*
+ * Дизайн-токены. ЕДИНСТВЕННОЕ место, где живут цвета, радиусы и тени.
+ * Компоненты используют только классы Tailwind из этих токенов (bg-surface, text-muted, border-border…),
+ * никаких сырых цветов. Чтобы сменить палитру — меняется только этот файл.
+ *
+ * Палитра «Б — Индиго», выбрана пользователем 25.09.2026.
+ * Светлая тема — по умолчанию (:root). Тёмная — [data-theme="dark"] на <html>.
+ * Контраст текста — WCAG AA (≥ 4.5:1 для обычного текста), рамки полей ≥ 3:1.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Поверхности */
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --surface-2: #f1f1f8;
+  --surface-3: #e6e6f0;
+  --border: #e6e6ef;
+  --line: #f0f0f5;
+  --border-strong: #8b8ba3;
+  --overlay: rgb(16 22 32 / 0.45);
+
+  /* Текст */
+  --text: #1b1a2e;
+  --text-muted: #5b5a73;
+
+  /* Главный цвет (единственный акцент интерфейса) */
+  --primary: #3b32c9;
+  --primary-hover: #2f27a8;
+  --primary-soft: #ebeafb;
+  --primary-text: #3b32c9;
+  --primary-contrast: #ffffff;
+
+  /* Второй цвет — только для редких подсветок («горящее окно», новинка) */
+  --accent: #e0306a;
+  --accent-soft: #fde6ee;
+  --accent-text: #b0204f;
+  --accent-contrast: #ffffff;
+
+  /* Состояния */
+  --success: #1b7440;
+  --success-soft: #e3f3e9;
+  --warning: #a15c07;
+  --warning-soft: #fdf1dc;
+  --danger: #c0322b;
+  --danger-soft: #fbe8e6;
+  --info: #2563c9;
+  --info-soft: #e5eefb;
+  --focus: #3b32c9;
+
+  /* Серии графиков и цвета мастеров в журнале */
+  --chart-1: #3b32c9;
+  --chart-2: #3b6fd8;
+  --chart-3: #e0892b;
+  --chart-4: #8e5bd0;
+  --chart-5: #d2517a;
+  --chart-6: #3c9a5f;
+  --chart-7: #6b7a90;
+  --chart-8: #b8921c;
+
+  /* Знак BookTime (src/shell/brand-mark.json): B — основной, T — акцент; в тёмной теме светлее, чтобы знак читался */
+  --brand-b: #3b32c9;
+  --brand-t: #e0306a;
+  --brand-x: #17643f;
+  --brand-empty: #e3e2ee;
+
+  /* Радиусы */
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
+
+  /* Тени — мягкие */
+  --sh-xs: 0 1px 2px rgb(16 22 32 / 0.05);
+  --sh-sm: 0 1px 3px rgb(16 22 32 / 0.08), 0 1px 2px rgb(16 22 32 / 0.04);
+  --sh-md: 0 4px 12px rgb(16 22 32 / 0.08), 0 2px 4px rgb(16 22 32 / 0.04);
+  --sh-lg: 0 12px 32px rgb(16 22 32 / 0.12), 0 4px 8px rgb(16 22 32 / 0.05);
+  --sh-xl: 0 24px 56px rgb(16 22 32 / 0.18);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0f0f1a;
+  --surface: #171726;
+  --surface-2: #1e1e31;
+  --surface-3: #27273d;
+  --border: #2c2c44;
+  --line: #222236;
+  --border-strong: #62627e;
+  --overlay: rgb(0 0 0 / 0.6);
+
+  --text: #e7ecf2;
+  --text-muted: #a2adbc;
+
+  /* Цвета бренда одинаковы в обеих темах (владелец, 02.10.2026); светлее только текст-ссылки */
+  --primary: #3b32c9;
+  --primary-hover: #4a42d6;
+  --primary-soft: #23214a;
+  --primary-text: #a5a0fa;
+  --primary-contrast: #ffffff;
+
+  --accent: #e0306a;
+  --accent-soft: #3a1a28;
+  --accent-text: #f59ab9;
+  --accent-contrast: #ffffff;
+
+  --success: #4cc17e;
+  --success-soft: #13301f;
+  --warning: #e3a548;
+  --warning-soft: #33270f;
+  --danger: #f07068;
+  --danger-soft: #3a1715;
+  --info: #6fa0f5;
+  --info-soft: #16253d;
+  --focus: #8b85f6;
+
+  --chart-1: #8b85f6;
+  --chart-2: #6f98f0;
+  --chart-3: #f0a04b;
+  --chart-4: #b08be6;
+  --chart-5: #ec7fa2;
+  --chart-6: #6cc68d;
+  --chart-7: #9aa8bb;
+  --chart-8: #e0c05a;
+
+  --brand-b: #8b85f6;
+  --brand-t: #ff7ca1;
+  --brand-x: #3fae78;
+  --brand-empty: #2a2840;
+
+  --sh-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --sh-sm: 0 1px 3px rgb(0 0 0 / 0.45);
+  --sh-md: 0 4px 12px rgb(0 0 0 / 0.45);
+  --sh-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+  --sh-xl: 0 24px 56px rgb(0 0 0 / 0.6);
+}
+
+/* Крупный шрифт для пожилых (F-00-124): всё в rem, поэтому масштабируется целиком */
+:root[data-font='large'] {
+  font-size: 112.5%;
+}

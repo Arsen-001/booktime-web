@@ -1,0 +1,13 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Месяц" },
+    { "wait": 500 },
+    { "screenshot": "month-totals" }
+  ]
+}

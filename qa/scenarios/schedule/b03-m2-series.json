@@ -1,0 +1,20 @@
+{
+  "route": "/biz/schedule/series",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=+ Новая серия" },
+    { "wait": 400 },
+    { "click": "role=combobox[name=\"Сотрудник\"]" },
+    { "wait": 200 },
+    { "click": "text=Ани Саргсян" },
+    { "wait": 200 },
+    { "click": "role=combobox[name=\"Клиент\"]" },
+    { "wait": 200 },
+    { "screenshot": "client-open" }
+  ]
+}

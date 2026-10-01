@@ -1,0 +1,15 @@
+import { start, stop, open, as, text, shot, db } from './lib.mjs';
+await start();
+const { page } = await open('owner', `/biz/clients/cl_001`, { device: 'desktop' });
+let t = await text(page); console.log('card', t.slice(t.indexOf('Продано'), t.indexOf('Продано')+100).replace(/\n/g,' | '), '| Должник', t.includes('Должник'));
+await shot(page, 'c5-card');
+await page.getByRole('tab', { name: 'История визитов' }).click(); await page.waitForTimeout(1200);
+t = await text(page); const i = t.indexOf('Все записи'); console.log('history', t.slice(i, i+400).replace(/\n/g,' | '));
+await page.getByRole('button', { name: 'В долг' }).click().catch(()=>page.getByText('В долг').first().click()); await page.waitForTimeout(800);
+t = await text(page); console.log('В долг filter', t.slice(t.indexOf('Все записи'), t.indexOf('Все записи')+300).replace(/\n/g,' | '));
+await shot(page, 'c5-history-debt');
+await page.getByRole('tab', { name: 'Карточка клиента' }).click(); await page.waitForTimeout(800);
+await page.getByRole('button', { name: 'Посмотреть визиты с долгом' }).click(); await page.waitForTimeout(1200);
+t = await text(page); console.log('debt visits view', t.slice(0, 600).replace(/\n/g,' | '));
+await shot(page, 'c5-debt-visits');
+await stop();

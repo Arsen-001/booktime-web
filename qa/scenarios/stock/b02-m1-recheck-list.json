@@ -1,0 +1,20 @@
+{
+  "route": "/biz/stock/operations/new/income",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "fill": "input[placeholder*=\"артикул\"]", "value": "Гель-лак" },
+    { "wait": 400 },
+    { "click": "text=Гель-лак «Бордо»" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 2000 },
+    { "screenshot": "m1-01-doc-created" },
+    { "goto": "/biz/stock/operations" },
+    { "wait": 1200 },
+    { "screenshot": "m1-02-list-after-create" }
+  ]
+}

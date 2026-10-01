@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+const S = JSON.parse(fs.readFileSync(new URL('./sessions.json', import.meta.url)));
+const A = 'http://localhost:4011';
+const ck = (r) => S[r].map((c) => `${c.name}=${c.value}`).join('; ');
+const call = async (r, m, p, b) => { const res = await fetch(A + p, { method: m, headers: { cookie: ck(r), 'content-type': 'application/json', origin: 'http://localhost:3710' }, body: b ? JSON.stringify(b) : undefined }); const t = await res.text(); let d; try { d = JSON.parse(t); } catch { d = t; } return { s: res.status, d }; };
+const out = {};
+out.popupMaster = (await call('master', 'GET', '/v1/biz/biz_nuri/notify/web-popup')).s;
+const rr = await call('master', 'GET', '/v1/biz/biz_nuri/payroll/rights'); out.rightsMaster = rr.s + ' ' + JSON.stringify(rr.d).slice(0, 120);
+out.rightsOwnerKeys = Object.keys((await call('owner', 'GET', '/v1/biz/biz_nuri/payroll/rights')).d).length;
+out.settlOwn = (await call('master', 'GET', '/v1/biz/biz_nuri/staff/st_nuri_ani/settlements')).s;
+out.balOwn = (await call('master', 'GET', '/v1/biz/biz_nuri/staff/st_nuri_ani/settlements/balance')).s;
+out.settlOther = (await call('master', 'GET', '/v1/biz/biz_nuri/staff/st_nuri_mariam/settlements')).s;
+const ov = await call('owner', 'GET', '/v1/biz/biz_nuri/reports/overview?from=2026-09-02&to=2026-10-01');
+out.occ = { noShow: ov.d.occupancy.noShow, cancelled: ov.d.occupancy.cancelled };
+// повторная оплата после возврата
+const c = await call('owner', 'POST', '/v1/biz/biz_nuri/bookings', { staffId: 'st_nuri_ani', clientId: 'cl_01M3TB3D2V9D2QV73PAVJRYTF4', locationId: 'loc_nuri', start: '2026-10-02T21:30', durationMin: 45, status: 'arrived', services: [{ serviceId: 'sv_nuri_classic', qty: 1, price: 5000, staffId: 'st_nuri_ani', durationMin: 45 }], source: 'journal' });
+const BK = c.d.id; out.BK = BK + ' ' + c.s;
+const f = `/v1/biz/biz_nuri/finance/bookings/${BK}/payments`;
+const p1 = await call('owner', 'POST', f, { mode: 'split', parts: [{ methodKey: 'cash', amount: 5000 }] });
+const lineId = p1.d.moneyLines[0].id;
+out.ref = (await call('owner', 'POST', `/v1/biz/biz_nuri/finance/payments/${lineId}/refund`, { amount: 1000, reason: '' })).s;
+out.jref = (await call('owner', 'POST', `/v1/biz/biz_nuri/bookings/${BK}/payments/${lineId}/refund`, { amount: 1000 })).s;
+const p2 = await call('owner', 'POST', f, { mode: 'split', parts: [{ methodKey: 'cash', amount: 1000 }] });
+out.p2 = p2.s + ' due=' + p2.d.due + ' lines=' + JSON.stringify(p2.d.moneyLines.map((l) => [l.amount, l.operationId ? 'op' : 'noop', l.refundedAmount ?? 0]));
+console.log(JSON.stringify(out, null, 1));

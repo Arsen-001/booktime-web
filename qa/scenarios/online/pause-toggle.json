@@ -1,0 +1,19 @@
+{
+  "route": "/biz/online/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=Приостановить онлайн-запись" },
+    { "wait": 300 },
+    { "screenshot": "paused-toggled" },
+    { "click": "role=button[name=/Сохранить/] >> nth=0" },
+    { "wait": 700 },
+    { "screenshot": "paused-saved" },
+    { "goto": "/biz/online/settings" },
+    { "wait": 800 },
+    { "screenshot": "paused-after-reload" }
+  ]
+}

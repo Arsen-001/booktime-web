@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-journal" },
+    { "click": "[data-f=\"F-01-008\"]" },
+    { "wait": 300 },
+    { "screenshot": "02-sidebar-footer" },
+    { "press": "Escape" }
+  ]
+}

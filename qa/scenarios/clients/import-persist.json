@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/clients/import",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "textarea", "value": "Name\tPhone\tTotal spent\tTotal paid\nSoldTest2\t37493008888\t500\t500"},
+      {"click": "text=Загрузить вставленное"},
+      {"wait": 300},
+      {"click": "role=button[name=\"Загрузить\"]"},
+      {"wait": 1500},
+      {"screenshot": "after-import"},
+      {"click": "role=link[name=\"Клиентская база\"]"},
+      {"wait": 800},
+      {"fill": "input[placeholder*=\"номеру карты\"]", "value": "37493008888"},
+      {"wait": 500},
+      {"screenshot": "found-same-session"}
+    ]
+  }
+]

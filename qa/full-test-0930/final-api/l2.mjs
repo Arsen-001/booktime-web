@@ -1,0 +1,22 @@
+export default async ({ go, shot, page, api }) => {
+  const r = {};
+  await go('/biz/loyalty/memberships', 4000);
+  await page.getByRole('button', { name: 'Продать абонемент' }).first().click();
+  await page.waitForTimeout(2000);
+  const d = page.locator('[role=dialog]').last();
+  await d.locator('select').nth(0).selectOption({ label: 'Маникюр × 5 · 32000 ֏' });
+  await page.waitForTimeout(500);
+  await d.getByPlaceholder('Телефон клиента').fill('99000991');
+  await d.getByRole('button', { name: 'Найти' }).click();
+  await page.waitForTimeout(1500);
+  await d.getByRole('button', { name: 'Сгенерировать' }).click();
+  await page.waitForTimeout(500);
+  await d.locator('select').nth(1).selectOption({ label: 'Ани Саргсян' });
+  await shot('l2-filled', false);
+  r.filled = (await d.innerText()).slice(0, 500);
+  await d.getByRole('button', { name: 'Сохранить и оплатить' }).click();
+  await page.waitForTimeout(4000);
+  await shot('l2-sold', false);
+  r.toast = (await page.locator('[role=status], [data-sonner-toast], [role=alert]').allInnerTexts()).join(' | ').slice(0, 300);
+  return r;
+};

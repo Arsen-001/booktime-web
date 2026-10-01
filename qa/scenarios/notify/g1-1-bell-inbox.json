@@ -1,0 +1,71 @@
+[
+  {
+    "route": "/biz/notifications/inbox",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "role=button[name=\"Новая запись\"]" },
+      { "wait": 400 },
+      { "screenshot": "inbox-click-item" },
+      { "click": "text=Прочитать все" },
+      { "wait": 300 },
+      { "screenshot": "inbox-read-all" },
+      { "click": "text=Новости сервиса" },
+      { "wait": 300 },
+      { "screenshot": "inbox-news-tab" }
+    ]
+  },
+  {
+    "route": "/biz/notifications",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "[data-testid=\"header-bell\"], header button:has(svg)" },
+      { "wait": 300 },
+      { "screenshot": "header-bell-click" }
+    ]
+  },
+  {
+    "route": "/biz/notifications",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "master-tries-notify" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/log",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "text=Любой канал" },
+      { "wait": 200 },
+      { "screenshot": "log-channel-menu" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "text=Создать рассылку" },
+      { "wait": 400 },
+      { "screenshot": "mailing-new-form" }
+    ]
+  }
+]

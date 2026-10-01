@@ -1,0 +1,58 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1000 },
+      { "click": "input[type=checkbox] >> nth=1" },
+      { "wait": 300 },
+      { "click": "text=Действия" },
+      { "wait": 400 },
+      { "screenshot": "01-actions-menu" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_003",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "02-cl003" } ]
+  },
+  {
+    "route": "/biz/clients/cl_004",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "03-cl004" } ]
+  },
+  {
+    "route": "/biz/clients/cl_005",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "04-cl005" } ]
+  },
+  {
+    "route": "/biz/clients/cl_006",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "05-cl006" } ]
+  },
+  {
+    "route": "/biz/clients/cl_007",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "06-cl007" } ]
+  },
+  {
+    "route": "/biz/clients/cl_008",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [ { "wait": 1000 }, { "screenshot": "07-cl008" } ]
+  }
+]

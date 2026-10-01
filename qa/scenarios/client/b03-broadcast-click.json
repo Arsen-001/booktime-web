@@ -1,0 +1,11 @@
+{
+  "route": "/notifications",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "text=Новинка недели" },
+    { "wait": 600 },
+    { "screenshot": "01-after-click" }
+  ]
+}

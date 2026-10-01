@@ -1,0 +1,14 @@
+{
+  "route": "/dev/ext/staffCard/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "before" },
+    { "click": "[data-f=\"F-02-083\"] button" },
+    { "wait": 300 },
+    { "screenshot": "markup-open" }
+  ]
+}

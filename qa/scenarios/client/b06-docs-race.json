@@ -1,0 +1,21 @@
+{
+  "route": "/biz/apps/branded",
+  "persona": "owner",
+  "sphere": "barber",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Доступ к аккаунту Apple Developer" },
+    { "wait": 700 },
+    { "click": "text=Доступ к аккаунту Google Play Console" },
+    { "wait": 700 },
+    { "click": "text=Документ о регистрации предпринимателя или организации" },
+    { "wait": 700 },
+    { "click": "text=Документ на товарный знак или чек с названием бренда" },
+    { "wait": 700 },
+    { "screenshot": "docs-all-checked-slow" },
+    { "goto": "/biz/apps/branded" },
+    { "wait": 500 },
+    { "screenshot": "docs-after-reload-slow" }
+  ]
+}

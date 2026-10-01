@@ -1,0 +1,21 @@
+{
+  "route": "/biz/online/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "text=Ани Саргсян" },
+    { "wait": 300 },
+    { "screenshot": "01-ani-expanded" },
+    { "click": "text=С подтверждением" },
+    { "wait": 200 },
+    { "click": "role=button[name=/Сохранить/] >> nth=1" },
+    { "wait": 700 },
+    { "screenshot": "02-ani-saved" },
+    { "click": "text=Сона Григорян" },
+    { "wait": 300 },
+    { "screenshot": "03-sona-expanded-should-be-instant" }
+  ]
+}

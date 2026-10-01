@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/biz/integrations",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "input[placeholder*='Название']", "value": "book"},
+      {"wait": 400},
+      {"screenshot": "search-book-fixed"}
+    ]
+  },
+  {
+    "route": "/biz/integrations",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "input[placeholder*='Название']", "value": "chat"},
+      {"wait": 400},
+      {"screenshot": "search-chat-fixed"}
+    ]
+  }
+]

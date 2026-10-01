@@ -1,0 +1,15 @@
+{
+  "route": "/biz/clients/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=switch" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 1500 },
+    { "expectText": "Сохранено" },
+    { "screenshot": "saved" }
+  ]
+}

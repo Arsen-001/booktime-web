@@ -1,0 +1,169 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T06:44:10.932Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-001",
+      "F-05-005",
+      "F-05-010",
+      "F-05-011",
+      "F-05-012",
+      "F-05-013",
+      "F-05-017",
+      "F-05-018",
+      "F-05-019",
+      "F-05-021",
+      "F-05-022",
+      "F-05-023",
+      "F-05-029",
+      "F-05-058",
+      "F-05-059",
+      "F-05-065",
+      "F-05-066",
+      "F-05-067",
+      "F-05-068",
+      "F-05-077",
+      "F-05-079",
+      "F-05-110",
+      "F-05-116"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/channels",
+      "url": "http://localhost:3710/biz/notifications/channels?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1112,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-001",
+        "F-05-005",
+        "F-05-010",
+        "F-05-011",
+        "F-05-012",
+        "F-05-013",
+        "F-05-017",
+        "F-05-018",
+        "F-05-019",
+        "F-05-021",
+        "F-05-022",
+        "F-05-023",
+        "F-05-029",
+        "F-05-058",
+        "F-05-059",
+        "F-05-065",
+        "F-05-066",
+        "F-05-067",
+        "F-05-068",
+        "F-05-077",
+        "F-05-079",
+        "F-05-110",
+        "F-05-116"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=button[name=\"Подключить\"] >> nth=1"
+          },
+          "ok": true,
+          "ms": 192
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "01-after-connect"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/shots/notify-g1-1-m2/branded-check2/biz-notifications-channels__owner-nails-ru-light-desktop__01-after-connect.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "goto": "/biz/notifications/types/1/templates"
+          },
+          "ok": true,
+          "ms": 956
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "02-templates-page"
+          },
+          "ok": true,
+          "ms": 50,
+          "screenshot": "qa/shots/notify-g1-1-m2/branded-check2/biz-notifications-channels__owner-nails-ru-light-desktop__02-templates-page.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-1-m2/branded-check2/biz-notifications-channels__owner-nails-ru-light-desktop.png",
+        "qa/shots/notify-g1-1-m2/branded-check2/biz-notifications-channels__owner-nails-ru-light-desktop__01-after-connect.png",
+        "qa/shots/notify-g1-1-m2/branded-check2/biz-notifications-channels__owner-nails-ru-light-desktop__02-templates-page.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

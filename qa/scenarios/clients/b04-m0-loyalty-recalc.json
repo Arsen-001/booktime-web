@@ -1,0 +1,12 @@
+[
+  {"route": "/biz/clients/loyalty", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 500},
+     {"screenshot": "before-enable"},
+     {"click": "input[type=checkbox], button[role=switch]"},
+     {"wait": 200},
+     {"click": "text=Добавить ступень"},
+     {"wait": 200},
+     {"screenshot": "tier-added"}
+   ]}
+]

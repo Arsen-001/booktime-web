@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/biz/stock/operations",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "15-operations-list" },
+      { "click": "text=Продажа товара >> nth=0" },
+      { "wait": 800 },
+      { "screenshot": "16-open-sale-doc" },
+      { "click": "role=button[name=/Чек/]" },
+      { "wait": 700 },
+      { "screenshot": "17-receipt-clicked" }
+    ]
+  }
+]

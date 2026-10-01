@@ -1,0 +1,201 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T20:46:14.256Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-176"
+    ],
+    "scenarioSteps": {
+      "ok": 15,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 736,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Начать подключение\"]"
+          },
+          "ok": true,
+          "ms": 1012
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "input[placeholder]",
+            "value": "QA Test Salon 25.09"
+          },
+          "ok": true,
+          "ms": 19
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "select:has(option:text-is(\"Сфера\"))"
+          },
+          "ok": true,
+          "ms": 191
+        },
+        {
+          "i": 6,
+          "step": {
+            "press": "ArrowDown",
+            "selector": "select:has(option:text-is(\"Сфера\"))"
+          },
+          "ok": true,
+          "ms": 159
+        },
+        {
+          "i": 7,
+          "step": {
+            "press": "ArrowDown",
+            "selector": "select:has(option:text-is(\"Сфера\"))"
+          },
+          "ok": true,
+          "ms": 161
+        },
+        {
+          "i": 8,
+          "step": {
+            "press": "Tab",
+            "selector": "select:has(option:text-is(\"Сфера\"))"
+          },
+          "ok": true,
+          "ms": 159
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "sphere-chosen3"
+          },
+          "ok": true,
+          "ms": 52,
+          "screenshot": "qa/measure/platform/shots-m0/connect-e2e5/platform-connect__platform-nails-ru-light-desktop__sphere-chosen3.png"
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "text=Далее >> nth=0"
+          },
+          "ok": true,
+          "ms": 383
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "text=на месте работы"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 14,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 15,
+          "step": {
+            "screenshot": "here-clicked"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/measure/platform/shots-m0/connect-e2e5/platform-connect__platform-nails-ru-light-desktop__here-clicked.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/shots-m0/connect-e2e5/platform-connect__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/shots-m0/connect-e2e5/platform-connect__platform-nails-ru-light-desktop__sphere-chosen3.png",
+        "qa/measure/platform/shots-m0/connect-e2e5/platform-connect__platform-nails-ru-light-desktop__here-clicked.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+Замер: 36 стр. → qa/full-test-0930/final-mock/shots/x-notify-admin/ (по 4 одновременно)
+  1/36  2/36  3/36  4/36  5/36  6/36  7/36  8/36  9/36  10/36  11/36  12/36  13/36  14/36  15/36  16/36  17/36  18/36  19/36  20/36  21/36  22/36  23/36  24/36  25/36  26/36  27/36  28/36  29/36  30/36  31/36  32/36  33/36  34/36  35/36  36/36
+страница                       кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр 
+─────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ─────
+/biz/notifications             admin  ru  тел   0/1w  0    0      —      0    2       ·         6.3с 
+/biz/notifications             admin  ru  деск  0/1w  0    0      —      0    2       ·         6.2с 
+/biz/notifications             admin  en  тел   0/1w  0    0      —      0    2       ·         6.2с 
+/biz/notifications             admin  en  деск  0/1w  0    0      —      0    2       ·         6.3с 
+/biz/notifications/channels    admin  ru  тел   0/1w  0    0      —      0    2       ·         3.9с 
+/biz/notifications/channels    admin  ru  деск  0/1w  0    0      —      0    2       ·         3.9с 
+/biz/notifications/channels    admin  en  тел   0/1w  0    0      —      0    2       ·         3.8с 
+/biz/notifications/channels    admin  en  деск  0/1w  0    0      —      0    2       ·         3.8с 
+/biz/notifications/mailings    admin  ru  тел   0/1w  0    0      —      0    2       ·         7.1с 
+/biz/notifications/mailings    admin  ru  деск  0/1w  0    0      —      0    2       ·         7.3с 
+/biz/notifications/mailings    admin  en  тел   0/1w  0    0      —      0    2       ·         7.3с 
+/biz/notifications/mailings    admin  en  деск  0/1w  0    0      —      0    2       ·         7.3с 
+/biz/notifications/log         admin  ru  тел   0/1w  0    0      —      0    2       ·         4.0с 
+/biz/notifications/log         admin  ru  деск  0/1w  0    0      —      0    2       ·         3.8с 
+/biz/notifications/log         admin  en  тел   0/1w  0    0      —      0    2       ·         3.8с 
+/biz/notifications/log         admin  en  деск  0/1w  0    0      —      0    2       ·         3.8с 
+/biz/notifications/inbox       admin  ru  тел   0/1w  0    0      —      0    5       ·         2.7с 
+/biz/notifications/inbox       admin  ru  деск  0/1w  0    0      —      1    5       ·         2.7с 
+/biz/notifications/inbox       admin  en  тел   0/1w  0    0      —      0    5       ·         2.7с 
+/biz/notifications/inbox       admin  en  деск  0/1w  0    0      —      1    5       ·         2.6с 
+/dev/ext/bookingWindow/notify  admin  ru  тел   0     0    0      —      0    0       ·         3.8с 
+/dev/ext/bookingWindow/notify  admin  ru  деск  0     0    0      —      0    0       ·         3.8с 
+/dev/ext/bookingWindow/notify  admin  en  тел   0     0    0      —      0    0       ·         3.8с 
+/dev/ext/bookingWindow/notify  admin  en  деск  0     0    0      —      0    0       ·         3.8с 
+/dev/ext/clientCard/notify     admin  ru  тел   0     0    0      —      0    5       ·         12.6с
+/dev/ext/clientCard/notify     admin  ru  деск  0     0    0      —      0    5       ·         12.6с
+/dev/ext/clientCard/notify     admin  en  тел   0     0    0      —      0    5       ·         12.6с
+/dev/ext/clientCard/notify     admin  en  деск  0     0    0      —      0    5       ·         12.6с
+/dev/ext/staffCard/notify      admin  ru  тел   0     0    0      —      0    1       ·         3.2с 
+/dev/ext/staffCard/notify      admin  ru  деск  0     0    0      —      0    1       ·         3.2с 
+/dev/ext/staffCard/notify      admin  en  тел   0     0    0      —      0    1       ·         3.2с 
+/dev/ext/staffCard/notify      admin  en  деск  0     0    0      —      0    1       ·         3.3с 
+/dev/ext/settingsHub/notify    admin  ru  тел   0     0    0      —      0    1       ·         7.3с 
+/dev/ext/settingsHub/notify    admin  ru  деск  0     0    0      —      0    1       ·         7.0с 
+/dev/ext/settingsHub/notify    admin  en  тел   0     0    0      —      0    1       ·         7.3с 
+/dev/ext/settingsHub/notify    admin  en  деск  0     0    0      —      0    1       ·         6.8с 
+
+Итог: страниц 36 · ошибок консоли 0 · предупреждений 20 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 2 · висит загрузка 0 · data-f 12
+Отчёт: qa/full-test-0930/final-mock/shots/x-notify-admin/report.json

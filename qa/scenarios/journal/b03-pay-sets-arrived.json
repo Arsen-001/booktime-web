@@ -1,0 +1,20 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "[data-testid='booking-block'] >> nth=1" },
+    { "wait": 300 },
+    { "screenshot": "window-before-pay" },
+    { "click": "role=button[name=\"Оплатить\"]" },
+    { "wait": 400 },
+    { "screenshot": "window-after-pay-status" },
+    { "click": "role=button[name=\"Закрыть\"]" },
+    { "wait": 300 },
+    { "screenshot": "grid-after-pay-closed" },
+    { "click": "[data-testid='booking-block'] >> nth=1" },
+    { "wait": 300 },
+    { "screenshot": "reopened-after-pay" }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+{
+  "route": "/biz/stock/operations",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 700 },
+    { "click": "text=100004" },
+    { "wait": 700 },
+    { "screenshot": "m1-50-doc-100004-open" },
+    { "click": "text=История изменений" },
+    { "wait": 400 },
+    { "screenshot": "m1-51-doc-history-tab" },
+    { "click": "text=Движение товаров" },
+    { "wait": 300 },
+    { "fill": "textarea", "value": "Проверка правки — m1" },
+    { "click": "role=button[name=\"Сохранить изменения\"]" },
+    { "wait": 1200 },
+    { "screenshot": "m1-52-doc-after-edit-save" },
+    { "click": "text=Назад" },
+    { "wait": 700 },
+    { "click": "text=100004" },
+    { "wait": 700 },
+    { "screenshot": "m1-53-reopen-after-save" },
+    { "click": "text=История изменений" },
+    { "wait": 400 },
+    { "screenshot": "m1-54-history-after-edit" }
+  ]
+}
+]

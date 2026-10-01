@@ -1,0 +1,10 @@
+import { start, stop, open, reload, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/online/settings');
+const d0 = await db(page); const br0 = JSON.stringify(d0.areas.online.businessRules);
+await page.locator('main').getByRole('switch').first().click(); await page.waitForTimeout(1500); console.log(await toasts(page));
+const d1 = await db(page); const br1 = JSON.stringify(d1.areas.online.businessRules);
+console.log('businessRules changed?', br0 !== br1, br1.match(/.{0,80}paus.{0,80}/gi));
+const s1 = JSON.stringify(d1.areas.online.staffRules).match(/.{0,60}paus.{0,60}/gi); console.log('staffRules paus', s1 && s1.slice(0, 3));
+await reload(page); console.log('switch after reload', await page.locator('main').getByRole('switch').first().getAttribute('aria-checked'));
+await stop();

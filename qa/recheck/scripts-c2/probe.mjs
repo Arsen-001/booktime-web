@@ -1,0 +1,13 @@
+import { start, stop, open, db } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz', { device: 'desktop' });
+const d = await db(page);
+const out = {};
+out.top = Object.keys(d);
+out.core = Object.fromEntries(Object.entries(d.core).map(([k,v]) => [k, Array.isArray(v) ? v.length : typeof v]));
+out.areas = Object.fromEntries(Object.entries(d.areas||{}).map(([k,v]) => [k, v && typeof v==='object' ? Object.keys(v).map(x=>x+':'+(Array.isArray(v[x])?v[x].length:typeof v[x])) : typeof v]));
+console.log(JSON.stringify(out, null, 1));
+console.log('booking sample', JSON.stringify(d.core.bookings[0]));
+console.log('client sample', JSON.stringify(d.core.clients[0]));
+console.log('staff sample', JSON.stringify(d.core.staff[0]).slice(0,800));
+await stop();

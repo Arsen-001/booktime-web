@@ -1,0 +1,12 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+await page.goto('http://localhost:3710/dev/ext/bookingWindow/online?demo=owner&sphere=nails&lang=ru&theme=light&sample=widget', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1200);
+console.log(await page.locator('body').innerText());
+await page.screenshot({ path: 'qa/shots/online/g1-3-m1/f139-ext.png', fullPage: true });
+await browser.close();
+release();

@@ -1,0 +1,39 @@
+[
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "table tbody tr:nth-child(1) td:nth-child(2) button" },
+      { "wait": 300 },
+      { "screenshot": "panel-en" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "text=Edit rules" },
+      { "wait": 300 },
+      { "screenshot": "wizard-en" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/series",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "screenshot": "series-empty-en" }
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "route": "/biz/clients/import",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "textarea", "value": "Name\tPhone\tEmail\tGender\tDate of birth\nAnna Petrosyan\t37493000001\tanna@gmail.com\tF\t15-03\nBad Row\t+374 93 00 00 02\tnotanemail\tF\t15-03\nDup One\t37493000003\tdup@gmail.com\t2\t15-03-1990\nDup One\t37493000003\tdup@gmail.com\t2\t15-03-1990"},
+      {"click": "text=Загрузить вставленное"},
+      {"wait": 300},
+      {"click": "role=button[name=\"Загрузить\"]"},
+      {"wait": 2000},
+      {"screenshot": "02-result"}
+    ]
+  }
+]

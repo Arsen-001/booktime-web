@@ -1,0 +1,8 @@
+[
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":1500},{"fill":"input[placeholder^=\"Поиск (по\"]","value":"zzzqqq"},{"click":"role=button[name=\"Найти\"] >> nth=-1"},{"wait":1200},{"screenshot":"search-empty"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1500},{"fill":"input[placeholder^=\"Поиск (по\"]","value":"Ани"},{"press":"Enter"},{"wait":1200},{"screenshot":"search-enter-ani"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"phone","steps":[{"wait":1800},{"click":"role=button[name=\"Добавить визит\"] >> nth=0"},{"wait":1000},{"screenshot":"add-visit"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"desktop","steps":[{"wait":1800},{"click":"role=tab[name=\"Онлайн-запись\"]"},{"wait":1200},{"screenshot":"tab-online"}]},
+ {"route":"/biz/clients","persona":"individual","device":"desktop","steps":[{"wait":1800},{"click":"text=Рипсиме Гаспарян"},{"wait":1800},{"screenshot":"card-zero"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1500},{"click":"role=button[name=/Новый/]"},{"wait":1200},{"screenshot":"segment-new"}]}
+]

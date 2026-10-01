@@ -1,0 +1,141 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:25:43.797Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 1,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-005",
+      "F-05-006",
+      "F-05-007",
+      "F-05-008",
+      "F-05-009",
+      "F-05-010",
+      "F-05-011",
+      "F-05-012",
+      "F-05-013",
+      "F-05-017",
+      "F-05-018",
+      "F-05-019",
+      "F-05-021",
+      "F-05-022",
+      "F-05-023",
+      "F-05-026",
+      "F-05-110"
+    ],
+    "scenarioSteps": {
+      "ok": 4,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/types/9",
+      "url": "http://localhost:3710/biz/notifications/types/9?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1529,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: Internal Next.js error: Router action dispatched before initialization.\n    at dispatchAppRouterAction (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15242:37)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1261:61\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at Object.hmrRefresh (http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:1260:40)\n    at http://localhost:3710/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16069:64\n    at startTransition (http://localhost:3710/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:1505:31)\n    at processMessage (http://loc"
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-005",
+        "F-05-006",
+        "F-05-007",
+        "F-05-008",
+        "F-05-009",
+        "F-05-010",
+        "F-05-011",
+        "F-05-012",
+        "F-05-013",
+        "F-05-017",
+        "F-05-018",
+        "F-05-019",
+        "F-05-021",
+        "F-05-022",
+        "F-05-023",
+        "F-05-026",
+        "F-05-110"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=tab[name=\"Шаблоны уведомлений\"]"
+          },
+          "ok": true,
+          "ms": 208
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectText": "Отправитель"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "after-role-tab-click"
+          },
+          "ok": true,
+          "ms": 42,
+          "screenshot": "qa/shots/notify-scen3/biz-notifications-types-9__owner-nails-ru-light-desktop__after-role-tab-click.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-scen3/biz-notifications-types-9__owner-nails-ru-light-desktop.png",
+        "qa/shots/notify-scen3/biz-notifications-types-9__owner-nails-ru-light-desktop__after-role-tab-click.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

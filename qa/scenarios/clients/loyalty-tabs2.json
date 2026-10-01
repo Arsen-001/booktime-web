@@ -1,0 +1,28 @@
+[
+  {
+    "route": "/biz/clients/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      {"click": "role=tab[name=\"Настройки\"]"},
+      {"wait": 300},
+      {"expectVisible": "[data-f=\"F-04-120\"]"},
+      {"screenshot": "tab-settings-fixed"}
+    ]
+  },
+  {
+    "route": "/biz/clients/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"click": "role=tab[name=\"Настройки\"]"},
+      {"wait": 300},
+      {"expectVisible": "[data-f=\"F-04-120\"]"},
+      {"screenshot": "tab-settings-fixed"}
+    ]
+  }
+]

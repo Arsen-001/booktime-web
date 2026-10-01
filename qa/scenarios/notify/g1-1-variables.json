@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/biz/notifications/types/2/templates",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "click": "text=+ Переменная" },
+      { "wait": 300 },
+      { "screenshot": "variables-menu" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/channels/sms",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "sms-connect" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/channels/email",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "email-connect" }
+    ]
+  }
+]

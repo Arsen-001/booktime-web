@@ -1,0 +1,17 @@
+const M = await import('/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/t/common.mjs?' + Date.now());
+const { waitReady, dlg, btns, toasts, go } = M;
+export default async ({ browser, lib, state }) => {
+  const p = state.owner; let o='';
+  await go(p, '/biz/journal'); await waitReady(p);
+  await p.locator('[data-testid=booking-block]', { hasText: 'SPA-педикюр' }).first().click(); await p.waitForTimeout(2000);
+  const id = new URL(p.url()).searchParams.get('booking'); state.otherId = id; o += 'OTHER ' + id + '\n';
+  // master phone
+  const m = await lib.openPage(browser, { persona: 'master', device: 'phone' }); state.master = m; await waitReady(m); await m.waitForTimeout(1500);
+  await lib.shot(m, 'p1-master-journal');
+  const cols = await m.evaluate(()=>(document.body.innerText.match(/Ани|Мариам|Гаяне|Ева/g)||[]).join(',')); o += 'M cols: ' + cols + '\n';
+  // open other's booking by URL
+  await go(m, '/biz/journal?booking=' + id); await waitReady(m); await m.waitForTimeout(2500);
+  o += 'M other booking dialog: ' + (await dlg(m)).slice(0,500).replace(/\n/g,' / ') + '\n';
+  await lib.shot(m, 'p2-master-other-booking');
+  return o;
+};

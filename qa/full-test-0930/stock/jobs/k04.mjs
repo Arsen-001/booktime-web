@@ -1,0 +1,26 @@
+const norm = (s) => s.replace(/[  ]/g, ' ');
+export default async (t, log) => {
+  const p = t.page;
+  await p.getByRole('button', { name: 'Добавить контрагента' }).click(); await p.waitForTimeout(800);
+  const sh = p.locator('[role=dialog]:visible').last();
+  await sh.getByLabel(/^Название/).fill('QA Армянский поставщик');
+  await sh.locator('input[type=tel]').first().fill('93112233').catch(async () => { await sh.getByLabel(/Телефон/).fill('93112233'); });
+  await sh.getByRole('combobox', { name: /Язык сообщений/ }).click(); await p.waitForTimeout(300);
+  log('lang options', await p.getByRole('option').allInnerTexts());
+  await p.getByRole('option', { name: 'Հայերեն' }).click();
+  await t.shot('k-cp-form');
+  await sh.getByRole('button', { name: 'Сохранить' }).click(); await p.waitForTimeout(1500);
+  await t.go('owner', '/biz/stock/order');
+  await p.evaluate(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; });
+  await p.getByRole('combobox').filter({ hasText: /Выберите|контрагент/ }).first().click().catch(async () => p.getByPlaceholder(/контрагент/i).first().click());
+  await p.waitForTimeout(500);
+  await p.getByRole('option', { name: /QA Армянский/ }).click(); await p.waitForTimeout(600);
+  log('lang select shows:', await p.getByRole('combobox', { name: /Язык сообщения/ }).innerText());
+  await p.getByRole('button', { name: /WhatsApp/ }).click(); await p.waitForTimeout(500);
+  log('wa hy:', (await p.evaluate(() => window.__opened)).map(decodeURIComponent));
+  await p.getByRole('combobox', { name: /Язык сообщения/ }).click(); await p.waitForTimeout(300);
+  await p.getByRole('option', { name: 'English' }).click(); await p.waitForTimeout(300);
+  await p.getByRole('button', { name: /WhatsApp/ }).click(); await p.waitForTimeout(500);
+  log('wa override en:', (await p.evaluate(() => window.__opened)).slice(-1).map(decodeURIComponent));
+  await t.shot('k-order-lang', true);
+};

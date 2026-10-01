@@ -1,0 +1,12 @@
+const { page } = await L.newPage(browser, { persona: 'platform' });
+state.m = page;
+await L.go(page, '/platform/moderation'); await page.waitForTimeout(1500);
+const row = page.locator('tr', { hasText: 'Фото мастера · Ани Саргсян' });
+await row.getByRole('button', { name: 'Отклонить — выбрать причину' }).click(); await page.waitForTimeout(600);
+await page.getByText('Плохое качество фото').click(); await page.waitForTimeout(1500);
+await L.as(page, 'owner');
+await L.go(page, '/biz/services/photos'); await page.waitForTimeout(2500);
+const t = await page.innerText('main');
+log('reason line:', t.match(/Причина:[^\n]*/)?.[0]);
+await L.shot(page, 'services', 'ph03-reject-reason-fixed');
+log('ERR', page.errors.splice(0).filter(e=>!e.includes('WebSocket')));

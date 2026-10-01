@@ -1,0 +1,21 @@
+{
+  "route": "/biz/network/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "text=Фильтры" },
+    { "wait": 300 },
+    { "click": "role=combobox >> nth=2" },
+    { "wait": 200 },
+    { "screenshot": "importance-dropdown" },
+    { "click": "text=Золото" },
+    { "wait": 200 },
+    { "click": "role=dialog >> text=Показать" },
+    { "wait": 1200 },
+    { "screenshot": "after-gold-filter" }
+  ]
+}

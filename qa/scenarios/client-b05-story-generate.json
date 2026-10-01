@@ -1,0 +1,18 @@
+{
+  "route": "/biz/apps/stories",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-00-155 F-00-156 F-00-157 F-00-158 F-00-160 F-14-172\"]" },
+    { "click": "role=radio[name=\"Завтра\"]" },
+    { "click": "role=button[name=\"Собрать картинку\"]" },
+    { "wait": 500 },
+    { "screenshot": "b05-preview" },
+    { "click": "role=button >> text=/Опубликовать за/" },
+    { "wait": 400 },
+    { "expectText": "Сторис опубликована" },
+    { "screenshot": "b05-published" }
+  ]
+}

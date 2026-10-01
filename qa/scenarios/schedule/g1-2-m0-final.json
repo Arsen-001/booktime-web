@@ -1,0 +1,8 @@
+[
+  { "route": "/biz/schedule", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [ { "wait": 500 }, { "click": "text=Ани Саргсян" }, { "wait": 300 }, { "screenshot": "schedule-day-panel" } ] },
+  { "route": "/biz/schedule/history", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [ { "wait": 600 }, { "screenshot": "history" } ] },
+  { "route": "/biz/schedule", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "phone",
+    "steps": [ { "wait": 500 }, { "screenshot": "schedule-phone" } ] }
+]

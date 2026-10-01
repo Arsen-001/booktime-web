@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Подключить интеграцию (демо)" },
+    { "wait": 200 },
+    { "click": "text=Новое сообщение в чате (демо)" },
+    { "wait": 400 },
+    { "screenshot": "popup-with-link" }
+  ]
+}

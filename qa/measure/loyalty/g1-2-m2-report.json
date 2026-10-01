@@ -1,0 +1,3874 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:14:10.649Z",
+  "summary": {
+    "pages": 80,
+    "consoleErrors": 77,
+    "consoleWarnings": 74,
+    "badResponses": 9,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-001",
+      "F-06-002",
+      "F-06-003",
+      "F-06-004",
+      "F-06-020",
+      "F-06-031",
+      "F-06-051",
+      "F-06-052",
+      "F-06-053",
+      "F-06-054",
+      "F-06-055",
+      "F-06-056",
+      "F-06-057",
+      "F-06-058",
+      "F-06-060",
+      "F-06-061",
+      "F-06-063",
+      "F-06-064",
+      "F-06-065",
+      "F-06-066",
+      "F-06-067",
+      "F-06-073",
+      "F-06-074",
+      "F-06-076",
+      "F-06-077",
+      "F-06-078",
+      "F-06-079",
+      "F-06-080",
+      "F-06-081",
+      "F-06-083",
+      "F-06-084",
+      "F-06-085",
+      "F-06-093",
+      "F-06-095",
+      "F-06-096",
+      "F-06-097",
+      "F-06-098",
+      "F-06-099",
+      "F-06-100",
+      "F-06-105",
+      "F-06-111",
+      "F-06-112",
+      "F-06-122",
+      "F-06-123",
+      "F-06-124",
+      "F-06-125",
+      "F-06-126",
+      "F-06-127",
+      "F-06-129",
+      "F-06-130",
+      "F-06-131",
+      "F-06-135",
+      "F-06-137",
+      "F-06-138",
+      "F-06-139",
+      "F-06-140",
+      "F-06-141",
+      "F-06-142",
+      "F-06-143",
+      "F-06-145",
+      "F-06-148",
+      "F-06-149",
+      "F-06-153",
+      "F-06-158",
+      "F-06-162",
+      "F-06-180",
+      "F-06-191",
+      "F-06-193",
+      "F-06-194",
+      "F-06-195",
+      "F-06-196",
+      "F-06-197",
+      "F-06-198"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty",
+      "url": "http://localhost:3710/biz/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1255,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-001",
+        "F-06-002",
+        "F-06-003"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty",
+      "url": "http://localhost:3710/biz/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1255,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-001",
+        "F-06-002",
+        "F-06-003"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty",
+      "url": "http://localhost:3710/biz/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1283,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-001",
+        "F-06-002",
+        "F-06-003"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty",
+      "url": "http://localhost:3710/biz/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1267,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-001",
+        "F-06-002",
+        "F-06-003"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1460,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-card-types__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1463,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-card-types__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1441,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-card-types__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1058,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-card-types__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1257,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-cards__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1249,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-cards__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1141,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-cards__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1270,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-cards__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/promotions",
+      "url": "http://localhost:3710/biz/loyalty/promotions?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1783,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-004",
+        "F-06-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-promotions__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/promotions",
+      "url": "http://localhost:3710/biz/loyalty/promotions?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1335,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-004",
+        "F-06-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-promotions__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/promotions",
+      "url": "http://localhost:3710/biz/loyalty/promotions?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1229,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-004",
+        "F-06-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-promotions__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/promotions",
+      "url": "http://localhost:3710/biz/loyalty/promotions?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1275,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-004",
+        "F-06-031"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-promotions__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/auto-apply",
+      "url": "http://localhost:3710/biz/loyalty/auto-apply?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1082,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-078",
+        "F-06-079",
+        "F-06-080"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-auto-apply__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/auto-apply",
+      "url": "http://localhost:3710/biz/loyalty/auto-apply?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1274,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-078",
+        "F-06-079",
+        "F-06-080"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-auto-apply__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/auto-apply",
+      "url": "http://localhost:3710/biz/loyalty/auto-apply?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1403,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-078",
+        "F-06-079",
+        "F-06-080"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-auto-apply__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/auto-apply",
+      "url": "http://localhost:3710/biz/loyalty/auto-apply?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1263,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-078",
+        "F-06-079",
+        "F-06-080"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-auto-apply__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/transactions",
+      "url": "http://localhost:3710/biz/loyalty/transactions?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1268,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-076",
+        "F-06-077",
+        "F-06-085"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-transactions__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/transactions",
+      "url": "http://localhost:3710/biz/loyalty/transactions?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2682,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-076",
+        "F-06-077",
+        "F-06-085"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-transactions__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/transactions",
+      "url": "http://localhost:3710/biz/loyalty/transactions?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2669,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-076",
+        "F-06-077",
+        "F-06-085"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-transactions__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/transactions",
+      "url": "http://localhost:3710/biz/loyalty/transactions?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2238,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-076",
+        "F-06-077",
+        "F-06-085"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-transactions__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/referral",
+      "url": "http://localhost:3710/biz/loyalty/referral?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4538,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML ta",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-081"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-referral__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/referral",
+      "url": "http://localhost:3710/biz/loyalty/referral?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4531,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML ta",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-081"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-referral__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/referral",
+      "url": "http://localhost:3710/biz/loyalty/referral?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4552,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML ta",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-081"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-referral__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/referral",
+      "url": "http://localhost:3710/biz/loyalty/referral?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 1214,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/referral",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-referral__owner-nails-en-light-desktop.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates/types",
+      "url": "http://localhost:3710/biz/loyalty/certificates/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 1167,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates/types",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates-types__owner-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates/types",
+      "url": "http://localhost:3710/biz/loyalty/certificates/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 1062,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates/types",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates-types__owner-nails-ru-light-desktop.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates/types",
+      "url": "http://localhost:3710/biz/loyalty/certificates/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 1257,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates/types",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates-types__owner-nails-en-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates/types",
+      "url": "http://localhost:3710/biz/loyalty/certificates/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 1210,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates/types",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates-types__owner-nails-en-light-desktop.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates",
+      "url": "http://localhost:3710/biz/loyalty/certificates?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 1162,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw",
+          "./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |        ",
+          "./src/areas/network/StaffFormScreen.tsx:247:12\nError: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?\n  245 |               </div>\n  246 |             </SectionCard>\n> 247 |           )}\n      |            ^\n  248 |\n  249 |           <div className=\"flex justify-end gap-3\">\n  250 |             <Button variant=\"secondary\" onClick={() => router.back()}>\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/netw"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates__owner-nails-ru-light-phone.png"
+      ],
+      "title": ""
+    },
+    {
+      "route": "/biz/loyalty/certificates",
+      "url": "http://localhost:3710/biz/loyalty/certificates?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 2723,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-095",
+        "F-06-100",
+        "F-06-191",
+        "F-06-195",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/certificates",
+      "url": "http://localhost:3710/biz/loyalty/certificates?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 500,
+      "loadMs": 2445,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-095",
+        "F-06-100",
+        "F-06-191",
+        "F-06-195",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/certificates",
+      "url": "http://localhost:3710/biz/loyalty/certificates?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 500,
+      "loadMs": 2539,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+        ],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "Error: ./src/areas/network/StaffFormScreen.tsx:257:11\nError: Expression expected\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nParsing ecmascript source code failed\n\nGenerated code of loaders [next/dist/build/babel/loader] transform of file content of src/areas/network/StaffFormScreen.tsx:\n./src/areas/network/StaffFormScreen.tsx:257:11\n  255 |             </Button>\n  256 |           </div>\n> 257 |         </>\n      |           ^\n  258 |       )}\n  259 |     </div>\n  260 |   );\n\nImport trace:\n  Server Component:\n    ./src/areas/network/StaffFormScreen.tsx\n    ./src/app/biz/network/staff/new/page.tsx\n\n\n    at <unknown> (Error: ./src/areas/network/StaffFormScreen.tsx:257:11)\n    at <unknown> (./"
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/biz/loyalty/certificates",
+          "status": 500
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-095",
+        "F-06-100",
+        "F-06-191",
+        "F-06-195",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-certificates__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/types",
+      "url": "http://localhost:3710/biz/loyalty/memberships/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1467,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-105"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships-types__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/types",
+      "url": "http://localhost:3710/biz/loyalty/memberships/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1140,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-105"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships-types__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/types",
+      "url": "http://localhost:3710/biz/loyalty/memberships/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1289,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-105"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships-types__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships/types",
+      "url": "http://localhost:3710/biz/loyalty/memberships/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1472,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-105"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships-types__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships",
+      "url": "http://localhost:3710/biz/loyalty/memberships?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1254,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-122",
+        "F-06-129",
+        "F-06-130",
+        "F-06-194",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships",
+      "url": "http://localhost:3710/biz/loyalty/memberships?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1244,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-122",
+        "F-06-129",
+        "F-06-130",
+        "F-06-194",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships",
+      "url": "http://localhost:3710/biz/loyalty/memberships?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1229,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-122",
+        "F-06-129",
+        "F-06-130",
+        "F-06-194",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/memberships",
+      "url": "http://localhost:3710/biz/loyalty/memberships?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1243,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-122",
+        "F-06-129",
+        "F-06-130",
+        "F-06-194",
+        "F-06-197"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-memberships__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/types",
+      "url": "http://localhost:3710/biz/loyalty/deposits/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1431,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-135"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-types__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/types",
+      "url": "http://localhost:3710/biz/loyalty/deposits/types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1622,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-135"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-types__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/types",
+      "url": "http://localhost:3710/biz/loyalty/deposits/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1811,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-135"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-types__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/types",
+      "url": "http://localhost:3710/biz/loyalty/deposits/types?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1480,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-135"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-types__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits",
+      "url": "http://localhost:3710/biz/loyalty/deposits?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2225,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-141",
+        "F-06-145",
+        "F-06-180"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits",
+      "url": "http://localhost:3710/biz/loyalty/deposits?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2232,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-141",
+        "F-06-145",
+        "F-06-180"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits",
+      "url": "http://localhost:3710/biz/loyalty/deposits?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2261,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-141",
+        "F-06-145",
+        "F-06-180"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits",
+      "url": "http://localhost:3710/biz/loyalty/deposits?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1408,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-141",
+        "F-06-145",
+        "F-06-180"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/operations",
+      "url": "http://localhost:3710/biz/loyalty/deposits/operations?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1413,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-142"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-operations__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/operations",
+      "url": "http://localhost:3710/biz/loyalty/deposits/operations?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1524,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-142"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-operations__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/operations",
+      "url": "http://localhost:3710/biz/loyalty/deposits/operations?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1460,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-142"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-operations__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/deposits/operations",
+      "url": "http://localhost:3710/biz/loyalty/deposits/operations?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1435,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-142"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-deposits-operations__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/online-sales",
+      "url": "http://localhost:3710/biz/loyalty/online-sales?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1205,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-148",
+        "F-06-149",
+        "F-06-153"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-online-sales__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/online-sales",
+      "url": "http://localhost:3710/biz/loyalty/online-sales?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1435,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-148",
+        "F-06-149",
+        "F-06-153"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-online-sales__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/online-sales",
+      "url": "http://localhost:3710/biz/loyalty/online-sales?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1436,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-148",
+        "F-06-149",
+        "F-06-153"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-online-sales__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/online-sales",
+      "url": "http://localhost:3710/biz/loyalty/online-sales?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1229,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-148",
+        "F-06-149",
+        "F-06-153"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/biz-loyalty-online-sales__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/loyalty",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1962,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-061",
+        "F-06-063",
+        "F-06-064",
+        "F-06-065",
+        "F-06-066",
+        "F-06-067",
+        "F-06-073",
+        "F-06-074",
+        "F-06-083",
+        "F-06-084",
+        "F-06-096",
+        "F-06-097",
+        "F-06-098",
+        "F-06-123",
+        "F-06-124",
+        "F-06-131",
+        "F-06-139",
+        "F-06-140",
+        "F-06-193"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-bookingWindow-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/loyalty",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1793,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-061",
+        "F-06-063",
+        "F-06-064",
+        "F-06-065",
+        "F-06-066",
+        "F-06-067",
+        "F-06-073",
+        "F-06-074",
+        "F-06-083",
+        "F-06-084",
+        "F-06-096",
+        "F-06-097",
+        "F-06-098",
+        "F-06-123",
+        "F-06-124",
+        "F-06-131",
+        "F-06-139",
+        "F-06-140",
+        "F-06-193"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-bookingWindow-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/loyalty",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1739,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-061",
+        "F-06-063",
+        "F-06-064",
+        "F-06-065",
+        "F-06-066",
+        "F-06-067",
+        "F-06-073",
+        "F-06-074",
+        "F-06-083",
+        "F-06-084",
+        "F-06-096",
+        "F-06-097",
+        "F-06-098",
+        "F-06-123",
+        "F-06-124",
+        "F-06-131",
+        "F-06-139",
+        "F-06-140",
+        "F-06-193"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-bookingWindow-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/loyalty",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1937,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-061",
+        "F-06-063",
+        "F-06-064",
+        "F-06-065",
+        "F-06-066",
+        "F-06-067",
+        "F-06-073",
+        "F-06-074",
+        "F-06-083",
+        "F-06-084",
+        "F-06-096",
+        "F-06-097",
+        "F-06-098",
+        "F-06-123",
+        "F-06-124",
+        "F-06-131",
+        "F-06-139",
+        "F-06-140",
+        "F-06-193"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-bookingWindow-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientCard/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1994,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-051",
+        "F-06-052",
+        "F-06-053",
+        "F-06-054",
+        "F-06-055",
+        "F-06-056",
+        "F-06-060",
+        "F-06-093",
+        "F-06-099",
+        "F-06-111",
+        "F-06-112",
+        "F-06-125",
+        "F-06-126",
+        "F-06-137",
+        "F-06-138",
+        "F-06-143",
+        "F-06-196"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientCard-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientCard/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2348,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-051",
+        "F-06-052",
+        "F-06-053",
+        "F-06-054",
+        "F-06-055",
+        "F-06-056",
+        "F-06-060",
+        "F-06-093",
+        "F-06-099",
+        "F-06-111",
+        "F-06-112",
+        "F-06-125",
+        "F-06-126",
+        "F-06-137",
+        "F-06-138",
+        "F-06-143",
+        "F-06-196"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientCard/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2176,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-051",
+        "F-06-052",
+        "F-06-053",
+        "F-06-054",
+        "F-06-055",
+        "F-06-056",
+        "F-06-060",
+        "F-06-093",
+        "F-06-099",
+        "F-06-111",
+        "F-06-112",
+        "F-06-125",
+        "F-06-126",
+        "F-06-137",
+        "F-06-138",
+        "F-06-143",
+        "F-06-196"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientCard-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientCard/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2117,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-051",
+        "F-06-052",
+        "F-06-053",
+        "F-06-054",
+        "F-06-055",
+        "F-06-056",
+        "F-06-060",
+        "F-06-093",
+        "F-06-099",
+        "F-06-111",
+        "F-06-112",
+        "F-06-125",
+        "F-06-126",
+        "F-06-137",
+        "F-06-138",
+        "F-06-143",
+        "F-06-196"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientCard-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/serviceCard/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1685,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-127"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-serviceCard-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/serviceCard/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1768,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-127"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-serviceCard-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/serviceCard/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1775,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-127"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-serviceCard-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/serviceCard/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1720,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-127"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-serviceCard-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/loyalty",
+      "url": "http://localhost:3710/dev/ext/settingsHub/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1404,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-settingsHub-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/loyalty",
+      "url": "http://localhost:3710/dev/ext/settingsHub/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1399,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-settingsHub-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/loyalty",
+      "url": "http://localhost:3710/dev/ext/settingsHub/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1362,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-settingsHub-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/loyalty",
+      "url": "http://localhost:3710/dev/ext/settingsHub/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3550,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-settingsHub-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientProfile/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientProfile/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3611,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-158",
+        "F-06-162"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientProfile-loyalty__owner-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientProfile/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientProfile/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3535,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-158",
+        "F-06-162"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientProfile-loyalty__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientProfile/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientProfile/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1742,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-158",
+        "F-06-162"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientProfile-loyalty__owner-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/clientProfile/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientProfile/loyalty?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1862,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-158",
+        "F-06-162"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/dev-ext-clientProfile-loyalty__owner-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

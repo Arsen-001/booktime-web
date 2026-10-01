@@ -1,0 +1,20 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "[data-f=\"F-02-059 F-00-057\"] role=combobox"},
+    {"wait": 300},
+    {"screenshot": "buffer-open"},
+    {"click": "role=option[name=\"20 мин\"]"},
+    {"wait": 600},
+    {"screenshot": "buffer-saved-toast"},
+    {"goto": "/biz/schedule/slots"},
+    {"wait": 900},
+    {"screenshot": "buffer-after-reload"}
+  ]
+}

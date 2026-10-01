@@ -1,0 +1,43 @@
+[
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "table tbody tr:nth-child(1) td:nth-child(2) button" },
+      { "click": "table tbody tr:nth-child(1) td:nth-child(3) button" },
+      { "expectVisible": "[data-f=\"F-02-005\"]" },
+      { "expectText": "Добавятся дней: 2" },
+      { "screenshot": "01-two-cells-selected" },
+      { "click": "text=Применить шаблон" },
+      { "click": "text=По сменам" },
+      { "wait": 200 },
+      { "screenshot": "02-template-shifts" },
+      { "click": "text=Применить шаблон" },
+      { "click": "text=Без шаблона" },
+      { "wait": 200 },
+      { "screenshot": "03-template-back-to-none" },
+      { "expectText": "Добавятся дней: 2" },
+      { "click": "button:has-text(\"Сохранить\")" },
+      { "wait": 600 },
+      { "screenshot": "04-after-save" }
+    ]
+  },
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "table tbody tr:nth-child(1) td:nth-child(5) button" },
+      { "click": "text=Отмена" },
+      { "wait": 300 },
+      { "screenshot": "05-cancel-returns" }
+    ]
+  }
+]

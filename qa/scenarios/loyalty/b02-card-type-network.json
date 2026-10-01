@@ -1,0 +1,17 @@
+{
+  "route": "/biz/loyalty/card-types/new",
+  "persona": "network",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "expectVisible": "[data-f=\"F-06-023\"]" },
+    { "screenshot": "network-locations-field" },
+    { "fill": "input[placeholder=\"Например, «Карта постоянного клиента»\"]", "value": "Сетевая карта b02" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 700 },
+    { "expectText": "Тип карты создан" },
+    { "screenshot": "network-created" }
+  ]
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "click": ".grid.grid-cols-7 button >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "panel-phone" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "click": "text=Редактировать правила" },
+      { "wait": 300 },
+      { "screenshot": "wizard-phone" }
+    ]
+  }
+]

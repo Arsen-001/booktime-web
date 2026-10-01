@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/biz/loyalty/card-types/new",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "fill": "input[placeholder=\"Например, «Карта постоянного клиента»\"]", "value": "Тест удаление b02" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 700 },
+      { "expectText": "Тип карты создан" },
+      { "screenshot": "created" },
+      { "click": "role=button[name=\"Удалить тип\"]" },
+      { "wait": 300 },
+      { "expectText": "Все карты этого типа будут удалены" },
+      { "screenshot": "confirm-dialog-no-issued" },
+      { "click": "role=button[name=\"Удалить\"]" },
+      { "wait": 700 },
+      { "expectText": "Тип карты удалён" },
+      { "screenshot": "deleted-toast" },
+      { "wait": 400 },
+      { "screenshot": "list-after-delete" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/card-types",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "text=Постоянный гость" },
+      { "wait": 400 },
+      { "click": "role=button[name=\"Удалить тип\"]" },
+      { "wait": 300 },
+      { "screenshot": "confirm-dialog-with-issued-count" }
+    ]
+  }
+]

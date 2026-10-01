@@ -1,0 +1,10 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Отправить PUSH в мобильные приложения"},
+     {"wait": 300},
+     {"expectVisible": "role=button[name=\"Отправить\"][disabled]"}
+   ]}
+]

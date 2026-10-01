@@ -1,0 +1,23 @@
+{
+  "route": "/biz/network/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "0-initial" },
+    { "click": "table tbody tr:first-child input[type=checkbox]" },
+    { "wait": 300 },
+    { "screenshot": "1-after-check-one" },
+    { "click": "table tbody tr:first-child input[type=checkbox]" },
+    { "wait": 200 },
+    { "fill": "input[placeholder*=\"Имя, телефон\"]", "value": "Анаит" },
+    { "click": "text=Показать" },
+    { "wait": 500 },
+    { "screenshot": "2-search-anait" },
+    { "click": "text=Фильтры" },
+    { "wait": 300 },
+    { "screenshot": "3-filters-open" }
+  ]
+}

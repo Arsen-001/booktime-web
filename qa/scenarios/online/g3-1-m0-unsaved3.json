@@ -1,0 +1,12 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Настроить\"] >> nth=0" },
+    { "wait": 600 },
+    { "screenshot": "link-form-open" }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Добавить визит\"]" },
+    { "wait": 300 },
+    { "click": "input[placeholder=\"Найдите клиента или создайте нового\"]" },
+    { "fill": "input[placeholder=\"Найдите клиента или создайте нового\"]", "value": "Новый Тестовый Клиент" },
+    { "wait": 300 },
+    { "screenshot": "create-client-option" },
+    { "click": "text=Добавить «Новый Тестовый" },
+    { "wait": 300 },
+    { "screenshot": "new-client-fields" },
+    { "fill": "input[placeholder=\"91 234 567\"]", "value": "91777123" },
+    { "click": "text=Прошлый визит без записи" },
+    { "click": "text=Выберите мастера" },
+    { "wait": 200 },
+    { "click": "[role=option]:first-child" },
+    { "click": "input[placeholder=\"Название услуги\"]" },
+    { "fill": "input[placeholder=\"Название услуги\"]", "value": "Педикюр" },
+    { "click": "text=Прошлый визит без записи" },
+    { "fill": "input[placeholder=\"0\"] >> nth=0", "value": "8000" },
+    { "screenshot": "before-save-new" },
+    { "click": "role=button[name=\"Сохранить визит\"]" },
+    { "wait": 800 },
+    { "screenshot": "after-save-new" }
+  ]
+}

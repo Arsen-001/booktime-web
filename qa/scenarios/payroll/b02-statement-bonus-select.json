@@ -1,0 +1,18 @@
+{ "route": "/biz/payroll/period", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"click": "role=row[name=/Мариам Петросян/] >> role=button[name=/Создать/]"},
+    {"wait": 900},
+    {"click": "text=Добавить премию"},
+    {"wait": 300},
+    {"click": "text=Выберите тип или оставьте пустым"},
+    {"wait": 300},
+    {"screenshot": "01-type-options"},
+    {"click": "text=За хорошую работу"},
+    {"wait": 300},
+    {"screenshot": "02-amount-autofilled"},
+    {"click": "role=button[name=\"Сохранить\"]"},
+    {"wait": 700},
+    {"screenshot": "03-total-updated"}
+  ]
+}

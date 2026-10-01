@@ -1,0 +1,69 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Добавить клиента"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "fill": "input[placeholder='Как зовут клиента']",
+      "value": "Тест Полем141f"
+    },
+    {
+      "fill": "input[placeholder='Номер телефона']",
+      "value": "77005566"
+    },
+    {
+      "click": "text=Ещё о клиенте"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "click": "role=button[name='Добавить поле']"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "fill": "input[aria-label='Добавить поле']",
+      "value": "VIP код F"
+    },
+    {
+      "click": "text=Всегда показывать в карточке клиента"
+    },
+    {
+      "click": "role=button[name='Создать']"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name='Добавить']"
+    },
+    {
+      "wait": 900
+    },
+    {
+      "click": "text=Тест Полем141f"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "click": "role=tab[name='О клиенте']"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "about-tab"
+    }
+  ]
+}

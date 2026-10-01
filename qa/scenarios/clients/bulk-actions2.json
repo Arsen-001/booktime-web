@@ -1,0 +1,33 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Добавить в категорию"},
+     {"wait": 300},
+     {"screenshot": "bulk-category-modal"},
+     {"click": "role=button[name=\"Отмена\"]"},
+     {"wait": 200},
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Удалить из базы"},
+     {"wait": 300},
+     {"screenshot": "bulk-delete-modal"}
+   ]},
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Отправить PUSH в мобильные приложения"},
+     {"wait": 300},
+     {"screenshot": "bulk-push-mobile-modal"}
+   ]},
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Отправить PUSH в Altegio.me"},
+     {"wait": 300},
+     {"screenshot": "bulk-push-altegio-modal"}
+   ]}
+]

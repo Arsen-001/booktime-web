@@ -1,0 +1,182 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:57:44.185Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-053",
+      "F-00-054",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-063",
+      "F-02-017",
+      "F-02-027",
+      "F-02-035",
+      "F-02-039",
+      "F-02-065",
+      "F-02-106"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2335,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-063",
+        "F-02-017",
+        "F-02-027",
+        "F-02-035",
+        "F-02-039",
+        "F-02-065",
+        "F-02-106"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 804
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Следующий период"
+          },
+          "ok": true,
+          "ms": 247
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 504
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "[data-f=\"F-02-027 F-02-035\"] >> nth=2 >> role=combobox"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=option[name=\"Нерабочий день\"]"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 604
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "no-booking-day"
+          },
+          "ok": true,
+          "ms": 66,
+          "screenshot": "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop__no-booking-day.png"
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 5200
+          },
+          "ok": true,
+          "ms": 5207
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "no-booking-day-after-5s"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop__no-booking-day-after-5s.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop.png",
+        "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop__full.png",
+        "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop__no-booking-day.png",
+        "qa/measure/schedule/shots/m2-daytype4/biz-schedule-calendar__master-nails-ru-light-desktop__no-booking-day-after-5s.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/biz/loyalty/cards",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 400 },
+      { "screenshot": "card-detail" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/certificates",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 400 },
+      { "screenshot": "cert-detail" }
+    ]
+  },
+  {
+    "route": "/biz/loyalty/memberships",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 400 },
+      { "screenshot": "membership-detail" }
+    ]
+  }
+]

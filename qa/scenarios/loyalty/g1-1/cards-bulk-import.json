@@ -1,0 +1,17 @@
+{
+  "route": "/biz/loyalty/cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Загрузить из Excel\"]" },
+    { "wait": 200 },
+    { "screenshot": "01-modal-open" },
+    { "fill": "textarea", "value": "+37400160001;Постоянный гость;500" },
+    { "click": "role=button[name=\"Загрузить\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-first-import-result" },
+    { "expectText": "карта выдана" }
+  ]
+}

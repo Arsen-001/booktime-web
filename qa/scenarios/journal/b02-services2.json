@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "click": "role=tab[name=\"Услуги\"]" },
+      { "wait": 300 },
+      { "click": "text=Маникюр классический >> nth=0" },
+      { "wait": 400 },
+      { "screenshot": "service-added" },
+      { "click": "text=Снятие покрытия >> nth=0" },
+      { "wait": 400 },
+      { "screenshot": "service-added-2" },
+      { "click": "role=tab[name=\"Товары\"]" },
+      { "wait": 300 },
+      { "screenshot": "goods-tab" },
+      { "click": "text=Крем для рук >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "goods-added" },
+      { "click": "role=tab[name=\"Запись\"]" },
+      { "wait": 300 },
+      { "screenshot": "back-to-record-duration" }
+    ]
+  }
+]

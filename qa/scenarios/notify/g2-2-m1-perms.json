@@ -1,0 +1,41 @@
+[
+  {
+    "route": "/biz/notifications/mailings",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "admin-mailings-noaccess" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/log",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "master-log-noaccess" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings/new",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "network-before-network-checkbox" },
+      { "click": "role=checkbox[name=\"По всей сети\"]" },
+      { "wait": 500 },
+      { "screenshot": "network-after-network-checkbox" }
+    ]
+  }
+]

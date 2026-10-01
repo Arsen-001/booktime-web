@@ -1,0 +1,10 @@
+{
+  "route": "/biz/journal?date=2026-09-25",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=combobox >> nth=0" },
+    { "press": "ArrowDown", "selector": "role=combobox >> nth=0" },
+    { "screenshot": "week-view" }
+  ]
+}

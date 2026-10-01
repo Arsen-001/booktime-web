@@ -1,0 +1,97 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:23:50.278Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 11,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 1,
+      "ok": 1,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-001",
+      "F-00-003",
+      "F-00-005",
+      "F-00-008",
+      "F-00-010",
+      "F-00-108",
+      "F-00-172",
+      "F-00-175",
+      "F-14-009",
+      "F-14-010"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/",
+      "url": "http://localhost:3710/?demo=client&sphere=nails&lang=hy&theme=light&font=large",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "hy",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 751,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 11
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-008",
+        "F-00-010",
+        "F-00-108",
+        "F-00-172",
+        "F-00-175",
+        "F-14-009",
+        "F-14-010"
+      ],
+      "armenianFont": {
+        "checked": true,
+        "ok": true,
+        "fonts": [
+          "Noto Sans Armenian (веб)",
+          "Noto Sans (веб)"
+        ]
+      },
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/after-hy/home__client-nails-hy-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

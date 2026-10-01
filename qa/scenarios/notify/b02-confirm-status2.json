@@ -1,0 +1,21 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&client=cl_042&start=14:00&date=2026-09-25",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "draft-open" },
+    { "click": "role=button[name=\"Записать\"]" },
+    { "wait": 900 },
+    { "screenshot": "after-save" },
+    { "click": "role=button[name=\"Да\"]" },
+    { "wait": 900 },
+    { "click": "text=\"Клиент подтвердил\"" },
+    { "wait": 700 },
+    { "screenshot": "status-clicked" },
+    { "goto": "/biz/notifications/log" },
+    { "wait": 400 },
+    { "screenshot": "log-after-confirm" }
+  ]
+}

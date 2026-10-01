@@ -1,0 +1,941 @@
+{
+ "at": "2026-09-29T22:27:04.277Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/clients",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0054,
+   "blocks": [
+    {
+     "where": "div.w-full in [data-f=F-04-003] «ИмяТелефонПроданоБалансВ»",
+     "what": "ul.row-links.flex.flex-col in [data-f=F-04-003] «ГАГаяне Аветисян Арутюня»",
+     "sk": {
+      "x": 16,
+      "y": 315,
+      "w": 358,
+      "h": 448
+     },
+     "after": {
+      "x": 16,
+      "y": 315,
+      "w": 358,
+      "h": 856
+     },
+     "end": {
+      "x": 16,
+      "y": 315,
+      "w": 358,
+      "h": 856
+     },
+     "wrapped": true,
+     "t": 5766,
+     "dh": 408,
+     "dw": 0,
+     "dhVis": 81,
+     "bad": true
+    }
+   ],
+   "orphans": 0,
+   "shifts": [
+    {
+     "t": 3545,
+     "v": 0.002924354513593124,
+     "src": [
+      {
+       "el": "button.inline-flex.items-center.justify-center in [data-f=F-04-002]",
+       "prev": {
+        "x": 170,
+        "y": 139,
+        "w": 155,
+        "h": 50
+       },
+       "cur": {
+        "x": 275,
+        "y": 139,
+        "w": 50,
+        "h": 50
+       }
+      }
+     ]
+    },
+    {
+     "t": 5773,
+     "v": 0.0024696541487336143,
+     "src": [
+      {
+       "el": "span.shrink-0 in [data-f=F-04-011] «Повторные49»",
+       "prev": {
+        "x": 239,
+        "y": 197,
+        "w": 108,
+        "h": 46
+       },
+       "cur": {
+        "x": 302,
+        "y": 197,
+        "w": 88,
+        "h": 46
+       }
+      },
+      {
+       "el": "span.shrink-0 in [data-f=F-04-011] «Новые16»",
+       "prev": {
+        "x": 155,
+        "y": 197,
+        "w": 76,
+        "h": 46
+       },
+       "cur": {
+        "x": 187,
+        "y": 197,
+        "w": 108,
+        "h": 46
+       }
+      }
+     ]
+    }
+   ],
+   "maxSkeletons": 68,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/biz-clients__phone__1-skeleton.png",
+    "qa/skeletons/shots/try/biz-clients__phone__2-final.png"
+   ]
+  },
+  {
+   "route": "/biz/clients",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0123,
+   "blocks": [
+    {
+     "where": "table.row-links.w-full.border-collapse in [data-f=F-04-003] «ИмяТелефонПроданоБалансВ»",
+     "what": "tbody.animate-fade-in in [data-f=F-04-003] «ГАГаяне Аветисян Арутюня»",
+     "sk": {
+      "x": 365,
+      "y": 444,
+      "w": 1026,
+      "h": 359
+     },
+     "after": {
+      "x": 289,
+      "y": 428,
+      "w": 1173,
+      "h": 610
+     },
+     "end": {
+      "x": 289,
+      "y": 428,
+      "w": 1173,
+      "h": 610
+     },
+     "wrapped": true,
+     "t": 5583,
+     "dh": 251,
+     "dw": 147,
+     "dhVis": 113,
+     "bad": true
+    }
+   ],
+   "orphans": 0,
+   "shifts": [
+    {
+     "t": 5591,
+     "v": 0.006948664962705762,
+     "src": [
+      {
+       "el": "span.shrink-0 in [data-f=F-04-011] «Заканчивается абонемент0»",
+       "prev": {
+        "x": 769,
+        "y": 240,
+        "w": 212,
+        "h": 42
+       },
+       "cur": {
+        "x": 896,
+        "y": 240,
+        "w": 238,
+        "h": 42
+       }
+      },
+      {
+       "el": "span.shrink-0 in [data-f=F-04-011] «Часто не приходят19»",
+       "prev": {
+        "x": 989,
+        "y": 240,
+        "w": 159,
+        "h": 42
+       },
+       "cur": {
+        "x": 1142,
+        "y": 240,
+        "w": 190,
+        "h": 42
+       }
+      },
+      {
+       "el": "th.h-11.px-4.py-2 in [data-f=F-04-003] «Последний визит»",
+       "prev": {
+        "x": 1183,
+        "y": 371,
+        "w": 168,
+        "h": 57
+       },
+       "cur": {
+        "x": 1222,
+        "y": 371,
+        "w": 168,
+        "h": 57
+       }
+      },
+      {
+       "el": "span.shrink-0 in [data-f=F-04-011] «Давно не были29»",
+       "prev": {
+        "x": 627,
+        "y": 240,
+        "w": 134,
+        "h": 42
+       },
+       "cur": {
+        "x": 722,
+        "y": 240,
+        "w": 166,
+        "h": 42
+       }
+      }
+     ]
+    },
+    {
+     "t": 5170,
+     "v": 0.005273285087930813,
+     "src": [
+      {
+       "el": "div.relative.w-full",
+       "prev": {
+        "x": 281,
+        "y": 10,
+        "w": 454,
+        "h": 46
+       },
+       "cur": {
+        "x": 569,
+        "y": 10,
+        "w": 454,
+        "h": 46
+       }
+      }
+     ]
+    }
+   ],
+   "maxSkeletons": 68,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/biz-clients__desktop__1-skeleton.png",
+    "qa/skeletons/shots/try/biz-clients__desktop__2-final.png"
+   ]
+  },
+  {
+   "route": "/biz/journal",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "main.relative.flex-1.px-4",
+     "what": "div.flex.h-[calc(100dvh-148px)].flex-col",
+     "sk": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 384
+     },
+     "after": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 696
+     },
+     "end": null,
+     "wrapped": false,
+     "t": 827,
+     "dh": 312,
+     "dw": 0,
+     "dhVis": 312,
+     "bad": true
+    },
+    {
+     "where": "main.relative.flex-1.px-4",
+     "sk": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 696
+     },
+     "after": null,
+     "end": null,
+     "orphan": true,
+     "wrapped": true,
+     "dh": null,
+     "dw": null,
+     "dhVis": null,
+     "bad": true
+    },
+    {
+     "where": "main.relative.flex-1.px-4",
+     "what": "div.flex.h-[calc(100dvh-148px)].flex-col",
+     "sk": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 384
+     },
+     "after": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 696
+     },
+     "end": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 696
+     },
+     "wrapped": false,
+     "t": 3678,
+     "dh": 312,
+     "dw": 0,
+     "dhVis": 312,
+     "bad": true
+    },
+    {
+     "where": "div.flex.h-[calc(100dvh-148px)].min-h-[520px] in [data-f=F-01-006] «ЖурналСентябрьNuri Nail »",
+     "what": "h1.sr-only in [data-f=F-01-006] «Журнал»",
+     "sk": {
+      "x": 16,
+      "y": 77,
+      "w": 358,
+      "h": 696
+     },
+     "after": {
+      "x": 0,
+      "y": 57,
+      "w": 390,
+      "h": 787
+     },
+     "end": {
+      "x": 0,
+      "y": 57,
+      "w": 390,
+      "h": 787
+     },
+     "wrapped": false,
+     "t": 7408,
+     "dh": 91,
+     "dw": 32,
+     "dhVis": 91,
+     "bad": true
+    }
+   ],
+   "orphans": 1,
+   "shifts": [],
+   "maxSkeletons": 4,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/biz-journal__phone__1-skeleton.png",
+    "qa/skeletons/shots/try/biz-journal__phone__2-final.png"
+   ]
+  },
+  {
+   "route": "/biz/journal",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.1769,
+   "blocks": [
+    {
+     "where": "main.relative.flex-1.px-4",
+     "what": "div.flex.h-[calc(100dvh-148px)].flex-col",
+     "sk": {
+      "x": 288,
+      "y": 93,
+      "w": 1120,
+      "h": 384
+     },
+     "after": {
+      "x": 288,
+      "y": 93,
+      "w": 1120,
+      "h": 760
+     },
+     "end": {
+      "x": 104,
+      "y": 93,
+      "w": 1304,
+      "h": 760
+     },
+     "wrapped": false,
+     "t": 668,
+     "dh": 376,
+     "dw": 184,
+     "dhVis": 376,
+     "bad": true
+    },
+    {
+     "where": "div.flex.h-[calc(100dvh-148px)].min-h-[520px] in [data-f=F-01-006] «ЖурналСреда, 30 сентября»",
+     "what": "h1.sr-only in [data-f=F-01-006] «Журнал»",
+     "sk": {
+      "x": 104,
+      "y": 93,
+      "w": 1304,
+      "h": 760
+     },
+     "after": {
+      "x": 72,
+      "y": 65,
+      "w": 1368,
+      "h": 788
+     },
+     "end": {
+      "x": 72,
+      "y": 65,
+      "w": 1368,
+      "h": 788
+     },
+     "wrapped": false,
+     "t": 5847,
+     "dh": 28,
+     "dw": 64,
+     "dhVis": 28,
+     "bad": true
+    }
+   ],
+   "orphans": 0,
+   "shifts": [
+    {
+     "t": 1173,
+     "v": 0.17159194423010973,
+     "src": [
+      {
+       "el": "div.flex.min-w-0.flex-1 «BВСВладелец салона»",
+       "prev": {
+        "x": 256,
+        "y": 0,
+        "w": 1184,
+        "h": 900
+       },
+       "cur": {
+        "x": 72,
+        "y": 0,
+        "w": 1368,
+        "h": 900
+       }
+      },
+      {
+       "el": "div.relative.flex.flex-col «КлиентыКлиентыОнлайн-зап»",
+       "prev": {
+        "x": 12,
+        "y": 392,
+        "w": 59,
+        "h": 226
+       },
+       "cur": {
+        "x": 14,
+        "y": 262,
+        "w": 43,
+        "h": 191
+       }
+      },
+      {
+       "el": "ul.flex.flex-col.gap-0.5 «ЖурналЖурналНастройки жу»",
+       "prev": {
+        "x": 12,
+        "y": 108,
+        "w": 59,
+        "h": 280
+       },
+       "cur": {
+        "x": 14,
+        "y": 72,
+        "w": 43,
+        "h": 182
+       }
+      },
+      {
+       "el": "div.relative.flex.flex-col «ДеньгиФинансыЗарплатаОтч»",
+       "prev": {
+        "x": 12,
+        "y": 622,
+        "w": 59,
+        "h": 180
+       },
+       "cur": {
+        "x": 14,
+        "y": 461,
+        "w": 43,
+        "h": 145
+       }
+      }
+     ]
+    },
+    {
+     "t": 3266,
+     "v": 0.005273285087930813,
+     "src": [
+      {
+       "el": "div.relative.w-full",
+       "prev": {
+        "x": 97,
+        "y": 10,
+        "w": 454,
+        "h": 46
+       },
+       "cur": {
+        "x": 385,
+        "y": 10,
+        "w": 454,
+        "h": 46
+       }
+      }
+     ]
+    }
+   ],
+   "maxSkeletons": 4,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/biz-journal__desktop__1-skeleton.png",
+    "qa/skeletons/shots/try/biz-journal__desktop__2-final.png"
+   ]
+  },
+  {
+   "route": "/",
+   "device": "phone",
+   "persona": "client",
+   "url": "http://localhost:3710/?demo=client&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.2721,
+   "blocks": [
+    {
+     "where": "section.flex.flex-col.gap-3 in [data-f=F-00-001] «Свободно рядомВсеЛевон М»",
+     "what": "ul.grid.gap-3 in [data-f=F-00-001] «Левон МкртчянУкладка · о»",
+     "sk": {
+      "x": 16,
+      "y": 385,
+      "w": 358,
+      "h": 332
+     },
+     "after": {
+      "x": 16,
+      "y": 385,
+      "w": 358,
+      "h": 1216
+     },
+     "end": {
+      "x": 16,
+      "y": 615,
+      "w": 358,
+      "h": 1216
+     },
+     "wrapped": true,
+     "t": 2551,
+     "dh": 884,
+     "dw": 0,
+     "dhVis": -103,
+     "bad": true
+    },
+    {
+     "where": "div.flex.flex-col.gap-6 in [data-f=F-00-172] «ГлавнаяЧто ищете?Маникюр»",
+     "what": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Мои мастераВсеАниКаренСе»",
+     "sk": {
+      "x": 16,
+      "y": 2091,
+      "w": 358,
+      "h": 96
+     },
+     "after": {
+      "x": 16,
+      "y": 2091,
+      "w": 358,
+      "h": 138
+     },
+     "end": {
+      "x": 16,
+      "y": 2335,
+      "w": 358,
+      "h": 138
+     },
+     "wrapped": false,
+     "t": 2803,
+     "dh": 42,
+     "dw": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-00-008] «Что ищете?МаникюрБарберП»",
+     "what": "ul.no-scrollbar.-mx-4.flex in [data-f=F-00-161] «Nuri Nail StudioVard Bea»",
+     "sk": {
+      "x": 16,
+      "y": 205,
+      "w": 408,
+      "h": 72
+     },
+     "after": {
+      "x": 0,
+      "y": 205,
+      "w": 390,
+      "h": 100
+     },
+     "end": {
+      "x": 0,
+      "y": 205,
+      "w": 390,
+      "h": 100
+     },
+     "wrapped": true,
+     "t": 2820,
+     "dh": 28,
+     "dw": -18,
+     "dhVis": 28,
+     "bad": true
+    },
+    {
+     "where": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Ближайшие записиВсе17:00»",
+     "what": "ul.grid.gap-3 in [data-f=F-14-010] «17:00ЗавтраМассаж спины »",
+     "sk": {
+      "x": 16,
+      "y": 1911,
+      "w": 358,
+      "h": 156
+     },
+     "after": {
+      "x": 16,
+      "y": 1911,
+      "w": 358,
+      "h": 400
+     },
+     "end": {
+      "x": 16,
+      "y": 1911,
+      "w": 358,
+      "h": 400
+     },
+     "wrapped": false,
+     "t": 3203,
+     "dh": 244,
+     "dw": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "orphans": 0,
+   "shifts": [
+    {
+     "t": 2571,
+     "v": 0.15690377171475978,
+     "src": [
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-00-001] «Свободно рядомВсеЛевон М»",
+       "prev": {
+        "x": 16,
+        "y": 329,
+        "w": 368,
+        "h": 515
+       },
+       "cur": {
+        "x": 16,
+        "y": 559,
+        "w": 368,
+        "h": 285
+       }
+      },
+      {
+       "el": "div.relative.min-w-0.w-full in [data-f=F-00-001] «Сегодня09:3012:3017:00»",
+       "prev": {
+        "x": 29,
+        "y": 700,
+        "w": 332,
+        "h": 52
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      },
+      {
+       "el": "span.relative.inline-flex.shrink-0 in [data-f=F-00-001]",
+       "prev": {
+        "x": 32,
+        "y": 793,
+        "w": 50,
+        "h": 50
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      }
+     ]
+    },
+    {
+     "t": 2555,
+     "v": 0.11515372463239762,
+     "src": [
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Ближайшие записиВсе»",
+       "prev": {
+        "x": 16,
+        "y": 741,
+        "w": 368,
+        "h": 103
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      }
+     ]
+    }
+   ],
+   "maxSkeletons": 9,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/home__phone__1-skeleton.png",
+    "qa/skeletons/shots/try/home__phone__2-final.png"
+   ]
+  },
+  {
+   "route": "/",
+   "device": "desktop",
+   "persona": "client",
+   "url": "http://localhost:3710/?demo=client&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0835,
+   "blocks": [
+    {
+     "where": "div.flex.flex-col.gap-6 in [data-f=F-00-172] «ГлавнаяЧто ищете?Маникюр»",
+     "what": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Мои мастераВсеАниКаренСе»",
+     "sk": {
+      "x": 232,
+      "y": 821,
+      "w": 976,
+      "h": 96
+     },
+     "after": {
+      "x": 232,
+      "y": 821,
+      "w": 976,
+      "h": 138
+     },
+     "end": {
+      "x": 232,
+      "y": 1483,
+      "w": 976,
+      "h": 138
+     },
+     "wrapped": false,
+     "t": 2613,
+     "dh": 42,
+     "dw": 0,
+     "dhVis": -79,
+     "bad": true
+    },
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-00-008] «Что ищете?4МаникюрБарбер»",
+     "what": "ul.no-scrollbar.-mx-4.flex in [data-f=F-00-161] «Nuri Nail StudioVard Bea»",
+     "sk": {
+      "x": 232,
+      "y": 221,
+      "w": 408,
+      "h": 72
+     },
+     "after": {
+      "x": 216,
+      "y": 221,
+      "w": 1008,
+      "h": 100
+     },
+     "end": {
+      "x": 216,
+      "y": 221,
+      "w": 1008,
+      "h": 100
+     },
+     "wrapped": true,
+     "t": 2892,
+     "dh": 28,
+     "dw": 600,
+     "dhVis": 28,
+     "bad": true
+    },
+    {
+     "where": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Ближайшие записиВсе17:00»",
+     "what": "ul.grid.gap-3 in [data-f=F-14-010] «17:00ЗавтраМассаж спины »",
+     "sk": {
+      "x": 232,
+      "y": 743,
+      "w": 976,
+      "h": 156
+     },
+     "after": {
+      "x": 232,
+      "y": 743,
+      "w": 976,
+      "h": 240
+     },
+     "end": {
+      "x": 232,
+      "y": 1219,
+      "w": 976,
+      "h": 240
+     },
+     "wrapped": false,
+     "t": 3155,
+     "dh": 84,
+     "dw": 0,
+     "dhVis": -156,
+     "bad": true
+    },
+    {
+     "where": "section.flex.flex-col.gap-3 in [data-f=F-00-001] «Свободно рядомВсеЛевон М»",
+     "what": "ul.grid.gap-3 in [data-f=F-00-001] «Левон МкртчянУкладка · о»",
+     "sk": {
+      "x": 232,
+      "y": 503,
+      "w": 976,
+      "h": 160
+     },
+     "after": {
+      "x": 232,
+      "y": 503,
+      "w": 976,
+      "h": 636
+     },
+     "end": {
+      "x": 232,
+      "y": 503,
+      "w": 976,
+      "h": 636
+     },
+     "wrapped": true,
+     "t": 3240,
+     "dh": 476,
+     "dw": 0,
+     "dhVis": 237,
+     "bad": true
+    }
+   ],
+   "orphans": 0,
+   "shifts": [
+    {
+     "t": 3243,
+     "v": 0.053566833847736625,
+     "src": [
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Ближайшие записиВсе17:00»",
+       "prev": {
+        "x": 232,
+        "y": 687,
+        "w": 986,
+        "h": 213
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      }
+     ]
+    },
+    {
+     "t": 2822,
+     "v": 0.02991494984567901,
+     "src": [
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-00-001] «Свободно рядомВсе»",
+       "prev": {
+        "x": 232,
+        "y": 345,
+        "w": 986,
+        "h": 216
+       },
+       "cur": {
+        "x": 232,
+        "y": 447,
+        "w": 986,
+        "h": 216
+       }
+      },
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Ближайшие записиВсе»",
+       "prev": {
+        "x": 232,
+        "y": 585,
+        "w": 986,
+        "h": 212
+       },
+       "cur": {
+        "x": 232,
+        "y": 687,
+        "w": 986,
+        "h": 212
+       }
+      },
+      {
+       "el": "section.flex.flex-col.gap-3 in [data-f=F-14-010] «Мои мастераВсеАниКаренСе»",
+       "prev": {
+        "x": 232,
+        "y": 821,
+        "w": 986,
+        "h": 79
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      },
+      {
+       "el": "div.relative.min-w-0 in [data-f=F-14-010] «АниКаренСедаАрпиЛусине»",
+       "prev": {
+        "x": 228,
+        "y": 873,
+        "w": 984,
+        "h": 27
+       },
+       "cur": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+       }
+      }
+     ]
+    }
+   ],
+   "maxSkeletons": 9,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/try/home__desktop__1-skeleton.png",
+    "qa/skeletons/shots/try/home__desktop__2-final.png"
+   ]
+  }
+ ]
+}

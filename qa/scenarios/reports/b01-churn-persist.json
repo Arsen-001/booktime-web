@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/biz/reports/churn",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"fill": "input[type=text]", "value": "45"},
+      {"click": "text=Сохранить"},
+      {"wait": 500},
+      {"screenshot": "after-save"},
+      {"goto": "/biz/reports/churn"},
+      {"wait": 500},
+      {"screenshot": "after-reload"}
+    ]
+  }
+]

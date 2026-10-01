@@ -1,0 +1,13 @@
+{
+  "route": "/biz/records",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "records-list" },
+    { "click": "text=Операции с Excel" },
+    { "wait": 300 },
+    { "screenshot": "excel-menu" }
+  ]
+}

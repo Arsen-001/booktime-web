@@ -1,0 +1,15 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=button[name=\"Колонки\"]" },
+      { "expectVisible": "role=button[name=\"Закрепить «Имя»\"]" },
+      { "click": "role=button[name=\"Закрепить «Телефон»\"]" },
+      { "expectVisible": "role=button[name=\"Открепить «Телефон»\"]" },
+      { "screenshot": "columns-pin-labels" }
+    ]
+  }
+]

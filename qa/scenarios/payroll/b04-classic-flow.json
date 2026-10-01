@@ -1,0 +1,12 @@
+{"route":"/biz/payroll/rules","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"role=button[name=\"Добавить правило\"]"},
+   {"wait":900},
+   {"screenshot":"rule-editor-created"},
+   {"click":"text=Учёт себестоимости услуги"},
+   {"wait":300},
+   {"screenshot":"rule-cost-basis-open"},
+   {"click":"role=button[name=\"К списку правил\"]"},
+   {"wait":500},
+   {"screenshot":"rules-list-after"}
+ ]}

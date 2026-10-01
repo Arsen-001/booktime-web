@@ -1,0 +1,17 @@
+{
+  "route": "/biz/notifications/types/1/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=+ Переменная"},
+    {"wait": 400},
+    {"screenshot": "01-vars-open"},
+    {"press": "Escape"},
+    {"click": "text=Email"},
+    {"wait": 400},
+    {"screenshot": "02-email-open"}
+  ]
+}

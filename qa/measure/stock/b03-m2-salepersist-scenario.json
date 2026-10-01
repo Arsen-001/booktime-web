@@ -1,0 +1,260 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:26:04.659Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 4,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-133",
+      "F-00-137",
+      "F-00-138",
+      "F-00-139",
+      "F-08-001",
+      "F-08-002",
+      "F-08-010",
+      "F-08-015",
+      "F-08-016",
+      "F-08-061",
+      "F-08-062",
+      "F-08-063",
+      "F-08-064",
+      "F-08-065",
+      "F-08-066",
+      "F-08-067",
+      "F-08-070",
+      "F-08-071",
+      "F-08-073",
+      "F-08-075",
+      "F-08-076",
+      "F-08-077"
+    ],
+    "scenarioSteps": {
+      "ok": 17,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/stock/operations/new/sale",
+      "url": "http://localhost:3710/biz/stock/operations/new/sale?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1169,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-133",
+        "F-00-137",
+        "F-00-138",
+        "F-00-139",
+        "F-08-001",
+        "F-08-002",
+        "F-08-010",
+        "F-08-015",
+        "F-08-016",
+        "F-08-061",
+        "F-08-062",
+        "F-08-063",
+        "F-08-064",
+        "F-08-065",
+        "F-08-066",
+        "F-08-067",
+        "F-08-070",
+        "F-08-071",
+        "F-08-073",
+        "F-08-075",
+        "F-08-076",
+        "F-08-077"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Добавить из списка"
+          },
+          "ok": true,
+          "ms": 249
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=checkbox[name=/Бордо/]"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "[role=dialog] >> role=button[name=/Добавить \\(1\\)/]"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=button[name=/Сохранить и оплатить/]"
+          },
+          "ok": true,
+          "ms": 186
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "role=button[name=/Оплачено/]"
+          },
+          "ok": true,
+          "ms": 581
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 1200
+          },
+          "ok": true,
+          "ms": 1202
+        },
+        {
+          "i": 12,
+          "step": {
+            "goto": "/biz/stock"
+          },
+          "ok": true,
+          "ms": 800
+        },
+        {
+          "i": 13,
+          "step": {
+            "wait": 1000
+          },
+          "ok": true,
+          "ms": 1002
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "13-stock-after-sale-samectx"
+          },
+          "ok": true,
+          "ms": 52,
+          "screenshot": "qa/shots/stock-b03-m2/biz-stock-operations-new-sale__owner-nails-ru-light-desktop__13-stock-after-sale-samectx.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "goto": "/biz/stock"
+          },
+          "ok": true,
+          "ms": 1073
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 1200
+          },
+          "ok": true,
+          "ms": 1204
+        },
+        {
+          "i": 17,
+          "step": {
+            "screenshot": "14-stock-after-reload"
+          },
+          "ok": true,
+          "ms": 73,
+          "screenshot": "qa/shots/stock-b03-m2/biz-stock-operations-new-sale__owner-nails-ru-light-desktop__14-stock-after-reload.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/stock-b03-m2/biz-stock-operations-new-sale__owner-nails-ru-light-desktop.png",
+        "qa/shots/stock-b03-m2/biz-stock-operations-new-sale__owner-nails-ru-light-desktop__13-stock-after-sale-samectx.png",
+        "qa/shots/stock-b03-m2/biz-stock-operations-new-sale__owner-nails-ru-light-desktop__14-stock-after-reload.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

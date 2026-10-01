@@ -1,0 +1,100 @@
+{
+  "base": "http://localhost:3710",
+  "ranAt": "2026-09-25T03:24:41.911Z",
+  "total": {
+    "pass": 3,
+    "fail": 0,
+    "wait": 2,
+    "skip": 0
+  },
+  "chains": [
+    {
+      "id": "C10",
+      "title": "Фото мастера: загрузка → модерация в нашей панели → фото у клиента",
+      "personas": [
+        "master",
+        "platform",
+        "client"
+      ],
+      "fids": [
+        "F-00-085",
+        "F-00-168",
+        "F-00-170"
+      ],
+      "results": [
+        {
+          "id": "S1",
+          "title": "Мастер загружает фото работы (6 мест), видит «на проверке»",
+          "persona": "master",
+          "area": "services",
+          "fids": [
+            "F-00-085",
+            "F-00-170"
+          ],
+          "expect": "Карточка сотрудника / услуги: загрузка фото, счётчик мест 1 из 6, статус «на проверке»",
+          "status": "wait",
+          "message": "ждёт раздела staff — карточка сотрудника /biz/staff/[id] — заглушка; фото работ — вклад services",
+          "notes": []
+        },
+        {
+          "id": "S2",
+          "title": "Наша панель: фото мастера в очереди проверки → «Одобрить»",
+          "persona": "platform",
+          "area": "platform",
+          "fids": [
+            "F-00-168"
+          ],
+          "expect": "/platform/moderation → «Фото — …» (Фото мастера) → «Одобрить» → статус «Одобрено»",
+          "status": "pass",
+          "message": "",
+          "notes": [
+            "одобрено mod_1: мастер st_nuri_ani, refId data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F8F3EA'/%3E%3Cstop offset='1' stop-color='%23E9DCC6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23b)'/%3E%3Cellipse cx='200' cy='330' rx='170' ry='26' fill='%23000' opacity='.06'/%3E%3Cg transform='translate(72 246) rotate(-18)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(136 230) rotate(-9)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(200 214) rotate(0)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(264 230) rotate(9)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(328 246) rotate(18)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3C/svg%3E, imageUrl data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F8F3EA'/%3E%3Cstop offset='1' stop-color='%23E9DCC6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23b)'/%3E%3Cellipse cx='200' cy='330' rx='170' ry='26' fill='%23000' opacity='.06'/%3E%3Cg transform='translate(72 246) rotate(-18)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(136 230) rotate(-9)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(200 214) rotate(0)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(264 230) rotate(9)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(328 246) rotate(18)'%3E%3Cpath d='M0-72C21-72 26-34 26 6V58Q26 70 16 70H-16Q-26 70-26 58V6C-26-34-21-72 0-72Z' fill='%23C9CED6'/%3E%3Cellipse cx='-9' cy='-30' rx='5' ry='22' fill='%23fff' opacity='.35'/%3E%3C/g%3E%3C/svg%3E"
+          ],
+          "shot": "qa/shots/e2e/C10-S2.png"
+        },
+        {
+          "id": "S3",
+          "title": "Одобренное фото появилось у клиента в карточке мастера",
+          "persona": "client",
+          "area": "platform",
+          "fids": [
+            "F-00-168",
+            "F-00-085"
+          ],
+          "expect": "/masters/<мастер> → «Фото работ» с этим фото",
+          "status": "pass",
+          "message": "",
+          "notes": [],
+          "shot": "qa/shots/e2e/C10-S3.png"
+        },
+        {
+          "id": "S4",
+          "title": "До одобрения фото клиентам не показывается",
+          "persona": "client",
+          "area": "client",
+          "fids": [
+            "F-00-168"
+          ],
+          "expect": "Карточка мастера показывает только одобренные фото (фильтр по статусу проверки)",
+          "status": "pass",
+          "message": "",
+          "notes": [],
+          "shot": "qa/shots/e2e/C10-S4.png"
+        },
+        {
+          "id": "S5",
+          "title": "Отказ с причиной → мастер видит статус и причину, место освобождается",
+          "persona": "master",
+          "area": "services",
+          "fids": [
+            "F-00-170"
+          ],
+          "expect": "Панель: «Отклонить» + причина → у мастера у фото «Отклонено: <причина>»",
+          "status": "wait",
+          "message": "ждёт раздела services — фото работ мастера и их статусы проверки — нет экрана у мастера",
+          "notes": []
+        }
+      ]
+    }
+  ]
+}

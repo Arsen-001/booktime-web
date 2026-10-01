@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/b/nuri-nail-studio/book",
+    "persona": "guest",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "role=checkbox >> nth=0" },
+      { "wait": 200 },
+      { "click": "role=button[name=\"Продолжить · 1\"]" },
+      { "wait": 700 },
+      { "screenshot": "2-staff-step" },
+      { "click": "[data-f=\"F-03-087\"] button >> nth=0" },
+      { "wait": 200 },
+      { "click": "role=button[name=\"Продолжить\"]" },
+      { "wait": 900 },
+      { "screenshot": "3-time-step" },
+      { "click": "[data-f=\"F-03-084 F-03-065\"] button.min-h-11 >> nth=0" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Продолжить\"]" },
+      { "wait": 700 },
+      { "screenshot": "4-details-step" },
+      { "expectVisible": "[data-f=\"F-03-090\"]" },
+      { "fill": "[data-f=\"F-03-091\"] input:not([type=tel]) >> nth=0", "value": "Тест Тестов" },
+      { "fill": "[data-f=\"F-03-125\"] input[type=tel]", "value": "99123456" },
+      { "click": "role=checkbox" },
+      { "wait": 200 },
+      { "screenshot": "4b-filled" },
+      { "click": "role=button[name=\"Записаться\"]" },
+      { "wait": 1500 },
+      { "screenshot": "5-confirmed" }
+    ]
+  }
+]

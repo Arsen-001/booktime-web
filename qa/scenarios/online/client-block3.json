@@ -1,0 +1,13 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "button >> nth=-1" },
+    { "wait": 300 },
+    { "screenshot": "tabs-scrolled" }
+  ]
+}

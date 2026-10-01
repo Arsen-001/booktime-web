@@ -1,0 +1,7 @@
+{ "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "role=button[name=\"Новая запись\"]"},
+    {"wait": 500},
+    {"screenshot": "new-booking-form"}
+  ] }

@@ -1,0 +1,31 @@
+// №1 (api): клиент А ждёт у мастера услугу на день; клиент Б записан и отменяет → у А в /v1/me/inbox «Освободилось время»
+// с датой, временем и услугой (кнопка «Записаться» на это окно), в пуше — время. Ждущий более длинную услугу — не получает.
+import { login, ok, sql } from './lib.mjs';
+const STAFF = process.env.STAFF ?? 'st_nuri_mariam';
+const a = await login('+37400990030', 'client', 'Тест Клиент');
+const b = await login('+37400990031', 'client', 'Тест Клиент Б');
+ok(a.status === 200 && b.status === 200, `вход А ${a.status}, Б ${b.status}`);
+const card = await b.call('GET', `/v1/public/masters/${STAFF}`);
+const services = card.json.services ?? [];
+const short = [...services].sort((x, y) => x.durationMin - y.durationMin)[0];
+const long = [...services].sort((x, y) => y.durationMin - x.durationMin)[0];
+console.log('услуги', short.name.ru, short.durationMin, '/', long.name.ru, long.durationMin);
+const day = new Date(Date.now() + 7 * 86400000 + 4 * 3600000).toISOString().slice(0, 10);
+const w1 = await a.call('POST', '/v1/me/waitlist', { staffId: STAFF, serviceId: short.id, date: day });
+ok(w1.status < 300, `А встал в лист: ${short.name.ru} на ${day} (${w1.status})`);
+const slots = await b.call('GET', `/v1/public/masters/${STAFF}/slots?date=${day}&serviceId=${short.id}`);
+const slot = (Array.isArray(slots.json) ? slots.json : slots.json.slots ?? [])[0];
+const made = await b.call('POST', '/v1/me/bookings', { staffId: STAFF, serviceId: short.id, start: slot.start });
+const bk = made.json.booking ?? made.json;
+ok(made.status < 300, `Б записан ${bk.id} ${bk.start} ${bk.status}`);
+const before = (await a.call('GET', '/v1/me/inbox')).json.length;
+const c = await b.call('POST', `/v1/me/bookings/${bk.id}/cancel`);
+ok(c.status < 300, `Б отменил (${c.status})`);
+const inbox = (await a.call('GET', '/v1/me/inbox')).json;
+const n = inbox.find((x) => x.kind === 'waitlist_slot' && x.params?.date === day);
+ok(inbox.length > before && Boolean(n), `у А в ленте «Освободилось время»: ${Boolean(n)}`);
+ok(n?.params?.time === bk.start.slice(11, 16), `время окна: ${n?.params?.date} ${n?.params?.time}`);
+ok(n?.service?.id === short.id && Boolean(n?.staff), `услуга ${n?.service?.name?.ru}, мастер ${n?.staff?.name}`);
+const push = sql(`select body from notify_outbox where kind='waitlist_available' and recipient_user_id = (select id from users where phone='+37400990030') order by created_at desc limit 1`);
+ok(push.includes(bk.start.slice(11, 16)), `текст пуша: ${push}`);
+console.log('BOOKING', bk.id, 'WAITLIST', w1.json.id);

@@ -1,0 +1,15 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-before" },
+    { "click": "[data-f=\"F-01-008\"] [aria-label=\"Выйти\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-after-logout-click" }
+  ]
+}

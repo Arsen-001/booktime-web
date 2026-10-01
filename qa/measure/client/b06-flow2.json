@@ -1,0 +1,286 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T06:18:05.259Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-14-142",
+      "F-14-143",
+      "F-14-144",
+      "F-14-145",
+      "F-14-146",
+      "F-14-147",
+      "F-14-148",
+      "F-14-149",
+      "F-14-150",
+      "F-14-151",
+      "F-14-152",
+      "F-14-153",
+      "F-14-154",
+      "F-14-155",
+      "F-14-156",
+      "F-14-157",
+      "F-14-159",
+      "F-14-168",
+      "F-14-169",
+      "F-14-170",
+      "F-14-173"
+    ],
+    "scenarioSteps": {
+      "ok": 20,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/apps/branded",
+      "url": "http://localhost:3710/biz/apps/branded?demo=owner&empty=0&sphere=barber&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "barber",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 739,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-14-142",
+        "F-14-143",
+        "F-14-144",
+        "F-14-145",
+        "F-14-146",
+        "F-14-147",
+        "F-14-148",
+        "F-14-149",
+        "F-14-150",
+        "F-14-151",
+        "F-14-152",
+        "F-14-153",
+        "F-14-154",
+        "F-14-155",
+        "F-14-156",
+        "F-14-157",
+        "F-14-159",
+        "F-14-168",
+        "F-14-169",
+        "F-14-170",
+        "F-14-173"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "00-initial"
+          },
+          "ok": true,
+          "ms": 36,
+          "screenshot": "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__00-initial.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "fill": "input[placeholder='https://apps.apple.com/…']",
+            "value": "https://apps.apple.com/am/app/kaytsak"
+          },
+          "ok": true,
+          "ms": 18
+        },
+        {
+          "i": 3,
+          "step": {
+            "fill": "input[placeholder='https://play.google.com/…']",
+            "value": "https://play.google.com/store/apps/kaytsak"
+          },
+          "ok": true,
+          "ms": 5
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Сохранить ссылки"
+          },
+          "ok": true,
+          "ms": 392
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "01-links-saved"
+          },
+          "ok": true,
+          "ms": 50,
+          "screenshot": "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__01-links-saved.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "text=Организация"
+          },
+          "ok": true,
+          "ms": 191
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "text=Пригласить в портал"
+          },
+          "ok": true,
+          "ms": 193
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 201
+        },
+        {
+          "i": 11,
+          "step": {
+            "screenshot": "02-owner-access-chosen"
+          },
+          "ok": true,
+          "ms": 51,
+          "screenshot": "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__02-owner-access-chosen.png"
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "text=Доступ к аккаунту Apple Developer"
+          },
+          "ok": true,
+          "ms": 183
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "text=Доступ к аккаунту Google Play Console"
+          },
+          "ok": true,
+          "ms": 188
+        },
+        {
+          "i": 14,
+          "step": {
+            "click": "text=Документ о регистрации предпринимателя или организации"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "text=Документ на товарный знак или чек с названием бренда"
+          },
+          "ok": true,
+          "ms": 181
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 17,
+          "step": {
+            "screenshot": "03-docs-checked"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__03-docs-checked.png"
+        },
+        {
+          "i": 18,
+          "step": {
+            "goto": "/biz/apps/branded"
+          },
+          "ok": true,
+          "ms": 631
+        },
+        {
+          "i": 19,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 20,
+          "step": {
+            "screenshot": "05-after-reload"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__05-after-reload.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__full.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__00-initial.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__01-links-saved.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__02-owner-access-chosen.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__03-docs-checked.png",
+        "qa/shots/client-b06-flow2/biz-apps-branded__owner-barber-ru-light-desktop__05-after-reload.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

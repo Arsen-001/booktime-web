@@ -1,0 +1,24 @@
+[
+  { "route": "/dev/ui/b", "persona": "owner", "device": "phone",
+    "steps": [
+      {"click": "role=button[name=\"Modal md\"]"}, {"wait": 500}, {"screenshot": "modal-phone"},
+      {"press": "Escape"}, {"wait": 300},
+      {"click": "role=button[name=\"Sheet auto\"]"}, {"wait": 500}, {"screenshot": "sheet-phone"},
+      {"press": "Escape"}, {"wait": 300},
+      {"click": "role=button[name=\"Запись сохранена\"]"}, {"wait": 450}, {"screenshot": "toast-phone"}
+    ] },
+  { "route": "/dev/ui/b", "persona": "owner", "device": "phone",
+    "steps": [
+      {"click": "button[aria-haspopup=dialog]:has(svg.lucide-calendar-days) >> nth=0"}, {"wait": 500}, {"screenshot": "datepicker-phone"},
+      {"press": "Escape"}, {"wait": 300},
+      {"click": "button[aria-haspopup=dialog]:has(svg.lucide-clock) >> nth=0"}, {"wait": 600}, {"screenshot": "timepicker-phone"}
+    ] },
+  { "route": "/dev/ui/b", "persona": "owner", "device": "desktop",
+    "steps": [
+      {"click": "role=button[name=\"Modal md\"]"}, {"wait": 500}, {"screenshot": "modal-desktop"},
+      {"press": "Escape"}, {"wait": 300},
+      {"click": "button[aria-haspopup=dialog]:has(svg.lucide-calendar-days) >> nth=0"}, {"wait": 500}, {"screenshot": "datepicker-desktop"},
+      {"press": "Escape"},
+      {"click": "role=button[name=\"с описанием и действием\"]"}, {"wait": 450}, {"screenshot": "toast-desktop"}
+    ] }
+]

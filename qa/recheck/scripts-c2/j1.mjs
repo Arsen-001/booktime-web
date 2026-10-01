@@ -1,0 +1,31 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, btnTexts } from './lib.mjs';
+await start();
+const DATE='2026-10-20';
+const { page } = await open('owner', `/biz/journal?date=${DATE}`, { device: 'desktop' });
+let d = await db(page);
+const day = d.core.bookings.filter(b=>b.businessId==='biz_nuri' && b.start.startsWith(DATE) && !b.deletedAt).sort((a,b)=>a.start.localeCompare(b.start));
+console.log('day', JSON.stringify(day.map(b=>[b.id,b.start,b.staffId,b.status,b.paidAmount,b.priceTotal ?? b.total, b.services?.map(s=>s.price)])));
+const blocks = page.locator('[data-testid="booking-block"]'); console.log('blocks', await blocks.count());
+const ids = await blocks.evaluateAll(els => els.map(e => e.getAttribute('data-booking-id') || e.id || e.innerText.slice(0,30)));
+console.log('block ids', ids.slice(0,10));
+// hovercard status -> Пришёл on block 0
+await page.getByRole('button', { name: 'Статус и оплата' }).nth(0).click(); await page.waitForTimeout(600);
+const pop = page.locator('[role=dialog], [data-radix-popper-content-wrapper], [role=menu]').last();
+console.log('POP', (await pop.innerText()).replace(/\n+/g,' | ').slice(0,500));
+await page.getByRole('button', { name: 'Пришёл' }).first().click(); await page.waitForTimeout(1500);
+console.log('toasts', await toasts(page));
+// pay cash on block 1
+await page.keyboard.press('Escape');
+await page.getByRole('button', { name: 'Статус и оплата' }).nth(1).click(); await page.waitForTimeout(600);
+await page.getByRole('button', { name: 'Наличные' }).first().click(); await page.waitForTimeout(1500);
+console.log('toasts2', await toasts(page));
+d = await db(page);
+const after = d.core.bookings.filter(b=>day.some(x=>x.id===b.id)).sort((a,b)=>a.start.localeCompare(b.start));
+console.log('after', JSON.stringify(after.map(b=>[b.id,b.start,b.status,b.paidAmount, b.paymentStatus, b.payments?.length])));
+await reload(page);
+d = await db(page);
+const after2 = d.core.bookings.filter(b=>day.some(x=>x.id===b.id)).sort((a,b)=>a.start.localeCompare(b.start));
+console.log('after reload', JSON.stringify(after2.map(b=>[b.id,b.status,b.paidAmount])));
+await shot(page, 'j1-after-reload');
+console.log('fin keys', JSON.stringify(Object.keys(d.areas.finance||{})), 'journal extras', JSON.stringify(d.areas.journal.extras).slice(0,300));
+await stop();

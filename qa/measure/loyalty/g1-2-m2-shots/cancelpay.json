@@ -1,0 +1,321 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:29:48.201Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-129",
+      "F-01-001",
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-008",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-028",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-037",
+      "F-01-038",
+      "F-01-039",
+      "F-01-040",
+      "F-01-041",
+      "F-01-051",
+      "F-01-052",
+      "F-01-066",
+      "F-01-085",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-128",
+      "F-01-132",
+      "F-01-133",
+      "F-01-151",
+      "F-01-152",
+      "F-01-154",
+      "F-01-156",
+      "F-01-167",
+      "F-01-178",
+      "F-01-179",
+      "F-01-180",
+      "F-01-184",
+      "F-01-185",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-192",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220",
+      "F-04-001",
+      "F-04-002",
+      "F-04-003",
+      "F-04-006",
+      "F-04-007",
+      "F-04-009",
+      "F-04-010",
+      "F-04-011",
+      "F-04-012",
+      "F-04-013",
+      "F-04-014",
+      "F-04-015",
+      "F-04-017",
+      "F-04-037",
+      "F-04-126",
+      "F-04-130",
+      "F-04-157",
+      "F-04-199",
+      "F-04-203",
+      "F-07-036",
+      "F-07-037",
+      "F-07-040",
+      "F-07-045",
+      "F-07-047",
+      "F-07-114",
+      "F-07-126"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients",
+      "url": "http://localhost:3710/biz/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1061,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:338:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_16321gz._.js:17:138)\n    at http://localhost:3710/_next/static/chunks/src_1c-nu87._.js:904:156"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-129",
+        "F-01-001",
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-008",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-037",
+        "F-01-038",
+        "F-01-039",
+        "F-01-040",
+        "F-01-041",
+        "F-01-051",
+        "F-01-052",
+        "F-01-066",
+        "F-01-085",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-151",
+        "F-01-152",
+        "F-01-154",
+        "F-01-156",
+        "F-01-167",
+        "F-01-178",
+        "F-01-179",
+        "F-01-180",
+        "F-01-184",
+        "F-01-185",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-192",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-017",
+        "F-04-037",
+        "F-04-126",
+        "F-04-130",
+        "F-04-157",
+        "F-04-199",
+        "F-04-203",
+        "F-07-036",
+        "F-07-037",
+        "F-07-040",
+        "F-07-045",
+        "F-07-047",
+        "F-07-114",
+        "F-07-126"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Нелли Симонян Аветисян"
+          },
+          "ok": true,
+          "ms": 999
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Открыть запись"
+          },
+          "ok": true,
+          "ms": 1817
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "booking-open"
+          },
+          "ok": true,
+          "ms": 66,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/cancelpay/biz-clients__owner-nails-ru-light-desktop__booking-open.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=tab[name=\"Оплата\"]"
+          },
+          "ok": true,
+          "ms": 590
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "payment-view"
+          },
+          "ok": true,
+          "ms": 60,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/cancelpay/biz-clients__owner-nails-ru-light-desktop__payment-view.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/cancelpay/biz-clients__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-2-m2-shots/cancelpay/biz-clients__owner-nails-ru-light-desktop__booking-open.png",
+        "qa/measure/loyalty/g1-2-m2-shots/cancelpay/biz-clients__owner-nails-ru-light-desktop__payment-view.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

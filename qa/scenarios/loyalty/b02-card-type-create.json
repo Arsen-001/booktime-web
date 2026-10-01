@@ -1,0 +1,24 @@
+{
+  "route": "/biz/loyalty/card-types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "form-defaults" },
+    { "fill": "input[placeholder=\"Например, «Карта постоянного клиента»\"]", "value": "Тест тип карты b02" },
+    { "click": "role=radio[name=\"Выдавать в любой локации\"]" },
+    { "click": "role=radio[name=\"Не для товаров\"]" },
+    { "fill": "input[type=number][max=\"100\"]", "value": "50" },
+    { "screenshot": "form-filled" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "expectText": "Тип карты создан" },
+    { "screenshot": "created-toast" },
+    { "goto": "/biz/loyalty/card-types" },
+    { "wait": 400 },
+    { "expectText": "Тест тип карты b02" },
+    { "screenshot": "list-has-new-type" }
+  ]
+}

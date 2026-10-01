@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Новая запись"},
+    {"wait": 300},
+    {"click": "text=Обычная запись"},
+    {"wait": 700},
+    {"screenshot": "01-new-record-form"}
+  ]
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/biz/finance/adyen",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "fill": "label:has-text('Название юрлица') input", "value": "Nuri Nail Studio LLC" },
+      { "click": "text=Connect" },
+      { "wait": 600 },
+      { "screenshot": "02-onboarding" },
+      { "click": "role=button[name=/Complete|Завершить/i]" },
+      { "wait": 800 },
+      { "screenshot": "03-connected-dashboard" }
+    ]
+  }
+]

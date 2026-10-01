@@ -1,0 +1,245 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T04:06:09.331Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-057",
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-057",
+      "F-02-064",
+      "F-02-069",
+      "F-02-070",
+      "F-02-072",
+      "F-02-073",
+      "F-02-078",
+      "F-02-080",
+      "F-02-097",
+      "F-02-103",
+      "F-02-107"
+    ],
+    "scenarioSteps": {
+      "ok": 14,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1301,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-057",
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-057",
+        "F-02-064",
+        "F-02-069",
+        "F-02-070",
+        "F-02-072",
+        "F-02-073",
+        "F-02-078",
+        "F-02-080",
+        "F-02-097",
+        "F-02-103",
+        "F-02-107"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Редактировать правила"
+          },
+          "ok": true,
+          "ms": 227
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 405
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Далее"
+          },
+          "ok": true,
+          "ms": 189
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "step2"
+          },
+          "ok": true,
+          "ms": 122,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step2.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=Далее"
+          },
+          "ok": true,
+          "ms": 214
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "step3"
+          },
+          "ok": true,
+          "ms": 120,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step3.png"
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "text=Далее"
+          },
+          "ok": true,
+          "ms": 206
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 11,
+          "step": {
+            "screenshot": "step4"
+          },
+          "ok": true,
+          "ms": 127,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step4.png"
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "text=Далее"
+          },
+          "ok": true,
+          "ms": 204
+        },
+        {
+          "i": 13,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "step5"
+          },
+          "ok": true,
+          "ms": 125,
+          "screenshot": "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step5.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step2.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step3.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step4.png",
+        "qa/measure/schedule/g1-1-scenarios/biz-schedule-slots__owner-nails-ru-light-desktop__step5.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

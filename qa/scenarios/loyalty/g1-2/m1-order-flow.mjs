@@ -1,0 +1,14 @@
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+import { chromium } from '@playwright/test';
+const release = await acquireBrowserSlot();
+const b = await chromium.launch();
+const p = await b.newPage();
+const pageErrors = [];
+p.on('pageerror', (e) => pageErrors.push(String(e)));
+await p.goto('http://localhost:3710/biz/loyalty/online-sales/preview?demo=owner&sphere=nails&lang=ru&theme=light');
+await p.waitForTimeout(1500);
+await p.screenshot({ path: 'qa/measure/loyalty/g1-2-shots-m1/preview1.png', fullPage: true });
+const text1 = await p.locator('body').innerText();
+console.log('preview text sample:', text1.slice(0, 300));
+await b.close();
+release();

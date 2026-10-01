@@ -1,0 +1,17 @@
+[
+  {"route":"/search","persona":"client","lang":"ru","device":"phone",
+   "steps":[
+     {"wait":600},
+     {"screenshot":"search-list"},
+     {"click":"[data-f=\"F-14-018\"] a, a[href^=\"/masters/\"]"},
+     {"wait":600},
+     {"screenshot":"master-card"}
+   ]},
+  {"route":"/search","persona":"client","lang":"ru","device":"phone",
+   "steps":[
+     {"wait":600},
+     {"click":"a[href^=\"/places/\"]"},
+     {"wait":600},
+     {"screenshot":"place-card"}
+   ]}
+]

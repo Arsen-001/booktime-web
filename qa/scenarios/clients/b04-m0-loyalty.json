@@ -1,0 +1,12 @@
+[
+  {"route": "/biz/clients/loyalty", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 400}, {"screenshot": "discounts-tab"},
+     {"click": "text=Правила для классов важности"},
+     {"wait": 300}, {"screenshot": "classes-tab"},
+     {"click": "text=Правила для категорий"},
+     {"wait": 300}, {"screenshot": "categories-rules-tab"},
+     {"click": "text=Настройки"},
+     {"wait": 300}, {"screenshot": "settings-tab"}
+   ]}
+]

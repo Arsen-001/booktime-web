@@ -1,0 +1,13 @@
+[
+  { "route": "/platform/ads", "persona": "platform", "device": "desktop", "steps": [
+    { "wait": 500 },
+    { "click": "role=tab[name=\"Сторис\"]" },
+    { "wait": 500 },
+    { "expectText": "Места сторис по дням" },
+    { "expectText": "Как сработали сторис" },
+    { "screenshot": "story-board-desktop" },
+    { "click": "role=button[name=\"Настроить места\"]" },
+    { "wait": 300 },
+    { "screenshot": "story-config" }
+  ] }
+]

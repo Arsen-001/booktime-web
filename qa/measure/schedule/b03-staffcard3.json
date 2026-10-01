@@ -1,0 +1,124 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T01:36:57.263Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 4,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-019",
+      "F-02-020",
+      "F-02-079"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ext/staffCard/schedule",
+      "url": "http://localhost:3710/dev/ext/staffCard/schedule?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1300,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4033:97)\n    at readCore (http://localhost:3710/_next/static/chunks/src_0t2z8n3._.js:30:138)\n    at setCells (http://localhost:3710/_next/static/chunks/src_1n6-m3r._.js:575:156)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4033:97)\n    at readCore (http://localhost:3710/_next/static/chunks/src_0t2z8n3._.js:30:138)\n    at writeScheduleOverrides (http://localhost:3710/_next/static/chunks/src_1n6-m3r._.js:437:169)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4033:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_0t2z8n3._.js:21:131)\n    at setCells (http://localhost:3710/_next/static/chunks/src_1n6-m3r._.js:592:141)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4033:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_0t2z8n3._.js:21:131)\n    at pushHistory (http://localhost:3710/_next/static/chunks/src_1n6-m3r._.js:459:141)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-019",
+        "F-02-020",
+        "F-02-079"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Убрать из графика"
+          },
+          "ok": true,
+          "ms": 206
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Всё равно убрать"
+          },
+          "ok": true,
+          "ms": 1220
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 2000
+          },
+          "ok": true,
+          "ms": 2002
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "removed"
+          },
+          "ok": true,
+          "ms": 30,
+          "screenshot": "qa/measure/schedule/b03-staffcard3/dev-ext-staffCard-schedule__owner-nails-ru-light-desktop__removed.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/b03-staffcard3/dev-ext-staffCard-schedule__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/b03-staffcard3/dev-ext-staffCard-schedule__owner-nails-ru-light-desktop__removed.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

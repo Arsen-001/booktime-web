@@ -1,0 +1,27 @@
+Замер: 20 стр. → qa/full-test-0930/final-mock/shots/integrations/ (по 4 одновременно)
+  1/20  2/20  3/20  4/20  5/20  6/20  7/20  8/20  9/20  10/20  11/20  12/20  13/20  14/20  15/20  16/20  17/20  18/20  19/20  20/20
+страница                        кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр
+──────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ────
+/biz/integrations               owner  ru  тел   0/1w  0    0      —      0    7       ·         2.9с
+/biz/integrations               owner  ru  деск  0/1w  0    0      —      9    7       ·         2.9с
+/biz/integrations               owner  en  тел   0/1w  0    0      —      0    7       ·         2.9с
+/biz/integrations               owner  en  деск  0/1w  0    0      —      9    7       ·         2.9с
+/biz/integrations/installed     owner  ru  тел   0/1w  0    0      —      0    5       ·         9.4с
+/biz/integrations/installed     owner  ru  деск  0/1w  0    0      —      17   5       ·         9.3с
+/biz/integrations/installed     owner  en  тел   0/1w  0    0      —      0    5       ·         9.3с
+/biz/integrations/installed     owner  en  деск  0/1w  0    0      —      17   5       ·         9.3с
+/biz/integrations/api           owner  ru  тел   0/1w  0    0      —      0    24      ·         3.3с
+/biz/integrations/api           owner  ru  деск  0/1w  0    0      —      1    24      ·         3.3с
+/biz/integrations/api           owner  en  тел   0/1w  0    0      —      0    24      ·         3.4с
+/biz/integrations/api           owner  en  деск  0/1w  0    0      —      1    24      ·         3.3с
+/biz/integrations/developers    owner  ru  тел   0/1w  0    0      —      0    4       ·         4.1с
+/biz/integrations/developers    owner  ru  деск  0/1w  0    0      —      1    4       ·         4.1с
+/biz/integrations/developers    owner  en  тел   0/1w  0    0      —      0    4       ·         4.1с
+/biz/integrations/developers    owner  en  деск  0/1w  0    0      —      1    4       ·         4.1с
+/dev/ext/settingsHub/integrat…  owner  ru  тел   0     0    0      —      0    1       ·         2.4с
+/dev/ext/settingsHub/integrat…  owner  ru  деск  0     0    0      —      0    1       ·         2.4с
+/dev/ext/settingsHub/integrat…  owner  en  тел   0     0    0      —      0    1       ·         2.3с
+/dev/ext/settingsHub/integrat…  owner  en  деск  0     0    0      —      0    1       ·         2.3с
+
+Итог: страниц 20 · ошибок консоли 0 · предупреждений 16 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 56 · висит загрузка 0 · data-f 34
+Отчёт: qa/full-test-0930/final-mock/shots/integrations/report.json

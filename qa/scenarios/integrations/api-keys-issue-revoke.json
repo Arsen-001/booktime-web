@@ -1,0 +1,32 @@
+{
+  "route": "/biz/integrations/api?tab=keys",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Выпустить\"] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "01-key-reveal-modal" },
+    { "expectVisible": "text=Сохраните ключ сейчас" },
+    { "click": "role=button[name=\"Я сохранил ключ\"]" },
+    { "wait": 300 },
+    { "screenshot": "02-key-issued" },
+    { "fill": "input[placeholder]", "value": "Токен A" },
+    { "click": "role=button[name=\"Выпустить\"]" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Я сохранил ключ\"]" },
+    { "wait": 300 },
+    { "fill": "input[placeholder]", "value": "Токен B" },
+    { "click": "role=button[name=\"Выпустить\"]" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Я сохранил ключ\"]" },
+    { "wait": 300 },
+    { "screenshot": "03-two-tokens" },
+    { "click": "role=button[name=\"Отозвать\"] >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "04-revoke-confirm" },
+    { "click": "role=button[name=\"Отозвать\"] >> nth=-1" },
+    { "wait": 400 },
+    { "screenshot": "05-after-revoke-one" }
+  ]
+}

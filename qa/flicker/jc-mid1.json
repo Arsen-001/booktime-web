@@ -1,0 +1,972 @@
+{
+  "label": "jc-mid1",
+  "at": "2026-09-27T22:35:01.855Z",
+  "base": "http://localhost:3710",
+  "runs": 1,
+  "scenarios": [
+    {
+      "key": "journal-day",
+      "id": "journal-day",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: соседний день",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 4,
+      "renders": 351,
+      "mounts": 67,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0398,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 4"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "f:F-01-128 F-01-171:Лиана Г.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лиана Г.»"
+          },
+          {
+            "sig": "f:F-01-032 F-02-062:Технический перерыв",
+            "size": 1,
+            "where": "button[data-f=F-01-032][Технический перерыв].mt-0.5.block.w-full"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Диана А.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Диана А.»"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Лилит Т.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лилит Т.»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 4,
+          "renders": 351,
+          "mounts": 67,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0398,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-day@phone",
+      "id": "journal-day",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: соседний день",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 4,
+      "renders": 230,
+      "mounts": 66,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 4"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "f:F-01-128 F-01-171:Лиана Г.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лиана Г.»"
+          },
+          {
+            "sig": "f:F-01-032 F-02-062:Технический перерыв",
+            "size": 1,
+            "where": "button[data-f=F-01-032][Технический перерыв].mt-0.5.block.w-full"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Диана А.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Диана А.»"
+          },
+          {
+            "sig": "f:F-01-128 F-01-171:Лилит Т.",
+            "size": 1,
+            "where": "span[data-f=F-01-128].mt-1.truncate.pr-1 «Лилит Т.»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 21
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 4,
+          "renders": 230,
+          "mounts": 66,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-view",
+      "id": "journal-view",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: День → Неделя → День",
+      "control": false,
+      "newData": true,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 239,
+      "mounts": 77,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.0035,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [
+          {
+            "sig": "x:SPAN:сегодня",
+            "size": 1,
+            "where": "span.shrink-0.text-sm.text-muted «сегодня»"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 239,
+          "mounts": 77,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.0035,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-open",
+      "id": "journal-open",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: открыть и закрыть окно записи",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 4,
+      "dims": 0,
+      "remounts": 1,
+      "remountedEls": 12,
+      "remountsSmall": 1,
+      "renders": 878,
+      "mounts": 143,
+      "cls": 0.0064,
+      "clsLate": 0.0064,
+      "clsAll": 0.0064,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "пересоздано блоков 1 (12 эл.)"
+      ],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 497,
+            "shownMs": 455,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 950,
+            "shownMs": 35,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0.04
+          },
+          {
+            "kind": "new-block",
+            "t": 987,
+            "shownMs": 248,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 994,
+            "shownMs": 375,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0.01
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "f:F-01-026 F-01-027 F-01-028 F-01-051 F-01-052 F-01-214 F-01-031 F-01-110 F-01-111 F-01-11",
+            "size": 12,
+            "where": "div[data-f=F-01-026].absolute.inset-x-1.z-10 «10:15Мариам Б.Маникюр с покрытием гель-лаком · до »"
+          },
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ЗаписьАни СаргсянОтменаСохранить измен",
+            "opened": true,
+            "closed": true,
+            "openMs": 483,
+            "closeMs": 222,
+            "frames": 132,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 1120,
+            "v": 0.0011,
+            "src": [
+              "div.flex.flex-wrap.gap-1.5 «Маникюр классический5 000 ֏Маникюр с покрытием гел»"
+            ]
+          },
+          {
+            "t": 1372,
+            "v": 0.0053,
+            "src": [
+              "div[data-f=F-01-062].flex.flex-col.gap-1 «Данные записиДата создания: 21.09.2026",
+              "div[data-f=F-01-127].flex.flex-col.gap-2 «Записывает другого посетителя»"
+            ]
+          }
+        ],
+        "vt": true,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 4,
+          "dims": 0,
+          "remounts": 1,
+          "remountedEls": 12,
+          "remountsSmall": 1,
+          "renders": 878,
+          "mounts": 143,
+          "cls": 0.0064,
+          "clsLate": 0.0064,
+          "clsAll": 0.0064,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-open@phone",
+      "id": "journal-open",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: открыть и закрыть окно записи",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 4,
+      "dims": 0,
+      "remounts": 1,
+      "remountedEls": 12,
+      "remountsSmall": 1,
+      "renders": 893,
+      "mounts": 147,
+      "cls": 0.1536,
+      "clsLate": 0.1536,
+      "clsAll": 0.1536,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "пересоздано блоков 1 (12 эл.)",
+        "сдвиг раскладки 0.1536"
+      ],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 469,
+            "shownMs": 438,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 911,
+            "shownMs": 46,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 956,
+            "shownMs": 201,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 964,
+            "shownMs": 327,
+            "skel": "span.flex.w-full.flex-col",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "f:F-01-026 F-01-027 F-01-028 F-01-051 F-01-052 F-01-214 F-01-031 F-01-110 F-01-111 F-01-11",
+            "size": 12,
+            "where": "div[data-f=F-01-026].absolute.inset-x-1.z-10 «10:15Мариам Б.Маникюр с покрытием гель-лаком · до »"
+          },
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «ЗаписьАни СаргсянОтменаСохранить измен",
+            "opened": true,
+            "closed": true,
+            "openMs": 483,
+            "closeMs": 221,
+            "frames": 133,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 916,
+            "v": 0.1536,
+            "src": [
+              "div[role=dialog].pointer-events-auto.absolute.flex «ЗаписьАни СаргсянЗаписьКлиен"
+            ]
+          }
+        ],
+        "vt": true,
+        "fibersAtStart": 483
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 4,
+          "dims": 0,
+          "remounts": 1,
+          "remountedEls": 12,
+          "remountsSmall": 1,
+          "renders": 893,
+          "mounts": 147,
+          "cls": 0.1536,
+          "clsLate": 0.1536,
+          "clsAll": 0.1536,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-status",
+      "id": "journal-status",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: смена статуса во всплывающей карточке",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 226,
+      "mounts": 19,
+      "cls": 0,
+      "clsLate": 0.0005,
+      "clsAll": 0.0005,
+      "overlays": 2,
+      "noAnim": 1,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "без анимации ×1"
+      ],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_r_22_[role=dialog][Статус и оплата].z-[60].min-w-[12rem].max-w-[calc(100vw-2rem)] «Ма",
+            "opened": false,
+            "closed": true,
+            "openMs": null,
+            "closeMs": 89,
+            "frames": 43,
+            "startOpacity": 1,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=status].pointer-events-auto.relative.flex «Статус изменён»",
+            "opened": true,
+            "closed": false,
+            "openMs": 299,
+            "closeMs": null,
+            "frames": 69,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 490,
+            "v": 0.0005,
+            "src": [
+              "div[data-f=F-01-141].flex.flex-col.gap-1 «Мгновенная оплата — вся сумма в один к",
+              "p.text-xs.text-muted «Детали записи 10:15–11:45 · 1 ч 30 мин»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 508
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 226,
+          "mounts": 19,
+          "cls": 0,
+          "clsLate": 0.0005,
+          "clsAll": 0.0005,
+          "overlays": 2,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-status@phone",
+      "id": "journal-status",
+      "section": "journal",
+      "device": "phone",
+      "title": "Журнал: смена статуса во всплывающей карточке",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 250,
+      "mounts": 19,
+      "cls": 0.0032,
+      "clsLate": 0.0032,
+      "clsAll": 0.0032,
+      "overlays": 2,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div#_r_2f_[role=dialog][Статус и оплата].z-[60].min-w-[12rem].max-w-[calc(100vw-2rem)] «Ма",
+            "opened": false,
+            "closed": true,
+            "openMs": null,
+            "closeMs": 105,
+            "frames": 49,
+            "startOpacity": 1,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=status].pointer-events-auto.relative.flex «Статус изменён»",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 64,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 593,
+            "v": 0.0032,
+            "src": [
+              "div[data-f=F-01-141].flex.flex-col.gap-1 «Мгновенная оплата — вся сумма в один к",
+              "p.text-xs.text-muted «Детали записи 10:15–11:45 · 1 ч 30 мин»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 499
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 250,
+          "mounts": 19,
+          "cls": 0.0032,
+          "clsLate": 0.0032,
+          "clsAll": 0.0032,
+          "overlays": 2,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-create",
+      "id": "journal-create",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: создать запись (выбор типа → окно → услуга → сохранить)",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 2,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 1,
+      "renders": 825,
+      "mounts": 210,
+      "cls": 0.0158,
+      "clsLate": 0.0158,
+      "clsAll": 0.0728,
+      "overlays": 5,
+      "noAnim": 1,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "сдвиг раскладки 0.0158",
+        "без анимации ×1"
+      ],
+      "warns": [
+        "мелких пересозданий 1"
+      ],
+      "detail": {
+        "skels": [
+          {
+            "kind": "new-block",
+            "t": 405,
+            "shownMs": 377,
+            "skel": "div.flex.flex-col.gap-4",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0
+          },
+          {
+            "kind": "new-block",
+            "t": 795,
+            "shownMs": 20,
+            "skel": "div.flex.flex-col.gap-3",
+            "region": "body.min-h-dvh.bg-bg.text-fg «Перейти к содержимомуBЖурналНастройки журналаBNuri»",
+            "mainShare": 0.04
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "x:TITLE:BookTime — запись к мастерам",
+            "size": 1,
+            "where": "title «BookTime — запись к мастерам»"
+          }
+        ],
+        "overlays": [
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Что создать?Выберите, что поставить на это в",
+            "opened": true,
+            "closed": true,
+            "openMs": 249,
+            "closeMs": 137,
+            "frames": 27,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].pointer-events-auto.absolute.flex «Новая записьАни СаргсянОтменаЗаписать ",
+            "opened": true,
+            "closed": false,
+            "openMs": 499,
+            "closeMs": null,
+            "frames": 692,
+            "startOpacity": 1
+          },
+          {
+            "kind": "div[role=status].pointer-events-auto.relative.flex «Услуга добавлена»",
+            "opened": true,
+            "closed": true,
+            "openMs": 333,
+            "closeMs": 153,
+            "frames": 267,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Создать без клиента?Визит будет сохранён без",
+            "opened": true,
+            "closed": true,
+            "openMs": 399,
+            "closeMs": 20,
+            "frames": 26,
+            "startOpacity": 0,
+            "endOpacity": 0
+          },
+          {
+            "kind": "div[role=dialog].relative.flex.max-h-[92dvh] «Вне графика мастераВ это время мастер не раб",
+            "opened": true,
+            "closed": false,
+            "openMs": 249,
+            "closeMs": null,
+            "frames": 569,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [
+          {
+            "t": 2451,
+            "v": 0.0158,
+            "src": [
+              "div.pointer-events-none.fixed.inset-x-0 «Услуга добавлена»"
+            ]
+          }
+        ],
+        "vt": false,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 2,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 1,
+          "renders": 825,
+          "mounts": 210,
+          "cls": 0.0158,
+          "clsLate": 0.0158,
+          "clsAll": 0.0728,
+          "overlays": 5,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-drag",
+      "id": "journal-drag",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: перетащить запись на час ниже",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 227,
+      "mounts": 10,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "ok",
+      "fails": [],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=alert].pointer-events-auto.relative.flex «Это время у мастера уже занято другой з",
+            "opened": true,
+            "closed": false,
+            "openMs": 316,
+            "closeMs": null,
+            "frames": 45,
+            "startOpacity": 0
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 227,
+          "mounts": 10,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "journal-attention",
+      "id": "journal-attention",
+      "section": "journal",
+      "device": "desktop",
+      "title": "Журнал: свернуть и развернуть «Требует внимания»",
+      "control": false,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 50,
+      "mounts": 0,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0.1729,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "warn",
+      "fails": [],
+      "warns": [
+        "сдвиг сразу после клика 0.1729"
+      ],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 492
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 50,
+          "mounts": 0,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0.1729,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "route": "/dev/ext/staffCard/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "01-staffcard-ext" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/history",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "expectVisible": "[data-f=\"F-02-102 F-02-085\"]" },
+      { "screenshot": "02-history" }
+    ]
+  },
+  {
+    "route": "/biz/schedule",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "03-master-table-visibility" }
+    ]
+  }
+]

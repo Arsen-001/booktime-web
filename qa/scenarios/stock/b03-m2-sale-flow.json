@@ -1,0 +1,22 @@
+[
+  {
+    "route": "/biz/stock/operations/new/sale",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 700 },
+      { "click": "text=Добавить из списка" },
+      { "wait": 500 },
+      { "click": "role=checkbox[name=/Бордо/]" },
+      { "wait": 200 },
+      { "click": "[role=dialog] >> role=button[name=/Добавить \\(1\\)/]" },
+      { "wait": 500 },
+      { "screenshot": "04-line-added" },
+      { "click": "text=Абонемент или сертификат" },
+      { "wait": 400 },
+      { "screenshot": "05-membership-picker" }
+    ]
+  }
+]

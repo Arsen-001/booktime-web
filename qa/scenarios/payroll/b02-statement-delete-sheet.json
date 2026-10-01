@@ -1,0 +1,16 @@
+{ "route": "/biz/payroll/period", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"click": "role=row[name=/Мариам Петросян/] >> role=button[name=/Создать/]"},
+    {"wait": 900},
+    {"click": "text=Удалить ведомость"},
+    {"wait": 300},
+    {"screenshot": "01-confirm"},
+    {"click": "role=button[name=\"Удалить\"]"},
+    {"wait": 700},
+    {"screenshot": "02-after-delete"},
+    {"click": "text=Взаиморасчёты"},
+    {"wait": 600},
+    {"screenshot": "03-settlements-after"}
+  ]
+}

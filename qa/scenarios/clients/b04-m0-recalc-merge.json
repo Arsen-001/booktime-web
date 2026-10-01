@@ -1,0 +1,10 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 500}, {"screenshot": "list"},
+     {"click": "table >> tbody >> tr >> nth=0"},
+     {"wait": 500}, {"screenshot": "card"},
+     {"click": "[aria-label*=\"Ещё\" i], button:has-text(\"⋯\")"},
+     {"wait": 300}, {"screenshot": "card-menu"}
+   ]}
+]

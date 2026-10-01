@@ -1,0 +1,23 @@
+[
+  {"route": "/biz/clients/import", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 400},
+     {"fill": "textarea", "value": "Name;Phone;Total spent;Total paid\nDuplicate Test;37493777888;500;500"},
+     {"click": "text=Загрузить вставленное"},
+     {"wait": 400},
+     {"click": "role=button[name=\"Загрузить\"]"},
+     {"wait": 600},
+     {"screenshot": "first-import"},
+     {"click": "text=Новая загрузка"},
+     {"wait": 300},
+     {"fill": "textarea", "value": "Name;Phone;Total spent;Total paid\nDuplicate Test;37493777888;500;500"},
+     {"click": "text=Загрузить вставленное"},
+     {"wait": 400},
+     {"click": "role=button[name=\"Загрузить\"]"},
+     {"wait": 600},
+     {"screenshot": "second-import"},
+     {"goto": "/biz/clients?query=37493777888"},
+     {"wait": 700},
+     {"screenshot": "list-filtered"}
+   ]}
+]

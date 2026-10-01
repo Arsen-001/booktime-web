@@ -1,0 +1,22 @@
+export default async ({ go, shot, page, api }) => {
+  const r = {};
+  const START = process.env.START || '2026-10-01T22:00';
+  await go('/biz/journal', 1500);
+  const c = await api('POST', '/v1/biz/biz_nuri/bookings', { staffId: 'st_nuri_ani', clientId: 'cl_01M3TB3D2V9D2QV73PAVJRYTF4', locationId: 'loc_nuri', start: START, durationMin: 45, status: 'scheduled', services: [{ serviceId: 'sv_nuri_classic', qty: 1, price: 5000, staffId: 'st_nuri_ani', durationMin: 45 }], source: 'journal' });
+  const BK = c.data.id; r.BK = BK;
+  await go(`/biz/journal?date=2026-10-01&booking=${BK}`, 4000);
+  await page.locator('[role=dialog]').last().getByRole('button', { name: /^Оплатить/ }).last().click();
+  await page.waitForTimeout(2000);
+  const reqs = []; const t0 = Date.now();
+  page.on('requestfinished', async (q) => { if (q.url().includes(':4010') && q.method() !== 'GET') reqs.push(`${Date.now() - t0} ${q.method()} ${q.url().slice(21, 110)} ${(await q.response())?.status()}`); });
+  page.on('requestfailed', (q) => reqs.push(`FAIL ${q.url().slice(21, 110)}`));
+  await page.locator('[role=dialog]').last().getByRole('button', { name: /Наличные/ }).click();
+  await page.waitForTimeout(10000);
+  r.reqs = reqs;
+  await shot('s6-paid', false);
+  r.dlg = (await page.locator('[role=dialog]').last().innerText()).slice(0, 200);
+  const sum = await api('GET', `/v1/biz/biz_nuri/finance/bookings/${BK}/payments`);
+  r.summary = { due: sum.data.due, status: sum.data.status, lines: sum.data.moneyLines?.map((l) => [l.id, l.amount, l.operationId, l.cancelled]) };
+  r.status = (await api('GET', `/v1/biz/biz_nuri/bookings/${BK}`)).data.status;
+  return r;
+};

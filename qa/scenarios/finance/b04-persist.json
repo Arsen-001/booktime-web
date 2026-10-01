@@ -1,0 +1,11 @@
+{ "route": "/biz/finance/online/link", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 500},
+    {"fill": "input[type=number]", "value": "45"},
+    {"click": "text=Сохранить"},
+    {"wait": 600},
+    {"screenshot": "after-save"},
+    {"goto": "/biz/finance/online/link"},
+    {"wait": 600},
+    {"screenshot": "after-reload"}
+  ] }

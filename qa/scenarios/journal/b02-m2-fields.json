@@ -1,0 +1,32 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "click": "text=Расширенные поля" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-01-050\"]" },
+      { "expectVisible": "[data-f=\"F-01-051\"]" },
+      { "expectVisible": "[data-f=\"F-01-052\"]" },
+      { "expectVisible": "[data-f=\"F-01-053\"]" },
+      { "screenshot": "m2-expanded-all-groups" },
+      { "click": "[data-f=\"F-01-051\"] >> role=button >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "m2-category-selected" },
+      { "click": "[data-f=\"F-01-052\"] >> role=button >> nth=2" },
+      { "wait": 300 },
+      { "screenshot": "m2-color-selected" },
+      { "click": "role=tab[name=\"Запись\"]" },
+      { "wait": 300 },
+      { "click": "text=Сохранить пустую запись" },
+      { "wait": 700 },
+      { "screenshot": "m2-saved-with-category-color" }
+    ]
+  }
+]

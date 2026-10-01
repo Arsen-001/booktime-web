@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/biz/online",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Настроить" },
+      { "wait": 400 },
+      { "screenshot": "01-link-settings-loaded" }
+    ]
+  },
+  {
+    "route": "/b/nuri-nail-studio",
+    "persona": "guest",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Записаться" },
+      { "wait": 600 },
+      { "screenshot": "02-wizard-first-step" }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+import { start, stop, open, go, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/journal?booking=bk_1609');
+const bk = async (id) => (await db(page)).core.bookings.find(x => x.id === id);
+const dlg = page.locator('[role=dialog]').last();
+const b0 = await bk('bk_1609'); console.log('before', b0.start, JSON.stringify(b0.services.map(s => s.serviceId + ':' + s.price)), 'paid', b0.paid ?? b0.paidAmount);
+await dlg.getByRole('button', { name: /Дизайн ногтей/ }).first().click(); await page.waitForTimeout(800);
+const tt = (await dlg.innerText()).split('\n'); console.log('window:', tt.filter(l => /\d\d:\d\d–\d\d:\d\d|К оплате|֏/.test(l)).slice(0, 8).join(' | '));
+await dlg.getByRole('button', { name: 'Сохранить изменения' }).click(); await page.waitForTimeout(1500);
+await shot(page, 'J6-after-save'); const top = page.locator('[role=dialog]').last(); const yes = top.getByRole('button', { name: 'Да', exact: true }); if (await yes.count()) { await yes.click(); await page.waitForTimeout(1500); } console.log('errors:', (await page.locator('[role=dialog]').last().innerText()).split('\n').filter(l => /Укажите|Выберите дату|обязател|ошиб/i.test(l)).slice(0,5));
+console.log('toasts', await toasts(page));
+const b1 = await bk('bk_1609'); console.log('after', JSON.stringify(b1.services.map(s => s.serviceId + ':' + s.price + ':' + s.durationMin)));
+await go(page, '/biz/journal'); const t = await text(page); console.log('grid:', t.split('\n').filter(l => /^14:45–/.test(l)));
+await stop();

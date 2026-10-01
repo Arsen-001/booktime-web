@@ -1,0 +1,12 @@
+{
+  "route": "/biz/apps/events",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Новое событие >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "01-create-modal" }
+  ]
+}

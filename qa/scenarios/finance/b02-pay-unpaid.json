@@ -1,0 +1,12 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "[data-testid=\"booking-block\"]:has-text(\"13:00\")"},
+    {"wait": 500},
+    {"screenshot": "01-try"}
+  ]
+}

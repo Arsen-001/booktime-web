@@ -1,0 +1,21 @@
+
+==== sB.mjs
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+FAIL page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/biz/online/settings?sphere=barber&demo=master&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+shot fail B-fail page.screenshot: Timeout 90000ms exceeded.
+Call log:
+[2m  - taking page screens
+errors []
+
+==== sC.mjs
+FAIL page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/b/kaytsak-barbershop?demo=guest&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+ Call log:
+shot fail C-fail page.screenshot: Timeout 90000ms exceeded.
+Call log:
+[2m  - taking page screens
+errors []

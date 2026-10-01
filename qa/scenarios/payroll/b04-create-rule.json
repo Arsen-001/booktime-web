@@ -1,0 +1,13 @@
+{
+  "route": "/biz/payroll/rules",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить правило\"]" },
+    { "wait": 800 },
+    { "expectVisible": "[data-f=\"F-09-050 F-09-027\"]" },
+    { "screenshot": "after-create" }
+  ]
+}

@@ -1,0 +1,13 @@
+import { createJiti } from 'jiti';
+const root = '/Users/arsen/WebstormProjects/booking-platform';
+const jiti = createJiti(import.meta.url, { alias: { '@docs': root + '/docs', '@messages': root + '/messages', '@': root + '/src' }, jsx: true });
+const db = await jiti.import(root + '/src/mock/db.ts');
+await db.bootDb();
+const S = db.useDb.getState();
+const paidIds = new Set(S.areas.finance.bookingPayments.map((p) => p.bookingId));
+const biz = S.core.businesses.find((b) => b.kind === 'salon' && !b.networkId);
+const c = S.core.bookings.filter((b) => b.prepayment?.paid && b.prepayment.amount < b.total && ['scheduled', 'client_confirmed', 'arrived'].includes(b.status) && !paidIds.has(b.id) && !(b.goods?.length) && !b.deletedAt);
+const today = new Date().toISOString().slice(0, 10);
+c.sort((a, b) => Math.abs(new Date(a.start) - new Date(today)) - Math.abs(new Date(b.start) - new Date(today)));
+console.log(JSON.stringify(c.slice(0, 3).map((b) => ({ id: b.id, start: b.start, total: b.total, prepaid: b.prepayment.amount, status: b.status, staffId: b.staffId, biz: b.businessId, bizName: JSON.stringify(S.core.businesses.find((x) => x.id === b.businessId)?.name) }))));
+process.exit(0);

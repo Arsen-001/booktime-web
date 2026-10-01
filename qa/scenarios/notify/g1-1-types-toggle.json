@@ -1,0 +1,110 @@
+[
+  {
+    "route": "/biz/notifications",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "types-list-initial" },
+      { "click": "text=Администратору" },
+      { "wait": 200 },
+      { "screenshot": "types-filter-admin" },
+      { "click": "text=Все" },
+      { "wait": 200 }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "expectVisible": "[data-f*=\"F-05-005\"]" },
+      { "screenshot": "type2-main" },
+      { "click": "text=Шаблоны уведомлений" },
+      { "wait": 300 },
+      { "screenshot": "type2-templates" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/9",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "type9-main" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/73",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "type73-main" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/74",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "type74-main" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/8",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "type8-main" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/channels",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "channels-main" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/mailings",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "mailings-list" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/log",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "log-main" }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "route": "/biz/loyalty/memberships/lm_biz_nuri_1",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=button[name=\"Заморозить\"]" },
+    { "wait": 800 },
+    { "screenshot": "after-freeze" }
+  ]
+}

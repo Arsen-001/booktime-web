@@ -1,0 +1,13 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&start=19:15&date=2026-10-15",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder='00 123 456']", "value": "00199901" },
+    { "fill": "input[placeholder='Имя']", "value": "Тестовая Запись" },
+    { "click": "role=button[name=\"Создавать записи\"]" },
+    { "click": "role=button[name=\"Да\"]" },
+    { "expectText": "Сохранено" },
+    { "screenshot": "grid-with-new-booking" }
+  ]
+}

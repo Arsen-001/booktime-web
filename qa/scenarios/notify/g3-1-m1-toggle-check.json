@@ -1,0 +1,20 @@
+[
+  {
+    "route": "/biz/notifications",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "screenshot": "before" },
+      { "click": "role=switch[name=/Клиент записался онлайн/]" },
+      { "wait": 200 },
+      { "screenshot": "immediately-after-click" },
+      { "wait": 1200 },
+      { "screenshot": "after-1200ms" },
+      { "goto": "/biz/notifications" },
+      { "wait": 400 },
+      { "screenshot": "after-navigate" }
+    ]
+  }
+]

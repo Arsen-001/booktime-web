@@ -1,0 +1,15 @@
+const M = await import('/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/t/common.mjs?' + Date.now());
+const { waitReady, dlg, btns, toasts, go } = M;
+export default async ({ browser, lib, state }) => {
+  const p = state.owner; let o='';
+  for (const name of ['Продать товар','Принять оплату','Список услуг','Каталог товаров','Лист ожидания']) {
+    await go(p, '/biz/journal'); await waitReady(p);
+    await p.getByRole('button', { name: 'Ещё', exact: true }).first().click(); await p.waitForTimeout(800);
+    await p.locator('[role=dialog]').last().getByText(name, { exact: true }).click(); await p.waitForTimeout(1800);
+    const d = await p.evaluate(()=>{const ds=[...document.querySelectorAll('[role=dialog]')].filter(d=>d.getClientRects().length);return ds.length?ds[ds.length-1].innerText:'NO DIALOG ' + location.pathname});
+    o += `\n### ${name}\n` + d.slice(0,900) + '\nB ' + (await btns(p)).slice(0,500) + '\n';
+    await lib.shot(p, 'o13-' + name.replace(/\s/g,'_'));
+    await p.keyboard.press('Escape'); await p.waitForTimeout(400);
+  }
+  return o;
+};

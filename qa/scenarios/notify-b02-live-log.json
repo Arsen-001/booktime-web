@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&start=19:15&date=2026-10-15",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder='00 123 456']", "value": "00199902" },
+    { "fill": "input[placeholder='Имя']", "value": "Живой Журнал" },
+    { "click": "role=button[name=\"Создавать записи\"]" },
+    { "click": "role=button[name=\"Да\"]" },
+    { "expectText": "Сохранено" },
+    { "goto": "/biz/notifications/log" },
+    { "fill": "input[placeholder*='телефон']", "value": "00199902" },
+    { "wait": 300 },
+    { "screenshot": "live-log-after-create" }
+  ]
+}

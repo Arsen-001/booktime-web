@@ -1,0 +1,14 @@
+{
+  "route": "/platform/moderation",
+  "persona": "platform",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "li button:has-text(\"Фото салона\") >> nth=0" },
+    { "wait": 400 },
+    { "click": "[role=dialog] >> role=button[name=\"Одобрить\"]" },
+    { "wait": 600 },
+    { "expectText": "Одобрено — клиенты уже видят" },
+    { "screenshot": "after-approve" }
+  ]
+}

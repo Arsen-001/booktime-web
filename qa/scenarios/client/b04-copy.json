@@ -1,0 +1,13 @@
+{
+  "route": "/loyalty-cards",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"wait": 500},
+    {"click": "text=Номер карты"},
+    {"wait": 400},
+    {"screenshot": "copy-toast"}
+  ]
+}

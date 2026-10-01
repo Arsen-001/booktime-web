@@ -1,0 +1,141 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T11:42:10.534Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-052",
+      "F-00-053",
+      "F-00-054",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-062",
+      "F-00-063",
+      "F-02-039"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1181,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-052",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-062",
+        "F-00-063",
+        "F-02-039"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 1000
+          },
+          "ok": true,
+          "ms": 1003
+        },
+        {
+          "i": 2,
+          "step": {
+            "press": "Escape"
+          },
+          "ok": true,
+          "ms": 164
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Записать клиента\"]"
+          },
+          "ok": true,
+          "ms": 267
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "quick-booking"
+          },
+          "ok": true,
+          "ms": 153,
+          "screenshot": "qa/measure/schedule/fix-scn/biz-schedule-calendar__master-nails-ru-light-phone__quick-booking.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/fix-scn/biz-schedule-calendar__master-nails-ru-light-phone.png",
+        "qa/measure/schedule/fix-scn/biz-schedule-calendar__master-nails-ru-light-phone__quick-booking.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

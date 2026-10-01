@@ -1,0 +1,12 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "master",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "nav button.right-0, div button.right-0", "optional": true},
+    {"wait": 300},
+    {"screenshot": "01-scrolled"}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "route": "/register-business",
+  "persona": "guest",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"click": "text=Салон"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"click": "text=Барбер"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"fill": "input[placeholder=\"Как назвать салон или себя\"]", "value": "Тестовый салон"},
+    {"fill": "input[type=\"tel\"]", "value": "91234567"},
+    {"click": "role=button[name=\"Зарегистрировать\"]"},
+    {"wait": 1200},
+    {"screenshot": "after-submit"}
+  ]
+}

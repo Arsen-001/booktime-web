@@ -1,0 +1,136 @@
+[
+  {
+    "route": "/dev/ui/c",
+    "persona": "owner",
+    "lang": "ru",
+    "theme": "light",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "fill": "#phone-verify input[placeholder=\"Имя\"]",
+        "value": "Анна"
+      },
+      {
+        "click": "#phone-verify label:has-text(\"Согласен\")"
+      },
+      {
+        "fill": "#phone-verify input[type=tel] >> nth=0",
+        "value": "00123456"
+      },
+      {
+        "screenshot": "pv-1-phone"
+      },
+      {
+        "click": "#phone-verify >> role=button[name=\"Получить код\"] >> nth=0"
+      },
+      {
+        "expectText": "Код отправлен в WhatsApp"
+      },
+      {
+        "screenshot": "pv-2-code"
+      },
+      {
+        "fill": "#phone-verify input[aria-label=\"Цифра 1 из 4\"]",
+        "value": "1111"
+      },
+      {
+        "expectText": "Код не подошёл"
+      },
+      {
+        "wait": 200
+      },
+      {
+        "screenshot": "pv-3-wrong"
+      },
+      {
+        "fill": "#phone-verify input[aria-label=\"Цифра 1 из 4\"]",
+        "value": "1234"
+      },
+      {
+        "expectText": "Номер подтверждён"
+      },
+      {
+        "screenshot": "pv-4-ok"
+      },
+      {
+        "click": "#tabs-overflow >> role=tab[name=\"Статистика\"]"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "tabs-overflow"
+      }
+    ]
+  },
+  {
+    "route": "/dev/ui/c",
+    "persona": "owner",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "fill": "#phone-verify input[placeholder=\"Имя\"]",
+        "value": "Анна"
+      },
+      {
+        "click": "#phone-verify label:has-text(\"Согласен\")"
+      },
+      {
+        "fill": "#phone-verify input[type=tel] >> nth=0",
+        "value": "00123456"
+      },
+      {
+        "screenshot": "pv-1-phone"
+      },
+      {
+        "click": "#phone-verify >> role=button[name=\"Получить код\"] >> nth=0"
+      },
+      {
+        "expectText": "Код отправлен в WhatsApp"
+      },
+      {
+        "screenshot": "pv-2-code"
+      },
+      {
+        "fill": "#phone-verify input[aria-label=\"Цифра 1 из 4\"]",
+        "value": "1111"
+      },
+      {
+        "expectText": "Код не подошёл"
+      },
+      {
+        "wait": 200
+      },
+      {
+        "screenshot": "pv-3-wrong"
+      },
+      {
+        "fill": "#phone-verify input[aria-label=\"Цифра 1 из 4\"]",
+        "value": "1234"
+      },
+      {
+        "expectText": "Номер подтверждён"
+      },
+      {
+        "screenshot": "pv-4-ok"
+      },
+      {
+        "click": "#tabs-overflow >> role=tab[name=\"Статистика\"]"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "tabs-overflow"
+      }
+    ]
+  }
+]

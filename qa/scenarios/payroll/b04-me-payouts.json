@@ -1,0 +1,12 @@
+{
+  "route": "/biz/payroll/me",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=tab[name=\"Выплаты\"]" },
+    { "wait": 400 },
+    { "screenshot": "payouts-tab" }
+  ]
+}

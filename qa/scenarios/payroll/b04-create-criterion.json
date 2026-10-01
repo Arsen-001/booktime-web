@@ -1,0 +1,13 @@
+{
+  "route": "/biz/payroll/criteria",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить критерий\"]" },
+    { "wait": 800 },
+    { "expectVisible": "[data-f=\"F-09-052\"]" },
+    { "screenshot": "after-create" }
+  ]
+}

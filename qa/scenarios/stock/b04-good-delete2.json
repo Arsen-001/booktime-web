@@ -1,0 +1,24 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "css=tr:has-text('Топовое покрытие')" },
+    { "wait": 700 },
+    { "click": "text=Видимость клиентам" },
+    { "screenshot": "good-visibility-section" },
+    { "click": "role=button[name='Ещё действия']" },
+    { "wait": 200 },
+    { "click": "text=Удалить" },
+    { "wait": 300 },
+    { "fill": "input[placeholder='Удалить']", "value": "Удалить" },
+    { "wait": 200 },
+    { "screenshot": "good-delete-modal-enabled" },
+    { "click": "role=button[name='Удалить'] >> nth=1" },
+    { "wait": 500 },
+    { "screenshot": "good-delete-done" }
+  ]
+}

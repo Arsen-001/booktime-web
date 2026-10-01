@@ -1,0 +1,15 @@
+{
+  "route": "/places/biz_nuri",
+  "persona": "client",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "expectVisible": "a[data-f='F-14-029']" },
+    { "click": "a[data-f='F-14-029']" },
+    { "wait": 500 },
+    { "screenshot": "business-service-picker" },
+    { "click": "role=radio >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "business-master-or-slot" }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:26:33.938Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-020"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 5039,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Постоянный гость"
+          },
+          "ok": true,
+          "ms": 194
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=/Удалить/]"
+          },
+          "ok": true,
+          "ms": 198
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "02-confirm-dialog"
+          },
+          "ok": true,
+          "ms": 112,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop__02-confirm-dialog.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=/^Удалить$/]"
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "03-after-delete"
+          },
+          "ok": true,
+          "ms": 50,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop__03-after-delete.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop__full.png",
+        "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop__02-confirm-dialog.png",
+        "qa/measure/loyalty/g1-1-m1/s1b/biz-loyalty-card-types__owner-nails-ru-light-desktop__03-after-delete.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

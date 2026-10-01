@@ -1,0 +1,14 @@
+{
+  "route": "/biz/loyalty/card-types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Постоянный гость" },
+    { "expectVisible": "[data-f=\"F-06-021 F-06-030\"]" },
+    { "screenshot": "edit-form" },
+    { "scrollToBottom": true },
+    { "screenshot": "edit-form-bottom" }
+  ]
+}

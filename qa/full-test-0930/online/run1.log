@@ -1,0 +1,24 @@
+
+==== sA.mjs
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+FAIL page.goto: Timeout 60000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/b/kaytsak-barbershop?demo=guest&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+IMPORT FAIL page.screenshot: Timeout 30000ms exceeded.
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+
+==== sB.mjs
+FAIL page.goto: Timeout 60000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/biz/online/settings?sphere=barber&demo=master&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+errors []
+
+==== sC.mjs
+FAIL Cannot read properties of undefined (reading 'core')     at book (file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/online/h.mjs:93:22)
+errors []

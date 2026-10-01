@@ -1,0 +1,18 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 500},
+    {"click": "text=\"Настроить\""},
+    {"wait": 800},
+    {"expectVisible": "[data-f=\"F-03-014\"]"},
+    {"press": "PageDown"},
+    {"wait": 200},
+    {"click": "[data-f=\"F-03-015\"] >> text=\"Короткий пошаговый\""},
+    {"wait": 300},
+    {"screenshot": "short-stepwise-locked"}
+  ]
+}

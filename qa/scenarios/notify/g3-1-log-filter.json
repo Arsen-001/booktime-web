@@ -1,0 +1,17 @@
+[
+  {
+    "route": "/biz/notifications/log",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=combobox[name=\"Любой тип\"]" },
+      { "wait": 200 },
+      { "screenshot": "type-dropdown-open" },
+      { "click": "text=Клиент записался онлайн" },
+      { "wait": 300 },
+      { "screenshot": "filtered-type2" }
+    ]
+  }
+]

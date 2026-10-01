@@ -1,0 +1,11 @@
+{
+  "route": "/platform/ads",
+  "persona": "platform",
+  "lang": "en",
+  "device": "phone",
+  "steps": [
+    { "click": "role=tab[name=\"Stories\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-phone-stories" }
+  ]
+}

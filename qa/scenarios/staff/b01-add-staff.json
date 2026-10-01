@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/biz/staff",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=button[name=\"Добавить\"]" },
+      { "wait": 200 },
+      { "screenshot": "01-add-menu" },
+      { "click": "text=Сотрудника" },
+      { "wait": 300 },
+      { "expectVisible": "text=Добавить сотрудника" },
+      { "expectVisible": "text=Платных мест:" },
+      { "screenshot": "02-form-empty" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 300 },
+      { "expectText": "Введите имя" },
+      { "screenshot": "03-validation-error" },
+      { "fill": "input[placeholder=\"Например, Анна Петросян\"]", "value": "Тестовый Мастер" },
+      { "fill": "input[placeholder=\"Например, Ногтевой сервис\"]", "value": "Маникюр" },
+      { "fill": "input[placeholder=\"91 234 567\"]", "value": "91234567" },
+      { "screenshot": "04-form-filled" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 500 },
+      { "expectText": "добавлен" },
+      { "expectText": "Тестовый Мастер" },
+      { "screenshot": "05-after-save" },
+      { "goto": "/biz/staff" },
+      { "wait": 500 },
+      { "expectText": "Тестовый Мастер" },
+      { "screenshot": "06-persisted-after-reload" }
+    ]
+  }
+]

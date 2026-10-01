@@ -1,0 +1,30 @@
+[
+  {
+    "route": "/biz/notifications/types/2",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=tab[name=\"Шаблоны уведомлений\"]" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-05-022\"]" },
+      { "click": "text=+ Переменная" },
+      { "wait": 300 },
+      { "screenshot": "type2-templates-variables" }
+    ]
+  },
+  {
+    "route": "/biz/notifications/types/2",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "phone",
+    "steps": [
+      { "click": "role=tab[name=\"Templates\"]" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-05-022\"]" },
+      { "screenshot": "type2-templates-phone-en" }
+    ]
+  }
+]

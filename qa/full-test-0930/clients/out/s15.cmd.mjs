@@ -1,0 +1,32 @@
+export default async ({ page, go, shot, text }) => {
+  const r = {};
+  await go('/biz/clients/cl_068', { device: 'phone' });
+  await shot('s15-due-card-phone');
+  await go('/biz/clients/cl_068', { device: 'desktop' });
+  await shot('s15-due-card-desktop');
+  await go('/biz/clients?pick=due', { device: 'desktop', lang: 'en' });
+  await shot('s15-due-en');
+  r.en = (await text()).slice(0, 300);
+  // объединение: автор в журнале
+  const st = String(Date.now()).slice(-6);
+  await go('/biz/clients/import');
+  await page.getByPlaceholder(/Вставьте сюда данные/).first().fill(`Имя\tТелефон\nСлить Один ${st}\t37441${st}\nСлить Два ${st}\t37443${st}\n`);
+  await page.getByRole('button', { name: /Загрузить из поля/ }).click(); await page.waitForTimeout(1500);
+  await page.getByRole('button', { name: /^Загрузить$/ }).last().click(); await page.waitForTimeout(2500);
+  await go(`/biz/clients?q=${st}`);
+  await page.locator('table tbody tr').filter({ hasText: 'Один' }).first().locator('td').nth(1).click();
+  await page.waitForURL(/\/biz\/clients\/[^/?]+$/).catch(() => {});
+  await page.waitForTimeout(1500);
+  await page.getByRole('button', { name: /^Ещё$|Действия с клиентом/ }).first().click(); await page.waitForTimeout(600);
+  await page.getByRole('menuitem', { name: /Объединить/ }).click(); await page.waitForTimeout(800);
+  const dlg = page.locator('[role=dialog]').last();
+  await dlg.getByRole('combobox').first().click(); await page.waitForTimeout(600);
+  await page.locator('[role=dialog] input, [role=listbox] input, [cmdk-input]').last().fill('Слить Два').catch(() => {});
+  await page.waitForTimeout(1000);
+  await page.getByRole('option', { name: new RegExp(`Два ${st}`) }).first().click(); await page.waitForTimeout(400);
+  await dlg.getByRole('button', { name: /Продолжить/ }).click(); await page.waitForTimeout(900);
+  await page.locator('[role=dialog] button, [role=alertdialog] button').filter({ hasText: /Объединить/ }).last().click(); await page.waitForTimeout(2500);
+  await go('/biz/clients/log');
+  r.log = (await text()).slice(0, 350);
+  return r;
+};

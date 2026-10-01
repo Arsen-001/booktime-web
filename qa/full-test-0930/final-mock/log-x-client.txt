@@ -1,0 +1,47 @@
+Замер: 40 стр. → qa/full-test-0930/final-mock/shots/x-client/ (по 4 одновременно)
+  1/40  2/40  3/40  4/40  5/40  6/40  7/40  8/40  9/40  10/40  11/40  12/40  13/40  14/40  15/40  16/40  17/40  18/40  19/40  20/40  21/40  22/40  23/40  24/40  25/40  26/40  27/40  28/40  29/40  30/40  31/40  32/40  33/40  34/40  35/40  36/40  37/40  38/40  39/40  40/40
+страница    кто     яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр  
+──────────  ──────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ──────
+/           client  ru  тел   0     0    0      —      0    17      ·         6.4с  
+/           client  ru  деск  0     0    0      —      2    17      ·         6.2с  
+/           client  en  тел   0     0    0      —      0    17      ·         6.2с  
+/           client  en  деск  0     0    0      —      2    17      ·         6.5с  
+/           guest   ru  тел   0     0    0      —      0    12      ·         4.1с  
+/           guest   ru  деск  0     0    0      —      2    12      ·         4.4с  
+/           guest   en  тел   0     0    0      —      0    12      ·         4.1с  
+/           guest   en  деск  0     0    0      —      2    12      ·         4.1с  
+/search     client  ru  тел   0     0    0      —      0    11      ·         19.2с 
+/search     client  ru  деск  0     0    0      —      0    11      ·         19.2с 
+/search     client  en  тел   0     0    0      —      0    11      ·         19.2с 
+/search     client  en  деск  0     0    0      —      0    11      ·         19.0с 
+/search     guest   ru  тел   0     0    0      —      0    11      ·         60.0с 
+/search     guest   ru  деск  0     0    0      —      1    11      ·         60.0с 
+/search     guest   en  тел   0     0    0      —      0    11      ·         60.2с 
+/search     guest   en  деск  0     0    0      —      1    11      ·         60.1с 
+/bookings   client  ru  тел   0     0    0      —      0    4       ·         104.8с
+/bookings   client  ru  деск  0     0    0      —      0    4       ·         102.8с
+/bookings   client  en  тел   0     0    0      —      0    4       ·         103.0с
+/bookings   client  en  деск  0     0    0      —      0    4       ·         102.7с
+/bookings   guest   ru  тел   0     0    0      —      0    2       ·         7.8с  
+/bookings   guest   ru  деск  0     0    0      —      0    2       ·         7.6с  
+/bookings   guest   en  тел   0     0    0      —      0    2       ·         7.3с  
+/bookings   guest   en  деск  0     0    0      —      0    2       ·         5.6с  
+/favorites  client  ru  тел   0     0    0      —      0    6       ·         2.4с  
+/favorites  client  ru  деск  0     0    0      —      3    6       ·         2.4с  
+/favorites  client  en  тел   0     0    0      —      0    6       ·         2.3с  
+/favorites  client  en  деск  0     0    0      —      3    6       ·         2.2с  
+/favorites  guest   ru  тел   0     0    0      —      0    2       ·         4.0с  
+/favorites  guest   ru  деск  0     0    0      —      1    2       ·         4.0с  
+/favorites  guest   en  тел   0     0    0      —      0    2       ·         4.2с  
+/favorites  guest   en  деск  0     0    0      —      1    2       ·         4.2с  
+/profile    client  ru  тел   0     0    0      —      0    14      ·         3.1с  
+/profile    client  ru  деск  0     0    0      —      6    14      ·         3.1с  
+/profile    client  en  тел   0     0    0      —      0    14      ·         2.9с  
+/profile    client  en  деск  0     0    0      —      6    14      ·         2.9с  
+/profile    guest   ru  тел   0     0    0      —      0    2       ·         2.2с  
+/profile    guest   ru  деск  0     0    0      —      1    2       ·         2.2с  
+/profile    guest   en  тел   0     0    0      —      0    2       ·         2.2с  
+/profile    guest   en  деск  0     0    0      —      1    2       ·         2.2с  
+
+Итог: страниц 40 · ошибок консоли 0 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 32 · висит загрузка 0 · data-f 39
+Отчёт: qa/full-test-0930/final-mock/shots/x-client/report.json

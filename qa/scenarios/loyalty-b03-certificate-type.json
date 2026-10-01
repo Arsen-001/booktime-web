@@ -1,0 +1,31 @@
+{
+  "route": "/biz/loyalty/certificates/types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "cert-type-form-empty" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 200 },
+    { "expectVisible": "text=Введите название" },
+    { "fill": "input[placeholder*=\"Сертификат на\"]", "value": "Тестовый сертификат" },
+    { "fill": "input[value='0']", "value": "10000" },
+    { "click": "role=radio[name*=\"Однократный\"]" },
+    { "wait": 200 },
+    { "screenshot": "cert-type-form-filled" },
+    { "click": "role=radio[name=\"Некоторые услуги\"]" },
+    { "wait": 300 },
+    { "screenshot": "cert-type-form-some-services" },
+    { "click": "role=radio[name=\"Фиксированная дата для всех экземпляров\"]" },
+    { "wait": 200 },
+    { "click": "role=radio[name=\"Фиксированный срок действия с момента продажи\"]" },
+    { "wait": 200 },
+    { "screenshot": "cert-type-form-expiry" },
+    { "click": "role=checkbox[name*=\"без кода\"]" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип сертификата создан" },
+    { "screenshot": "cert-type-created" }
+  ]
+}

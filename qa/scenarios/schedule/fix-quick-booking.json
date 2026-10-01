@@ -1,0 +1,9 @@
+{ "route": "/biz/schedule/calendar", "persona": "master", "device": "phone",
+  "steps": [
+    { "wait": 1000 },
+    { "press": "Escape" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Записать клиента\"]" },
+    { "wait": 800 },
+    { "screenshot": "quick-booking" }
+  ] }

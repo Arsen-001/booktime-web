@@ -1,0 +1,26 @@
+{
+  "route": "/biz/loyalty/cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Загрузить из Excel\"]" },
+    { "wait": 200 },
+    { "fill": "textarea", "value": "+37400160001;Постоянный гость;500" },
+    { "click": "role=button[name=\"Загрузить\"]" },
+    { "wait": 500 },
+    { "click": "role=button[name=\"Закрыть\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-after-first-import" },
+    { "click": "role=button[name=\"Загрузить из Excel\"]" },
+    { "wait": 200 },
+    { "fill": "textarea", "value": "+37400160001;Постоянный гость;-100" },
+    { "click": "role=button[name=\"Загрузить\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-after-decrease-import" },
+    { "click": "role=button[name=\"Закрыть\"]" },
+    { "wait": 400 },
+    { "screenshot": "03-cards-list-after" }
+  ]
+}

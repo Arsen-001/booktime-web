@@ -1,0 +1,43 @@
+[
+  {
+    "route": "/biz/online/widget",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "role=tab[name=\"Установка\"]" },
+      { "wait": 400 },
+      { "screenshot": "install-tab" },
+      { "click": "role=button[name=\"WordPress, Joomla, Google Sites\"]" },
+      { "wait": 300 },
+      { "screenshot": "install-cms-accordion" },
+      { "click": "role=tab[name=\"Адреса и номера\"]" },
+      { "wait": 400 },
+      { "screenshot": "addresses-tab" }
+    ]
+  },
+  {
+    "route": "/biz/online/widget",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "phone-button-tab" },
+      { "click": "role=tab[name=\"Установка\"]" },
+      { "wait": 400 },
+      { "screenshot": "phone-install-tab" }
+    ]
+  },
+  {
+    "route": "/biz/online/widget",
+    "persona": "individual",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "individual-widget-button" }
+    ]
+  }
+]

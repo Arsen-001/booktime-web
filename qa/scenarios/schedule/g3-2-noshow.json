@@ -1,0 +1,16 @@
+{
+  "route": "/dev/ext/settingsHub/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-02-066\"] input[type=checkbox]:checked, [data-f=\"F-02-066\"] button[aria-checked=true]" },
+    { "click": "[data-f=\"F-02-066\"] button" },
+    { "wait": 400 },
+    { "goto": "/dev/ext/settingsHub/schedule" },
+    { "wait": 600 },
+    { "expectVisible": "[data-f=\"F-02-066\"] button[aria-checked=false]" },
+    { "screenshot": "toggled-off-persisted" }
+  ]
+}

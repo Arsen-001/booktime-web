@@ -1,0 +1,26 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const DATE='2026-10-20';
+const { page } = await open('owner', `/biz/journal?date=${DATE}`, { device: 'desktop' });
+let d = await db(page);
+const bk = d.core.bookings.find(b=>b.id==='bk_2504'); const cid = bk.clientId; console.log('bk_2504 client', cid, bk.total);
+await as(page, 'owner', `/biz/clients/${cid}`);
+const card = async () => { const t = await text(page); const i=t.indexOf('Продано'); return t.slice(i, i+110).replace(/\n/g,' | ') + ' | badge Должник: ' + t.includes('Должник'); };
+console.log('card before', await card());
+await as(page, 'owner', `/biz/journal?date=${DATE}`);
+await page.locator('[data-testid="booking-block"]', { hasText: '17:30' }).first().getByRole('button', { name: 'Статус и оплата' }).click().catch(async()=>{ await page.getByRole('button', { name: 'Статус и оплата' }).nth(1).click(); });
+await page.waitForTimeout(600);
+await page.getByRole('button', { name: 'Наличные' }).first().click(); await page.waitForTimeout(2000); console.log('toasts', await toasts(page));
+d = await db(page); console.log('bk now', d.core.bookings.find(b=>b.id==='bk_2504').status, JSON.stringify(d.areas.journal.extras['bk_2504']));
+await as(page, 'owner', `/biz/clients/${cid}`);
+console.log('card after pay', await card());
+await page.getByRole('tab', { name: 'История визитов' }).click(); await page.waitForTimeout(1200);
+const h = await text(page); console.log('history', h.slice(h.indexOf('История визитов'), h.indexOf('История визитов')+500).replace(/\n/g,' | '));
+// how many clients have negative balance per formula
+d = await db(page);
+const neg = d.core.clients.filter(c=>c.businessId==='biz_nuri').filter(c=>{ const sold = d.core.bookings.filter(b=>b.clientId===c.id && b.status==='arrived' && !b.deletedAt).reduce((s,b)=>s+b.total,0); return (d.areas.clients.profiles[c.id]?.paidAmount ?? 0) - sold < 0; });
+console.log('biz_nuri clients', d.core.clients.filter(c=>c.businessId==='biz_nuri').length, 'negative balance', neg.length);
+await as(page, 'owner', '/biz/clients');
+const lt = await text(page); console.log('Должник on list page', (lt.match(/Должник/g)||[]).length, lt.match(/\d+–\d+ из \d+/)?.[0]);
+await shot(page, 'c4-list');
+await stop();

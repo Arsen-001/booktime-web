@@ -1,0 +1,21 @@
+{
+  "route": "/biz/network/analytics",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1200 },
+    { "click": "role=tab[name=\"По локациям\"]" },
+    { "wait": 700 },
+    { "click": "text=Выгрузить в Excel" },
+    { "wait": 900 },
+    { "screenshot": "after-analytics-export" },
+    { "click": "text=Клиенты" },
+    { "wait": 700 },
+    { "click": "text=Журнал выгрузок" },
+    { "wait": 900 },
+    { "screenshot": "log-with-analytics-export" }
+  ]
+}

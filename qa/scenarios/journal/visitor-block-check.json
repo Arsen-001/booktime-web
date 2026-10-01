@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Тест Посетитель" },
+    { "wait": 400 },
+    { "click": "text=Записывает другого посетителя" },
+    { "wait": 300 },
+    { "screenshot": "reopened-visitor" }
+  ]
+}

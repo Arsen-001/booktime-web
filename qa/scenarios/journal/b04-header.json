@@ -1,0 +1,100 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "01-journal-initial" },
+      { "click": "[data-f=\"F-01-005\"]" },
+      { "wait": 300 },
+      { "screenshot": "02-favorite-toggled-on" },
+      { "click": "text=Список услуг" },
+      { "wait": 300 },
+      { "screenshot": "03-sidebar-favorite-check" },
+      { "click": "role=button[name=\"Закрыть\"]" },
+      { "wait": 200 },
+      { "click": "text=Продать" },
+      { "wait": 300 },
+      { "screenshot": "04-sell-menu" },
+      { "click": "text=Абонемент" },
+      { "wait": 300 },
+      { "screenshot": "05-sell-subscription-empty" },
+      { "goto": "/biz/journal" },
+      { "wait": 800 },
+      { "click": "[data-f=\"F-01-011\"]" },
+      { "wait": 400 },
+      { "screenshot": "06-day-summary" },
+      { "press": "Escape" },
+      { "click": "text=Добавить сотрудника" },
+      { "wait": 400 },
+      { "screenshot": "07-add-staff-modal" },
+      { "press": "Escape" },
+      { "click": "[data-f=\"F-01-017\"]" },
+      { "wait": 400 },
+      { "screenshot": "08-right-panel-open" },
+      { "click": "role=tab[name=\"Клиенты\"]" },
+      { "wait": 300 },
+      { "fill": "input[placeholder=\"Поиск по имени или телефону\"]", "value": "9" },
+      { "wait": 500 },
+      { "screenshot": "09-clients-panel-search" },
+      { "click": "role=tab[name=\"Чат\"]" },
+      { "wait": 300 },
+      { "screenshot": "10-chat-panel-no-integration" },
+      { "click": "role=button[name=\"Следующий день\"]" },
+      { "wait": 400 },
+      { "screenshot": "11-right-panel-after-day-change" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "[data-f=\"F-01-020\"] >> nth=0" },
+      { "wait": 400 },
+      { "screenshot": "12-staff-menu" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "13-master-persona-header" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "14-header-en" },
+      { "click": "[data-f=\"F-01-017\"]" },
+      { "wait": 300 },
+      { "screenshot": "15-right-panel-en" }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "16-journal-phone" }
+    ]
+  }
+]

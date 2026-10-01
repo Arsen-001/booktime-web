@@ -1,0 +1,108 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T15:30:49.430Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-112",
+      "F-06-187",
+      "F-06-194"
+    ],
+    "scenarioSteps": {
+      "ok": 2,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/memberships/lm_biz_nuri_0",
+      "url": "http://localhost:3710/biz/loyalty/memberships/lm_biz_nuri_0?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 967,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-112",
+        "F-06-187",
+        "F-06-194"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "before"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/shots/loyalty-b05-scn4/biz-loyalty-memberships-lm-biz-nuri-0__owner-nails-ru-light-phone__before.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Заморозить\"]"
+          },
+          "ok": false,
+          "ms": 8056,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/loyalty-b05-scn4/biz-loyalty-memberships-lm-biz-nuri-0__owner-nails-ru-light-phone__fail-3.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-b05-scn4/biz-loyalty-memberships-lm-biz-nuri-0__owner-nails-ru-light-phone.png",
+        "qa/shots/loyalty-b05-scn4/biz-loyalty-memberships-lm-biz-nuri-0__owner-nails-ru-light-phone__before.png",
+        "qa/shots/loyalty-b05-scn4/biz-loyalty-memberships-lm-biz-nuri-0__owner-nails-ru-light-phone__fail-3.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

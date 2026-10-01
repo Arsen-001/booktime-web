@@ -1,0 +1,11 @@
+import { start, stop, open, go, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('network', '/biz/online');
+const T = async (n=1200) => (await text(page)).slice(0, n);
+console.log((await T(900)).replace(/\n/g, ' | '));
+const links = await page.locator('main a[href^="/biz/online/links/"]').evaluateAll(a => a.map(x => x.getAttribute('href') + ' ' + x.innerText.replace(/\s+/g,' ')));
+console.log('links', links);
+await page.locator('main a[href^="/biz/online/links/"]').filter({ hasText: 'Настроить' }).first().click(); await page.waitForTimeout(2500);
+const t = await T(20000); const i = t.indexOf('Продажа абонементов'); console.log('sales block:', t.slice(i, i + 400).replace(/\n/g, ' | '));
+const d = await db(page); const biz = d.core.businesses.filter(b => /manana/i.test(b.id)).map(b => b.id + ' ' + b.name); console.log('manana biz', biz);
+await stop();

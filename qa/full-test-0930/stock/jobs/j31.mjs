@@ -1,0 +1,20 @@
+const norm = (s) => s.replace(/[  ]/g, ' ');
+export default async (t, log) => {
+  const p = t.page;
+  await t.go('owner', '/biz/stock/equipment/new');
+  await p.locator('main input').first().fill('QA Лампа UV');
+  await p.getByRole('button', { name: 'Сохранить' }).click(); await p.waitForTimeout(800);
+  log('errors on form now:', await p.evaluate(() => [...document.querySelectorAll('main [id$=-error], main [role=alert], main .text-danger')].map(e=>e.innerText).filter(Boolean)));
+  await t.shot('equipment-new-err');
+  await p.locator('main button[aria-haspopup=dialog]').first().click(); await p.waitForTimeout(500);
+  await p.locator('[role=dialog] button, [role=grid] button').filter({ hasText: /^1$/ }).first().click(); await p.waitForTimeout(300);
+  await p.getByLabel(/Обслуживание раз в/).fill('3');
+  await p.getByRole('button', { name: 'Сохранить' }).click();
+  await p.waitForURL((u) => !u.pathname.endsWith('/new'), { timeout: 120000 }).catch(()=>log('no nav'));
+  await t.settle(1000);
+  log('after save URL', p.url(), norm(await t.text()).replace(/\n+/g,' | ').slice(0, 500));
+  await t.go('owner', '/biz/stock/equipment');
+  log('EQUIP list:', norm(await t.text()).replace(/\n+/g,' | ').slice(0, 500));
+  await t.go('owner', '/biz/stock/reminders');
+  log('REMINDERS has lamp:', norm(await t.text()).match(/[^\n]*QA Лампа[^\n]*\n?[^\n]*/g));
+};

@@ -1,0 +1,17 @@
+{"route":"/biz/payroll/settings","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"text=Включить согласование и подпись"},
+   {"click":"role=button[name=\"Сохранить\"]"},
+   {"wait":800},
+   {"goto":"/biz/payroll/daily"},
+   {"wait":1500},
+   {"click":"role=button[name=\"Создать ведомость\"]"},
+   {"wait":5000},
+   {"click":"role=button[name=\"Отметить проверенным\"]"},
+   {"wait":700},
+   {"click":"role=button[name=\"Одобрить\"]"},
+   {"wait":700},
+   {"click":"role=button[name=\"Отправить сотруднику\"]"},
+   {"wait":700},
+   {"screenshot":"approval-sent-to-staff"}
+ ]}

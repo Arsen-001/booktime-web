@@ -1,0 +1,23 @@
+import { start, stop, open, as, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('client', '/book?staff=st_nuri_ani&service=sv_nuri_classic', { device: 'desktop' });
+const before = (await text(page)).match(/\d\d:\d\d/g);
+console.log('client before', before);
+await as(page, 'owner', '/biz/schedule/slots');
+const b = page.getByRole('button', { name: '15:00', exact: true }).first();
+console.log('15:00 btn', await b.count(), await b.getAttribute('aria-pressed'));
+await b.click(); await page.waitForTimeout(2500);
+const t = await text(page); console.log('counter', t.match(/День \(\d+ из \d+\)/)?.[0], 'toasts', await toasts(page));
+console.log('pressed after', await b.getAttribute('aria-pressed'), await b.getAttribute('class'));
+await reload(page);
+console.log('after reload', (await text(page)).match(/День \(\d+ из \d+\)/)?.[0]);
+const d = await db(page); console.log('rules', JSON.stringify(d.areas.schedule.slotRules).slice(0,600), JSON.stringify(d.areas.schedule.slotMode));
+await shot(page, 's1-slots-after');
+await as(page, 'client', '/book?staff=st_nuri_ani&service=sv_nuri_classic');
+const after = (await text(page)).match(/\d\d:\d\d/g);
+console.log('client after', after);
+await shot(page, 's1-client-after');
+// another staff of same location
+await as(page, 'client', '/book?staff=st_nuri_mariam&service=sv_nuri_classic');
+console.log('mariam', (await text(page)).match(/\d\d:\d\d/g));
+await stop();

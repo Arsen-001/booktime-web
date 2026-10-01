@@ -1,0 +1,14 @@
+{
+  "route": "/profile",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=button[name=\"Выйти\"]" },
+    { "wait": 500 },
+    { "screenshot": "01-after-logout" },
+    { "goto": "/profile" },
+    { "wait": 500 },
+    { "screenshot": "02-profile-guest" }
+  ]
+}

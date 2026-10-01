@@ -1,0 +1,11 @@
+[
+  {"route": "/biz/integrations", "persona": "owner", "sphere": "general", "lang": "ru", "device": "phone", "steps": [{"screenshot": "phone-overview"}]},
+  {"route": "/biz/integrations/apps/ia_2", "persona": "owner", "sphere": "general", "lang": "en", "device": "phone", "steps": [{"screenshot": "phone-app-en"}]},
+  {"route": "/biz/integrations", "persona": "network", "sphere": "general", "lang": "ru", "device": "desktop", "steps": [
+    {"click": "text=Телеграм-бот уведомлений"},
+    {"wait": 500},
+    {"click": "text=Подключить"},
+    {"wait": 500},
+    {"screenshot": "network-connect-multi-location"}
+  ]}
+]

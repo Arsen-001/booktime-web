@@ -1,0 +1,17 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=button[name=\"Изменить «Гель-лаки»\"]" },
+    { "wait": 250 },
+    { "screenshot": "01-category-form-with-goods" },
+    { "click": "text=Архивировать" },
+    { "wait": 300 },
+    { "screenshot": "02-archive-attempt-with-goods" }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T02:04:20.040Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-181"
+    ],
+    "scenarioSteps": {
+      "ok": 2,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/records",
+      "url": "http://localhost:3710/biz/records?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1944,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-181"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 513
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "records-list"
+          },
+          "ok": true,
+          "ms": 83,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-records-check/biz-records__owner-nails-ru-light-desktop__records-list.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-records-check/biz-records__owner-nails-ru-light-desktop.png",
+        "qa/shots/journal/b03-m1/m1-b03-records-check/biz-records__owner-nails-ru-light-desktop__records-list.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

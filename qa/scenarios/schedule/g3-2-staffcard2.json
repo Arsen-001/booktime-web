@@ -1,0 +1,21 @@
+{
+  "route": "/dev/ext/staffCard/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-02-081\"] input[type=checkbox]:checked" },
+    { "click": "[data-f=\"F-02-081\"] input[type=checkbox]" },
+    { "wait": 300 },
+    { "click": "[data-f=\"F-02-082\"] input[type=checkbox]" },
+    { "wait": 300 },
+    { "expectVisible": "[data-f=\"F-02-081\"] input[type=checkbox]:not(:checked)" },
+    { "expectVisible": "[data-f=\"F-02-082\"] input[type=checkbox]:checked" },
+    { "goto": "/dev/ext/staffCard/schedule" },
+    { "wait": 600 },
+    { "expectVisible": "[data-f=\"F-02-081\"] input[type=checkbox]:not(:checked)" },
+    { "expectVisible": "[data-f=\"F-02-082\"] input[type=checkbox]:checked" },
+    { "screenshot": "confirmed" }
+  ]
+}

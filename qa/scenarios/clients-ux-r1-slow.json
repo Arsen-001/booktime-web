@@ -1,0 +1,4 @@
+[
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"goto":"/biz/clients?api=slow"},{"wait":200},{"screenshot":"slow-early"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"goto":"/biz/clients?api=slow"},{"wait":200},{"screenshot":"slow-early"}]}
+]

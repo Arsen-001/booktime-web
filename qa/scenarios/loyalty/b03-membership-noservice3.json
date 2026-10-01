@@ -1,0 +1,14 @@
+{
+  "route": "/biz/loyalty/memberships/types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "[data-f=\"F-06-106 F-06-115 F-06-116 F-06-117 F-06-134\"] input", "value": "Абонемент 5 визитов" },
+    { "click": "text=Сохранить настройки" },
+    { "wait": 500 },
+    { "click": "[data-f=\"F-06-106 F-06-115 F-06-116 F-06-117 F-06-134\"] input" },
+    { "screenshot": "top-after-blocked-save" }
+  ]
+}

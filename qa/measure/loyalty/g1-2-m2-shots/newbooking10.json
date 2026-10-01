@@ -1,0 +1,541 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:25:10.828Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 34,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-001",
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-008",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-028",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-037",
+      "F-01-038",
+      "F-01-039",
+      "F-01-040",
+      "F-01-041",
+      "F-01-042",
+      "F-01-043",
+      "F-01-044",
+      "F-01-045",
+      "F-01-046",
+      "F-01-048",
+      "F-01-049",
+      "F-01-050",
+      "F-01-051",
+      "F-01-052",
+      "F-01-053",
+      "F-01-063",
+      "F-01-064",
+      "F-01-065",
+      "F-01-066",
+      "F-01-068",
+      "F-01-070",
+      "F-01-072",
+      "F-01-085",
+      "F-01-100",
+      "F-01-109",
+      "F-01-110",
+      "F-01-111",
+      "F-01-112",
+      "F-01-114",
+      "F-01-115",
+      "F-01-127",
+      "F-01-128",
+      "F-01-132",
+      "F-01-133",
+      "F-01-151",
+      "F-01-152",
+      "F-01-154",
+      "F-01-156",
+      "F-01-167",
+      "F-01-178",
+      "F-01-179",
+      "F-01-180",
+      "F-01-184",
+      "F-01-185",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 21,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1410,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Журнал",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Записи",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "График работы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лист ожидания",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Клиенты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Онлайн-запись",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Уведомления",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лояльность",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Финансы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Зарплата",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Отчёты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Услуги",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сотрудники",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Ресурсы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Склад",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сеть и филиалы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Настройки",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Быстрый старт",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Подписка",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Монеты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 34,
+      "dataF": [
+        "F-01-001",
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-008",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-037",
+        "F-01-038",
+        "F-01-039",
+        "F-01-040",
+        "F-01-041",
+        "F-01-042",
+        "F-01-043",
+        "F-01-044",
+        "F-01-045",
+        "F-01-046",
+        "F-01-048",
+        "F-01-049",
+        "F-01-050",
+        "F-01-051",
+        "F-01-052",
+        "F-01-053",
+        "F-01-063",
+        "F-01-064",
+        "F-01-065",
+        "F-01-066",
+        "F-01-068",
+        "F-01-070",
+        "F-01-072",
+        "F-01-085",
+        "F-01-100",
+        "F-01-109",
+        "F-01-110",
+        "F-01-111",
+        "F-01-112",
+        "F-01-114",
+        "F-01-115",
+        "F-01-127",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-151",
+        "F-01-152",
+        "F-01-154",
+        "F-01-156",
+        "F-01-167",
+        "F-01-178",
+        "F-01-179",
+        "F-01-180",
+        "F-01-184",
+        "F-01-185",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Новая запись\"]"
+          },
+          "ok": true,
+          "ms": 211
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Обычная запись"
+          },
+          "ok": true,
+          "ms": 178
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 6,
+          "step": {
+            "fill": "input[placeholder=\"91 234 567\"]",
+            "value": "95965289"
+          },
+          "ok": true,
+          "ms": 30
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Нелли Симонян"
+          },
+          "ok": true,
+          "ms": 392
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "text=Прошлая услуга клиента"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 12,
+          "step": {
+            "click": "role=button[name=\"Пришёл\"]"
+          },
+          "ok": true,
+          "ms": 192
+        },
+        {
+          "i": 13,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 14,
+          "step": {
+            "click": "text=Ещё поля"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 15,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 16,
+          "step": {
+            "click": "text=Выберите дату"
+          },
+          "ok": true,
+          "ms": 172
+        },
+        {
+          "i": 17,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "popover-open"
+          },
+          "ok": true,
+          "ms": 59,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/newbooking10/biz-journal__owner-nails-ru-light-desktop__popover-open.png"
+        },
+        {
+          "i": 19,
+          "step": {
+            "click": "role=gridcell >> text=\"25\""
+          },
+          "ok": true,
+          "ms": 189
+        },
+        {
+          "i": 20,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 21,
+          "step": {
+            "screenshot": "after-day-click"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/newbooking10/biz-journal__owner-nails-ru-light-desktop__after-day-click.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/newbooking10/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-2-m2-shots/newbooking10/biz-journal__owner-nails-ru-light-desktop__popover-open.png",
+        "qa/measure/loyalty/g1-2-m2-shots/newbooking10/biz-journal__owner-nails-ru-light-desktop__after-day-click.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

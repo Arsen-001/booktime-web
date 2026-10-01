@@ -1,0 +1,129 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+=== ./s1-offer.mjs
+resources entry: {"id":"wl_munp4q76lkmy72","businessId":"biz_nuri","locationId":"loc_nuri","clientName":"QA Ожидание","clientPhone":"+37491000111","serviceIds":["sv_nuri_remove"],"staffIds":[],"wishes":[],"tags":[],"createdAt":"2026-09-30T10:00"}
+freeToday button visible: true
+FREE TODAY SHEET:
+Свободно сегодня
+
+15 ч 10 мин у 3 мастеров до конца дня
+
+Ани Саргсян · 3 ч 10 мин
+12:45–14:00, 16:00–16:30, 17:15–17:45, 18:05–19:00
+Мариам Петросян · 4 ч
+11:00–11:30, 12:45–15:30, 19:15–20:00
+Ева Карапетян · 8 ч
+10:00–18:00
+
+Предложить 8 окон
+
+Каждому — одно сообщение про самое раннее подходящее окно
+
+Пока некому предложить
+
+Это время никто не ждёт: в листе ожидания пусто, подписчиков нет
+resources.waitlistNotified for entry: null
+notify log rows for QA client: 0
+journal.slotOffers: 
+offer btn: true
+FIND SLOT OFFER:
+Предложить окно
+
+10:00 · Ева Карапетян · Снятие покрытия
+
+Пока некому предложить
+
+Это время никто не ждёт: в листе ожидания пусто, подписчиков нет
+
+Назад к окнам
+entry text after: Снятие покрытия | Любое время | · Любой специалист | Активная |  | QA Ожидание |  | +374 91 000 111 |  | Создана: 30.09.2026 10:00 |  | Записать | Уведомить лист ожидания
+errors: []
+=== ./s3-actions.mjs
+FAIL package create locator.click: Timeout 30000ms exceeded.
+FAIL package add services locator.click: Timeout 30000ms exceeded.
+core keys []
+pkg stored: null
+QA Пакет on public page count: 0
+OK package in online widget
+OK package in journal service picker
+FAIL waitlist interval page.goto: Timeout 180000ms exceeded.
+FAIL waitlist book → journal prefilled locator.click: Timeout 30000ms exceeded.
+after create url http://localhost:3710/biz/resources/new
+list has QA Кресло: 0
+OK resource create
+errors: []
+=== ./s2-sweep.mjs
+s2-_biz_resources_new-owner-phone-ru | /biz/resources/new | err=0 raw= ovf=false
+   Назад Новый ресурс Основное Название (RU)* Название (EN) Описание(необязательно) Вид Выберите… Кресло Кабинет Аппарат Бокс Зал Другое Кресло Услуги Ресурс займётся сам только при записи на выбранные услуги Услуги Выберит
+s2-_biz_resources_packages-owner-phone-ru | /biz/resources/packages | err=0 raw= ovf=false
+   Пакеты Несколько услуг одной позицией: «в 4 руки», один мастер по очереди или разные мастера подряд — со скидкой на пакет Пакетов пока нет Соберите несколько услуг в одну позицию — например, «Маникюр + педикюр в 4 руки» 
+s2-_biz_resources_packages_new-owner-phone-ru | /biz/resources/packages/new | err=0 raw= ovf=false
+   Назад Новый пакет Основное Название (RU)* Название (EN) Категория Выберите категорию Маникюр Педикюр Дизайн и наращивание Маникюр Готовые примеры Необязательно — можно начать с пустого пакета и добавить услуги вручную Ма
+s2-_biz_resources_assistants-owner-phone-ru | /biz/resources/assistants | err=0 raw= ovf=false
+   Ассистенты Кто помогает мастеру в записи и как это влияет на зарплату Компенсация за ассистирование Доплачивать за ассистирование при оказании услуги Только для индивидуальных записей — в групповых событиях ассистентам н
+s2-_biz_groups-owner-phone-ru | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_groups_events_new-owner-phone-ru | /biz/groups/events/new | err=0 raw= ovf=false
+   Назад Новое событие Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое событие»), и она появится здесь
+s2-_biz_groups_settings-owner-phone-ru | /biz/groups/settings | err=0 raw= ovf=false
+   Назад Настройки групповых событий Несколько мест для одного клиента Клиент занимает бронью сразу несколько мест — за себя и близких Разрешить несколько мест в одной записи на событие Максимум мест в одной записи − 6 + Со
+s2-_biz_waitlist-owner-phone-ru | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время 2 заявки Активная 2 Срок истёк 1 Закрытая 1 SPA-педикюр 01.10.2026 · Любое время · Гаяне Оганесян, Ева Карапетян Активная Маникюр с покрытием гель-лаком 03.10.2026 · 18
+s2-_biz_groups-owner-desktop-ru-fit | /biz/groups | err=0 raw= ovf=false
+   Групповые Групповые услуги и события — тренировки, мастер-классы, онлайн-занятия Настройки групповых событий Новое событие Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое 
+s2-_biz_groups_events_new-owner-desktop-ru-fit | /biz/groups/events/new | err=0 raw= ovf=false
+   Назад Новое событие Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое событие»), и она появится здесь
+s2-_biz_groups_settings-owner-desktop-ru-fit | /biz/groups/settings | err=0 raw= ovf=false
+   Назад Настройки групповых событий Несколько мест для одного клиента Клиент занимает бронью сразу несколько мест — за себя и близких Разрешить несколько мест в одной записи на событие Максимум мест в одной записи − 6 + Со
+s2-_biz_groups-owner-phone-ru-fit | /biz/groups | err=0 raw= ovf=false
+   Групповые Групповые услуги и события — тренировки, мастер-классы, онлайн-занятия Настройки групповых событий Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое событие»), и о
+s2-_biz_groups_events_new-owner-phone-ru-fit | /biz/groups/events/new | err=0 raw= ovf=false
+   Назад Новое событие Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое событие»), и она появится здесь
+s2-_biz_groups_settings-owner-phone-ru-fit | /biz/groups/settings | err=0 raw= ovf=false
+   Назад Настройки групповых событий Несколько мест для одного клиента Клиент занимает бронью сразу несколько мест — за себя и близких Разрешить несколько мест в одной записи на событие Максимум мест в одной записи − 6 + Со
+s2-_biz_groups-master-phone-ru-fit | /biz/groups | err=0 raw= ovf=false
+   Групповые Групповые услуги и события — тренировки, мастер-классы, онлайн-занятия Пока нет ни одной групповой услуги Сделайте услугу групповой в её настройках («Тип» → «Групповое событие»), и она появится здесь 1 Выберите
+s2-_biz_resources-owner-desktop-en | /biz/resources | err=0 raw= ovf=false
+   Resources Chairs, rooms and devices — so you can't book more clients than you have room for Add resource Active 1 Archive 0 Name Type Description Services Instances Pedicure chair Chair Специальное кресло с ванночкой для
+s2-_biz_groups-owner-desktop-en | /biz/groups | err=0 raw= ovf=false
+   This industry has no group activities
+s2-_biz_waitlist-owner-desktop-en | /biz/waitlist | err=0 raw= ovf=false
+   Waiting list Clients waiting for an opening 2 requests Create request Filters Active 2 Expired 1 Closed 1 SPA pedicure 01.10.2026 · Any time · Гаяне Оганесян, Ева Карапетян Active Manicure with gel polish 03.10.2026 · 18
+s2-_biz_resources_packages-owner-desktop-en | /biz/resources/packages | err=0 raw= ovf=false
+   Packages Several services as one line item: “four hands”, one master in sequence, or different masters back to back — with a package discount No packages yet Bundle a few services into one line — e.g. “Manicure + pedicur
+s2-_biz_resources-admin-phone-ru | /biz/resources | err=0 raw= ovf=false
+   Ресурсы Кресла, кабинеты и аппараты — чтобы нельзя было записать больше клиентов, чем есть мест Действующие 1 Архив 0 Кресло педикюра Специальное кресло с ванночкой для педикюра 2 Вид Кресло Особые правила визита Если за
+s2-_biz_groups-admin-phone-ru | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_waitlist-admin-phone-ru | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время 2 заявки Активная 2 Срок истёк 1 Закрытая 1 SPA-педикюр 01.10.2026 · Любое время · Гаяне Оганесян, Ева Карапетян Активная Маникюр с покрытием гель-лаком 03.10.2026 · 18
+s2-_biz_resources-master-phone-ru | /biz/resources | err=0 raw= ovf=false
+   Ресурсы Кресла, кабинеты и аппараты — чтобы нельзя было записать больше клиентов, чем есть мест Действующие 1 Архив 0 Кресло педикюра Специальное кресло с ванночкой для педикюра 2 Вид Кресло Особые правила визита Если за
+s2-_biz_groups-master-phone-ru | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_waitlist-master-phone-ru | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время 2 заявки Активная 2 Срок истёк 1 Закрытая 1 SPA-педикюр 01.10.2026 · Любое время · Гаяне Оганесян, Ева Карапетян Активная Маникюр с покрытием гель-лаком 03.10.2026 · 18
+s2-_biz_resources-individual-phone-ru | /biz/resources | err=0 raw= ovf=false
+   Ресурсы Кресла, кабинеты и аппараты — чтобы нельзя было записать больше клиентов, чем есть мест Добавьте кресла и кабинеты, если их делят мастера Ресурс не даёт записать больше клиентов, чем есть мест или оборудования — 
+s2-_biz_groups-individual-phone-ru | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_waitlist-individual-phone-ru | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время 2 заявки Активная 2 Срок истёк 0 Закрытая 1 Маникюр с покрытием 03.10.2026 · 15:00 · Мариам Нерсесян Активная Педикюр Любое время · Любой специалист Активная
+s2-_biz_resources-owner-phone-ru-empty | /biz/resources | err=0 raw= ovf=false
+   Ресурсы Кресла, кабинеты и аппараты — чтобы нельзя было записать больше клиентов, чем есть мест Добавьте кресла и кабинеты, если их делят мастера Ресурс не даёт записать больше клиентов, чем есть мест или оборудования — 
+s2-_biz_resources_packages-owner-phone-ru-empty | /biz/resources/packages | err=0 raw= ovf=false
+   Пакеты Несколько услуг одной позицией: «в 4 руки», один мастер по очереди или разные мастера подряд — со скидкой на пакет Пакетов пока нет Соберите несколько услуг в одну позицию — например, «Маникюр + педикюр в 4 руки» 
+s2-_biz_groups-owner-phone-ru-empty | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_waitlist-owner-phone-ru-empty | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время 0 заявок Заявок пока нет Когда клиенту не хватило свободного времени, добавьте его сюда — и не потеряете, когда окно освободится Создать заявку
+s2-_biz_resources_assistants-owner-phone-ru-empty | /biz/resources/assistants | err=0 raw= ovf=false
+   Ассистенты Кто помогает мастеру в записи и как это влияет на зарплату Компенсация за ассистирование Доплачивать за ассистирование при оказании услуги Только для индивидуальных записей — в групповых событиях ассистентам н
+s2-_biz_resources-owner-desktop-ru-err | /biz/resources | err=0 raw= ovf=false
+   Ресурсы Кресла, кабинеты и аппараты — чтобы нельзя было записать больше клиентов, чем есть мест Добавить ресурс Не удалось загрузить Проверьте соединение и попробуйте ещё раз. Повторить
+s2-_biz_groups-owner-desktop-ru-err | /biz/groups | err=0 raw= ovf=false
+   В этой сфере групповых занятий нет
+s2-_biz_waitlist-owner-desktop-ru-err | /biz/waitlist | err=0 raw= ovf=false
+   Лист ожидания Клиенты, которые ждут свободное время Не удалось загрузить Проверьте соединение и попробуйте ещё раз. Повторить
+s2-_biz_resources_packages-owner-desktop-ru-err | /biz/resources/packages | err=0 raw= ovf=false
+   Пакеты Несколько услуг одной позицией: «в 4 руки», один мастер по очереди или разные мастера подряд — со скидкой на пакет Не удалось загрузить Проверьте соединение и попробуйте ещё раз. Повторить
+ALL DONE

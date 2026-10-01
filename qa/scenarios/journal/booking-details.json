@@ -1,0 +1,20 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 400 },
+    { "click": "text=История изменений" },
+    { "wait": 300 },
+    { "screenshot": "history-open" },
+    { "click": "text=Источник" },
+    { "wait": 300 },
+    { "screenshot": "source-tab" },
+    { "click": "text=Клиент" },
+    { "wait": 300 },
+    { "screenshot": "client-tab" }
+  ]
+}

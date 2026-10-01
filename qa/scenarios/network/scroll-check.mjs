@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+await page.goto('http://localhost:3710/biz/network/staff?demo=owner&sphere=nails&lang=ru&theme=light');
+await page.waitForTimeout(1200);
+const el = await page.$('a[href="/biz/network/settings/fields"]');
+const box = el ? await el.boundingBox() : null;
+console.log('Доп. поля bbox:', box);
+const visible = el ? await el.isVisible() : null;
+console.log('isVisible (playwright):', visible);
+await page.screenshot({ path: 'qa/shots/network-b01-scn/full-page.png', fullPage: true });
+await browser.close();

@@ -1,0 +1,14 @@
+{
+  "route": "/dev/ext/bookingWindow/notify",
+  "persona": "owner",
+  "sphere": "barber",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Демо: получить входящее сообщение" },
+    { "wait": 400 },
+    { "screenshot": "after-1st-incoming" },
+    { "click": "text=Демо: получить входящее сообщение" },
+    { "wait": 400 },
+    { "screenshot": "after-2nd-incoming" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "route": "/biz/stock/goods/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "fill": "input[placeholder*=\"Гель-лак розовый\"]", "value": "Гель-лак QA Тест" },
+    { "click": "text=Показывать клиентам" },
+    { "wait": 200 },
+    { "screenshot": "01-form-filled" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 800 },
+    { "screenshot": "02-after-save" },
+    { "expectVisible": "text=Ценник" }
+  ]
+}

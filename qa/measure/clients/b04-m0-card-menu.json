@@ -1,0 +1,225 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:29:54.707Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-128",
+      "F-00-129",
+      "F-00-130",
+      "F-04-001",
+      "F-04-002",
+      "F-04-003",
+      "F-04-006",
+      "F-04-007",
+      "F-04-009",
+      "F-04-010",
+      "F-04-011",
+      "F-04-012",
+      "F-04-013",
+      "F-04-014",
+      "F-04-015",
+      "F-04-016",
+      "F-04-037",
+      "F-04-066",
+      "F-04-067",
+      "F-04-068",
+      "F-04-070",
+      "F-04-071",
+      "F-04-072",
+      "F-04-073",
+      "F-04-074",
+      "F-04-135",
+      "F-04-136",
+      "F-04-137",
+      "F-04-157",
+      "F-04-165",
+      "F-04-167",
+      "F-04-179",
+      "F-04-187"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients",
+      "url": "http://localhost:3710/biz/clients?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 995,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_00kl969._.js:4878:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_1xdx8pg._.js:17:138)\n    at recalcClientLoyalty (http://localhost:3710/_next/static/chunks/src_0fq1ycy._.js:989:155)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-128",
+        "F-00-129",
+        "F-00-130",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-016",
+        "F-04-037",
+        "F-04-066",
+        "F-04-067",
+        "F-04-068",
+        "F-04-070",
+        "F-04-071",
+        "F-04-072",
+        "F-04-073",
+        "F-04-074",
+        "F-04-135",
+        "F-04-136",
+        "F-04-137",
+        "F-04-157",
+        "F-04-165",
+        "F-04-167",
+        "F-04-179",
+        "F-04-187"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "table tbody tr >> nth=0"
+          },
+          "ok": true,
+          "ms": 607
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 600
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "card-open"
+          },
+          "ok": true,
+          "ms": 34,
+          "screenshot": "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__card-open.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "[aria-label=\"Ещё\"]"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 299
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "card-menu-open"
+          },
+          "ok": true,
+          "ms": 34,
+          "screenshot": "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__card-menu-open.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Пересчитать автоправила"
+          },
+          "ok": true,
+          "ms": 184
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "after-recalc-click"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__after-recalc-click.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop.png",
+        "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__card-open.png",
+        "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__card-menu-open.png",
+        "qa/shots/clients-b04-m0-card-menu/biz-clients__owner-nails-ru-light-desktop__after-recalc-click.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

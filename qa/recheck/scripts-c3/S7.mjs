@@ -1,0 +1,16 @@
+import { start, stop, open, go, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/schedule');
+const row = () => page.locator('main tr').filter({ hasText: 'Лилит Мкртчян' }).locator('button');
+await page.getByRole('button', { name: /Следующ/ }).first().click().catch(()=>{}); await page.waitForTimeout(800);
+await row().nth(2).click(); await page.waitForTimeout(600);
+await page.locator('[role=dialog]').last().getByRole('button', { name: 'Сохранить' }).click(); await page.waitForTimeout(2000);
+console.log('toasts', await toasts(page));
+console.log('db history', JSON.stringify((await db(page)).areas.schedule.history));
+await go(page, '/biz/schedule/history'); console.log('history page:', (await text(page)).split('\n').slice(0, 12).join(' | '));
+await shot(page, 'S7-history');
+const e = page.getByText('Рабочий, 1 дн. × 1 сотр.').first(); await e.click().catch(()=>{}); await page.waitForTimeout(800);
+console.log('expanded:', (await text(page)).split('\n').slice(0, 20).join(' | '), '| dialog', await page.locator('[role=dialog]').count());
+console.log('controls', await page.locator('main button, main a').allInnerTexts());
+await shot(page, 'S7-history-expanded');
+await stop();

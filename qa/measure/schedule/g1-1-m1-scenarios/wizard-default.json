@@ -1,0 +1,16 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Редактировать правила\"]" },
+    { "wait": 400 },
+    { "screenshot": "wizard-step1" },
+    { "click": "role=button[name=\"Далее\"]" },
+    { "wait": 400 },
+    { "screenshot": "wizard-step2-default" }
+  ]
+}

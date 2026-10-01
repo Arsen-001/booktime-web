@@ -1,0 +1,24 @@
+[
+  {
+    "route": "/biz/schedule/calendar",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "expectVisible": "[data-f=\"F-02-027 F-02-035\"]" },
+      { "screenshot": "01-calendar" },
+      { "click": ":nth-match([data-f=\"F-02-027 F-02-035\"], 4) :text(\"Рабочий день\")" },
+      { "wait": 300 },
+      { "screenshot": "02b-daytype-open-day4" },
+      { "click": "[role=option]:has-text(\"Отпуск\")" },
+      { "wait": 500 },
+      { "expectText": "Рабочий день снят" },
+      { "screenshot": "03-day-cancelled-undo-toast" },
+      { "click": "text=Отменить" },
+      { "wait": 500 },
+      { "screenshot": "04-undone" }
+    ]
+  }
+]

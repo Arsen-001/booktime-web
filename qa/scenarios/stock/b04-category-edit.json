@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/biz/stock",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "css=aside button[aria-label^='Изменить'] >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "category-edit-modal" }
+    ]
+  },
+  {
+    "route": "/biz/stock/mass-edit",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "massedit-phone" }
+    ]
+  },
+  {
+    "route": "/biz/stock",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "catalog-master-header" }
+    ]
+  }
+]

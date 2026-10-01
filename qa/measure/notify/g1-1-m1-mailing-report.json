@@ -1,0 +1,333 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T06:28:02.188Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-092",
+      "F-05-093",
+      "F-05-094",
+      "F-05-095",
+      "F-05-096",
+      "F-05-097",
+      "F-05-099",
+      "F-05-110",
+      "F-05-111"
+    ],
+    "scenarioSteps": {
+      "ok": 27,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/mailings/new",
+      "url": "http://localhost:3710/biz/notifications/mailings/new?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 959,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-092",
+        "F-05-093",
+        "F-05-094",
+        "F-05-095",
+        "F-05-096",
+        "F-05-097",
+        "F-05-099",
+        "F-05-110",
+        "F-05-111"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "01-initial"
+          },
+          "ok": true,
+          "ms": 58,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__01-initial.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "expectVisible": "text=Push в брендированное приложение"
+          },
+          "ok": true,
+          "ms": 14
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "text=Подключите SMS-провайдера в каналах"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "02-sms-locked"
+          },
+          "ok": true,
+          "ms": 65,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__02-sms-locked.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "fill": "textarea",
+            "value": "Скидка 20% на маникюр в эти выходные!"
+          },
+          "ok": true,
+          "ms": 18
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "03-text-filled-push"
+          },
+          "ok": true,
+          "ms": 73,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__03-text-filled-push.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "goto": "/biz/notifications/channels/sms"
+          },
+          "ok": true,
+          "ms": 628
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 10,
+          "step": {
+            "fill": "input[placeholder=\"AGG-XXXX-XXXX\"]",
+            "value": "AGG-M1-9999"
+          },
+          "ok": true,
+          "ms": 37
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "role=button[name=\"Подключить\"]"
+          },
+          "ok": true,
+          "ms": 404
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 13,
+          "step": {
+            "expectVisible": "text=Активен"
+          },
+          "ok": true,
+          "ms": 7
+        },
+        {
+          "i": 14,
+          "step": {
+            "screenshot": "04-sms-connected"
+          },
+          "ok": true,
+          "ms": 52,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__04-sms-connected.png"
+        },
+        {
+          "i": 15,
+          "step": {
+            "goto": "/biz/notifications/mailings/new"
+          },
+          "ok": true,
+          "ms": 627
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 17,
+          "step": {
+            "click": "text=SMS"
+          },
+          "ok": true,
+          "ms": 198
+        },
+        {
+          "i": 18,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 19,
+          "step": {
+            "screenshot": "05-sms-unlocked-no-text"
+          },
+          "ok": true,
+          "ms": 68,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__05-sms-unlocked-no-text.png"
+        },
+        {
+          "i": 20,
+          "step": {
+            "fill": "textarea",
+            "value": "Скидка 20% на маникюр в эти выходные!"
+          },
+          "ok": true,
+          "ms": 8
+        },
+        {
+          "i": 21,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 22,
+          "step": {
+            "screenshot": "06-sms-text-no-legal"
+          },
+          "ok": true,
+          "ms": 75,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__06-sms-text-no-legal.png"
+        },
+        {
+          "i": 23,
+          "step": {
+            "click": "text=Отправляю рассылку по правилам платформы и закону"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 24,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 25,
+          "step": {
+            "screenshot": "07-sms-legal-checked"
+          },
+          "ok": true,
+          "ms": 57,
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__07-sms-legal-checked.png"
+        },
+        {
+          "i": 26,
+          "step": {
+            "click": "role=button[name=\"Отправить\"]"
+          },
+          "ok": true,
+          "ms": 407
+        },
+        {
+          "i": 27,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 28,
+          "step": {
+            "expectVisible": "text=Уведомления"
+          },
+          "ok": false,
+          "ms": 8074,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__fail-28.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__01-initial.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__02-sms-locked.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__03-text-filled-push.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__04-sms-connected.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__05-sms-unlocked-no-text.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__06-sms-text-no-legal.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__07-sms-legal-checked.png",
+        "qa/shots/notify-g1-1-m1/mailing/biz-notifications-mailings-new__owner-nails-ru-light-phone__fail-28.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

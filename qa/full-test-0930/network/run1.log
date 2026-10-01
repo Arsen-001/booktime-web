@@ -1,0 +1,126 @@
+===== a-settings.mjs
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+OVERVIEW: Сеть Manana Beauty | Сводка владельца по всем филиалам сети | Выручка сети сегодня | 0 ֏ | Записей сегодня | 26 | Филиалов | 2 | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Manana Beauty · Нор-Норк | Главный филиал | пр. Гая, 9/2 | 0 ֏ | 12 записей сегодня | Открыть | Manana Beauty · Шенгавит | ул. Гарегина Нжде, 30 | 0 ֏ | 14 записей сегодня | Открыть | Финансы сети | Выручка визитов по филиалам за период | Склад сети | 1 октября 2026 | Филиал	Выручка	Визиты	Средний чек	Отмены | Manana Beauty · Нор-Норк	0 ֏	0	0 ֏	1 | Manana Beauty · Шенгавит	0 ֏	0	0 ֏	2 | Итого	0 ֏	0	0 ֏	3 | Что ведёт каждый филиал сам | Журнал, склад, финансы и настройки принадлежат филиалу, а не сети | Журнал | Склад | Финан
+SETTINGS: Управление сетью | Название, филиалы и удаление сети | Филиалов в сети | 2 | Лицензия, в месяц | 24 000 ֏ | Название сети | Название сети* | Сохранить | Внимание: объединять и удалять услуги, сотрудников и товары могут только пользователи с правами на объединение. Главный филиал задаёт валюту статистики сети и баланс, с которого списывается оплата рассылок. | Локации | Скопировать данные | Добавить | Manana Beauty · Нор-Норк | ID локации: #biz_manana_nn | Главный филиал | Manana Beauty · Шенгавит | ID локации: #biz_manana_sh | Сделать главным | Лицензия по филиалам | Каждый филиал платит отдельно — неоплата одного не морозит другой | Филиал	Мастеров	В месяц | Manana Beauty · Нор-Норк	3	12 000 ֏ | Manana Beauty · Шенгавит	3	12 000 ֏ | Итого по сети		24 000 ֏ | 4000 ֏ × наибольшее из (мастеров, 2) — за каждый филиал отдельно | Изменения данных | Кто и когда менял сеть | Сеть создана | Гоар Арутюнян · 2025-08-17 11:00 | Удаление сети | Сеть можно восстановить позже по прямой ссылке | Удалить сеть
+rename toast: [ 'Название сохранено' ]
+overview title after rename: Сеть Manana Beauty QA | Сеть Manana Beauty QA
+audit:  | Кто и когда менял сеть | Название изменено · Manana Beauty QA | Гоар Арутюнян · 2026-10-01 01:50 | Сеть создана | Гоар Арутюнян · 2025-08-17 11:00 | Удаление сети | Сеть можно восстановить позже по прямой ссылке | Удалить сеть
+FAIL locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('main').getByRole('button', { name: 'Сохранить' }).first()[22m
+[2m    - locator resolved to <button disabled type="submit" data-variant="primary" class="inline-flex items-center justify-center font-medium whitespace-nowrap select-none transition-[color,background-color,border-color,box-shadow,transform,opacity] durati
+ERRORS []
+===== b-main.mjs
+USERS: Пользователи сети | У кого есть доступ к кабинету сети | Пригласить | Создать пользователя | Первый администратор — бесплатно, каждый следующий — 2000 ֏/мес. | Имя	Контакты	Доступ	Последний визит | Гоар Арутюнян | 	 | +37400140001 | 	 | Полные права | 	30.09.2026
+invite empty: Пригласить по телефону | Телефон* | +374 | Введите номер телефона полностью | Пригласить
+invite toast [ 'Приглашение отправлено' ]
+create inputs 4
+create toast [ 'Приглашение отправлено' ]
+USERS after: Пользователи сети | У кого есть доступ к кабинету сети | Пригласить | Создать пользователя | Первый администратор — бесплатно, каждый следующий — 2000 ֏/мес. | Имя	Контакты	Доступ	Последний визит | Гоар Арутюнян | 	 | +37400140001 | 	 | Полные права | 	30.09.2026 | +37477123456 | Приглашён | 	 | +37477123456 | 	 | Нет доступа | 	—
+STEP FAIL users locator.click: Timeout 30000ms exceeded.
+CLIENTS: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | 	Имя	Контакты	Продано | 	Последний визит	Класс	Филиалы | 	 | Ани Мелкумян | 	+374 00 160 001	11 000 ֏	25.09.2026	Бронза	1 | 	 | Ани Нерсесян | 	+374 77 102 458	119 000 ֏	28.09.2026	Золото	1 | 	 | Ани Петросян | 	+374 91 723 376	143 000 ֏	26.09.2026	Золото	1 | 	 | Анна Бабаян | 	+374 91 791 103	0 ֏	—	—	1 | 	 | Анна Папоян | 	+374 77 716 876	17 000 ֏	15.09.2026	Бронза	1 | 	 | Арам Товмасян | 	+374 93 339 517	63 000 ֏	15.09.2026	Серебро	1 | 	 | Армине Егиазарян | 	+37
+rows 10
+search "	" rows: 10 	 | Ани Мелкумян | 	+374 00 160 001	11 000 ֏	25.09.2026	Бронза	1
+nonsense search: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | Клиентов пока нет | Попробуйте другое слово или сбросьте фильтры. | Сбросить фильтры | Дубли и переходы в карточку клиента сети | Из любой строки операции лояльности сети (карта, акция, счёт) одним нажатием открывается карточка клиента сети — как и из строки этого спис
+first rows: [
+  '\t | Ани Мелкумян | \t+374 00 160 001\t11 000 ֏\t25.09.2026\tБронза\t1',
+  '\t | Ани Нерсесян | \t+374 77 102 458\t119 000 ֏\t28.09.2026\tЗолото\t1',
+  '\t | Ани Петросян | \t+374 91 723 376\t143 000 ֏\t26.09.2026\tЗолото\t1',
+  '\t | Анна Бабаян | \t+374 91 791 103\t0 ֏\t—\t—\t1'
+]
+filters sheet: Фильтры | Выберите… | По имени | По «Продано» | По числу визитов | По имени | Состоит в базе локаций | Manana Beauty · Нор-Норк | Manana Beauty · Шенгавит | Посещал локации | Manana Beauty · Нор-Норк | Manana Beauty · Шенгавит | Выберите… | Любой | Мужской | Женский | Неизвестно | Любой | Только онлайн клиенты | Хотя бы раз записывался онлайн | Выберите… | Любой | Золото | Серебро | Бронза | Без класса | Любой | Продано | Количество визитов | Есть записи от — до | Нет записей от — до | Выберите… | Неважно | Получал | Не получал | Неважно | Очистить фильтр | Показать
+selected text: Выбрано: 2
+sms modal: Новая рассылка | Получит сообщение: 2 | Подключите SMS-провайдера в Интеграциях главной локации «Manana Beauty · Нор-Норк», чтобы рассылка ушла | Я прочитал(а) и понимаю ответственность за нарушение действующего законодательства | Отправить
+send disabled w/o consent: true
+after send w/o consent: []
+STEP FAIL clients locator.click: Timeout 30000ms exceeded.
+FIELDS: Дополнительные поля | Свои поля записи и клиента, общие для филиалов сети | Добавить поле | Поля | Доп. параметры записи | Доп. данные клиента | Пока нет своих полей записи | Поля, которые вы создадите, появятся здесь и в окнах записи/клиента выбранных филиалов. | Добавить поле
+field empty save: Новое поле записи | Название* | Введите название | Тип | Текст | Число | Список | Дата | Дата и время | Ключ API* | Только латиница, цифры и . - _ | Пользователь может редактировать | Отображать поле в интерфейсе администратора | Всегда показывать в окне редактирования записи | Обязательное поле при
+field toast [] listed: false
+STEP FAIL fields locator.click: Timeout 30000ms exceeded.
+POSITIONS: Сетевые должности | Общие должности для филиалов сети | Добавить должность | ← Сотрудники сети | Пока нет ни одной сетевой должности | Добавить должность
+pos toast [ 'Должность сохранена' ] listed true
+STAFF: Сотрудники сети | Все сотрудники филиалов сети | Добавить сотрудника | Должности | Нерабочие дни | Расчёт зарплат | Миграция в сеть | Фильтры | Выберите… | Все должности | Владелец сети | Администратор | Стилист-парикмахер | Колорист | Косметолог | Парикмахер | Все должности | Активные | Удалённые | Все | Работающие | Уволенные | Все | Перетащите, чтобы изменить порядок в журнале | Гоар Арутюнян | Владелец сети | РД | Рузанна Даниелян | Администратор | МГ | Мэри Галстян | Администратор | Арпи Аз
+staff empty save: [ 'Введите имя' ]
+branch checkboxes 2
+staff toast [ 'Сотрудник создан' ] http://localhost:3710/biz/network/staff
+staff listed true
+in /biz/staff: true
+SERVICES: Настройки услуг | Категории и услуги всех филиалов сети | Добавить категорию | Открыть каталог филиала | Стрижки и укладки | Услуг: 2 | Окрашивание | Услуг: 3 | Сеть | Косметология | Услуг: 5 | Парикмахерский зал | Услуг: 5 | Пакеты услуг | Комплекс из 2–10 сетевых услуг | Добавить пакет | Пока нет ни одного пакета | Что закрыто у сетевой услуги в филиале | Название и категорию сетевой услуги можно поменять только на уровне сети — в филиале у неё нет кнопки удаления, а поля названия и категории 
+GOODS: Товары сети | Общий каталог и поиск по всем филиалам | Новый сетевой товар | Миграция в сеть | Архив | Остатки по сети | Добавить все товары в филиал | Салфетки косметические | SKU-00-a_nn · 290000001000 | 800 ֏ | Перчатки одноразовые | SKU-01-a_nn · 290000001001 | 1 200 ֏ | Подарочная свеча | SKU-10-a_nn · 290000001010 | 5 000 ֏ | Салфетки косметические | SKU-00-a_sh · 290000001000 | 800 ֏ | Перчатки одноразовые | SKU-01-a_sh · 290000001001 | 1 200 ֏ | Подарочная свеча | SKU-10-a_sh · 290000001
+TEL: Телефония | Подключение облачной АТС ко всей сети | Облачная телефония | Быстрее обрабатывать звонки, управлять входящими и хранить записи разговоров — по всей сети сразу. | Подключить телефонию | Что даёт подключение | Уведомления о звонках | Быстрая запись клиента | История общения | Новый модуль | Одно подключение — сразу вся сеть | Токен и маршруты подключаются один раз на всю сеть: каждый выб
+tel toast [ 'Телефония подключена' ]
+route toast [ 'Телефония подключена' ] listed false
+PLANS: Планы | План на каждый месяц для каждого филиала — сохраняется сам | Тип плана | Оборот | Клиенты | Средний чек | Филиалы по месяцам | Филиал	октябрь 2026	ноябрь 2026	декабрь 2026	январь 2027	февраль 2027	март 2027 | Manana Beauty · Нор-Норк	 | 	 | 	 | 	 | 	 | 	 | Manana Beauty · Шенгавит	 | 	 | 	 | 	 | 	 | 	
+plan persisted: 123456
+ERRORS [
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src',
+  'error: An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src'
+]
+===== c-roles.mjs
+owner /biz/network: Сеть Nuri Nail Studio | Сводка владельца по всем филиалам сети | Выручка сети сегодня | 0 ֏ | Записей сегодня | 25 | Филиалов | 1 | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Nuri Nail Studio | Главный фили errs 0
+owner /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | 	Имя	Контакты	Продано | 	Последний визит	Класс	Филиалы | 	 | Анаит Гукасян | 	+374 95 936 399	18 500 ֏	14.09.2026	Бронз errs 0
+owner /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Добавить | Nuri Nail Studio | Закрыть errs 0
+admin /biz/network: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+admin /biz/network/clients: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+admin /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Nuri Nail Studio | Закрыть errs 0
+master /biz/network: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+master /biz/network/clients: Нет прав на это действие | Попросите владельца открыть доступ. errs 0
+master /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Nuri Nail Studio | до 29.11.2026 | 0 ֏ | 25 записей сегодня | Сети | Nuri Nail Studio | Закрыть errs 0
+owner-empty /biz/network: Сеть Новый салон | Сводка владельца по всем филиалам сети | Выручка сети сегодня | 0 ֏ | Записей сегодня | 0 | Филиалов | 1 | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Новый салон | Главный филиал | ул. Аб errs 0
+owner-empty /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | Клиентов пока нет | Дубли и переходы в карточку клиента сети | Из любой строки операции лояльности сети (карта, акция,  errs 0
+owner-empty /biz/network/switch: Филиалы и сети | Переключитесь между своими филиалами и сетями | Филиалы | Добавить филиал | Своих филиалов пока нет | Сети | Добавить | Новый салон | Закрыть errs 0
+&api=error /biz/network: Не удалось загрузить | Проверьте соединение и попробуйте ещё раз. | Повторить
+&api=error /biz/network/clients: Не удалось загрузить | Проверьте соединение и попробуйте ещё раз. | Повторить
+&api=error /biz/network/settings: Управление сетью | Название, филиалы и удаление сети | Филиалов в сети | Лицензия, в месяц | Название сети | Название сети* | Сохранить | Внимание: объединять и удалять услуги, сотрудников и товары мо
+&api=slow /biz/network: Сводка владельца по всем филиалам сети | Выручка сети сегодня | Записей сегодня | Филиалов | Филиалы сети | Каждый филиал — отдельная локация со своим журналом, складом и кассой | Главный филиал | Отк
+&api=slow /biz/network/clients: Клиентская база | Клиенты всех филиалов сети в одном списке | Показать | Фильтры | Действия | Рассылка | Excel | Журнал выгрузок | 	Имя	Контакты	Продано | 	Последний визит	Класс	Филиалы | 	 | 	 | 	 | 
+&api=slow /biz/network/settings: Управление сетью | Название, филиалы и удаление сети | Филиалов в сети | Лицензия, в месяц | Название сети | Название сети* | Сохранить | Внимание: объединять и удалять услуги, сотрудников и товары мо
+settings hub network block: подписка и монеты, аккаунт — всё управление кабинетом в одном месте. | Заполните профиль компании — сейчас заполнено 83% | Компания | Бренд | Имя для клиентов, описание, логотип | Контакты | Адрес, телефоны, соцсети, мессенджеры | Галерея | До 6 фото компании | Реквизиты | Юридическая информация и банк | Мобильные приложения | Своя ссылка, значок на экран телефона, своё приложение | Подписка и монеты | Подписка | Срок действия, тариф, история оплат | Монеты | Баланс, покупка, на что тратятся | С
+phone-ru /biz/network raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/settings raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/clients raw= overflow=false small=Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку|Выбрать строку title= cyr= errs=
+phone-ru /biz/network/settings/users raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/switch raw= overflow=false small= title= cyr= errs=error: Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead. || error: Encountered a script tag while rendering React compon
+phone-ru /biz/network/analytics raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/staff raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/services raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr= errs=
+phone-ru /biz/network/records raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+phone-ru /biz/network/loyalty raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	0 ֏	0	0 ֏	1 errs=
+desktop-en /biz/network/settings raw= overflow=false small=Request deletion|Remove from network|Request deletion|Remove from network title= cyr=Нор-Норк / Шенгавит / Нор-Норк	3	12 000 ֏ errs=
+desktop-en /biz/network/clients raw= overflow=false small=Select all|Select row|Select row|Select row|Select row|Select row|Select row|Select row title= cyr=Ани Мелкумян / Ани Нерсесян / Ани Петросян errs=
+desktop-en /biz/network/settings/users raw= overflow=false small= title= cyr=Гоар Арутюнян errs=
+desktop-en /biz/network/switch raw= overflow=false small=Network settings|Delete network title= cyr=Нор-Норк / Шенгавит errs=
+desktop-en /biz/network/analytics raw= overflow=false small=How it's calculated|How it's calculated|How it's calculated|How it's calculated|How it's calculated|How it's calculated title= cyr= errs=
+desktop-en /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/staff raw= overflow=false small= title= cyr=Владелец сети / Администратор / Стилист-парикмахер errs=
+desktop-en /biz/network/services raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr=Салфетки косметические / Перчатки одноразовые / Подарочная свеча errs=
+desktop-en /biz/network/records raw= overflow=false small=Previous page|Next page title= cyr=Нор-Норк / Шенгавит / Шенгавит errs=
+desktop-en /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+desktop-en /biz/network/loyalty raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	0 ֏	0	0 ֏	1 errs=
+phone-en /biz/network/settings raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Нор-Норк	3	12 000 ֏ errs=
+phone-en /biz/network/clients raw= overflow=false small=Select row|Select row|Select row|Select row|Select row|Select row|Select row|Select row title= cyr=Ани Мелкумян / Ани Нерсесян / Ани Петросян errs=
+phone-en /biz/network/settings/users raw= overflow=false small= title= cyr=Гоар Арутюнян errs=
+phone-en /biz/network/switch raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит errs=
+phone-en /biz/network/analytics raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/telephony raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/staff raw= overflow=false small= title= cyr=Владелец сети / Администратор / Стилист-парикмахер errs=
+phone-en /biz/network/services raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/goods raw= overflow=false small=INPUT|INPUT|INPUT|INPUT|INPUT|INPUT title= cyr=Салфетки косметические / Перчатки одноразовые / Подарочная свеча errs=
+phone-en /biz/network/records raw= overflow=false small= title= cyr=Нор-Норк / Шенгавит / Шенгавит errs=
+phone-en /biz/network/settings/fields raw= overflow=false small= title= cyr= errs=
+phone-en /biz/network/loyalty raw= overflow=false small= title= cyr= errs=

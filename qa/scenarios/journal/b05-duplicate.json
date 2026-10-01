@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-f~=\"F-01-026\"]" },
+    { "wait": 500 },
+    { "click": "[data-f=\"F-01-192\"] button" },
+    { "wait": 700 },
+    { "screenshot": "after-duplicate" }
+  ]
+}

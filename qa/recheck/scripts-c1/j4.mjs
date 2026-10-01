@@ -1,0 +1,34 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('owner', '/biz/journal', { device: 'desktop' });
+// F-01-030 open existing block
+const blk = page.locator('[data-testid="booking-block"]', { hasText: 'Милена Г.' }).first();
+log('block text', (await blk.innerText()).replace(/\n/g,' | '));
+await blk.click(); await page.waitForTimeout(2000);
+const dlg = page.locator('[role=dialog]').last();
+const dt = await dlg.innerText();
+log('--- edit window head\n' + dt.slice(0, 200));
+const vals = await dlg.locator('input, select, button[role=combobox]').evaluateAll(els => els.map(e => (e.name||e.getAttribute('aria-label')||e.id||'') + '=' + (e.value ?? e.textContent)).filter(s=>!/=$/.test(s)).slice(0,20));
+log('values', vals);
+log('has Милена', /Милена/.test(dt), 'has 11:00', /11:00/.test(dt), 'has 13:00', /13:00/.test(dt), 'service', /Укрепление ногтей гелем/.test(dt));
+await page.keyboard.press('Escape'); await page.waitForTimeout(800);
+// status via hovercard
+const blk2 = page.locator('[data-f*="F-01-026"]', { hasText: 'Кристине К.' }).first();
+const inner = () => blk2.locator('[data-testid="booking-block"]'); const cls0 = await inner().getAttribute('class');
+await blk2.locator('button[title="Статус и оплата"]').click(); await page.waitForTimeout(1000);
+log('hovercard', (await page.locator('[role=dialog],[data-radix-popper-content-wrapper]').last().innerText().catch(()=>'')).slice(0,400).replace(/\n/g,' | '));
+await page.getByRole('button', { name: /^Пришёл$|^Пришел$|Клиент пришел/ }).first().click(); await page.waitForTimeout(2000);
+log('toast', await toast(page));
+await page.keyboard.press('Escape');
+const d = await db(page);
+const bk = d.core.bookings.find(b => b.staffId==='st_nuri_mariam' && b.start==='2026-09-25T11:00');
+log('db status', bk?.status);
+const cls1 = await inner().getAttribute('class');
+log('block class changed without reload', cls0 !== cls1);
+await page.reload(); await settle(page);
+const blk3 = page.locator('[data-f*="F-01-026"]', { hasText: 'Кристине К.' }).first();
+const cls2 = await blk3.locator('[data-testid="booking-block"]').getAttribute('class'); log('class after reload differs from initial', cls2 !== cls0, '\n', cls0, '\n', cls1, '\n', cls2);
+log('ERR', page.errors.slice(0,3));
+await stop();

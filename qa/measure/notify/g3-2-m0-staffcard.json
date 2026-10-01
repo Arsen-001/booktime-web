@@ -1,0 +1,180 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T16:06:44.826Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-055",
+      "F-05-056",
+      "F-05-057",
+      "F-05-060",
+      "F-05-063"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ext/staffCard/notify",
+      "url": "http://localhost:3710/dev/ext/staffCard/notify?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1556,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-055",
+        "F-05-056",
+        "F-05-057",
+        "F-05-060",
+        "F-05-063"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "01-initial"
+          },
+          "ok": true,
+          "ms": 47,
+          "screenshot": "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__01-initial.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "expectVisible": "[data-f~=\"F-05-055\"]"
+          },
+          "ok": true,
+          "ms": 17
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "[data-f~=\"F-05-056\"]"
+          },
+          "ok": true,
+          "ms": 2
+        },
+        {
+          "i": 4,
+          "step": {
+            "expectVisible": "[data-f~=\"F-05-063\"]"
+          },
+          "ok": true,
+          "ms": 1
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "text=На основе прав доступа"
+          },
+          "ok": true,
+          "ms": 186
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "02-view-select-open"
+          },
+          "ok": true,
+          "ms": 56,
+          "screenshot": "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__02-view-select-open.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Для сотрудника"
+          },
+          "ok": true,
+          "ms": 185
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "03-view-for-staff"
+          },
+          "ok": true,
+          "ms": 53,
+          "screenshot": "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__03-view-for-staff.png"
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "table >> role=checkbox >> nth=0"
+          },
+          "ok": false,
+          "ms": 8050,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__fail-11.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop.png",
+        "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__01-initial.png",
+        "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__02-view-select-open.png",
+        "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__03-view-for-staff.png",
+        "qa/shots/notify-g3-2-m0/staffcard/dev-ext-staffCard-notify__owner-nails-ru-light-desktop__fail-11.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

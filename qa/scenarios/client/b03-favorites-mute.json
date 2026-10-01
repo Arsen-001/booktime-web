@@ -1,0 +1,12 @@
+{
+  "route": "/favorites",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "01-favorites" },
+    { "click": "text=Мои мастера" },
+    { "wait": 400 },
+    { "screenshot": "02-my-masters-tab" }
+  ]
+}

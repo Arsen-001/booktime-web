@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-settings" },
+    { "expectVisible": "[data-f=\"F-01-221\"]" },
+    { "screenshot": "02-hourformat" },
+    { "expectVisible": "[data-f=\"F-01-059\"]" },
+    { "screenshot": "03-assistants-setting" }
+  ]
+}

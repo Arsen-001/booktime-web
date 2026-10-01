@@ -1,0 +1,34 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Нелли Симонян Аветисян"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "a:has-text(\"Открыть запись\") >> nth=0"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "role=tab[name=\"Лояльность\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "loyalty-tab"
+      }
+    ]
+  }
+]

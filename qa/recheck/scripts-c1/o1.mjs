@@ -1,0 +1,11 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+await start();
+const { page } = await open('owner', '/biz/online', { device: 'desktop' });
+log((await text(page)).slice(0, 2500));
+await shot(page, 'o1-online', true);
+const d = await db(page);
+log('online area keys', Object.keys(d.areas.online));
+log(JSON.stringify(d.areas.online.links?.filter?.(l=>l.businessId==='biz_nuri')).slice(0,1500));
+log('ERR', page.errors.slice(0,3));
+await stop();

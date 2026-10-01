@@ -1,0 +1,16 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "client",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "expectVisible": "[data-f=\"F-00-004 F-00-007 F-00-031 F-00-108 F-00-092\"]" },
+    { "click": "role=radio >> nth=0" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "expectVisible": "role=button[name=\"Подтвердить запись\"]" },
+    { "screenshot": "book-logged-in" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "expectText": "Запись создана" }
+  ]
+}

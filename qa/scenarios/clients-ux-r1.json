@@ -1,0 +1,362 @@
+[
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "text=Ани Мелкумян"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "panel"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Добавить клиента\"] >> nth=0"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "add-open"
+   },
+   {
+    "click": "role=button[name=\"Добавить\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "add-errors"
+   },
+   {
+    "fill": "input[placeholder=\"Как зовут клиента\"]",
+    "value": "Лилит Арутюнян"
+   },
+   {
+    "fill": "input[type=tel]",
+    "value": "91234567"
+   },
+   {
+    "click": "role=button[name=\"Добавить\"]"
+   },
+   {
+    "wait": 900
+   },
+   {
+    "screenshot": "add-saved"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Фильтры\"]"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "filters"
+   },
+   {
+    "click": "text=По визитам"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "filters-visits"
+   },
+   {
+    "click": "text=По клиентам"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "filters-clients"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Колонки\"]"
+   },
+   {
+    "wait": 500
+   },
+   {
+    "screenshot": "columns"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "fill": "input[placeholder^=\"Поиск (по\"]",
+    "value": "zzzz"
+   },
+   {
+    "click": "role=button[name=\"Найти\"]"
+   },
+   {
+    "wait": 500
+   },
+   {
+    "screenshot": "empty-search"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "phone",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "text=Лиды из чата (настройка)"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "chatleads"
+   },
+   {
+    "click": "role=button[name=\"Действия\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "actions"
+   },
+   {
+    "click": "role=button[name=\"Операции с Excel\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "excel"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "text=Ани Мелкумян"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "panel"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Добавить клиента\"] >> nth=0"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "add-open"
+   },
+   {
+    "click": "role=button[name=\"Добавить\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "add-errors"
+   },
+   {
+    "fill": "input[placeholder=\"Как зовут клиента\"]",
+    "value": "Лилит Арутюнян"
+   },
+   {
+    "fill": "input[type=tel]",
+    "value": "91234567"
+   },
+   {
+    "click": "role=button[name=\"Добавить\"]"
+   },
+   {
+    "wait": 900
+   },
+   {
+    "screenshot": "add-saved"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Фильтры\"]"
+   },
+   {
+    "wait": 600
+   },
+   {
+    "screenshot": "filters"
+   },
+   {
+    "click": "text=По визитам"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "filters-visits"
+   },
+   {
+    "click": "text=По клиентам"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "filters-clients"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "role=button[name=\"Колонки\"]"
+   },
+   {
+    "wait": 500
+   },
+   {
+    "screenshot": "columns"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "fill": "input[placeholder^=\"Поиск (по\"]",
+    "value": "zzzz"
+   },
+   {
+    "click": "role=button[name=\"Найти\"]"
+   },
+   {
+    "wait": 500
+   },
+   {
+    "screenshot": "empty-search"
+   }
+  ]
+ },
+ {
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+   {
+    "wait": 800
+   },
+   {
+    "click": "text=Лиды из чата (настройка)"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "chatleads"
+   },
+   {
+    "click": "role=button[name=\"Действия\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "actions"
+   },
+   {
+    "click": "role=button[name=\"Операции с Excel\"]"
+   },
+   {
+    "wait": 400
+   },
+   {
+    "screenshot": "excel"
+   }
+  ]
+ }
+]

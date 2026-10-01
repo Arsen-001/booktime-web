@@ -1,0 +1,65 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# замеры и дев-сервер
+qa/shots/
+.dev.log
+.dev.log.1
+.dev-warmup.log
+test-results/
+playwright-report/
+
+# снимок localStorage старой демо-базы (4 МБ) для qa/old-db-sweep.mjs
+qa/old-db/
+.artifacts/
+
+# сессии агентов (cookie входа) — не в git
+qa/**/sessions*.json
+qa/**/*session*.json
+
+# не для публичного репозитория (02.10.2026): скриншоты проверок, дампы баз и логи остаются на диске
+.next-dev-*.log
+qa/**/*.png
+qa/**/*.jpg
+qa/**/*.webm
+qa/**/*.sql
+*.sql.gz

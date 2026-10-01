@@ -1,0 +1,213 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T04:55:26.239Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-078",
+      "F-00-081",
+      "F-03-023",
+      "F-03-024",
+      "F-03-065",
+      "F-03-081",
+      "F-03-082",
+      "F-03-084",
+      "F-03-112"
+    ],
+    "scenarioSteps": {
+      "ok": 15,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/b/nuri-nail-studio/book",
+      "url": "http://localhost:3710/b/nuri-nail-studio/book?demo=client&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 695,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-078",
+        "F-00-081",
+        "F-03-023",
+        "F-03-024",
+        "F-03-065",
+        "F-03-081",
+        "F-03-082",
+        "F-03-084",
+        "F-03-112"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 804
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Индивидуальная запись"
+          },
+          "ok": true,
+          "ms": 229
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 504
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "text=Ани Саргсян"
+          },
+          "ok": true,
+          "ms": 186
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=Понятно"
+          },
+          "ok": true,
+          "ms": 188
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Продолжить"
+          },
+          "ok": true,
+          "ms": 201
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "text=Комплекс: Маникюр классический"
+          },
+          "ok": true,
+          "ms": 179
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 12,
+          "step": {
+            "screenshot": "package-selected"
+          },
+          "ok": true,
+          "ms": 22,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/b-nuri-nail-studio-book__client-nails-ru-light-desktop__package-selected.png"
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "text=Продолжить"
+          },
+          "ok": true,
+          "ms": 409
+        },
+        {
+          "i": 14,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 15,
+          "step": {
+            "screenshot": "package-next-step"
+          },
+          "ok": true,
+          "ms": 41,
+          "screenshot": "qa/measure/schedule/g1-1-m2-scenarios/b-nuri-nail-studio-book__client-nails-ru-light-desktop__package-next-step.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-1-m2-scenarios/b-nuri-nail-studio-book__client-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/b-nuri-nail-studio-book__client-nails-ru-light-desktop__package-selected.png",
+        "qa/measure/schedule/g1-1-m2-scenarios/b-nuri-nail-studio-book__client-nails-ru-light-desktop__package-next-step.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

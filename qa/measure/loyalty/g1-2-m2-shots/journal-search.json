@@ -1,0 +1,353 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:18:43.014Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 34,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-001",
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-005",
+      "F-01-008",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-028",
+      "F-01-031",
+      "F-01-032",
+      "F-01-034",
+      "F-01-051",
+      "F-01-052",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-128",
+      "F-01-132",
+      "F-01-133",
+      "F-01-151",
+      "F-01-152",
+      "F-01-154",
+      "F-01-156",
+      "F-01-167",
+      "F-01-178",
+      "F-01-184",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1393,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Журнал",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Записи",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "График работы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лист ожидания",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Клиенты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Онлайн-запись",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Уведомления",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Лояльность",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Финансы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Зарплата",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Отчёты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Услуги",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сотрудники",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Ресурсы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Склад",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Сеть и филиалы",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Настройки",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Быстрый старт",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Подписка",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "a.group/n.relative.flex",
+          "text": "Монеты",
+          "w": 20,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 34,
+      "dataF": [
+        "F-01-001",
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-005",
+        "F-01-008",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-031",
+        "F-01-032",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-128",
+        "F-01-132",
+        "F-01-133",
+        "F-01-151",
+        "F-01-152",
+        "F-01-154",
+        "F-01-156",
+        "F-01-167",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "input[placeholder=\"Поиск по клиентам, записям, услугам\"]"
+          },
+          "ok": true,
+          "ms": 219
+        },
+        {
+          "i": 3,
+          "step": {
+            "fill": "input[placeholder=\"Поиск по клиентам, записям, услугам\"]",
+            "value": "Нелли Симонян"
+          },
+          "ok": true,
+          "ms": 10
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "search-results"
+          },
+          "ok": true,
+          "ms": 71,
+          "screenshot": "qa/measure/loyalty/g1-2-m2-shots/journal-search/biz-journal__owner-nails-ru-light-desktop__search-results.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-2-m2-shots/journal-search/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-2-m2-shots/journal-search/biz-journal__owner-nails-ru-light-desktop__search-results.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

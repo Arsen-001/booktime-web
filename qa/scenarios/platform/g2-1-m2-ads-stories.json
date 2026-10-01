@@ -1,0 +1,14 @@
+{
+  "route": "/platform/ads",
+  "persona": "platform",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=tab[name=\"Сторис\"]" },
+    { "wait": 300 },
+    { "screenshot": "01-stories-tab" },
+    { "expectVisible": "[data-f=\"F-00-162\"]" },
+    { "click": "[data-f=\"F-00-162\"] >> nth=0" },
+    { "screenshot": "02-story-stats" }
+  ]
+}

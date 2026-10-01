@@ -1,0 +1,17 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=+ Добавить" },
+      { "wait": 300 },
+      { "screenshot": "add-modal-open" },
+      { "click": "role=textbox >> nth=0" },
+      { "wait": 150 },
+      { "screenshot": "date-range-open" }
+    ]
+  }
+]

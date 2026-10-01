@@ -1,0 +1,22 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "[data-testid=\"booking-block\"]:has-text(\"13:00\")"},
+    {"wait": 500},
+    {"click": "role=tab[name=\"Оплата\"]"},
+    {"wait": 400},
+    {"click": "[aria-label=\"Удалить\"]"},
+    {"wait": 400},
+    {"screenshot": "01-confirm-dialog"},
+    {"click": "role=button[name=\"Удалить\"]"},
+    {"wait": 700},
+    {"screenshot": "02-after-remove"},
+    {"click": "role=tab[name=\"Запись\"]"},
+    {"wait": 400},
+    {"screenshot": "03-record-tab-after-remove"}
+  ]
+}

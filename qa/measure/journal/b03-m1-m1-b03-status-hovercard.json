@@ -1,0 +1,228 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T02:00:11.431Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 6,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-009",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-018",
+      "F-01-019",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-034",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal?date=2026-10-20",
+      "url": "http://localhost:3710/biz/journal?date=2026-10-20&demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 14083,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "17:30–17:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "16:30–16:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 6,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=button[name=\"Статус и оплата\"] >> nth=0"
+          },
+          "ok": true,
+          "ms": 323
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "hovercard-open"
+          },
+          "ok": true,
+          "ms": 61,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-status-hovercard/biz-journal__owner-nails-ru-light-desktop__hovercard-open.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Пришёл\"] >> nth=0"
+          },
+          "ok": true,
+          "ms": 419
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 6,
+          "step": {
+            "expectText": "Статус изменён"
+          },
+          "ok": true,
+          "ms": 6
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "hovercard-status-changed-toast"
+          },
+          "ok": true,
+          "ms": 44,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-status-hovercard/biz-journal__owner-nails-ru-light-desktop__hovercard-status-changed-toast.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-status-hovercard/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/shots/journal/b03-m1/m1-b03-status-hovercard/biz-journal__owner-nails-ru-light-desktop__hovercard-open.png",
+        "qa/shots/journal/b03-m1/m1-b03-status-hovercard/biz-journal__owner-nails-ru-light-desktop__hovercard-status-changed-toast.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

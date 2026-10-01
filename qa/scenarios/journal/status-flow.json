@@ -1,0 +1,22 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "general",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "text=Укрепление ногтей гелем" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Пришёл\"]" },
+    { "wait": 200 },
+    { "screenshot": "03-status-came-selected" },
+    { "click": "role=button[name=\"Сохранить изменения\"]" },
+    { "wait": 500 },
+    { "screenshot": "04-after-save-toast" },
+    { "click": "[data-f*=\"F-01-110\"]" },
+    { "wait": 300 },
+    { "screenshot": "05-reopened-after-status" }
+  ]
+}

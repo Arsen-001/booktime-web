@@ -1,0 +1,23 @@
+{
+  "route": "/biz/finance/policy",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Сумма" },
+    { "fill": "input[type=number] >> nth=1", "value": "0" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "screenshot": "01-zero-deposit" },
+    { "fill": "input[type=number] >> nth=1", "value": "20" },
+    { "click": "text=% от визита" },
+    { "click": "text=Зачислять депозит на баланс клиента при отмене" },
+    { "wait": 200 },
+    { "fill": "input[type=number][max=\"72\"] >> nth=0", "value": "100" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-window-over-72" }
+  ]
+}

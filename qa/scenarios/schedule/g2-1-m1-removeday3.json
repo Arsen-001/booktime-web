@@ -1,0 +1,14 @@
+[
+  { "route": "/dev/ext/staffCard/schedule", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "button:has-text(\"Убрать из графика\")" },
+      { "wait": 300 },
+      { "click": "button:has-text(\"Всё равно убрать\")" },
+      { "wait": 300 },
+      { "screenshot": "toast-visible" },
+      { "expectVisible": "text=Отменить" },
+      { "wait": 4900 },
+      { "screenshot": "toast-should-be-gone" }
+    ] }
+]

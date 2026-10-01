@@ -1,0 +1,60 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "text=Редактировать правила" },
+      { "wait": 300 },
+      { "expectVisible": "text=Как показывать время клиентам" },
+      { "screenshot": "01-step1-density" },
+      { "click": "text=Динамичный" },
+      { "wait": 200 },
+      { "screenshot": "02-dynamic-selected" },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "03-step2-dynamic" },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "04-step3-dynamic-lead" },
+      { "click": "text=Завершить настройку" },
+      { "wait": 300 },
+      { "screenshot": "05-finish-summary" }
+    ]
+  },
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "text=Редактировать правила" },
+      { "wait": 300 },
+      { "click": "text=Фиксированный" },
+      { "wait": 200 },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "06-fixed-step2" },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "07-fixed-step3" },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "08-fixed-step4" },
+      { "click": "text=Далее" },
+      { "wait": 200 },
+      { "screenshot": "09-fixed-step5" },
+      { "click": "text=Назад" },
+      { "wait": 200 },
+      { "screenshot": "10-fixed-back-to-step4" },
+      { "click": "role=button[name=\"×\"]" },
+      { "wait": 300 },
+      { "screenshot": "11-closed-via-x" }
+    ]
+  }
+]

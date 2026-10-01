@@ -1,0 +1,14 @@
+{
+  "route": "/biz/stock/archive",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 300 },
+    { "click": "role=tab[name=\"Категории\"]" },
+    { "wait": 300 },
+    { "expectText": "В архиве нет категорий" },
+    { "screenshot": "archive-categories-tab-2" }
+  ]
+}

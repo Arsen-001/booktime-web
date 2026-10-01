@@ -1,0 +1,7 @@
+{ "route": "/biz/schedule", "persona": "owner", "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "div.sm\\:hidden > div:nth-child(1) .grid button:nth-child(2)" },
+    { "wait": 700 },
+    { "screenshot": "panel-phone" }
+  ] }

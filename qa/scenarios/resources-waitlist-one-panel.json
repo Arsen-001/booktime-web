@@ -1,0 +1,212 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "click": "role=button[name=\"Ещё\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "role=dialog >> role=button[name=\"Лист ожидания\"] >> nth=0"
+      },
+      {
+        "wait": 2000
+      },
+      {
+        "screenshot": "journal-panel-ru-desktop"
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] >> role=button[name=\"Показать все заявки\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "journal-panel-expanded-ru-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "click": "role=button[name=\"Ещё\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "role=dialog >> role=button[name=\"Лист ожидания\"] >> nth=0"
+      },
+      {
+        "wait": 2000
+      },
+      {
+        "screenshot": "journal-panel-ru-phone"
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] >> role=button[name=\"Показать все заявки\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "journal-panel-expanded-ru-phone"
+      }
+    ]
+  },
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "click": "role=button[name=\"Создать заявку\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "screenshot": "page-form-ru-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "click": "role=button[name=\"More\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "role=dialog >> role=button[name=\"Waitlist\"] >> nth=0"
+      },
+      {
+        "wait": 2000
+      },
+      {
+        "screenshot": "journal-panel-en-desktop"
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] >> role=button[name=\"Show all requests\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "journal-panel-expanded-en-desktop"
+      }
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "phone",
+    "steps": [
+      {
+        "wait": 2500
+      },
+      {
+        "click": "role=button[name=\"More\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "role=dialog >> role=button[name=\"Waitlist\"] >> nth=0"
+      },
+      {
+        "wait": 2000
+      },
+      {
+        "screenshot": "journal-panel-en-phone"
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] >> role=button[name=\"Show all requests\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "[data-ext=\"journalWaitlist:resources\"] li[data-f~=\"F-16-159\"] button >> nth=0"
+      },
+      {
+        "wait": 600
+      },
+      {
+        "screenshot": "journal-panel-expanded-en-phone"
+      }
+    ]
+  },
+  {
+    "route": "/biz/waitlist",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 1500
+      },
+      {
+        "click": "role=button[name=\"Create request\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "screenshot": "page-form-en-desktop"
+      }
+    ]
+  }
+]

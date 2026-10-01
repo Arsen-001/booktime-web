@@ -1,0 +1,14 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "[data-testid=\"booking-block\"]:has-text(\"13:00\")"},
+    {"wait": 500},
+    {"click": "role=tab[name=\"Оплата\"]"},
+    {"wait": 2000},
+    {"screenshot": "01-status-after-reopen"}
+  ]
+}

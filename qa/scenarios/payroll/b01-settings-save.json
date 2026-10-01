@@ -1,0 +1,16 @@
+{
+  "route": "/biz/payroll/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Дата поступления средств на счёт" },
+    { "wait": 200 },
+    { "screenshot": "01-changed" },
+    { "click": "text=Сохранить" },
+    { "wait": 500 },
+    { "screenshot": "02-after-save" }
+  ]
+}

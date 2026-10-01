@@ -1,0 +1,16 @@
+{
+  "route": "/biz/stock/operations/new/write-off",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "01-empty" },
+    { "click": "text=Списать просроченное" },
+    { "wait": 300 },
+    { "screenshot": "02-expired-filled" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 800 },
+    { "screenshot": "03-after-save" }
+  ]
+}

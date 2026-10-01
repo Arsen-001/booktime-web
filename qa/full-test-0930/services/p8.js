@@ -1,0 +1,10 @@
+const page = state.pl;
+await L.go(page, '/platform/demand'); await page.waitForTimeout(1000);
+await page.getByRole('button', { name: 'Картинка для соцсетей' }).first().click(); await page.waitForTimeout(1500);
+log('IMG SHEET:', (await page.locator('[role=dialog]').last().innerText()).slice(0, 800));
+await L.shot(page, 'platform', 'd01-image');
+await page.keyboard.press('Escape'); await page.waitForTimeout(500);
+await page.getByRole('button', { name: 'Наградить' }).first().click(); await page.waitForTimeout(1200);
+const dl = page.locator('[role=dialog],[role=alertdialog]').last();
+log('AWARD:', (await dl.innerText().catch(()=>'no dialog')).slice(0, 800));
+await L.shot(page, 'platform', 'd02-award');

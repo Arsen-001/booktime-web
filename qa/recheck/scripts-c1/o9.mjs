@@ -1,0 +1,28 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('owner', '/biz/online', { device: 'desktop' });
+await page.getByRole('button', { name: 'Новая ссылка' }).click(); await page.waitForTimeout(1000);
+let dlg = page.locator('[role=dialog]').last();
+await dlg.getByLabel(/Название ссылки/).fill('Удаляемая'); await dlg.getByRole('button', { name: 'Создать' }).click(); await page.waitForTimeout(2000);
+const d = await db(page); const l = d.areas.online.links.find(x=>x.name==='Удаляемая');
+log('created', l?.formId);
+// find menu buttons per card
+const cards = page.locator('text=Удаляемая').locator('xpath=ancestor::*[.//button][1]');
+const btns = await page.getByRole('button').evaluateAll(bs => bs.map(b => (b.getAttribute('aria-label')||b.textContent).trim()).filter(Boolean));
+log('buttons', btns);
+log('main delete disabled', await page.getByRole('button', { name: 'Основную ссылку нельзя удалить' }).isDisabled());
+await page.getByRole('button', { name: 'Удалить ссылку' }).click(); await page.waitForTimeout(800);
+log('confirm', (await page.locator('[role=dialog],[role=alertdialog]').last().innerText()).replace(/\n/g,' | '));
+await page.locator('[role=dialog],[role=alertdialog]').last().getByRole('button', { name: /Удалить/ }).last().click(); await page.waitForTimeout(1500);
+log('toast', await toast(page));
+await page.reload(); await settle(page);
+log('still listed after reload', /Удаляемая/.test(await text(page)));
+await go(page, '/b/nuri-nail-studio/f/' + l.formId + '?demo=guest');
+log('deleted link page', (await text(page)).slice(0,200).replace(/\n/g,' | '));
+const { page: m } = await open('master', '/biz/online', { device: 'desktop' });
+log('master sees', (await text(m)).slice(0,300).replace(/\n/g,' | '));
+await shot(page, 'o9-list');
+log('ERR', page.errors.slice(0,3));
+await stop();

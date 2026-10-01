@@ -1,0 +1,22 @@
+{
+  "route": "/biz/loyalty/cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "role=button[name=\"Загрузить из Excel\"]"},
+    {"wait": 300},
+    {"fill": "textarea", "value": "+374 95 798 826\tПостоянный гость\t-100\n+374 00 000 111\tПостоянный гость\t500"},
+    {"screenshot": "import-before-run"},
+    {"click": "role=button[name=\"Загрузить\"]"},
+    {"wait": 800},
+    {"screenshot": "import-results"},
+    {"click": "role=button[name=\"Закрыть\"]"},
+    {"wait": 300},
+    {"fill": "input[placeholder=\"Телефон или номер карты\"]", "value": "798 826"},
+    {"wait": 500},
+    {"screenshot": "after-search-known"}
+  ]
+}

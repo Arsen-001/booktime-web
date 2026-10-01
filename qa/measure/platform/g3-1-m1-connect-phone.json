@@ -1,0 +1,149 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T00:02:43.260Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-176"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1228,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=button[name=\"Начать подключение\"]"
+          },
+          "ok": true,
+          "ms": 614
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "step1"
+          },
+          "ok": true,
+          "ms": 78,
+          "screenshot": "qa/measure/platform/g3-1-m1-connect-phone/platform-connect__platform-nails-ru-light-phone__step1.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=combobox[name=\"Сфера\"]"
+          },
+          "ok": true,
+          "ms": 201
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=Маникюр"
+          },
+          "ok": true,
+          "ms": 194
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 219
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "step2"
+          },
+          "ok": true,
+          "ms": 64,
+          "screenshot": "qa/measure/platform/g3-1-m1-connect-phone/platform-connect__platform-nails-ru-light-phone__step2.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/g3-1-m1-connect-phone/platform-connect__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/g3-1-m1-connect-phone/platform-connect__platform-nails-ru-light-phone__step1.png",
+        "qa/measure/platform/g3-1-m1-connect-phone/platform-connect__platform-nails-ru-light-phone__step2.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

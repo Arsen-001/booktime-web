@@ -1,0 +1,118 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T20:49:00.099Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-183"
+    ],
+    "scenarioSteps": {
+      "ok": 4,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/businesses",
+      "url": "http://localhost:3710/platform/businesses?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 828,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-183"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Nuri Nail Studio"
+          },
+          "ok": true,
+          "ms": 233
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "card"
+          },
+          "ok": true,
+          "ms": 48,
+          "screenshot": "qa/measure/platform/shots-m0/biz-card/platform-businesses__platform-nails-ru-light-desktop__card.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "text=Выгрузка"
+          },
+          "ok": false,
+          "ms": 8053,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/measure/platform/shots-m0/biz-card/platform-businesses__platform-nails-ru-light-desktop__fail-5.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/shots-m0/biz-card/platform-businesses__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/shots-m0/biz-card/platform-businesses__platform-nails-ru-light-desktop__card.png",
+        "qa/measure/platform/shots-m0/biz-card/platform-businesses__platform-nails-ru-light-desktop__fail-5.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

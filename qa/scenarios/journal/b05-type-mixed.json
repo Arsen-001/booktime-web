@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal/settings",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Смешанная запись" },
+    { "wait": 300 },
+    { "click": "button:has-text(\"Сохранить\")" },
+    { "wait": 500 },
+    { "goto": "/biz/journal" },
+    { "wait": 800 },
+    { "click": "text=09:00 >> xpath=following::div[1]" },
+    { "wait": 500 },
+    { "screenshot": "mixed-click-empty" }
+  ]
+}

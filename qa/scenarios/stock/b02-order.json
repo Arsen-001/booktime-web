@@ -1,0 +1,14 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Гель-лак «Красный классик»" },
+    { "wait": 500 },
+    { "screenshot": "01-good-detail" },
+    { "fill": "input[type=number] >> nth=3", "value": "999" },
+    { "screenshot": "02-critical-filled" }
+  ]
+}

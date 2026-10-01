@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/promotions/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "fill": "input[placeholder='Введите название акции']", "value": "Тест дат" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 500 },
+    { "screenshot": "01-step5" }
+  ]
+}

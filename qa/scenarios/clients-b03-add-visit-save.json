@@ -1,0 +1,21 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Добавить визит\"]" },
+    { "wait": 300 },
+    { "click": "[id^=field-][id*=staff], button:has-text(\"Выберите мастера\")" },
+    { "wait": 200 },
+    { "screenshot": "staff-open" },
+    { "press": "Escape" },
+    { "fill": "input[placeholder=\"Название услуги\"]", "value": "Маникюр" },
+    { "fill": "input[placeholder=\"0\"]", "value": "5000" },
+    { "screenshot": "before-save" },
+    { "click": "role=button[name=\"Сохранить визит\"]" },
+    { "wait": 600 },
+    { "screenshot": "after-save" }
+  ]
+}

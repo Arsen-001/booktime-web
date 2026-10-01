@@ -1,0 +1,321 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T07:58:50.658Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-05-068",
+      "F-05-092",
+      "F-05-093",
+      "F-05-094",
+      "F-05-096",
+      "F-05-097",
+      "F-05-098",
+      "F-05-099",
+      "F-05-110",
+      "F-05-118"
+    ],
+    "scenarioSteps": {
+      "ok": 27,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/notifications/channels/sms",
+      "url": "http://localhost:3710/biz/notifications/channels/sms?demo=network&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 760,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-05-068",
+        "F-05-092",
+        "F-05-093",
+        "F-05-094",
+        "F-05-096",
+        "F-05-097",
+        "F-05-098",
+        "F-05-099",
+        "F-05-110",
+        "F-05-118"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "channels-before"
+          },
+          "ok": true,
+          "ms": 29,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__channels-before.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "fill": "input[placeholder=\"AGG-XXXX-XXXX\"]",
+            "value": "AGG-TEST-9999"
+          },
+          "ok": true,
+          "ms": 25
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Подключить\"]"
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "channels-after-connect"
+          },
+          "ok": true,
+          "ms": 36,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__channels-after-connect.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "goto": "/biz/notifications/mailings/new"
+          },
+          "ok": true,
+          "ms": 641
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=radio[name=/SMS/i]"
+          },
+          "ok": true,
+          "ms": 178
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 10,
+          "step": {
+            "click": "text=По всей сети"
+          },
+          "ok": true,
+          "ms": 182
+        },
+        {
+          "i": 11,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 12,
+          "step": {
+            "screenshot": "network-sms-rate-balance"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__network-sms-rate-balance.png"
+        },
+        {
+          "i": 13,
+          "step": {
+            "expectVisible": "[data-f=\"F-05-118\"]"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 14,
+          "step": {
+            "fill": "textarea",
+            "value": "Тестовая сетевая SMS-рассылка для замера баланса"
+          },
+          "ok": true,
+          "ms": 7
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "text=Отправляю рассылку по правилам платформы и закону"
+          },
+          "ok": true,
+          "ms": 192
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 17,
+          "step": {
+            "screenshot": "before-send"
+          },
+          "ok": true,
+          "ms": 48,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__before-send.png"
+        },
+        {
+          "i": 18,
+          "step": {
+            "click": "role=button[name=/Отправить/i]"
+          },
+          "ok": true,
+          "ms": 784
+        },
+        {
+          "i": 19,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 20,
+          "step": {
+            "screenshot": "after-send"
+          },
+          "ok": true,
+          "ms": 44,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__after-send.png"
+        },
+        {
+          "i": 21,
+          "step": {
+            "goto": "/biz/notifications/mailings/new"
+          },
+          "ok": true,
+          "ms": 648
+        },
+        {
+          "i": 22,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 23,
+          "step": {
+            "click": "role=radio[name=/SMS/i]"
+          },
+          "ok": true,
+          "ms": 189
+        },
+        {
+          "i": 24,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 25,
+          "step": {
+            "click": "text=По всей сети"
+          },
+          "ok": true,
+          "ms": 201
+        },
+        {
+          "i": 26,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 27,
+          "step": {
+            "screenshot": "balance-after-send-reload"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__balance-after-send-reload.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__channels-before.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__channels-after-connect.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__network-sms-rate-balance.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__before-send.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__after-send.png",
+        "qa/shots/notify-g1-2-m2/network3/biz-notifications-channels-sms__network-nails-ru-light-desktop__balance-after-send-reload.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

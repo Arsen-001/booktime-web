@@ -1,0 +1,11 @@
+{
+  "route": "/favorites",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "text=Отписаться >> nth=1" },
+    { "wait": 400 },
+    { "screenshot": "01-after-click" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "click": "text=Дополнительные параметры" },
+    { "wait": 300 },
+    { "screenshot": "01-details-opened" },
+    { "click": "role=button[name=\"Добавить поле\"]" },
+    { "wait": 200 },
+    { "screenshot": "02-new-field-input" },
+    { "fill": "input[placeholder=\"Название поля\"]", "value": "Марка авто М2" },
+    { "click": "role=button[name=\"Создать\"]" },
+    { "wait": 500 },
+    { "screenshot": "03-custom-field-created" },
+    { "expectText": "Марка авто М2" }
+  ]
+}

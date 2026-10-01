@@ -1,0 +1,132 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T20:59:26.834Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-176"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 717,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=button[name=\"Начать подключение\"]"
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 3,
+          "step": {
+            "fill": "input[placeholder=\"Например: Nail Studio Ева\"]",
+            "value": "Салон Тест"
+          },
+          "ok": true,
+          "ms": 15
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 191
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "after-fast-next"
+          },
+          "ok": true,
+          "ms": 54,
+          "screenshot": "qa/measure/platform/verify-m1/fastname/platform-connect__platform-nails-ru-light-phone__after-fast-next.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "expectVisible": "text=Я сейчас на месте работы"
+          },
+          "ok": true,
+          "ms": 3
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/verify-m1/fastname/platform-connect__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/verify-m1/fastname/platform-connect__platform-nails-ru-light-phone__after-fast-next.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

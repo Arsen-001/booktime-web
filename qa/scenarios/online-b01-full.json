@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/b/nuri-nail-studio/book?service=sv_nuri_classic",
+    "persona": "guest",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 600 },
+      { "click": "role=button[name=\"Продолжить · 1\"]" },
+      { "wait": 400 },
+      { "click": "text=Ани Саргсян" },
+      { "wait": 200 },
+      { "click": "role=button[name=\"Продолжить\"]" },
+      { "wait": 800 },
+      { "screenshot": "time-step" },
+      { "click": "css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Продолжить\"]" },
+      { "wait": 500 },
+      { "screenshot": "details-step" },
+      { "fill": "role=textbox[name=\"Имя\"]", "value": "Тестовая Клиентка" },
+      { "wait": 100 },
+      { "screenshot": "details-filled" }
+    ]
+  }
+]

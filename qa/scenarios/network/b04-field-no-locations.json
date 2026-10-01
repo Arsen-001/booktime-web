@@ -1,0 +1,18 @@
+{
+  "route": "/biz/network/settings/fields",
+  "persona": "network",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Добавить поле" },
+    { "wait": 300 },
+    { "fill": "[role=dialog] input >> nth=0", "value": "Тест без филиала" },
+    { "fill": "[role=dialog] input >> nth=1", "value": "test.nofil" },
+    { "expectVisible": "text=Доступно в локациях" },
+    { "click": "text=Доступно в локациях" },
+    { "screenshot": "02-locations-visible" },
+    { "click": "text=Сохранить" },
+    { "wait": 700 },
+    { "screenshot": "03-after-save" }
+  ]
+}

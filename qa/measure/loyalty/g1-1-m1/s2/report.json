@@ -1,0 +1,138 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:28:38.793Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-057",
+      "F-06-058",
+      "F-06-198"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1431,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-057",
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=/Загрузить из Excel/]"
+          },
+          "ok": true,
+          "ms": 264
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 305
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "textarea",
+            "value": "+37495798826;Постоянный гость;-500\n+37400000000;НесуществующийТип;100"
+          },
+          "ok": true,
+          "ms": 9
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=/^Загрузить$/]"
+          },
+          "ok": true,
+          "ms": 593
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "01-atomic-result"
+          },
+          "ok": true,
+          "ms": 127,
+          "screenshot": "qa/measure/loyalty/g1-1-m1/s2/biz-loyalty-cards__owner-nails-ru-light-desktop__01-atomic-result.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/g1-1-m1/s2/biz-loyalty-cards__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/g1-1-m1/s2/biz-loyalty-cards__owner-nails-ru-light-desktop__01-atomic-result.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

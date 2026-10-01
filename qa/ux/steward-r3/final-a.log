@@ -1,0 +1,31 @@
+Замер: 12 стр. → qa/ux/steward-r3/final-a/ (по 3 одновременно)
+  1/12  2/12  3/12  4/12  5/12  6/12  7/12  8/12  9/12  10/12  11/12  12/12
+страница                       кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр
+─────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ────
+/dev/ui                        owner  ru  тел   0     0    0      —      0    0       ·         1.2с
+/dev/ui                        owner  ru  деск  0     0    0      —      0    0       ·         1.2с
+/dev/ui/a                      owner  ru  тел   0     0    0      —      0    0       ·         1.2с
+/dev/ui/a                      owner  ru  деск  2     0    0      —      0    0       ·         2.0с
+/dev/ui/b                      owner  ru  тел   2     0    0      —      0    0       ·         2.1с
+/dev/ui/b                      owner  ru  деск  2     0    0      —      0    0       ·         2.1с
+/dev/ui/c                      owner  ru  тел   0     0    0      —      0    0       ·         1.1с
+/dev/ui/c                      owner  ru  деск  0     0    0      —      0    0       ·         1.0с
+/biz/journal                   owner  ru  тел   0     0    0      —      12   20      ·         1.2с
+/biz/journal                   owner  ru  деск  0     0    0      —      28   23      ·         1.4с
+/dev/ext/bookingWindow/online  owner  ru  тел   0     0    0      —      0    1       ·         1.3с
+/dev/ext/bookingWindow/online  owner  ru  деск  0     0    0      —      0    1       ·         1.3с
+
+Итог: страниц 12 · ошибок консоли 6 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 40 · висит загрузка 0 · data-f 24
+Отчёт: qa/ux/steward-r3/final-a/report.json
+
+• /dev/ui/a [owner/ru/desktop]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th
+
+• /dev/ui/b [owner/ru/phone]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th
+
+• /dev/ui/b [owner/ru/desktop]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th

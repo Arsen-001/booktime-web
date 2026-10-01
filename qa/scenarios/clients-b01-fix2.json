@@ -1,0 +1,18 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=button[name=\"Фильтры\"]" },
+      { "click": "text=По клиентам" },
+      { "click": "role=checkbox[name=\"Без класса\"]" },
+      { "wait": 300 },
+      { "click": "role=button[name=\"Найти\"]" },
+      { "screenshot": "importance-none-applied" },
+      { "click": "role=checkbox[name=\"Отметить всё\"]" },
+      { "screenshot": "bulk-select-all" }
+    ]
+  }
+]

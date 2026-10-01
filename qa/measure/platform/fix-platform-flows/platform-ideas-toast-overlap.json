@@ -1,0 +1,155 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:34:15.288Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-009"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/ideas",
+      "url": "http://localhost:3710/platform/ideas?demo=platform&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 821,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-009"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "li button:has-text(\"Фильтр клиентов\") >> nth=0"
+          },
+          "ok": true,
+          "ms": 239
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "[role=dialog] >> role=radio[name=\"Сделано\"]"
+          },
+          "ok": true,
+          "ms": 177
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 6,
+          "step": {
+            "expectText": "Отметить сделанным?"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Сделано, уведомить\"]"
+          },
+          "ok": true,
+          "ms": 179
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 9,
+          "step": {
+            "expectText": "получил уведомление"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "toast-and-banner"
+          },
+          "ok": true,
+          "ms": 132,
+          "screenshot": "qa/measure/platform/fix-platform-flows/platform-ideas__platform-nails-ru-light-phone__toast-and-banner.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/fix-platform-flows/platform-ideas__platform-nails-ru-light-phone.png",
+        "qa/measure/platform/fix-platform-flows/platform-ideas__platform-nails-ru-light-phone__toast-and-banner.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

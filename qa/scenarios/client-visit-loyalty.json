@@ -1,0 +1,18 @@
+{
+  "route": "/biz/apps/visit",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "[data-f~=\"F-14-092\"] li:first-child" },
+    { "wait": 300 },
+    { "click": "text=Лояльность" },
+    { "wait": 300 },
+    { "screenshot": "loyalty-tab" },
+    { "fill": "input[placeholder='Номер сертификата или карты']", "value": "ZZZ-NOT-FOUND" },
+    { "click": "text=Найти" },
+    { "wait": 300 },
+    { "screenshot": "loyalty-code-notfound" }
+  ]
+}

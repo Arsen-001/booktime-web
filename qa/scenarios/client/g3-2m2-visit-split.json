@@ -1,0 +1,28 @@
+{
+  "route": "/biz/apps/visit",
+  "persona": "admin",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "click": "text=Ануш Асатрян" },
+    { "expectText": "Продажа" },
+    { "click": "[role=\"tab\"]:has-text(\"Оплата\")" },
+    { "wait": 400 },
+    { "screenshot": "01-pay-tab" },
+    { "click": "[role=\"dialog\"] input >> nth=0" },
+    { "fill": "[role=\"dialog\"] input >> nth=0", "value": "2000" },
+    { "click": "text=Оплатить" },
+    { "wait": 1500 },
+    { "screenshot": "02-partial-cash" },
+    { "click": "button:has-text(\"Карта\")" },
+    { "wait": 300 },
+    { "click": "text=Вся сумма" },
+    { "click": "text=Оплатить" },
+    { "wait": 1500 },
+    { "screenshot": "03-fully-paid-split" },
+    { "click": "[role=\"tab\"]:has-text(\"Лояльность\")" },
+    { "wait": 300 },
+    { "screenshot": "04-loyalty-tab" }
+  ]
+}

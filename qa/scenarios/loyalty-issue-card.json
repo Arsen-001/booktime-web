@@ -1,0 +1,20 @@
+{
+  "route": "/dev/ext/clientCard/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Выберите тип" },
+    { "wait": 200 },
+    { "click": "role=option >> nth=0" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Выдать карту\"]" },
+    { "wait": 600 },
+    { "expectText": "Карта выдана" },
+    { "screenshot": "after-issue" },
+    { "goto": "/dev/ext/clientCard/loyalty" },
+    { "wait": 500 },
+    { "screenshot": "after-reload" }
+  ]
+}

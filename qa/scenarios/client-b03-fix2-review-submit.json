@@ -1,0 +1,20 @@
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "click": "css=a[href^='/bookings/'] >> nth=0" },
+    { "wait": 1500 },
+    { "click": "role=button[name=\"Оставить отзыв о месте\"]" },
+    { "wait": 300 },
+    { "screenshot": "modal-open" },
+    { "fill": "textarea", "value": "Отличный мастер, всё понравилось, рекомендую это место." },
+    { "click": "role=button[name=\"Отправить отзыв\"]" },
+    { "expectText": "Отзыв сохранён" },
+    { "wait": 300 },
+    { "screenshot": "after-submit" },
+    { "goto": "/places/biz_manana_nn" },
+    { "wait": 800 },
+    { "expectVisible": "[data-f=\"F-14-014\"]" },
+    { "expectText": "Отличный мастер, всё понравилось, рекомендую это место." },
+    { "screenshot": "on-place-page" }
+  ]
+}

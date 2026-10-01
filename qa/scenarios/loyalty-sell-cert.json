@@ -1,0 +1,12 @@
+{
+  "route": "/biz/loyalty/certificates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Продать сертификат" },
+    { "wait": 300 },
+    { "screenshot": "modal-open" }
+  ]
+}

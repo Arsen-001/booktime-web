@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=+ Добавить" },
+      { "wait": 300 },
+      { "click": "text=Выберите период" },
+      { "wait": 300 },
+      { "click": "text=30 дней" },
+      { "wait": 200 },
+      { "screenshot": "range-picked-preset" },
+      { "click": "role=button[name=\"+ Добавить\"]" },
+      { "wait": 500 },
+      { "screenshot": "after-add" }
+    ]
+  }
+]

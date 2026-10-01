@@ -1,0 +1,27 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, btnTexts, pick } from './lib.mjs';
+await start();
+const { page } = await open('master', '/biz/schedule/calendar', { device: 'desktop' });
+const ta = page.locator('[data-f*="F-00-063"] textarea, [data-f*="F-00-063"] input').first();
+console.log('voice input', await ta.count());
+await ta.fill('Мария, четверг, 15:00, маникюр'); 
+await page.getByRole('button', { name: 'Разобрать' }).click(); await page.waitForTimeout(1200);
+const box = page.locator('[data-f*="F-00-063"]').first();
+console.log('DRAFT', (await box.innerText()).replace(/\n+/g,' | '));
+const vals = await box.locator('input').evaluateAll(els => els.map(e => e.name+'='+e.value));
+console.log('inputs', vals);
+await shot(page, 's8-voice-draft');
+// personal slot rules for Mariam
+const d0 = await db(page);
+const mSvc = d0.core.services.filter(s=>s.staffIds.includes('st_nuri_mariam') && s.onlineBookable).map(s=>s.id); console.log('mariam svcs', mSvc.slice(0,3));
+await as(page, 'client', `/book?staff=st_nuri_mariam&service=${mSvc[0]}`); const mB = (await text(page)).match(/\d\d:\d\d/g); console.log('mariam before', mB);
+await as(page, 'client', `/book?staff=st_nuri_ani&service=sv_nuri_classic`); const aB = (await text(page)).match(/\d\d:\d\d/g); console.log('ani before', aB);
+await as(page, 'owner', '/biz/schedule/slots/st_nuri_mariam');
+console.log('STAFF SLOTS', (await text(page)).slice(0,500).replace(/\n/g,' | '));
+const own = page.getByText(/Персонально/).first(); await own.click(); await page.waitForTimeout(1500);
+console.log('toasts', await toasts(page));
+const slot = mB?.find(x=>x!=='10:00') ?? '15:00';
+await page.getByRole('button', { name: slot, exact: true }).first().click(); await page.waitForTimeout(2000);
+const d1 = await db(page); console.log('slotMode', JSON.stringify(d1.areas.schedule.slotMode), 'staff rule', JSON.stringify(d1.areas.schedule.slotRules['staff:st_nuri_mariam']?.map(r=>r.disabledSlots)), 'loc rule', JSON.stringify(d1.areas.schedule.slotRules['location:loc_nuri']?.map(r=>r.disabledSlots)));
+await as(page, 'client', `/book?staff=st_nuri_mariam&service=${mSvc[0]}`); console.log('mariam after (disabled '+slot+')', (await text(page)).match(/\d\d:\d\d/g));
+await as(page, 'client', `/book?staff=st_nuri_ani&service=sv_nuri_classic`); console.log('ani after', (await text(page)).match(/\d\d:\d\d/g));
+await stop();

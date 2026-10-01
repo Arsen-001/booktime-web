@@ -1,0 +1,17 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "text=— >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "panel-open" },
+    { "click": "text=— >> nth=1" },
+    { "wait": 200 },
+    { "screenshot": "two-cells-selected" }
+  ]
+}

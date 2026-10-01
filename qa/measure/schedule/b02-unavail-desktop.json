@@ -1,0 +1,235 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:19:08.163Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-041",
+      "F-02-042",
+      "F-02-043",
+      "F-02-044",
+      "F-02-045",
+      "F-02-046",
+      "F-02-047",
+      "F-02-048",
+      "F-02-049",
+      "F-02-050",
+      "F-02-051",
+      "F-02-052",
+      "F-02-053",
+      "F-02-054",
+      "F-02-055",
+      "F-02-103"
+    ],
+    "scenarioSteps": {
+      "ok": 14,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/slots",
+      "url": "http://localhost:3710/biz/schedule/slots?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1211,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-041",
+        "F-02-042",
+        "F-02-043",
+        "F-02-044",
+        "F-02-045",
+        "F-02-046",
+        "F-02-047",
+        "F-02-048",
+        "F-02-049",
+        "F-02-050",
+        "F-02-051",
+        "F-02-052",
+        "F-02-053",
+        "F-02-054",
+        "F-02-055",
+        "F-02-103"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 503
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"+ Добавить\"]"
+          },
+          "ok": true,
+          "ms": 277
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 308
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "modal-open"
+          },
+          "ok": true,
+          "ms": 187,
+          "screenshot": "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__modal-open.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "text=Выберите период"
+          },
+          "ok": true,
+          "ms": 273
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "sheet-open"
+          },
+          "ok": true,
+          "ms": 126,
+          "screenshot": "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__sheet-open.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "button[data-date=\"2026-09-27\"]"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 300
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "after-first-date"
+          },
+          "ok": true,
+          "ms": 131,
+          "screenshot": "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__after-first-date.png"
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "button[data-date=\"2026-09-28\"]"
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 13,
+          "step": {
+            "screenshot": "after-second-date"
+          },
+          "ok": true,
+          "ms": 129,
+          "screenshot": "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__after-second-date.png"
+        },
+        {
+          "i": 14,
+          "step": {
+            "fill": "input[placeholder=\"Например: перед праздником — только вручную\"]",
+            "value": "Тестовый недоступный день"
+          },
+          "ok": true,
+          "ms": 14
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "role=dialog >> role=button[name=\"+ Добавить\"]"
+          },
+          "ok": false,
+          "ms": 8126,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__fail-15.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop.png",
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__modal-open.png",
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__sheet-open.png",
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__after-first-date.png",
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__after-second-date.png",
+        "qa/shots/schedule-b02-unavail-desktop/biz-schedule-slots__owner-nails-ru-light-desktop__fail-15.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

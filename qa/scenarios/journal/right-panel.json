@@ -1,0 +1,21 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[aria-label=\"Клиенты и чат\"]" },
+    { "wait": 400 },
+    { "screenshot": "clients-tab" },
+    { "fill": "input[placeholder=\"Поиск по имени или телефону\"]", "value": "98" },
+    { "wait": 500 },
+    { "screenshot": "clients-search" },
+    { "click": "text=Чат" },
+    { "wait": 400 },
+    { "screenshot": "chat-tab" },
+    { "click": "text=Сегодня" },
+    { "wait": 300 },
+    { "screenshot": "after-today-click-panel-persists" }
+  ]
+}

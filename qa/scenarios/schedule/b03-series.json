@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/schedule/series",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=+ Новая серия >> nth=0" },
+      { "wait": 300 },
+      { "fill": "role=dialog >> [placeholder=\"Как зовут клиента\"]", "value": "Серийный Клиент" },
+      { "fill": "role=dialog >> [placeholder=\"91 234 567\"]", "value": "91556677" },
+      { "click": "role=dialog >> text=Выберите услугу" },
+      { "wait": 200 },
+      { "click": "role=option >> nth=0" },
+      { "click": "role=dialog >> text=Каждые N дней" },
+      { "screenshot": "form-filled" },
+      { "click": "role=dialog >> text=Создать" },
+      { "wait": 600 },
+      { "screenshot": "created" }
+    ]
+  }
+]

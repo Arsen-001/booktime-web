@@ -1,0 +1,18 @@
+{
+  "route": "/biz/loyalty/certificates/types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Подарочный сертификат 15 000" },
+    { "wait": 400 },
+    { "screenshot": "cert-edit-open" },
+    { "click": "role=button[name=\"Удалить тип\"]" },
+    { "wait": 300 },
+    { "screenshot": "cert-delete-confirm" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип сертификата удалён" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "route": "/biz/integrations/developers/apps/napominaniya-v-whatsapp-pro",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "01-before-reload" },
+    { "click": "role=button[name=\"Проверить в своём филиале\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-after-test-click" },
+    { "goto": "/biz/integrations/developers/apps/napominaniya-v-whatsapp-pro" },
+    { "wait": 500 },
+    { "screenshot": "03-after-reload" }
+  ]
+}

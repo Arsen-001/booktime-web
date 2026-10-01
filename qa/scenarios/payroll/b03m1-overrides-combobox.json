@@ -1,0 +1,13 @@
+{"route":"/dev/ext/staffCard/payroll","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"role=switch[name=\"Оплата за продажу товаров\"]"},
+   {"wait":300},
+   {"click":"text=Уточнить значение для отдельных товаров"},
+   {"wait":300},
+   {"screenshot":"products-checked"},
+   {"click":"input[placeholder=\"Добавить категорию или позицию\"]"},
+   {"wait":400},
+   {"fill":"input[placeholder=\"Добавить категорию или позицию\"]","value":"серт"},
+   {"wait":400},
+   {"screenshot":"products-combobox-cert"}
+ ]}

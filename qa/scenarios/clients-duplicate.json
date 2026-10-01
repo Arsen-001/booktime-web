@@ -1,0 +1,16 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Добавить клиента"},
+    {"fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Дубль Проверка"},
+    {"fill": "input[placeholder=\"Номер телефона\"]", "value": "00175218"},
+    {"click": "[role=\"dialog\"] button:has-text(\"Добавить\")"},
+    {"wait": 1500},
+    {"expectText": "открываем его карточку"},
+    {"wait": 1000},
+    {"screenshot": "duplicate-opens-existing-card"}
+  ]
+}

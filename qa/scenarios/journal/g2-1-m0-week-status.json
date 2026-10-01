@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "text=\"День\""},
+      {"wait": 300},
+      {"screenshot": "05-view-menu-open"},
+      {"click": "text=\"Неделя\""},
+      {"wait": 500},
+      {"screenshot": "06-week-view"}
+    ]
+  },
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"hover": "[data-f=\"F-01-029\"] >> nth=0"},
+      {"wait": 400},
+      {"screenshot": "07-status-hover-card"}
+    ]
+  },
+  {
+    "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "[data-f=\"F-01-156\"] >> nth=0"},
+      {"wait": 500},
+      {"screenshot": "08-waitlist-panel"}
+    ]
+  },
+  {
+    "route": "/biz/records", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"screenshot": "09-records-report"}
+    ]
+  }
+]

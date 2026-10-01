@@ -1,0 +1,12 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Сканировать\"]" },
+    { "wait": 600 },
+    { "screenshot": "01-scanner-modal" }
+  ]
+}

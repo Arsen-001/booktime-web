@@ -1,0 +1,33 @@
+[
+  {
+    "route": "/biz/integrations/apps/ia_2",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "app-card-before-connect" },
+      { "click": "role=button[name=\"Подключить\"]" },
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-13-014\"]" },
+      { "screenshot": "connect-sheet-open" },
+      { "click": "[role=\"dialog\"] >> role=button[name=\"Подключить\"]" },
+      { "wait": 600 },
+      { "expectText": "Подключено" },
+      { "screenshot": "app-card-after-connect" }
+    ]
+  },
+  {
+    "route": "/biz/integrations/apps/ia_2",
+    "persona": "network",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "role=button[name=\"Подключить\"]" },
+      { "wait": 400 },
+      { "expectVisible": "[data-f=\"F-13-015\"]" },
+      { "screenshot": "connect-sheet-multi-location" }
+    ]
+  }
+]

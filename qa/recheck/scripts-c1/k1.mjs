@@ -1,0 +1,12 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+await start();
+const { page } = await open('owner', '/biz/clients', { device: 'desktop' });
+log((await text(page)).slice(0, 3000));
+await shot(page, 'k1-list');
+const d = await db(page);
+log('area keys', Object.keys(d.areas.clients));
+const biz = d.core.clients.filter(c=>c.businessId==='biz_nuri');
+log('nuri clients', biz.length);
+log('ERR', page.errors.slice(0,3));
+await stop();

@@ -1,0 +1,19 @@
+{
+  "route": "/biz/groups/events/new",
+  "persona": "individual",
+  "sphere": "fitness",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=combobox >> nth=0" },
+    { "click": "role=option >> nth=0" },
+    { "click": "role=combobox >> nth=2" },
+    { "click": "role=option >> nth=0" },
+    { "screenshot": "form-filled" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 800 },
+    { "screenshot": "after-save" },
+    { "expectVisible": "[data-f=\"F-16-041\"]" }
+  ]
+}

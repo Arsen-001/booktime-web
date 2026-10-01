@@ -1,0 +1,114 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      {
+        "wait": 1000
+      },
+      {
+        "click": "text=Добавить клиента"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "fill": "input[placeholder=\"Как зовут клиента\"]",
+        "value": "Персист Тест"
+      },
+      {
+        "fill": "input[type=tel] >> nth=0",
+        "value": "91234567"
+      },
+      {
+        "click": "[role=dialog] button:has-text(\"Добавить\")"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "screenshot": "01-saved-on-card"
+      },
+      {
+        "click": "text=Клиентская база"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "fill": "input[placeholder*=\"по имени\"]",
+        "value": "Персист Тест"
+      },
+      {
+        "click": "button:has-text(\"Найти\")"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "02-found-in-table-before-reload"
+      },
+      {
+        "goto": "/biz/clients"
+      },
+      {
+        "wait": 1000
+      },
+      {
+        "fill": "input[placeholder*=\"по имени\"]",
+        "value": "Персист Тест"
+      },
+      {
+        "click": "button:has-text(\"Найти\")"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "03-found-after-reload"
+      },
+      {
+        "click": "text=Персист Тест"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "button:has-text(\"Удалить\")"
+      },
+      {
+        "wait": 300
+      },
+      {
+        "click": "[role=dialog] button:has-text(\"Удалить\")"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "04-after-delete"
+      },
+      {
+        "goto": "/biz/clients"
+      },
+      {
+        "wait": 1000
+      },
+      {
+        "fill": "input[placeholder*=\"по имени\"]",
+        "value": "Персист Тест"
+      },
+      {
+        "click": "button:has-text(\"Найти\")"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "05-gone-after-reload"
+      }
+    ]
+  }
+]

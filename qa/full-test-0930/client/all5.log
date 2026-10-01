@@ -1,0 +1,92 @@
+
+========== s3-cancel-paid.mjs ==========
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+SCENARIO FAILED s3-cancel-paid.mjs page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+    at go (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/h.mjs:55:18)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/s3-cancel-paid.mjs?1790800525695:59:3
+
+========== s2-expired.mjs ==========
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+SCENARIO FAILED s2-expired.mjs page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+    at go (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/h.mjs:55:18)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/s2-expired.mjs?1790801288020:10:3
+
+========== s4-sweep.mjs ==========
+goto retry /search?free=today page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?free=toda
+goto retry /search?free=today page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?free=toda
+STEP FAILED hot today: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?free=today&demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/search?free=today&demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /search page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?demo=clie
+goto retry /search page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?demo=clie
+STEP FAILED search: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/search?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/search?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /masters/st_kaytsak_erik page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/masters/st_kayts
+goto retry /masters/st_kaytsak_erik page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/masters/st_kayts
+STEP FAILED favorite: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/masters/st_kaytsak_erik?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/masters/st_kaytsak_erik?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+STEP FAILED reschedule: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /diary page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/diary?demo=clien
+goto retry /diary page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/diary?demo=clien
+STEP FAILED diary: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/diary?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/diary?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /notifications page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/notifications?de
+goto retry /notifications page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/notifications?de
+STEP FAILED notifications: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/notifications?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/notifications?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+STEP FAILED api=error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal&api=error
+Call log:
+[2m  - navigating to "http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal&api=error", waiting until "domcontentloaded"[22m
+
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=gu
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=gu
+STEP FAILED guest: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=guest&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/bookings?demo=guest&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+STEP FAILED en: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=client&lang=en
+Call log:
+[2m  - navigating to "http://localhost:3710/bookings?demo=client&lang=en", waiting until "domcontentloaded"[22m
+
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+goto retry /bookings page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=cl
+STEP FAILED desktop detail: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/bookings?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+errors []
+
+========== s5-fixes.mjs ==========
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+goto retry / page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lan
+SCENARIO FAILED s5-fixes.mjs page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal
+Call log:
+[2m  - navigating to "http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+    at go (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/h.mjs:55:18)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/s5-fixes.mjs?1790801289034:15:3

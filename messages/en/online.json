@@ -1,0 +1,1277 @@
+{
+  "nav": {
+    "links": "Booking links",
+    "page": "Public page",
+    "widget": "Website widget",
+    "settings": "Booking rules",
+    "requests": "Requests",
+    "places": "Work places"
+  },
+  "public": {
+    "services": "Services",
+    "masters": "Masters",
+    "address": "Address",
+    "openMap": "Open in Yandex Maps",
+    "book": "Book",
+    "bookSoon": "Online booking will appear here soon",
+    "notFound": "Page not found",
+    "notFoundHint": "Check the link — it may contain a typo.",
+    "call": "Call",
+    "unnamedBusiness": "Unnamed business",
+    "noneOnline": {
+      "title": "Online booking isn’t available yet",
+      "description": "This business has no masters or services open for online booking right now. Call them directly — contacts below."
+    },
+    "poweredBy": "Powered by {product}",
+    "acceptsWomen": "Women only",
+    "acceptsMen": "Men only",
+    "masterVisitsHome": "House calls",
+    "chooseBranch": "Choose a branch",
+    "staffGone": "This specialist no longer takes bookings on this link — pick another specialist or service.",
+    "sales": {
+      "button": "Buy a membership or gift card",
+      "title": "Memberships and gift cards",
+      "comingSoonTitle": "Online sales are coming soon",
+      "comingSoonDescription": "Soon you'll be able to buy a membership or gift card right here."
+    },
+    "addressAfterConfirm": "District only until your booking is confirmed",
+    "language": "Language",
+    "todayOpenUntil": "Open today until {to}",
+    "todayClosed": "Closed today",
+    "soon": {
+      "title": "Online booking opens soon",
+      "titleNamed": "{name}: online booking opens soon",
+      "description": "The page is still being set up. For now you can book by phone."
+    },
+    "referral": {
+      "title": "{name} invites you to “{business}”",
+      "text": "You get {reward} on your first visit. Book now — it’s applied when you pay",
+      "textNoReward": "Book now — your first-visit gift is applied when you pay",
+      "percent": "{value}% off",
+      "fixed": "{amount} off"
+    }
+  },
+  "hub": {
+    "title": "What to set up before launch",
+    "description": "Applies to every online-booking link of this location at once.",
+    "groupBrand": "Company information",
+    "groupMore": "Even more options",
+    "tiles": {
+      "brand": "Brand",
+      "contacts": "Contacts",
+      "gallery": "Gallery",
+      "grid": "Available time",
+      "masterStep": "Specialist for every booking",
+      "design": "Booking widget design"
+    },
+    "mobileNote": "The Online booking section works the same in the business mobile app and in a phone browser: creating a link, changing steps and getting the website button code — all comfortable without a computer."
+  },
+  "links": {
+    "title": "Online booking links",
+    "subtitle": "A shared link, a link for one employee, or one for your site — as many as you need.",
+    "empty": {
+      "title": "No links yet",
+      "description": "Create the first booking link — it becomes the primary one."
+    },
+    "new": {
+      "button": "New link",
+      "title": "New link",
+      "description": "Pick a type, then set the parameters — you can create it right away.",
+      "typeLabel": "You’re here to create",
+      "typeCommon": "A shared link",
+      "typeCommonHint": "The client picks a staff member from the list",
+      "typeNetwork": "A link for one employee",
+      "typeNetworkHint": "The client books straight to the assigned employee"
+    },
+    "form": {
+      "name": "Link name",
+      "namePlaceholder": "E.g. “Instagram form”",
+      "nameRequired": "Enter a link name",
+      "description": "Description",
+      "staff": "Employee",
+      "staffHint": "Visible only to cabinet staff, never to clients",
+      "staffAny": "Not tied to an employee",
+      "bookingType": "Which services are available",
+      "bookingTypeIndividual": "Individual",
+      "bookingTypeGroup": "Group",
+      "bookingTypeMixed": "Individual and group",
+      "defaultLocale": "Default language",
+      "defaultLocaleHint": "A new client opens the link in this language; a returning client sees their own saved language",
+      "makePrimary": "Make this link primary",
+      "cancel": "Cancel",
+      "create": "Create",
+      "created": "Link created",
+      "createFailed": "Couldn’t create the link",
+      "localeName": {
+        "hy": "Հայերեն — Armenian",
+        "ru": "Русский — Russian",
+        "en": "English"
+      }
+    },
+    "card": {
+      "primary": "Primary",
+      "network": "Network",
+      "forStaff": "For {name}",
+      "forLocation": "For “{name}”",
+      "copy": "Copy address",
+      "copied": "Address copied",
+      "copyFailed": "Couldn’t copy",
+      "preview": "Preview",
+      "configure": "Configure",
+      "makePrimary": "Make primary",
+      "primarySet": "Link is now primary",
+      "primaryFailed": "Couldn’t change the primary link",
+      "delete": "Delete link",
+      "deleteDisabled": "The primary link can’t be deleted",
+      "qr": "QR code",
+      "unpublished": "Not published",
+      "copiedUnpublished": "Link copied, but the page is not published yet — clients will see “Online booking opens soon”"
+    },
+    "delete": {
+      "title": "Delete this link?",
+      "description": "The address will stop working — clients will see “page not found”. This can’t be undone.",
+      "confirm": "Delete",
+      "done": "Link deleted",
+      "failed": "Couldn’t delete the link"
+    },
+    "qr": {
+      "title": "Link QR code",
+      "hint": "Print it and put it by the front desk — a client points their camera and lands on booking.",
+      "download": "Download QR",
+      "downloadFailed": "Could not download the QR",
+      "buildFailed": "Could not build a QR for this link"
+    },
+    "publish": {
+      "title": "Your page is not open to clients yet",
+      "text": "Right now the link shows “Online booking opens soon”. Publish when everything is ready.",
+      "button": "Publish",
+      "done": "Published — clients can book now",
+      "failed": "Couldn’t publish",
+      "nobody": "Nobody to book yet: give a team member services with online booking and a work schedule."
+    }
+  },
+  "linkSettings": {
+    "back": "Links",
+    "delete": "Delete link",
+    "mainTitle": "Main",
+    "mainDescription": "Changes will show up after you save.",
+    "save": "Save",
+    "saved": "Saved",
+    "saveFailed": "Couldn’t save",
+    "sections": {
+      "steps": "Individual booking",
+      "stepsHint": "Widget format and steps",
+      "design": "Booking widget design",
+      "designHint": "Logo, colour, default language",
+      "sales": "Membership and gift-card sales",
+      "salesHint": "Online sales through this link",
+      "analytics": "Analytics",
+      "analyticsHint": "Google Analytics, Facebook Pixel",
+      "comingSoon": "This section ships in the next batch.",
+      "group": "Group booking",
+      "groupHint": "Extra seats and “Book another”",
+      "packages": "Service packages",
+      "packagesHint": "Bundles of several services in one online booking."
+    },
+    "steps": {
+      "flow": "Booking format",
+      "flowStepwise": "Step by step",
+      "flowStepwiseHint": "The client follows your exact order — good for new clients",
+      "flowShort": "Short step by step",
+      "flowShortHint": "Always service → staff → date and time, order can't change",
+      "flowMenu": "Menu",
+      "flowMenuHint": "The client picks staff, services and time in any order",
+      "order": "Step order",
+      "orderHint": "Drag a step by the handle on the left (or use the arrows) — the new order applies in the widget right away",
+      "orderLockedHint": "The order is fixed in \"Short step by step\"",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "staff": "Staff selection",
+      "service": "Service selection",
+      "time": "Date and time",
+      "labelStaff": "\"Staff\" step name",
+      "labelService": "\"Service\" step name",
+      "labelTime": "\"Date and time\" step name",
+      "staffStepTitle": "\"Staff selection\" step",
+      "preselectedStaff": "Preselected staff",
+      "preselectedNone": "None",
+      "preselectedAny": "Any",
+      "preselectedService": "Preselected service",
+      "mismatchError": "The preselected staff doesn't provide the preselected service — change one of them",
+      "hideStaffStep": "Hide the staff selection step",
+      "staffDisplay": "Show for staff on this step",
+      "staffDisplaySpecialty": "Specialty",
+      "staffDisplayPosition": "Position",
+      "allowAnyStaff": "Allow booking with any specialist",
+      "allowAnyStaffHint": "Applies to all business links; the staff member must also opt in in their own rules",
+      "staffForAllBookings": "Staff for online booking",
+      "staffForAllBookingsHint": "All online bookings for this location go to them — overrides the preselect above",
+      "serviceStepTitle": "\"Service selection\" step",
+      "categoryDisplay": "Service category display",
+      "categoryTags": "Horizontal tags",
+      "categoryList": "List",
+      "staffRulesMoved": "“Anyone” and “One staff member for all bookings” apply to every link of the business and live in “Booking rules”.",
+      "staffRulesLink": "Open “Choosing a specialist”",
+      "ownStaffForAll": "This link has its own staff member for all bookings: {name}",
+      "ownStaffForAllReset": "Remove from link"
+    },
+    "design": {
+      "theme": "Widget theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "color": "Button and icon color",
+      "colorHint": "HEX code, e.g. #3b32c9",
+      "colorInvalid": "Enter a color as HEX, e.g. #3b32c9",
+      "contrastLow": "Low contrast — choose a lighter or darker color",
+      "colorReset": "Reset to default",
+      "hidePrice": "Hide service prices in the widget",
+      "hideDuration": "Hide service duration in the widget",
+      "submitLabel": "\"Book\" button text",
+      "submitLabelHint": "Leave empty to use the default text",
+      "hero": "First-screen image",
+      "heroHint": "16:9, up to 12 MB. Visible to clients after our review",
+      "heroUpload": "Upload image",
+      "heroPending": "Pending review"
+    },
+    "sales": {
+      "noNetwork": "Selling subscriptions and gift cards is only available for network businesses.",
+      "toggle": "Show the online sales button"
+    },
+    "analytics": {
+      "metaPixel": "Facebook Pixel",
+      "metaPixelHint": "Your Meta Pixel ID",
+      "ga4": "Google Analytics 4",
+      "ga4Hint": "Data stream ID like G-XXXXXXXXXX",
+      "passClientId": "Pass the Client ID parameter",
+      "paramIndex": "GA custom parameter index",
+      "goalsHint": "Good goal events to track: “booked” and “widget_loaded”.",
+      "eventsLog": "Event log",
+      "eventsEmpty": "No events yet — open the link in the widget"
+    },
+    "group": {
+      "extraSeats": "Allow extra seats in group services",
+      "maxSeats": "Max seats per booking",
+      "multiEvent": "Allow clients to book several events at once",
+      "maxEvents": "Max events per booking"
+    },
+    "packages": {
+      "mode": {
+        "simultaneous": "At the same time, different specialists",
+        "sequentialSame": "One after another, one specialist",
+        "sequentialMulti": "One after another, several specialists"
+      },
+      "multiStaffHint": "The client will pick a specialist for each service of the package separately.",
+      "oneAtATime": "Online — one package at a time, no other services or packages in this booking.",
+      "clear": "Choose something else",
+      "sectionTitle": "Packages",
+      "pickStaffTitle": "Specialist for each service of the package",
+      "pickStaffPlaceholder": "Choose a specialist",
+      "staffRequired": "Choose a specialist for every service of the package",
+      "new": "New package",
+      "create": "Create package",
+      "created": "Package created",
+      "deleted": "Package deleted",
+      "delete": "Delete package",
+      "empty": "No packages yet — combine 2–10 services into one to sell them together online.",
+      "nameLabel": "Package name",
+      "servicesLabel": "Services in the package",
+      "servicesHint": "Pick 2 to 10 services",
+      "noServices": "Add services to the business first",
+      "modeLabel": "How the services run",
+      "deleteConfirm": {
+        "title": "Delete this package? Clients already booked into it keep their bookings.",
+        "confirm": "Delete"
+      },
+      "errors": {
+        "name": "Enter a package name",
+        "services": "Pick 2 to 10 services"
+      }
+    },
+    "unsaved": "You have unsaved changes",
+    "discard": "Discard"
+  },
+  "booking": {
+    "addOns": {
+      "title": "Add to your visit",
+      "hint": "The master has time right after — we already checked",
+      "noTime": "No time left together with your picks",
+      "productMeta": "Product · {price} · pay at the visit",
+      "unavailable": "This add-on is no longer available — please pick again"
+    },
+    "back": "Back",
+    "continue": "Continue",
+    "continueWith": "Continue · {count}",
+    "cabinetSoon": "The client’s personal account is coming here soon",
+    "createFailed": "Couldn’t create the booking — please try again",
+    "slotTaken": "This time was just taken — pick another",
+    "noAvailability": {
+      "title": "Online booking isn’t available yet",
+      "description": "No masters or services are open for booking through this link. Call directly:"
+    },
+    "steps": {
+      "services": "Services",
+      "staff": "{master}",
+      "time": "Date and time",
+      "details": "Booking details"
+    },
+    "staffStep": {
+      "noneTitle": "No {masters} offer these services",
+      "noneDescription": "No employee performs the selected services. Go back and change your choice.",
+      "any": "Any {masterLower}",
+      "anyHint": "We will assign whoever is free at the time you pick",
+      "freeToday": "free today",
+      "pickFirstTitle": "Pick a {masterGenitive} first",
+      "pickFirstDescription": "Available time depends on who you're booking with.",
+      "prepaymentBadge": "Prepayment {amount}",
+      "noSlots": "no slots",
+      "todayFrom": "today from {time}",
+      "chainIntro": "No one person does all these services — we will book you back to back with different people. Pick who does each service, or leave “any”.",
+      "chainNearest": "Earliest time for the whole visit"
+    },
+    "timeStep": {
+      "morning": "Morning",
+      "day": "Afternoon",
+      "evening": "Evening",
+      "emptyDay": "No free time on this day",
+      "nearest": "Nearest available date: {date}",
+      "goToNearest": "Go to nearest date",
+      "noneAhead": "No free time found — try another {masterGenitive}",
+      "noneAheadSoleStaff": "No free time found — try another date",
+      "nearestLine": "Earliest: {date}, {time}",
+      "noneAheadShort": "No free time in the coming weeks",
+      "goToDate": "Next free day — {date}"
+    },
+    "details": {
+      "services": "Services",
+      "total": "Total",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "nameRequired": "Enter your name",
+      "phone": "Phone",
+      "phoneInvalid": "Check your phone number",
+      "comment": "Comment on the booking",
+      "consent": "I agree to personal-data processing",
+      "consentRequired": "Consent to data processing is required",
+      "submit": "Book",
+      "forWhom": "Who is this booking for",
+      "forWhomSelf": "Myself",
+      "forWhomChild": "Child",
+      "forWhomPet": "Pet",
+      "forWhomOther": "Other",
+      "phoneVerified": "Phone confirmed",
+      "verifyPhoneHint": "Confirm your number with a code to finish booking",
+      "sendCode": "Get code",
+      "resendCode": "Resend code",
+      "verifyCode": "Confirm",
+      "codeSentDemo": "Demo code (in real life sent via WhatsApp/Telegram/SMS): {code}",
+      "codeSentReal": "Code sent to your messenger",
+      "codeSendFailed": "Could not send the code — try again",
+      "codeVerified": "Phone confirmed",
+      "codeWrong": "Wrong code",
+      "codeRequired": "Confirm your phone with a code to book",
+      "membershipRequired": "Online booking for \"{service}\" needs an active membership — none matches this phone number",
+      "reminder": "Remind me before the visit",
+      "reminderIn": "{minutes, plural, one {# minute} other {# minutes}} before",
+      "reminderOff": "Don't remind",
+      "reminderNeedsPhone": "Confirm your phone first",
+      "clientBlocked": "Online booking is closed for this number — please call directly",
+      "onlinePaused": "Online booking is paused right now",
+      "staffOnVacation": "This {masterLower} is on vacation right now",
+      "fieldRequired": "Fill in this field",
+      "fillRequiredFields": "Fill in the required fields",
+      "anySpecialistBadge": "{master} not important",
+      "lastName": "Last name",
+      "patronymic": "Patronymic",
+      "email": "Email",
+      "datePlaceholder": "DD.MM.YYYY",
+      "subscriptionInvalid": "This subscription doesn't cover it or has expired",
+      "depositPolicy": {
+        "depositTitle": "Partial prepayment before the appointment",
+        "guaranteeTitle": "Card held as guarantee",
+        "amount": "Prepayment: {amount}",
+        "freeWindow": "Free cancellation — up to {hours} h before the appointment",
+        "noShowPenalty": "No-show fee: {amount}",
+        "forfeit": "Past the deadline the prepayment stays with the business: {amount}",
+        "agree": "I agree to the payment and cancellation terms",
+        "agreeRequired": "Confirm the payment and cancellation terms"
+      },
+      "when": "{date}, {start} – until {end}",
+      "legTime": "{start} – {end}",
+      "codeEnterHint": "Enter the code from the message — we check it right away",
+      "codeLabel": "Code from the message",
+      "codeDemoFilled": "Demo: code {code} filled in for you",
+      "phoneRemembered": "Number already confirmed in this browser",
+      "notYou": "Not you?",
+      "reminderWhere": "We will remind you with a notification on this phone",
+      "reminderOpt": {
+        "0": "No reminder",
+        "60": "1 hour before",
+        "180": "3 hours before",
+        "1440": "1 day before",
+        "2880": "2 days before",
+        "morning": "In the morning of the visit"
+      },
+      "submitAndPay": "Book and go to payment",
+      "prepay": {
+        "title": "Prepayment of {amount} is required",
+        "where": "Where to pay: {requisites}",
+        "timer": "You have {minutes} min to pay after booking, otherwise the time is released.",
+        "choiceTitle": "Prepayment required — how would you like to pay?",
+        "choiceTitlePercent": "The master takes a {percent}% prepayment — how would you like to pay?",
+        "partTitle": "Prepayment only — {amount}",
+        "partHint": "The rest, {rest}, at the visit",
+        "fullTitle": "Full amount now — {amount}",
+        "fullHint": "Nothing to pay at the visit",
+        "timerAmount": "Transfer {amount} within {minutes} min after booking, otherwise the time is released."
+      },
+      "prepayNoShowsRule": "This master asks for a prepayment only if {count, plural, one {# visit} other {# visits}} with them didn’t happen in the last {months, plural, one {# month} other {# months}}. If that applies, we’ll show the amount and where to pay after “Book”."
+    },
+    "workplaceStep": {
+      "title": "Where the service happens",
+      "district": "District",
+      "address": "Your address",
+      "addressPlaceholder": "Street, building, apartment",
+      "fee": "House-call fee {fee} AMD",
+      "feeLine": "House-call fee",
+      "time": "Travel ~{min} min",
+      "alwaysManual": "A house call waits for the {masterGenitive}'s confirmation",
+      "homeDistrictOnly": "This {masterLower} sees clients at home in {district}"
+    },
+    "genderModal": {
+      "title": "Who this {masterLower} accepts",
+      "pickAnother": "Pick another",
+      "ok": "Got it",
+      "womenOnly": "{name} accepts women only.",
+      "menOnly": "{name} accepts men only."
+    },
+    "services": {
+      "allCategories": "All categories",
+      "subscriptionOnly": "Subscription booking",
+      "chainNotice": "Different specialists do these services — we will book you with them back to back.",
+      "searchPlaceholder": "Find a service",
+      "nothingFound": "Nothing found",
+      "resetSearch": "Clear search"
+    },
+    "myCabinet": "My account",
+    "type": {
+      "title": "What would you like to book?",
+      "subtitle": "Pick one — we'll only show its steps next",
+      "individual": "One-on-one booking",
+      "individualHint": "A service and time with a chosen specialist",
+      "group": "Group class",
+      "groupHint": "A spot in a group for the next classes"
+    },
+    "group": {
+      "title": "Group classes",
+      "emptyTitle": "No open events",
+      "emptyDescription": "Check back later — the schedule updates regularly",
+      "maxEventsReached": "You can pick up to {count} events at once",
+      "differentStaff": "You can only book another date with the same specialist and service",
+      "seatsLeft": "{count, plural, one{# seat} other{# seats}} left",
+      "multiSelected": "Events selected: {count}",
+      "seats": "How many seats",
+      "total": "Total",
+      "payByMembership": "Pay with membership",
+      "payByMembershipHint": "We'll use a visit from your active membership instead of paying online",
+      "membershipInvalid": "Sorry, your membership doesn't cover this or has expired"
+    },
+    "waitlist": {
+      "cta": "Join the waitlist",
+      "title": "Waitlist",
+      "description": "We'll let you know as soon as the specialist has a free slot this day — leave your phone number to book in one tap.",
+      "commentLabel": "Comment",
+      "submit": "Join the queue",
+      "joined": "Done — we'll let you know when a slot opens up",
+      "joinFailed": "Couldn't add you to the waitlist",
+      "alreadyJoined": "You're on the waitlist for this day — we'll notify you about a free slot"
+    },
+    "servicesSummary": "{count, plural, one {# service} other {# services}} · {price}"
+  },
+  "confirmed": {
+    "goodsAtVisit": "pay at the visit",
+    "status": {
+      "confirmed": "You’re booked",
+      "awaitingConfirmation": "Waiting for the master to confirm",
+      "awaitingPrepayment": "Waiting for prepayment",
+      "cancelled": "Booking cancelled",
+      "arrived": "Client arrived",
+      "noShow": "No-show",
+      "paymentReview": "Payment being checked",
+      "timeOffered": "The master suggested another time",
+      "rescheduled": "Moved"
+    },
+    "pushDecisionConfirmed": "The master confirmed your booking",
+    "pushDecisionDeclined": "The master declined your booking",
+    "bookAgain": "Book again",
+    "addToCalendar": "Add to calendar",
+    "reschedule": "Reschedule",
+    "rescheduleSoon": "Rescheduling ships in the next batch",
+    "cancel": "Cancel",
+    "cancelConfirmTitle": "Cancel this booking?",
+    "cancelConfirmButton": "Cancel booking",
+    "cancelDone": "Booking cancelled",
+    "cancelFailed": "Couldn’t cancel the booking",
+    "services": "Services",
+    "contacts": "Contacts",
+    "notFound": "Booking not found",
+    "notFoundHint": "Check the link from your message — it may be outdated.",
+    "rescheduleHint": "Choose a new date and time with the same master.",
+    "rescheduleTooLate": "Can't reschedule yourself anymore — call the master directly",
+    "rescheduleDone": "Booking rescheduled",
+    "rescheduleFailed": "Couldn't reschedule the booking",
+    "rescheduleConfirm": "Reschedule",
+    "cancelWindowPassed": "Free cancellation was available up to {hours}h before — cancelling now may count as a no-show",
+    "whatsappText": "Hi! I'm messaging about my booking at {business}.",
+    "prepayment": {
+      "title": "Prepayment",
+      "requisites": "Details: {requisites}",
+      "timeLeft": "{minutes} min {seconds} s left",
+      "expired": "Payment time is up — the slot was released",
+      "iPaid": "I've paid",
+      "paidDone": "Thank you! The salon will check the payment and confirm the booking",
+      "reportedHint": "You reported paying {amount}. As soon as the salon sees the money, the booking status will change.",
+      "titleFull": "Full payment",
+      "noShowsWhy": "Why: this master asks for a prepayment when {count, plural, one {# visit} other {# visits}} didn’t happen in the last {months, plural, one {# month} other {# months}}. It keeps time fair for everyone. Once you pay, the slot is yours."
+    },
+    "review": {
+      "title": "Enjoyed your visit?",
+      "thanks": "Thanks for the star!",
+      "failed": "Couldn't save your rating"
+    },
+    "appPromo": {
+      "title": "Manage bookings in the app",
+      "hint": "Reschedule, cancel and subscriptions in one place",
+      "open": "Open"
+    },
+    "statusHistory": {
+      "title": "History"
+    },
+    "bookOtherTime": "Book another time",
+    "rescheduleCurrent": "You are booked for: {date}, {time}",
+    "rescheduleUntil": "You can reschedule yourself until {date}",
+    "rescheduleTo": "Move to {date}, {time}",
+    "cancelDialog": {
+      "title": "Cancel the booking?",
+      "free": "Free cancellation until {date}.",
+      "late": "Free cancellation ended on {date} — cancelling now counts as a no-show.",
+      "reasonLabel": "Reason (optional)",
+      "reasons": {
+        "plans": "Plans changed",
+        "ill": "I am ill",
+        "otherTime": "Need another time",
+        "other": "Other"
+      },
+      "confirm": "Yes, cancel",
+      "keep": "Keep the booking",
+      "prepaidRefund": "The prepayment of {amount} will be returned — the master will transfer it back.",
+      "prepaidKept": "The prepayment of {amount} won't be returned: this late, the master can no longer fill the time."
+    },
+    "calendar": {
+      "google": "Add to Google Calendar",
+      "master": "Specialist: {name}",
+      "manage": "Manage the booking: {url}"
+    },
+    "alt": {
+      "expired": "The master didn't reply in time. Free slots with the same master — pick a time:",
+      "offered": "The master suggests another time:",
+      "booked": "Done — you are booked for the new time",
+      "sent": "Done — the new time has been sent to the master",
+      "taken": "This time was just taken — pick another one",
+      "failed": "Couldn't book — please try again",
+      "movedTo": "You picked another time: {date}. This request is closed.",
+      "openNew": "Open the new booking"
+    },
+    "telegram": {
+      "title": "Reminders in Telegram",
+      "text": "The bot reminds you a day and 2 hours before — with “I’ll come”, “Reschedule”, “Cancel” buttons. Free.",
+      "linkedText": "Booking reminders will come to Telegram a day and 2 hours before.",
+      "connect": "Connect Telegram",
+      "linked": "Connected",
+      "demoLinked": "Demo: in the real mode the bot opens — tap “Start” there. Marked as connected",
+      "failed": "Couldn't connect Telegram — please try again"
+    },
+    "reschedulePrepaidLocked": "A prepaid booking can only be moved by the master — message or call them",
+    "referral": {
+      "title": "Invite a friend",
+      "text": "Your friend gets {invitee} on the first visit, you get {referrer} in bonuses once they come",
+      "inviteePercent": "{value}% off",
+      "inviteeFixed": "{amount} off",
+      "referrerPercent": "{value}% of their visit",
+      "referrerFixed": "{amount}",
+      "none": "a gift",
+      "message": "Hi! I go to “{business}” — with my link you get {reward} on your first visit: {url}",
+      "telegram": "I go to “{business}” — with my link you get {reward} on your first visit"
+    }
+  },
+  "about": {
+    "description": "Description",
+    "gallery": "Photos",
+    "contacts": "Contacts",
+    "trust": "About the salon",
+    "regularsCount": "{count, plural, one {# regular client} other {# regular clients}}",
+    "addressAfterConfirm": "District only until your booking is confirmed"
+  },
+  "bookingWindow": {
+    "source": {
+      "journal": "From the journal",
+      "app": "From the client app",
+      "link": "Online-booking link",
+      "widget": "Booking widget",
+      "phone": "By phone",
+      "import": "Import",
+      "external": "External source"
+    },
+    "device": {
+      "mobile": "Phone",
+      "desktop": "Computer"
+    },
+    "widgetGen": {
+      "new": "Widget v1"
+    }
+  },
+  "settings": {
+    "subtitle": "Online booking rules: confirmation, reschedule, cancellation, pause — per master.",
+    "staffTitle": "Master rules",
+    "staffHint": "Expand a master to change their rules.",
+    "noStaff": "No active masters",
+    "saved": "Saved",
+    "saveFailed": "Couldn't save",
+    "save": "Save",
+    "decidesForSelf": "The master decides this themselves — view only here",
+    "confirmMode": {
+      "label": "Booking confirmation",
+      "hint": "\"Instant\" confirms automatically; \"With confirmation\" — you confirm every request yourself. New masters start with \"with confirmation\" and can switch anytime",
+      "instant": "Instant",
+      "manual": "With confirmation",
+      "instantShort": "Instant",
+      "manualShort": "By confirmation"
+    },
+    "accepts": {
+      "label": "Who I accept",
+      "all": "Everyone",
+      "women": "Women only",
+      "men": "Men only"
+    },
+    "cancelWindow": {
+      "label": "Free cancellation — at least",
+      "hint": "…before the booking starts. Later, the cancellation counts as a no-show.",
+      "allowPrepaid": "Let clients cancel prepaid bookings online",
+      "keepPrepaid": "Cancelled after the deadline — I keep the prepayment",
+      "keepPrepaidHint": "That late, the time can't be given to someone else. Before the deadline the prepayment goes back to the client — you'll get a reminder.",
+      "labelRefund": "Refund the prepayment if the client cancels at least",
+      "hintRefund": "…before the booking starts. Later, the cancellation counts as a no-show.",
+      "hours": "{n} h",
+      "hoursUnit": "h",
+      "custom": "Custom number of hours"
+    },
+    "rescheduleWindow": {
+      "label": "Self reschedule, hours before",
+      "hint": "Later the client can't reschedule on their own",
+      "allowPrepaid": "Let clients reschedule prepaid bookings online"
+    },
+    "visitAlwaysManual": "A house-call booking always waits for your confirmation — this can't be turned off.",
+    "vacation": {
+      "toggle": "On vacation",
+      "until": "Vacation until"
+    },
+    "pause": {
+      "title": "Pause online booking",
+      "description": "Pauses booking on every link and widget of this location at once.",
+      "toggle": "Pause online booking",
+      "until": "Until",
+      "pausedToast": "Online booking paused",
+      "resumedToast": "Online booking resumed",
+      "undo": "Undo"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "hint": "How clients rate staff after a visit — the business decides.",
+      "star": "Star only",
+      "text": "Rating and text",
+      "starHint": "The client just taps ★ after the visit. Others only see how many gave one.",
+      "textHint": "The client gives a 1–5 rating and can write a text. The platform checks the text before showing it to others."
+    },
+    "consent": {
+      "title": "Data processing consent",
+      "combinedTitle": "Texts for the client",
+      "combinedHint": "Consent to data processing and the widget text — in three languages"
+    },
+    "clientFields": {
+      "title": "Client data",
+      "hint": "What the client fills in when booking online",
+      "builtIn": "Built-in fields",
+      "builtInHint": "Name and phone are always required and can't be turned off",
+      "commentLabel": "\"Comment\" field label",
+      "commentLabelHint": "Up to 60 characters",
+      "commentShow": "Show comment field",
+      "emailShow": "Show email field",
+      "email": "Email",
+      "required": "Required",
+      "fullName": "Last name and patronymic",
+      "lastName": "Ask for last name",
+      "patronymic": "Ask for patronymic",
+      "customTitle": "Custom fields",
+      "noCustom": "No custom fields yet",
+      "newFieldLabel": "Field name",
+      "optionsPlaceholder": "Comma-separated values",
+      "addField": "Add field",
+      "fieldAdded": "Field added",
+      "targetClient": "Client card",
+      "targetBooking": "Booking card",
+      "widgetText": "Widget text",
+      "type": {
+        "text": "Text",
+        "number": "Number",
+        "date": "Date",
+        "select": "Pick from list"
+      },
+      "cancelAdd": "Cancel",
+      "nameField": "Name",
+      "phoneField": "Phone",
+      "editLabel": "Edit label",
+      "colAsk": "Ask",
+      "colRequired": "Required",
+      "lockedHint": "Needed to book"
+    },
+    "depositPolicy": {
+      "label": "Partial prepayment or card guarantee",
+      "hint": "Applies only if the prepayment above is off.",
+      "none": "None",
+      "deposit": "Partial prepayment",
+      "cardGuarantee": "Card held as guarantee",
+      "amount": "Prepayment amount, ֏",
+      "noShowPenalty": "No-show fee, ֏",
+      "noShowPenaltyHint": "Leave empty — no fee beyond the prepayment.",
+      "cardGuaranteeHint": "Demo only: no card is linked or charged — there is no online acquiring.",
+      "prepayOn": "Doesn't apply while the prepayment above is on."
+    },
+    "claimLink": {
+      "toggle": "Add a \"Close the slot\" link to the client's message",
+      "hint": "The ready-made WhatsApp/Telegram text will carry a link to your nearest slot — you'll close it right in the chat, without opening the journal."
+    },
+    "format": {
+      "title": "Format, country and time zone",
+      "country": "Country",
+      "countryValue": "Armenia",
+      "timezone": "Time zone",
+      "hourCycle": "Time format",
+      "hourCycleHint": "Affects how time is shown in the widget and notifications.",
+      "hourCycle24": "24 h",
+      "hourCycle12": "12 h (AM/PM)",
+      "changeInSystem": "Change in System settings"
+    },
+    "when": {
+      "title": "When clients can book",
+      "hint": "For every booking link of this location.",
+      "step": "Booking step",
+      "stepValue": "Every {min} min",
+      "lead": "No sooner than",
+      "leadNone": "Any time from now",
+      "leadValue": "{h, plural, one {# hour ahead} other {# hours ahead}}",
+      "horizon": "No further than",
+      "horizonValue": "{d, plural, one {# day ahead} other {# days ahead}}",
+      "moreHint": "Unavailable days, slot type and per-weekday rules are",
+      "moreLink": "in “Schedule → Slots”"
+    },
+    "staffChoice": {
+      "title": "Choosing a specialist",
+      "hint": "Shared by every link of the business.",
+      "anyHint": "The client can pick “Anyone” — we find the nearest time across all suitable masters. A master can opt out in their own rules.",
+      "forAllHint": "All online bookings go to this staff member — overrides the client's choice and the link's preselection.",
+      "clientChooses": "The client chooses"
+    },
+    "prepay": {
+      "title": "Prepayment for online bookings",
+      "toggle": "Take a prepayment for online bookings",
+      "toggleHint": "Until the client pays, the booking awaits prepayment; if they don't pay in time, the time is released.",
+      "percent": "Percent of the price",
+      "percentCustom": "Custom percent",
+      "example": "Booking for {price} → prepayment {amount}. Rounded up to 100 ֏.",
+      "requisites": "Where to transfer",
+      "requisitesHint": "The client sees it after “Book”.",
+      "requisitesPlaceholder": "Idram · +374 …",
+      "requisitesRequired": "Enter where to transfer the prepayment",
+      "wait": "Wait for payment",
+      "waitMinutes": "{minutes} min",
+      "clientChoice": "The client chooses: pay only the prepayment or the full amount now.",
+      "legacy": "A fixed amount of {amount} is taken now. After saving, it becomes a percent.",
+      "off": "Not taken",
+      "summary": "{percent}% of the booking price",
+      "summaryFixed": "Fixed amount {amount}",
+      "badge": "Prepayment {value}",
+      "scopeLabel": "Who pays a prepayment",
+      "scopeNoShows": "Only clients who missed visits",
+      "scopeNoShowsHint": "Everyone else books without a prepayment. Good when missed visits are rare.",
+      "scopeAll": "All clients",
+      "scopeAllHint": "Every online booking waits for a prepayment.",
+      "noShowCount": "Client didn’t come",
+      "noShowCountOption": "{count, plural, one {# time} other {# times}}",
+      "noShowMonths": "In the last",
+      "noShowMonthsOption": "{months, plural, one {# month} other {# months}}",
+      "noShowCounterHint": "Only your own bookings count — visits to other masters don’t. A late cancellation also counts as “didn’t come”. We explain it to the client calmly, without blame.",
+      "scopeNoShowsSummary": "Only from clients who didn’t come {count, plural, one {# time} other {# times}} in {months, plural, one {# month} other {# months}}",
+      "badgeNoShows": "Prepayment {value} · missed visits"
+    },
+    "refund": {
+      "title": "Cancellation and prepayment refund",
+      "titleNoPrepay": "Cancellation by the client",
+      "summary": "Prepayment refunded if cancelled at least {n} h before the booking",
+      "summaryFree": "Free cancellation — at least {n} h before the booking",
+      "summaryKeep": "Cancelled later — the master keeps the prepayment",
+      "summaryGive": "Cancelled later — the prepayment is still refunded",
+      "summaryCancelOn": "The client can cancel a paid booking themselves",
+      "summaryCancelOff": "The client can't cancel a paid booking themselves — only via the master"
+    },
+    "invitedHint": "{count, plural, one {Invitation not accepted yet: {names}. They will appear in online booking once they accept it.} other {Invitations not accepted yet: {names}. They will appear in online booking once they accept.}}",
+    "hidden": {
+      "badge": "Hidden from clients",
+      "title": "Clients can’t see this team member in online booking:",
+      "disabled": "online booking is turned off in their profile.",
+      "disabledAction": "Turn on",
+      "noSchedule": "no work schedule.",
+      "noScheduleAction": "Set schedule",
+      "noServices": "no services open for online booking.",
+      "noServicesAction": "Add services"
+    }
+  },
+  "requests": {
+    "title": "Requests",
+    "subtitle": "Bookings waiting for your decision or a prepayment check.",
+    "count": "{count}",
+    "empty": {
+      "title": "No requests",
+      "description": "New booking requests will appear here — confirm or decline in one tap."
+    },
+    "confirmed": "Request confirmed",
+    "declined": "Request declined",
+    "actionFailed": "Couldn't process the request",
+    "decline": "Decline",
+    "confirm": "Confirm",
+    "unknownStaff": "Master",
+    "noShowCount": "{count, plural, one {# no-show} other {# no-shows}}",
+    "addressHiddenOtherStaff": "Only this booking's master can see the address",
+    "addressAfterConfirm": "exact address after you confirm",
+    "declineConfirm": {
+      "title": "Decline this request?",
+      "description": "The client will see the booking as declined and will need to book again — this can't be undone.",
+      "confirm": "Decline"
+    },
+    "workplace": {
+      "salon": "At the salon",
+      "home": "At home",
+      "visit": "House call",
+      "gym": "At the gym",
+      "online": "Online"
+    },
+    "whoToInvite": {
+      "title": "Who to invite",
+      "hint": "Free slots for the next few days and clients worth offering them to",
+      "staffSelect": "Specialist",
+      "empty": {
+        "title": "No one to invite yet",
+        "description": "No free slots, or not enough booking history to match clients"
+      },
+      "reasonRegular": "Usually books around this time",
+      "reasonDueAgain": "Due again",
+      "invite": "Invite",
+      "invited": "Invitation sent and the slot is booked",
+      "inviteFailed": "Couldn’t send the invitation",
+      "messageTemplate": "Hi {name}! We have a free slot {when} — shall we book you in?",
+      "log": "Sent invitations",
+      "logEmpty": "No invitations yet"
+    },
+    "waitingMinutes": "{n, plural, one {Waiting # minute} other {Waiting # minutes}}",
+    "waitingHours": "{n, plural, one {Waiting # hour} other {Waiting # hours}}",
+    "client": {
+      "new": "New client",
+      "visits": "{count, plural, one {# visit} other {# visits}}"
+    },
+    "prepaymentReported": "The client says they paid {amount} · {when}. Check the payment and tap “Money received”.",
+    "moneyReceived": "Money received",
+    "moneyReceivedDone": "Prepayment recorded — the booking is confirmed",
+    "otherTime": {
+      "button": "Other time",
+      "title": "Offer another time",
+      "hint": "Pick up to three free slots — the client will choose one.",
+      "send": "Send to client",
+      "sendCount": "{count, plural, one {Send # slot} other {Send # slots}}",
+      "sent": "{count, plural, one {# slot sent to the client} other {# slots sent to the client}}",
+      "offered": "Offered to the client: {list}",
+      "emptyTitle": "No free slots",
+      "emptyText": "The master has no time for this length in the next two weeks.",
+      "slotTaken": "One of the slots is already taken or outside the master's schedule — pick again"
+    },
+    "prepaymentNoShows": "Waiting for a prepayment: the client didn’t come to this master {count, plural, one {# time} other {# times}} in {months, plural, one {# month} other {# months}} — the master’s rule asks for it"
+  },
+  "places": {
+    "title": "Work places",
+    "subtitle": "Where the master sees clients: salon, home, visits, gym or online.",
+    "saved": "Saved",
+    "saveFailed": "Couldn't save",
+    "geoUnsupported": "Your browser doesn't support geolocation",
+    "geoFailed": "Couldn't get your location",
+    "save": "Save",
+    "list": {
+      "title": "My work places"
+    },
+    "workplace": {
+      "salon": "At the salon",
+      "home": "At home",
+      "visit": "House call",
+      "gym": "At the gym",
+      "online": "Online"
+    },
+    "workplaceHint": {
+      "salon": "Clients come to your salon",
+      "home": "Clients come to your home",
+      "visit": "You travel to the client",
+      "gym": "A separate gym or venue",
+      "online": "Service is done over video, no address needed"
+    },
+    "salon": {
+      "title": "Salon",
+      "yandexUrl": "Yandex Maps link",
+      "district": "District",
+      "districtPlaceholder": "Choose a district",
+      "markHere": "📍 I'm here now",
+      "marked": "Location marked",
+      "hasCoords": "A map point is already saved",
+      "openLink": "Open in Yandex Maps"
+    },
+    "home": {
+      "title": "Home",
+      "hint": "Clients only see the exact address after a confirmed booking; before that — only the district.",
+      "address": "Address",
+      "addressPlaceholder": "Street, building, apartment, how to get in",
+      "district": "District"
+    },
+    "visit": {
+      "title": "House calls",
+      "hint": "A house-call booking always waits for your confirmation.",
+      "districts": "Districts you travel to",
+      "fee": "House-call fee",
+      "time": "Travel time, min",
+      "alwaysManual": "House calls always need confirmation"
+    },
+    "online": {
+      "hint": "The service happens over video — no address or district is shown to the client."
+    },
+    "staffSelect": "Master"
+  },
+  "staffCard": {
+    "loadFailed": "Couldn't load data",
+    "confirmMode": "Confirmation",
+    "accepts": "Accepts",
+    "cancelWindow": "Free cancellation",
+    "rescheduleWindow": "Reschedule",
+    "hours": "up to {count}h before",
+    "workplaces": "Work places",
+    "noWorkplaces": "Not set",
+    "editLink": "Edit in Online booking",
+    "onlineEnabled": "Online booking for this specialist",
+    "onlineEnabledOn": "Specialist is open for online booking",
+    "onlineEnabledOff": "Specialist is hidden from online booking",
+    "updateFailed": "Couldn't save",
+    "ratingEnabled": "Staff rating — clients will see the score",
+    "pairsTitle": "Online booking per service",
+    "pairGroupHint": "for group services it's toggled on the service itself",
+    "saved": "Saved"
+  },
+  "clientCard": {
+    "loadFailed": "Couldn't load data",
+    "noShowCount": "No-shows",
+    "noShowValue": "{count, plural, one {# no-show} other {# no-shows}}",
+    "noShowNone": "No no-shows",
+    "blockOnline": "Block online booking",
+    "blocked": "Online booking blocked",
+    "unblocked": "Online booking allowed",
+    "updateFailed": "Couldn't update",
+    "customAnswers": "Answers to custom fields"
+  },
+  "page": {
+    "subtitle": "What clients see on the public page and in the catalog.",
+    "visibility": {
+      "title": "Who sees my calendar",
+      "description": "Controls who can see your free time and book.",
+      "saved": "Saved",
+      "saveFailed": "Couldn't save",
+      "all": "Everyone",
+      "link": "By link",
+      "mine": "My clients only",
+      "mineShort": "My clients"
+    },
+    "listability": {
+      "title": "Catalog visibility",
+      "description": "A profile with no services, photo or schedule isn't shown to clients.",
+      "ok": "Shown in catalog",
+      "missing": {
+        "services": "No online services",
+        "photo": "No photo",
+        "schedule": "No schedule"
+      },
+      "fix": {
+        "services": "Assign services",
+        "photo": "Add a photo",
+        "schedule": "Set a schedule"
+      }
+    },
+    "brands": {
+      "title": "Materials and brands you work with",
+      "description": "Shown on the booking page — builds trust with new clients",
+      "placeholder": "Brand name, Enter or comma",
+      "saved": "Saved",
+      "saveFailed": "Couldn't save"
+    },
+    "stars": {
+      "title": "Star instead of reviews",
+      "description": "Number of clients who starred after a visit"
+    },
+    "promo": {
+      "title": "Promo block in the widget",
+      "description": "A banner with an offer or reminder on the booking page",
+      "add": "Add promo block",
+      "empty": "No promo blocks yet",
+      "formTitle": "Promo block",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldButtonText": "Button text",
+      "fieldButtonLink": "Button link",
+      "fieldScreens": "Where to show it",
+      "screenMenu": "Menu screen",
+      "screenService": "Service selection",
+      "screenStaff": "Staff selection",
+      "screenSuccess": "Booking success screen",
+      "titleRequired": "Enter a title",
+      "delete": "Delete promo block",
+      "pending": "Under review",
+      "rejected": "Rejected"
+    },
+    "preview": {
+      "title": "Your page",
+      "hint": "This is how a client sees it on a phone. Changes to the description, photos and contacts show up here right away.",
+      "open": "Open page",
+      "brand": "Description and logo",
+      "brandHint": "Name, description, logo",
+      "gallery": "Photos",
+      "galleryHint": "Salon gallery",
+      "contacts": "Contacts and opening hours",
+      "contactsHint": "Address, phone, hours",
+      "socials": "Social media",
+      "socialsHint": "Instagram, Telegram, WhatsApp"
+    }
+  },
+  "widget": {
+    "subtitle": "Website button, installation, link numbers, domain",
+    "copied": "Copied",
+    "button": {
+      "title": "Button on the website",
+      "hint": "Floating \"Book online\" button",
+      "show": "Show button on the website",
+      "position": "Button position",
+      "cornerBr": "Bottom right",
+      "cornerTr": "Top right",
+      "cornerBl": "Bottom left",
+      "cornerTl": "Top left",
+      "side": "Widget panel side",
+      "sideRight": "Right",
+      "sideLeft": "Left",
+      "color": "Button color",
+      "animation": "Button animation"
+    },
+    "install": {
+      "title": "Website installation",
+      "hint": "Ready-made code to paste in",
+      "standard": "Standard round button",
+      "standardHint": "Paste the code on every page of your site (before the closing body tag) — a “Book now” button appears and opens your salon's booking page on BookTime. Works in any site builder, no scripts needed.",
+      "custom": "Custom button",
+      "customHint": "A plain link to your salon's booking page — put it on any button or text of your own.",
+      "customButtonLabel": "Book now",
+      "multiForm": "Several forms on one page",
+      "multiFormHint": "One link per booking form — each has its own address and step settings.",
+      "multiFormExample": "Book a haircut",
+      "iframe": "Form embedded in the page (iframe)",
+      "iframeHint": "Full size is 545×780 px — payment and sign-in inside an iframe aren't guaranteed",
+      "copyButtonCode": "Copy button code",
+      "howTitle": "How to install",
+      "roundButton": "Round button",
+      "customButton": "Custom button",
+      "formOnPage": "Form on page",
+      "test": "Check where it leads"
+    },
+    "platforms": {
+      "title": "Website builder instructions",
+      "wordpress": "WordPress",
+      "wordpressText": "Appearance → Theme File Editor → header.php — paste the button code before the closing body tag.",
+      "joomla": "Joomla",
+      "joomlaText": "Paste the button code into the template's index.php right after the opening body tag.",
+      "googleSites": "Google Sites",
+      "googleSitesText": "\"Embed\" → \"Code\" — paste the button code, add a defer attribute, then \"Insert\".",
+      "wix": "Wix",
+      "wixText": "Free plan — iframe only (\"Embed a site\"). Paid plan — code in \"Settings → Custom Code\", placement Body – end.",
+      "tilda": "Tilda",
+      "tildaText": "The \"T123 HTML code\" block with the button code — \"Save & Close\", then publish the site."
+    },
+    "ids": {
+      "title": "Link numbers",
+      "hint": "Form, staff, service and location IDs for preselect links and website code",
+      "forms": "Forms",
+      "staff": "Staff",
+      "services": "Services",
+      "locations": "Locations",
+      "devTitle": "For the site developer: form, staff and service IDs",
+      "search": "Search by name",
+      "empty": "Nothing found"
+    },
+    "domain": {
+      "title": "Personal domain",
+      "hint": "A short branded address instead of the technical form number",
+      "subdomain": "Subdomain",
+      "domain": "Domain",
+      "invalid": "Latin letters, digits and hyphens only, at least 3 characters",
+      "taken": "That address is already taken — choose another",
+      "free": "Available",
+      "taken2": "Taken",
+      "finalAddressHint": "Page address after saving",
+      "checking": "Checking…"
+    },
+    "instagram": {
+      "title": "Instagram bio link",
+      "hint": "Paste into the \"Website\" field when editing your profile"
+    },
+    "channels": {
+      "title": "Other booking channels",
+      "hint": "Demo: the switch shows what the cabinet looks like once connected — no real trip to the platform happens",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "connected": "Connected",
+      "unavailable": "Not available in Armenia yet",
+      "requiresLicense": "Paid license required",
+      "ownApi": {
+        "title": "Your own widget via API",
+        "hint": "Build a booking form on your own site: free slots and bookings through the open API",
+        "generate": "Generate key",
+        "regenerate": "Regenerate key",
+        "revoke": "Revoke",
+        "keyLabel": "API key",
+        "revoked": "Key revoked",
+        "generated": "Key created"
+      },
+      "metaBookNow": {
+        "title": "“Book Now” button on Instagram and Facebook",
+        "hint": "A button on your business profile opens your booking form; bookings are tagged with the source “Instagram/Facebook”"
+      },
+      "googleReserve": {
+        "title": "Booking via Google (Reserve with Google)",
+        "hint": "Clients book right from Google Search and Maps without leaving the page"
+      },
+      "yandexMaps": {
+        "title": "Booking via Yandex Maps",
+        "hint": "A “Book online” button on your Yandex Maps listing"
+      },
+      "twoGis": {
+        "title": "Booking via 2GIS",
+        "hint": "An online booking button on your 2GIS listing"
+      },
+      "earlyone": {
+        "title": "Partner booking catalogs",
+        "hint": "Earlyone and similar catalogs pull your schedule; new bookings land in the journal tagged “Partners”"
+      },
+      "thirdPartyBots": {
+        "title": "Third-party storefronts and booking bots",
+        "hint": "Mini-landing pages and chat bots that walk clients through booking on your schedule"
+      }
+    },
+    "mobileApp": {
+      "title": "Mobile apps",
+      "hint": "Links to your own apps shown to clients after booking — plus a request for your own branded app",
+      "ios": "iOS app",
+      "android": "Android app",
+      "linksSaved": "Links saved",
+      "orderTitle": "Branded app",
+      "orderHint": "Price includes development, App Store and Google Play listing, and support for the paid period",
+      "orderButton": "Request a consultation",
+      "orderSent": "Request sent {date} — a personal manager will reach out (demo)"
+    },
+    "tabs": {
+      "button": "Button",
+      "install": "Install",
+      "addresses": "Addresses & IDs"
+    }
+  },
+  "serviceCard": {
+    "saveFirstTitle": "Save the service first",
+    "saveFirstDescription": "Online booking, description and photo open up after the service is saved once.",
+    "onlineToggle": "Service is bookable online",
+    "onlineOn": "Service is visible online",
+    "onlineOff": "Service is hidden from online booking",
+    "onlineName": "Name shown for online booking",
+    "onlineNameHint": "Empty — shows the service's regular name",
+    "description": "Description",
+    "subscriptionOnly": "Block online booking without a subscription",
+    "subscriptionPlanName": "Subscription name",
+    "subscriptionPlanNameHint": "Must match the subscription's name in Clients exactly (case-insensitive) — empty accepts any active subscription",
+    "availability": {
+      "title": "Available for a limited time",
+      "from": "Period from",
+      "to": "Period to",
+      "hoursFrom": "Hours from",
+      "hoursTo": "Hours to",
+      "days": "Days available for booking",
+      "any": "Any day",
+      "weekdays": "Weekdays only",
+      "weekends": "Weekends only"
+    },
+    "packageOneAtATime": "Online — one package at a time, no add-on services.",
+    "image": "Picture",
+    "imageUpload": "Upload an image"
+  },
+  "cabinet": {
+    "title": "My account",
+    "myBookings": "My bookings",
+    "upcoming": "Upcoming",
+    "noUpcoming": "No upcoming bookings",
+    "past": "Past",
+    "noPast": "No past bookings",
+    "loyalty": "Subscriptions and gift cards",
+    "visitsLeft": "{count, plural, one{# visit} other{# visits}} left",
+    "repeat": "Repeat",
+    "logout": "Log out",
+    "newBooking": "New booking",
+    "emptyTitle": "No bookings yet",
+    "emptyDescription": "No bookings were made with this number yet. Book now — it will appear here.",
+    "book": "Book",
+    "manage": "Manage",
+    "demoCode": "Demo: code {code}"
+  },
+  "help": {
+    "buttonLabel": "Help",
+    "links": {
+      "title": "Online booking links",
+      "body": "Set up the addresses clients use to book online: the primary link, extra links for ads and social media, the “New link” button and the “what to set up before launch” hub. A full help article will appear in the help center once it launches."
+    },
+    "linkSettings": {
+      "title": "Link settings",
+      "body": "The settings screen for one booking link: booking flow and step order, design, who can use the link, sales and analytics. Changes apply only after you press Save."
+    },
+    "page": {
+      "title": "Client-facing page",
+      "body": "A preview of the page clients see and links to the description, photos, contacts, hours and social media; who sees the booking calendar, how complete the masters' profiles are, brands and promo blocks."
+    },
+    "widget": {
+      "title": "Website widget",
+      "body": "The button and iframe for embedding the widget on your site, ready instructions for website builders, form/staff/service IDs for integrations, and other channels where clients can book online."
+    },
+    "settings": {
+      "title": "Booking rules",
+      "body": "Online booking rules for all links: when clients can book (step, minimum notice, how far ahead), choosing a specialist (“anyone” and one staff member for all bookings), confirmation and cancel/reschedule per master, client fields, data-processing consent, and pausing online booking."
+    },
+    "requests": {
+      "title": "Requests",
+      "body": "Bookings waiting for the master's confirmation (including home visits) and bookings where the client reported a prepayment — check it with “Money received”. Each request shows how long the client has waited, whether they are new and their no-shows; you can offer another time."
+    },
+    "places": {
+      "title": "Workplaces and on-site visits",
+      "body": "Where the staff member sees clients: addresses, a Yandex Maps link, the “I'm here now” mark, visit districts and the on-site travel fee."
+    }
+  }
+}

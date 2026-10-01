@@ -1,0 +1,31 @@
+[
+ {"route":"/b/nuri-nail-studio","persona":"guest","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},{"screenshot":"p01-public"},
+  {"click":"role=link[name=\"Записаться\"] >> nth=0"},{"wait":1200},{"screenshot":"p02-services"},
+  {"click":"text=Маникюр классический"},{"wait":300},{"screenshot":"p03-service-picked"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":900},{"screenshot":"p04-staff"},
+  {"click":"text=Ани Саргсян"},{"wait":300},{"screenshot":"p05-staff-picked"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},{"screenshot":"p06-time"},
+  {"click":"css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']"},{"wait":300},{"screenshot":"p07-time-picked"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":800},{"screenshot":"p08-details"},
+  {"click":"role=button[name=\"Записаться\"]"},{"wait":500},{"screenshot":"p09-details-errors"},
+  {"fill":"role=textbox[name=\"Имя\"]","value":"Лилит Арутюнян"},
+  {"fill":"role=textbox[name=/Телефон/]","value":"77123456"},
+  {"click":"role=checkbox"},{"wait":200},{"screenshot":"p10-details-filled"},
+  {"click":"role=button[name=\"Записаться\"]"},{"wait":2500},{"screenshot":"p11-confirmed"}
+ ]},
+ {"route":"/b/nuri-nail-studio","persona":"guest","sphere":"nails","lang":"ru","device":"desktop","steps":[
+  {"wait":1200},{"screenshot":"d01-public"},
+  {"click":"role=link[name=\"Записаться\"] >> nth=0"},{"wait":1200},{"screenshot":"d02-services"},
+  {"click":"text=Маникюр классический"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":900},{"screenshot":"d04-staff"},
+  {"click":"text=Ани Саргсян"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},{"screenshot":"d06-time"},
+  {"click":"css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']"},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":800},{"screenshot":"d08-details"},
+  {"fill":"role=textbox[name=\"Имя\"]","value":"Лилит Арутюнян"},
+  {"fill":"role=textbox[name=/Телефон/]","value":"77123456"},
+  {"click":"role=checkbox"},
+  {"click":"role=button[name=\"Записаться\"]"},{"wait":2500},{"screenshot":"d11-confirmed"}
+ ]}
+]

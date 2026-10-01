@@ -1,0 +1,164 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T01:17:34.699Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 4,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-001",
+      "F-02-002",
+      "F-02-003",
+      "F-02-004",
+      "F-02-016",
+      "F-02-030",
+      "F-02-085",
+      "F-02-086",
+      "F-02-087",
+      "F-02-099"
+    ],
+    "scenarioSteps": {
+      "ok": 8,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1430,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4016:97)\n    at readCore (http://localhost:3710/_next/static/chunks/src_1w4gdcu._.js:30:138)\n    at setCells (http://localhost:3710/_next/static/chunks/src_0jxidfi._.js:575:156)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4016:97)\n    at readCore (http://localhost:3710/_next/static/chunks/src_1w4gdcu._.js:30:138)\n    at writeScheduleOverrides (http://localhost:3710/_next/static/chunks/src_0jxidfi._.js:437:169)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4016:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_1w4gdcu._.js:21:131)\n    at setCells (http://localhost:3710/_next/static/chunks/src_0jxidfi._.js:592:141)",
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4016:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_1w4gdcu._.js:21:131)\n    at pushHistory (http://localhost:3710/_next/static/chunks/src_0jxidfi._.js:459:141)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-016",
+        "F-02-030",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Показать"
+          },
+          "ok": true,
+          "ms": 249
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "expanded"
+          },
+          "ok": true,
+          "ms": 42,
+          "screenshot": "qa/shots/b03-scenario-qa/biz-schedule__owner-nails-ru-light-desktop__expanded.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "text=+ рабочий день >> nth=0"
+          },
+          "ok": true,
+          "ms": 617
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 7,
+          "step": {
+            "expectText": "Рабочий день добавлен на завтра"
+          },
+          "ok": true,
+          "ms": 5
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "day-added"
+          },
+          "ok": true,
+          "ms": 45,
+          "screenshot": "qa/shots/b03-scenario-qa/biz-schedule__owner-nails-ru-light-desktop__day-added.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/b03-scenario-qa/biz-schedule__owner-nails-ru-light-desktop.png",
+        "qa/shots/b03-scenario-qa/biz-schedule__owner-nails-ru-light-desktop__expanded.png",
+        "qa/shots/b03-scenario-qa/biz-schedule__owner-nails-ru-light-desktop__day-added.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

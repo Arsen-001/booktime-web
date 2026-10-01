@@ -1,0 +1,1381 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-10-01T18:31:16.747Z",
+  "summary": {
+    "pages": 8,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 50,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-094",
+      "F-00-121",
+      "F-00-184",
+      "F-01-002",
+      "F-01-006",
+      "F-01-007",
+      "F-01-009",
+      "F-01-010",
+      "F-01-011",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-016",
+      "F-01-017",
+      "F-01-018",
+      "F-01-019",
+      "F-01-020",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-028",
+      "F-01-030",
+      "F-01-031",
+      "F-01-032",
+      "F-01-033",
+      "F-01-034",
+      "F-01-051",
+      "F-01-052",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-126",
+      "F-01-128",
+      "F-01-156",
+      "F-01-157",
+      "F-01-158",
+      "F-01-159",
+      "F-01-160",
+      "F-01-162",
+      "F-01-167",
+      "F-01-171",
+      "F-01-178",
+      "F-01-184",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-204",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220",
+      "F-02-025",
+      "F-02-062",
+      "F-03-124",
+      "F-04-102",
+      "F-04-104",
+      "F-10-133",
+      "F-10-134",
+      "F-10-136",
+      "F-14-085",
+      "F-14-086",
+      "F-14-087",
+      "F-14-088",
+      "F-14-089",
+      "F-14-090",
+      "F-15-014",
+      "F-16-033",
+      "F-16-127",
+      "F-16-135",
+      "F-16-149",
+      "F-16-155",
+      "F-16-158",
+      "F-16-159",
+      "F-16-160",
+      "F-16-161",
+      "F-16-162",
+      "F-16-163",
+      "F-16-166",
+      "F-16-167",
+      "F-16-168"
+    ],
+    "scenarioSteps": {
+      "ok": 32,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/waitlist",
+      "url": "http://localhost:3710/biz/waitlist?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2015,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-01-156",
+        "F-01-157",
+        "F-01-158",
+        "F-01-159",
+        "F-01-160",
+        "F-01-162",
+        "F-04-104",
+        "F-15-014",
+        "F-16-033",
+        "F-16-135",
+        "F-16-149",
+        "F-16-155",
+        "F-16-158",
+        "F-16-159",
+        "F-16-160",
+        "F-16-161",
+        "F-16-162",
+        "F-16-163",
+        "F-16-166",
+        "F-16-167",
+        "F-16-168"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1500
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "page-ru-desktop"
+          },
+          "ok": true,
+          "ms": 35,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-desktop__page-ru-desktop.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+          },
+          "ok": true,
+          "ms": 276
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "page-expanded-ru-desktop"
+          },
+          "ok": true,
+          "ms": 75,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-desktop__page-expanded-ru-desktop.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-desktop.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-desktop__page-ru-desktop.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-desktop__page-expanded-ru-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/waitlist",
+      "url": "http://localhost:3710/biz/waitlist?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2011,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-01-156",
+        "F-01-157",
+        "F-01-158",
+        "F-01-159",
+        "F-01-160",
+        "F-01-162",
+        "F-04-104",
+        "F-15-014",
+        "F-16-033",
+        "F-16-135",
+        "F-16-149",
+        "F-16-155",
+        "F-16-158",
+        "F-16-159",
+        "F-16-160",
+        "F-16-161",
+        "F-16-162",
+        "F-16-163",
+        "F-16-166",
+        "F-16-167",
+        "F-16-168"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "page-ru-phone"
+          },
+          "ok": true,
+          "ms": 84,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-phone__page-ru-phone.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+          },
+          "ok": true,
+          "ms": 257
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "page-expanded-ru-phone"
+          },
+          "ok": true,
+          "ms": 107,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-phone__page-expanded-ru-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-phone.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-phone__page-ru-phone.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-ru-light-phone__page-expanded-ru-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=admin&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "admin",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2155,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Свернуть панель",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Открыть сводку",
+          "w": 140,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Закрыть визиты",
+          "w": 142,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-121]",
+          "text": "Напомнить",
+          "w": 109,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 14,
+      "dataF": [
+        "F-00-094",
+        "F-00-121",
+        "F-00-184",
+        "F-01-002",
+        "F-01-006",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-016",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-030",
+        "F-01-031",
+        "F-01-032",
+        "F-01-033",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-126",
+        "F-01-128",
+        "F-01-156",
+        "F-01-167",
+        "F-01-171",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-188",
+        "F-01-204",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220",
+        "F-02-025",
+        "F-02-062",
+        "F-03-124",
+        "F-04-102",
+        "F-10-133",
+        "F-10-134",
+        "F-10-136",
+        "F-14-085",
+        "F-14-086",
+        "F-14-087",
+        "F-14-089",
+        "F-14-090",
+        "F-16-127"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 2500
+          },
+          "ok": true,
+          "ms": 2500
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "journal-ru-desktop"
+          },
+          "ok": true,
+          "ms": 43,
+          "screenshot": "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-desktop__journal-ru-desktop.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-desktop.png",
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-desktop__journal-ru-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=admin&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "admin",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2055,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Технический перерыв",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 10,
+      "dataF": [
+        "F-00-094",
+        "F-00-184",
+        "F-01-002",
+        "F-01-006",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-030",
+        "F-01-031",
+        "F-01-032",
+        "F-01-033",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-126",
+        "F-01-128",
+        "F-01-167",
+        "F-01-171",
+        "F-01-178",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-204",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220",
+        "F-02-025",
+        "F-02-062",
+        "F-03-124",
+        "F-04-102",
+        "F-10-133",
+        "F-10-134",
+        "F-10-136",
+        "F-14-085",
+        "F-14-086",
+        "F-14-087",
+        "F-14-088",
+        "F-16-127"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 2500
+          },
+          "ok": true,
+          "ms": 2501
+        },
+        {
+          "i": 2,
+          "step": {
+            "goto": "/biz/journal"
+          },
+          "ok": true,
+          "ms": 1888
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "journal-ru-phone"
+          },
+          "ok": true,
+          "ms": 61,
+          "screenshot": "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-phone__journal-ru-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-phone.png",
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-ru-light-phone__journal-ru-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/waitlist",
+      "url": "http://localhost:3710/biz/waitlist?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2050,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-01-156",
+        "F-01-157",
+        "F-01-158",
+        "F-01-159",
+        "F-01-160",
+        "F-01-162",
+        "F-04-104",
+        "F-15-014",
+        "F-16-033",
+        "F-16-135",
+        "F-16-149",
+        "F-16-155",
+        "F-16-158",
+        "F-16-159",
+        "F-16-160",
+        "F-16-161",
+        "F-16-162",
+        "F-16-163",
+        "F-16-166",
+        "F-16-167",
+        "F-16-168"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "page-en-desktop"
+          },
+          "ok": true,
+          "ms": 58,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-desktop__page-en-desktop.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+          },
+          "ok": true,
+          "ms": 235
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 602
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "page-expanded-en-desktop"
+          },
+          "ok": true,
+          "ms": 43,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-desktop__page-expanded-en-desktop.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-desktop.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-desktop__page-en-desktop.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-desktop__page-expanded-en-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/waitlist",
+      "url": "http://localhost:3710/biz/waitlist?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1963,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-01-156",
+        "F-01-157",
+        "F-01-158",
+        "F-01-159",
+        "F-01-160",
+        "F-01-162",
+        "F-04-104",
+        "F-15-014",
+        "F-16-033",
+        "F-16-135",
+        "F-16-149",
+        "F-16-155",
+        "F-16-158",
+        "F-16-159",
+        "F-16-160",
+        "F-16-161",
+        "F-16-162",
+        "F-16-163",
+        "F-16-166",
+        "F-16-167",
+        "F-16-168"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "page-en-phone"
+          },
+          "ok": true,
+          "ms": 99,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-phone__page-en-phone.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "li[data-f~=\"F-16-159\"] button >> nth=0"
+          },
+          "ok": true,
+          "ms": 193
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "page-expanded-en-phone"
+          },
+          "ok": true,
+          "ms": 79,
+          "screenshot": "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-phone__page-expanded-en-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-phone.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-phone__page-en-phone.png",
+        "qa/queue-1001b/waitlist/biz-waitlist__owner-nails-en-light-phone__page-expanded-en-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=admin&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "admin",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2362,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 191,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Collapse the panel",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Open summary",
+          "w": 134,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002]",
+          "text": "Close visits",
+          "w": 104,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-121]",
+          "text": "Remind",
+          "w": 81,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 14,
+      "dataF": [
+        "F-00-094",
+        "F-00-121",
+        "F-00-184",
+        "F-01-002",
+        "F-01-006",
+        "F-01-009",
+        "F-01-010",
+        "F-01-011",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-016",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-030",
+        "F-01-031",
+        "F-01-032",
+        "F-01-033",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-126",
+        "F-01-128",
+        "F-01-156",
+        "F-01-167",
+        "F-01-171",
+        "F-01-178",
+        "F-01-184",
+        "F-01-186",
+        "F-01-188",
+        "F-01-204",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220",
+        "F-02-025",
+        "F-02-062",
+        "F-03-124",
+        "F-04-102",
+        "F-10-133",
+        "F-10-134",
+        "F-10-136",
+        "F-14-085",
+        "F-14-086",
+        "F-14-087",
+        "F-14-089",
+        "F-14-090",
+        "F-16-127"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 2500
+          },
+          "ok": true,
+          "ms": 2500
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "journal-en-desktop"
+          },
+          "ok": true,
+          "ms": 55,
+          "screenshot": "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-desktop__journal-en-desktop.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-desktop.png",
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-desktop__journal-en-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/journal",
+      "url": "http://localhost:3710/biz/journal?demo=admin&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "admin",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2099,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.relative.mt-0.5.block in [data-f=F-01-032 F-02-062]",
+          "text": "Technical break",
+          "w": 143,
+          "h": 16,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 10,
+      "dataF": [
+        "F-00-094",
+        "F-00-184",
+        "F-01-002",
+        "F-01-006",
+        "F-01-017",
+        "F-01-018",
+        "F-01-019",
+        "F-01-020",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-028",
+        "F-01-030",
+        "F-01-031",
+        "F-01-032",
+        "F-01-033",
+        "F-01-034",
+        "F-01-051",
+        "F-01-052",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-126",
+        "F-01-128",
+        "F-01-167",
+        "F-01-171",
+        "F-01-178",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-204",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220",
+        "F-02-025",
+        "F-02-062",
+        "F-03-124",
+        "F-04-102",
+        "F-10-133",
+        "F-10-134",
+        "F-10-136",
+        "F-14-085",
+        "F-14-086",
+        "F-14-087",
+        "F-14-088",
+        "F-16-127"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 2500
+          },
+          "ok": true,
+          "ms": 2502
+        },
+        {
+          "i": 2,
+          "step": {
+            "goto": "/biz/journal"
+          },
+          "ok": true,
+          "ms": 1173
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 1500
+          },
+          "ok": true,
+          "ms": 1501
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "journal-en-phone"
+          },
+          "ok": true,
+          "ms": 91,
+          "screenshot": "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-phone__journal-en-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-phone.png",
+        "qa/queue-1001b/waitlist/biz-journal__admin-nails-en-light-phone__journal-en-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    }
+  ]
+}

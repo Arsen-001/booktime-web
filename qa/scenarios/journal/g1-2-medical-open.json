@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "dental",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Лечение каналов" },
+    { "wait": 500 },
+    { "screenshot": "dental-booking-open" },
+    { "click": "text=Еще" },
+    { "wait": 300 },
+    { "screenshot": "dental-more-menu" }
+  ]
+}

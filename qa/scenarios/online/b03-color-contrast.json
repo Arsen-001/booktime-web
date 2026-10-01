@@ -1,0 +1,24 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 500},
+    {"click": "text=\"Настроить\""},
+    {"wait": 800},
+    {"expectVisible": "[data-f=\"F-03-014\"]"},
+    {"press": "PageDown"},
+    {"press": "PageDown"},
+    {"press": "PageDown"},
+    {"wait": 300},
+    {"screenshot": "before-color-change"},
+    {"fill": "[data-f=\"F-03-024\"] input", "value": "#f5f5f0"},
+    {"wait": 300},
+    {"screenshot": "after-light-color-entered"},
+    {"click": "text=\"Сохранить\" >> nth=1"},
+    {"wait": 500},
+    {"screenshot": "after-save-attempt-light-color"}
+  ]
+}

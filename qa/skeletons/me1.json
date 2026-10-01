@@ -1,0 +1,838 @@
+{
+ "at": "2026-09-30T00:55:20.703Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/payroll/me",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/payroll/me?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-09-092] «РасчётВыплаты1 сентября »",
+     "what": "div.grid.grid-cols-2.gap-3 in [data-f=F-09-092] «Рабочих днейРабочих часо»",
+     "sk": {
+      "h": 140,
+      "w": 114
+     },
+     "before": {
+      "x": 16,
+      "y": 257,
+      "w": 358,
+      "h": 366
+     },
+     "after": {
+      "x": 16,
+      "y": 257,
+      "w": 358,
+      "h": 366
+     },
+     "t": 813,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 2437,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-09-092] «РасчётВыплаты1 сентября »",
+     "what": "div.flex.animate-rise.flex-col in [data-f=F-09-092] «За этот период ничего не»",
+     "sk": {
+      "h": 140,
+      "w": 114
+     },
+     "before": {
+      "x": 16,
+      "y": 257,
+      "w": 358,
+      "h": 366
+     },
+     "after": {
+      "x": 16,
+      "y": 257,
+      "w": 358,
+      "h": 352
+     },
+     "t": 3098,
+     "dh": -14,
+     "dhVis": -14,
+     "bad": true
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 163,
+     "y": 425,
+     "w": 64,
+     "h": 64,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "span.relative.inline-flex.shrink-0 in [data-f=F-09-092]"
+    }
+   ],
+   "gone": [
+    {
+     "x": 16,
+     "y": 257,
+     "w": 77,
+     "h": 44,
+     "sk": false,
+     "fixed": false,
+     "parent": 5,
+     "hint": "button.relative.z-[1].inline-flex in [data-f=F-09-092] «Расчёт»"
+    },
+    {
+     "x": 16,
+     "y": 377,
+     "w": 173,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих дней»"
+    },
+    {
+     "x": 201,
+     "y": 377,
+     "w": 173,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих часов»"
+    },
+    {
+     "x": 16,
+     "y": 463,
+     "w": 173,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Оказано услуг»"
+    },
+    {
+     "x": 201,
+     "y": 463,
+     "w": 173,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Стоимость услуг»"
+    },
+    {
+     "x": 16,
+     "y": 549,
+     "w": 358,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Зарплата за период»"
+    }
+   ],
+   "maxSkeletons": 8,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/me1/biz-payroll-me__phone__1-skeleton.png",
+    "qa/skeletons/shots/me1/biz-payroll-me__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": true,
+   "boxes0": {
+    "at": 815,
+    "early": true,
+    "moving": true,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 57,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 66,
+      "y": 8,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 340,
+      "y": 12,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 16,
+      "y": 189,
+      "w": 358,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-092] «Выберите сотрудника»"
+     },
+     {
+      "x": 16,
+      "y": 257,
+      "w": 358,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.group/tabs.no-scrollbar.relative in [data-f=F-09-092] «РасчётВыплаты»"
+     },
+     {
+      "x": 16,
+      "y": 257,
+      "w": 77,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 5,
+      "hint": "button.relative.z-[1].inline-flex in [data-f=F-09-092] «Расчёт»"
+     },
+     {
+      "x": 16,
+      "y": 258,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.absolute.top-1/2.z-10 in [data-f=F-09-092]"
+     },
+     {
+      "x": 334,
+      "y": 258,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.absolute.top-1/2.z-10 in [data-f=F-09-092]"
+     },
+     {
+      "x": 16,
+      "y": 317,
+      "w": 358,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-092] «1 сентября – 30 сентября»"
+     },
+     {
+      "x": 16,
+      "y": 377,
+      "w": 173,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих дней»"
+     },
+     {
+      "x": 29,
+      "y": 417,
+      "w": 21,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 10,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 201,
+      "y": 377,
+      "w": 173,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих часов»"
+     },
+     {
+      "x": 214,
+      "y": 417,
+      "w": 31,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 12,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 16,
+      "y": 463,
+      "w": 173,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Оказано услуг»"
+     },
+     {
+      "x": 29,
+      "y": 503,
+      "w": 21,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 14,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 201,
+      "y": 463,
+      "w": 173,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Стоимость услуг»"
+     },
+     {
+      "x": 214,
+      "y": 503,
+      "w": 103,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 16,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 16,
+      "y": 549,
+      "w": 358,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Зарплата за период»"
+     },
+     {
+      "x": 29,
+      "y": 589,
+      "w": 114,
+      "h": 15,
+      "sk": true,
+      "fixed": false,
+      "parent": 18,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     }
+    ]
+   }
+  },
+  {
+   "route": "/biz/payroll/me",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/payroll/me?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-09-092] «РасчётВыплаты1 сентября »",
+     "what": "div.grid.grid-cols-2.gap-3 in [data-f=F-09-092] «Рабочих днейРабочих часо»",
+     "sk": {
+      "h": 140,
+      "w": 114
+     },
+     "before": {
+      "x": 288,
+      "y": 252,
+      "w": 1120,
+      "h": 366
+     },
+     "after": {
+      "x": 288,
+      "y": 252,
+      "w": 1120,
+      "h": 366
+     },
+     "t": 1645,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "after": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "t": 3623,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.hidden.w-36.truncate «Нарине Акопян»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3623,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.w-36.truncate in [data-f=F-15-014] «Nuri Nail Studio»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 3748,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "div.flex.flex-col.gap-4 in [data-f=F-09-092] «РасчётВыплаты1 сентября »",
+     "what": "div.flex.animate-rise.flex-col in [data-f=F-09-092] «За этот период ничего не»",
+     "sk": {
+      "h": 140,
+      "w": 114
+     },
+     "before": {
+      "x": 288,
+      "y": 252,
+      "w": 1120,
+      "h": 366
+     },
+     "after": {
+      "x": 288,
+      "y": 252,
+      "w": 1120,
+      "h": 356
+     },
+     "t": 3781,
+     "dh": -10,
+     "dhVis": -10,
+     "bad": true
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 816,
+     "y": 436,
+     "w": 64,
+     "h": 64,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "span.relative.inline-flex.shrink-0 in [data-f=F-09-092]"
+    }
+   ],
+   "gone": [
+    {
+     "x": 288,
+     "y": 252,
+     "w": 77,
+     "h": 44,
+     "sk": false,
+     "fixed": false,
+     "parent": 9,
+     "hint": "button.relative.z-[1].inline-flex in [data-f=F-09-092] «Расчёт»"
+    },
+    {
+     "x": 288,
+     "y": 372,
+     "w": 554,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих дней»"
+    },
+    {
+     "x": 854,
+     "y": 372,
+     "w": 554,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих часов»"
+    },
+    {
+     "x": 288,
+     "y": 458,
+     "w": 554,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Оказано услуг»"
+    },
+    {
+     "x": 854,
+     "y": 458,
+     "w": 554,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Стоимость услуг»"
+    },
+    {
+     "x": 288,
+     "y": 544,
+     "w": 1120,
+     "h": 74,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Зарплата за период»"
+    }
+   ],
+   "maxSkeletons": 8,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/me1/biz-payroll-me__desktop__1-skeleton.png",
+    "qa/skeletons/shots/me1/biz-payroll-me__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": true,
+   "boxes0": {
+    "at": 1647,
+    "early": true,
+    "moving": true,
+    "boxes": [
+     {
+      "x": -1,
+      "y": -1,
+      "w": 32,
+      "h": 16,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "a.sr-only.z-50.rounded-lg «Перейти к содержимому»"
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 900,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "aside.sticky.top-0.z-40 «BBookTimeКабинет бизнеса»"
+     },
+     {
+      "x": 16,
+      "y": 12,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "span.grid.size-10.shrink-0 «B»"
+     },
+     {
+      "x": 34,
+      "y": 302,
+      "w": 209,
+      "h": 502,
+      "sk": false,
+      "fixed": false,
+      "parent": 1,
+      "hint": "ul.mb-1.ml-5.5.mt-1 «Схемы расчётаОсновные на»"
+     },
+     {
+      "x": 46,
+      "y": 764,
+      "w": 197,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 3,
+      "hint": "a.relative.flex.min-h-10 «Моя зарплата»"
+     },
+     {
+      "x": 256,
+      "y": 0,
+      "w": 1184,
+      "h": 65,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "header.sticky.top-0.z-30 «BДобавить локацию»"
+     },
+     {
+      "x": 613,
+      "y": 12,
+      "w": 448,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": 5,
+      "hint": "input.w-full.rounded-xl.border"
+     },
+     {
+      "x": 1192,
+      "y": 16,
+      "w": 32,
+      "h": 32,
+      "sk": true,
+      "fixed": false,
+      "parent": 5,
+      "hint": "span.block.skeleton-shimmer.animate-shimmer"
+     },
+     {
+      "x": 288,
+      "y": 184,
+      "w": 1120,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-092] «Выберите сотрудника»"
+     },
+     {
+      "x": 288,
+      "y": 252,
+      "w": 1120,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.group/tabs.no-scrollbar.relative in [data-f=F-09-092] «РасчётВыплаты»"
+     },
+     {
+      "x": 288,
+      "y": 252,
+      "w": 77,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": 9,
+      "hint": "button.relative.z-[1].inline-flex in [data-f=F-09-092] «Расчёт»"
+     },
+     {
+      "x": 288,
+      "y": 253,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.absolute.top-1/2.z-10 in [data-f=F-09-092]"
+     },
+     {
+      "x": 1368,
+      "y": 253,
+      "w": 40,
+      "h": 40,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.absolute.top-1/2.z-10 in [data-f=F-09-092]"
+     },
+     {
+      "x": 288,
+      "y": 312,
+      "w": 1120,
+      "h": 44,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "button.w-full.rounded-xl.border in [data-f=F-09-092] «1 сентября – 30 сентября»"
+     },
+     {
+      "x": 288,
+      "y": 372,
+      "w": 554,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих дней»"
+     },
+     {
+      "x": 301,
+      "y": 412,
+      "w": 21,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 14,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 854,
+      "y": 372,
+      "w": 554,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Рабочих часов»"
+     },
+     {
+      "x": 867,
+      "y": 412,
+      "w": 31,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 16,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 288,
+      "y": 458,
+      "w": 554,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Оказано услуг»"
+     },
+     {
+      "x": 301,
+      "y": 498,
+      "w": 21,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 18,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 854,
+      "y": 458,
+      "w": 554,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Стоимость услуг»"
+     },
+     {
+      "x": 867,
+      "y": 498,
+      "w": 103,
+      "h": 14,
+      "sk": true,
+      "fixed": false,
+      "parent": 20,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     },
+     {
+      "x": 288,
+      "y": 544,
+      "w": 1120,
+      "h": 74,
+      "sk": false,
+      "fixed": false,
+      "parent": -1,
+      "hint": "div.rounded-lg.border.border-border in [data-f=F-09-092] «Зарплата за период»"
+     },
+     {
+      "x": 301,
+      "y": 584,
+      "w": 114,
+      "h": 15,
+      "sk": true,
+      "fixed": false,
+      "parent": 22,
+      "hint": "span.h-[0.75em].w-full.rounded-[0.25em] in [data-f=F-09-092]"
+     }
+    ]
+   }
+  }
+ ]
+}

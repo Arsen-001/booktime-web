@@ -1,0 +1,1254 @@
+{
+  "nav": {
+    "overview": "Key metrics",
+    "visits": "Visits",
+    "all": "All reports"
+  },
+  "header": {
+    "switcher": "Switch to another report",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites",
+    "help": "Help for this section"
+  },
+  "catalog": {
+    "dashboard": {
+      "title": "Key metrics",
+      "desc": "Sales, attendance and occupancy for the period on one screen"
+    },
+    "groups": {
+      "attendance": "Attendance",
+      "finance": "Finance",
+      "sales": "Sales",
+      "stock": "Stock",
+      "marketing": "Marketing",
+      "security": "Security"
+    },
+    "items": {
+      "visits": {
+        "title": "Visits",
+        "desc": "Upcoming and past visits by day, activity feed"
+      },
+      "appointments": {
+        "title": "Appointments",
+        "desc": "All appointments for the period with filters by status, staff and source"
+      },
+      "events": {
+        "title": "Events",
+        "desc": "Group bookings: fill rate and payments"
+      },
+      "retention": {
+        "title": "Client retention",
+        "desc": "Share of returning clients, popular services, favorite staff"
+      },
+      "workload": {
+        "title": "Staff workload",
+        "desc": "Hours worked, downtime, upcoming bookings, free slots"
+      },
+      "finance": {
+        "title": "Financial report",
+        "desc": "Income and expenses by day, category, services, products, cash desks"
+      },
+      "pnl": {
+        "title": "Profit & Loss (P&L)",
+        "desc": "Profit and loss by month"
+      },
+      "cashDay": {
+        "title": "Daily cash desk report",
+        "desc": "Receipts for the day and shift totals, filterable by staff"
+      },
+      "salesByStaff": {
+        "title": "By staff",
+        "desc": "Staff revenue, share of revenue, upcoming bookings"
+      },
+      "salesByStaffDynamics": {
+        "title": "Staff over time",
+        "desc": "Staff metrics by month"
+      },
+      "salesByServices": {
+        "title": "By services",
+        "desc": "Demand, revenue and profit by service"
+      },
+      "salesByClients": {
+        "title": "By clients",
+        "desc": "Revenue, visits and average bill by client"
+      },
+      "stockBalance": {
+        "title": "Inventory balance",
+        "desc": "What is in stock right now"
+      },
+      "stockOrders": {
+        "title": "Product orders",
+        "desc": "What to reorder based on current stock"
+      },
+      "stockSalesAnalysis": {
+        "title": "Product sales analysis",
+        "desc": "What sells and how well"
+      },
+      "stockUsageAnalysis": {
+        "title": "Consumable usage analysis",
+        "desc": "Actual usage against the treatment-card norm"
+      },
+      "stockWriteOffAnalysis": {
+        "title": "Product write-off analysis",
+        "desc": "What was written off and why"
+      },
+      "stockTurnover": {
+        "title": "Inventory turnover analysis",
+        "desc": "How fast stock sells and pays back"
+      },
+      "promotions": {
+        "title": "Promotions",
+        "desc": "How a promotion brings clients back and affects revenue"
+      },
+      "reviews": {
+        "title": "Reviews",
+        "desc": "Client reviews of their visits"
+      },
+      "messages": {
+        "title": "Messages",
+        "desc": "What was sent to clients, through which channel, delivered or not"
+      },
+      "calls": {
+        "title": "Call logs",
+        "desc": "Call history and recordings"
+      },
+      "dataExports": {
+        "title": "Data exports",
+        "desc": "Export log: who, when, what was exported"
+      },
+      "dataChanges": {
+        "title": "Data changes",
+        "desc": "Creation, edits and deletion of records and operations"
+      },
+      "myAnalytics": {
+        "title": "My analytics",
+        "desc": "Personal stats for an admin: own bookings, revenue, no-show rebooking"
+      },
+      "external": {
+        "title": "External analytics",
+        "desc": "Numbers outside the showcase: journal, clients, cash, payroll, Power BI, Google Analytics, network"
+      },
+      "dataIntegrity": {
+        "title": "Exports map & reconciliation",
+        "desc": "Every export button in the cabinet, a reconciliation example and what survives archiving/deletion"
+      }
+    }
+  },
+  "all": {
+    "description": "Every business report in one place, in six groups",
+    "soon": "Coming soon",
+    "soonTitle": "This report opens in the next build",
+    "soonText": "We're building “Key metrics” and “Visits” first — the rest will appear here as they're ready.",
+    "countHint": "Reports in this catalog: {n}",
+    "securityHint": "Log of sign-ins and critical security events: see Help → Security.",
+    "moreGroup": "More"
+  },
+  "dashboard": {
+    "selectedDays": "{n, plural, one {# day} other {# days}} selected",
+    "filters": "Filters",
+    "resetAll": "Reset all",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "filterPosition": "Positions",
+    "filterStaff": "Staff",
+    "allValue": "All",
+    "tileHint": "How this number is calculated",
+    "shareOfAll": "{pct}% of all appointments",
+    "newMetric": "New",
+    "opsCount": "{n, plural, one {# operation} other {# operations}}",
+    "emptyTitle": "No data for a report yet",
+    "emptyText": "Once the first visits and sales happen, sales, attendance and occupancy will show up here.",
+    "emptyAction": "Open the journal",
+    "viewClients": "View clients",
+    "churnSettings": "Set the churn period",
+    "sales": {
+      "title": "Sales",
+      "total": "Total",
+      "services": "Services",
+      "products": "Products",
+      "avgVisit": "Average visit value",
+      "avgService": "Average service value",
+      "avgProduct": "Average product value",
+      "footnote": "Money actually received: visit payments (a transfer prepayment counts once) minus refunds, plus paid products — the same amounts as in “Daily cash report” and “Financial report”. Discounts and payments by membership or client account are not revenue. Memberships, certificates, account top-ups and penalties are not sales — they are only in “Financial report”",
+      "chartTitle": "Sales by day",
+      "chartTitleMonthly": "Sales by month",
+      "booked": "Booked value {total} — “Client arrived” visits at booking price, paid or not ({services}), plus products sold"
+    },
+    "attendance": {
+      "title": "Attendance",
+      "clients": "Clients",
+      "visits": "Visits",
+      "appointments": "Appointments",
+      "newClients": "New clients",
+      "returningClients": "Returning clients",
+      "lostClients": "Lost clients",
+      "chartTitle": "Clients by day",
+      "chartHint": "Bars count visits by day, the tiles above count unique people for the whole period",
+      "chartTitleMonthly": "Clients by month"
+    },
+    "occupancy": {
+      "title": "Occupancy",
+      "completed": "Completed appointments",
+      "incomplete": "Incomplete appointments",
+      "cancelled": "Cancelled appointments",
+      "avg": "Average occupancy",
+      "chartTitle": "Occupancy by day",
+      "noShow": "No-shows",
+      "chartTitleMonthly": "Occupancy by month"
+    },
+    "wasValue": "was {value}",
+    "servicesCount": "{n, plural, one {# service} other {# services}}",
+    "productsCount": "{n} pcs",
+    "receiptsCount": "{n, plural, one {over # receipt} other {over # receipts}}",
+    "byStaffLink": "By staff",
+    "openList": "Open list",
+    "extra": {
+      "title": "Retention and yield",
+      "rebooking": "Rebooking rate",
+      "rebookingSub": "{n} of {total} visitors already rebooked",
+      "noShowRate": "No-show rate",
+      "noShowSub": "of “Arrived” and “No-show” bookings",
+      "revenuePerHour": "Revenue per scheduled hour",
+      "revenuePerHourSub": "{n, plural, one {# scheduled master hour} other {# scheduled master hours}}",
+      "sources": "Where new clients came from",
+      "sourcesEmpty": "No new clients in this period"
+    }
+  },
+  "visits": {
+    "businessId": "Salon ID: {id}",
+    "contactSupport": "Contact support",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "emptyUpcomingTitle": "No upcoming visits yet",
+    "emptyPastTitle": "No past visits yet",
+    "emptyText": "Client appointments will show up here as soon as they're created in the journal",
+    "confirmAction": "Confirm appointment",
+    "confirmed": "Appointment confirmed, the client was notified",
+    "confirmFailed": "Couldn't confirm the appointment",
+    "cancelAction": "Cancel appointment",
+    "cancelled": "Appointment cancelled",
+    "cancelFailed": "Couldn't cancel the appointment",
+    "cancelConfirmTitle": "Cancel this booking?",
+    "cancelConfirmText": "The client will be notified, and the slot will be freed in the calendar.",
+    "noClient": "No client",
+    "deletedClient": "Deleted client",
+    "noService": "No service",
+    "activityTitle": "Appointment activity feed",
+    "activityEmptyTitle": "No appointments match these filters",
+    "byClient": "Client",
+    "bySystem": "System",
+    "activityFilters": {
+      "newOnline": "New online",
+      "all": "All",
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "historyAction": {
+      "created": "Created",
+      "updated": "Updated",
+      "statusChanged": "Status changed",
+      "moved": "Moved",
+      "deleted": "Deleted"
+    },
+    "historyDelay": "running {min} min late",
+    "source": {
+      "journal": "Web interface",
+      "app": "App",
+      "link": "Booking link",
+      "widget": "Widget",
+      "phone": "By phone",
+      "import": "Import",
+      "external": "Partners"
+    }
+  },
+  "churn": {
+    "title": "Client churn period",
+    "description": "How many days without a visit before a client counts as lost — used in “Key metrics” and “Client retention”",
+    "fieldLabel": "Count clients as lost after not visiting for more than",
+    "daysUnit": "days",
+    "defaultHint": "Default is {n} days",
+    "save": "Save",
+    "saved": "Churn period saved",
+    "saveFailed": "Couldn't save"
+  },
+  "help": {
+    "dashboard": "“Key metrics” — a summary of your business for the selected period: revenue, clients, visits, and staff occupancy.\n\nOnly appointments marked “Client arrived” count. An appointment without a client phone number doesn't add to the client count.\n\nThe percentage next to each tile compares against the previous period of the same length.",
+    "visits": "“Visits” is a working list of upcoming and recent appointments: confirm an appointment with the checkmark, see the full edit history in the activity feed on the right.",
+    "tiles": {
+      "total": "Money received: visit payments minus refunds, plus paid products. Below — the number of operations: services performed and product units sold",
+      "services": "Visit payments received (a transfer prepayment counts once) minus client refunds. Below — services performed, including discounted and membership ones",
+      "products": "Paid product sales — during a visit and without one. Payments from the client account are not included",
+      "avgVisit": "(Service revenue + product revenue) ÷ number of receipts. A receipt is a visit (several bookings of one client on one day = one visit) or a standalone product sale",
+      "avgService": "Service revenue ÷ number of services provided",
+      "avgProduct": "Product revenue ÷ number of product sales",
+      "clients": "Unique clients who visited in the period — each person counted once",
+      "visits": "“Client arrived” visits: several bookings of one client on one day are one visit; a client is counted once per visit",
+      "appointments": "All bookings in the period by visit date, including cancelled and deleted ones",
+      "newClients": "First visit to the salon ever within the selected period (in Retention, “new” means new to a given master, so it is higher there)",
+      "returningClients": "First visit was before the period, but they came back within it",
+      "lostClients": "Haven't visited for longer than the churn period setting",
+      "completed": "Bookings marked “Client arrived”. There can be more bookings than visits: a visit is all of a client’s bookings on one day",
+      "incomplete": "“Client confirmed” and “Awaiting client”",
+      "cancelled": "Bookings cancelled by the client or the salon, and deleted ones",
+      "avgOccupancy": "Total duration of “arrived” appointments ÷ total duration of staff shifts in the period",
+      "noShow": "Bookings marked “Client no-show”",
+      "rebooking": "Of the clients who came in the period — how many already have a next booking after their last visit",
+      "noShowRate": "“No-show” ÷ (“Arrived” + “No-show”) in the period",
+      "revenuePerHour": "Sales (services + products) ÷ scheduled master shift hours in the period"
+    },
+    "retention": "“Client retention” — for each staff member: how many clients they had, how many were new and how many returned. “Retention, %” is computed over a recent window (the churn period) — it shows truly loyal clients of that staff member, unlike “Returning”, which counts any past visit with no time limit. Here “New” means the client hadn't visited THIS STAFF MEMBER before (not the salon overall, as on the Dashboard); “Clients in the prior window” are those who visited them in an equal-length period right before the current one.",
+    "workload": "“Staff workload” — how much of the scheduled time a staff member actually worked, how much was idle, and how many bookings they have ahead. Occupancy only counts completed visits (“Client arrived”).",
+    "events": "“Events” — all group bookings for the period with fill rate and payments. A cancelled event stays in the report — its row turns red instead of disappearing.",
+    "financeReport": "“Financial report” — income and expenses for the period by item, day and register. Built from financial operations; cancelled operations are excluded.",
+    "pnl": "“P&L report” — profit and loss over 12 months. “Total before tax” = revenue minus expenses. Click any amount to see the operations behind it.",
+    "cashDay": "“Daily cash report” — end-of-day register reconciliation: how much came in, what's in each register, and the full feed of the day's operations.",
+    "salesByStaff": "“By staff” — how much each staff member brought in and how: services or products. Cost per hour = revenue ÷ hours worked.",
+    "salesByStaffDynamics": "“By staff over time” — the selected staff member's numbers by month, starting from a chosen month.",
+    "salesByServices": "“By services” — demand and money for each service. Profit = paid in money minus consumables cost (from the tech card) minus the staff member's payroll for that service. “Upsold” shows how many times and for how much the service was added to a visit as an add-on.",
+    "salesByClients": "“By clients” — who brought in how much: revenue, share, average receipt and visit count for the period.",
+    "dataExports": "“Data operations” — a log of every export and import: who, when and what. The owner sees exports made by every staff member.",
+    "stockBalance": "“Inventory balance” shows what's in stock right now (or on any past date), its cost and markup, and the total value tied up in it.",
+    "stockOrders": "“Product orders” lists everything below its desired stock level with the shortage to reorder.",
+    "stockSalesAnalysis": "“Product sales analysis” shows what sells, how much, and at what markup.",
+    "stockUsageAnalysis": "“Consumable usage analysis” compares actual consumable write-offs against the treatment-card norm.",
+    "stockWriteOffAnalysis": "“Product write-off analysis” shows stock movement for the period: opening balance, income, outflow, closing balance.",
+    "stockTurnover": "“Inventory turnover” shows how fast stock sells and how many days of stock remain.",
+    "promotions": "“Promotions” shows whether a promotion brings new clients and whether they come back, plus the revenue and staff involved.",
+    "reviews": "“Reviews” shows client reviews of the business and stars given to staff for the selected period.",
+    "messages": "“Messages” is a log of everything sent to clients, staff and admins — type, channel, status and text.",
+    "calls": "“Call logs” shows call history and recordings once IP telephony is connected.",
+    "dataChanges": "“Data changes” shows who created, edited or deleted a booking, financial or stock operation.",
+    "appointments": "Every booking in the period: any source, any status, including soft-deleted ones. Filter by created date, visit date, staff, status, cancelled, source and services, then press Show. \"Excel operations\" exports the found rows (up to 5000) or imports old bookings from a file."
+  },
+  "export": {
+    "button": "Export CSV",
+    "exported": "File downloaded",
+    "exportedPartial": "Exported the first {limit} rows — request the rest by email"
+  },
+  "retention": {
+    "columns": {
+      "staff": "Staff",
+      "total": "Total",
+      "new": "New to master",
+      "returning": "Returning to master",
+      "priorWindow": "Clients {n} days before period start",
+      "priorReturned": "Of them returned",
+      "retentionPct": "%"
+    },
+    "filterService": "Service",
+    "totalUnique": "Total unique clients: {n}",
+    "emptyTitle": "No retention data yet",
+    "emptyText": "The report fills in once visits with status “Client arrived” appear in the selected period.",
+    "newHint": "“New to master” means they had not been to this master before; they may have visited the salon. In Key metrics “New clients” are first-time salon visitors, so that number is lower."
+  },
+  "workload": {
+    "columns": {
+      "staff": "Staff",
+      "workedDays": "Days worked",
+      "scheduledHours": "Scheduled hours",
+      "workedHours": "Hours worked",
+      "idleHours": "Idle hours",
+      "occupancy": "Occupancy",
+      "future": "Future bookings",
+      "included": "Count in occupancy"
+    },
+    "noSchedule": "no schedule",
+    "openChart": "Daily chart",
+    "chartTitle": "Occupancy by day",
+    "emptyChart": "No data for the period",
+    "total": "Total: worked {worked}h of {scheduled}h scheduled",
+    "emptyTitle": "No workload data yet",
+    "emptyText": "The report fills in once staff have shifts and visits in the selected period.",
+    "includeHint": "Turn this off for a staff member who has shift hours but no services (e.g. an owner-admin) — otherwise they drag down the average occupancy.",
+    "includeToggleFailed": "Couldn't save the setting"
+  },
+  "events": {
+    "columns": {
+      "staff": "Staff",
+      "service": "Event",
+      "date": "Date",
+      "capacity": "Capacity",
+      "bookings": "Bookings this period",
+      "arrived": "Arrived this period",
+      "paid": "Paid this period"
+    },
+    "time": "Time",
+    "paidAmount": "Amount paid",
+    "status": "Status",
+    "cancelled": "Cancelled",
+    "cancelledHint": "A cancelled event stays in the report in red — its bookings are not lost.",
+    "bookedPct": "Bookings this period",
+    "arrivedPct": "Arrived this period",
+    "paidPct": "Paid this period",
+    "avgFillPct": "Average group fill rate",
+    "emptyTitle": "No group events yet",
+    "emptyText": "The report fills in once group events run in the selected period.",
+    "selectedCount": "Selected: {count}",
+    "bulkDeleteAction": "Delete selected",
+    "bulkDeleteConfirmTitle": "Delete {count} events?",
+    "bulkDeleted": "Deleted {count} events",
+    "bulkDeleteFailed": "Couldn't delete events",
+    "filters": {
+      "staffLabel": "Staff",
+      "staffAll": "All staff",
+      "serviceLabel": "Service",
+      "serviceAll": "All services"
+    }
+  },
+  "financeReport": {
+    "columns": {
+      "item": "Item",
+      "total": "Total for period"
+    },
+    "filterItem": "Item",
+    "filterAccount": "Register",
+    "filterKind": "Register type",
+    "filterDetail": "Detail",
+    "showAllItems": "Show all items",
+    "kind": {
+      "any": "Any register type",
+      "cash": "Cash",
+      "noncash": "Non-cash"
+    },
+    "detail": {
+      "none": "No detail",
+      "byKind": "By register type",
+      "byAccount": "By register"
+    },
+    "income": "Revenue",
+    "expense": "Expenses",
+    "chartTitle": "Money flow for the period",
+    "grandTotals": "Total: income {income}, expenses {expense}",
+    "emptyTitle": "No operations in this period",
+    "emptyText": "The report fills in once financial operations run in the selected period.",
+    "monthlyHint": "The period is longer than a month — amounts by month"
+  },
+  "pnl": {
+    "columns": {
+      "item": "Item",
+      "total": "Total"
+    },
+    "fromMonth": "Starting month",
+    "payrollDetail": "Payroll detail",
+    "detail": {
+      "none": "No payroll detail",
+      "byPosition": "By position",
+      "byStaff": "By staff"
+    },
+    "chartTitle": "Profit and loss by month",
+    "profit": "Total before tax",
+    "totalBeforeTax": "Total before tax for 12 months: {value}",
+    "noOperations": "No operations this month",
+    "emptyTitle": "No P&L data yet",
+    "emptyText": "The report fills in once financial operations run in the selected year.",
+    "advanceNote": "client advances, not revenue",
+    "advanceTotal": "Including client deposit top-ups (advances, not revenue): {value}"
+  },
+  "cashDay": {
+    "columns": {
+      "account": "Register",
+      "paid": "Paid",
+      "opening": "Opening balance",
+      "closing": "Closing balance",
+      "time": "Time",
+      "client": "Client",
+      "staff": "Staff",
+      "line": "Service/Product",
+      "total": "Total",
+      "method": "Method"
+    },
+    "method": {
+      "cash": "Cash",
+      "card": "Card",
+      "transfer": "Transfer",
+      "other": "Other"
+    },
+    "filterStaff": "Staff",
+    "tiles": {
+      "totalRecords": "Total bookings",
+      "withClients": "With clients",
+      "withoutClients": "Without clients",
+      "clients": "Clients",
+      "services": "Services rendered",
+      "accountTopUps": "Account top-ups",
+      "products": "Products",
+      "certificates": "Certificates",
+      "memberships": "Memberships"
+    },
+    "registersTitle": "Registers",
+    "operationsTitle": "Operations for the day",
+    "emptyTitle": "No till operations on this day",
+    "emptyText": "Pick another date or check the staff filter.",
+    "tileCount": "{n, plural, one {# booking} other {# bookings}}",
+    "tileAvg": "{avg} on average",
+    "tileOps": "{n, plural, one {# operation} other {# operations}}"
+  },
+  "salesByStaff": {
+    "columns": {
+      "staff": "Staff",
+      "revenue": "Revenue",
+      "services": "Services rendered",
+      "products": "Products sold",
+      "future": "Future bookings",
+      "hours": "Hours worked",
+      "hourCost": "Cost per hour",
+      "share": "% of total revenue"
+    },
+    "openChart": "Daily chart",
+    "chartTitle": "Revenue by day",
+    "emptyTitle": "No sales by staff yet",
+    "emptyText": "The report fills in once visits with status “Client arrived” appear in the selected period.",
+    "moneyFootnote": "Revenue is money received (visit payments minus refunds, plus paid products), as in “Key metrics” and “Daily cash report”. Discounts and membership payments are not included.",
+    "grandLine": "Received in total {revenue}, of which without a staff member {unassigned}. Booked value {booked} — “arrived” visits at booking price plus products"
+  },
+  "salesByStaffDynamics": {
+    "columns": {
+      "month": "Month",
+      "services": "Services",
+      "visits": "Visits",
+      "avgReceipt": "Average receipt",
+      "products": "Products"
+    },
+    "filterStaff": "Staff",
+    "fromMonth": "Starting month",
+    "emptyTitle": "No monthly data yet",
+    "emptyText": "Pick a staff member and starting month — the report fills in once visits appear."
+  },
+  "salesByServices": {
+    "columns": {
+      "service": "Service",
+      "category": "Category",
+      "count": "Services rendered",
+      "paidMoney": "Price-list value",
+      "consumables": "Consumables cost",
+      "payroll": "Staff payroll",
+      "profit": "Profit",
+      "share": "% of total revenue",
+      "upsold": "Upsold",
+      "upsoldCount": "Upsold, times",
+      "upsoldMoney": "Upsold, ֏"
+    },
+    "filterStaff": "Staff",
+    "openChart": "Daily chart",
+    "chartTitle": "Service value by day",
+    "emptyTitle": "No sales by service yet",
+    "emptyText": "The report fills in once visits with status “Client arrived” appear in the selected period.",
+    "footnote": "“Client arrived” visits at the booking price, paid or not; money in the till is in the Finance report. Consumables — per tech cards at cost on the visit date; payroll — share of the master’s daily accrual under their scheme",
+    "upsoldTimes": "{count, plural, one {# time} other {# times}}",
+    "upsoldHintLabel": "What does “Upsold” mean?",
+    "upsoldHint": "How many times this service was added to a visit as an add-on to another one: by the client in online booking (“Add to visit”) or by the front desk in the calendar (“Suggest to client”). Already included in the count and value. Add-on products are counted in Product sales analysis."
+  },
+  "salesByClients": {
+    "columns": {
+      "client": "Client",
+      "phone": "Phone",
+      "email": "Email",
+      "revenue": "Revenue",
+      "share": "% of total revenue",
+      "avgReceipt": "Average receipt",
+      "visits": "Visit count"
+    },
+    "exportPlain": "Export without visit history",
+    "exportWithHistory": "Export with visit history",
+    "grandTotal": "Total across all clients: {value}",
+    "emptyTitle": "No sales by client yet",
+    "emptyText": "The report fills in once visits with status “Client arrived” appear in the selected period."
+  },
+  "dataExports": {
+    "columns": {
+      "at": "Date & time",
+      "staff": "Staff",
+      "type": "Report type",
+      "operation": "Operation type",
+      "file": "File",
+      "rows": "Rows"
+    },
+    "filterStaff": "Staff",
+    "filterType": "Report type",
+    "filterOperation": "Operation type",
+    "redownload": "Download again",
+    "type": {
+      "clients": "Clients",
+      "clientsImport": "Clients (Import)",
+      "appointments": "Bookings",
+      "appointmentsImport": "Bookings (Import)",
+      "loyaltyCards": "Loyalty cards",
+      "loyaltyCardsImport": "Loyalty cards (Import)",
+      "memberships": "Memberships",
+      "membershipsImport": "Memberships (Import)",
+      "clientAccounts": "Client accounts",
+      "transfers": "Transfers",
+      "certificates": "Certificates",
+      "certificateNumbers": "Certificate numbers",
+      "marketplaceRates": "Marketplace app rates",
+      "reportBuilder": "Report builder export"
+    },
+    "operation": {
+      "upload": "File upload",
+      "copyFromExcel": "Copy from Excel",
+      "emailLink": "Email link",
+      "browserDownload": "Browser download"
+    },
+    "emptyTitle": "Export log is empty",
+    "emptyText": "Every export and import will show up here — who, when and what was downloaded."
+  },
+  "stockBalance": {
+    "columns": {
+      "good": "Product",
+      "sku": "SKU",
+      "category": "Category",
+      "qty": "In stock",
+      "qtyWriteoff": "In write-off units",
+      "cost": "Cost",
+      "markup": "Markup",
+      "markupPct": "Markup %",
+      "totalCost": "Total cost",
+      "price": "Price",
+      "totalValue": "Total value"
+    },
+    "filterWarehouse": "Warehouse",
+    "filterCategory": "Category",
+    "filterZero": "Zero stock",
+    "zero": {
+      "all": "All items",
+      "onlyZero": "Only zero stock",
+      "withoutZero": "Without zero stock"
+    },
+    "search": "Search product",
+    "onlyCritical": "Show critical stock only",
+    "emptyTitle": "No stock to show",
+    "emptyText": "Add products and stock income first — balances will appear here."
+  },
+  "stockOrders": {
+    "columns": {
+      "good": "Product",
+      "sku": "SKU",
+      "category": "Category",
+      "stock": "In stock",
+      "critical": "Critical stock",
+      "desired": "Desired stock",
+      "shortage": "Shortage"
+    },
+    "onlyCritical": "Only critical stock",
+    "emptyTitle": "Nothing to reorder",
+    "emptyText": "All products are at or above their desired stock level."
+  },
+  "stockSalesAnalysis": {
+    "columns": {
+      "good": "Product",
+      "sku": "SKU",
+      "barcode": "Barcode",
+      "category": "Category",
+      "qty": "Quantity",
+      "cost": "Cost (all units)",
+      "markup": "Markup",
+      "markupPct": "Markup %",
+      "totalValue": "Total value"
+    },
+    "emptyTitle": "No product sales in this period",
+    "emptyText": "Sell some products to see the breakdown here."
+  },
+  "stockUsageAnalysis": {
+    "columns": {
+      "good": "Consumable",
+      "actualQty": "Actual qty",
+      "actualCost": "Actual cost",
+      "calcQty": "Norm qty",
+      "calcCost": "Norm cost",
+      "diffQty": "Qty variance",
+      "diffCost": "Cost variance"
+    },
+    "emptyTitle": "No consumable usage in this period",
+    "emptyText": "Treatment cards and consumable write-offs will show up here."
+  },
+  "stockWriteOffAnalysis": {
+    "columns": {
+      "good": "Product",
+      "sku": "SKU",
+      "start": "Start (qty / value)",
+      "in": "In (qty / value)",
+      "out": "Out (qty / value)",
+      "end": "End (qty / value)"
+    },
+    "unitMode": "Units",
+    "unit": {
+      "sale": "For sale",
+      "writeoff": "For write-off"
+    },
+    "countMoves": "Count transfers between warehouses",
+    "emptyTitle": "No stock movement in this period",
+    "emptyText": "Product income, sales and write-offs will show up here."
+  },
+  "stockTurnover": {
+    "columns": {
+      "good": "Product",
+      "sku": "SKU",
+      "qtyIn": "Received",
+      "start": "Start",
+      "end": "End",
+      "sold": "Sold",
+      "avgStock": "Average stock",
+      "turnoverDays": "Turnover",
+      "turnoverTimes": "Times / period",
+      "stockLevel": "Stock level"
+    },
+    "days": "{n, plural, one {# day} other {# days}}",
+    "emptyTitle": "Not enough data for turnover",
+    "emptyText": "Turnover needs sales and stock history for the period."
+  },
+  "promotions": {
+    "emptyTitle": "No active promotions",
+    "emptyText": "Create a promotion to see how it performs here.",
+    "accumulatingOnlyTitle": "Reports aren't available for accumulating promotions",
+    "accumulatingOnlyText": "This report only works for fixed discount and fixed cashback promotions.",
+    "goCreate": "Go to promotions",
+    "pick": "Promotion",
+    "pickPlaceholder": "Choose a promotion",
+    "pickHint": "Pick a promotion above to see its numbers.",
+    "stats": {
+      "new": "New clients",
+      "returning": "Returning clients",
+      "cameByPromotion": "Came by promotion",
+      "notReturned": "Didn't return",
+      "revenue": "Revenue",
+      "repeatRevenue": "Revenue from repeat visits"
+    },
+    "staffColumns": {
+      "staff": "Staff",
+      "served": "Clients served",
+      "returned": "Clients returned"
+    },
+    "notReturned": {
+      "title": "Didn't return after the promotion",
+      "columns": {
+        "name": "Client",
+        "phone": "Phone",
+        "email": "Email",
+        "registered": "Registered",
+        "lastVisit": "Last visit",
+        "paid": "Paid by promotion",
+        "balance": "Account balance"
+      },
+      "needPhonesPermission": "Requires the “show client phone numbers and emails” permission."
+    }
+  },
+  "reviews": {
+    "columns": {
+      "when": "Date",
+      "about": "About",
+      "value": "Rating"
+    },
+    "company": "The business",
+    "star": "Star",
+    "delete": "Delete review",
+    "deleteConfirmTitle": "Delete this review?",
+    "deleteConfirmText": "This can't be undone.",
+    "hide": "Hide from online booking",
+    "unhide": "Show again",
+    "hidden": "Hidden",
+    "filterSubject": "About",
+    "subjectAll": "Everyone",
+    "emptyTitle": "No reviews for this period",
+    "emptyText": "Client reviews and staff stars will show up here."
+  },
+  "messages": {
+    "columns": {
+      "at": "Sent",
+      "type": "Type",
+      "channel": "Channel",
+      "status": "Status",
+      "contact": "Contact",
+      "text": "Text"
+    },
+    "channel": {
+      "push": "Push",
+      "adminApp": "Admin app",
+      "email": "Email",
+      "sms": "SMS",
+      "brandedApp": "Branded app",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram"
+    },
+    "status": {
+      "sent": "Sent",
+      "delivered": "Delivered",
+      "notDelivered": "Not delivered",
+      "sending": "Sending",
+      "read": "Read",
+      "rejected": "Rejected",
+      "insufficientFunds": "Insufficient funds",
+      "rejectedByOperator": "Rejected by operator",
+      "rejectedByRateLimiter": "Rejected by rate limiter"
+    },
+    "filterType": "Type",
+    "filterStatus": "Status",
+    "filterChannel": "Channel",
+    "searchPhone": "Search by phone number",
+    "found": "Found: {n}",
+    "emptyTitle": "No messages for these filters",
+    "emptyText": "Try changing the search criteria."
+  },
+  "calls": {
+    "columns": {
+      "at": "Date & time",
+      "direction": "Call",
+      "phone": "Phone",
+      "duration": "Duration",
+      "recording": "Recording"
+    },
+    "status": {
+      "accepted": "Accepted",
+      "missed": "Missed"
+    },
+    "hasRecording": "Available",
+    "notConnectedTitle": "Telephony isn't connected",
+    "notConnectedText": "Connect IP telephony in the network's settings to see the call list here.",
+    "setupLink": "Set up telephony",
+    "emptyTitle": "No calls yet",
+    "emptyText": "Calls will show up here once someone calls in or out."
+  },
+  "dataChanges": {
+    "columns": {
+      "at": "Date & time",
+      "entity": "Object",
+      "author": "Author",
+      "action": "Action"
+    },
+    "entity": {
+      "booking": "Booking",
+      "financeOperation": "Financial transaction",
+      "stockOperation": "Stock operation",
+      "network": "Network"
+    },
+    "action": {
+      "create": "Created",
+      "update": "Updated",
+      "delete": "Deleted",
+      "restore": "Restored"
+    },
+    "by": {
+      "client": "Unauthorized user",
+      "system": "System"
+    },
+    "filterEntity": "Object type",
+    "filterAction": "Action",
+    "pageSize": "Rows per page",
+    "found": "Found: {n}",
+    "show": "Show history",
+    "emptyTitle": "No changes for these filters",
+    "emptyText": "Every create, edit and delete will show up here."
+  },
+  "appointments": {
+    "columns": {
+      "staff": "Staff",
+      "services": "Service",
+      "client": "Client",
+      "phone": "Phone",
+      "visit": "Visit time",
+      "created": "Created by",
+      "status": "Visit status",
+      "source": "Source"
+    },
+    "staffFired": "Fired",
+    "createdByClient": "Client",
+    "deletedBy": "Deleted · ",
+    "deletedAt": "deleted at: {at}",
+    "statusDeleted": "Deleted",
+    "edit": "Edit booking",
+    "excelOps": "Excel operations",
+    "exportExcel": "Export to Excel",
+    "importExcel": "Import from Excel",
+    "filterCreated": "Created date",
+    "filterVisit": "Visit date",
+    "filterStaff": "Staff",
+    "allStaff": "All staff",
+    "filterCancelled": "Cancelled",
+    "cancelled": {
+      "all": "Cancelled and not cancelled bookings",
+      "cancelled": "Cancelled",
+      "notCancelled": "Not cancelled"
+    },
+    "filterStatus": "Visit status",
+    "allStatuses": "All visit statuses",
+    "filterSource": "Source",
+    "sourceFilter": {
+      "all": "All booking sources",
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "source": {
+      "journal": "Admin web interface",
+      "app": "Mobile app",
+      "link": "Booking link",
+      "widget": "Website widget",
+      "phone": "Phone call",
+      "import": "Import",
+      "external": "External source"
+    },
+    "filterServices": "Services",
+    "servicesFilter": {
+      "all": "Bookings with and without services",
+      "with": "With services",
+      "without": "Without services"
+    },
+    "filterPageSize": "Rows per page",
+    "pageSizeOption": "{n} results per page",
+    "show": "Show",
+    "found": "Found {n}",
+    "shownRange": "Showing results {from} to {to} of {total}",
+    "deleteSelected": "Delete selected ({n})",
+    "confirmBulkTitle": "Delete {n} bookings?",
+    "confirmBulkText": "Bookings will disappear from the calendar but remain as rows in this report with the author and deletion time. This cannot be undone.",
+    "bulkDeleted": "Deleted bookings: {n}",
+    "bulkDeleteFailed": "Failed to delete bookings",
+    "emptyTitle": "No bookings found",
+    "emptyText": "Change the filters and press Show",
+    "noAccess": "No access to this report"
+  },
+  "importAppointments": {
+    "hint": "Upload a CSV file: Staff; Client; Phone; Visit date (YYYY-MM-DDTHH:mm); Duration (min); Services (## separated); Status; Comment. The header row is skipped.",
+    "choose": "Choose file",
+    "emptyTitle": "No file chosen",
+    "summary": "Ready to import: {valid}, with errors: {invalid}",
+    "rowMissing": "A required field is missing",
+    "rowOk": "Ready",
+    "confirm": "Import {count}",
+    "done": "Bookings imported: {count}",
+    "failed": "Failed to import the file",
+    "productsHint": "If old bookings had products sold, there is no separate column for them — add those products as services under \"Services\" first and list them in the Services column. Import never creates a stock sale or changes stock levels."
+  },
+  "myAnalytics": {
+    "help": "An admin's own numbers: only their own bookings and clients for the selected period — visible to the owner and to the admin themselves.",
+    "created": "Bookings created",
+    "completed": "Completed",
+    "revenue": "Revenue from own bookings",
+    "distinctClients": "Clients booked",
+    "sameDayFuture": "Operational bookings",
+    "noShowRebooked": "No-shows rebooked",
+    "arrivedHint": "“Client arrived” visits in the period: {arrived}, of them from bookings they created: {byHim}",
+    "noAccess": "The owner hasn't given you access to \"My analytics\" — ask the salon owner.",
+    "payrollEarned": "Total accrued",
+    "payrollPaid": "Paid out",
+    "payrollRemaining": "Still to pay"
+  },
+  "external": {
+    "help": "Analytics that doesn't live in the \"All reports\" showcase: quick numbers in the cabinet, external services and network reports.",
+    "demo": "demo",
+    "networkHint": "Network rights, currency and loyalty lists are managed in the network cabinet (\"Network & branches\") — these are just links to those screens.",
+    "groups": {
+      "inCabinet": "Right in the cabinet",
+      "services": "External services",
+      "network": "Network analytics"
+    },
+    "items": {
+      "journalSummary": {
+        "title": "Day summary in the journal",
+        "desc": "Income, payments, completed — right above the calendar"
+      },
+      "clientStats": {
+        "title": "Client card statistics",
+        "desc": "Revenue by client, services, staff"
+      },
+      "cashAccounts": {
+        "title": "Cash registers & accounts",
+        "desc": "Cash balance, income and expenses per month by day"
+      },
+      "payrollCalc": {
+        "title": "Payroll for a period",
+        "desc": "Services rendered, products, settlements per staff member"
+      },
+      "documents": {
+        "title": "Documents",
+        "desc": "All financial and stock documents in one searchable list"
+      },
+      "settlements": {
+        "title": "Settlements with a counterparty",
+        "desc": "Income and expenses per supplier for a period"
+      },
+      "powerBi": {
+        "title": "Power BI (Smart-Metrika)",
+        "desc": "Ready dashboards with daily sync — connected via integrations"
+      },
+      "telegramAi": {
+        "title": "AI bots in Telegram",
+        "desc": "Ask about revenue and occupancy in chat, fill empty slots"
+      },
+      "gaFbPixel": {
+        "title": "Google Analytics & Facebook Pixel",
+        "desc": "Online booking widget events into external analytics"
+      },
+      "googleMaps": {
+        "title": "Google Maps statistics",
+        "desc": "Bookings from maps, average bill, reviews — once connected"
+      },
+      "networkRights": {
+        "title": "Network user rights on analytics",
+        "desc": "Every network report opens with its own checkbox in rights"
+      },
+      "networkCurrency": {
+        "title": "Network statistics currency",
+        "desc": "Set by the network's main location; we always use drams"
+      },
+      "networkLoyalty": {
+        "title": "Network loyalty & accounts reports",
+        "desc": "Certificates, memberships, transactions and client accounts across the network"
+      }
+    }
+  },
+  "dataIntegrity": {
+    "help": "A map of every export button in the cabinet, a reconciliation example and what survives archiving, merging or deleting a reference item.",
+    "exportsMap": {
+      "title": "Exports & imports map",
+      "desc": "Every \"Export to Excel\" / \"Import from Excel\" button in the cabinet, in one place",
+      "items": {
+        "clients": {
+          "label": "Client base",
+          "where": "Clients → Excel operations"
+        },
+        "services": {
+          "label": "Services",
+          "where": "Services → Excel operations"
+        },
+        "stockGoods": {
+          "label": "Products",
+          "where": "Stock → All products → Excel operations"
+        },
+        "stockOperations": {
+          "label": "Stock operations",
+          "where": "Stock → Operations — email link only"
+        },
+        "inventory": {
+          "label": "Inventory",
+          "where": "Stock → Inventory"
+        },
+        "financeOps": {
+          "label": "Finance operations",
+          "where": "Finance → Excel operations"
+        },
+        "counterparties": {
+          "label": "Counterparties",
+          "where": "Finance → Counterparties → Excel operations"
+        },
+        "documents": {
+          "label": "Documents",
+          "where": "Finance → Documents"
+        },
+        "payroll": {
+          "label": "Payroll",
+          "where": "Payroll → Period → Export to Excel"
+        },
+        "schedulePdf": {
+          "label": "Work schedule",
+          "where": "Staff → Schedule → Export to PDF"
+        },
+        "privacyExport": {
+          "label": "Export my data",
+          "where": "Settings → Privacy"
+        },
+        "networkClients": {
+          "label": "Network client base",
+          "where": "Network cabinet → Clients"
+        },
+        "loyaltyCards": {
+          "label": "Loyalty cards",
+          "where": "Loyalty → Import from Excel"
+        },
+        "memberships": {
+          "label": "Memberships",
+          "where": "Loyalty → Memberships → Excel operations"
+        },
+        "certificates": {
+          "label": "Certificates",
+          "where": "Loyalty → Certificates"
+        },
+        "clientAccounts": {
+          "label": "Client accounts",
+          "where": "Loyalty → Client accounts"
+        }
+      }
+    },
+    "reconciliation": {
+      "title": "Worked example: the same money in different reports",
+      "desc": "On one test period's data — the figure each report gives and why they differ",
+      "columns": {
+        "report": "Report",
+        "period": "Period",
+        "amount": "Amount"
+      },
+      "items": {
+        "mainTotalShort": "Main dashboard · Total",
+        "mainTotalLong": "Main dashboard · Total (other period)",
+        "financeReport": "Finance report · Total",
+        "pnl": "P&L",
+        "byStaff": "By staff · Revenue",
+        "byClients": "By clients · Revenue",
+        "byServices": "By services · Paid in cash",
+        "cashDay": "Cash day report · Total bookings",
+        "stockSalesAnalysis": "Product sales analysis · Total"
+      },
+      "hint": "Finance reports count every cash movement (fines, transfers); analytics counts only services and products — discounts and membership payments count as \"money\" nowhere. The mismatch is not a build bug."
+    },
+    "archive": {
+      "title": "Archive, merge, delete — what stays in reports",
+      "items": {
+        "product": {
+          "what": "Archived product",
+          "effect": "disappears from the list, but report statistics stay; payroll drops it from calculation"
+        },
+        "membershipType": {
+          "what": "Archived membership type",
+          "effect": "analytics, statistics and history stay unchanged"
+        },
+        "mergeServices": {
+          "what": "Merging network services",
+          "effect": "irreversible: history, analytics and finance operations get rewritten under the new service"
+        },
+        "deleteService": {
+          "what": "Deleting a service",
+          "effect": "irreversible, loses related operations and settings; already-deleted rows in \"Bookings\" keep showing its old name"
+        },
+        "deleteProduct": {
+          "what": "Deleting a product",
+          "effect": "irreversible: past stock reports lose its rows"
+        },
+        "deleteCardType": {
+          "what": "Deleting a loyalty card type",
+          "effect": "cascades to delete every issued card of that type"
+        },
+        "staffFired": {
+          "what": "Staff: \"fire\" vs \"delete\"",
+          "effect": "firing keeps statistics; deleting erases their data, but their bookings stay in \"Bookings\""
+        }
+      }
+    }
+  },
+  "plan": {
+    "title": "Monthly plan",
+    "set": "Set goal",
+    "edit": "Edit",
+    "goalLabel": "Goal for the month",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saved": "Plan saved",
+    "saveFailed": "Could not save the plan",
+    "ofGoal": "of {goal}",
+    "percent": "{percent}% done",
+    "empty": "No plan yet — set a revenue goal for the month to see progress."
+  },
+  "planEmail": {
+    "label": "Email the Excel report link",
+    "options": {
+      "none": "Don't send",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "saved": "Schedule saved",
+    "saveFailed": "Couldn't save the schedule"
+  },
+  "weeklyReport": {
+    "title": "Weekly report by email",
+    "description": "Once a week the owner gets a link with a salon summary: sales, attendance, occupancy.",
+    "toggleLabel": "Send weekly",
+    "nextSend": "Next send: {date}",
+    "neverSent": "Not sent yet — turn it on to start",
+    "saveFailed": "Couldn't save the setting"
+  },
+  "home": {
+    "title": "Home",
+    "description": "The key numbers for 30 days and the monthly plan. Each number comes with what to do right now.",
+    "period": "Numbers for {range}",
+    "reportLink": "Report",
+    "plan": {
+      "label": "Revenue in {month}",
+      "ofGoal": "of {goal} · {pct}%",
+      "noPlan": "No plan set for this month",
+      "ahead": "Ahead of the plan",
+      "behind": "{amount} short of the plan's pace",
+      "done": "Plan reached",
+      "set": "Set a plan",
+      "edit": "Change plan",
+      "progressLabel": "{pct}% of the plan done, {pace}% expected by today",
+      "hint": "Money actually received since the start of the month: visit payments minus refunds, plus products sold — the same as “Total” in Key metrics. Discounts and payments by membership or client balance are not included."
+    },
+    "load": {
+      "label": "Schedule load",
+      "sub": "{worked, number} of {scheduled, number} h on the schedule",
+      "noSchedule": "The work schedule is not filled in",
+      "action": "Who is free",
+      "setSchedule": "Fill in the schedule",
+      "hint": "Hours staff spent with clients (“Arrived”) out of their scheduled hours — the total of the Staff workload report."
+    },
+    "rebooking": {
+      "label": "Booked again",
+      "sub": "{n} of {total} who came",
+      "nobody": "Nobody came in the last 30 days",
+      "action": "Not rebooked",
+      "hint": "Of the clients who came in 30 days, how many already have their next booking — the same as “Rebooking rate” in Key metrics."
+    },
+    "noShow": {
+      "label": "No-shows",
+      "sub": "{pct}% excl. cancellations",
+      "none": "Everyone came — great",
+      "action": "No-shows list",
+      "hint": "Bookings with the “No-show” status in 30 days — as in Key metrics. The share is of “Arrived” and “No-show” bookings."
+    },
+    "due": {
+      "label": "Time to invite",
+      "sub": "repeat interval passed, no booking",
+      "none": "Everyone due is already booked",
+      "action": "Invite",
+      "hint": "Clients whose repeat interval for the service of their last visit has passed (set in the service card) and who have no future booking — the same “Due to rebook” list as in Clients."
+    },
+    "mailings": {
+      "title": "Mailing results",
+      "description": "Who booked within {days, plural, one {# day} other {# days}} after a mailing — last 30 days",
+      "sent": "{n, plural, one {# mailing} other {# mailings}}",
+      "recipients": "{n, plural, one {# recipient} other {# recipients}}",
+      "booked": "{n, plural, one {# client booked} other {# clients booked}}",
+      "bookedShare": "{pct}% of recipients",
+      "amount": "worth {amount}",
+      "amountSub": "{n, plural, one {# booking} other {# bookings}} at booking price",
+      "action": "Mailings"
+    },
+    "list": {
+      "dueTitle": "Time to invite",
+      "dueDescription": "The repeat interval has passed and there is no next booking. Call or message them and book a visit.",
+      "notRebookedTitle": "Didn't book again",
+      "notRebookedDescription": "Visited in the last 30 days, no next booking yet. Offer them a convenient time.",
+      "lastVisit": "Last visit {date}",
+      "dueSince": "Due since {date}",
+      "call": "Call {name}",
+      "open": "Open {name}'s card",
+      "more": "Showing the first {n}. The rest are in Clients.",
+      "mailing": "Send a mailing",
+      "toClients": "Open in Clients",
+      "empty": "The list is empty",
+      "count": "{n, plural, one {# client} other {# clients}}"
+    },
+    "planModal": {
+      "title": "Plan for {month}",
+      "description": "A goal for money received this month. You'll see progress on Home and in Key metrics.",
+      "label": "Goal for the month",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saved": "Plan saved",
+      "failed": "Could not save the plan",
+      "invalid": "Enter an amount above zero"
+    },
+    "setup": {
+      "title": "Welcome! Let's start with the essentials",
+      "description": "Numbers will appear after the first bookings. Three steps and your salon is ready for clients.",
+      "services": "Add services",
+      "servicesText": "Clients will see prices and duration",
+      "masters": "Add staff and their schedule",
+      "mastersText": "Bookings need a schedule",
+      "booking": "Create the first booking",
+      "bookingText": "Revenue, load and who to invite will appear here",
+      "online": "Share your booking link",
+      "onlineText": "Clients book themselves, around the clock",
+      "go": "Go",
+      "progress": "{done} of {total} done"
+    }
+  }
+}

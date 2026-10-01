@@ -1,0 +1,27 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Персист Тест" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "99007788" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "expectText": "Клиент добавлен" },
+    { "wait": 400 },
+    { "goto": "/biz/clients" },
+    { "fill": "input[placeholder=\"Поиск (по имени, телефону, Email или номеру карты)\"]", "value": "99007788" },
+    { "click": "role=button[name=\"Найти клиентов\"]" },
+    { "wait": 300 },
+    { "expectText": "Персист Тест" },
+    { "screenshot": "01-before-reload" },
+    { "goto": "/biz/clients" },
+    { "wait": 800 },
+    { "fill": "input[placeholder=\"Поиск (по имени, телефону, Email или номеру карты)\"]", "value": "99007788" },
+    { "click": "role=button[name=\"Найти клиентов\"]" },
+    { "wait": 300 },
+    { "expectText": "Персист Тест" },
+    { "screenshot": "02-after-reload" }
+  ]
+}

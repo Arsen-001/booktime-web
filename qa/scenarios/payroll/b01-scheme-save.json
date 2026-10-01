@@ -1,0 +1,17 @@
+{
+  "route": "/biz/payroll/staff/st_nuri_ani",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"fill": "input[value='40']", "value": "55"},
+    {"click": "role=button[name=/Сохранить/]"},
+    {"wait": 600},
+    {"screenshot": "after-save"},
+    {"goto": "/biz/payroll/staff/st_nuri_ani"},
+    {"wait": 500},
+    {"expectVisible": "text=55"},
+    {"screenshot": "after-reload"}
+  ]
+}

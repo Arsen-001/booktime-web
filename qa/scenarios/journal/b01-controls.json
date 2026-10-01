@@ -1,0 +1,12 @@
+[
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"click": "button:has-text('По должностям')"}, {"wait":300}, {"screenshot": "positions-open"} ] },
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"click": "button:has-text('Статусы')"}, {"wait":300}, {"screenshot": "statuses-open"} ] },
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"click": "button:has-text('15 минут')"}, {"wait":300}, {"screenshot": "zoom-open"} ] },
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"click": "button:has-text('День')"}, {"wait":300}, {"screenshot": "day-dropdown-open"} ] },
+  { "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "phone",
+    "steps": [ {"click": "button[aria-label*='меню'], button:has(svg)"}, {"wait":300}, {"screenshot": "phone-hamburger"} ] }
+]

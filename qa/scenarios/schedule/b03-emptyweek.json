@@ -1,0 +1,14 @@
+[
+  {
+    "route": "/biz/schedule/calendar",
+    "persona": "master",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Всё занято — открываю свободное" },
+      { "wait": 500 },
+      { "screenshot": "busy-mode" }
+    ]
+  }
+]

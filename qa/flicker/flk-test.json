@@ -1,0 +1,165 @@
+{
+  "label": "flk-test",
+  "at": "2026-09-27T21:29:29.667Z",
+  "base": "http://localhost:3710",
+  "runs": 1,
+  "scenarios": [
+    {
+      "key": "control-flash",
+      "id": "control-flash",
+      "section": "control",
+      "device": "desktop",
+      "title": "Контроль: внедрённое мигание скелетона в карточке записи",
+      "control": true,
+      "newData": false,
+      "navigation": false,
+      "flashes": 1,
+      "flashesNewData": 0,
+      "refetch": 1,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 1,
+      "remountedEls": 6,
+      "remountsSmall": 0,
+      "renders": 0,
+      "mounts": 0,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 0,
+      "noAnim": 0,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "мигание скелетона ×1",
+        "пересоздано блоков 1 (6 эл.)"
+      ],
+      "warns": [],
+      "detail": {
+        "skels": [
+          {
+            "kind": "flash",
+            "t": 10,
+            "shownMs": null,
+            "skel": "span.block.skeleton-shimmer.animate-shimmer",
+            "region": "div.relative.h-full.w-full",
+            "mainShare": 0.03,
+            "similarity": 1,
+            "sub": "refetch",
+            "before": "10:15Мариам Б.Маникюр с покрытием гель-лаком · до 11:45Записан · Latte 051",
+            "after": "10:15Мариам Б.Маникюр с покрытием гель-лаком · до 11:45Записан · Latte 051"
+          }
+        ],
+        "remounts": [
+          {
+            "sig": "f:F-01-030:10:15–11:45, Мариам Б., ",
+            "size": 6,
+            "where": "button[data-f=F-01-030][booking-block][role=button][10:15–11:45, Мариам Б., Маникю].board-module__uskNdW__card.flex.h-full «10:15Мариам Б.Ма"
+          }
+        ],
+        "overlays": [],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 472
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 1,
+          "flashesNewData": 0,
+          "refetch": 1,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 1,
+          "remountedEls": 6,
+          "remountsSmall": 0,
+          "renders": 0,
+          "mounts": 0,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 0,
+          "noAnim": 0,
+          "pageSwap": 0
+        }
+      ]
+    },
+    {
+      "key": "control-noanim",
+      "id": "control-noanim",
+      "section": "control",
+      "device": "desktop",
+      "title": "Контроль: внедрённое окно, которое появляется и исчезает за кадр",
+      "control": true,
+      "newData": false,
+      "navigation": false,
+      "flashes": 0,
+      "flashesNewData": 0,
+      "refetch": 0,
+      "replace": 0,
+      "newBlocks": 0,
+      "dims": 0,
+      "remounts": 0,
+      "remountedEls": 0,
+      "remountsSmall": 0,
+      "renders": 0,
+      "mounts": 0,
+      "cls": 0,
+      "clsLate": 0,
+      "clsAll": 0,
+      "overlays": 1,
+      "noAnim": 1,
+      "pageSwap": 0,
+      "verdict": "fail",
+      "fails": [
+        "без анимации ×1"
+      ],
+      "warns": [],
+      "detail": {
+        "skels": [],
+        "remounts": [],
+        "overlays": [
+          {
+            "kind": "div[role=dialog] «Окно без анимации»",
+            "opened": true,
+            "closed": true,
+            "openMs": 0,
+            "closeMs": 0,
+            "frames": 30,
+            "startOpacity": 1,
+            "endOpacity": 1
+          }
+        ],
+        "pageSwap": [],
+        "lateShifts": [],
+        "vt": false,
+        "fibersAtStart": 834
+      },
+      "problems": [],
+      "raw": [
+        {
+          "flashes": 0,
+          "flashesNewData": 0,
+          "refetch": 0,
+          "replace": 0,
+          "newBlocks": 0,
+          "dims": 0,
+          "remounts": 0,
+          "remountedEls": 0,
+          "remountsSmall": 0,
+          "renders": 0,
+          "mounts": 0,
+          "cls": 0,
+          "clsLate": 0,
+          "clsAll": 0,
+          "overlays": 1,
+          "noAnim": 1,
+          "pageSwap": 0
+        }
+      ]
+    }
+  ]
+}

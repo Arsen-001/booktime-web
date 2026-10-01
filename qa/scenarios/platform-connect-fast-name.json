@@ -1,0 +1,18 @@
+{
+  "route": "/platform/connect",
+  "persona": "platform",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 500 },
+    { "click": "role=button[name=\"Начать подключение\"] >> nth=0" },
+    { "wait": 800 },
+    { "fill": "input[placeholder=\"Например: Nail Studio Ева\"]", "value": "Салон Тест" },
+    { "click": "role=button[name=\"Маникюр\"]" },
+    { "fill": "input[type=tel] >> nth=0", "value": "91234567" },
+    { "click": "role=button[name=\"Далее\"]" },
+    { "wait": 900 },
+    { "screenshot": "after-fast-next" },
+    { "expectVisible": "text=Я сейчас на месте работы" }
+  ]
+}

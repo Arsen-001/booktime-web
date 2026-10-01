@@ -1,0 +1,5 @@
+[
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":900},{"click":"role=button[name=\"Добавить клиента\"] >> nth=0"},{"wait":700},{"fill":"input[type=tel] >> nth=0","value":"91234567"},{"wait":200},{"screenshot":"add-phone-typed"},{"click":"text=Платежи"},{"wait":400},{"screenshot":"add-bottom"},{"click":"text=Добавить поле"},{"wait":400},{"screenshot":"add-customfield"}]},
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":900},{"click":"role=button[name=\"Добавить клиента\"] >> nth=0"},{"wait":700},{"click":"text=Платежи"},{"wait":400},{"screenshot":"add-bottom"}]},
+ {"route":"/biz/clients/cl_001","persona":"owner","device":"phone","steps":[{"wait":900},{"click":"role=button[name=\"Изменить\"]"},{"wait":600},{"click":"role=button[name=\"Сохранить\"]"},{"wait":400},{"screenshot":"edit-save-bottom"}]}
+]

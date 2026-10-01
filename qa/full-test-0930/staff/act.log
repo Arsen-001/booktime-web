@@ -1,0 +1,50 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+IDS {"biz":"biz_nuri","admin":["st_nuri_admin","Лилит Мкртчян"],"master":["st_nuri_ani","Ани Саргсян"],"master2":["st_nuri_gayane","Гаяне Оганесян"],"owner":["st_nuri_owner","Нарине Акопян"],"type":"undefined"}
+  foreign st_kaytsak_david noAccess true shows name false
+OK owner opens staff card of ANOTHER business
+  empty submit errors: true true
+  after save url /biz/staff setup panel false
+OK owner add staff
+  card url /biz/staff
+OK owner open card + edit + save
+  modal: Уволить Тест Тестовая QA? Прошлые записи и статистика останутся. Вернуть на работу можно в любой момент — из «Архива». Дата увольнения* 1 октября 2026 Причина(необязательно) С этой даты записей нет Отмена Уволить Тест
+  after: К сотрудникам ТТ Тест Тестовая QA Педикюр QA · Бесплатно · уволен(а) Уволен(а) 01.10.2026 Информация Услуги График и запись Зарплата Доступ и уведомления В салоне «Nuri Nail Studio» Принимаю и дома Кл
+OK owner dismiss
+  enabled checkboxes 0
+OK owner roles screen
+OK owner positions create/delete
+  group menus 0
+FAIL owner grants admin finance → admin sees finance finance group menu not found
+  add buttons 0 row menus 0
+OK admin on staff list (read-only)
+  name disabled true fire btn 0 tabs Информация|Услуги
+6|График и запись|Зарплата|Доступ и уведомления
+  access tab text: К сотрудникам Ани Саргсян Мастер маникюра · Платно · мастер Информация Услуги 6 График и запись Зарплата Доступ и уведомления Уведомления Нет права смотреть уведомления этого сотрудника
+OK admin opens master card (read-only?)
+  legal visible: false
+OK admin opens owner card
+  noAccess false tabs Информация|Услуги
+6|График и запись|Зарплата|Доступ и уведомления
+  master can edit own position? true hired? false
+OK master own card
+  noAccess true
+OK master other card
+  noAccess true
+OK master opens admin card
+FAIL owner resets admin rights locator.click: Timeout 60000ms exceeded.
+  url /biz/staff/st_muomywde128b3z?setup=1 | option default week shown: true
+  toast: Не принимает записи: нет услуг Настроить | ПМ Пустой Мастер QA | Пустой Мастер QA добавлен(а) | Сохранено: график пн–пт 10:00–19:00, сб 10:00–16:00. Часы салона ещё не заданы — поменять можно в графике
+  notBooking badge after: true false
+OK empty salon: add master + setup schedule
+   Сотрудники Команда салона: список, должности, доступ Управление лицензией Добавить Работают 2 Архив Системные пользователи 2 сотрудника 0 платных мест 2 бесплатных места Порядок строк — порядок мастер
+OK state empty
+   Сотрудники Команда салона: список, должности, доступ Управление лицензией Добавить Не удалось загрузить список Проверьте соединение и попробуйте ещё раз. Повторить
+OK state error
+   Сотрудники Команда салона: список, должности, доступ Управление лицензией Добавить Работают Архив Системные пользователи Порядок строк — порядок мастеров в журнале и в записи клиента. Перетащите строк
+OK state slow
+phone /biz/staff?demo=owner hscroll false
+phone /biz/staff/positions hscroll false
+phone /biz/staff/roles hscroll false
+phone /biz/staff/log hscroll false
+phone access hscroll false
+ERRS []

@@ -1,0 +1,28 @@
+import { start, stop, open, as, reload, text, shot, db, toasts, btnTexts } from './lib.mjs';
+await start();
+const { page } = await open('owner', '/biz/schedule', { device: 'desktop' });
+await page.getByRole('button', { name: 'Показать' }).click(); await page.waitForTimeout(800);
+const t = await text(page); const i = t.indexOf('Быстрый доступ'); console.log(t.slice(i, i+900));
+console.log((await btnTexts(page)).filter(x=>/рабоч|Неделя|день/i.test(x)).join(' | '));
+let d = await db(page);
+const sAni = JSON.stringify(d.core.schedules.filter(s=>s.staffId==='st_nuri_ani').map(s=>s.overrides));
+console.log('ani overrides before', sAni);
+await as(page, 'client', '/book?staff=st_nuri_ani&service=sv_nuri_classic');
+console.log('client days before', (await text(page)).match(/(Сегодня|Завтра|[а-я]{2}, \d+ [а-я]+)/g)?.slice(0,4));
+await as(page, 'owner', '/biz/schedule');
+await page.getByRole('button', { name: 'Показать' }).click(); await page.waitForTimeout(800);
+// find Ani row in quick access
+const row = page.locator('li, [role=listitem], div').filter({ hasText: /^Ани Саргсян/ }).filter({ has: page.getByRole('button', { name: /рабочий день/ }) }).last();
+console.log('row count', await row.count());
+await row.getByRole('button', { name: /рабочий день/ }).first().click(); await page.waitForTimeout(2000);
+console.log('toasts', await toasts(page));
+d = await db(page);
+console.log('ani overrides after', JSON.stringify(d.core.schedules.filter(s=>s.staffId==='st_nuri_ani').map(s=>s.overrides)));
+console.log('history', JSON.stringify(d.areas.schedule.history).slice(0,600));
+console.log('days area', JSON.stringify(d.areas.schedule.days).slice(0,400));
+await as(page, 'client', '/book?staff=st_nuri_ani&service=sv_nuri_classic');
+console.log('client days after', (await text(page)).match(/(Сегодня|Завтра|[а-я]{2}, \d+ [а-я]+)/g)?.slice(0,4));
+await as(page, 'owner', '/biz/schedule/history');
+console.log('HIST', (await text(page)).slice(0,800));
+await shot(page, 's4-history');
+await stop();

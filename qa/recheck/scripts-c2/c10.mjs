@@ -1,0 +1,22 @@
+import { start, stop, open, as, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('owner', `/biz/clients`, { device: 'desktop' });
+// narrow selection first: search a name
+await page.getByText('Неявщики', { exact: false }).first().click(); await page.waitForTimeout(1500);
+await page.getByRole('button', { name: /Действия/ }).first().click(); await page.waitForTimeout(600);
+console.log('MENU head', (await page.locator('[role=menu]').last().innerText().catch(()=>'')).split('\n')[0]);
+await page.getByText('Добавить в категорию').click(); await page.waitForTimeout(800);
+const dlg = page.locator('[role=dialog]').last();
+console.log('CAT', (await dlg.innerText()).replace(/\n+/g,' | ').slice(0,400));
+const ctrls = await dlg.locator('input, [role=combobox], button').evaluateAll(els=>els.map(e=>`${e.tagName}|${e.getAttribute('role')}|${e.placeholder||''}|${(e.innerText||'').trim()}`)); console.log(ctrls);
+const inp = dlg.locator('input').first(); await inp.click(); await inp.fill('Проверка C2'); await page.keyboard.press('Enter'); await page.waitForTimeout(600);
+console.log('CAT2', (await dlg.innerText()).replace(/\n+/g,' | ').slice(0,400));
+await dlg.getByRole('button', { name: 'Добавить' }).last().click(); await page.waitForTimeout(2000); console.log('toasts', await toasts(page));
+const d = await db(page);
+const tagged = d.core.clients.filter(c=>(c.categories||c.tags||[]).includes('Проверка C2')); console.log('tagged in core', tagged.length);
+const prof = Object.entries(d.areas.clients.profiles).filter(([k,v])=>JSON.stringify(v).includes('Проверка C2')); console.log('tagged in profiles', prof.length);
+console.log('sample client keys', Object.keys(d.core.clients[0]));
+await as(page, 'owner', `/biz/clients/${tagged[0]?.id || prof[0]?.[0] || 'cl_011'}`);
+console.log('card has cat', (await text(page)).includes('Проверка C2'));
+await as(page, 'owner', `/biz/clients/categories`); console.log('categories page', (await text(page)).slice(0,300).replace(/\n/g,' | '));
+await stop();

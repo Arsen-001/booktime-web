@@ -1,0 +1,130 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T01:29:44.552Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-051",
+      "F-00-052",
+      "F-00-053",
+      "F-00-054",
+      "F-00-058",
+      "F-00-059",
+      "F-00-060",
+      "F-00-063",
+      "F-02-017",
+      "F-02-039",
+      "F-02-065",
+      "F-02-105"
+    ],
+    "scenarioSteps": {
+      "ok": 4,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/calendar",
+      "url": "http://localhost:3710/biz/schedule/calendar?demo=master&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2128,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-051",
+        "F-00-052",
+        "F-00-053",
+        "F-00-054",
+        "F-00-058",
+        "F-00-059",
+        "F-00-060",
+        "F-00-063",
+        "F-02-017",
+        "F-02-039",
+        "F-02-065",
+        "F-02-105"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "fill": "[data-f=\"F-00-063\"] input",
+            "value": "Мария, четверг, 15:00, маникюр"
+          },
+          "ok": true,
+          "ms": 28
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "[data-f=\"F-00-063\"] >> text=Разобрать"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 303
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "draft"
+          },
+          "ok": true,
+          "ms": 72,
+          "screenshot": "qa/measure/schedule/b03-voice/biz-schedule-calendar__master-nails-ru-light-desktop__draft.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/b03-voice/biz-schedule-calendar__master-nails-ru-light-desktop.png",
+        "qa/measure/schedule/b03-voice/biz-schedule-calendar__master-nails-ru-light-desktop__draft.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

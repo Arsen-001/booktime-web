@@ -1,0 +1,14 @@
+{
+  "route": "/biz/stock/reminders",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=combobox" },
+    { "wait": 200 },
+    { "screenshot": "01-owner-dropdown" }
+  ]
+}

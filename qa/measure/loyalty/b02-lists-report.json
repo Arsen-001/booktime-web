@@ -1,0 +1,235 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:37:20.107Z",
+  "summary": {
+    "pages": 3,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-004",
+      "F-06-020",
+      "F-06-021",
+      "F-06-022",
+      "F-06-024",
+      "F-06-025",
+      "F-06-026",
+      "F-06-027",
+      "F-06-028",
+      "F-06-030",
+      "F-06-031",
+      "F-06-058",
+      "F-06-198"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/loyalty/card-types",
+      "url": "http://localhost:3710/biz/loyalty/card-types?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1767,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-020",
+        "F-06-021",
+        "F-06-022",
+        "F-06-024",
+        "F-06-025",
+        "F-06-026",
+        "F-06-027",
+        "F-06-028",
+        "F-06-030"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "list"
+          },
+          "ok": true,
+          "ms": 32,
+          "screenshot": "qa/measure/loyalty/shots-b02-lists/biz-loyalty-card-types__owner-nails-ru-light-desktop__list.png"
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "table tr:nth-child(1) a, [data-f] a, a[href*='/biz/loyalty/card-types/']"
+          },
+          "ok": true,
+          "ms": 333
+        },
+        {
+          "i": 3,
+          "step": {
+            "expectVisible": "[data-f=\"F-06-021 F-06-030\"]"
+          },
+          "ok": true,
+          "ms": 786
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "edit-form"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/measure/loyalty/shots-b02-lists/biz-loyalty-card-types__owner-nails-ru-light-desktop__edit-form.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-card-types__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-card-types__owner-nails-ru-light-desktop__list.png",
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-card-types__owner-nails-ru-light-desktop__edit-form.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/promotions",
+      "url": "http://localhost:3710/biz/loyalty/promotions?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1928,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-004",
+        "F-06-031"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "list"
+          },
+          "ok": true,
+          "ms": 77,
+          "screenshot": "qa/measure/loyalty/shots-b02-lists/biz-loyalty-promotions__owner-nails-ru-light-desktop__list.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-promotions__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-promotions__owner-nails-ru-light-desktop__list.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/loyalty/cards",
+      "url": "http://localhost:3710/biz/loyalty/cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1953,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-058",
+        "F-06-198"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "screenshot": "list"
+          },
+          "ok": true,
+          "ms": 82,
+          "screenshot": "qa/measure/loyalty/shots-b02-lists/biz-loyalty-cards__owner-nails-ru-light-desktop__list.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-cards__owner-nails-ru-light-desktop.png",
+        "qa/measure/loyalty/shots-b02-lists/biz-loyalty-cards__owner-nails-ru-light-desktop__list.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

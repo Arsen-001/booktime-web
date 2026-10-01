@@ -1,0 +1,8 @@
+{ "route": "/biz/journal", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "text=Сона Григорян >> nth=0"},
+    {"click": "css=div.grid >> nth=0"},
+    {"wait": 400},
+    {"screenshot": "slot-click"}
+  ] }

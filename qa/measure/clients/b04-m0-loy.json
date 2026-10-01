@@ -1,0 +1,175 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:18:01.266Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-04-114",
+      "F-04-115",
+      "F-04-116",
+      "F-04-121"
+    ],
+    "scenarioSteps": {
+      "ok": 11,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients/loyalty",
+      "url": "http://localhost:3710/biz/clients/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1041,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-04-114",
+        "F-04-115",
+        "F-04-116",
+        "F-04-121"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "discounts-tab"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__discounts-tab.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Правила для классов важности"
+          },
+          "ok": true,
+          "ms": 203
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "classes-tab"
+          },
+          "ok": true,
+          "ms": 49,
+          "screenshot": "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__classes-tab.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "text=Правила для категорий"
+          },
+          "ok": true,
+          "ms": 204
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 304
+        },
+        {
+          "i": 8,
+          "step": {
+            "screenshot": "categories-rules-tab"
+          },
+          "ok": true,
+          "ms": 47,
+          "screenshot": "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__categories-rules-tab.png"
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "text=Настройки"
+          },
+          "ok": true,
+          "ms": 209
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 11,
+          "step": {
+            "screenshot": "settings-tab"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__settings-tab.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop.png",
+        "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__discounts-tab.png",
+        "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__classes-tab.png",
+        "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__categories-rules-tab.png",
+        "qa/shots/clients-b04-m0-loy/biz-clients-loyalty__owner-nails-ru-light-desktop__settings-tab.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "route": "/diary",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=button[name=\"Добавить расход\"]" },
+    { "wait": 400 },
+    { "fill": "input[placeholder='Например, маникюр с покрытием']", "value": "Проверка замера" },
+    { "fill": "input[inputmode='numeric']", "value": "12345" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "wait": 500 },
+    { "expectText": "Проверка замера" },
+    { "screenshot": "01-added" },
+    { "goto": "/diary" },
+    { "wait": 600 },
+    { "expectText": "Проверка замера" },
+    { "screenshot": "02-after-reload" }
+  ]
+}

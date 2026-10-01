@@ -1,0 +1,76 @@
+[
+{ "route": "/masters/st_nuri_ani", "persona": "guest", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "wait": 800 },
+    { "screenshot": "ux-book-guest" },
+    { "fill": "input[placeholder='Как к вам обращаться']", "value": "Анна" },
+    { "fill": "input[type='tel']", "value": "77123456" },
+    { "click": "role=checkbox" },
+    { "click": "role=button[name=\"Получить код\"]" },
+    { "wait": 1200 },
+    { "screenshot": "ux-book-guest-code" },
+    { "fill": "input[inputmode='numeric']", "value": "0000" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 400 },
+    { "screenshot": "ux-book-guest-after-toast" },
+    { "wait": 1500 },
+    { "screenshot": "ux-book-guest-landing" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "wait": 800 },
+    { "screenshot": "ux-book-client" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "desktop",
+  "steps": [
+    { "click": "css=a[href^='/book?staff=']" },
+    { "wait": 800 },
+    { "screenshot": "ux-book-client-desktop" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Попросить перезвонить\"]" },
+    { "wait": 600 },
+    { "screenshot": "ux-callback-modal" }
+  ] },
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Фильтры\"]" },
+    { "wait": 700 },
+    { "screenshot": "ux-search-filters" }
+  ] },
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder='Что ищете?']", "value": "зубной протез титан" },
+    { "wait": 1200 },
+    { "screenshot": "ux-search-empty" }
+  ] },
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder='Что ищете?']", "value": "ногти" },
+    { "wait": 1200 },
+    { "screenshot": "ux-search-nails" }
+  ] },
+{ "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Рядом со мной\"]" },
+    { "wait": 1500 },
+    { "screenshot": "ux-search-near" }
+  ] },
+{ "route": "/login", "persona": "guest", "lang": "ru", "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder='Как к вам обращаться']", "value": "Анна" },
+    { "fill": "input[type='tel']", "value": "77123456" },
+    { "click": "role=checkbox" },
+    { "screenshot": "ux-login-filled" },
+    { "click": "role=button[name=\"Получить код\"]" },
+    { "wait": 1200 },
+    { "screenshot": "ux-login-code" },
+    { "fill": "input[inputmode='numeric']", "value": "1111" },
+    { "press": "Enter" },
+    { "wait": 1200 },
+    { "screenshot": "ux-login-wrong-code" }
+  ] }
+]

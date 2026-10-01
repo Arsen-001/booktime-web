@@ -1,0 +1,16 @@
+{
+  "route": "/biz/loyalty/certificates/types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "top" },
+    { "click": "role=radio[name=/Некоторые услуги и любые товары/]" },
+    { "wait": 300 },
+    { "screenshot": "some-services" },
+    { "click": "text=Изменить" },
+    { "wait": 300 },
+    { "screenshot": "scope-picker" }
+  ]
+}

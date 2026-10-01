@@ -1,0 +1,24 @@
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+import { chromium } from '@playwright/test';
+const release = await acquireBrowserSlot();
+const b = await chromium.launch();
+const p = await b.newPage();
+await p.setViewportSize({ width: 1440, height: 900 });
+await p.goto('http://localhost:3710/biz/clients?demo=owner&sphere=nails&lang=ru&theme=light');
+await p.waitForTimeout(1500);
+await p.getByPlaceholder(/[Пп]оиск/).first().fill('95 965 289');
+await p.waitForTimeout(900);
+await p.locator('text=Нелли').first().click();
+await p.waitForTimeout(1200);
+const tabs = await p.getByRole('tab').allInnerTexts();
+console.log('TABS:', JSON.stringify(tabs));
+await p.getByRole('tab', { name: 'Лояльность' }).click({timeout:5000}).catch(async()=>{
+  console.log('no direct Лояльность tab, trying arrow');
+  await p.locator('button:has-text(">"), [aria-label*="ольше"], [aria-label*="right"]').first().click().catch(()=>{});
+});
+await p.waitForTimeout(900);
+const membership = await p.locator('text=/Остаток .* из/').first().innerText().catch(() => 'n/a');
+console.log('MEMBERSHIP:', membership);
+await p.screenshot({ path: 'qa/shots/loyalty-g1-2/membership4/5-loyalty-tab.png', fullPage: true });
+await b.close();
+release();

@@ -1,0 +1,6 @@
+ERROR locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[role=dialog]').filter({ hasText: 'Статус визита' }).first().getByRole('button', { name: '+', exact: true }).first()[22m
+
+    at Module.default (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/cmd/1790798248757787000.mjs?t=1790798248784:10:67)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/runner.mjs:19:75

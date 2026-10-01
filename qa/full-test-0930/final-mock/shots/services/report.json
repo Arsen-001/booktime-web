@@ -1,0 +1,2452 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-30T23:49:46.345Z",
+  "summary": {
+    "pages": 28,
+    "consoleErrors": 0,
+    "consoleWarnings": 20,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 204,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-057",
+      "F-00-081",
+      "F-00-082",
+      "F-00-084",
+      "F-00-085",
+      "F-00-086",
+      "F-00-088",
+      "F-00-089",
+      "F-00-090",
+      "F-00-094",
+      "F-01-007",
+      "F-01-193",
+      "F-02-058",
+      "F-02-060",
+      "F-02-063",
+      "F-02-067",
+      "F-02-068",
+      "F-03-115",
+      "F-03-129",
+      "F-10-027",
+      "F-10-156",
+      "F-14-114",
+      "F-15-014",
+      "F-15-141",
+      "F-15-142",
+      "F-16-028",
+      "F-16-030",
+      "F-16-170"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/services",
+      "url": "http://localhost:3710/biz/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4771,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Перетащить категорию «Маникюр»",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Добавить услугу в «Маникюр»",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр классический»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр аппаратный»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр с покрытием гель-лаком»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Укрепление ногтей гелем»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Снятие покрытия»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Мужской маникюр»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Детский маникюр»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Перетащить категорию «Педикюр»",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Добавить услугу в «Педикюр»",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Педикюр классический»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Педикюр с гель-лаком»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «SPA-педикюр»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Перетащить категорию «Дизайн и наращивание»",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Добавить услугу в «Дизайн и наращивание»",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Дизайн ногтей»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Наращивание ногтей»",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 18,
+      "dataF": [
+        "F-00-082",
+        "F-01-007",
+        "F-01-193",
+        "F-02-063",
+        "F-14-114",
+        "F-15-014",
+        "F-16-028"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services",
+      "url": "http://localhost:3710/biz/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4768,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Перетащить категорию «Маникюр»",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Добавить услугу в «Маникюр»",
+          "w": 164,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-082 F-14-114]",
+          "text": "Действия с категорией «Маникюр»",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр классический»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Маникюр классический",
+          "w": 189,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Действия",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр аппаратный»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Маникюр аппаратный",
+          "w": 177,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Действия",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Маникюр с покрытием гель-лаком»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Маникюр с покрытием гель-лаком",
+          "w": 276,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Действия",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Укрепление ногтей гелем»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Укрепление ногтей гелем",
+          "w": 204,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Действия",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Снятие покрытия»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Снятие покрытия",
+          "w": 139,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Действия",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Перетащить «Мужской маникюр»",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 46,
+      "dataF": [
+        "F-00-082",
+        "F-01-007",
+        "F-01-193",
+        "F-02-063",
+        "F-14-114",
+        "F-15-014",
+        "F-16-028"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services",
+      "url": "http://localhost:3710/biz/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4897,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Drag the “Manicure” category",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Add a service to “Manicure”",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Classic manicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Machine manicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Manicure with gel polish”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Gel nail strengthening”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Polish removal”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Men's manicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Kids' manicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Drag the “Pedicure” category",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Add a service to “Pedicure”",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Classic pedicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Pedicure with gel polish”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “SPA pedicure”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Drag the “Design & extensions” category",
+          "w": 28,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Add a service to “Design & extensions”",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Nail art”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Nail extensions”",
+          "w": 28,
+          "h": 44,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 18,
+      "dataF": [
+        "F-00-082",
+        "F-01-007",
+        "F-01-193",
+        "F-02-063",
+        "F-14-114",
+        "F-15-014",
+        "F-16-028"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services",
+      "url": "http://localhost:3710/biz/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4911,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-10.w-7 in [data-f=F-00-082 F-14-114]",
+          "text": "Drag the “Manicure” category",
+          "w": 32,
+          "h": 40,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-14-114]",
+          "text": "Add a service to “Manicure”",
+          "w": 139,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-082 F-14-114]",
+          "text": "Actions for “Manicure”",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Classic manicure”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Classic manicure",
+          "w": 128,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Actions",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Machine manicure”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Machine manicure",
+          "w": 142,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Actions",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Manicure with gel polish”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Manicure with gel polish",
+          "w": 187,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Actions",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Gel nail strengthening”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Gel nail strengthening",
+          "w": 170,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Actions",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Polish removal”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "a.truncate.font-medium.text-fg in [data-f=F-16-028 F-01-193]",
+          "text": "Polish removal",
+          "w": 112,
+          "h": 24,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-16-028 F-01-193]",
+          "text": "Actions",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.flex.shrink-0.cursor-grab in [data-f=F-16-028 F-01-193]",
+          "text": "Drag “Men's manicure”",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 46,
+      "dataF": [
+        "F-00-082",
+        "F-01-007",
+        "F-01-193",
+        "F-02-063",
+        "F-14-114",
+        "F-15-014",
+        "F-16-028"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/photos",
+      "url": "http://localhost:3710/biz/services/photos?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3187,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-085",
+        "F-00-086",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-photos__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/photos",
+      "url": "http://localhost:3710/biz/services/photos?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3192,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-085 F-00-086]",
+          "text": "Купить место за 50 монет",
+          "w": 229,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Убрать фото",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 8,
+      "dataF": [
+        "F-00-085",
+        "F-00-086",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-photos__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/photos",
+      "url": "http://localhost:3710/biz/services/photos?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 3044,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-085",
+        "F-00-086",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-photos__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/photos",
+      "url": "http://localhost:3710/biz/services/photos?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3019,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-085 F-00-086]",
+          "text": "Buy a slot for 50 coins",
+          "w": 198,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-085 F-00-086]",
+          "text": "Remove photo",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 8,
+      "dataF": [
+        "F-00-085",
+        "F-00-086",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-photos__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/documents",
+      "url": "http://localhost:3710/biz/services/documents?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 7192,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-088",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-documents__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/documents",
+      "url": "http://localhost:3710/biz/services/documents?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 7099,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-088",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-documents__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/documents",
+      "url": "http://localhost:3710/biz/services/documents?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 7110,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-088",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-documents__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/documents",
+      "url": "http://localhost:3710/biz/services/documents?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 7108,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-088",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-documents__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/materials",
+      "url": "http://localhost:3710/biz/services/materials?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 5383,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-089",
+        "F-00-090",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-materials__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/materials",
+      "url": "http://localhost:3710/biz/services/materials?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 5325,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-089",
+        "F-00-090",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-materials__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/materials",
+      "url": "http://localhost:3710/biz/services/materials?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 5210,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-089",
+        "F-00-090",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-materials__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/materials",
+      "url": "http://localhost:3710/biz/services/materials?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 5199,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-089",
+        "F-00-090",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-materials__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/sv_nuri_classic",
+      "url": "http://localhost:3710/biz/services/sv_nuri_classic?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 7392,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ани Саргсян: Цена",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Сона Григорян: Цена",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Гаяне Оганесян: Цена",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ева Карапетян: Цена",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-00-057",
+        "F-00-081",
+        "F-00-082",
+        "F-00-084",
+        "F-00-094",
+        "F-01-007",
+        "F-01-193",
+        "F-02-058",
+        "F-02-060",
+        "F-02-067",
+        "F-02-068",
+        "F-03-115",
+        "F-03-129",
+        "F-10-156",
+        "F-15-014",
+        "F-15-141",
+        "F-15-142",
+        "F-16-028",
+        "F-16-030",
+        "F-16-170"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-sv-nuri-classic__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/sv_nuri_classic",
+      "url": "http://localhost:3710/biz/services/sv_nuri_classic?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 7391,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-16-170]",
+          "text": "Услуги",
+          "w": 84,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ани Саргсян: Цена",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Сона Григорян: Цена",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Гаяне Оганесян: Цена",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ева Карапетян: Цена",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 6,
+      "dataF": [
+        "F-00-057",
+        "F-00-081",
+        "F-00-082",
+        "F-00-084",
+        "F-00-094",
+        "F-01-007",
+        "F-01-193",
+        "F-02-058",
+        "F-02-060",
+        "F-02-067",
+        "F-02-068",
+        "F-03-115",
+        "F-03-129",
+        "F-10-156",
+        "F-15-014",
+        "F-15-141",
+        "F-15-142",
+        "F-16-028",
+        "F-16-030",
+        "F-16-170"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-sv-nuri-classic__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/sv_nuri_classic",
+      "url": "http://localhost:3710/biz/services/sv_nuri_classic?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 7240,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ани Саргсян: Price",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Сона Григорян: Price",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Гаяне Оганесян: Price",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ева Карапетян: Price",
+          "w": 93,
+          "h": 38,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-00-057",
+        "F-00-081",
+        "F-00-082",
+        "F-00-084",
+        "F-00-094",
+        "F-01-007",
+        "F-01-193",
+        "F-02-058",
+        "F-02-060",
+        "F-02-067",
+        "F-02-068",
+        "F-03-115",
+        "F-03-129",
+        "F-10-156",
+        "F-15-014",
+        "F-15-141",
+        "F-15-142",
+        "F-16-028",
+        "F-16-030",
+        "F-16-170"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-sv-nuri-classic__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/services/sv_nuri_classic",
+      "url": "http://localhost:3710/biz/services/sv_nuri_classic?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 7210,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:539:97)\n    at readArea (http://localhost:3710/_next/static/chunks/src_api_1x0ztyo._.js:17:138)\n    at listStockBellAlerts (http://localhost:3710/_next/static/chunks/src_api_stock_ts_1qs-290._.js:3263:307)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-00-082 F-16-170]",
+          "text": "Services",
+          "w": 93,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ани Саргсян: Price",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Сона Григорян: Price",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Гаяне Оганесян: Price",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-156 F-02-058 F-16-030]",
+          "text": "Ева Карапетян: Price",
+          "w": 132,
+          "h": 38,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 6,
+      "dataF": [
+        "F-00-057",
+        "F-00-081",
+        "F-00-082",
+        "F-00-084",
+        "F-00-094",
+        "F-01-007",
+        "F-01-193",
+        "F-02-058",
+        "F-02-060",
+        "F-02-067",
+        "F-02-068",
+        "F-03-115",
+        "F-03-129",
+        "F-10-156",
+        "F-15-014",
+        "F-15-141",
+        "F-15-142",
+        "F-16-028",
+        "F-16-030",
+        "F-16-170"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/biz-services-sv-nuri-classic__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/services",
+      "url": "http://localhost:3710/dev/ext/staffCard/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4174,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "5000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "6000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "9000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "11000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "2000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "4000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Фото работ",
+          "w": 79,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Документы",
+          "w": 79,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Материалы",
+          "w": 80,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 9,
+      "dataF": [
+        "F-10-027"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-staffCard-services__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/services",
+      "url": "http://localhost:3710/dev/ext/staffCard/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4203,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "5000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "6000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "9000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "11000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "2000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "4000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Фото работ",
+          "w": 79,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Документы",
+          "w": 79,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Материалы",
+          "w": 80,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 9,
+      "dataF": [
+        "F-10-027"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-staffCard-services__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/services",
+      "url": "http://localhost:3710/dev/ext/staffCard/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 4185,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "5000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "6000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "9000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "11000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "2000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "4000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Work photos",
+          "w": 86,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Documents",
+          "w": 77,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Materials",
+          "w": 63,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 9,
+      "dataF": [
+        "F-10-027"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-staffCard-services__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/staffCard/services",
+      "url": "http://localhost:3710/dev/ext/staffCard/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4196,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "5000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "6000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "9000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "11000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "2000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "input.min-w-0.flex-1.bg-transparent in [data-f=F-10-027]",
+          "text": "4000",
+          "w": 84,
+          "h": 38,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Work photos",
+          "w": 86,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Documents",
+          "w": 77,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "a.font-medium.text-primary-text.hover:underline",
+          "text": "Materials",
+          "w": 63,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 9,
+      "dataF": [
+        "F-10-027"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-staffCard-services__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/services",
+      "url": "http://localhost:3710/dev/ext/settingsHub/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2053,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-settingsHub-services__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/services",
+      "url": "http://localhost:3710/dev/ext/settingsHub/services?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2069,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-settingsHub-services__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/services",
+      "url": "http://localhost:3710/dev/ext/settingsHub/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 2040,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-settingsHub-services__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/services",
+      "url": "http://localhost:3710/dev/ext/settingsHub/services?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2046,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/final-mock/shots/services/dev-ext-settingsHub-services__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    }
+  ]
+}

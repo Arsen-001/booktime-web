@@ -1,0 +1,21 @@
+const BK = 'bk_01M3TBX8Y7J5RG0HMHFNG1EFNW';
+export default async ({ go, shot, page, api }) => {
+  const r = {};
+  await go(`/biz/journal?date=2026-10-01&booking=${BK}`, 4000);
+  await page.locator('[role=dialog]').last().getByRole('button', { name: /^Оплатить|Оплачено|Посмотреть/ }).last().click().catch(() => {});
+  await page.waitForTimeout(2000);
+  r.d0 = (await page.locator('[role=dialog]').last().innerText()).slice(0, 300);
+  await page.locator('[role=dialog]').last().getByRole('button', { name: /Частичный возврат/ }).click();
+  await page.waitForTimeout(1200);
+  const d = page.locator('[role=dialog]').last();
+  r.d1 = (await d.innerText()).slice(0, 300);
+  await d.locator('input').first().fill('500');
+  await shot('s7-refund', false);
+  await d.getByRole('button', { name: /Вернуть|Возврат|Подтвердить/ }).last().click();
+  await page.waitForTimeout(5000);
+  await shot('s7-refunded', false);
+  r.d2 = (await page.locator('[role=dialog]').last().innerText()).slice(0, 300);
+  const sum = await api('GET', `/v1/biz/biz_nuri/finance/bookings/${BK}/payments`);
+  r.summary = { due: sum.data.due, lines: sum.data.moneyLines?.map((l) => [l.id, l.amount, l.refundedAmount, l.cancelled]), payments: sum.data.payments };
+  return r;
+};

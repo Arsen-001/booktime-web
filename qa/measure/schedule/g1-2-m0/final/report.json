@@ -1,0 +1,256 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T05:20:37.594Z",
+  "summary": {
+    "pages": 3,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-02-001",
+      "F-02-002",
+      "F-02-003",
+      "F-02-004",
+      "F-02-016",
+      "F-02-030",
+      "F-02-085",
+      "F-02-086",
+      "F-02-087",
+      "F-02-099",
+      "F-02-102"
+    ],
+    "scenarioSteps": {
+      "ok": 8,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1015,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-016",
+        "F-02-030",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Ани Саргсян"
+          },
+          "ok": true,
+          "ms": 215
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "schedule-day-panel"
+          },
+          "ok": true,
+          "ms": 34,
+          "screenshot": "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-desktop__schedule-day-panel.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-desktop__schedule-day-panel.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule/history",
+      "url": "http://localhost:3710/biz/schedule/history?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1196,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-085",
+        "F-02-102"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 600
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "history"
+          },
+          "ok": true,
+          "ms": 36,
+          "screenshot": "qa/measure/schedule/g1-2-m0/final/biz-schedule-history__owner-nails-ru-light-desktop__history.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule-history__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule-history__owner-nails-ru-light-desktop__history.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/schedule",
+      "url": "http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1210,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-02-001",
+        "F-02-002",
+        "F-02-003",
+        "F-02-004",
+        "F-02-016",
+        "F-02-030",
+        "F-02-085",
+        "F-02-086",
+        "F-02-087",
+        "F-02-099"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "schedule-phone"
+          },
+          "ok": true,
+          "ms": 46,
+          "screenshot": "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-phone__schedule-phone.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-phone.png",
+        "qa/measure/schedule/g1-2-m0/final/biz-schedule__owner-nails-ru-light-phone__schedule-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

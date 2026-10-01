@@ -1,0 +1,32 @@
+{
+  "route": "/biz/loyalty/promotions/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "step1" },
+    { "fill": "input[placeholder=\"Введите название акции\"]", "value": "Фикс скидка b02" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step2-kinds" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step3-calc-default" },
+    { "fill": "input[type=number][max=\"100\"]", "value": "10" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step4-rules" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 300 },
+    { "screenshot": "step5-scope-nocards" },
+    { "expectText": "Пока не отмечен ни один тип карты" },
+    { "click": "text=Постоянный гость" },
+    { "screenshot": "step5-card-checked" },
+    { "click": "role=button[name=\"Добавить акцию\"]" },
+    { "wait": 700 },
+    { "expectText": "Акция создана" },
+    { "screenshot": "created-toast" }
+  ]
+}

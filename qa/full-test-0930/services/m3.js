@@ -1,0 +1,18 @@
+const page = state.m;
+await L.as(page, 'owner');
+await L.go(page, '/biz/services'); await page.waitForTimeout(1500);
+const row = page.locator('[role=row], tr, li, div.group').filter({ hasText: 'QA Маникюр 0930' }).last();
+const sw = page.getByRole('switch', { name: /QA Маникюр 0930/ });
+log('switch by name count', await sw.count());
+if (await sw.count()) await sw.click(); else await row.getByRole('switch').first().click();
+await page.waitForTimeout(1500);
+log('toast', await page.locator('[data-sonner-toast]').allInnerTexts());
+log('summary', (await page.innerText('main')).match(/Доступно онлайн\n+\d+/)?.[0]);
+await L.as(page, 'client');
+await L.go(page, '/b/nuri-nail-studio'); await page.waitForTimeout(2000);
+log('online has QA after off:', (await page.innerText('body')).includes('QA Маникюр 0930'));
+await L.as(page, 'owner');
+await L.go(page, `/biz/journal?new=1&staff=st_nuri_ani&date=2026-10-02&start=11%3A00`); await page.waitForTimeout(2500);
+const dlg = page.locator('[role=dialog]').last();
+await dlg.getByText('Маникюр', { exact: true }).last().click().catch(()=>{}); await page.waitForTimeout(700);
+log('journal still lists offline service (ok for admin):', (await dlg.innerText()).includes('QA Маникюр 0930'));

@@ -1,0 +1,24 @@
+export default async ({ go, shot, page }) => {
+  const r = {};
+  const NAME = 'QA Поставщик';
+  const openRow = async () => { await go('/biz/finance/counterparties', 3500); await page.getByText(NAME).first().click(); await page.waitForTimeout(1500); return page.locator('[role=dialog]').last(); };
+  await go('/biz/finance/counterparties', 3500);
+  await page.getByRole('button', { name: 'Добавить контрагента' }).first().click(); await page.waitForTimeout(1200);
+  let d = page.locator('[role=dialog]').last();
+  await d.getByPlaceholder('Например, ООО «Поставщик»').fill(NAME);
+  await d.getByLabel('Телефон').fill('99000992').catch(() => {});
+  const langSel = () => d.locator('select').filter({ has: page.locator('option', { hasText: 'Как в кабинете' }) });
+  await langSel().selectOption({ index: 3 });
+  r.langOpts = await langSel().locator('option').allInnerTexts();
+  await d.getByRole('button', { name: /Сохранить|Добавить/ }).last().click(); await page.waitForTimeout(2500);
+  d = await openRow();
+  r.afterCreate = await langSel().inputValue();
+  await shot('c1-reopen', false);
+  await langSel().selectOption({ value: '' });
+  await d.getByLabel('Телефон').fill('').catch(() => {});
+  await d.getByRole('button', { name: /^Сохранить/ }).last().click(); await page.waitForTimeout(2500);
+  d = await openRow();
+  r.afterReset = await langSel().inputValue();
+  r.phoneAfterReset = await d.getByLabel('Телефон').inputValue().catch(() => 'n/a');
+  return r;
+};

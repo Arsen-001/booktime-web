@@ -1,0 +1,15 @@
+[
+  {
+    "route": "/biz/online",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 900 },
+      { "click": "[data-f=\"F-03-009\"] button >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "1-after-copy" },
+      { "expectText": "Скопировано" }
+    ]
+  }
+]

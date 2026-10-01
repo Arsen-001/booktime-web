@@ -1,0 +1,28 @@
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"click": "text=Мариам Петросян"},
+    {"wait": 500},
+    {"click": "text=Выписать премию"},
+    {"wait": 300},
+    {"fill": "input[placeholder]:visible >> nth=0", "value": "Премия-m2-longwait"},
+    {"click": "input[inputmode]"},
+    {"fill": "input[inputmode]", "value": "9500"},
+    {"click": "role=button[name=/Добавить|Сохранить/]"},
+    {"wait": 1200},
+    {"screenshot": "01-after-bonus-9500"},
+    {"click": "text=Выдать зарплату"},
+    {"wait": 500},
+    {"click": "role=button[name='Выдать']"},
+    {"wait": 1200},
+    {"screenshot": "02-after-payout-expect-0"},
+    {"click": "role=button[name=/Отменить выплату|Отменить/] >> nth=0"},
+    {"wait": 500},
+    {"screenshot": "03-cancel-confirm-dialog"},
+    {"click": "role=button[name='Отменить']"},
+    {"wait": 2500},
+    {"screenshot": "04-after-cancel-longwait-expect-9500-back"}
+  ]
+}

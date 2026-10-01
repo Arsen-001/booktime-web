@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Маникюр аппаратный" },
+    { "wait": 500 },
+    { "screenshot": "note-after-reload" },
+    { "click": "[aria-label=\"Закрыть\"]" },
+    { "wait": 300 },
+    { "fill": "input[placeholder*=\"Поиск\"]", "value": "латекс" },
+    { "wait": 700 },
+    { "screenshot": "search-by-note" }
+  ]
+}

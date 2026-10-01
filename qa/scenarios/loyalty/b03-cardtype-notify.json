@@ -1,0 +1,15 @@
+{
+  "route": "/biz/loyalty/card-types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Постоянный гость" },
+    { "wait": 500 },
+    { "screenshot": "cardtype-top" },
+    { "click": "text=О выпуске карты" },
+    { "screenshot": "cardtype-notify" }
+  ]
+}

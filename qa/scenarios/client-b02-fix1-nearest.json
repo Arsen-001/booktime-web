@@ -1,0 +1,20 @@
+{
+  "route": "/masters/st_nuri_ani",
+  "persona": "client",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "master-card-slots" },
+    { "click": "a[href^='/book?staff=st_nuri_ani&slot=']" },
+    { "wait": 500 },
+    { "screenshot": "landed-on-book" },
+    { "click": "role=radio >> nth=0" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 400 },
+    { "screenshot": "confirm-step" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 800 },
+    { "screenshot": "after-confirm" }
+  ]
+}

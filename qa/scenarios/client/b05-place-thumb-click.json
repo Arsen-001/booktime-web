@@ -1,0 +1,14 @@
+{
+  "route": "/places/biz_nuri",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 400 },
+    { "click": "[data-f=\"F-14-032 F-14-033\"] img" },
+    { "wait": 400 },
+    { "expectVisible": "[data-f=\"F-00-159 F-00-162 F-14-033 F-14-035\"]" },
+    { "screenshot": "b05m1-place-thumb-to-story" }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T23:28:03.085Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=dark",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "dark",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 918,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-dark/dev-ui-c__owner-nails-ru-dark-phone.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    },
+    {
+      "route": "/dev/ui/c",
+      "url": "http://localhost:3710/dev/ui/c?demo=owner&sphere=nails&lang=ru&theme=dark",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "dark",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 917,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/ux/steward-r3/final-dark/dev-ui-c__owner-nails-ru-dark-desktop.png"
+      ],
+      "title": "UI-кит · панели и выбор · Azat"
+    }
+  ]
+}

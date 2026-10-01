@@ -1,0 +1,140 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T21:09:25.989Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-163",
+      "F-00-164",
+      "F-00-166"
+    ],
+    "scenarioSteps": {
+      "ok": 6,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/ads",
+      "url": "http://localhost:3710/platform/ads?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 31639,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-163",
+        "F-00-164",
+        "F-00-166"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=button[name=\"Новое объявление\"]"
+          },
+          "ok": true,
+          "ms": 249
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "[role=\"dialog\"] input >> nth=0",
+            "value": "QA тестовый баннер"
+          },
+          "ok": true,
+          "ms": 29
+        },
+        {
+          "i": 5,
+          "step": {
+            "fill": "[role=\"dialog\"] input >> nth=1",
+            "value": "QA Advertiser"
+          },
+          "ok": true,
+          "ms": 16
+        },
+        {
+          "i": 6,
+          "step": {
+            "screenshot": "sheet-filled"
+          },
+          "ok": true,
+          "ms": 47,
+          "screenshot": "qa/measure/platform/shots-m1/scen2/platform-ads__platform-nails-ru-light-desktop__sheet-filled.png"
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "text=Место размещения"
+          },
+          "ok": false,
+          "ms": 8050,
+          "error": "locator.click: Timeout 8000ms exceeded.",
+          "screenshot": "qa/measure/platform/shots-m1/scen2/platform-ads__platform-nails-ru-light-desktop__fail-7.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/shots-m1/scen2/platform-ads__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/shots-m1/scen2/platform-ads__platform-nails-ru-light-desktop__sheet-filled.png",
+        "qa/measure/platform/shots-m1/scen2/platform-ads__platform-nails-ru-light-desktop__fail-7.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

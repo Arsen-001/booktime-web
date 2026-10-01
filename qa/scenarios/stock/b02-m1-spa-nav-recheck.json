@@ -1,0 +1,24 @@
+{
+  "route": "/biz/stock/operations/new/write-off",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "fill": "input[placeholder*=\"артикул\"]", "value": "Гель-лак «Бордо»" },
+    { "wait": 400 },
+    { "click": "text=Гель-лак «Бордо»" },
+    { "wait": 300 },
+    { "fill": "input[type=number] >> nth=0", "value": "3" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 1200 },
+    { "screenshot": "m1-80-writeoff-3-saved" },
+    { "click": "text=Товары" },
+    { "wait": 900 },
+    { "screenshot": "m1-81-goods-spa-nav" },
+    { "click": "text=Приход и расход" },
+    { "wait": 900 },
+    { "screenshot": "m1-82-ops-list-spa-nav" }
+  ]
+}

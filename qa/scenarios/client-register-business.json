@@ -1,0 +1,17 @@
+{
+  "route": "/register-business",
+  "persona": "guest",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {"click": "text=Салон"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"screenshot": "step-sphere"},
+    {"click": "text=Барбер"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"click": "role=button[name=\"Далее\"]"},
+    {"screenshot": "step-contact"},
+    {"fill": "input[placeholder=\"Как назвать салон или себя\"]", "value": "Тестовый салон"},
+    {"screenshot": "step-contact-filled"}
+  ]
+}

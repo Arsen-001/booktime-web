@@ -1,0 +1,62 @@
+Раздел        error  warn  по правилам
+client            2   129  A2:1 A4:1 A5:4 A8:2 A9:8 A10:6 A11:5 A12:59 A13:8 A14:32 A16:5
+platform          0     4  A14:4
+journal           0   119  A7:3 A8:10 A9:1 A10:40 A11:9 A12:3 A13:16 A14:22 A15:13 A16:2
+schedule          0     8  A13:4 A14:4
+online            2   128  A4:1 A5:2 A6:1 A8:2 A9:16 A10:3 A11:21 A12:58 A13:9 A14:16 A16:1
+clients           0    20  A7:1 A8:6 A12:1 A13:5 A14:7
+notify            0    30  A5:3 A9:3 A10:2 A11:1 A12:3 A13:7 A14:10 A16:1
+loyalty           0    67  A8:7 A9:2 A10:31 A12:4 A13:9 A14:14
+finance           0    46  A5:3 A7:1 A8:1 A9:5 A10:13 A12:1 A13:9 A14:13
+stock             0    63  A5:4 A9:3 A10:21 A12:6 A13:8 A14:20 A15:1
+payroll           1    24  A1:1 A5:5 A8:2 A10:1 A13:8 A14:8
+staff             0    38  A8:2 A11:14 A13:8 A14:14
+network           0    55  A9:4 A11:30 A13:10 A14:11
+reports           5    70  A1:1 A2:1 A4:3 A5:20 A7:1 A9:3 A10:3 A11:21 A12:11 A13:4 A14:7
+integrations      0    11  A7:1 A9:1 A10:2 A13:3 A14:4
+settings          1    47  A1:1 A8:2 A9:10 A10:8 A11:11 A12:6 A13:3 A14:7
+resources         0    25  A5:1 A8:1 A9:2 A10:9 A12:1 A13:5 A14:5 A16:1
+services          1    13  A4:1 A5:1 A8:1 A9:1 A10:5 A12:3 A13:1 A14:1
+foundation       29    45  A1:3 A2:21 A4:5 A5:10 A7:17 A9:7 A10:7 A11:4
+
+ERROR A2  src/api/client.ts:52  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/client.ts:1386  запись в чужой срез «online»
+ERROR A1  src/api/journal-offers.ts:29  фундамент импортирует раздел «journal» (только через src/extensions)
+ERROR A1  src/api/journal-offers.ts:30  фундамент импортирует раздел «notify» (только через src/extensions)
+ERROR A4  src/api/journal-offers.ts:254  запись в чужой срез «notify»
+ERROR A4  src/api/journal-offers.ts:260  запись в чужой срез «online»
+ERROR A4  src/api/journal-offers.ts:266  запись в чужой срез «client»
+ERROR A4  src/api/journal-offers.ts:287  запись в чужой срез «journal»
+ERROR A4  src/api/journal-offers.ts:316  запись в чужой срез «journal»
+ERROR A2  src/api/journal.server.ts:42  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/live.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/mirror.ts:27  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/notify.server.ts:25  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/online.ts:2818  запись в чужой срез «client»
+ERROR A2  src/api/payroll.server.ts:41  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/ads.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/businesses.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/connect.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/demand.server.ts:10  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/ideas.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/moderation.server.ts:14  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/plan.server.ts:12  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/promo.server.ts:14  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/sphereRequests.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/support.server.ts:11  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/platform/visits.server.ts:6  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/reports.ts:112  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/reports.ts:2444  запись в чужой срез «client»
+ERROR A4  src/api/reports.ts:2459  запись в чужой срез «client»
+ERROR A4  src/api/reports.ts:2471  запись в чужой срез «client»
+ERROR A2  src/api/resources.server.ts:45  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/schedule/schedule.server.ts:17  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/services.server.ts:17  прямой доступ к моковой базе — только через src/api/*
+ERROR A4  src/api/services.ts:1169  запись в чужой срез «schedule»
+ERROR A2  src/api/settings.server.ts:42  прямой доступ к моковой базе — только через src/api/*
+ERROR A2  src/api/staff.server.ts:34  прямой доступ к моковой базе — только через src/api/*
+ERROR A1  src/app/biz/payroll/settlements/page.tsx:1  импорт внутренностей раздела «finance» из «payroll»
+ERROR A1  src/app/s/[code]/open/page.tsx:1  фундамент импортирует раздел «notify» (только через src/extensions)
+ERROR A6  src/areas/online/settings/StaffChoiceCard.tsx:38  any
+ERROR A1  src/areas/reports/StockBalanceScreen.tsx:15  импорт внутренностей раздела «stock» из «reports»
+ERROR A1  src/areas/settings/MobileAppsScreen.tsx:17  импорт внутренностей раздела «online» из «settings»

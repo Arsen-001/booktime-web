@@ -1,0 +1,16 @@
+{
+  "route": "/biz/network/services/migration",
+  "persona": "network",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "table tbody tr:nth-child(3) input[type=checkbox]" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Добавить в филиалы\"]" },
+    { "wait": 400 },
+    { "click": "role=button[name=\"Применить\"]" },
+    { "wait": 400 },
+    { "screenshot": "migration-add-confirm" }
+  ]
+}

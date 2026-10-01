@@ -1,0 +1,23 @@
+// Решение 01.10: предоплата на реквизиты мастера — оплаченная часть визита для зарплаты, ровно один раз.
+import { createJiti } from 'jiti';
+const root = '/Users/arsen/WebstormProjects/booking-platform';
+const jiti = createJiti(import.meta.url, { alias: { '@docs': root + '/docs', '@messages': root + '/messages', '@': root + '/src' }, jsx: true });
+console.warn = () => {}; console.error = () => {};
+const db = await jiti.import(root + '/src/mock/db.ts');
+await db.bootDb();
+const api = await jiti.import(root + '/src/api/payroll.ts');
+const st = () => db.useDb.getState();
+const pays = new Set(st().areas.finance.bookingPayments.map(p => p.bookingId));
+const b = st().core.bookings.find(x => x.locationId === 'loc_nuri' && x.status === 'arrived' && !x.deletedAt && !x.groupEventId && !pays.has(x.id) && x.services.length === 1 && st().areas.payroll.schemesByStaff[x.services[0].staffId]?.personalServices.consumables.mode === 'off' && st().areas.payroll.schemesByStaff[x.services[0].staffId]?.personalServices.enabled);
+const date = b.start.slice(0, 10), staff = b.services[0].staffId;
+const rate = st().areas.payroll.schemesByStaff[staff].personalServices.defaultPayout.value;
+const amt = async () => (await api.computeDay('loc_nuri', date)).staff.find(r => r.staffId === staff).operations.find(o => o.bookingId === b.id).amount;
+console.log('визит', b.id, 'сумма', b.total, 'ставка', rate + '%');
+console.log('без оплаты:', await amt(), '(ожидается 0)');
+const setPrep = (p) => st().setCore(c => ({ ...c, bookings: c.bookings.map(x => x.id === b.id ? { ...x, prepayment: p } : x) }));
+setPrep({ amount: 1000, paid: true, full: false });
+console.log('предоплата 1000:', await amt(), '(ожидается', 1000 * rate / 100, ')');
+st().setArea('finance', f => ({ ...f, bookingPayments: [...f.bookingPayments, { id: 'bpl_t', businessId: 'biz_nuri', bookingId: b.id, serviceIndex: 0, kind: 'money', methodKey: 'cash', amount: b.total - 1000, cancelled: false, createdAt: date + 'T12:00' }] }));
+console.log('+ остаток в кассе:', await amt(), '(ожидается', b.total * rate / 100, '— не больше)');
+setPrep({ amount: 1000, paid: true, full: false, refundedAt: date + 'T13:00' });
+console.log('предоплату вернули:', await amt(), '(ожидается', (b.total - 1000) * rate / 100, ')');

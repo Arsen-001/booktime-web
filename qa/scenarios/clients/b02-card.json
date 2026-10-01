@@ -1,0 +1,75 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "text=Ани Мелкумян" },
+      { "wait": 800 },
+      { "screenshot": "01-card-owner" },
+      { "click": "button:has-text(\"История визитов\")" },
+      { "wait": 300 },
+      { "screenshot": "03-tab-history" },
+      { "click": "button:has-text(\"Статистика\")" },
+      { "wait": 300 },
+      { "screenshot": "04-tab-stats" },
+      { "click": "button:has-text(\"Файлы\")" },
+      { "wait": 300 },
+      { "screenshot": "05-tab-files" },
+      { "click": "button:has-text(\"Карточка клиента\")" },
+      { "wait": 300 },
+      { "fill": "textarea[placeholder=\"Новый комментарий\"]", "value": "Проверка измерителя — тестовый комментарий" },
+      { "click": "button:has-text(\"Добавить\"):near(textarea)" },
+      { "wait": 600 },
+      { "screenshot": "06-comment-added" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "master",
+    "device": "desktop",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "text=Ани Мелкумян" },
+      { "wait": 800 },
+      { "screenshot": "07-card-master" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "phone",
+    "lang": "ru",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "text=Ани Мелкумян" },
+      { "wait": 800 },
+      { "screenshot": "08-card-phone" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "en",
+    "steps": [
+      { "wait": 1200 },
+      { "click": "li:has-text(\"Ani\"), tr:has-text(\"Ani\") >> nth=0" },
+      { "wait": 800 },
+      { "screenshot": "09-card-en" }
+    ]
+  },
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "device": "desktop",
+    "lang": "hy",
+    "steps": [
+      { "wait": 1500 },
+      { "screenshot": "10-list-hy" }
+    ]
+  }
+]

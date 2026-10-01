@@ -1,0 +1,37 @@
+{
+  "route": "/biz/notifications/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Окончание абонемента"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "00-expanded"
+    },
+    {
+      "click": "text=Списание с абонемента"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "01-charge-expanded"
+    },
+    {
+      "click": "text=Ссылка на анкету после записи"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "02-formlink-expanded"
+    }
+  ]
+}

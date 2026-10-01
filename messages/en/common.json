@@ -1,0 +1,487 @@
+{
+  "app": {
+    "name": "BookTime",
+    "tagline": "Who is free and when",
+    "bizCabinet": "Business workspace",
+    "platformPanel": "Platform panel",
+    "clientApp": "Client app"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "retry": "Try again",
+    "search": "Search",
+    "filter": "Filters",
+    "reset": "Reset",
+    "apply": "Apply",
+    "confirm": "Confirm",
+    "more": "More",
+    "open": "Open",
+    "copy": "Copy",
+    "share": "Share",
+    "showAll": "Show all",
+    "select": "Select",
+    "clear": "Clear",
+    "upload": "Upload",
+    "download": "Download",
+    "send": "Send",
+    "call": "Call",
+    "book": "Book",
+    "login": "Log in",
+    "logout": "Log out"
+  },
+  "states": {
+    "loading": "Loading…",
+    "empty": "Nothing here yet",
+    "error": "Couldn't load",
+    "errorHint": "Check your connection and try again.",
+    "saved": "Saved",
+    "deleted": "Deleted",
+    "copied": "Copied",
+    "actionFailed": "Something went wrong. Please try again.",
+    "forbidden": "You don't have access to this action. Ask the owner to turn it on."
+  },
+  "dates": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "yesterday": "Yesterday",
+    "daysAgo": "{n, plural, one {# day ago} other {# days ago}}",
+    "weeksAgo": "{n, plural, one {# week ago} other {# weeks ago}}",
+    "monthsAgo": "{n, plural, one {# month ago} other {# months ago}}",
+    "overYearAgo": "Over a year ago"
+  },
+  "units": {
+    "hm": "{h} h {m} min",
+    "h": "{h} h",
+    "m": "{m} min",
+    "from": "from {value}",
+    "people": "{count, plural, one {# person} other {# people}}"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "bookings": "My bookings",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "journal": "Calendar",
+    "records": "Bookings",
+    "schedule": "Work schedule",
+    "clients": "Clients",
+    "online": "Online booking",
+    "notifications": "Notifications",
+    "loyalty": "Loyalty",
+    "finance": "Finance",
+    "stock": "Inventory",
+    "payroll": "Payroll",
+    "staff": "Staff",
+    "resources": "Resources",
+    "groups": "Group classes",
+    "waitlist": "Waitlist",
+    "reports": "Reports",
+    "network": "Network & branches",
+    "integrations": "Integrations",
+    "apps": "Apps",
+    "services": "Services",
+    "settings": "Settings",
+    "billing": "Subscription",
+    "coins": "Coins",
+    "onboarding": "Quick start",
+    "platformOverview": "Overview",
+    "moderation": "Moderation",
+    "connect": "Connect a salon",
+    "visits": "Visits",
+    "promocodes": "Promo codes",
+    "ads": "Ads & stories",
+    "demand": "Demand",
+    "sphereRequests": "Sphere requests",
+    "ideas": "Ideas",
+    "support": "Support",
+    "businesses": "Businesses",
+    "plan": "Launch plan"
+  },
+  "navShort": {
+    "bookings": "Bookings"
+  },
+  "navGroups": {
+    "work": "Work",
+    "clients": "Clients",
+    "money": "Money",
+    "business": "Business",
+    "account": "Account & connections",
+    "platform": "Platform"
+  },
+  "shell": {
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "collapse": "Collapse menu",
+    "expand": "Expand menu",
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "userMenu": "User menu",
+    "myProfile": "My profile",
+    "toClientApp": "Client app",
+    "toBizCabinet": "Business workspace",
+    "toPlatform": "Platform panel",
+    "location": "Branch",
+    "allLocations": "All branches",
+    "addLocation": "Add location",
+    "searchPlaceholder": "Search clients, bookings, services",
+    "skipToContent": "Skip to content",
+    "pageLoading": "Opening the page…",
+    "mainNav": "Main menu"
+  },
+  "access": {
+    "title": "No access here",
+    "bizText": "The business workspace is for masters, owners and administrators. Pick a persona in the demo switcher.",
+    "platformText": "The platform panel is visible to our team only.",
+    "asOwner": "Enter as salon owner",
+    "asIndividual": "Enter as independent master",
+    "asPlatform": "Open as platform panel"
+  },
+  "placeholder": {
+    "badge": "Under construction",
+    "text": "The “{title}” section will appear here. The frame, menu and data are ready.",
+    "area": "Section",
+    "spec": "Spec",
+    "ours": "Our decisions",
+    "route": "Address",
+    "noSpec": "our decisions only"
+  },
+  "demo": {
+    "open": "Demo mode",
+    "title": "Demo mode",
+    "hint": "Switch whose eyes you see the product through. Data is mocked and lives only in this browser.",
+    "persona": "Who I am",
+    "emptyHint": "A business with no services, staff, clients or bookings — to see what empty screens look like.",
+    "sphere": "Sphere",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "font": "Text size",
+    "fontNormal": "Normal",
+    "fontLarge": "Large",
+    "api": "Server responses",
+    "apiNormal": "Normal",
+    "apiSlow": "Slow",
+    "apiError": "Errors",
+    "reset": "Reset demo data",
+    "resetConfirmTitle": "Reset demo data?",
+    "resetConfirmText": "All changes in this browser will be lost; data will be recreated from today.",
+    "resetDone": "Demo data recreated",
+    "seededAt": "Data from {date}",
+    "personas": {
+      "guest": "Guest",
+      "client": "Client",
+      "individual": "Independent master",
+      "individualEmpty": "New master — empty",
+      "owner": "Salon owner",
+      "ownerEmpty": "New salon — empty",
+      "admin": "Salon administrator",
+      "master": "Salon master",
+      "network": "Network owner",
+      "platform": "Platform panel"
+    },
+    "where": "Open",
+    "goClient": "Client",
+    "goBiz": "Business",
+    "goPlatform": "Platform"
+  },
+  "spheres": {
+    "nails": "Nails",
+    "barber": "Barber",
+    "hair": "Hairdresser",
+    "cosmetology": "Cosmetologist",
+    "massage": "Massage",
+    "dental": "Dentist",
+    "fitness": "Fitness trainer",
+    "carwash": "Car wash",
+    "general": "General"
+  },
+  "districts": {
+    "kentron": "Kentron",
+    "arabkir": "Arabkir",
+    "davtashen": "Davtashen",
+    "malatia-sebastia": "Malatia-Sebastia",
+    "nor-nork": "Nor Nork",
+    "achapnyak": "Ajapnyak",
+    "shengavit": "Shengavit",
+    "avan": "Avan",
+    "erebuni": "Erebuni",
+    "kanaker-zeytun": "Kanaker-Zeytun",
+    "nork-marash": "Nork-Marash",
+    "nubarashen": "Nubarashen"
+  },
+  "bookingStatus": {
+    "awaiting_confirmation": "Awaiting confirmation",
+    "awaiting_prepayment": "Awaiting prepayment",
+    "scheduled": "Booked",
+    "client_confirmed": "Client confirmed",
+    "arrived": "Arrived",
+    "no_show": "No-show",
+    "cancelled_by_client": "Cancelled by client",
+    "cancelled_by_master": "Cancelled by specialist"
+  },
+  "bookingStatusTerms": {
+    "medical": {
+      "client_confirmed": "Patient confirmed",
+      "cancelled_by_client": "Cancelled by patient",
+      "cancelled_by_master": "Cancelled by doctor"
+    },
+    "fitness": {
+      "cancelled_by_master": "Cancelled by trainer"
+    },
+    "carwash": {
+      "cancelled_by_master": "Cancelled by specialist"
+    },
+    "barber": {
+      "cancelled_by_master": "Cancelled by barber"
+    }
+  },
+  "bookingSource": {
+    "journal": "Calendar",
+    "app": "App",
+    "link": "Master's link",
+    "widget": "Website widget",
+    "phone": "Phone call",
+    "import": "Import",
+    "external": "External system"
+  },
+  "forWhom": {
+    "self": "For myself",
+    "child": "Child",
+    "pet": "Pet",
+    "other": "Someone else"
+  },
+  "workplace": {
+    "salon": "At the salon",
+    "home": "At the master's home",
+    "visit": "Home visit",
+    "gym": "At the gym",
+    "online": "Online"
+  },
+  "accepts": {
+    "all": "Everyone",
+    "women": "Women only",
+    "men": "Men only"
+  },
+  "calendarMode": {
+    "free": "All free — I mark busy time",
+    "busy": "All busy — I open free time"
+  },
+  "visibility": {
+    "all": "Everyone",
+    "link": "By link",
+    "mine": "My clients only"
+  },
+  "confirmMode": {
+    "instant": "Instantly",
+    "manual": "With confirmation"
+  },
+  "role": {
+    "owner": "Owner",
+    "admin": "Administrator",
+    "master": "Master"
+  },
+  "gender": {
+    "female": "Female",
+    "male": "Male",
+    "unknown": "Not specified"
+  },
+  "businessKind": {
+    "individual": "Independent",
+    "salon": "Salon"
+  },
+  "terms": {
+    "default": {
+      "client": "Client",
+      "clients": "Clients",
+      "master": "Master",
+      "masters": "Masters",
+      "masterLower": "master",
+      "masterGen": "master",
+      "masterDat": "master"
+    },
+    "medical": {
+      "client": "Patient",
+      "clients": "Patients",
+      "master": "Doctor",
+      "masters": "Doctors",
+      "masterLower": "doctor",
+      "masterGen": "doctor",
+      "masterDat": "doctor"
+    },
+    "fitness": {
+      "client": "Client",
+      "clients": "Clients",
+      "master": "Trainer",
+      "masters": "Trainers",
+      "masterLower": "trainer",
+      "masterGen": "trainer",
+      "masterDat": "trainer"
+    },
+    "carwash": {
+      "client": "Client",
+      "clients": "Clients",
+      "master": "Specialist",
+      "masters": "Specialists",
+      "masterLower": "specialist",
+      "masterGen": "specialist",
+      "masterDat": "specialist"
+    },
+    "barber": {
+      "client": "Client",
+      "clients": "Clients",
+      "master": "Barber",
+      "masters": "Barbers",
+      "masterLower": "barber",
+      "masterGen": "barber",
+      "masterDat": "barber"
+    }
+  },
+  "areas": {
+    "client": "Client app",
+    "platform": "Platform panel",
+    "journal": "Booking calendar",
+    "schedule": "Work schedule",
+    "online": "Online booking",
+    "clients": "Clients & CRM",
+    "notify": "Notifications",
+    "loyalty": "Loyalty",
+    "finance": "Finance",
+    "stock": "Inventory",
+    "payroll": "Payroll",
+    "staff": "Staff & permissions",
+    "network": "Network & branches",
+    "reports": "Reports",
+    "integrations": "Integrations",
+    "settings": "Settings & subscription",
+    "resources": "Resources & groups",
+    "services": "Services"
+  },
+  "ext": {
+    "stub": "The “{area}” section will contribute here",
+    "hosts": {
+      "bookingWindow": "Booking window",
+      "clientCard": "Client card",
+      "staffCard": "Staff card",
+      "serviceCard": "Service card",
+      "settingsHub": "Settings",
+      "clientProfile": "Client profile",
+      "journalWaitlist": "Waitlist in the journal"
+    },
+    "bookingWindow": {
+      "finance": "Payment",
+      "stock": "Consumables",
+      "loyalty": "Loyalty",
+      "notify": "Notifications",
+      "clients": "Client",
+      "resources": "Resources",
+      "online": "Source"
+    },
+    "clientCard": {
+      "journal": "Bookings",
+      "loyalty": "Loyalty",
+      "finance": "Balance & payments",
+      "notify": "Messages",
+      "online": "Online booking",
+      "client": "App"
+    },
+    "staffCard": {
+      "schedule": "Schedule",
+      "payroll": "Payroll",
+      "online": "Online booking",
+      "services": "Services",
+      "resources": "Resources",
+      "notify": "Notifications"
+    },
+    "serviceCard": {
+      "online": "Online booking",
+      "stock": "Tech card",
+      "payroll": "Master's pay",
+      "resources": "Resources",
+      "loyalty": "Loyalty"
+    },
+    "settingsHub": {
+      "journal": "Calendar",
+      "schedule": "Schedule",
+      "online": "Online booking",
+      "clients": "Clients",
+      "notify": "Notifications",
+      "loyalty": "Loyalty",
+      "finance": "Finance",
+      "stock": "Inventory",
+      "payroll": "Payroll",
+      "staff": "Staff & permissions",
+      "network": "Network",
+      "integrations": "Integrations",
+      "resources": "Resources",
+      "services": "Services"
+    },
+    "clientProfile": {
+      "loyalty": "Cards, memberships, certificates",
+      "finance": "Balance"
+    },
+    "journalWaitlist": {
+      "resources": "Waitlist"
+    }
+  },
+  "dev": {
+    "title": "For development",
+    "extTitle": "“{area}” contribution to “{host}”",
+    "extHint": "An empty host frame on mock data — to see a section's contribution before the host owner builds the screen.",
+    "extUnknown": "This host/section pair is not in the registry",
+    "extContext": "Context",
+    "noData": "No suitable record in the demo data"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The link may be outdated or contain a typo.",
+    "home": "Go home"
+  },
+  "bookingErrors": {
+    "upsell_unavailable": "This add-on is no longer available — please pick again",
+    "not_found": "We couldn't find the specialist, service or client — refresh the page",
+    "service_unavailable": "This service can't be booked right now",
+    "staff_hidden": "This specialist can't be booked online right now",
+    "invalid_phone": "Check the number: it needs 8 digits after +374",
+    "client_required": "Enter a name and phone number",
+    "slot_taken": "This time was just taken — pick another one",
+    "outside_hours": "This time is outside the specialist's hours",
+    "group_full": "No spots left for this class",
+    "resource_unavailable": "Everything needed for this service is busy at that time — pick another time",
+    "business_inactive": "Booking here is closed right now",
+    "staff_unavailable": "This specialist isn't taking bookings right now",
+    "online_disabled": "This specialist can't be booked online — call or message them",
+    "online_paused": "Online booking is paused — try again later",
+    "staff_on_vacation": "The specialist is on vacation — pick another date or specialist",
+    "client_blocked": "Online booking is closed for this number — contact the specialist",
+    "accepts_mismatch": "This specialist doesn't see everyone — check similar specialists",
+    "started": "This appointment has already started — it can't be cancelled or moved",
+    "not_active": "This appointment is already finished or cancelled",
+    "not_allowed": "The specialist doesn't allow online cancelling or rescheduling — contact them",
+    "prepaid_locked": "A prepaid appointment can only be cancelled or moved by the specialist — contact them",
+    "too_late": "The time to reschedule has passed — contact the specialist",
+    "invalid_transition": "This status can't be set right now",
+    "conflict": "Someone already changed this appointment — refresh the page and try again"
+  },
+  "bookingCancelReason": {
+    "prepayment_expired": "Released: the prepayment didn't arrive in time",
+    "confirmation_expired": "Released: the master didn't answer the request in time",
+    "rescheduled": "Moved to another time",
+    "rescheduledTo": "Moved to {date}"
+  },
+  "coinErrors": {
+    "not_enough_coins": "Not enough coins — top up your balance in Coins",
+    "invalid_amount": "Enter a number of coins greater than zero"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "route": "/biz/stock/inventory",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "screenshot": "m1-10-inventory-list" },
+    { "click": "role=link[name=\"Создать инвентаризацию\"] >> nth=0" },
+    { "wait": 700 },
+    { "screenshot": "m1-11-inventory-new-params" },
+    { "click": "role=button[name=\"Начать инвентаризацию\"]" },
+    { "wait": 900 },
+    { "screenshot": "m1-12-inventory-table" }
+  ]
+}

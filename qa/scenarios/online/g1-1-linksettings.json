@@ -1,0 +1,23 @@
+[
+  {"route": "/biz/online", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 400},
+     {"screenshot": "links-list-ru-desktop"},
+     {"click": "[data-f=\"F-03-003\"] a, [data-f=\"F-03-003\"] button"},
+     {"wait": 600},
+     {"screenshot": "link-settings-ru-desktop"}
+   ]},
+  {"route": "/biz/online", "persona": "owner", "lang": "en", "device": "phone",
+   "steps": [
+     {"wait": 400},
+     {"screenshot": "links-list-en-phone"},
+     {"click": "[data-f=\"F-03-003\"] a, [data-f=\"F-03-003\"] button"},
+     {"wait": 600},
+     {"screenshot": "link-settings-en-phone"}
+   ]},
+  {"route": "/biz/online", "persona": "owner", "lang": "hy", "device": "desktop",
+   "steps": [
+     {"wait": 400},
+     {"screenshot": "links-list-hy-desktop"}
+   ]}
+]

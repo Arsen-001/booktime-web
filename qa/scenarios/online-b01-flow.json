@@ -1,0 +1,30 @@
+[
+  {
+    "route": "/biz/online",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "links-list" },
+      { "click": "role=link[name=\"Настроить\"]" },
+      { "wait": 500 },
+      { "expectVisible": "[data-f=\"F-03-014\"]" },
+      { "screenshot": "link-settings" }
+    ]
+  },
+  {
+    "route": "/b/nuri-nail-studio",
+    "persona": "guest",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "public-page" },
+      { "click": "role=link[name=\"Записаться\"]" },
+      { "wait": 500 },
+      { "screenshot": "book-services" }
+    ]
+  }
+]

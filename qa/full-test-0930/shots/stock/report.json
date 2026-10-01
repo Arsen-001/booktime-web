@@ -1,0 +1,3175 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-30T17:58:39.065Z",
+  "summary": {
+    "pages": 56,
+    "consoleErrors": 41,
+    "consoleWarnings": 0,
+    "badResponses": 29,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 75,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-133",
+      "F-00-136",
+      "F-00-137",
+      "F-00-139",
+      "F-00-140",
+      "F-00-141",
+      "F-00-142",
+      "F-00-165",
+      "F-01-007",
+      "F-08-001",
+      "F-08-002",
+      "F-08-010",
+      "F-08-015",
+      "F-08-016",
+      "F-08-028",
+      "F-08-032",
+      "F-08-036",
+      "F-08-039",
+      "F-08-041",
+      "F-08-042",
+      "F-08-043",
+      "F-08-044",
+      "F-08-045",
+      "F-08-046",
+      "F-08-047",
+      "F-08-048",
+      "F-08-053",
+      "F-08-061",
+      "F-08-079",
+      "F-08-093",
+      "F-08-094",
+      "F-08-096",
+      "F-08-097",
+      "F-08-098",
+      "F-08-099",
+      "F-08-101",
+      "F-08-102",
+      "F-08-103",
+      "F-08-109",
+      "F-08-110",
+      "F-08-111",
+      "F-08-112",
+      "F-08-113",
+      "F-08-114",
+      "F-08-116",
+      "F-08-117",
+      "F-08-118",
+      "F-08-136",
+      "F-08-143",
+      "F-08-144",
+      "F-08-145",
+      "F-08-147",
+      "F-12-063",
+      "F-14-091",
+      "F-15-014"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/stock",
+      "url": "http://localhost:3710/biz/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 65318,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-133",
+        "F-00-137",
+        "F-00-139",
+        "F-01-007",
+        "F-08-001",
+        "F-08-002",
+        "F-08-010",
+        "F-08-015",
+        "F-08-016",
+        "F-08-028",
+        "F-08-032",
+        "F-08-061",
+        "F-08-116",
+        "F-08-143",
+        "F-08-144",
+        "F-08-145",
+        "F-08-147",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock",
+      "url": "http://localhost:3710/biz/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 65305,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-133 F-08-001 F-08-002 F-00-137 F-00-139 F-08-028 F-08-032 F-08-061 F-08-116 F-08-143 F-08-144 F-08-145 F-08-147]",
+          "text": "Предыдущая страница",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.shrink-0.items-center in [data-f=F-00-133 F-08-001 F-08-002 F-00-137 F-00-139 F-08-028 F-08-032 F-08-061 F-08-116 F-08-143 F-08-144 F-08-145 F-08-147]",
+          "text": "Следующая страница",
+          "w": 36,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 3,
+      "dataF": [
+        "F-00-133",
+        "F-00-137",
+        "F-00-139",
+        "F-01-007",
+        "F-08-001",
+        "F-08-002",
+        "F-08-010",
+        "F-08-015",
+        "F-08-016",
+        "F-08-028",
+        "F-08-032",
+        "F-08-061",
+        "F-08-116",
+        "F-08-143",
+        "F-08-144",
+        "F-08-145",
+        "F-08-147",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock",
+      "url": "http://localhost:3710/biz/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 71137,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-133",
+        "F-00-137",
+        "F-00-139",
+        "F-01-007",
+        "F-08-001",
+        "F-08-002",
+        "F-08-010",
+        "F-08-015",
+        "F-08-016",
+        "F-08-028",
+        "F-08-032",
+        "F-08-061",
+        "F-08-116",
+        "F-08-143",
+        "F-08-144",
+        "F-08-145",
+        "F-08-147",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock",
+      "url": "http://localhost:3710/biz/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock__owner-nails-en-light-desktop__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/warehouses",
+      "url": "http://localhost:3710/biz/stock/warehouses?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-warehouses__owner-nails-ru-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/warehouses",
+      "url": "http://localhost:3710/biz/stock/warehouses?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-warehouses__owner-nails-ru-light-desktop__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/warehouses",
+      "url": "http://localhost:3710/biz/stock/warehouses?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-warehouses__owner-nails-en-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/warehouses",
+      "url": "http://localhost:3710/biz/stock/warehouses?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-warehouses__owner-nails-en-light-desktop__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/tech-cards",
+      "url": "http://localhost:3710/biz/stock/tech-cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-tech-cards__owner-nails-ru-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/tech-cards",
+      "url": "http://localhost:3710/biz/stock/tech-cards?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-tech-cards__owner-nails-ru-light-desktop__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/tech-cards",
+      "url": "http://localhost:3710/biz/stock/tech-cards?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-tech-cards__owner-nails-en-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/tech-cards",
+      "url": "http://localhost:3710/biz/stock/tech-cards?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 68174,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-08-002",
+        "F-08-036",
+        "F-08-039",
+        "F-08-136",
+        "F-08-143",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-tech-cards__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/operations",
+      "url": "http://localhost:3710/biz/stock/operations?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_settings_ts_19wn8cr._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_notify_ts_0sfkkc-._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_resources_ts_04yfh-_._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_online_ts_1byo9o_._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_integrations_ts_0wftql4._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_08f_v15._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_shell_1778msz._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_0n4r5ri._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_05px23v._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_13siwq8._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_1oryp1z._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        }
+      ],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-operations__owner-nails-ru-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/operations",
+      "url": "http://localhost:3710/biz/stock/operations?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 74062,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_integrations_ts_0wftql4._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_08f_v15._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_shell_1778msz._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_0n4r5ri._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_05px23v._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_13siwq8._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_1oryp1z._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Показать",
+          "w": 92,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Открыть визит",
+          "w": 130,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 23,
+      "dataF": [
+        "F-01-007",
+        "F-08-046",
+        "F-08-047",
+        "F-08-048",
+        "F-08-053",
+        "F-08-061",
+        "F-08-109",
+        "F-08-110",
+        "F-08-111",
+        "F-08-112",
+        "F-08-113",
+        "F-08-143",
+        "F-08-145",
+        "F-12-063",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-operations__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/operations",
+      "url": "http://localhost:3710/biz/stock/operations?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 74489,
+      "stuckLoading": false,
+      "console": {
+        "errors": [
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED",
+          "Failed to load resource: net::ERR_NETWORK_CHANGED"
+        ],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_settings_ts_19wn8cr._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_notify_ts_0sfkkc-._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_resources_ts_04yfh-_._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_online_ts_1byo9o_._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_integrations_ts_0wftql4._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_api_08f_v15._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_shell_1778msz._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_0n4r5ri._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_05px23v._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/src_13siwq8._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "http://localhost:3710/_next/static/chunks/node_modules_lucide-react_dist_esm_icons_1oryp1z._.js",
+          "status": "failed: net::ERR_NETWORK_CHANGED"
+        }
+      ],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-046",
+        "F-08-047",
+        "F-08-048",
+        "F-08-053",
+        "F-08-061",
+        "F-08-109",
+        "F-08-110",
+        "F-08-111",
+        "F-08-112",
+        "F-08-113",
+        "F-08-143",
+        "F-08-145",
+        "F-12-063",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-operations__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/operations",
+      "url": "http://localhost:3710/biz/stock/operations?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 45648,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Show",
+          "w": 64,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-046 F-08-047 F-08-048 F-08-053 F-08-061 F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-143 F-08-145 F-12-063]",
+          "text": "Open visit",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 23,
+      "dataF": [
+        "F-01-007",
+        "F-08-046",
+        "F-08-047",
+        "F-08-048",
+        "F-08-053",
+        "F-08-061",
+        "F-08-109",
+        "F-08-110",
+        "F-08-111",
+        "F-08-112",
+        "F-08-113",
+        "F-08-143",
+        "F-08-145",
+        "F-12-063",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-operations__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/inventory",
+      "url": "http://localhost:3710/biz/stock/inventory?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 46915,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-079",
+        "F-08-114",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-inventory__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/inventory",
+      "url": "http://localhost:3710/biz/stock/inventory?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 46846,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-08-079",
+        "F-08-114",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-inventory__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/inventory",
+      "url": "http://localhost:3710/biz/stock/inventory?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 67927,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-079",
+        "F-08-114",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-inventory__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/inventory",
+      "url": "http://localhost:3710/biz/stock/inventory?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 66797,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-08-079",
+        "F-08-114",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-inventory__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/order",
+      "url": "http://localhost:3710/biz/stock/order?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 66553,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-137",
+        "F-01-007",
+        "F-08-103",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-order__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/order",
+      "url": "http://localhost:3710/biz/stock/order?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 47806,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-137 F-08-103]",
+          "text": "Снять все",
+          "w": 95,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-00-137",
+        "F-01-007",
+        "F-08-103",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-order__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/order",
+      "url": "http://localhost:3710/biz/stock/order?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 55530,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-137",
+        "F-01-007",
+        "F-08-103",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-order__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/order",
+      "url": "http://localhost:3710/biz/stock/order?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 55516,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-00-137 F-08-103]",
+          "text": "Clear all",
+          "w": 82,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-00-137",
+        "F-01-007",
+        "F-08-103",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-order__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/equipment",
+      "url": "http://localhost:3710/biz/stock/equipment?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 73713,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-141",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-equipment__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/equipment",
+      "url": "http://localhost:3710/biz/stock/equipment?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 73076,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-141",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-equipment__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/equipment",
+      "url": "http://localhost:3710/biz/stock/equipment?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 71096,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-141",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-equipment__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/equipment",
+      "url": "http://localhost:3710/biz/stock/equipment?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 68890,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-141",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-equipment__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/price-tags",
+      "url": "http://localhost:3710/biz/stock/price-tags?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 74902,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-093",
+        "F-08-094",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-price-tags__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/price-tags",
+      "url": "http://localhost:3710/biz/stock/price-tags?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 74840,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-093",
+        "F-08-094",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-price-tags__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/price-tags",
+      "url": "http://localhost:3710/biz/stock/price-tags?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 65299,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-093",
+        "F-08-094",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-price-tags__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/price-tags",
+      "url": "http://localhost:3710/biz/stock/price-tags?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 62617,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-093",
+        "F-08-094",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-price-tags__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reports",
+      "url": "http://localhost:3710/biz/stock/reports?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 60633,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-101",
+        "F-08-102",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reports__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reports",
+      "url": "http://localhost:3710/biz/stock/reports?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 3542,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-102]",
+          "text": "Выгрузить в Excel",
+          "w": 174,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-101",
+        "F-08-102",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reports__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reports",
+      "url": "http://localhost:3710/biz/stock/reports?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 111481,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-101",
+        "F-08-102",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reports__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reports",
+      "url": "http://localhost:3710/biz/stock/reports?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 113219,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        },
+        {
+          "el": "button.inline-flex.items-center.justify-center in [data-f=F-08-102]",
+          "text": "Export to Excel",
+          "w": 151,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 2,
+      "dataF": [
+        "F-01-007",
+        "F-08-001",
+        "F-08-101",
+        "F-08-102",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reports__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reminders",
+      "url": "http://localhost:3710/biz/stock/reminders?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 111472,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-142",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reminders__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reminders",
+      "url": "http://localhost:3710/biz/stock/reminders?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 109668,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-142",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reminders__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reminders",
+      "url": "http://localhost:3710/biz/stock/reminders?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 94341,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-142",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reminders__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/reminders",
+      "url": "http://localhost:3710/biz/stock/reminders?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 116174,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Add location",
+          "w": 101,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-142",
+        "F-01-007",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-reminders__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/settings",
+      "url": "http://localhost:3710/biz/stock/settings?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 14193,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-140",
+        "F-00-165",
+        "F-01-007",
+        "F-08-096",
+        "F-08-097",
+        "F-08-098",
+        "F-08-099",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-settings__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/settings",
+      "url": "http://localhost:3710/biz/stock/settings?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 5472,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.flex.shrink-0.items-center in [data-f=F-15-014]",
+          "text": "Добавить локацию",
+          "w": 141,
+          "h": 20,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 1,
+      "dataF": [
+        "F-00-140",
+        "F-00-165",
+        "F-01-007",
+        "F-08-096",
+        "F-08-097",
+        "F-08-098",
+        "F-08-099",
+        "F-15-014"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-settings__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/biz/stock/settings",
+      "url": "http://localhost:3710/biz/stock/settings?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-settings__owner-nails-en-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/biz/stock/settings",
+      "url": "http://localhost:3710/biz/stock/settings?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/biz-stock-settings__owner-nails-en-light-desktop__error.png"
+      ]
+    },
+    {
+      "route": "/dev/ext/bookingWindow/stock",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": null,
+      "loadMs": 0,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [
+        "замер не удался: page.goto: Timeout 120000ms exceeded."
+      ],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": null,
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-bookingWindow-stock__owner-nails-ru-light-phone__error.png"
+      ]
+    },
+    {
+      "route": "/dev/ext/bookingWindow/stock",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 46839,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-136",
+        "F-08-041",
+        "F-08-042",
+        "F-08-043",
+        "F-08-044",
+        "F-08-045",
+        "F-08-117",
+        "F-08-136",
+        "F-14-091"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-bookingWindow-stock__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/stock",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 46420,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-136",
+        "F-08-041",
+        "F-08-042",
+        "F-08-043",
+        "F-08-044",
+        "F-08-045",
+        "F-08-117",
+        "F-08-136",
+        "F-14-091"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-bookingWindow-stock__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/bookingWindow/stock",
+      "url": "http://localhost:3710/dev/ext/bookingWindow/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 35607,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-136",
+        "F-08-041",
+        "F-08-042",
+        "F-08-043",
+        "F-08-044",
+        "F-08-045",
+        "F-08-117",
+        "F-08-136",
+        "F-14-091"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-bookingWindow-stock__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/stock",
+      "url": "http://localhost:3710/dev/ext/serviceCard/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 56995,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-039",
+        "F-08-118"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-serviceCard-stock__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/stock",
+      "url": "http://localhost:3710/dev/ext/serviceCard/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 41169,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Открыть",
+          "w": 89,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Открыть",
+          "w": 89,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Открыть",
+          "w": 89,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Создать",
+          "w": 85,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-08-039",
+        "F-08-118"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-serviceCard-stock__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/stock",
+      "url": "http://localhost:3710/dev/ext/serviceCard/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 46388,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-039",
+        "F-08-118"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-serviceCard-stock__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/serviceCard/stock",
+      "url": "http://localhost:3710/dev/ext/serviceCard/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 49977,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Open",
+          "w": 66,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Open",
+          "w": 66,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Open",
+          "w": 66,
+          "h": 36,
+          "inline": false
+        },
+        {
+          "el": "a.inline-flex.items-center.justify-center in [data-f=F-08-039 F-08-118]",
+          "text": "Create",
+          "w": 74,
+          "h": 36,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 4,
+      "dataF": [
+        "F-08-039",
+        "F-08-118"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-serviceCard-stock__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/stock",
+      "url": "http://localhost:3710/dev/ext/settingsHub/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 49762,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-096"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-settingsHub-stock__owner-nails-ru-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/stock",
+      "url": "http://localhost:3710/dev/ext/settingsHub/stock?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 49640,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-096"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-settingsHub-stock__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/stock",
+      "url": "http://localhost:3710/dev/ext/settingsHub/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 115780,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-096"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-settingsHub-stock__owner-nails-en-light-phone.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    },
+    {
+      "route": "/dev/ext/settingsHub/stock",
+      "url": "http://localhost:3710/dev/ext/settingsHub/stock?demo=owner&empty=0&sphere=nails&lang=en&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 115496,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-08-096"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/full-test-0930/shots/stock/dev-ext-settingsHub-stock__owner-nails-en-light-desktop.png"
+      ],
+      "title": "BookTime — запись к мастерам"
+    }
+  ]
+}

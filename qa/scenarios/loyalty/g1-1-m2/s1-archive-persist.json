@@ -1,0 +1,21 @@
+{
+  "route": "/biz/loyalty/card-types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Постоянный гость" },
+    { "wait": 1200 },
+    { "click": "role=button[name=\"Архивировать\"]" },
+    { "wait": 800 },
+    { "expectText": "Тип отправлен в архив" },
+    { "screenshot": "03-after-archive" },
+    { "goto": "/biz/loyalty/card-types" },
+    { "wait": 1000 },
+    { "screenshot": "04-list-after-hard-nav" },
+    { "click": "text=Архивные" },
+    { "wait": 500 },
+    { "screenshot": "05-archived-tab" }
+  ]
+}

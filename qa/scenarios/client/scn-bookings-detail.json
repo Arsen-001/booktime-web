@@ -1,0 +1,15 @@
+[
+  {"route":"/bookings","persona":"client","lang":"ru","device":"phone",
+   "steps":[
+     {"wait":600},
+     {"screenshot":"bookings-list"},
+     {"click":"a[href^=\"/bookings/\"]"},
+     {"wait":600},
+     {"screenshot":"booking-detail"}
+   ]},
+  {"route":"/favorites","persona":"client","lang":"ru","device":"phone",
+   "steps":[
+     {"wait":600},
+     {"screenshot":"favorites-list"}
+   ]}
+]

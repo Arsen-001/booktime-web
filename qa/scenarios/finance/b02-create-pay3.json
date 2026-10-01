@@ -1,0 +1,23 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Новая запись"},
+    {"wait": 300},
+    {"click": "text=Обычная запись"},
+    {"wait": 700},
+    {"click": "button:has-text(\"Маникюр классический\")"},
+    {"wait": 300},
+    {"click": "role=button[name=\"Пришёл\"]"},
+    {"wait": 200},
+    {"fill": "input[placeholder=\"91 234 567\"]", "value": "99887766"},
+    {"wait": 300},
+    {"screenshot": "01-filled"},
+    {"click": "role=button[name=\"Сохранить\"]"},
+    {"wait": 900},
+    {"screenshot": "02-after-save"}
+  ]
+}

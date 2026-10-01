@@ -1,0 +1,16 @@
+{
+  "route": "/biz/network/settings/plans",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "table input >> nth=0", "value": "500000" },
+    { "press": "Tab" },
+    { "wait": 600 },
+    { "screenshot": "after-fill" },
+    { "goto": "/biz/network/settings/plans" },
+    { "wait": 800 },
+    { "screenshot": "after-reload" }
+  ]
+}

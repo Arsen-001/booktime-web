@@ -1,0 +1,180 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T21:07:28.057Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-001",
+      "F-00-003",
+      "F-00-005",
+      "F-00-031",
+      "F-00-108",
+      "F-00-109",
+      "F-00-110",
+      "F-00-111"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=guest&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1169,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-111"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 501
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "01-before-freetoday"
+          },
+          "ok": true,
+          "ms": 40,
+          "screenshot": "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop__01-before-freetoday.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop.png",
+        "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop__01-before-freetoday.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=guest&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1158,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-111"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Свободно сегодня"
+          },
+          "ok": true,
+          "ms": 456
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 600
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "02-after-freetoday"
+          },
+          "ok": true,
+          "ms": 53,
+          "screenshot": "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop__02-after-freetoday.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop.png",
+        "qa/shots/client/b01-m1/search-filter-freetoday/search__guest-nails-ru-light-desktop__02-after-freetoday.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {"route": "/biz/clients/cl_001", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Добавить визит\"]"},
+     {"wait": 400},
+     {"screenshot": "add-visit-sheet"}
+   ]},
+  {"route": "/biz/clients", "persona": "master", "lang": "ru", "device": "phone",
+   "steps": [
+     {"wait": 400},
+     {"screenshot": "list-master-phone"}
+   ]}
+]

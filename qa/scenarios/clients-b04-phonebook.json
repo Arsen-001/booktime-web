@@ -1,0 +1,17 @@
+{
+  "route": "/biz/clients/import",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Открыть демо телефонной книги\"]" },
+    { "wait": 400 },
+    { "screenshot": "phonebook-open" },
+    { "click": "role=checkbox >> nth=1" },
+    { "click": "role=button[name*=\"Импортировать\"]" },
+    { "wait": 800 },
+    { "expectText": "Добавлен" },
+    { "screenshot": "phonebook-imported" }
+  ]
+}

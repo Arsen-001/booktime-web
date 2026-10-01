@@ -1,0 +1,26 @@
+{
+  "route": "/biz/notifications",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Запрос подтверждения записи" },
+    { "expectVisible": "text=Выключен" },
+    { "click": "role=switch" },
+    { "wait": 500 },
+    { "expectVisible": "text=Включён" },
+    { "screenshot": "after-toggle-on" },
+    { "goto": "/biz/notifications" },
+    { "wait": 300 },
+    { "click": "text=Запрос подтверждения записи" },
+    { "wait": 300 },
+    { "expectVisible": "text=Включён" },
+    { "screenshot": "after-reload" },
+    { "click": "role=switch" },
+    { "wait": 500 },
+    { "expectVisible": "text=Выключен" },
+    { "screenshot": "back-to-off" }
+  ]
+}

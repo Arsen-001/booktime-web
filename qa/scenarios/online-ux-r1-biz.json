@@ -1,0 +1,15 @@
+[
+ {"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1200},
+  {"click":"role=button[name=\"Новая ссылка\"]"},{"wait":700},{"screenshot":"b01-newlink-sheet"},
+  {"click":"role=button[name=\"Создать\"]"},{"wait":500},{"screenshot":"b02-newlink-empty-submit"},
+  {"press":"Escape"},{"wait":400},
+  {"click":"role=link[name=\"Настроить\"] >> nth=0"},{"wait":1200},{"screenshot":"b03-link-settings"}
+ ]},
+ {"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+  {"wait":1200},
+  {"click":"role=button[name=\"Новая ссылка\"]"},{"wait":700},{"screenshot":"bd01-newlink-sheet"},
+  {"press":"Escape"},{"wait":400},
+  {"click":"role=link[name=\"Настроить\"] >> nth=0"},{"wait":1200},{"screenshot":"bd03-link-settings"}
+ ]}
+]

@@ -1,0 +1,19 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":600},
+    {"fill":"input[placeholder*=\"Поиск\"]","value":"а"},
+    {"wait":400},
+    {"screenshot":"10-search-typed"},
+    {"fill":"input[placeholder*=\"Поиск\"]","value":""},
+    {"wait":300},
+    {"click":"text=Продано"},
+    {"wait":300},
+    {"screenshot":"11-sorted-sold"},
+    {"click":"text=Продано"},
+    {"wait":300},
+    {"screenshot":"12-sorted-sold-desc"},
+    {"click":"role=button[name=\"Настройка колонок\"]"},
+    {"wait":300},
+    {"screenshot":"13-columns-menu"}
+  ]}
+]

@@ -1,0 +1,28 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('owner', '/biz/journal', { device: 'desktop' });
+const look = async (name) => page.locator('[data-f*="F-01-026"]', { hasText: name }).first().locator('[data-testid="booking-block"]').evaluate(e => { const s = getComputedStyle(e); return s.backgroundColor + ' / ' + s.borderColor + ' / ' + (e.innerText.replace(/\n/g,' ')); });
+const b0 = await look('Арам М.');
+await page.locator('[data-f*="F-01-026"]', { hasText: 'Арам М.' }).first().locator('button[title="Статус и оплата"]').click(); await page.waitForTimeout(800);
+await page.getByRole('button', { name: /^Пришёл$/ }).first().click(); await page.waitForTimeout(2500);
+log('toast', await toast(page));
+await page.keyboard.press('Escape'); await page.waitForTimeout(500);
+const b1 = await look('Арам М.');
+await page.reload(); await settle(page);
+const b2 = await look('Арам М.');
+log('before', b0, '\nafter ', b1, '\nreload', b2);
+await shot(page, 'j5-after-status');
+// F-01-014 status filter effect
+await page.getByRole('button', { name: /Статусы/ }).click(); await page.waitForTimeout(700);
+log('filter menu', (await page.locator('[role=menu],[role=listbox],[role=dialog]').last().innerText()).replace(/\n/g,' | '));
+await page.getByText('Клиент пришел', { exact: true }).click(); await page.waitForTimeout(1200);
+await page.keyboard.press('Escape');
+const names = await page.locator('[data-testid="booking-block"]').allInnerTexts();
+log('after filter arrived blocks', names.length, names.map(n=>n.replace(/\n/g,' ')).slice(0,6));
+const d = await db(page);
+const today = d.core.bookings.filter(b=>b.businessId==='biz_nuri' && b.start.startsWith('2026-09-25') && !b.deletedAt);
+log('db today statuses', JSON.stringify(today.map(b=>b.status).reduce((a,s)=>(a[s]=(a[s]||0)+1,a),{})));
+log('ERR', page.errors.slice(0,3));
+await stop();

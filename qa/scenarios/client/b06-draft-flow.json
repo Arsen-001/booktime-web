@@ -1,0 +1,29 @@
+{
+  "route": "/biz/apps/branded",
+  "persona": "owner",
+  "sphere": "barber",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "00-initial" },
+    { "fill": "input[placeholder='https://apps.apple.com/…']", "value": "https://apps.apple.com/am/app/kaytsak" },
+    { "fill": "input[placeholder='https://play.google.com/…']", "value": "https://play.google.com/store/apps/kaytsak" },
+    { "click": "text=Сохранить ссылки" },
+    { "wait": 400 },
+    { "screenshot": "01-links-saved" },
+    { "click": "text=Организация" },
+    { "wait": 200 },
+    { "click": "text=Пригласить в портал" },
+    { "wait": 200 },
+    { "screenshot": "02-owner-access-chosen" },
+    { "click": "text=Доступ к аккаунту Apple Developer" },
+    { "click": "text=Доступ к аккаунту Google Play Console" },
+    { "click": "text=Документ о регистрации предпринимателя или организации" },
+    { "click": "text=Документ на товарный знак или чек с названием бренда" },
+    { "wait": 300 },
+    { "screenshot": "03-docs-checked" },
+    { "goto": "/biz/apps/branded" },
+    { "wait": 500 },
+    { "screenshot": "05-after-reload" }
+  ]
+}

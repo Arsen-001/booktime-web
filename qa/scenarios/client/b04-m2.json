@@ -1,0 +1,97 @@
+[
+  {
+    "route": "/memberships",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "list-phone-ru" },
+      { "click": "text=Абонемент «Стрижка и укладка»" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-14-038\"]" },
+      { "screenshot": "network-membership-detail-phone-ru" },
+      { "click": "text=Выбрать филиал" },
+      { "wait": 200 },
+      { "screenshot": "network-membership-modal-phone-ru" }
+    ]
+  },
+  {
+    "route": "/memberships",
+    "persona": "client",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "list-desktop-ru" },
+      { "click": "text=Абонемент на 10 визитов" },
+      { "wait": 300 },
+      { "expectVisible": "[data-f=\"F-14-038\"]" },
+      { "screenshot": "active-membership-detail-desktop-ru" }
+    ]
+  },
+  {
+    "route": "/certificates",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "list-phone-ru" },
+      { "click": ".flex-col >> nth=0" },
+      { "wait": 300 },
+      { "screenshot": "detail-phone-ru" }
+    ]
+  },
+  {
+    "route": "/certificates",
+    "persona": "client",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "list-desktop-en" }
+    ]
+  },
+  {
+    "route": "/loyalty-cards",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [{ "wait": 300 }, { "screenshot": "phone-ru" }]
+  },
+  {
+    "route": "/loyalty-cards",
+    "persona": "client",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [{ "wait": 300 }, { "screenshot": "desktop-en" }]
+  },
+  {
+    "route": "/",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 500 },
+      { "screenshot": "home-phone-ru" }
+    ]
+  },
+  {
+    "route": "/",
+    "persona": "client",
+    "lang": "en",
+    "device": "desktop",
+    "steps": [{ "wait": 500 }, { "screenshot": "home-desktop-en" }]
+  },
+  {
+    "route": "/bookings",
+    "persona": "client",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 400 },
+      { "screenshot": "list-phone-ru" }
+    ]
+  }
+]

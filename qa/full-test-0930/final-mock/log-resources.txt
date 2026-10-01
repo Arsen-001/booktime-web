@@ -1,0 +1,58 @@
+Замер: 36 стр. → qa/full-test-0930/final-mock/shots/resources/ (по 4 одновременно)
+  1/36  2/36  3/36  4/36  5/36  6/36  7/36  8/36  9/36  10/36  11/36  12/36  13/36  14/36  15/36  16/36  17/36  18/36  19/36  20/36  21/36  22/36  23/36  24/36  25/36  26/36  27/36  28/36  29/36  30/36  31/36  32/36  33/36  34/36  35/36  36/36
+страница                        кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр 
+──────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ─────
+/biz/groups                     owner  ru  тел   0/1w  0    0      —      0    2       ·         5.6с 
+/biz/groups                     owner  ru  деск  0/1w  0    0      —      1    2       ·         5.3с 
+/biz/groups                     owner  en  тел   0/1w  0    0      —      0    2       ·         5.2с 
+/biz/groups                     owner  en  деск  0/1w  0    0      —      1    2       ·         5.4с 
+/biz/waitlist                   owner  ru  тел   0/1w  0    0      —      0    11      ·         4.6с 
+/biz/waitlist                   owner  ru  деск  0/1w  0    0      —      1    11      ·         4.5с 
+/biz/waitlist                   owner  en  тел   0/1w  0    0      —      0    11      ·         4.5с 
+/biz/waitlist                   owner  en  деск  0/1w  0    0      —      1    11      ·         4.2с 
+/biz/resources                  owner  ru  тел   0/1w  0    0      —      0    7       ·         5.4с 
+/biz/resources                  owner  ru  деск  0/1w  0    0      —      1    7       ·         5.3с 
+/biz/resources                  owner  en  тел   0/1w  0    0      —      0    7       ·         5.3с 
+/biz/resources                  owner  en  деск  0/1w  0    0      —      1    7       ·         5.3с 
+/biz/resources/packages         owner  ru  тел   1/1w  0    0      —      0    4       ·         46.5с
+/biz/resources/packages         owner  ru  деск  2/1w  0    0      —      1    4       ·         46.5с
+/biz/resources/packages         owner  en  тел   2/1w  0    0      —      0    4       ·         46.4с
+/biz/resources/packages         owner  en  деск  2/1w  0    0      —      1    4       ·         46.4с
+/biz/resources/assistants       owner  ru  тел   0/1w  0    0      —      0    11      ·         19.0с
+/biz/resources/assistants       owner  ru  деск  0/1w  0    0      —      2    11      ·         19.0с
+/biz/resources/assistants       owner  en  тел   0/1w  0    0      —      0    11      ·         18.9с
+/biz/resources/assistants       owner  en  деск  0/1w  0    0      —      2    11      ·         19.0с
+/dev/ext/bookingWindow/resour…  owner  ru  тел   0     0    0      —      0    11      ·         13.4с
+/dev/ext/bookingWindow/resour…  owner  ru  деск  0     0    0      —      0    11      ·         13.3с
+/dev/ext/bookingWindow/resour…  owner  en  тел   0     0    0      —      0    11      ·         13.3с
+/dev/ext/bookingWindow/resour…  owner  en  деск  0     0    0      —      0    11      ·         13.3с
+/dev/ext/staffCard/resources    owner  ru  тел   0     0    0      —      1    2       ·         9.0с 
+/dev/ext/staffCard/resources    owner  ru  деск  0     0    0      —      1    2       ·         9.0с 
+/dev/ext/staffCard/resources    owner  en  тел   0     0    0      —      1    2       ·         8.6с 
+/dev/ext/staffCard/resources    owner  en  деск  0     0    0      —      1    2       ·         8.9с 
+/dev/ext/serviceCard/resources  owner  ru  тел   0     0    0      —      0    3       ·         2.5с 
+/dev/ext/serviceCard/resources  owner  ru  деск  0     0    0      —      0    3       ·         8.4с 
+/dev/ext/serviceCard/resources  owner  en  тел   0     0    0      —      0    3       ·         8.4с 
+/dev/ext/serviceCard/resources  owner  en  деск  0     0    0      —      0    3       ·         8.6с 
+/dev/ext/settingsHub/resources  owner  ru  тел   0     0    0      —      0    1       ·         5.7с 
+/dev/ext/settingsHub/resources  owner  ru  деск  0     0    0      —      0    1       ·         2.1с 
+/dev/ext/settingsHub/resources  owner  en  тел   0     0    0      —      0    1       ·         2.1с 
+/dev/ext/settingsHub/resources  owner  en  деск  0     0    0      —      0    1       ·         2.0с 
+
+Итог: страниц 36 · ошибок консоли 7 · предупреждений 20 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 16 · висит загрузка 0 · data-f 41
+Отчёт: qa/full-test-0930/final-mock/shots/resources/report.json
+
+• /biz/resources/packages [owner/ru/phone]
+   Error: Internal Next.js error: Router action dispatched before initialization.
+
+• /biz/resources/packages [owner/ru/desktop]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th
+
+• /biz/resources/packages [owner/en/phone]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th
+
+• /biz/resources/packages [owner/en/desktop]
+   Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+   Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move th

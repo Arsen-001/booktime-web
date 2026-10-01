@@ -1,0 +1,20 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "dental",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "click": "text=Лечение кариеса с пломбой >> nth=0" },
+    { "wait": 400 },
+    { "screenshot": "02-booking-window" },
+    { "click": "text=Текущий приём" },
+    { "wait": 300 },
+    { "screenshot": "03-current-visit" },
+    { "click": "text=Медкарта" },
+    { "wait": 300 },
+    { "screenshot": "04-medcard" }
+  ]
+}

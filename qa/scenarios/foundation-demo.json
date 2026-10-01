@@ -1,0 +1,36 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {
+      "click": "role=button[name=\"Открыть меню\"]"
+    },
+    {
+      "expectText": "Лояльность"
+    },
+    {
+      "click": "role=link[name=\"Лояльность\"]"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "expectText": "Карты лояльности"
+    },
+    {
+      "screenshot": "loyalty-open"
+    },
+    {
+      "goto": "/dev/ext/bookingWindow/finance"
+    },
+    {
+      "expectVisible": "[data-ext-stub]"
+    },
+    {
+      "screenshot": "ext-frame"
+    }
+  ]
+}

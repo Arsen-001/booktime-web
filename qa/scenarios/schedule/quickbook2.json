@@ -1,0 +1,16 @@
+{
+  "route": "/biz/schedule/calendar",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "text=+ запись" },
+    { "wait": 300 },
+    { "click": "text=Седа Адамян" },
+    { "wait": 300 },
+    { "screenshot": "after-client-pick" }
+  ]
+}

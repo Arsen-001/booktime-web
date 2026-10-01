@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "text=Пятница, 25 сентября" },
+    { "wait": 200 },
+    { "click": "div:nth-child(2) >> css=[style*='height'] >> nth=20" },
+    { "wait": 400 },
+    { "screenshot": "clicked-empty" }
+  ]
+}

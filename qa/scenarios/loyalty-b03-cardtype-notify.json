@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/card-types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Постоянный гость" },
+    { "wait": 400 },
+    { "click": "role=switch[name=\"О выпуске карты\"]" },
+    { "wait": 200 },
+    { "screenshot": "cardtype-notify-issue-open" },
+    { "click": "text=Добро пожаловать в" },
+    { "wait": 200 },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Изменения сохранены" },
+    { "screenshot": "cardtype-notify-saved" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/memberships/types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder=\"Назовите ваш абонемент\"]", "value": "Удаляемый тип" },
+    { "click": "role=button[name=\"Добавить услугу\"]" },
+    { "click": "role=button[name=\"Сохранить настройки\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип абонемента создан" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 300 },
+    { "screenshot": "memb-delete-confirm" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип абонемента удалён" }
+  ]
+}

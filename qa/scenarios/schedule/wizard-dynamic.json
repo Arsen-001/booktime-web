@@ -1,0 +1,19 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Редактировать правила" },
+    { "wait": 300 },
+    { "screenshot": "wizard-step1-before" },
+    { "click": "text=Динамичный" },
+    { "wait": 200 },
+    { "screenshot": "wizard-step1-dynamic-selected" },
+    { "click": "role=button[name=\"Далее\"]" },
+    { "wait": 200 },
+    { "screenshot": "wizard-step2-dynamic" }
+  ]
+}

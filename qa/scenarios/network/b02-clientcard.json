@@ -1,0 +1,29 @@
+{
+  "route": "/biz/network/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "text=Анаит Гукасян" },
+    { "wait": 800 },
+    { "screenshot": "card-tab1" },
+    { "click": "text=Доп. поля" },
+    { "wait": 400 },
+    { "screenshot": "card-tab2-fields" },
+    { "click": "text=История визитов" },
+    { "wait": 400 },
+    { "screenshot": "card-tab3-history" },
+    { "click": "text=Отправленные сообщения" },
+    { "wait": 400 },
+    { "screenshot": "card-tab4-messages" },
+    { "click": "text=Лояльность" },
+    { "wait": 400 },
+    { "screenshot": "card-tab5-loyalty" },
+    { "click": "text=Счета клиентов" },
+    { "wait": 400 },
+    { "screenshot": "card-tab6-accounts" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "route": "/biz/notifications/channels/sms",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "before" },
+    { "fill": "input[placeholder=\"AGG-XXXX-XXXX\"]", "value": "AGG-TEST-1234" },
+    { "click": "role=button[name=\"Подключить\"]" },
+    { "wait": 600 },
+    { "screenshot": "after-connect" },
+    { "expectVisible": "text=Активен" },
+    { "goto": "/biz/notifications/types/1" },
+    { "wait": 400 },
+    { "screenshot": "type1-with-sms" },
+    { "goto": "/biz/notifications/mailings/new" },
+    { "wait": 400 },
+    { "screenshot": "mailing-with-sms" }
+  ]
+}

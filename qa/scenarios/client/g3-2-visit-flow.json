@@ -1,0 +1,23 @@
+{
+  "route": "/biz/apps/visit",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Лусине Тадевосян" },
+    { "wait": 400 },
+    { "screenshot": "01-visit-open" },
+    { "fill": "input[placeholder=\"например, Шампунь 250мл\"]", "value": "Тестовый товар" },
+    { "screenshot": "02-sale-tab" },
+    { "click": "role=tab[name=\"Оплата\"]" },
+    { "wait": 200 },
+    { "screenshot": "03-pay-tab" },
+    { "click": "role=button[name=\"Карта\"]" },
+    { "wait": 200 },
+    { "screenshot": "04-card-selected" },
+    { "click": "role=tab[name=/Лояльность/]" },
+    { "wait": 300 },
+    { "screenshot": "05-loyalty-tab" }
+  ]
+}

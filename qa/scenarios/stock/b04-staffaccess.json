@@ -1,0 +1,14 @@
+{
+  "route": "/biz/stock/settings/access",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "expectVisible": "[data-f=\"F-08-109 F-08-110 F-08-111 F-08-112 F-08-113 F-08-114\"]" },
+    { "screenshot": "staffaccess-list" },
+    { "click": "text=Настроить >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "staffaccess-modal-open" }
+  ]
+}

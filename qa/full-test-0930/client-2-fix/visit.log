@@ -1,0 +1,18 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+PREP {"ok":"bk_4104","staffId":"st_nuri_ani"}
+LIST Визит и оплата | Откройте сегодняшний визит в приложении: продажа, оплата, выдача карты лояльности | Визит QA | 10:00 | Пришёл | Ануш Папоян | 10:15 | Подтвердил | Тагуи Петросян | 11:00 | Ждёт подтверждения | ⋯ | 11:00 | Ожидание | Элен Зограбян | 12:15 | Подтвердил | Эмма Алексанян | 12:15 | Подтвердил | Мариам Карап
+refund btn size 44 44
+AFTER REFUND has возвращена: true Визит QA | 1 октября, 10:00 | К оплате | 2 000 ֏ | Продажа | Оплата | Лояльность (4) | Наличные | Касса 1 · возвращена | 1 000 ֏ | Принять оплату | Наличные | Карта | Лояльность | Касса | Выберите… | Все кассы | Касса 1 | Касса 2 | Касса 3 | Касса 1 | Сумма | ֏ | драм | Вся сумма | Оплатить | Написать клиенту
+Ани news switch (muted=false): false
+client sees direct msg while muted: true
+EN visit has Cyrillic Гость: false Visit & payment | Open today's visit from the app: sell, pay, issue a loyalty card | Визит QA | 10:00 | Arrived | Ануш Папоян | 10:15 | Confirmed | Тагуи Петросян | 11:00 | Awaiting confirmation | Guest | 11:00 | Expected | Элен Зограбян | 12:15 | Confirmed | Эмма Алексанян | 12:15 | Confirmed | Мариам Карапетян | 12:30
+EN branded prices: Base price | 200 000 ֏ | 1 location / year | Apple account | 40 000 ֏ | Apple Developer / year | Total per year | 240 000 ֏ | Locations + Apple fee | Extra branches | − | 0 | + | Development order and timeline | Up to 4 weeks after all materials and access are receiv cyrillic? false
+EN home Cyrillic/Armenian left: ֏ ֏ ֏ ֏ ֏ ֏ Ани Карен ֏ Седа
+EN bookings: My bookings | Upcoming, past and cancelled | Upcoming | Past | Cancelled | 10:00 | Today | Polish removal | Ani Sargsyan · Nuri Nail Studio · Kentron | Book again | 17:00 | Tomorrow | Back & neck massage | Lusine Pogosyan · Davtashen | 11:00 | Su, 4 October | Manicure with gel polish | Ani Sargsyan · Nuri Nail Studio · Kentron | 11:00 | Mo, 12 October | Check-up & treatment plan | Karen Melkonyan · Atam Dental · Malatia-Sebastia | 16:00 | T
+ERRORS [
+  'console: [i18n:missing] MISSING_MESSAGE: Could not resolve `client.apps.visit.guest` in messages for locale `ru`.',
+  'console: [i18n:missing] MISSING_MESSAGE: Could not resolve `client.apps.visit.guest` in messages for locale `ru`.',
+  'console: [i18n:missing] MISSING_MESSAGE: Could not resolve `client.apps.visit.guest` in messages for locale `ru`.',
+  'console: [i18n:missing] MISSING_MESSAGE: Could not resolve `client.apps.visit.guest` in messages for locale `ru`.',
+  'console: [i18n:missing] MISSING_MESSAGE: Could not resolve `client.apps.visit.guest` in messages for locale `ru`.'
+]

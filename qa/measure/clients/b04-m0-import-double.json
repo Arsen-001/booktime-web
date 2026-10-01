@@ -1,0 +1,275 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:21:39.025Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-129",
+      "F-04-001",
+      "F-04-002",
+      "F-04-003",
+      "F-04-006",
+      "F-04-007",
+      "F-04-009",
+      "F-04-010",
+      "F-04-011",
+      "F-04-012",
+      "F-04-013",
+      "F-04-014",
+      "F-04-015",
+      "F-04-016",
+      "F-04-037",
+      "F-04-107",
+      "F-04-126",
+      "F-04-127",
+      "F-04-128",
+      "F-04-129",
+      "F-04-130",
+      "F-04-132",
+      "F-04-133",
+      "F-04-157",
+      "F-04-177",
+      "F-04-187"
+    ],
+    "scenarioSteps": {
+      "ok": 18,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients/import",
+      "url": "http://localhost:3710/biz/clients/import?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1476,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-129",
+        "F-04-001",
+        "F-04-002",
+        "F-04-003",
+        "F-04-006",
+        "F-04-007",
+        "F-04-009",
+        "F-04-010",
+        "F-04-011",
+        "F-04-012",
+        "F-04-013",
+        "F-04-014",
+        "F-04-015",
+        "F-04-016",
+        "F-04-037",
+        "F-04-107",
+        "F-04-126",
+        "F-04-127",
+        "F-04-128",
+        "F-04-129",
+        "F-04-130",
+        "F-04-132",
+        "F-04-133",
+        "F-04-157",
+        "F-04-177",
+        "F-04-187"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 2,
+          "step": {
+            "fill": "textarea",
+            "value": "Name;Phone;Total spent;Total paid\nDuplicate Test;37493777888;500;500"
+          },
+          "ok": true,
+          "ms": 62
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "text=Загрузить вставленное"
+          },
+          "ok": true,
+          "ms": 264
+        },
+        {
+          "i": 4,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 404
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Загрузить\"]"
+          },
+          "ok": true,
+          "ms": 622
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 603
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "first-import"
+          },
+          "ok": true,
+          "ms": 69,
+          "screenshot": "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__first-import.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Новая загрузка"
+          },
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 10,
+          "step": {
+            "fill": "textarea",
+            "value": "Name;Phone;Total spent;Total paid\nDuplicate Test;37493777888;500;500"
+          },
+          "ok": true,
+          "ms": 9
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "text=Загрузить вставленное"
+          },
+          "ok": true,
+          "ms": 191
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 402
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "role=button[name=\"Загрузить\"]"
+          },
+          "ok": true,
+          "ms": 400
+        },
+        {
+          "i": 14,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 15,
+          "step": {
+            "screenshot": "second-import"
+          },
+          "ok": true,
+          "ms": 49,
+          "screenshot": "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__second-import.png"
+        },
+        {
+          "i": 16,
+          "step": {
+            "goto": "/biz/clients?query=37493777888"
+          },
+          "ok": true,
+          "ms": 979
+        },
+        {
+          "i": 17,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 18,
+          "step": {
+            "screenshot": "list-filtered"
+          },
+          "ok": true,
+          "ms": 70,
+          "screenshot": "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__list-filtered.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop.png",
+        "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__first-import.png",
+        "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__second-import.png",
+        "qa/shots/clients-b04-m0-import-double/biz-clients-import__owner-nails-ru-light-desktop__list-filtered.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

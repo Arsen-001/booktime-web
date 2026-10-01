@@ -1,0 +1,37 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Добавить клиента"
+    },
+    {
+      "fill": "input[placeholder=\"Как зовут клиента\"]",
+      "value": "Проверка Дефекта"
+    },
+    {
+      "fill": "input[placeholder=\"Номер телефона\"]",
+      "value": "91112233"
+    },
+    {
+      "click": "[role=\"dialog\"] button:has-text(\"Добавить\")"
+    },
+    {
+      "wait": 1500
+    },
+    {
+      "expectText": "Клиент добавлен"
+    },
+    {
+      "expectText": "Проверка Дефекта"
+    },
+    {
+      "screenshot": "after-save-stays-on-list"
+    },
+    {
+      "expectText": "Новый"
+    }
+  ]
+}

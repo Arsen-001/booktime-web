@@ -1,0 +1,15 @@
+{
+  "route": "/biz/schedule/slots/st_nuri_mariam",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Персонально" },
+    { "wait": 800 },
+    { "screenshot": "personal-mode-on" },
+    { "click": "text=Утро (24 из 24)" },
+    { "wait": 800 },
+    { "screenshot": "personal-morning-off" }
+  ]
+}

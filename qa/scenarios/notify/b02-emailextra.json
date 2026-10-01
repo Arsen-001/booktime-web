@@ -1,0 +1,15 @@
+{
+  "route": "/biz/notifications/types/2/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=\"Email\"" },
+    { "wait": 300 },
+    { "screenshot": "email-open" },
+    { "click": "text=\"Показывать дополнительную информацию\"" },
+    { "wait": 300 },
+    { "screenshot": "extra-enabled" }
+  ]
+}

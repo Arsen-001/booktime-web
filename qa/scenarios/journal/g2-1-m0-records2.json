@@ -1,0 +1,16 @@
+[
+  {
+    "route": "/biz/records", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "text=\"Отменённые\""},
+      {"wait": 500},
+      {"screenshot": "11-cancelled-tab"}
+    ]
+  },
+  {
+    "route": "/biz/journal?date=2027-01-01", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"screenshot": "12-empty-day"}
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/biz/network/analytics",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "role=tab[name=\"Сотрудники\"]" },
+      { "wait": 300 },
+      { "click": "text=Выгрузить в Excel" },
+      { "wait": 400 },
+      { "screenshot": "after-staff-export" },
+      { "click": "role=link[name=\"Клиенты\"]" },
+      { "wait": 300 },
+      { "click": "text=Журнал выгрузок" },
+      { "wait": 400 },
+      { "screenshot": "export-log" }
+    ]
+  },
+  {
+    "route": "/biz/network/clients",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "screenshot": "actions-phone" }
+    ]
+  }
+]

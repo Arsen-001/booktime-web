@@ -1,0 +1,25 @@
+{
+  "route": "/biz/notifications/channels/sms",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "fill": "input[placeholder=\"AGG-XXXX-XXXX\"]", "value": "AGG-TEST-1234" },
+    { "click": "role=button[name=\"Подключить\"]" },
+    { "wait": 500 },
+    { "goto": "/biz/notifications/mailings/new" },
+    { "wait": 400 },
+    { "click": "text=SMS" },
+    { "wait": 300 },
+    { "fill": "textarea", "value": "Скидка на услуги!" },
+    { "wait": 300 },
+    { "expectVisible": "text=ответственность" },
+    { "expectVisible": "role=button[name=\"Отправить\"][disabled]" },
+    { "screenshot": "before-legal-check" },
+    { "click": "text=ответственность" },
+    { "wait": 300 },
+    { "screenshot": "after-legal-check" }
+  ]
+}

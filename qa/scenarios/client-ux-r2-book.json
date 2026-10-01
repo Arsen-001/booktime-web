@@ -1,0 +1,48 @@
+[
+{ "route": "/book?staff=st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=radio >> nth=2" },
+    { "wait": 300 },
+    { "screenshot": "r2-service-picked" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 1500 },
+    { "screenshot": "r2-slot-step" },
+    { "click": "css=.grid button >> nth=0" },
+    { "wait": 1200 },
+    { "screenshot": "r2-shade-step" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-shade-step-bottom" },
+    { "click": "role=radio >> nth=0" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 800 },
+    { "screenshot": "r2-confirm-step" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-confirm-step-bottom" },
+    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "wait": 500 },
+    { "screenshot": "r2-after-confirm-toast" },
+    { "wait": 1800 },
+    { "screenshot": "r2-after-confirm-landing" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "guest", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/book?staff='] >> nth=0" },
+    { "wait": 1500 },
+    { "screenshot": "r2-guest-from-slot" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-guest-from-slot-bottom" }
+  ] },
+{ "route": "/book?staff=st_nuri_ani", "persona": "client", "lang": "ru", "device": "desktop",
+  "steps": [
+    { "click": "role=radio >> nth=0" },
+    { "click": "role=button[name=\"Продолжить\"]" },
+    { "wait": 1500 },
+    { "screenshot": "r2-slot-step-desktop" },
+    { "click": "css=.grid button >> nth=0" },
+    { "wait": 1200 },
+    { "screenshot": "r2-confirm-desktop" }
+  ] }
+]

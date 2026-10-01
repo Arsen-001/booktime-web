@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/dev/ext/clientCard/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "screenshot": "clientcard-initial" }
+    ]
+  },
+  {
+    "route": "/dev/ext/clientCard/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "phone",
+    "steps": [
+      { "wait": 600 },
+      { "screenshot": "clientcard-phone" }
+    ]
+  }
+]

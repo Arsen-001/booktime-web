@@ -1,0 +1,12 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Фильтры" },
+    { "expectText": "Конструктор фильтров" },
+    { "screenshot": "filters-open" },
+    { "click": "text=По продажам" },
+    { "screenshot": "filters-sales" }
+  ]
+}

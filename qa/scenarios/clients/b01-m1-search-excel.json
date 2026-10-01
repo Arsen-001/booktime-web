@@ -1,0 +1,22 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":600},
+    {"fill":"input[placeholder^=\"Поиск (по имени\"]","value":"zzzzzzzz-no-such-client"},
+    {"wait":300},
+    {"screenshot":"m1-01-search-typed-not-yet-filtered"},
+    {"click":"role=button[name=\"Найти клиентов\"]"},
+    {"wait":300},
+    {"expectText":"По вашему запросу не найдено"},
+    {"screenshot":"m1-02-search-button-applied"}
+  ]},
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":600},
+    {"click":"role=button[name=\"Операции с Excel\"]"},
+    {"wait":200},
+    {"screenshot":"m1-03-excel-menu-open"},
+    {"click":"text=Выгрузить в Excel"},
+    {"wait":300},
+    {"expectText":"Выгружено"},
+    {"screenshot":"m1-04-excel-exported-toast"}
+  ]}
+]

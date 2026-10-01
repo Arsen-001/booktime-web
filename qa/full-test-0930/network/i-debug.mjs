@@ -1,0 +1,16 @@
+import { connect, newPage, go } from './h.mjs';
+const browser = await connect();
+const { ctx, page } = await newPage(browser, { device: 'desktop' });
+await go(page, '/biz/network/settings/users', { persona: 'owner' });
+const main = page.locator('main'); const dlg = () => page.getByRole('dialog').last();
+await main.getByRole('button', { name: 'Создать пользователя' }).click();
+await page.waitForTimeout(400);
+await dlg().getByLabel('Имя').fill('Лилит Мкртчян');
+await dlg().locator('input[type=tel]').fill('00110002');
+await dlg().getByLabel('Логин').fill('nuri.admin');
+await dlg().getByLabel('Пароль').fill('secret123');
+await dlg().getByRole('button', { name: 'Создать пользователя' }).click();
+await page.waitForTimeout(1500);
+const dump = await page.evaluate(() => { const j = JSON.parse(localStorage.getItem('bp-mock-db:area:network')); const n = JSON.parse(localStorage.getItem('bp-mock-db:core:networks') || 'null'); return JSON.stringify({ keys: Object.keys(localStorage), nets: n && n.map((x) => x.id + ':' + x.name), extras: Object.keys(j.extras), users: j.users.map((u) => u.networkId + ':' + u.name) }); });
+console.log(dump.slice(0, 2000));
+await ctx.close(); await browser.close();

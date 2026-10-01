@@ -1,0 +1,21 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "[data-testid='booking-block'] >> nth=0" },
+    { "wait": 400 },
+    { "click": "text=Повторение записи" },
+    { "wait": 300 },
+    { "screenshot": "recurrence-form" },
+    { "click": "role=button[name=\"Пт\"]" },
+    { "screenshot": "recurrence-weekdays" },
+    { "click": "role=button[name=\"Создать повторения\"]" },
+    { "wait": 600 },
+    { "screenshot": "recurrence-toast" },
+    { "goto": "/biz/journal?date=2026-10-27" },
+    { "wait": 400 },
+    { "screenshot": "next-week-series" }
+  ]
+}

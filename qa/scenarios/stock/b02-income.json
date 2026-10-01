@@ -1,0 +1,19 @@
+{
+  "route": "/biz/stock/operations/new/income",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "01-empty-form" },
+    { "fill": "input[placeholder=\"Название, артикул или штрихкод\"]", "value": "а" },
+    { "wait": 700 },
+    { "screenshot": "02-search-results" },
+    { "click": "text=Гель-лак «Розовый нюд»" },
+    { "screenshot": "03-line-added" },
+    { "click": "text=Оплачено" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 800 },
+    { "screenshot": "04-after-save" }
+  ]
+}

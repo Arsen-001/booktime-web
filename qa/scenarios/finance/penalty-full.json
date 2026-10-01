@@ -1,0 +1,31 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"click": "role=tab[name=\"Баланс и оплаты\"]"},
+    {"wait": 400},
+    {"click": "role=button[name=\"Оштрафовать клиента\"]"},
+    {"wait": 300},
+    {"fill": "input[inputmode=\"numeric\"]", "value": "100"},
+    {"click": "role=combobox"},
+    {"wait": 200},
+    {"click": "role=option >> nth=0"},
+    {"click": "role=button[name=\"Выставить штраф\"]"},
+    {"wait": 700},
+    {"screenshot": "01-balance-after"},
+    {"goto": "/biz/finance"},
+    {"wait": 800},
+    {"screenshot": "02-operations"},
+    {"goto": "/biz/finance"},
+    {"wait": 800},
+    {"screenshot": "03-operations-after-reload"},
+    {"goto": "/biz/clients/cl_001"},
+    {"wait": 800},
+    {"click": "role=tab[name=\"Баланс и оплаты\"]"},
+    {"wait": 400},
+    {"screenshot": "04-clientcard-after-reload"}
+  ]
+}

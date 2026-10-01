@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext();
+const page = await ctx.newPage();
+const warnings = [];
+page.on('console', (msg) => { if (msg.type() === 'warning' || msg.type() === 'error') warnings.push(msg.text()); });
+await page.goto('http://localhost:3710/biz/loyalty/certificates?demo=owner', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1500);
+console.log('warnings/errors after load:', JSON.stringify(warnings, null, 2));
+await browser.close();
+await release();

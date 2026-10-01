@@ -1,0 +1,14 @@
+{
+  "route": "/biz/notifications/mailings/new",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"fill": "textarea", "value": "Скидка на всё эту неделю"},
+    {"wait": 200},
+    {"screenshot": "preview"},
+    {"click": "text=Отправить"},
+    {"wait": 300},
+    {"screenshot": "confirm-dialog"}
+  ]
+}

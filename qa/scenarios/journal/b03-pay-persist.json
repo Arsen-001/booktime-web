@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal?date=2026-10-20",
+  "persona": "owner",
+  "device": "desktop",
+  "lang": "ru",
+  "steps": [
+    { "click": "[data-testid='booking-block']:has-text('Гоар')" },
+    { "wait": 300 },
+    { "screenshot": "target-before-pay" },
+    { "click": "role=button[name=\"Оплатить\"]" },
+    { "wait": 400 },
+    { "goto": "/biz/journal?date=2026-10-20" },
+    { "wait": 400 },
+    { "click": "[data-testid='booking-block']:has-text('Гоар')" },
+    { "wait": 300 },
+    { "screenshot": "target-status-after-reload" }
+  ]
+}

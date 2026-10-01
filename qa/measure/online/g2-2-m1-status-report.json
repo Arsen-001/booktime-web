@@ -1,0 +1,197 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T11:38:51.944Z",
+  "summary": {
+    "pages": 4,
+    "consoleErrors": 0,
+    "consoleWarnings": 8,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/b/shushan-hair/booking/bk_1737",
+      "url": "http://localhost:3710/b/shushan-hair/booking/bk_1737?demo=client&empty=0&sphere=nails&lang=ru&theme=light&h=mugw0lct2bq3ygbk_1737",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1306,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"online-booking\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:3978:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:93:",
+          "[api] запрос не удался [\"online-cancel-window\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:4323:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._."
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-g2-2m1/b-shushan-hair-booking-bk-1737__client-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/b/shushan-hair/booking/bk_1737",
+      "url": "http://localhost:3710/b/shushan-hair/booking/bk_1737?demo=client&empty=0&sphere=nails&lang=ru&theme=light&h=mugw0lct2bq3ygbk_1737",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1505,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"online-cancel-window\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:4323:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.",
+          "[api] запрос не удался [\"online-booking\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:3978:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:93:"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-g2-2m1/b-shushan-hair-booking-bk-1737__client-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/b/shushan-hair/booking/bk_1737",
+      "url": "http://localhost:3710/b/shushan-hair/booking/bk_1737?demo=client&empty=0&sphere=nails&lang=en&theme=light&h=mugw0lct2bq3ygbk_1737",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 1301,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"online-booking\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:3978:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:93:",
+          "[api] запрос не удался [\"online-cancel-window\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:4323:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._."
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-g2-2m1/b-shushan-hair-booking-bk-1737__client-nails-en-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/b/shushan-hair/booking/bk_1737",
+      "url": "http://localhost:3710/b/shushan-hair/booking/bk_1737?demo=client&empty=0&sphere=nails&lang=en&theme=light&h=mugw0lct2bq3ygbk_1737",
+      "persona": "client",
+      "sphere": "nails",
+      "lang": "en",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 750,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"online-cancel-window\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:4323:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.",
+          "[api] запрос не удался [\"online-booking\",\"bk_1737\",\"mugw0lct2bq3ygbk_1737\"] ApiError: Запись не найдена\n    at http://localhost:3710/_next/static/chunks/src_1-ku9au._.js:3978:54\n    at run (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:119:20)\n    at runTracked (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:284:16)\n    at http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:125:174\n    at withCtx (http://localhost:3710/_next/static/chunks/src_11nbz2a._.js:93:"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/shots/online-g2-2m1/b-shushan-hair-booking-bk-1737__client-nails-en-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

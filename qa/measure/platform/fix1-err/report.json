@@ -1,0 +1,76 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T20:54:12.447Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 7,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform",
+      "url": "http://localhost:3710/platform?demo=platform&sphere=nails&lang=ru&theme=light&api=error",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 714,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[api] запрос не удался [\"platform\",\"visits\",\"connected\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"waves\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"app-bookings\",\"2026-09-19\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"moderation\",\"pending\",\"\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"support-open\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"demand\",\"week\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)",
+          "[api] запрос не удался [\"platform\",\"callbacks-today\"] ApiError: Демо-режим: сервер вернул ошибку\n    at request (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:1977:33)\n    at async useApiQuery.useEffect (http://localhost:3710/_next/static/chunks/src_04lcv2l._.js:2019:38)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/platform/fix1-err/platform__platform-nails-ru-light-phone.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

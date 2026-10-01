@@ -1,0 +1,92 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 1000
+      },
+      {
+        "click": "role=button[name=\"Новая запись\"]"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "click": "text=Обычная запись"
+      },
+      {
+        "wait": 900
+      },
+      {
+        "fill": "input[placeholder=\"91 234 567\"]",
+        "value": "95965289"
+      },
+      {
+        "wait": 1200
+      },
+      {
+        "screenshot": "s1-phone-filled"
+      },
+      {
+        "click": "text=Нелли Симонян"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "s2-client-linked"
+      },
+      {
+        "click": "text=Прошлая услуга клиента"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "s3-service-added"
+      },
+      {
+        "click": "role=button[name=\"Пришёл\"]"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "screenshot": "s4-arrived"
+      },
+      {
+        "click": "text=Ещё поля"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "click": "text=Выберите дату"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "button[data-date=\"2026-09-25\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "s5-date-set"
+      },
+      {
+        "click": "role=button[name=\"Записать\"]"
+      },
+      {
+        "wait": 1200
+      },
+      {
+        "screenshot": "s6-saved"
+      }
+    ]
+  }
+]

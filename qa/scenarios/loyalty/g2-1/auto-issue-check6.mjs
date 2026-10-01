@@ -1,0 +1,11 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext();
+const page = await ctx.newPage();
+await page.goto('http://localhost:3710/biz/clients/cl_muhdw2gt1rtf04?demo=owner', { waitUntil: 'networkidle' });
+await page.waitForTimeout(500);
+await page.screenshot({ path: 'qa/shots/loyalty-g2-1/client-detail-initial.png', fullPage: true });
+await browser.close();
+await release();

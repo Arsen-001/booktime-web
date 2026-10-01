@@ -1,0 +1,16 @@
+const M = await import('/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/t/common.mjs?' + Date.now());
+const { waitReady, dlg, btns, toasts, go } = M;
+export default async ({ browser, lib, state }) => {
+  const p = state.owner; let o='';
+  const w = p.locator('[role=dialog]', { hasText: 'Новая запись' }).last();
+  if (!(await p.getByRole('button', { name: 'Всё равно сохранить' }).count())) { await w.getByRole('button', { name: 'Записать без клиента' }).click(); await p.waitForTimeout(1200); }
+  const a = p.locator('[role=alertdialog],[role=dialog]').last(); o += 'CONF ' + (await a.innerText()).slice(0,200) + '\n';
+  const ok = p.getByRole('button', { name: 'Всё равно сохранить' }); if (await ok.count()) { await ok.click(); await p.waitForTimeout(2000); }
+  o += 'TOAST ' + await toasts(p) + '\n';
+  const d = p.locator('[role=dialog]').last();
+  o += 'PANEL ' + (await d.innerText()).slice(0,900) + '\n';
+  await d.getByRole('button', { name: 'Закрытая' }).click().catch(()=>{}); await p.waitForTimeout(1000);
+  o += 'CLOSED ' + (await p.locator('[role=dialog]').last().innerText()).slice(300,1100) + '\n';
+  await lib.shot(p, 'o20-wl-closed');
+  return o;
+};

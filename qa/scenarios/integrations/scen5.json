@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/biz/integrations/apps/ia_18",
+    "persona": "owner",
+    "sphere": "general",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"click": "text=Подключить"},
+      {"wait": 500},
+      {"click": "[role=dialog] button:has-text('Подключить'), aside button:has-text('Подключить')"},
+      {"wait": 800},
+      {"screenshot": "01-after-connect-ia18"},
+      {"goto": "/biz/integrations/installed"},
+      {"wait": 400},
+      {"screenshot": "02-installed-ia18"}
+    ]
+  }
+]

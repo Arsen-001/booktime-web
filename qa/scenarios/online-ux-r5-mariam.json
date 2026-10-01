@@ -1,0 +1,25 @@
+[
+ {"name":"wiz-mariam2","route":"/b/mariam-nails/book","persona":"guest","device":"phone","steps":[
+  {"wait":2000},
+  {"click":"text=Мариам Нерсесян >> nth=1"},{"wait":700},
+  {"click":"role=button[name=/Понятно|Продолжить с/]"},{"wait":500},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},
+  {"click":"text=Маникюр с выездом к вам"},{"wait":400},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},
+  {"click":"text=Выезд к клиенту"},{"wait":1200},{"shot":"m04-visit","full":true},
+  {"click":"text=На дому"},{"wait":1200},{"shot":"m05-home","full":true}
+ ]},
+ {"name":"wiz-nuri-confirm","route":"/b/nuri-nail-studio/book","persona":"guest","device":"phone","steps":[
+  {"wait":2000},
+  {"click":"text=Сона Григорян"},{"wait":400},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},
+  {"click":"text=Маникюр классический"},{"wait":300},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1500},
+  {"click":"text=Перейти к ближайшей дате"},{"wait":800},
+  {"click":"css=button[class*='min-h-11'][class*='rounded-lg'][class*='border']"},{"wait":300},
+  {"click":"role=button[name=/Продолжить/]"},{"wait":1000},
+  {"fill":"role=textbox[name=\"Имя\"]","value":"Лилит Арутюнян"},
+  {"fill":"role=textbox[name=/Телефон/]","value":"77123456"},
+  {"click":"role=button[name=\"Получить код\"]"},{"wait":800},{"shot":"c01-code"}
+ ]}
+]

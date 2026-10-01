@@ -1,0 +1,9 @@
+[
+  { "route": "/biz/clients", "persona": "owner", "lang": "ru", "theme": "light", "device": "phone",
+    "steps": [ {"wait": 2500}, {"screenshot": "top"}, {"press": "PageDown"}, {"wait": 600}, {"screenshot": "scrolled-title"},
+               {"click": "role=button[name=\"Уведомления\"]"}, {"wait": 500}, {"screenshot": "bell"} ] },
+  { "route": "/biz/journal", "persona": "owner", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [ {"wait": 2500}, {"click": "role=button[name=\"Уведомления\"]"}, {"wait": 500}, {"screenshot": "bell"} ] },
+  { "route": "/platform", "persona": "platform", "lang": "ru", "theme": "light", "device": "phone",
+    "steps": [ {"wait": 2000}, {"press": "PageDown"}, {"wait": 600}, {"screenshot": "scrolled-title"} ] }
+]

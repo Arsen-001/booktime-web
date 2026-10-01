@@ -1,0 +1,24 @@
+{
+  "route": "/bookings",
+  "persona": "client",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "wait": 700 },
+    { "click": "a[href^='/bookings/'] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "01-detail" },
+    { "wait": 800 },
+    { "click": "button:has-text(\"Оценить мастера\")" },
+    { "wait": 500 },
+    { "screenshot": "02-after-rate" },
+    { "goto": "/bookings" },
+    { "wait": 600 },
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "wait": 600 },
+    { "click": "a[href^='/bookings/'] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "03-after-reload" }
+  ]
+}

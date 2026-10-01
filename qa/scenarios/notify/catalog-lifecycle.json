@@ -1,0 +1,61 @@
+{
+  "route": "/biz/notifications/channels/catalog",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "click": "text=Apifonica"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name=/Подключить|Connect/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "click": "text=Apifonica"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "click": "role=button[name=/Демо: нет оплаты|Simulate expire/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "click": "role=button[name=/Демо: оплата пришла|Simulate reactivate/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "d-after-reactivate"
+    },
+    {
+      "click": "role=button[name=/Отключить|Disconnect/i]"
+    },
+    {
+      "wait": 700
+    },
+    {
+      "screenshot": "e-after-disconnect-list"
+    },
+    {
+      "click": "text=Apifonica"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "f-reopen-after-disconnect"
+    }
+  ]
+}

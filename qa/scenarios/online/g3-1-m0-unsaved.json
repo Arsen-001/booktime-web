@@ -1,0 +1,17 @@
+{
+  "route": "/biz/online",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=link[name=/Настроить/]" },
+    { "wait": 500 },
+    { "screenshot": "link-settings-open" },
+    { "click": "text=24 ч" },
+    { "wait": 200 },
+    { "click": "role=link[name=/Онлайн-запись/]" },
+    { "wait": 400 },
+    { "screenshot": "after-nav-attempt" }
+  ]
+}

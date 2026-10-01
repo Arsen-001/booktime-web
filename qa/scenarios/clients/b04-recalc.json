@@ -1,0 +1,19 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "click": "text=Пересчитать автоправила" },
+    { "wait": 1500 },
+    { "screenshot": "after-recalc" },
+    { "click": "role=button[name=\"Ещё\"]" },
+    { "wait": 200 },
+    { "click": "text=Объединить с..." },
+    { "wait": 500 },
+    { "screenshot": "merge-dialog" }
+  ]
+}

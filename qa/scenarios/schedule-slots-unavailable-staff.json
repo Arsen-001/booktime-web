@@ -1,0 +1,85 @@
+{
+  "route": "/biz/schedule/slots/st_nuri_ani",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {
+      "wait": 500
+    },
+    {
+      "click": "role=button[name=\"Закрыть дни\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "modal-open"
+    },
+    {
+      "click": "text=Выберите период"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "sheet-open"
+    },
+    {
+      "click": "button[data-date=\"2026-09-27\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "after-first-date"
+    },
+    {
+      "click": "button[data-date=\"2026-09-28\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "after-second-date"
+    },
+    {
+      "fill": "input[placeholder=\"Например: перед праздником — только вручную\"]",
+      "value": "Тестовый недоступный день"
+    },
+    {
+      "click": "role=dialog >> role=button[name=\"Закрыть для записи\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "expectText": "клиенты не видят окон"
+    },
+    {
+      "expectVisible": "text=Тестовый недоступный день"
+    },
+    {
+      "screenshot": "after-add"
+    },
+    {
+      "click": "role=button[name=/^Открыть дни с/]"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "wait": 300
+    },
+    {
+      "expectText": "снова открыты"
+    },
+    {
+      "expectVisible": "text=Закрытых дней нет"
+    },
+    {
+      "screenshot": "after-delete"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "click": "text=Нелли Симонян Аветисян"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "click": "a:has-text(\"Открыть запись\") >> nth=0"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "role=tab[name=\"Лояльность\"]"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "click": "text=Списать визит"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "click": "role=button[name=\"Провести оплату лояльностью\"]"
+      },
+      {
+        "wait": 900
+      },
+      {
+        "screenshot": "committed"
+      },
+      {
+        "click": "role=tab[name=\"Оплата\"]"
+      },
+      {
+        "wait": 500
+      },
+      {
+        "screenshot": "payment-tab-after-commit"
+      }
+    ]
+  }
+]

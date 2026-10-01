@@ -1,0 +1,17 @@
+[
+  {
+    "route": "/biz/schedule/slots",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 400 },
+      { "click": "role=combobox >> nth=0" },
+      { "wait": 200 },
+      { "click": "text=Мариам Петросян" },
+      { "wait": 900 },
+      { "screenshot": "mariam-pedicure-slots" }
+    ]
+  }
+]

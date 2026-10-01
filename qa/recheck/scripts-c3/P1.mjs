@@ -1,0 +1,10 @@
+import { start, stop, open, go, as, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('platform', '/platform/moderation');
+const T = async (n=1200) => (await text(page)).slice(0, n);
+const row = page.locator('main tr').filter({ hasText: 'Новая услуга: Отбеливание зубов' });
+await row.getByRole('button', { name: 'Одобрить' }).click(); await page.waitForTimeout(1500); console.log('toasts', await toasts(page));
+await as(page, 'client', '/places/biz_atam', { }); const t = await T(8000); console.log('client Atam page has Отбеливание?', t.includes('Отбеливание'));
+await as(page, 'client', '/search?q=%D0%9E%D1%82%D0%B1%D0%B5%D0%BB%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5'); const s = await T(3000); console.log('search:', s.split('\n').slice(0, 10).join(' | '));
+const d = await db(page); console.log('core services with Отбел:', d.core.services.filter(x => /Отбел/.test(JSON.stringify(x.name))).map(x => x.id + ' ' + x.businessId + ' ' + JSON.stringify(x.name)));
+await stop();

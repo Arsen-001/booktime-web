@@ -1,0 +1,27 @@
+{
+  "route": "/biz/loyalty/deposits/types",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Добавить тип счета\"]" },
+    { "wait": 300 },
+    { "screenshot": "acc-type-modal-open" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 200 },
+    { "expectVisible": "text=Введите название" },
+    { "fill": "input[placeholder*=\"Депозит\"]", "value": "Тестовый счёт" },
+    { "click": "role=checkbox[name*=\"Разрешить оплату в минус\"]" },
+    { "wait": 200 },
+    { "screenshot": "acc-type-negative-open" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 200 },
+    { "expectVisible": "text=Укажите лимит" },
+    { "fill": "input[placeholder=\"0\"]", "value": "15000" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Тип счёта создан" },
+    { "screenshot": "acc-type-created" }
+  ]
+}

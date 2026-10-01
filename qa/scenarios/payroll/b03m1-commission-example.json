@@ -1,0 +1,17 @@
+{"route":"/biz/payroll/settings","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"text=Пример: комиссия 10"},
+   {"screenshot":"default-business-only"},
+   {"click":"text=Специалист и ассистенты"},
+   {"click":"text=Пример: комиссия 10"},
+   {"wait":300},
+   {"screenshot":"staff-assist-8-2-0"},
+   {"click":"text=Специалист, ассистенты и бизнес"},
+   {"click":"text=Пример: комиссия 10"},
+   {"wait":300},
+   {"screenshot":"staff-assist-business-4-1-5"},
+   {"click":"text=Только специалист"},
+   {"click":"text=Пример: комиссия 10"},
+   {"wait":300},
+   {"screenshot":"staff-only-10-0-0"}
+ ]}

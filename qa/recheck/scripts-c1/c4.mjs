@@ -1,0 +1,34 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('client', '/', { device: 'phone' });
+log('--- home\n' + (await text(page)).slice(0, 600));
+// F-14-057 confirm bk_0081
+await go(page, '/bookings/bk_0081');
+await page.getByRole('button', { name: 'Подтвердить, что приду' }).click();
+await page.waitForTimeout(2500);
+log('toast', await toast(page));
+log('--- 0081 after confirm\n' + (await text(page)));
+await page.reload(); await settle(page);
+log('--- 0081 after reload\n' + (await text(page)));
+// F-00-098 cancel bk_0085
+await go(page, '/bookings/bk_0085');
+await page.getByRole('button', { name: 'Отменить запись' }).click(); await page.waitForTimeout(1000);
+log('--- dialog\n' + (await page.locator('[role=dialog], [role=alertdialog]').allInnerTexts()).join('\n'));
+await page.getByRole('button', { name: /Да, отменить/ }).click(); await page.waitForTimeout(2500);
+log('toast', await toast(page));
+log('--- 0085 after cancel\n' + (await text(page)));
+await page.reload(); await settle(page);
+log('--- 0085 reload\n' + (await text(page)));
+await go(page, '/bookings');
+log('--- list\n' + (await text(page)).slice(0, 900));
+await page.getByRole('tab', { name: /Отменённые/ }).click(); await page.waitForTimeout(800);
+log('--- cancelled tab\n' + (await text(page)).slice(0, 900));
+await go(page, '/');
+log('--- home after\n' + (await text(page)).slice(0, 600));
+const d = await db(page);
+log('0085', JSON.stringify(d.core.bookings.find(b=>b.id==='bk_0085')));
+log('0081', JSON.stringify(d.core.bookings.find(b=>b.id==='bk_0081')).slice(0,300));
+log('ERR', page.errors);
+await stop();

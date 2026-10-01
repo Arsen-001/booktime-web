@@ -1,0 +1,18 @@
+[
+  {"route": "/biz/clients/loyalty", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 500},
+     {"click": "input[type=checkbox], button[role=switch]"},
+     {"click": "text=Добавить ступень"},
+     {"wait": 200},
+     {"fill": "input[aria-label='%']:last-of-type", "value": "10"},
+     {"wait": 150},
+     {"screenshot": "tier-set"},
+     {"click": "text=Сохранить"},
+     {"wait": 700},
+     {"screenshot": "saved"},
+     {"goto": "/biz/clients"},
+     {"wait": 600},
+     {"screenshot": "list-after-recalc"}
+   ]}
+]

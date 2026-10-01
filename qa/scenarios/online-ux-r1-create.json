@@ -1,0 +1,10 @@
+[{"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+ {"wait":1200},
+ {"click":"role=button[name=\"Новая ссылка\"]"},{"wait":600},
+ {"click":"text=Ссылку для сотрудника"},{"wait":300},
+ {"fill":"role=textbox[name=/Название ссылки/]","value":"Для Instagram"},
+ {"click":"role=button[name=\"Создать\"]"},{"wait":1500},
+ {"expectVisible":"text=Для Instagram"},
+ {"click":"text=Для Instagram"},{"wait":300},{"goto":"/biz/online"},{"wait":1200},
+ {"press":"End"},{"wait":600},{"screenshot":"c03-list-bottom"}
+]}]

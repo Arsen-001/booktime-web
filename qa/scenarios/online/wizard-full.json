@@ -1,0 +1,135 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "01-mode"
+    },
+    {
+      "click": "text=Индивидуальная запись"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "02-services"
+    },
+    {
+      "click": "div.cursor-pointer >> nth=0"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "03-service-selected"
+    },
+    {
+      "click": "role=button[name=/Продолжить/]"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "04-after-services"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "05-staff"
+    },
+    {
+      "click": "text=Ани Саргсян"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "05b-gender-gate"
+    },
+    {
+      "click": "role=button[name=/Понятно/]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "click": "role=button[name=/Продолжить/]"
+    },
+    {
+      "wait": 600
+    },
+    {
+      "screenshot": "06-time"
+    },
+    {
+      "click": "text=15:30"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "click": "role=button[name=/Продолжить/]"
+    },
+    {
+      "wait": 500
+    },
+    {
+      "screenshot": "07-contacts"
+    },
+    {
+      "click": "role=button[name=/Записаться/]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "screenshot": "08-contacts-validation"
+    },
+    {
+      "fill": "input[placeholder=\"Введите имя\"]",
+      "value": "Тест Тестов"
+    },
+    {
+      "fill": "input[placeholder=\"91 234 567\"]",
+      "value": "91234567"
+    },
+    {
+      "click": "role=button[name=/Получить код/]"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "09-otp-sent"
+    },
+    {
+      "fill": "input[placeholder=\"0000\"]",
+      "value": "5708"
+    },
+    {
+      "click": "role=button[name=/Подтвердить/]"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "11-verified"
+    },
+    {
+      "click": "role=button[name=/Записаться/]"
+    },
+    {
+      "wait": 900
+    },
+    {
+      "screenshot": "12-confirmed"
+    }
+  ]
+}

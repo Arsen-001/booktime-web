@@ -1,0 +1,18 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-f=\"F-02-059 F-00-057\"] button" },
+    { "wait": 300 },
+    { "click": "text=15 мин" },
+    { "wait": 600 },
+    { "expectText": "Технический перерыв сохранён" },
+    { "goto": "/biz/schedule/slots" },
+    { "wait": 800 },
+    { "expectText": "15 мин" },
+    { "screenshot": "persisted-after-reload" }
+  ]
+}

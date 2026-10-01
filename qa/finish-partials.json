@@ -1,0 +1,1767 @@
+[
+ {
+  "area": "client",
+  "fId": "F-00-107",
+  "what": "Not built. Its only 'Готово, когда' criterion is 'решение принято', and QUESTIONS.md already records the owner's answer as 'идея: позже, в прототипе не строим' — nothing to build, correctly left unmarked."
+ },
+ {
+  "area": "client",
+  "fId": "F-14-066/067/069/071/072/073/075/076/077/078/079/081/083/085/086/087/088/089/090",
+  "what": "All 19 confirmed via qa/plan/client.md's notOurs table (92 functions owned by other screens) to be built in notify/clients/online/loyalty/settings/journal areas, not in client's own paths (src/app/(client)/**, src/app/biz/apps/**, src/areas/client/**). Left unmarked per CONVENTIONS.md rule 1 (don't touch other areas' paths); qa/questions/client.md already has an open owner-question about F-14-081...179 (business app) from a prior builder — did not duplicate it."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-077",
+  "what": "Не построено ни в одном разделе (проверил online и client) — кнопка «Добавить в календарь» (.ics) на экране «Вы записаны» виджета. Это работа online (F-03-097), не integrations; просьба записана в qa/requests/integrations.md, код не писал (чужой путь)."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-024 / F-13-067",
+  "what": "Право «Изменение настроек WebHook» и смежные права (платежи/касса/SMS) построены в staff (PermissionsEditor) в общем виде, но отдельного Permission-ключа для вебхуков нет в фундаменте src/config/permissions.ts — наш ApiWebhooksScreen продолжает проверять общее integrations.manage. Нужна правка фундамента + staff, заявка подана."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-057",
+  "what": "Источник записи «API» отдельно от «Партнёры» — BookingSource (src/domain/core.ts, фундамент) не имеет значения 'api', сейчас оба смешаны как 'external'. Заявка на фундамент подана, не моя правка."
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-063",
+  "what": "Уже построено journal (ClientZone.tsx, F-01-062…066) — нет узла в путях clients для тега; задокументировано в qa/requests/clients.md"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-064",
+  "what": "Уже построено online (BookingWizard.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-065",
+  "what": "Уже построено journal + core.ts (F-01-039, Booking.clientId? уже опционален) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-092",
+  "what": "Уже построено journal (ClientZone.tsx, F-01-062…066) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-096",
+  "what": "Уже построено journal (ClientZone.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-097",
+  "what": "Уже построено journal (ClientZone.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-098",
+  "what": "Уже построено journal (RecordsScreen/BookingBlock/BookingWindow) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-101",
+  "what": "Экран журнала (hover-карточка статуса записи) — узла в clients не нашлось, не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-102",
+  "what": "Отрисовка блока записи в сетке журнала — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-103",
+  "what": "Настоящий пробел: панель «Клиенты» в шапке журнала нигде не найдена — не мой раздел (journal)"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-104",
+  "what": "Уже построено resources (WaitlistScreen.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-108",
+  "what": "Настоящий пробел: обязательность фамилии/отчества в виджете нигде не найдена — не мой раздел (online)"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-122",
+  "what": "Уже построено notify/loyalty (registry.ts, PromotionFormSections.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-131",
+  "what": "Настоящий пробел: импорт записей из Excel нигде не найден — не мой раздел (reports)"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-134",
+  "what": "Уже построено loyalty/network (BulkImportModal.tsx, ClientsScreen.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-138",
+  "what": "Уже построено journal (HistoryPanel.tsx, LeftZone.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-143",
+  "what": "Уже построено online (SettingsScreen.tsx, BookingWizard.tsx) — не мой путь"
+ },
+ {
+  "area": "clients",
+  "fId": "F-04-085",
+  "what": "НЕ построено нигде: у finance есть только счёт Payment Policy (F-07-112, другая сущность); сами типы клиентских счетов (F-04-169…179) finance ещё не построил — узла в clients нет, вкладка принадлежит хосту finance"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-091",
+  "what": "Владелец функции — journal (F-01-185/F-08-045), уже построено там; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-093",
+  "what": "Владелец — journal (F-01-054), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-099",
+  "what": "Владелец — clients (F-04-214), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-100",
+  "what": "Владелец — clients (F-04-212), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-101",
+  "what": "Владелец — clients (F-04-213), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-103",
+  "what": "Владелец — clients (F-04-214), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-104",
+  "what": "Владелец — clients (F-04-113), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-105",
+  "what": "Владелец — clients (F-04-133), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-110",
+  "what": "Владелец — schedule (F-02-032), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-111",
+  "what": "Владелец — schedule (F-02-033), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-112",
+  "what": "Владелец — schedule (F-02-034), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-113",
+  "what": "Владелец — schedule (F-02-035), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-121",
+  "what": "Владелец — online (F-03-047), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-130",
+  "what": "Владелец — notify (F-05-062), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-133",
+  "what": "Владелец — notify (F-05-044…054), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-134",
+  "what": "Владелец — notify (F-05-018), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-137",
+  "what": "Владелец — platform (F-00-182), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-138",
+  "what": "Владелец — reports (F-12-038), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-141",
+  "what": "Владелец — settings (F-15-045/046), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-158",
+  "what": "Владелец — notify (F-05-079/019), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-160",
+  "what": "Владелец — clients (F-04-039), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-161",
+  "what": "Владелец — clients (F-04-028), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-162",
+  "what": "Владелец — online (F-03-079/080), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-167",
+  "what": "Владелец — settings (F-15-041/081), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-174",
+  "what": "Владелец — integrations (F-13-121); наша часть (генератор сторис) уже сделана в b05"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-177",
+  "what": "Владелец — clients (F-04-214/067), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-178",
+  "what": "Владелец — clients (F-04-212…214), уже построено; не мой путь"
+ },
+ {
+  "area": "client",
+  "fId": "F-14-179",
+  "what": "Владелец — settings (F-15-134), уже построено; не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-007",
+  "what": "Колокольчик уведомлений уже построен в src/shell/workspace/NotificationsBell.tsx (фундамент) — не мой путь, не тегирую; попросил фундамент добавить свой data-f"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-097",
+  "what": "«Изменения данных» уже построена в src/api/reports.ts (раздел reports, читает наши listBookingEvents/history) — не мой путь; просьба записана"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-074",
+  "what": "Чат с клиентом уже построен в src/areas/notify/extensions/BookingWindow.tsx (раздел notify, F-05-xxx) — не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-087",
+  "what": "Ручная отправка «запись подтверждена» — уже есть в notify/extensions/BookingWindow.tsx"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-088",
+  "what": "Автозапрос подтверждения клиенту — та же плитка notify, не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-089",
+  "what": "Подтверждение клиентом по ссылке — та же плитка notify, не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-090",
+  "what": "Плитка «Уведомления о визите» целиком построена notify — не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-091",
+  "what": "Отправка деталей записи после сохранения — построена в notify extension"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-092",
+  "what": "Напоминание перед визитом на запись — построено в notify extension"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-093",
+  "what": "Разовое сообщение клиенту — sendOneOffMessage уже есть в notify extension"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-094",
+  "what": "Срок повторного визита на услугу в окне — не нашёл отдельно, не успел проверить/построить"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-095",
+  "what": "Какие уведомления запускают действия с записью — логика в notify (engine.ts/registry.ts), не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-099",
+  "what": "Лента «Визиты» — не найдена как отдельный экран в моих путях, не успел разобрать"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-108",
+  "what": "Повторы групповых событий (смежное с resources/schedule) — не успел"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-117",
+  "what": "Уведомления при переносе — не успел, вероятно в notify"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-033",
+  "what": "Мгновенное обновление внутри вкладки уже работает (React Query invalidates); между вкладками/устройствами нет — нужна правка mock/db.ts (не мой путь), просьба записана"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-123",
+  "what": "Отмена клиентом из виджета — экран у online, наша часть (статус) вероятно покрыта общей политикой отмены, но глубоко не проверял — не тегировал"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-125",
+  "what": "Уведомления при отмене — не успел, вероятно в notify"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-137",
+  "what": "Ограничения онлайн-записи по нескольким услугам — смежное с online, не успел"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-144",
+  "what": "Оплата по ссылке и QR из окна — уже построена в notify/extensions/BookingWindow.tsx (sendPaymentLink/getPaymentLink), не мой путь"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-145",
+  "what": "Оплата в долг с личного счёта — не успел, вероятно смежное с finance"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-147",
+  "what": "Отдельная плитка «Списание расходников» — частично покрыта автосписанием F-01-050…052, отдельная плитка по ТЗ не проверена/не построена"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-037",
+  "what": "роль «Колл-центр» на нескольких филиалах — тумблер карточки сотрудника, хозяин staff/resources, не наш путь"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-038",
+  "what": "право локации «Доступ к данным клиентов по сети» — тумблер сотрудника, хозяин staff"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-039",
+  "what": "право локации «Добавление локации в сети» — тумблер сотрудника, хозяин staff"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-051",
+  "what": "ссылки из экранов лояльности на карточку клиента сети — хозяин loyalty, наша сторона (карточка) готова"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-052",
+  "what": "блок «Данные сети» в окне записи локации — нет расширения bookingWindow под network"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-053",
+  "what": "правило слияния дублей клиентов в сети — экран слияния принадлежит clients"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-061",
+  "what": "уведомления сетевой лояльности только в сети/SMS — экраны loyalty"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-074",
+  "what": "«Учитывать сотрудника в заполненности» — карточка сотрудника, хозяин staff"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-084",
+  "what": "блокировка полей названия/категории сетевой услуги в форме филиала — сама форма принадлежит services, наше расширение только показывает пояснение рядом"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-096",
+  "what": "только сетевые услуги/товары в акциях лояльности — экраны loyalty"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-107",
+  "what": "сетевая должность только для чтения в филиале — экран должностей, хозяин staff/resources"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-110",
+  "what": "общий календарь сетевого мастера между филиалами — проверка пересечений в создании записи (journal/ядро)"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-115",
+  "what": "копирование товара между локациями из карточки товара — экран склада, хозяин stock"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-119",
+  "what": "сетевая категория товаров только для чтения в филиале — экран склада, хозяин stock"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-121",
+  "what": "сетевая ссылка онлайн-записи — экран «Ссылки на онлайн-запись», хозяин online"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-122",
+  "what": "список/карта филиалов в сетевой ссылке — хозяин online"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-123",
+  "what": "основная ссылка локации vs сетевая — хозяин online"
+ },
+ {
+  "area": "network",
+  "fId": "F-11-124",
+  "what": "выбор филиала клиентом в сетевом виджете — хозяин online"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-019",
+  "what": "journal day grid by resource - not my path (journal)"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-020",
+  "what": "journal week view for one resource - journal"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-021",
+  "what": "default journal display setting - journal/settings"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-022",
+  "what": "swap labels staff/resource in booking block - journal grid"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-023",
+  "what": "drag booking between resources - journal grid"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-024",
+  "what": "resources in mobile business app - no separate mobile app in project"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-025",
+  "what": "resource filter in Bookings report - reports"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-027",
+  "what": "journal booking type setting - journal/settings"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-029",
+  "what": "online booking whole-service only for group service - online"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-031",
+  "what": "prepayment/membership for group service - services/loyalty/online"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-032",
+  "what": "group service in network - network"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-042",
+  "what": "event icons/filter in journal grid - journal (data ready via api/resources.ts)"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-010",
+  "what": "staff-as-workplace - staff card, staff area"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-015",
+  "what": "resources hidden from client - client app screens"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-016",
+  "what": "split booking by resource setting - journal/settings"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-018",
+  "what": "resources for external bots/integrations - integrations"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-008",
+  "what": "«Учитывать сотрудника в заполненности» belongs to the staffCard host (owned by staff area, not a reports extension point) — filed as request #10, not built"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-043",
+  "what": "journal mini-calendar day-load circle belongs to the journal area — filed as request #11, not built"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-063",
+  "what": "already built in stock/OperationsScreen.tsx under F-08-* ids — filed cross-marking request #15 instead of editing another area's files"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-081",
+  "what": "network cabinet's scheduled-Excel-email toggle — belongs to network/settings — filed request #12, not built"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-082",
+  "what": "user's own-data export in personal account — belongs to settings area — filed request #12, not built"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-083",
+  "what": "the 'еженедельный отчёт' message type is unfindable in the source Altegio spec itself (marked ❓ there) — deliberately not invented, filed as open question #13"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-089",
+  "what": "adminAnalytics right modeled earlier but which report it should gate is unknown even in the spec (❓) — no speculative UI built"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-090",
+  "what": "free 'view-only' role/billing model lives in config/permissions.ts and settings/billing, outside reports' owned paths — reports-side behavior (view without edit) already correct via defaultReportsPermissions"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-091",
+  "what": "already fully built in network/AnalyticsScreen.tsx + analytics/AnalyticsReports.tsx under F-11-062/063 — needs cross-marking by network's builder, request #9 filed"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-092",
+  "what": "same as F-12-091, network AnalyticsScreen summary tab (F-11-064-ish) — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-093",
+  "what": "network LocationsDetailTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-094",
+  "what": "network DailyDetailTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-095",
+  "what": "network ParamsDetailTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-096",
+  "what": "network PlanExecutionTab + PlansScreen already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-097",
+  "what": "network ServicesReportTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-098",
+  "what": "network StaffReportTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-099",
+  "what": "network HrReportTab already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-100",
+  "what": "network RecordsScreen.tsx already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-101",
+  "what": "network SubdivisionsScreen.tsx already built — cross-marking requested"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-027",
+  "what": "cross-screen 'new/lost' definitions summary would require touching help text in 10+ screens across several areas, some not owned by reports — left as-is to avoid destabilizing other areas' copy"
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-165",
+  "what": "balance top-up built (MessageBalanceSettings, tagged) but lives in app settings, not in Billing (owned by settings area) — request filed in qa/requests/integrations.md"
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-124..130",
+  "what": "verified already built via our-decision replacement in client/StoriesGeneratorScreen (not my path) — not tagged by me, no code change needed"
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-138",
+  "what": "verified already built in online/WidgetScreen (not my path) — not tagged by me"
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-167..170",
+  "what": "owned by journal per plan's notOurs table, not found anywhere in src (likely not built yet by journal) — not my path, nothing built"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-006",
+  "what": "Already fully built by the clients area (F-04-054, DiscountFields.tsx) — different area's path, documented in qa/requests/loyalty.md for cross-tagging, not built/tagged by me"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-007",
+  "what": "Already fully built by clients (F-04-053, DiscountFields.tsx) — same cross-area duplicate-spec situation, documented, not tagged by me"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-008",
+  "what": "Already fully built by clients (F-04-115/116, LoyaltyProgramScreen.tsx) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-009",
+  "what": "Already fully built by clients (F-04-117) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-010",
+  "what": "Already fully built by clients (F-04-118/119/158) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-011",
+  "what": "Already fully built by clients (F-04-118/119/158) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-012",
+  "what": "Already fully built by clients (F-04-120) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-013",
+  "what": "Recalc engine already exists in clients (saveLoyaltyProgram/recalcClientLoyalty) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-014",
+  "what": "Conflict resolution already implemented inside clients' engine — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-018",
+  "what": "Old card-number field already built by clients (F-04-054) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-019",
+  "what": "Permission gate exists in clients' screen (generic settings.manage, own gap already flagged by clients area) — not my path"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-068",
+  "what": "Already fully built by clients (F-04-099, SettingsHub.tsx) — documented request to cross-tag"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-071",
+  "what": "Belongs to stock's 'Складские операции' screen, which has no loyalty extension host yet — engine function offered via request, not built (no host to mount it in)"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-072",
+  "what": "Belongs to resources' group-event window, no extension host exists there — documented request"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-075",
+  "what": "Belongs to journal's day-summary header (not my path) — data exists in loyalty transactions, need journal to call a function I can write on request"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-094",
+  "what": "Belongs to stock's product/category screen — certificates aren't stock items in our implementation by design; documented as likely non-applicable"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-104",
+  "what": "Restriction is about stock's product archive screen — not applicable to our certificate model (no stock coupling), so nothing to build in my path"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-128",
+  "what": "Belongs to services/online's booking-slot validation — engine function offered via request, not wired since I don't own that screen"
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-171",
+  "what": "Уже построено в clients/journal (ClientContactButtons.tsx, messengers.ts, ClientZone.tsx), не мой путь — не тегирую чужой файл."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-186",
+  "what": "Уже построено в finance/MethodsScreen.tsx (F-07-031), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-187",
+  "what": "Уже построено в finance/online/OnlinePaymentsScreen.tsx (F-07-076/080), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-188",
+  "what": "Уже построено там же, карточка Stripe (F-07-134), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-190",
+  "what": "Уже построено там же, карточка VivaWallet (F-07-138), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-193",
+  "what": "Уже построено там же, карточка WayForPay (F-07-140), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-207",
+  "what": "Уже построено в finance/FiscalScreen.tsx (F-07-157, Венгрия/Billingo), не мой путь."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-208",
+  "what": "Уже построено: сканер штрихкода — stock/GoodPicker.tsx+CameraScanner (F-08-090/091); формат чека — finance/SettingsScreen.tsx (F-07-147/158). Не мои пути."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-209",
+  "what": "НЕ построено нигде: notify/InboxScreen.tsx имеет только вкладки «Записи»/«Новости», раздела «Звонки» нет. Не мой путь (notify) — данные для него живут в network (callHistory) и reports (CallsScreen). Записал просьбу notify в qa/requests/integrations.md вместо самовольной правки чужого файла."
+ },
+ {
+  "area": "integrations",
+  "fId": "F-13-213",
+  "what": "Уже построено в online/places/PlacesScreen.tsx (data-f F-00-074/075/076, ссылка на Яндекс.Карты по нашему решению). Не мой путь."
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-195…200, F-01-216, F-01-218",
+  "what": "Окно события полностью построено resources (EventWindowScreen.tsx, теги F-16-xxx) согласно плану раздела («окно события — resources»); не мой путь, попросил resources со-пометить своими F-01-Id"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-202, F-01-203",
+  "what": "Уже построены integrations (F-13-093, F-13-062…070); F-01-203 требует функцию recordWebhookDelivery в api/integrations.ts, которой пока нет — заведена просьба"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-201",
+  "what": "Google Calendar экспорт — реальный пробел, экран по ТЗ в src/areas/staff (не мой путь); просьба записана"
+ },
+ {
+  "area": "journal",
+  "fId": "F-01-206, F-01-207, F-01-208, F-01-209, F-01-210, F-01-212, F-01-213",
+  "what": "Лояльность/скидки/личный счёт/возвраты в окне записи — не успел в этой пачке; PaymentSheet.tsx частично нащупал (реферальная плитка disabled-заглушка), но личная скидка, автопромо, личный счёт и частичный/полный возврат не построены; взято в следующую пачку, начиная с F-01-207"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-062",
+  "what": "Автосписание с абонемента — настройка живёт в services (Расширенные настройки услуги) и loyalty (типы абонементов); не мой путь, записано в qa/requests/resources.md"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-063",
+  "what": "Расходники участника — хозяин stock (склад); своя нескладская витрина F-16-059 уже есть, настоящее списание ждёт вклада stock"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-084",
+  "what": "Тип ссылки онлайн-записи — online, /biz/online/**, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-085",
+  "what": "Выбор типа записи в смешанной ссылке — виджет online, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-086",
+  "what": "Список событий в виджете — online, не мой путь; моя API-сторона (listGroupServices, GroupEvent) готова"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-087",
+  "what": "Места в онлайн-записи на событие — online виджет; GroupSeatsSettings (F-16-049) готов как основа"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-088",
+  "what": "Настройка «Запись на несколько событий» — ссылка online, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-089",
+  "what": "Блок «Записаться ещё» в виджете — online, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-090",
+  "what": "Абонемент и предоплата при онлайн-записи на событие — online + loyalty, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-091",
+  "what": "Управление записью на событие клиентом — виджет/личный кабинет online, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-092",
+  "what": "Событие в Altegio.me: стоимость по числу мест — client/online, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-093",
+  "what": "События аналитики групповой записи — фундамент/analytics, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-094",
+  "what": "Групповая запись во внешних системах — integrations, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-102",
+  "what": "Отчёт «События»: показатели — reports, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-103",
+  "what": "Отчёт «События»: колонки, фильтры, переходы — reports, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-104",
+  "what": "Удаление событий из отчёта — reports; моя deleteGroupEvents уже готова для вызова оттуда"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-105",
+  "what": "Права на отчёт «События» — reports/permissions, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-106",
+  "what": "Зарплата ведущего за групповое событие — payroll, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-123",
+  "what": "Пакет в сети — network (филиалы сети), не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-125",
+  "what": "Запись пакета в журнале: создание — journal bookingWindow, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-126",
+  "what": "Назначение мастеров на услуги пакета — journal bookingWindow, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-127",
+  "what": "Связанные записи пакета — journal, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-128",
+  "what": "Перенос пакетной записи — journal, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-129",
+  "what": "Обычная услуга в пакетной записи — journal bookingWindow, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-130",
+  "what": "Несколько пакетов в одной записи — journal bookingWindow, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-131",
+  "what": "Удаление пакета/услуги ИЗ ЗАПИСИ (не из шаблона пакета) — journal bookingWindow, не мой путь"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-132",
+  "what": "Пакет в онлайн-записи клиентом — online виджет, не мой путь"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-147",
+  "what": "ядро хранит sphereIds массивами, но useSphere() в src/demo/hooks.ts (фундамент) не объединяет features по ним — эскалировано повторно"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-149",
+  "what": "построено в resources area, не наш путь для маркера — записана просьба"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-050",
+  "what": "экран staff area, не наш путь; наш previewPriceChange уже готов для подключения"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-051",
+  "what": "форма staff area, не наш путь"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-092",
+  "what": "тип уведомления — notify area, не наш путь; данные готовы"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-095",
+  "what": "Готово-когда требует принятого решения, решения нет"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-150",
+  "what": "экран нужен в карточке пациента (clients/journal), не наш путь"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-002",
+  "what": "файл client area, не наш путь; просьба на теги отправлена в b02"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-003",
+  "what": "тот же чужой файл, шаг подтверждения кодом отсутствует"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-004",
+  "what": "тот же чужой файл; требуется код подтверждения, которого нет"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-006",
+  "what": "уже есть в RegisterBusinessScreen.tsx (client area), не наш путь"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-007",
+  "what": "тот же чужой экран"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-008",
+  "what": "тот же чужой экран"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-010",
+  "what": "нет отдельного мобильного приложения, UI не строил"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-011",
+  "what": "уже 1:1 в client area LoginScreen.tsx, не наш путь"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-014",
+  "what": "требует переключателя филиалов в общем каркасе, не строил заглушку"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-015",
+  "what": "по сути закрыта InviteAcceptScreen, отдельно не маркировал"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-016",
+  "what": "требует связку с StaffInvite (staff area), сейчас мок"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-125",
+  "what": "использование категорий — journal/online area"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-126",
+  "what": "категории событий — resources area, редирект уже есть"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-127",
+  "what": "категории клиентов — clients area, редирект уже есть"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-028",
+  "what": "статья-решение 'отложено', не UI-критерий"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-029",
+  "what": "статья-решение 'не решено'"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-030",
+  "what": "статья-решение 'не решено'"
+ },
+ {
+  "area": "settings",
+  "fId": "F-00-154",
+  "what": "статья-решение, порядок волн не выбран"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-011,018,022,024,025,026,028,029,031,036,037,038,040,061,062,063,067,068,074,075,076,077,084,088,091,092",
+  "what": "21 из 25 заданных F-id по qa/plan/schedule.md принадлежат другим разделам (journal/staff/online/settings/network/notify/reports/payroll/integrations/client/platform) — их экраны строят те разделы, schedule даёт только API-контракт; не трогал чужие пути, не помечал"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-116",
+  "what": "правило сокращения ФИО не применено в ReviewsScreen (третье место из ТЗ); своего права clients.viewFullName нет — временно переиспользован clients.phones/recordsPhones, заявка в qa/requests/reports.md №16"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-102/103/104",
+  "what": "только справочная карта-ссылка на /biz/network — сама раздача прав/валюты сети живёт в кабинете сети (чужой путь src/app/biz/network/**), не строил там"
+ },
+ {
+  "area": "reports",
+  "fId": "F-12-107/108/109/110",
+  "what": "остаются 🔒-демо карточками (нет настоящих интеграций нигде в проекте — осознанный предел «только интерфейс»)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-003",
+  "what": "Кнопка «Каталог товаров» в журнале — экран принадлежит journal (F-01-153); stock уже отдаёт listGoods/searchGoods, запрос в qa/requests/stock.md"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-068",
+  "what": "Продажа товара в окне визита — хост journal (F-01-060); createSaleOperation/getBookingConsumables готовы"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-069",
+  "what": "Продажа товара в групповом событии — хост resources (F-16-059); уже разобрано прошлой пачкой g1-2, createSaleOperation готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-074",
+  "what": "Продажа по ссылке/QR — хост finance (F-07-082), отложено до кошелька (F-00-028)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-078",
+  "what": "Онлайн-продажа/импорт абонементов — хост loyalty (F-06-151, F-06-130)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-108",
+  "what": "Товары в других отчётах — хост reports; ждёт решения владельца об источнике отчётов (уже описано в g1-2)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-115",
+  "what": "Права на отчёты склада — хост reports (F-12-088)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-119",
+  "what": "Права на склад и оплата лицензии — хост settings (F-15-045), со стороны stock менять нечего"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-120",
+  "what": "Контрагенты (поставщики) — хост finance (F-07-019…023)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-121",
+  "what": "Статьи платежей склада — хост finance (F-07-008/009)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-122",
+  "what": "Документы склада в Финансы→Документы — хост finance (F-07-024); listOperations готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-123",
+  "what": "Вычет расходников из зарплаты — хост payroll (F-09-024/110); getBookingConsumables готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-124",
+  "what": "Процент за продажу товаров — хост payroll (F-09-031); listProductSales/listOperations готовы"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-125",
+  "what": "Себестоимость в расчёте зарплаты — хост payroll (F-09-034); costPriceAt готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-126",
+  "what": "Премии от товарного оборота — хост payroll (F-09-043/052)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-127",
+  "what": "Ограничения лояльности по товарам — хост loyalty (F-06-026/066/090)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-128",
+  "what": "Товары сети — хост network (F-11-111); networkGroupId/copyGoodToLocationsNetworked готовы"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-129",
+  "what": "Сетевые категории, раздача по локациям — хост network (F-11-112/113)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-131",
+  "what": "Миграция товаров в сеть — хост network (F-11-116)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-132",
+  "what": "Объединение товаров локации и сети — хост network (F-11-117); NETWORK_LOCAL_FIELDS готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-133",
+  "what": "Архивация товаров сети — хост network (F-11-118); archiveGood/archiveGoods готовы"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-134",
+  "what": "Права пользователя сети на склад — хост network (F-11-034); уже разобрано g1-2, getStockPermissions/setStockPermissions готовы"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-137",
+  "what": "Купленные товары у клиента в Altegio.me — хост client (F-14-024); уже разобрано g1-2, listProductSales готов"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-138",
+  "what": "Вебхуки по складу — хост integrations (F-13-063)"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-139",
+  "what": "Журнал «Изменения данных» — хост staff (F-10-100/105); уже разобрано g1-2"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-140",
+  "what": "Журнал «Операции с данными» — хост staff (F-10-102); уже разобрано g1-2"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-141",
+  "what": "Фискальный чек через ККМ — хост finance (F-07-151), не делаем без решения бухгалтера"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-148",
+  "what": "Контрагенты: Excel загрузка/выгрузка — хост finance (F-07-022)"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-093",
+  "what": "notOurs — хозяин integrations (план: F-13-106/107); наш контракт getFreeSlots/getNearestSlots уже даёт единый расчёт окон, ничего не строил в чужом пути"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-094",
+  "what": "notOurs — хозяин integrations/reports; решения «строить ли у себя» нет в 00-our-decisions.md, ничего не строил"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-095",
+  "what": "notOurs — хозяин client (план: F-14-012/016); контракт getFreeSlots/getNearestSlots уже готов"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-096",
+  "what": "notOurs — хозяин payroll (план: F-09-036); контракт getWorkDays уже готов"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-100",
+  "what": "notOurs — хозяин platform (план: F-00-176), в Altegio это платная услуга вне кабинета, экрана строить негде"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-101",
+  "what": "notOurs — хозяин integrations (план: F-13-136); данные графика по сотрудникам уже доступны, отдельного нового контракта план не заявляет"
+ },
+ {
+  "area": "schedule",
+  "fId": "F-02-104",
+  "what": "notOurs — хозяин reports (план: F-12-105); контракт getScheduledMinutes/getWorkDays уже готов"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-172",
+  "what": "функция getPromotionsReport (api/loyalty.ts) готова, но не отмечается fids.mjs — страница отчёта живёт в разделе reports (не мой путь), там JSX для data-f негде поставить"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-146",
+  "what": "уже 1:1 построено в разделе clients (PaymentsFields.tsx/ClientMoneySummary.tsx/ImportExportScreen.tsx под F-04-id) — не мой путь, попросил кросс-тегирование"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-150 / F-06-165",
+  "what": "виджет онлайн-записи — путь online, нет хоста расширения для loyalty в виджете"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-154 / F-06-155",
+  "what": "само ТЗ помечает 🔒/«по решению» (F-00-022/028 ещё не принято); пути journal/integrations"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-161 / F-06-163",
+  "what": "оплата лояльностью и личный кабинет в клиентском виджете записи — путь online, движок готов, нужен хост"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-164",
+  "what": "сторис на главной приложения — путь client, нет хоста расширения главной"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-166 / F-06-167 / F-06-168 / F-06-170 / F-06-171",
+  "what": "внешние интеграции (BondUs/LoyalCards/Boomerangme/Flocktory/чат-боты) — ТЗ само помечает 🔒 «по решению», партнёр не выбран; путь integrations"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-173 / F-06-174",
+  "what": "лояльность в отчётах/финансах и журналы выгрузок — пути reports/finance/notify, данные готовы (listTransactions), экрана нет"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-175 / F-06-176 / F-06-177",
+  "what": "8 галочек прав локации + смежные + права сети — общий файл src/config/permissions.ts, предложил точный список ключей в запросе"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-178",
+  "what": "корректировка зарплаты на лояльность — путь payroll"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-179",
+  "what": "вебхук по картам лояльности — конфиг вебхуков в integrations, предложил тип события и payload"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-181",
+  "what": "слияние дублей клиента — путь clients, не проверял их код, попросил подтверждение/решение"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-182",
+  "what": "фискальный документ Бразилии — не наша страна, предложил добавить в «Снято» 00-our-decisions.md"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-184 / F-06-185",
+  "what": "ручная скидка на строку визита / скидка комплекса — пути journal/services, к лояльности не относятся по ТЗ"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-004",
+  "what": "Уже построено settings/QuickStartScreen.tsx под тегом F-15-019 (чужой файл) — нужен только доп. тег F-10-004; заведено в qa/requests/staff.md"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-021",
+  "what": "Функционал (регистрация/вход по ссылке, переход индивидуала в салон) построен в settings/InviteAcceptScreen.tsx, но читает свой мок приглашения, не настоящий StaffInvite из api/staff.ts — нужна склейка, решение оставлено владельцу файла в запросе"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-034",
+  "what": "Построено в schedule/staff-card/StaffAccessSection.tsx под F-02-083 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-035",
+  "what": "Построено в schedule/staff-card/StaffAccessSection.tsx под F-02-081/082 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-052",
+  "what": "Построено в network/PositionsScreen.tsx под F-11-104…106 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-098",
+  "what": "Построено в schedule/staff-card/StaffGoogleSection.tsx под F-02-090 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-114",
+  "what": "Не экран — справочный пункт ТЗ; правило зафиксировано в pricing.ts и requests, тег не нужен"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-116",
+  "what": "Не экран — справочный пункт ТЗ; аналогично F-10-114"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-118",
+  "what": "Построено в network/UsersScreen.tsx и PayrollScreen.tsx под F-11-024…027/036/109 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-120",
+  "what": "Построено в settings/account/* под F-15-147 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-121",
+  "what": "Построено в settings/account/AccountScreen.tsx под F-15-172 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-122",
+  "what": "Построено в settings/account/ProfileTab.tsx под F-15-147/148 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-123",
+  "what": "Построено в settings/account/PhoneTab.tsx под F-15-149 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-124",
+  "what": "Построено в settings/account/EmailTab.tsx под F-15-150 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-125",
+  "what": "Построено в settings/account/PasswordTab.tsx под F-15-151/152 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-126",
+  "what": "Построено в settings/account/NotificationsTab.tsx под F-15-153/160 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-127",
+  "what": "Построено в settings/account/PrivacyTab.tsx под F-15-154/155/156/161 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-128",
+  "what": "Построено в settings/account/AccountScreen.tsx под F-15-147/171 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-129",
+  "what": "Построено в settings/account/ManagementTab.tsx под F-15-157/158 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-130",
+  "what": "Построено в settings/account/LanguageTab.tsx под F-15-134 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-133",
+  "what": "Закрыто нашим решением 25.09 (один адаптивный веб вместо мобильного приложения) — journal.others и F-01-178/179 в journal/lib/rights.ts дают то же поведение; тег чужой"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-134",
+  "what": "Аналогично F-10-133 — journal/lib/rights.ts, F-01-178/179"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-135",
+  "what": "Построено в reports/MyAnalyticsScreen.tsx под F-12-106 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-136",
+  "what": "Аналогично F-10-133 — права-гейт вкладок реализован через journal.others/F-01-178/179"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-138",
+  "what": "Построено в network/StaffScreen.tsx, UsersScreen.tsx под F-11-100/102/024…027/036 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-139",
+  "what": "Построено в network/StaffMigrationScreen.tsx под F-11-102/103 — нужен доп. тег"
+ },
+ {
+  "area": "staff",
+  "fId": "F-10-140",
+  "what": "Построено в network/UsersScreen.tsx под F-11-024…027/036 — нужен доп. тег"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-182",
+  "what": "второй критерий «решено, нужна ли тёмная тема кабинета» — решения нет, только зафиксирован факт единого оформления"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-183",
+  "what": "второй критерий «решено, подключаем ли кнопку записи в Яндекс/Google Картах» — решения нет"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-128",
+  "what": "назначение категории клиенту вручную/массово — путь clients (карточка/база клиентов), не settings"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-129",
+  "what": "автоправила категорий — вкладка «Программа лояльности» клиента, путь clients"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-130",
+  "what": "показ метки клиента в журнале/окне записи — пути journal"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-131",
+  "what": "фильтр по категории в отчётах — путь reports"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-137",
+  "what": "язык шаблонов WhatsApp-рассыльщика — шаблоны сообщений в notify; у нас платный WhatsApp снят решением (F-00-120)"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-138",
+  "what": "языки виджета онлайн-записи — путь online/(client)"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-139",
+  "what": "язык по умолчанию у ссылки онлайн-записи — путь online"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-140",
+  "what": "какой язык видит клиент и смена — путь online/client"
+ },
+ {
+  "area": "settings",
+  "fId": "F-15-143",
+  "what": "текст согласия на ПДн по языкам — вкладка «Обработка персональных данных» в online, не в нашем LegalScreen"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-186",
+  "what": "Колонка «баланс депозита» и фильтр «Баланс счета» в списке клиентской базы — файл принадлежит разделу clients, не моим путям. Готовая функция listClientAccountBalances(businessId) добавлена в src/api/loyalty.ts; запрос clients-разделу записан в qa/requests/loyalty.md"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-190",
+  "what": "Функция полностью построена в разделе notify (src/areas/notify/lib/registry.ts, src/domain/notify.ts, TypeConditionsFields.tsx) — не мои файлы, не могу проставить data-f. Запрос notify-разделу записан в qa/requests/loyalty.md"
+ },
+ {
+  "area": "loyalty",
+  "fId": "F-06-192",
+  "what": "Сознательно не строил: партнёрская интеграция только в украинской справке, партнёр для Армении не определён (сам ТЗ помечает «решить»). Решение и обоснование записаны в qa/requests/loyalty.md"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-161",
+  "what": "Нет режима «наведи на сетку журнала и кликни слот» — это чужой файл JournalScreen.tsx (сетка); наша сторона передаёт waitlist=<id>&date=&staff= в URL /biz/journal?new=1, как описано в «Стыках» плана раздела"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-162",
+  "what": "closeWaitlistEntry(id,bookingId) уже готов на нашей стороне (api/resources.ts), но реальный вызов после сохранения записи должен сделать journal в своём окне записи — это открытая просьба, уже записанная в qa/requests/resources.md ранее"
+ },
+ {
+  "area": "resources",
+  "fId": "F-16-145/146/147/148",
+  "what": "НЕ строил — по таблице notOurs в qa/plan/resources.md и 16-resources-groups-waitlist.md эти функции принадлежат payroll (145/146/147) и journal (148), а не resources"
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-150",
+  "what": "«Импорт визитов из Excel и проданные товары» — экран целиком принадлежит journal/reports и там не начат вообще; со стороны stock только зафиксировано решение (перенесённый товар — строка визита без складского движения) в qa/requests/stock.md, data-f не ставился (нет экрана-носителя в путях stock)."
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-149",
+  "what": "Сам экран по-прежнему временно живёт в /biz/stock/settings/access, а не на карточке сотрудника (staffCard) — зависит от пары расширения staffCard/stock в фундаменте, просьба открыта повторно в qa/requests/stock.md."
+ },
+ {
+  "area": "stock",
+  "fId": "F-08-151",
+  "what": "«Из поиска клиента в журнале понятно, что покупки смотрят в карточке» и колонка «Продано» в таблице клиентской базы/правая часть карточки клиента — строит journal/clients; запрос оставлен в qa/requests/stock.md."
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-041",
+  "what": "email-always для типа 73 уже работает генерически; сама фича (групповое событие → ссылка на занятие, отправить повторно) — экран resources/journal, не мой путь, не строил"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-064",
+  "what": "маршрута /personal_account/notifications нет ни в одном разделе проекта — не мой путь"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-078",
+  "what": "лента уведомлений клиента уже построена в src/app/(client)/notifications — но это area client, не notify; не могу поставить data-f в чужом файле"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-083",
+  "what": "OnlineBookingRequest.reminderMinutesBefore есть у online, но не долетает до Booking (фундамент) — движок notify не может его прочитать; просьба фундаменту записана"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-085",
+  "what": "кнопка в отчёте «Визиты» — reports почти пустой раздел, не мой путь (уже отмечалось в прошлых отчётах)"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-086",
+  "what": "кнопки WhatsApp/Viber/Telegram полностью построены в journal/clients (ClientZone.tsx, messengers.ts) — не мой путь"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-114",
+  "what": "право «показывать телефон клиента» отсутствует вообще в src/config/permissions.ts; кнопки написать не проверяют право — три чужих файла (staff/settings/journal/clients), просьба записана"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-129",
+  "what": "добавлена функция sendFiscalReceiptEmail() в api/notify.ts + демо-строка в журнале, но finance/FiscalScreen.tsx её не вызывает — просьба записана"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-131",
+  "what": "добавлена функция sendDataExportEmail() + демо-строка, но reports/ExportExcelButton.tsx качает файл сразу в браузере — просьба записана"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-134",
+  "what": "добавлена функция sendPlanReportEmail() + демо-строка, но у network нет ни поля расписания, ни планировщика — просьба записана"
+ },
+ {
+  "area": "notify",
+  "fId": "F-05-137",
+  "what": "мессенджеры бизнеса заполняются в settings/ContactsScreen.tsx, но публичная страница /b/[slug] (online) их нигде не показывает клиенту — просьба записана"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-044",
+  "what": "needs a journal-grid calendar-cell extension host that doesn't exist; filed request in qa/requests/finance.md"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-048",
+  "what": "needs a groupEventWindow extension host that doesn't exist; filed request"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-056",
+  "what": "needs a field in the clients area's 'add client' form; filed request"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-051",
+  "what": "already fully built by the stock area (SaleFormScreen.tsx, F-08 ids) — not my path, documented, not duplicated"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-052",
+  "what": "same as F-07-051 — built by stock area"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-053",
+  "what": "goods-receipt-with-payment already built by stock area (createIncomeOperation)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-054",
+  "what": "sale edit/cancel already built by stock area (updateSaleOperation/cancelSaleOperation)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-163",
+  "what": "belongs to reports area per existing ReportsScreen.tsx comment; not built there yet but not my path"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-164",
+  "what": "same — reports area's responsibility"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-165",
+  "what": "same — reports area's responsibility"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-170",
+  "what": "same — reports area's responsibility"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-006",
+  "what": "база процента исправлена; красная подсветка ведомости (F-09-070) на чистый возврат платежа может не сработать, т.к. booking.updatedAt не меняется при отмене оплаты в finance — записано в assumed"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-044/045/046/048",
+  "what": "ассистенты — setup в staff/journal/resources, не мой путь; запрос в qa/requests/payroll.md с конкретными файлами"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-069/073/074/075/076/077/078/079/109",
+  "what": "«Взаиморасчёты»/ведомость/выплата — экран и api в finance (src/areas/finance/SettlementsScreen.tsx, src/api/finance.ts); 073/074/075/077/078 функционально уже построены под тегами F-07-159…162, нужен только доп. тег; 069/079/109 требуют реальной доработки finance — детали в requests"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-080/084",
+  "what": "предупреждение при увольнении и шаблон роли «Бухгалтер» — staff/permissions.ts (фундамент), не мой путь; готовая функция getStaffBalance() передана в requests"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-090/091/095",
+  "what": "отчёты (юнит-экономика услуги, P&L, «Моя аналитика» администратора) — reports area, не мой путь; движок payroll уже отдаёт нужные числа"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-096/097",
+  "what": "«Расчёт зарплат» кабинета сети и право сети — network area, не мой путь"
+ },
+ {
+  "area": "payroll",
+  "fId": "F-09-098",
+  "what": "карточка AutoPayroll в каталоге интеграций — integrations area, не мой путь; наше решение — функционал встроен, карточка не обязательна"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-171",
+  "what": "Не наш путь — принадлежит разделу reports (план finance.md строка 341; уже задокументировано комментарием в ReportsScreen.tsx)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-172",
+  "what": "Не наш путь — reports, план строка 342 (кабинет сети → Планы)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-173",
+  "what": "Не наш путь — reports, план строка 343 (Изменения данных / Операции с данными)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-174",
+  "what": "Не наш путь — integrations, план строка 336 (вебхук «Для разработчиков»)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-179",
+  "what": "Не наш путь — settings, план строка 325 (Nota Fiscal, оплата подписки Altegio)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-180",
+  "what": "Не наш путь — journal, план строка 302 (импорт записей из Excel, F-01-182); finance-функции recordOperation/listAccounts уже готовы её принять"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-182",
+  "what": "Не наш путь — clients, план строка 307 (объединение/удаление карточки клиента)"
+ },
+ {
+  "area": "finance",
+  "fId": "F-07-184",
+  "what": "Частично не наш путь — права окна записи на правку оплаченного визита строит journal; finance-часть (F-07-181, «к оплате» у новой строки) уже есть в extensions/BookingWindow.tsx"
+ },
+ {
+  "area": "services",
+  "fId": "F-00-087",
+  "what": "Экран уже построен разделом settings (/biz/settings/gallery, F-15-111) и функционально верен; не мой путь — записал просьбу добавить второй data-f в qa/requests/services.md, сам не помечал"
+ }
+]

@@ -1,0 +1,20 @@
+{
+  "route": "/biz/stock/tech-cards",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "screenshot": "01-techcards" },
+    { "goto": "/biz/stock" },
+    { "wait": 500 },
+    { "click": "table >> role=row[name*=\"Гель-лак «Красный классик»\"] >> role=checkbox" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Ещё действия\"]" },
+    { "wait": 300 },
+    { "click": "role=menuitem[name=\"Архивировать выбранные\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-archive-attempt" }
+  ]
+}

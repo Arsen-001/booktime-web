@@ -1,0 +1,63 @@
+[
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/bookings/'] >> nth=0" },
+    { "wait": 1500 },
+    { "screenshot": "r2-detail-0" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-detail-0-bottom" }
+  ] },
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/bookings/'] >> nth=1" },
+    { "wait": 1500 },
+    { "screenshot": "r2-detail-1" },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-detail-1-bottom" },
+    { "click": "role=link[name=\"Перенести\"]" },
+    { "wait": 1500 },
+    { "screenshot": "r2-reschedule" }
+  ] },
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "css=a[href^='/bookings/'] >> nth=1" },
+    { "wait": 1200 },
+    { "click": "role=button[name=\"Отменить запись\"]" },
+    { "wait": 500 },
+    { "screenshot": "r2-cancel-dialog" },
+    { "click": "role=button[name=\"Да, отменить\"]" },
+    { "wait": 500 },
+    { "screenshot": "r2-cancel-done" }
+  ] },
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "wait": 400 },
+    { "screenshot": "r2-tab-past" },
+    { "click": "role=tab >> nth=2" },
+    { "wait": 400 },
+    { "screenshot": "r2-tab-cancelled" }
+  ] },
+{ "route": "/bookings", "persona": "client", "lang": "ru", "device": "desktop",
+  "steps": [
+    { "click": "css=a[href^='/bookings/'] >> nth=1" },
+    { "wait": 1500 },
+    { "screenshot": "r2-detail-desktop" }
+  ] },
+{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Сообщить, если освободится\"]" },
+    { "wait": 700 },
+    { "screenshot": "r2-waitlist-modal" },
+    { "click": "role=button[name=\"Встать в очередь\"]" },
+    { "wait": 500 },
+    { "screenshot": "r2-waitlist-toast" },
+    { "goto": "/bookings" },
+    { "wait": 1500 },
+    { "press": "End" },
+    { "wait": 300 },
+    { "screenshot": "r2-waitlist-in-bookings" }
+  ] }
+]

@@ -1,0 +1,12 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_ani&start=10:00&date=2026-10-15",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "fill": "role=textbox[name=\"Телефон\"] >> visible=true", "value": "+37400160001" },
+    { "wait": 900 },
+    { "click": "text=Ани Мелкумян" },
+    { "wait": 300 },
+    { "screenshot": "matched-client" }
+  ]
+}

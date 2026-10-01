@@ -1,0 +1,287 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T22:15:49.740Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-001",
+      "F-00-003",
+      "F-00-005",
+      "F-00-031",
+      "F-00-108",
+      "F-00-109",
+      "F-00-110",
+      "F-00-111",
+      "F-00-176"
+    ],
+    "scenarioSteps": {
+      "ok": 24,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/connect",
+      "url": "http://localhost:3710/platform/connect?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 4372,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-111",
+        "F-00-176"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "role=button[name=\"Начать подключение\"]"
+          },
+          "ok": true,
+          "ms": 290
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 405
+        },
+        {
+          "i": 3,
+          "step": {
+            "fill": "input[placeholder]",
+            "value": "QA g21 Salon"
+          },
+          "ok": true,
+          "ms": 206
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "input[placeholder=\"00 123 456\"]",
+            "value": "10203041"
+          },
+          "ok": true,
+          "ms": 26
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 233
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 7,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 188
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 9,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 196
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 700
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 181
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 703
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 14,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 701
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "text=Пн"
+          },
+          "ok": true,
+          "ms": 204
+        },
+        {
+          "i": 16,
+          "step": {
+            "click": "role=button[name=\"Далее\"]"
+          },
+          "ok": true,
+          "ms": 194
+        },
+        {
+          "i": 17,
+          "step": {
+            "wait": 700
+          },
+          "ok": true,
+          "ms": 702
+        },
+        {
+          "i": 18,
+          "step": {
+            "click": "role=button[name=\"Готово — подключить\"]"
+          },
+          "ok": true,
+          "ms": 2447
+        },
+        {
+          "i": 19,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 803
+        },
+        {
+          "i": 20,
+          "step": {
+            "screenshot": "after-finish"
+          },
+          "ok": true,
+          "ms": 61,
+          "screenshot": "qa/measure/platform/g2-1-connect-finish/platform-connect__platform-nails-ru-light-desktop__after-finish.png"
+        },
+        {
+          "i": 21,
+          "step": {
+            "goto": "/search"
+          },
+          "ok": true,
+          "ms": 2814
+        },
+        {
+          "i": 22,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 23,
+          "step": {
+            "expectText": "QA g21 Salon"
+          },
+          "ok": true,
+          "ms": 28
+        },
+        {
+          "i": 24,
+          "step": {
+            "screenshot": "search-found"
+          },
+          "ok": true,
+          "ms": 55,
+          "screenshot": "qa/measure/platform/g2-1-connect-finish/platform-connect__platform-nails-ru-light-desktop__search-found.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/g2-1-connect-finish/platform-connect__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/g2-1-connect-finish/platform-connect__platform-nails-ru-light-desktop__after-finish.png",
+        "qa/measure/platform/g2-1-connect-finish/platform-connect__platform-nails-ru-light-desktop__search-found.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

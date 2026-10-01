@@ -1,0 +1,29 @@
+[
+  {
+    "route": "/biz/clients/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Правила для классов важности" },
+      { "wait": 300 },
+      { "screenshot": "tab-classes" },
+      { "click": "role=button[name=\"Далее\"]" },
+      { "wait": 300 },
+      { "screenshot": "tabs-scrolled" }
+    ]
+  },
+  {
+    "route": "/biz/clients/loyalty",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "text=Правила для категорий" },
+      { "wait": 300 },
+      { "screenshot": "tab-categories" }
+    ]
+  }
+]

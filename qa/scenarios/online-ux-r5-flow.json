@@ -1,0 +1,13 @@
+[
+ {"name":"linkset-phone","route":"/biz/online","persona":"owner","device":"phone","steps":[
+  {"wait":1500},{"click":"role=link[name=\"Настроить\"]"},{"wait":4000},{"shot":"full","full":true}]},
+ {"name":"linkset-desk","route":"/biz/online","persona":"owner","device":"desktop","steps":[
+  {"wait":1500},{"click":"role=link[name=\"Настроить\"]"},{"wait":4000},{"shot":"full","full":true}]},
+ {"name":"links-network","route":"/biz/online","persona":"network","device":"phone","steps":[{"wait":2500},{"shot":"full","full":true}]},
+ {"name":"links-master","route":"/biz/online","persona":"master","device":"phone","steps":[{"wait":2500},{"shot":"full","full":true}]},
+ {"name":"links-error","route":"/biz/online","persona":"owner","device":"phone","query":"api=error","steps":[{"wait":3000},{"shot":"view"}]},
+ {"name":"requests-error","route":"/biz/online/requests","persona":"owner","device":"desktop","query":"api=error","steps":[{"wait":3000},{"shot":"view"}]},
+ {"name":"settings-slow","route":"/biz/online/settings","persona":"owner","device":"phone","query":"api=slow","steps":[{"wait":400},{"shot":"loading"}]},
+ {"name":"book-slow","route":"/b/nuri-nail-studio/book","persona":"guest","device":"phone","query":"api=slow","steps":[{"wait":400},{"shot":"loading"}]},
+ {"name":"pub-error","route":"/b/nuri-nail-studio","persona":"guest","device":"phone","query":"api=error","steps":[{"wait":3000},{"shot":"view"}]}
+]

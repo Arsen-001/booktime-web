@@ -1,0 +1,18 @@
+{
+  "route": "/biz/schedule/calendar",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 300 },
+    { "click": "text=Открыть весь день >> nth=0" },
+    { "wait": 400 },
+    { "click": "text=понедельник, 21 сентября" },
+    { "wait": 300 },
+    { "screenshot": "monday-scrolled" },
+    { "wait": 6000 },
+    { "screenshot": "toast-after-6s" }
+  ]
+}

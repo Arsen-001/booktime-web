@@ -1,0 +1,142 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T17:17:29.042Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-140",
+      "F-08-096",
+      "F-08-097",
+      "F-08-098"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/stock/settings",
+      "url": "http://localhost:3710/biz/stock/settings?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1620,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-140",
+        "F-08-096",
+        "F-08-097",
+        "F-08-098"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Ограничено"
+          },
+          "ok": true,
+          "ms": 233
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "01-checked"
+          },
+          "ok": true,
+          "ms": 73,
+          "screenshot": "qa/shots/stock-b03-m2/biz-stock-settings__owner-nails-ru-light-desktop__01-checked.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=combobox[name=/Алгоритм расчёта/]"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "02-dropdown-open"
+          },
+          "ok": true,
+          "ms": 51,
+          "screenshot": "qa/shots/stock-b03-m2/biz-stock-settings__owner-nails-ru-light-desktop__02-dropdown-open.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/stock-b03-m2/biz-stock-settings__owner-nails-ru-light-desktop.png",
+        "qa/shots/stock-b03-m2/biz-stock-settings__owner-nails-ru-light-desktop__01-checked.png",
+        "qa/shots/stock-b03-m2/biz-stock-settings__owner-nails-ru-light-desktop__02-dropdown-open.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

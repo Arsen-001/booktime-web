@@ -1,0 +1,223 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T02:00:52.428Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 1,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 6,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-01-002",
+      "F-01-003",
+      "F-01-004",
+      "F-01-009",
+      "F-01-012",
+      "F-01-013",
+      "F-01-014",
+      "F-01-015",
+      "F-01-018",
+      "F-01-019",
+      "F-01-022",
+      "F-01-023",
+      "F-01-024",
+      "F-01-026",
+      "F-01-027",
+      "F-01-031",
+      "F-01-034",
+      "F-01-110",
+      "F-01-111",
+      "F-01-114",
+      "F-01-186",
+      "F-01-187",
+      "F-01-188",
+      "F-01-205",
+      "F-01-214",
+      "F-01-215",
+      "F-01-220"
+    ],
+    "scenarioSteps": {
+      "ok": 5,
+      "fail": 1
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/journal?date=2026-10-20",
+      "url": "http://localhost:3710/biz/journal?date=2026-10-20&demo=owner&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 5542,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] обращение к базе вне request() — оберните в request(() => …) внутри src/api/<раздел>.ts\n    at push.useDb.getState (http://localhost:3710/_next/static/chunks/_0k1b3jq._.js:4189:97)\n    at mutateArea (http://localhost:3710/_next/static/chunks/src_1tebm5_._.js:21:131)\n    at flushDraftSync (http://localhost:3710/_next/static/chunks/src_0-op53c._.js:471:141)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "17:30–17:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.flex.h-full.w-full in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "16:30–16:50Снятие покрытия",
+          "w": 248,
+          "h": 28,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        },
+        {
+          "el": "button.absolute.top-0.right-0 in [data-f=F-01-026 F-01-027 F-01-214 F-01-031 F-01-110 F-01-111 F-01-114]",
+          "text": "Статус и оплата",
+          "w": 32,
+          "h": 32,
+          "inline": false
+        }
+      ],
+      "smallTargetsTotal": 6,
+      "dataF": [
+        "F-01-002",
+        "F-01-003",
+        "F-01-004",
+        "F-01-009",
+        "F-01-012",
+        "F-01-013",
+        "F-01-014",
+        "F-01-015",
+        "F-01-018",
+        "F-01-019",
+        "F-01-022",
+        "F-01-023",
+        "F-01-024",
+        "F-01-026",
+        "F-01-027",
+        "F-01-031",
+        "F-01-034",
+        "F-01-110",
+        "F-01-111",
+        "F-01-114",
+        "F-01-186",
+        "F-01-187",
+        "F-01-188",
+        "F-01-205",
+        "F-01-214",
+        "F-01-215",
+        "F-01-220"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "[data-testid='booking-block'] >> nth=0"
+          },
+          "ok": true,
+          "ms": 296
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 312
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "before-delete"
+          },
+          "ok": true,
+          "ms": 75,
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-restore/biz-journal__owner-nails-ru-light-desktop__before-delete.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=button[name=\"Удалить\"]"
+          },
+          "ok": true,
+          "ms": 827
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 6,
+          "step": {
+            "expectText": "Удалено"
+          },
+          "ok": false,
+          "ms": 8074,
+          "error": "locator.waitFor: Timeout 8000ms exceeded.",
+          "screenshot": "qa/shots/journal/b03-m1/m1-b03-delete-restore/biz-journal__owner-nails-ru-light-desktop__fail-6.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/journal/b03-m1/m1-b03-delete-restore/biz-journal__owner-nails-ru-light-desktop.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-restore/biz-journal__owner-nails-ru-light-desktop__before-delete.png",
+        "qa/shots/journal/b03-m1/m1-b03-delete-restore/biz-journal__owner-nails-ru-light-desktop__fail-6.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

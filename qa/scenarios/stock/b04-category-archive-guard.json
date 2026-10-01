@@ -1,0 +1,16 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=button[name=\"Изменить «Гель-лаки»\"]" },
+    { "wait": 200 },
+    { "screenshot": "category-gel-modal" },
+    { "click": "role=button[name=\"Архивировать\"]" },
+    { "wait": 400 },
+    { "screenshot": "category-archive-guard-toast" }
+  ]
+}

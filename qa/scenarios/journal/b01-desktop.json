@@ -1,0 +1,39 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"screenshot": "00-initial"},
+      {"click": "text=Сегодня"},
+      {"screenshot": "01-today-clicked"},
+      {"click": "[aria-label*='сентября'] >> nth=5"},
+      {"screenshot": "02-minical-day-click"},
+      {"click": "text=День"},
+      {"screenshot": "03-day-dropdown-open"},
+      {"click": "text=По должностям"},
+      {"screenshot": "04-positions-dropdown"},
+      {"click": "text=Статусы"},
+      {"screenshot": "05-status-filter-open"},
+      {"click": "text=15 минут"},
+      {"screenshot": "06-zoom-open"}
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "text=Неделя"},
+      {"screenshot": "10-week-mode"},
+      {"wait": 300},
+      {"screenshot": "11-week-view"}
+    ]
+  },
+  {
+    "route": "/biz/journal",
+    "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+    "steps": [
+      {"click": "text=Маникюр аппаратный >> nth=0"},
+      {"screenshot": "20-record-open"}
+    ]
+  }
+]

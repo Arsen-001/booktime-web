@@ -1,0 +1,41 @@
+[
+  {
+    "route": "/biz/network/clients",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "click": "table tbody tr:first-child" },
+      { "wait": 300 },
+      { "screenshot": "card-about" },
+      { "click": "role=tab[name=\"Доп. поля\"]" },
+      { "wait": 200 },
+      { "screenshot": "card-fields" },
+      { "click": "role=tab[name=\"История визитов\"]" },
+      { "wait": 200 },
+      { "screenshot": "card-history" },
+      { "click": "role=tab[name=\"Отправленные сообщения\"]" },
+      { "wait": 200 },
+      { "screenshot": "card-messages" },
+      { "click": "role=tab[name=\"Лояльность\"]" },
+      { "wait": 200 },
+      { "screenshot": "card-loyalty" },
+      { "click": "role=tab[name=\"Счета клиентов\"]" },
+      { "wait": 200 },
+      { "screenshot": "card-accounts" }
+    ]
+  },
+  {
+    "route": "/biz/network/clients",
+    "persona": "network",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "click": "main ul li button:first-of-type" },
+      { "wait": 300 },
+      { "screenshot": "card-phone" }
+    ]
+  }
+]

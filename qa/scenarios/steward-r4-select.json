@@ -1,0 +1,33 @@
+[
+  { "route": "/dev/ui/a", "persona": "owner", "device": "desktop",
+    "steps": [
+      { "click": "role=combobox[name=\"Шаг сетки\"]" },
+      { "expectVisible": "role=listbox" },
+      { "screenshot": "select-desktop-open" },
+      { "press": "ArrowDown" }, { "press": "Enter" },
+      { "expectText": "1 час" },
+      { "click": "role=combobox[name=\"Район\"]" },
+      { "fill": "[data-option-search] input", "value": "нор" },
+      { "screenshot": "select-desktop-search" },
+      { "press": "Enter" },
+      { "expectText": "Нор-Норк" },
+      { "click": "role=combobox[name=\"Район\"]" },
+      { "fill": "[data-option-search] input", "value": "яяя" },
+      { "screenshot": "select-desktop-nothing" },
+      { "press": "Escape" },
+      { "screenshot": "select-desktop-closed" }
+    ] },
+  { "route": "/dev/ui/a", "persona": "owner", "device": "phone",
+    "steps": [
+      { "click": "role=combobox[name=\"Филиал\"]" },
+      { "expectVisible": "role=dialog" },
+      { "screenshot": "select-phone-sheet" },
+      { "click": "role=option[name=\"Арабкир, ул. Комитаса\"]" },
+      { "expectText": "Арабкир, ул. Комитаса" },
+      { "click": "role=combobox[name=\"Район\"]" },
+      { "screenshot": "select-phone-sheet-search" },
+      { "click": "role=option[name=\"Кентрон\"]" },
+      { "expectText": "Кентрон" },
+      { "screenshot": "select-phone-after" }
+    ] }
+]

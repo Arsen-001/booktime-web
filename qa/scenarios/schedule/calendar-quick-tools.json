@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/schedule/calendar",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "screenshot": "00-staff-list" },
+      { "click": "text=Выберите мастера" },
+      { "wait": 200 },
+      { "click": "text=Ани Саргсян" },
+      { "wait": 500 },
+      { "screenshot": "01-master-calendar" },
+      { "click": "text=Как на прошлой неделе" },
+      { "wait": 400 },
+      { "screenshot": "02-after-as-last-week" }
+    ]
+  }
+]

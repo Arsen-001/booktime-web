@@ -1,0 +1,12 @@
+const page = state.owner;
+await L.go(page, '/biz/services/sv_muol23xgp3l7nm'); await page.waitForTimeout(1500);
+log('title', await page.locator('h1').innerText());
+log('price', await page.locator('input#svc-f-price').inputValue(), await page.locator('input#svc-f-price-max').inputValue().catch(()=>'-'));
+log('reminder', await page.getByLabel(/Напомнить клиенту через/).inputValue());
+await page.locator('input#svc-f-price-max').fill('14000');
+await page.getByRole('combobox', { name: 'Минуты' }).click(); await page.getByRole('option', { name: '45 мин' }).click();
+await page.getByRole('button', { name: 'Сохранить' }).click(); await page.waitForTimeout(2000);
+log('toast:', await page.locator('[data-sonner-toast],[role=status]').allInnerTexts());
+await L.go(page, '/biz/journal?new=1&staff=st_nuri_ani&date=2026-10-02&start=11%3A00&services=sv_muol23xgp3l7nm'); await page.waitForTimeout(2500);
+const t = await page.locator('[role=dialog]').last().innerText();
+log('journal end:', t.match(/Конец\n[^\n]+/)?.[0], '| line:', t.match(/QA Маникюр 0930\n\n[^\n]+/)?.[0]);

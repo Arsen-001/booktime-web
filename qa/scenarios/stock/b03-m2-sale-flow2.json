@@ -1,0 +1,20 @@
+[
+  {
+    "route": "/biz/stock/operations/new/sale",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 700 },
+      { "click": "text=Абонемент или сертификат" },
+      { "wait": 400 },
+      { "click": "role=tab[name=/Абонемент/]" },
+      { "wait": 300 },
+      { "screenshot": "06-membership-tab" },
+      { "click": "text=Подарочный сертификат 15 000" },
+      { "wait": 400 },
+      { "screenshot": "07-cert-added" }
+    ]
+  }
+]

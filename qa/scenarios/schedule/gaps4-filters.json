@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/biz/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "00-start" },
+      { "click": "button:has-text(\"Все\") >> nth=-1" },
+      { "wait": 300 },
+      { "screenshot": "01-hasSchedule-open" },
+      { "click": "[role=option]:has-text(\"Нет графика\")" },
+      { "wait": 2500 },
+      { "screenshot": "02-without-schedule" }
+    ]
+  }
+]

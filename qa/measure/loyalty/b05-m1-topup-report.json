@@ -1,0 +1,187 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T15:46:42.083Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 2,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-06-051",
+      "F-06-052",
+      "F-06-053",
+      "F-06-054",
+      "F-06-055",
+      "F-06-056",
+      "F-06-060",
+      "F-06-093",
+      "F-06-099",
+      "F-06-111",
+      "F-06-112",
+      "F-06-125",
+      "F-06-126",
+      "F-06-137",
+      "F-06-138",
+      "F-06-143",
+      "F-06-196"
+    ],
+    "scenarioSteps": {
+      "ok": 9,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/dev/ext/clientCard/loyalty",
+      "url": "http://localhost:3710/dev/ext/clientCard/loyalty?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 2674,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": [
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)",
+          "[mock-db] не удалось сохранить в localStorage QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'bp-mock-db' exceeded the quota.\n    at flush (http://localhost:3710/_next/static/chunks/src_mock_1gh918u._.js:188:26)"
+        ]
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-06-051",
+        "F-06-052",
+        "F-06-053",
+        "F-06-054",
+        "F-06-055",
+        "F-06-056",
+        "F-06-060",
+        "F-06-093",
+        "F-06-099",
+        "F-06-111",
+        "F-06-112",
+        "F-06-125",
+        "F-06-126",
+        "F-06-137",
+        "F-06-138",
+        "F-06-143",
+        "F-06-196"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 801
+        },
+        {
+          "i": 2,
+          "step": {
+            "screenshot": "before"
+          },
+          "ok": true,
+          "ms": 39,
+          "screenshot": "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__before.png"
+        },
+        {
+          "i": 3,
+          "step": {
+            "click": "role=button[name=\"Пополнить\"]"
+          },
+          "ok": true,
+          "ms": 207
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "role=dialog >> input",
+            "value": "1500"
+          },
+          "ok": true,
+          "ms": 12
+        },
+        {
+          "i": 5,
+          "step": {
+            "screenshot": "modal-filled"
+          },
+          "ok": true,
+          "ms": 98,
+          "screenshot": "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__modal-filled.png"
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=dialog >> role=button[name=\"Сохранить\"]"
+          },
+          "ok": true,
+          "ms": 820
+        },
+        {
+          "i": 7,
+          "step": {
+            "expectText": "Счёт пополнен"
+          },
+          "ok": true,
+          "ms": 3
+        },
+        {
+          "i": 8,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 9,
+          "step": {
+            "screenshot": "receipt"
+          },
+          "ok": true,
+          "ms": 103,
+          "screenshot": "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__receipt.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop.png",
+        "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__before.png",
+        "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__modal-filled.png",
+        "qa/shots/loyalty-b05-topup/dev-ext-clientCard-loyalty__owner-nails-ru-light-desktop__receipt.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

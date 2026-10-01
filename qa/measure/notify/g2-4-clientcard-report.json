@@ -1,0 +1,170 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T11:57:12.651Z",
+  "summary": {
+    "pages": 2,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-128",
+      "F-00-129",
+      "F-00-130",
+      "F-04-057",
+      "F-04-062",
+      "F-04-066",
+      "F-04-067",
+      "F-04-068",
+      "F-04-071",
+      "F-04-073",
+      "F-04-074",
+      "F-04-075",
+      "F-04-076",
+      "F-04-135",
+      "F-04-136",
+      "F-04-137",
+      "F-04-165",
+      "F-04-195",
+      "F-04-200",
+      "F-04-202",
+      "F-04-211",
+      "F-04-212",
+      "F-04-214",
+      "F-04-226"
+    ],
+    "scenarioSteps": {
+      "ok": 0,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/clients/cl_001",
+      "url": "http://localhost:3710/biz/clients/cl_001?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1372,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-128",
+        "F-00-129",
+        "F-00-130",
+        "F-04-057",
+        "F-04-062",
+        "F-04-066",
+        "F-04-067",
+        "F-04-068",
+        "F-04-071",
+        "F-04-073",
+        "F-04-074",
+        "F-04-075",
+        "F-04-076",
+        "F-04-135",
+        "F-04-136",
+        "F-04-137",
+        "F-04-165",
+        "F-04-195",
+        "F-04-200",
+        "F-04-202",
+        "F-04-211",
+        "F-04-212",
+        "F-04-214",
+        "F-04-226"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/notify/shots/g2-4-clientcard/biz-clients-cl-001__owner-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    },
+    {
+      "route": "/biz/clients/cl_001",
+      "url": "http://localhost:3710/biz/clients/cl_001?demo=master&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "master",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1570,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-128",
+        "F-04-057",
+        "F-04-066",
+        "F-04-071",
+        "F-04-075",
+        "F-04-076",
+        "F-04-165",
+        "F-04-195",
+        "F-04-200",
+        "F-04-202",
+        "F-04-212",
+        "F-04-226"
+      ],
+      "armenianFont": null,
+      "scenario": null,
+      "screenshots": [
+        "qa/measure/notify/shots/g2-4-clientcard/biz-clients-cl-001__master-nails-ru-light-desktop.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

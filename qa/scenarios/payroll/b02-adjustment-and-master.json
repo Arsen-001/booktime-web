@@ -1,0 +1,25 @@
+[
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"click": "text=Мариам Петросян"},
+    {"wait": 500},
+    {"click": "text=Внеочередное начисление"},
+    {"wait": 300},
+    {"fill": "input[placeholder='Например: за результат месяца']", "value": "Отпускные"},
+    {"click": "input[inputmode]"},
+    {"fill": "input[inputmode]", "value": "60000"},
+    {"click": "text=Сохранить"},
+    {"wait": 700},
+    {"screenshot": "01-after-adjustment"}
+  ]
+},
+{ "route": "/biz/finance/settlements", "persona": "master", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 700},
+    {"screenshot": "02-master-view"}
+  ]
+}
+]

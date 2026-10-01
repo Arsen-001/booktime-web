@@ -1,0 +1,16 @@
+{
+  "route": "/biz/clients/import",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "textarea", "value": "Name;Phone;Email;Gender;Date of birth\nAnna Petrosyan;+374 93 000000;bad-email;Q;15-03\nGevorg Sargsyan;37493000111;g@test.com;M;15-03-1990" },
+    { "click": "text=Загрузить вставленное" },
+    { "wait": 300 },
+    { "screenshot": "mapping-step" },
+    { "click": "role=button[name=\"Загрузить\"]" },
+    { "wait": 2000 },
+    { "screenshot": "result-step" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "[data-testid=booking-block]" },
+    { "wait": 500 },
+    { "screenshot": "opened-collapsed" },
+    { "click": "role=button[name=\"Сменить клиента\"]" },
+    { "wait": 300 },
+    { "screenshot": "editing" }
+  ]
+}

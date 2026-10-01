@@ -1,0 +1,33 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "role=tab[name=/Онлайн-запись/]" },
+    { "wait": 400 },
+    { "click": "text=Запретить онлайн-запись" },
+    { "wait": 500 },
+    { "screenshot": "01-blocked-toggled" },
+    { "goto": "/b/nuri-nail-studio/book" },
+    { "wait": 800 },
+    { "click": "text=Маникюр классический" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 300 },
+    { "click": "text=Гаяне Оганесян" },
+    { "wait": 300 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 600 },
+    { "click": "button >> text=/^\\d{1,2}:\\d{2}$/ >> nth=0" },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 400 },
+    { "fill": "input[placeholder='Введите имя']", "value": "Ани Мелкумян" },
+    { "fill": "input[placeholder='91 234 567']", "value": "00160001" },
+    { "click": "text=Записываясь, вы соглашаетесь" },
+    { "click": "role=button[name=/Записаться/]" },
+    { "wait": 1000 },
+    { "screenshot": "02-blocked-attempt-result" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "route": "/biz/journal?new=1&staff=st_nuri_mariam&start=15:00&date=2026-09-25",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 900 },
+    { "screenshot": "01-window-open" },
+    { "click": "[data-f=\"F-01-046\"] button" },
+    { "wait": 300 },
+    { "screenshot": "02-resources-dropdown" }
+  ]
+}

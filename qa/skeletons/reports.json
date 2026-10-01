@@ -1,0 +1,687 @@
+{
+ "at": "2026-09-29T23:35:23.943Z",
+ "api": "slow",
+ "results": [
+  {
+   "route": "/biz/reports",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 3,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports__phone__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  },
+  {
+   "route": "/biz/reports",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 3,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports__desktop__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  },
+  {
+   "route": "/biz/reports/visits",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/visits?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/reports/visits",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/visits?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/reports/r/appointments",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/r/appointments?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0.0001,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 74690,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "p.text-sm.text-muted in [data-f=F-12-033] «Найдено 325»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 96
+     },
+     "before": {
+      "x": 16,
+      "y": 741,
+      "w": 96,
+      "h": 20
+     },
+     "after": {
+      "x": 16,
+      "y": 741,
+      "w": 88,
+      "h": 20
+     },
+     "t": 76721,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "div.w-full in [data-f=F-12-033] «СотрудникУслугаКлиентВре»",
+     "what": "ul.row-links.flex.flex-col in [data-f=F-12-033] «Ани СаргсянУкрепление но»",
+     "sk": {
+      "h": 1180,
+      "w": 160
+     },
+     "before": {
+      "x": 16,
+      "y": 785,
+      "w": 358,
+      "h": 1682
+     },
+     "after": {
+      "x": 16,
+      "y": 785,
+      "w": 358,
+      "h": 1846
+     },
+     "t": 76721,
+     "dh": 164,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "p.text-xs.text-muted in [data-f=F-12-033] «Показаны результаты с 1 »",
+     "what": "#text",
+     "sk": {
+      "h": 16,
+      "w": 110
+     },
+     "before": {
+      "x": 16,
+      "y": 2491,
+      "w": 358,
+      "h": 16
+     },
+     "after": {
+      "x": 16,
+      "y": 2655,
+      "w": 358,
+      "h": 16
+     },
+     "t": 76721,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 16,
+     "y": 785,
+     "w": 358,
+     "h": 169,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "li.flex.items-start.gap-2 in [data-f=F-12-033] «Ани СаргсянУкрепление но»"
+    }
+   ],
+   "gone": [
+    {
+     "x": 16,
+     "y": 785,
+     "w": 358,
+     "h": 145,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "li.flex.items-start.gap-2 in [data-f=F-12-033] «Время визитаСтатус визит»"
+    }
+   ],
+   "maxSkeletons": 155,
+   "stuck": false,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports-r-appointments__phone__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports-r-appointments__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  },
+  {
+   "route": "/biz/reports/r/appointments",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/r/appointments?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "after": {
+      "x": 1186,
+      "y": 10,
+      "w": 226,
+      "h": 44
+     },
+     "t": 73395,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.hidden.w-36.truncate «Нарине Акопян»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 1232,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 73395,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    },
+    {
+     "where": "span.w-36.truncate in [data-f=F-15-014] «Nuri Nail Studio»",
+     "what": "#text",
+     "sk": {
+      "h": 20,
+      "w": 115
+     },
+     "before": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "after": {
+      "x": 308,
+      "y": 22,
+      "w": 144,
+      "h": 20
+     },
+     "t": 73796,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 288,
+     "y": 457,
+     "w": 1120,
+     "h": 664,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.relative.overflow-x-auto.rounded-xl in [data-f=F-12-033] «СотрудникУслугаКлиентВре»"
+    },
+    {
+     "x": 289,
+     "y": 511,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 572,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 593,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 23,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 633,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 654,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 25,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 694,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 715,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 27,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 755,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 776,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 29,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 816,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 837,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 31,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 877,
+     "w": 1300,
+     "h": 61,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 898,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 33,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    }
+   ],
+   "gone": [
+    {
+     "x": 288,
+     "y": 457,
+     "w": 1120,
+     "h": 319,
+     "sk": false,
+     "fixed": false,
+     "parent": -1,
+     "hint": "div.relative.overflow-x-auto.rounded-xl in [data-f=F-12-033] «СотрудникУслугаКлиентВре»"
+    },
+    {
+     "x": 289,
+     "y": 511,
+     "w": 1301,
+     "h": 53,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 564,
+     "w": 1301,
+     "h": 53,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 581,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 23,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 617,
+     "w": 1301,
+     "h": 53,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 634,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 25,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 670,
+     "w": 1301,
+     "h": 53,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 687,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 27,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    },
+    {
+     "x": 289,
+     "y": 723,
+     "w": 1301,
+     "h": 53,
+     "sk": false,
+     "fixed": false,
+     "parent": 18,
+     "hint": "tr.border-t.border-border in [data-f=F-12-033]"
+    },
+    {
+     "x": 309,
+     "y": 740,
+     "w": 20,
+     "h": 20,
+     "sk": false,
+     "fixed": false,
+     "parent": 29,
+     "hint": "span.relative.mt-0.5.inline-flex in [data-f=F-12-033]"
+    }
+   ],
+   "maxSkeletons": 155,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports-r-appointments__desktop__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports-r-appointments__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  },
+  {
+   "route": "/biz/reports/r/events",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/r/events?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/reports/r/events",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/r/events?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 0,
+   "stuck": false,
+   "error": "page.goto: Timeout 60000ms exceeded.",
+   "shots": []
+  },
+  {
+   "route": "/biz/reports/all",
+   "device": "phone",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/all?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [
+    {
+     "where": "button.flex.min-h-11.items-center «НАНарине Акопян»",
+     "what": "span.relative.inline-flex.shrink-0 «НА»",
+     "sk": {
+      "h": 32,
+      "w": 32
+     },
+     "before": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "after": {
+      "x": 334,
+      "y": 6,
+      "w": 44,
+      "h": 44
+     },
+     "t": 92572,
+     "dh": 0,
+     "dhVis": 0,
+     "bad": false
+    }
+   ],
+   "shifts": [],
+   "moved": [],
+   "gone": [],
+   "maxSkeletons": 3,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports-all__phone__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports-all__phone__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  },
+  {
+   "route": "/biz/reports/all",
+   "device": "desktop",
+   "persona": "owner",
+   "url": "http://localhost:3710/biz/reports/all?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&api=slow",
+   "cls": 0,
+   "blocks": [],
+   "shifts": [],
+   "moved": [
+    {
+     "x": 34,
+     "y": 596,
+     "w": 209,
+     "h": 208,
+     "sk": false,
+     "fixed": false,
+     "parent": 1,
+     "hint": "ul.mb-1.ml-5.5.mt-1 «Основные показателиВизит»"
+    },
+    {
+     "x": 46,
+     "y": 764,
+     "w": 197,
+     "h": 40,
+     "sk": false,
+     "fixed": false,
+     "parent": 3,
+     "hint": "a.relative.flex.min-h-10 «Все отчёты»"
+    }
+   ],
+   "gone": [
+    {
+     "x": 34,
+     "y": 708,
+     "w": 209,
+     "h": 208,
+     "sk": false,
+     "fixed": false,
+     "parent": 1,
+     "hint": "ul.mb-1.ml-5.5.mt-1 «Основные показателиВизит»"
+    },
+    {
+     "x": 46,
+     "y": 876,
+     "w": 197,
+     "h": 40,
+     "sk": false,
+     "fixed": false,
+     "parent": 3,
+     "hint": "a.relative.flex.min-h-10 «Все отчёты»"
+    }
+   ],
+   "maxSkeletons": 3,
+   "stuck": true,
+   "error": null,
+   "shots": [
+    "qa/skeletons/shots/reports/biz-reports-all__desktop__1-skeleton.png",
+    "qa/skeletons/shots/reports/biz-reports-all__desktop__2-final.png"
+   ],
+   "inner": 0,
+   "boxesEarly": false
+  }
+ ]
+}

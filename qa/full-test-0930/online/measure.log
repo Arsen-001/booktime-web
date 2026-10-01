@@ -1,0 +1,37 @@
+Замер: 24 стр. → qa/full-test-0930/shots/online/ (по 3 одновременно)
+  1/24  2/24  3/24  4/24  5/24  6/24  7/24  8/24  9/24  10/24  11/24  12/24  13/24  14/24  15/24  16/24  17/24  18/24  19/24  20/24  21/24  22/24  23/24  24/24
+страница                       кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр 
+─────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ─────
+/biz/online                    owner  ru  тел   0     0    0      —      0    12      ·         15.0с
+/biz/online                    owner  ru  деск  0     0    0      —      6    12      ·         15.0с
+/biz/online/page               owner  ru  тел   0     0    0      —      0    9       ·         45.0с
+/biz/online/page               owner  ru  деск  0     0    0      —      4    9       ·         31.7с
+/biz/online/widget             owner  ru  тел   1     0    0      —      0    12      ·         38.1с
+/biz/online/widget             owner  ru  деск  1     0    0      —      8    12      ·         8.8с 
+/biz/online/settings           owner  ru  тел   0     0    0      —      0    20      ·         8.1с 
+/biz/online/settings           owner  ru  деск  0     0    0      —      3    20      ·         3.5с 
+/biz/online/requests           owner  ru  тел   0     0    0      —      0    6       ·         3.4с 
+/biz/online/requests           owner  ru  деск  0     0    0      —      7    6       ·         2.8с 
+/biz/online/places             owner  ru  тел   0     0    0      —      0    10      ·         5.1с 
+/biz/online/places             owner  ru  деск  0     0    0      —      1    10      ·         5.0с 
+/b/nuri-nail-studio            owner  ru  тел   0     0    0      —      0    13      ·         4.5с 
+/b/nuri-nail-studio            owner  ru  деск  0     0    0      —      12   13      ·         2.8с 
+/dev/ext/bookingWindow/online  owner  ru  тел   0     0    0      —      0    0       ·         2.9с 
+/dev/ext/bookingWindow/online  owner  ru  деск  0     0    0      —      0    0       ·         2.9с 
+/dev/ext/clientCard/online     owner  ru  тел   0     0    0      —      0    3       ·         3.0с 
+/dev/ext/clientCard/online     owner  ru  деск  0     0    0      —      0    3       ·         2.9с 
+/dev/ext/staffCard/online      owner  ru  тел   0     0    0      —      0    5       ·         2.9с 
+/dev/ext/staffCard/online      owner  ru  деск  0     0    0      —      0    5       ·         3.3с 
+/dev/ext/serviceCard/online    owner  ru  тел   0     0    0      —      0    3       ·         3.1с 
+/dev/ext/serviceCard/online    owner  ru  деск  0     0    0      —      0    3       ·         2.4с 
+/dev/ext/settingsHub/online    owner  ru  тел   0     0    0      —      0    0       ·         3.3с 
+/dev/ext/settingsHub/online    owner  ru  деск  0     0    0      —      0    0       ·         2.7с 
+
+Итог: страниц 24 · ошибок консоли 2 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 41 · висит загрузка 0 · data-f 73
+Отчёт: qa/full-test-0930/shots/online/report.json
+
+• /biz/online/widget [owner/ru/phone]
+   Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+• /biz/online/widget [owner/ru/desktop]
+   Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:

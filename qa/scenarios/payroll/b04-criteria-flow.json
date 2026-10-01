@@ -1,0 +1,12 @@
+{"route":"/biz/payroll/criteria","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"role=button[name=\"Добавить критерий\"]"},
+   {"wait":900},
+   {"screenshot":"criterion-editor-created"},
+   {"click":"text=Количество"},
+   {"wait":400},
+   {"screenshot":"criterion-count-metric"},
+   {"click":"role=button[name=\"К списку критериев\"]"},
+   {"wait":500},
+   {"screenshot":"criteria-list-after"}
+ ]}

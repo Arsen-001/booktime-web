@@ -1,0 +1,12 @@
+import { chromium } from '@playwright/test';
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto('http://localhost:3710/biz/schedule?demo=owner&empty=0&sphere=nails&lang=ru&theme=light&mode=month');
+await page.waitForTimeout(1000);
+await page.click('text=Месяц');
+await page.waitForTimeout(500);
+const scroller = await page.locator('table').first().evaluateHandle(t => t.closest('[class*=overflow]'));
+await page.evaluate((el) => { el.scrollLeft = el.scrollWidth; }, scroller);
+await page.waitForTimeout(300);
+await page.screenshot({ path: 'qa/measure/schedule/g1-1-m1-scenarios/month-totals-scrolled.png' });
+await browser.close();

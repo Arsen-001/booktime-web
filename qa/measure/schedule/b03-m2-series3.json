@@ -1,0 +1,275 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T03:25:10.807Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-064"
+    ],
+    "scenarioSteps": {
+      "ok": 24,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/schedule/series",
+      "url": "http://localhost:3710/biz/schedule/series?demo=owner&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "owner",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 18457,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-064"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 807
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=+ Новая серия"
+          },
+          "ok": true,
+          "ms": 333
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 400
+        },
+        {
+          "i": 4,
+          "step": {
+            "click": "role=combobox[name=\"Сотрудник\"]"
+          },
+          "ok": true,
+          "ms": 187
+        },
+        {
+          "i": 5,
+          "step": {
+            "wait": 250
+          },
+          "ok": true,
+          "ms": 257
+        },
+        {
+          "i": 6,
+          "step": {
+            "click": "role=option >> nth=0"
+          },
+          "ok": true,
+          "ms": 190
+        },
+        {
+          "i": 7,
+          "step": {
+            "wait": 250
+          },
+          "ok": true,
+          "ms": 252
+        },
+        {
+          "i": 8,
+          "step": {
+            "fill": "input[placeholder=\"Как зовут клиента\"]",
+            "value": "Тест Серия"
+          },
+          "ok": true,
+          "ms": 34
+        },
+        {
+          "i": 9,
+          "step": {
+            "fill": "input[placeholder=\"91 234 567\"]",
+            "value": "91234567"
+          },
+          "ok": true,
+          "ms": 17
+        },
+        {
+          "i": 10,
+          "step": {
+            "wait": 150
+          },
+          "ok": true,
+          "ms": 154
+        },
+        {
+          "i": 11,
+          "step": {
+            "click": "role=combobox[name=\"Услуга\"]"
+          },
+          "ok": true,
+          "ms": 239
+        },
+        {
+          "i": 12,
+          "step": {
+            "wait": 250
+          },
+          "ok": true,
+          "ms": 253
+        },
+        {
+          "i": 13,
+          "step": {
+            "click": "role=option >> nth=0"
+          },
+          "ok": true,
+          "ms": 179
+        },
+        {
+          "i": 14,
+          "step": {
+            "wait": 250
+          },
+          "ok": true,
+          "ms": 250
+        },
+        {
+          "i": 15,
+          "step": {
+            "click": "text=Каждые N дней"
+          },
+          "ok": true,
+          "ms": 198
+        },
+        {
+          "i": 16,
+          "step": {
+            "wait": 200
+          },
+          "ok": true,
+          "ms": 201
+        },
+        {
+          "i": 17,
+          "step": {
+            "screenshot": "form-filled"
+          },
+          "ok": true,
+          "ms": 125,
+          "screenshot": "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__form-filled.png"
+        },
+        {
+          "i": 18,
+          "step": {
+            "click": "text=Создать серию"
+          },
+          "ok": true,
+          "ms": 8214
+        },
+        {
+          "i": 19,
+          "step": {
+            "wait": 800
+          },
+          "ok": true,
+          "ms": 802
+        },
+        {
+          "i": 20,
+          "step": {
+            "screenshot": "creating-progress"
+          },
+          "ok": true,
+          "ms": 95,
+          "screenshot": "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__creating-progress.png"
+        },
+        {
+          "i": 21,
+          "step": {
+            "wait": 5000
+          },
+          "ok": true,
+          "ms": 5000
+        },
+        {
+          "i": 22,
+          "step": {
+            "screenshot": "creating-progress-2"
+          },
+          "ok": true,
+          "ms": 97,
+          "screenshot": "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__creating-progress-2.png"
+        },
+        {
+          "i": 23,
+          "step": {
+            "wait": 10000
+          },
+          "ok": true,
+          "ms": 10002
+        },
+        {
+          "i": 24,
+          "step": {
+            "screenshot": "after-create"
+          },
+          "ok": true,
+          "ms": 85,
+          "screenshot": "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__after-create.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop.png",
+        "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__form-filled.png",
+        "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__creating-progress.png",
+        "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__creating-progress-2.png",
+        "qa/measure/schedule/b03-m2-series3/biz-schedule-series__owner-nails-ru-light-desktop__after-create.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

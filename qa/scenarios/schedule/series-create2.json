@@ -1,0 +1,16 @@
+{
+  "route": "/biz/schedule/series",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "text=+ Новая серия" },
+    { "wait": 300 },
+    { "click": "text=Выберите сотрудника" },
+    { "wait": 200 },
+    { "screenshot": "staff-dropdown" }
+  ]
+}

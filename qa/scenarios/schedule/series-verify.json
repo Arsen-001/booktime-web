@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/biz/schedule/series",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "button:has-text(\"+ Новая серия\") >> nth=0" },
+      { "wait": 400 },
+      { "click": "text=Выберите сотрудника" },
+      { "wait": 200 },
+      { "click": "text=Ани Саргсян" },
+      { "wait": 200 },
+      { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Тест Серия" },
+      { "fill": "input[placeholder=\"91 234 567\"]", "value": "91234567" },
+      { "click": "text=Выберите услугу" },
+      { "wait": 200 },
+      { "click": "[role=\"option\"] >> nth=0" },
+      { "wait": 200 },
+      { "click": "text=Каждые N дней" },
+      { "wait": 200 },
+      { "click": "button:has-text(\"Создать серию\")" },
+      { "wait": 4000 },
+      { "screenshot": "01-created-full-progress" },
+      { "click": "role=button[name=\"×\"] >> nth=0" },
+      { "wait": 500 },
+      { "screenshot": "02-closed-list" },
+      { "goto": "/biz/schedule/series" },
+      { "wait": 800 },
+      { "screenshot": "03-after-reload" }
+    ]
+  }
+]

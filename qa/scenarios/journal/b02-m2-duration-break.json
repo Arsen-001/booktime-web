@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 500 },
+      { "screenshot": "m2-duration-before" },
+      { "click": "[data-f=\"F-01-042 F-01-043 F-01-044\"] >> text=Длительность" },
+      { "wait": 200 },
+      { "screenshot": "m2-duration-open" },
+      { "click": "text=+ Добавить перерыв" },
+      { "wait": 300 },
+      { "screenshot": "m2-break-added" }
+    ]
+  }
+]

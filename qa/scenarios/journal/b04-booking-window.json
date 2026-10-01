@@ -1,0 +1,35 @@
+[
+  {
+    "route": "/biz/journal",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "text=Новая запись" },
+      { "wait": 400 },
+      { "click": "text=Обычная запись" },
+      { "wait": 500 },
+      { "click": "role=button[name=/^Маникюр классический/]" },
+      { "wait": 400 },
+      { "click": "role=button[name=/^Снятие покрытия/]" },
+      { "wait": 400 },
+      { "screenshot": "20-two-services-total" },
+      { "click": "role=button[name=\"+\"] >> nth=0" },
+      { "wait": 400 },
+      { "screenshot": "21-qty-increased" },
+      { "fill": "input[placeholder='91 234 567']", "value": "77003344" },
+      { "fill": "input[placeholder='Имя']", "value": "Мульти Тест" },
+      { "wait": 200 },
+      { "click": "text=Записывает другого посетителя" },
+      { "wait": 200 },
+      { "fill": "input[placeholder=\"Введите имя посетителя\"]", "value": "Малыш Тестов" },
+      { "wait": 200 },
+      { "screenshot": "22-visitor-checked-before-save" },
+      { "click": "role=button[name=\"Записать\"]" },
+      { "wait": 700 },
+      { "screenshot": "23-saved-with-visitor" }
+    ]
+  }
+]

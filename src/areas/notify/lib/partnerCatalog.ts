@@ -1,0 +1,192 @@
+/**
+ * Каталог приложений-каналов (F-05-069 SMS-агрегаторы, F-05-070 маркетплейс «Уведомления», F-05-075
+ * мессенджер-боты партнёров) — статический список, общий для всех бизнесов; подключение к бизнесу —
+ * отдельно, в срезе (NotifyState.partnerConnections). Данные — 1:1 из ТЗ (05-notifications.md §7, §9).
+ */
+import type { PartnerApp } from '@/domain/notify';
+
+/** F-05-119: что провайдер обязан реализовать, чтобы стать каналом — общий текст для всех SMS-агрегаторов */
+export const SMS_AGGREGATOR_REQUIREMENTS_RU =
+  'Обратный вызов статуса «Передано оператору» / «Доставлено» с суммой, валютой и числом частей (0 — бесплатно); ' +
+  'активация интеграции в филиале по ключу API при регистрации пользователя; список купленных имён отправителя — ' +
+  'передавать нам, чтобы пользователь выбрал имя из списка.';
+export const SMS_AGGREGATOR_REQUIREMENTS_EN =
+  'A delivery-status webhook ("handed to operator" / "delivered") with amount, currency and part count (0 — free); ' +
+  "activating the integration in the location with an API key on the user's sign-up; the list of purchased sender " +
+  'names, so the user can pick one from it.';
+
+export const PARTNER_APPS: PartnerApp[] = [
+  {
+    id: 'pa_messaggio',
+    name: 'MESSAGGIO',
+    type: 'smsAggregator',
+    channels: ['sms', 'viber', 'whatsapp'],
+    capabilities: ['massMailing', 'serviceNotify', 'cascade'],
+    countries: { ru: 'Весь мир; в Армении — оплата в драмах или евро', en: 'Worldwide; Armenia pays in AMD or EUR' },
+    developer: 'Messaggio',
+    rating: 4.6,
+    installs: 3200,
+    priceNote: { ru: 'По тарифам агрегатора', en: 'Aggregator rates apply' },
+    description: {
+      ru: 'SMS, Viber и WhatsApp с каскадом Viber → SMS; альфа-имя проходит модерацию 1–5 рабочих дней.',
+      en: 'SMS, Viber and WhatsApp with a Viber → SMS cascade; sender name approval takes 1–5 business days.',
+    },
+    requirements: { ru: SMS_AGGREGATOR_REQUIREMENTS_RU, en: SMS_AGGREGATOR_REQUIREMENTS_EN },
+  },
+  {
+    id: 'pa_apifonica',
+    name: 'Apifonica',
+    type: 'smsAggregator',
+    channels: ['sms'],
+    capabilities: ['massMailing', 'serviceNotify'],
+    countries: { ru: 'Весь мир', en: 'Worldwide' },
+    developer: 'Apifonica',
+    rating: 4.4,
+    installs: 1800,
+    priceNote: { ru: 'По тарифам агрегатора', en: 'Aggregator rates apply' },
+    description: { ru: 'Альфа-имя вместо номера; подключение занимает около 5 минут.', en: 'Sender name instead of a number; connects in about 5 minutes.' },
+    requirements: { ru: SMS_AGGREGATOR_REQUIREMENTS_RU, en: SMS_AGGREGATOR_REQUIREMENTS_EN },
+  },
+  {
+    id: 'pa_smsto',
+    name: 'SMS.to',
+    type: 'smsAggregator',
+    channels: ['sms'],
+    capabilities: ['massMailing', 'serviceNotify'],
+    countries: { ru: 'Весь мир', en: 'Worldwide' },
+    developer: 'SMS.to',
+    rating: 4.3,
+    installs: 2100,
+    priceNote: { ru: 'По тарифам агрегатора, после пополнения баланса', en: 'Aggregator rates, after balance top-up' },
+    description: { ru: 'Регистрация с подтверждением телефона и пополнением баланса.', en: 'Sign up with phone confirmation and a balance top-up.' },
+    requirements: { ru: SMS_AGGREGATOR_REQUIREMENTS_RU, en: SMS_AGGREGATOR_REQUIREMENTS_EN },
+  },
+  {
+    id: 'pa_waxsms',
+    name: 'WAxSMS',
+    type: 'smsAggregator',
+    channels: ['sms', 'whatsapp'],
+    capabilities: ['massMailing', 'serviceNotify', 'cascade'],
+    countries: { ru: 'Работает через Android-телефон как SMS-шлюз', en: 'Runs through an Android phone as an SMS gateway' },
+    developer: 'WAxSMS',
+    rating: 4.1,
+    installs: 640,
+    priceNote: { ru: 'Бесплатный пакет «Start», далее тарифы 1/3/6/12 мес.', en: 'Free "Start" plan, then 1/3/6/12-month plans' },
+    freeTrialDays: 14,
+    description: { ru: 'Каскад WhatsApp → SMS; без оплаты за сообщение — свой телефон как шлюз.', en: 'WhatsApp → SMS cascade; no per-message fee — your own phone acts as the gateway.' },
+    requirements: { ru: SMS_AGGREGATOR_REQUIREMENTS_RU, en: SMS_AGGREGATOR_REQUIREMENTS_EN },
+    connectionKind: 'qr',
+  },
+  {
+    id: 'pa_flowsell',
+    name: 'Flowsell',
+    type: 'chatBot',
+    channels: ['telegram', 'whatsapp', 'sms'],
+    capabilities: ['bookingConfirm', 'winback', 'rfm', 'reports'],
+    countries: { ru: 'СНГ', en: 'CIS' },
+    developer: 'Flowsell.me',
+    rating: 4.5,
+    installs: 890,
+    priceNote: { ru: 'От $29 в месяц', en: 'From $29/mo' },
+    freeTrialDays: 7,
+    description: {
+      ru: 'Напоминания с подтверждением в сообщении, возврат «спящих» клиентов по RFM, ежедневные отчёты.',
+      en: 'Reminders with in-message confirmation, RFM win-back campaigns, daily reports.',
+    },
+  },
+  {
+    id: 'pa_assistbot',
+    name: 'AssistBot',
+    type: 'chatBot',
+    channels: ['telegram', 'voice'],
+    capabilities: ['bookingConfirm', 'reports'],
+    countries: { ru: 'СНГ', en: 'CIS' },
+    developer: 'AssistBot',
+    rating: 4.2,
+    installs: 410,
+    priceNote: { ru: 'От $20 в месяц', en: 'From $20/mo' },
+    description: {
+      ru: 'Напоминание за сутки с автоподтверждением и за час, голосовой канал.',
+      en: 'A day-ahead reminder with auto-confirmation, an hour-ahead one, a voice channel.',
+    },
+  },
+  {
+    id: 'pa_integrilla',
+    name: 'Integrilla',
+    type: 'chatBot',
+    channels: ['telegram', 'whatsapp', 'sms'],
+    capabilities: ['massMailing', 'cascade', 'bookingConfirm'],
+    countries: { ru: 'СНГ', en: 'CIS' },
+    developer: 'Integrilla',
+    rating: 4.0,
+    installs: 320,
+    priceNote: { ru: 'От 5 € (первый месяц 14,90 €)', en: 'From €5 (first month €14.90)' },
+    description: {
+      ru: 'Каскад Telegram – WhatsApp – SMS; автоподтверждение символами в WhatsApp; бесплатный бот следит за подключением.',
+      en: 'A Telegram – WhatsApp – SMS cascade; symbol-based WhatsApp auto-confirmation; a free bot watches the connection.',
+    },
+    connectionKind: 'qr',
+  },
+  {
+    id: 'pa_messagehelp',
+    name: 'Message.Help',
+    type: 'chatBot',
+    channels: ['whatsapp', 'telegram', 'viber', 'sms'],
+    capabilities: ['bookingConfirm', 'massMailing', 'reports', 'tasks'],
+    countries: { ru: 'только СНГ', en: 'CIS only' },
+    developer: 'Message.Help',
+    rating: 4.3,
+    installs: 260,
+    priceNote: { ru: 'От 15 € в месяц', en: 'From €15/mo' },
+    freeTrialDays: 3,
+    description: {
+      ru: 'Запись прямо в мессенджере по шагам; SMS — только клиентам без WhatsApp; бесплатная CRM с воронкой.',
+      en: 'Step-by-step booking right in the messenger; SMS only for clients without WhatsApp; free CRM with a pipeline.',
+    },
+  },
+  {
+    id: 'pa_revvy',
+    name: 'Revvy',
+    type: 'chatBot',
+    channels: ['telegram'],
+    capabilities: ['winback'],
+    countries: { ru: 'СНГ', en: 'CIS' },
+    developer: 'Revvy',
+    rating: 4.1,
+    installs: 150,
+    priceNote: { ru: '$50 в месяц', en: '$50/mo' },
+    description: { ru: 'Возврат «спящих» клиентов 15/30/60+ дней.', en: 'Brings back dormant clients after 15/30/60+ days.' },
+  },
+  {
+    id: 'pa_openslots',
+    name: 'Open Slots',
+    type: 'chatBot',
+    channels: ['telegram'],
+    capabilities: ['reports'],
+    countries: { ru: 'СНГ', en: 'CIS' },
+    developer: 'Open Slots',
+    rating: 4.4,
+    installs: 30,
+    priceNote: { ru: 'Бесплатно', en: 'Free' },
+    description: {
+      ru: 'Собирает свободные окна журнала в картинку для сторис и присылает её в Telegram по расписанию.',
+      en: 'Turns the journal’s free slots into a story-style image and delivers it to Telegram on a schedule.',
+    },
+  },
+  {
+    id: 'pa_beautyai',
+    name: 'Beauty AI – GPT',
+    type: 'chatBot',
+    channels: ['telegram'],
+    capabilities: ['winback', 'reports'],
+    countries: { ru: 'Армения, СНГ', en: 'Armenia, CIS' },
+    developer: 'Flowsell.me',
+    rating: 4.2,
+    installs: 89,
+    priceNote: { ru: 'Бесплатно', en: 'Free' },
+    description: {
+      ru: 'Ищет пустые окна на 7 дней вперёд, подбирает до 10 клиентов под каждое с готовым текстом приглашения.',
+      en: 'Scans empty slots 7 days ahead and matches up to 10 clients per slot with a ready invite text.',
+    },
+  },
+];

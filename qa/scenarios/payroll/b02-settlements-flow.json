@@ -1,0 +1,9 @@
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"screenshot": "01-empty-pick"},
+    {"click": "text=Выберите сотрудника"},
+    {"wait": 300},
+    {"screenshot": "02-staff-dropdown"}
+  ]
+}

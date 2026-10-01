@@ -1,0 +1,22 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });
+page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
+// найти ссылку owner mariam-nails
+await page.goto('http://localhost:3710/biz/online?demo=owner&sphere=nails&lang=ru&theme=light', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1000);
+await page.getByText('Настроить', { exact: true }).first().click();
+await page.waitForTimeout(1000);
+const pkgHeading = page.getByText('Пакеты услуг', { exact: true }).first();
+await pkgHeading.scrollIntoViewIfNeeded().catch(() => {});
+await page.waitForTimeout(500);
+await page.screenshot({ path: 'qa/shots/online/g1-3-m1/f130-linksettings.png', fullPage: true });
+console.log(await page.locator('body').innerText());
+console.log('errs', errs);
+await browser.close();
+release();

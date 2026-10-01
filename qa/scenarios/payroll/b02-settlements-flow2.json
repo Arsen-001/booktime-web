@@ -1,0 +1,20 @@
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"screenshot": "02-staff-options"},
+    {"click": "text=Мариам Петросян"},
+    {"wait": 500},
+    {"screenshot": "03-mariam-picked"},
+    {"click": "text=Создать расчётную ведомость"},
+    {"wait": 400},
+    {"screenshot": "04-sheet-modal"},
+    {"click": "text=/Создать/"},
+    {"wait": 700},
+    {"screenshot": "05-after-sheet"},
+    {"click": "text=Выписать премию"},
+    {"wait": 300},
+    {"screenshot": "06-bonus-modal"}
+  ]
+}

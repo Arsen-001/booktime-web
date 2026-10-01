@@ -1,0 +1,10 @@
+[
+  {"route":"/biz/clients","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+    {"wait":800},
+    {"click":"input[placeholder*=\"Поиск (\"]"},
+    {"fill":"input[placeholder*=\"Поиск (\"]","value":"zzzzzzzznoexist"},
+    {"wait":2000},
+    {"screenshot":"24-empty-search-v2"},
+    {"expectVisible":"text=Ани Мелкумян"}
+  ]}
+]

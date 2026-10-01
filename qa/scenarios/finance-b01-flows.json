@@ -1,0 +1,76 @@
+[
+  {
+    "route": "/biz/finance/accounts",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-accounts-list" },
+      { "click": "role=button[name=\"Новая касса\"]" },
+      { "wait": 300 },
+      { "fill": "input[placeholder=\"Например, «Основная касса»\"]", "value": "Касса у входа" },
+      { "screenshot": "02-account-form" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 700 },
+      { "expectText": "Касса у входа" },
+      { "screenshot": "03-account-created" },
+      { "click": "role=button[name=\"Перевести средства\"]" },
+      { "wait": 300 },
+      { "fill": "input[placeholder=\"0\"]", "value": "10000" },
+      { "screenshot": "04-transfer-form" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 700 },
+      { "expectText": "Перевод выполнен" },
+      { "screenshot": "05-transfer-done" }
+    ]
+  },
+  {
+    "route": "/biz/finance",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-operations-list" },
+      { "click": "role=button[name=\"Новый платёж\"]" },
+      { "wait": 300 },
+      { "screenshot": "02-new-operation-form" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 400 },
+      { "expectText": "Выберите статью" },
+      { "screenshot": "03-validation" }
+    ]
+  },
+  {
+    "route": "/biz/finance/counterparties",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-counterparties-list" },
+      { "click": "role=button[name=\"Добавить контрагента\"]" },
+      { "wait": 300 },
+      { "fill": "input[placeholder=\"Например, «ООО «Поставщик»»\"]", "value": "ИП Тестовый" },
+      { "screenshot": "02-counterparty-form" },
+      { "click": "role=button[name=\"Сохранить\"]" },
+      { "wait": 700 },
+      { "expectText": "ИП Тестовый" },
+      { "screenshot": "03-counterparty-created" }
+    ]
+  },
+  {
+    "route": "/biz/finance/items",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "01-items-list" },
+      { "click": "text=Оплата услуг" },
+      { "wait": 300 },
+      { "screenshot": "02-system-item-form" }
+    ]
+  }
+]

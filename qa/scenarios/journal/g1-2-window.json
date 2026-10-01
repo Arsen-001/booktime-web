@@ -1,0 +1,17 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Новая запись\"]" },
+    { "wait": 300 },
+    { "click": "text=Обычная запись" },
+    { "wait": 400 },
+    { "fill": "input[type=\"tel\"]", "value": "93" },
+    { "wait": 700 },
+    { "screenshot": "01-phone-typed" }
+  ]
+}

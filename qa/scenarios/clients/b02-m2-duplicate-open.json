@@ -1,0 +1,21 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "М2 Первый" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "77998800" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "expectText": "Клиент добавлен" },
+    { "wait": 600 },
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "М2 Дубликат" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "77998800" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "wait": 800 },
+    { "screenshot": "01-duplicate-result" },
+    { "expectText": "М2 Первый" }
+  ]
+}

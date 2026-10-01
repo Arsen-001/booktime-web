@@ -1,0 +1,14 @@
+{"route":"/biz/payroll/charts","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"role=button[name=\"Добавить схему\"]"},
+   {"wait":900},
+   {"screenshot":"chart-editor-created"},
+   {"click":"role=tab[name=\"Сотрудники\"]"},
+   {"wait":400},
+   {"screenshot":"chart-staff-tab"},
+   {"click":"role=tab[name=\"Настройка\"]"},
+   {"wait":300},
+   {"click":"role=button[name=\"К списку схем\"]"},
+   {"wait":500},
+   {"screenshot":"charts-list-after"}
+ ]}

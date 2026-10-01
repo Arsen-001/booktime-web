@@ -1,0 +1,11 @@
+import { start, stop, open, as, reload, text, shot, db, toasts } from './lib.mjs';
+await start();
+const { page } = await open('platform', '/platform/businesses', { device: 'desktop' });
+await page.getByText('Nuri Nail Studio').first().click(); await page.waitForTimeout(1500);
+await page.getByRole('tab', { name: /Копии и выгрузка/ }).click(); await page.waitForTimeout(1000);
+let t = await page.locator('body').innerText(); const i = t.indexOf('Копии'); console.log('COPIES', t.slice(i, i+500).replace(/\n/g,' | '));
+const d = await db(page); const biz='biz_nuri';
+console.log('DB: clients', d.core.clients.filter(c=>c.businessId===biz).length, 'bookings', d.core.bookings.filter(b=>b.businessId===biz && !b.deletedAt).length, 'services', d.core.services.filter(s=>s.businessId===biz).length, 'staff', d.core.staff.filter(s=>s.businessId===biz).length);
+await page.getByRole('button', { name: 'Сделать копию' }).click(); await page.waitForTimeout(1500); console.log('toasts', await toasts(page));
+t = await page.locator('body').innerText(); const j = t.indexOf('Копии'); console.log('AFTER', t.slice(j, j+300).replace(/\n/g,' | '));
+await stop();

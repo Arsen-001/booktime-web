@@ -1,0 +1,23 @@
+[
+  {
+    "route": "/biz/clients",
+    "persona": "owner",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "wait": 800
+      },
+      {
+        "fill": "input[placeholder=\"Поиск по клиентам, записям, услугам\"]",
+        "value": "Нелли Симонян"
+      },
+      {
+        "wait": 700
+      },
+      {
+        "screenshot": "clients-search"
+      }
+    ]
+  }
+]

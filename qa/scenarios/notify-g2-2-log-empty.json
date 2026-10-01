@@ -1,0 +1,11 @@
+{
+  "route": "/biz/notifications/log",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"fill": "input[placeholder='Поиск по телефону или email']", "value": "0000000000"},
+    {"wait": 300},
+    {"screenshot": "empty-filtered"}
+  ]
+}

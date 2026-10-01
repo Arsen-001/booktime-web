@@ -1,0 +1,33 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Изменить «Гель-лаки»\"]" },
+    { "wait": 400 },
+    { "screenshot": "01-category-open" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 300 },
+    { "screenshot": "02-delete-confirm-dialog" },
+    { "click": "[role=\"dialog\"] >> nth=-1 >> button:has-text(\"Отмена\")" },
+    { "wait": 300 },
+    { "press": "Escape" },
+    { "wait": 300 },
+    { "screenshot": "03-delete-blocked-not-empty-closed" },
+    { "click": "role=button[name=\"Добавить категорию\"]" },
+    { "wait": 300 },
+    { "fill": "[role=\"dialog\"] input >> nth=0", "value": "QA-удалить-пусто" },
+    { "click": "[role=\"dialog\"] button:has-text(\"Сохранить\")" },
+    { "wait": 500 },
+    { "screenshot": "04-new-empty-category-created" },
+    { "click": "role=button[name=\"Изменить «QA-удалить-пусто»\"]" },
+    { "wait": 400 },
+    { "click": "[role=\"dialog\"] >> nth=-1 >> button:has-text(\"Удалить\")" },
+    { "wait": 300 },
+    { "click": "[role=\"dialog\"] >> nth=-1 >> button:has-text(\"Удалить\")" },
+    { "wait": 500 },
+    { "screenshot": "05-empty-category-deleted" }
+  ]
+}

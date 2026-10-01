@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/online-sales",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Виджет" },
+    { "wait": 300 },
+    { "screenshot": "01-widget-tab" },
+    { "click": "role=switch[name=\"Включить витрину\"]" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Настройки сохранены" },
+    { "screenshot": "02-widget-enabled-saved" },
+    { "goto": "/biz/loyalty/online-sales/preview" },
+    { "wait": 600 },
+    { "screenshot": "03-preview-page" }
+  ]
+}

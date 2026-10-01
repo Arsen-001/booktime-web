@@ -1,0 +1,149 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T21:08:03.701Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-001",
+      "F-00-003",
+      "F-00-005",
+      "F-00-031",
+      "F-00-108",
+      "F-00-109",
+      "F-00-110",
+      "F-00-112"
+    ],
+    "scenarioSteps": {
+      "ok": 7,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/search",
+      "url": "http://localhost:3710/search?demo=guest&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 973,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-001",
+        "F-00-003",
+        "F-00-005",
+        "F-00-031",
+        "F-00-108",
+        "F-00-109",
+        "F-00-110",
+        "F-00-112"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "fill": "input[placeholder]",
+            "value": "zzzzznonsense"
+          },
+          "ok": true,
+          "ms": 36
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 600
+          },
+          "ok": true,
+          "ms": 601
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "empty-before-submit"
+          },
+          "ok": true,
+          "ms": 66,
+          "screenshot": "qa/shots/client/b01-m1/search-empty-lead/search__guest-nails-ru-light-phone__empty-before-submit.png"
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "input[placeholder='00 123 456']",
+            "value": "00123456"
+          },
+          "ok": true,
+          "ms": 5
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Сообщить, когда появится\"]"
+          },
+          "ok": true,
+          "ms": 387
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "empty-after-submit"
+          },
+          "ok": true,
+          "ms": 70,
+          "screenshot": "qa/shots/client/b01-m1/search-empty-lead/search__guest-nails-ru-light-phone__empty-after-submit.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/client/b01-m1/search-empty-lead/search__guest-nails-ru-light-phone.png",
+        "qa/shots/client/b01-m1/search-empty-lead/search__guest-nails-ru-light-phone__empty-before-submit.png",
+        "qa/shots/client/b01-m1/search-empty-lead/search__guest-nails-ru-light-phone__empty-after-submit.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "screenshot": "before" },
+    { "click": "table button >> nth=5" },
+    { "wait": 300 },
+    { "screenshot": "panel" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "screenshot": "after-save" }
+  ]
+}

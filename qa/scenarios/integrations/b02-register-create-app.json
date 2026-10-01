@@ -1,0 +1,19 @@
+[
+  {
+    "route": "/biz/integrations/developers",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "screenshot": "01-register-empty" },
+      { "fill": "input[placeholder=\"Например, «СтудияКод»\"]", "value": "ArmSMS Studio" },
+      { "fill": "textarea", "value": "Отправка SMS-уведомлений клиентам салонов" },
+      { "click": "text=Согласен с условиями кабинета разработчика" },
+      { "click": "role=button[name=\"Зарегистрироваться\"]" },
+      { "wait": 400 },
+      { "screenshot": "02-submit-missing-required" },
+      { "click": "text=Согласен с условиями кабинета разработчика" }
+    ]
+  }
+]

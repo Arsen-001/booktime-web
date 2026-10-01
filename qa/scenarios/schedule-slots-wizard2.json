@@ -1,0 +1,72 @@
+{
+  "route": "/biz/schedule/slots",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {
+      "wait": 500
+    },
+    {
+      "click": "role=button[name=\"Изменить правила\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "step-start"
+    },
+    {
+      "click": "role=radio[name=/От начала рабочего дня/]"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "step-3"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "step-4"
+    },
+    {
+      "click": "role=button[name=\"Далее\"]"
+    },
+    {
+      "wait": 200
+    },
+    {
+      "screenshot": "step-5-manual"
+    },
+    {
+      "click": "role=button[name=\"Завершить настройку\"]"
+    },
+    {
+      "wait": 300
+    },
+    {
+      "expectText": "Правила сохранены"
+    },
+    {
+      "expectVisible": "text=От начала рабочего дня"
+    },
+    {
+      "screenshot": "after-shift-start-saved"
+    }
+  ]
+}

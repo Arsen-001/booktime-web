@@ -1,0 +1,100 @@
+/*
+ * Журнал A2 (docs/design/DESIGN.md). Только то, что Tailwind не выражает: тон карточки из цвета-данных (--tone-*),
+ * тёмная тема этого тона, наведение/нажатие карточки чистым CSS (сетка — массовый список: без Motion на карточках),
+ * проявление панели «Требует внимания». Анимируются только transform и opacity.
+ */
+
+/* ── Карточка записи «C · Тон» ─────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  background-color: var(--tone-fill);
+  transition: transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Тень наведения — отдельным слоем, меняется только его opacity (не box-shadow) */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sh-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-1px);
+  }
+  .card:hover::after {
+    opacity: 1;
+  }
+}
+.card:active {
+  transform: scale(0.985);
+}
+.ink {
+  color: var(--tone-ink);
+}
+.drop {
+  background-color: var(--tone-drop);
+  box-shadow: 0 0 0 3px var(--tone-ring);
+}
+/*
+ * Ждёт подтверждения: пунктир warning 1.5px. Owner 27.09.2026: положительный outline-offset рисует пунктир
+ * ЗА пределами рамки записи — у записей без зазора (конец одной встык с началом следующей) он наезжал на
+ * соседнюю карточку. Отрицательный offset держит пунктир внутри собственного прямоугольника записи — не может
+ * задеть соседнюю, какой бы ни была высота обеих.
+ */
+.pending {
+  outline: 1.5px dashed var(--color-warning);
+  outline-offset: -3px;
+}
+
+/* Тёмная тема: тон кладём на тёмную поверхность, текст — светлый тон того же цвета (контраст ≥ 4.5:1 проверен) */
+:global(:root[data-theme='dark']) .card {
+  background-color: color-mix(in srgb, var(--tone-drop) 24%, var(--color-surface));
+}
+:global(:root[data-theme='dark']) .ink {
+  color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
+}
+:global(:root[data-theme='dark']) .drop {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone-drop) 45%, var(--color-surface));
+}
+
+/* ── Панель «Требует внимания»: содержимое проявляется со сдвигом, ширина встаёт сразу ─────────── */
+.panelIn {
+  animation: panel-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.stripIn {
+  animation: strip-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+@keyframes strip-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+/* ── Нижнее меню журнала на телефоне: «+» и тосты встают выше него ───────────────────────────── */
+@media (max-width: 767.98px) {
+  :global(:root):has([data-journal-tabbar]) {
+    --app-bottom-inset: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::after {
+    transition: none;
+  }
+  .card:hover,
+  .card:active {
+    transform: none;
+  }
+}

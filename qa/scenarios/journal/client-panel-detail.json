@@ -1,0 +1,16 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "[aria-label=\"Клиенты и чат\"]" },
+    { "wait": 300 },
+    { "fill": "input[placeholder=\"Поиск по имени или телефону\"]", "value": "98" },
+    { "wait": 400 },
+    { "click": "text=Гаяне Аветисян" },
+    { "wait": 400 },
+    { "screenshot": "client-detail" }
+  ]
+}

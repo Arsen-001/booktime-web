@@ -1,0 +1,15 @@
+[
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"screenshot": "00-card"},
+      {"click": "role=button[name=\"Изменить\"]"},
+      {"wait": 400},
+      {"screenshot": "01-editing"}
+    ]
+  }
+]

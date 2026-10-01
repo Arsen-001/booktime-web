@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/dev/ext/staffCard/schedule",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 1200 },
+      { "screenshot": "before" },
+      { "click": "text=Убрать из графика" },
+      { "wait": 700 },
+      { "screenshot": "after-remove-toast-visible" },
+      { "wait": 5300 },
+      { "screenshot": "after-undo-window-expired" }
+    ]
+  },
+  {
+    "route": "/dev/ext/staffCard/schedule",
+    "persona": "network",
+    "sphere": "hair",
+    "lang": "ru",
+    "theme": "light",
+    "device": "desktop",
+    "steps": [
+      { "wait": 1200 },
+      { "screenshot": "network-staffcard" }
+    ]
+  }
+]

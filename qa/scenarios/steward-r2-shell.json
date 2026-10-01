@@ -1,0 +1,6 @@
+[{ "route": "/biz/clients", "persona": "owner", "device": "phone",
+   "steps": [ {"wait": 800}, {"click": "role=button[name=\"Открыть меню\"]"}, {"wait": 500}, {"screenshot": "drawer"}, {"press": "Escape"}, {"wait": 400},
+              {"click": "header >> role=button[name=\"Поиск\"]"}, {"wait": 500}, {"fill": "[role=dialog] input[type=search]", "value": "Ани"}, {"screenshot": "search-sheet"},
+              {"press": "Enter"}, {"wait": 1500}, {"screenshot": "search-result"} ] },
+ { "route": "/biz/staff", "persona": "owner", "device": "desktop",
+   "steps": [ {"wait": 800}, {"screenshot": "nav-scrolled"} ] }]

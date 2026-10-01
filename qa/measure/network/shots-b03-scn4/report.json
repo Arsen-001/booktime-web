@@ -1,0 +1,104 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T19:51:57.171Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-11-104",
+      "F-11-105",
+      "F-11-106"
+    ],
+    "scenarioSteps": {
+      "ok": 3,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/biz/network/staff/positions",
+      "url": "http://localhost:3710/biz/network/staff/positions?demo=network&empty=0&sphere=hair&lang=ru&theme=light",
+      "persona": "network",
+      "sphere": "hair",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 1622,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-11-104",
+        "F-11-105",
+        "F-11-106"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Добавить должность >> nth=0"
+          },
+          "ok": true,
+          "ms": 217
+        },
+        {
+          "i": 2,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 3,
+          "step": {
+            "screenshot": "form"
+          },
+          "ok": true,
+          "ms": 107,
+          "screenshot": "qa/measure/network/shots-b03-scn4/biz-network-staff-positions__network-hair-ru-light-desktop__form.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/network/shots-b03-scn4/biz-network-staff-positions__network-hair-ru-light-desktop.png",
+        "qa/measure/network/shots-b03-scn4/biz-network-staff-positions__network-hair-ru-light-desktop__full.png",
+        "qa/measure/network/shots-b03-scn4/biz-network-staff-positions__network-hair-ru-light-desktop__form.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

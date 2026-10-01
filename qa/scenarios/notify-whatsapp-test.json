@@ -1,0 +1,17 @@
+{
+  "route": "/biz/notifications/channels/whatsapp",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Altegio Notification Sender" },
+    { "wait": 300 },
+    { "click": "role=button[name=\"Проверить шаблоны\"]" },
+    { "expectVisible": "text=Шаблоны одобрены" },
+    { "click": "role=button[name=\"Отправить тестовое сообщение\"]" },
+    { "wait": 500 },
+    { "screenshot": "after-test" }
+  ]
+}

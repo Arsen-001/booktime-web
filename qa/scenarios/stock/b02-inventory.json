@@ -1,0 +1,60 @@
+[
+{
+  "route": "/biz/stock/inventory",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 600 },
+    { "screenshot": "70-inventory-list" },
+    { "click": "role=link[name=\"Новая инвентаризация\"]" },
+    { "wait": 500 },
+    { "screenshot": "71-inventory-new-params" }
+  ]
+},
+{
+  "route": "/biz/stock/operations/new/write-off",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "80-writeoff-form" }
+  ]
+},
+{
+  "route": "/biz/stock/warehouses",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "90-warehouses-list" }
+  ]
+},
+{
+  "route": "/biz/stock/operations",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "95-master-persona-operations" }
+  ]
+},
+{
+  "route": "/biz/stock/operations",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 700 },
+    { "screenshot": "96-phone-operations" }
+  ]
+}
+]

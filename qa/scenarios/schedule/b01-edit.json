@@ -1,0 +1,24 @@
+{
+  "route": "/biz/schedule",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"wait": 500},
+    {"click": "button:has-text(\"—\") >> nth=0"},
+    {"wait": 300},
+    {"click": "[data-f=\"F-02-005\"] select >> nth=0"},
+    {"press": "ArrowDown"},
+    {"press": "Enter"},
+    {"wait": 300},
+    {"screenshot": "04-weekdays-template"},
+    {"click": "text=Добавить перерыв"},
+    {"wait": 200},
+    {"screenshot": "05-break-added"},
+    {"click": "role=button[name=\"Сохранить\"]"},
+    {"wait": 800},
+    {"screenshot": "06-after-save"}
+  ]
+}

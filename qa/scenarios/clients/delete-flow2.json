@@ -1,0 +1,21 @@
+[
+  {
+    "route": "/biz/clients/cl_002",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {"click": "[data-f=\"F-00-130 F-04-073 F-04-135 F-04-136 F-04-137\"]"},
+      {"wait": 300},
+      {"click": "text=Удалить"},
+      {"wait": 300},
+      {"click": "role=button[name=\"Удалить\"]"},
+      {"wait": 800},
+      {"screenshot": "02-deleted-state"},
+      {"goto": "/biz/clients/log"},
+      {"wait": 700},
+      {"screenshot": "03-log"}
+    ]
+  }
+]

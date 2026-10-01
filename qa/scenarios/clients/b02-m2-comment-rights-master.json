@@ -1,0 +1,14 @@
+{
+  "route": "/biz/clients/cl_001",
+  "persona": "master",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 800 },
+    { "screenshot": "01-card-master" },
+    { "fill": "textarea[placeholder]", "value": "Комментарий от мастера М2" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-comment-added-by-master" }
+  ]
+}

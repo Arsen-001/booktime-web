@@ -1,0 +1,13 @@
+[
+  {"route": "/biz/clients/categories", "persona": "owner", "sphere": "nails", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"wait": 400}, {"screenshot": "before"},
+     {"click": "text=Добавить категорию"},
+     {"wait": 200}, {"screenshot": "modal-open"},
+     {"fill": "[role=dialog] input[placeholder]", "value": "Тест-QA"},
+     {"click": "text=Сохранить"},
+     {"wait": 400},
+     {"expectText": "Тест-QA"},
+     {"screenshot": "after-create"}
+   ]}
+]

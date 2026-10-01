@@ -1,0 +1,22 @@
+{
+  "route": "/biz/loyalty/card-types/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder*=\"постоянного клиента\"]", "value": "QA авто-карта" },
+    { "click": "role=radio[name=\"Выдавать в любой локации\"]" },
+    { "screenshot": "01-autoissue-selected" },
+    { "click": "role=combobox", "index": 0 },
+    { "wait": 150 },
+    { "screenshot": "02-burn-select-open" },
+    { "press": "Escape" },
+    { "click": "role=radio[name=\"Не для товаров\"]" },
+    { "screenshot": "03-limit-none-products" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 600 },
+    { "expectText": "Тип карты создан" },
+    { "screenshot": "04-saved" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "route": "/biz/notifications/types/1/templates",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Email"},
+    {"wait": 300},
+    {"click": "text=Предпросмотр письма"},
+    {"wait": 400},
+    {"screenshot": "01-email-preview-modal"}
+  ]
+}

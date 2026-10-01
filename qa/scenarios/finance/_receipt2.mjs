@@ -1,0 +1,14 @@
+import { chromium } from '@playwright/test';
+import { acquireBrowserSlot } from '../../../scripts/pw-slots.mjs';
+const release = await acquireBrowserSlot();
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+page.on('pageerror', e => errors.push('pageerror: '+e.message));
+page.on('console', m => { if (m.type()==='error') errors.push(m.text()); });
+await page.goto('http://localhost:3710/biz/finance/receipt/bk_1617?demo=owner&lang=ru');
+await page.waitForTimeout(1200);
+await page.screenshot({ path: 'qa/shots/finance/b03-m2/receipt-screen.png', fullPage: true });
+console.log('ERRORS', JSON.stringify(errors));
+await browser.close();
+release();

@@ -1,0 +1,18 @@
+{ "route": "/biz/finance/settlements", "persona": "owner", "sphere": "nails", "lang": "ru", "theme": "light", "device": "desktop",
+  "steps": [
+    {"wait": 600},
+    {"click": "role=combobox"},
+    {"wait": 300},
+    {"click": "text=Ани Саргсян"},
+    {"wait": 500},
+    {"screenshot": "00-fresh-staff-balance"},
+    {"click": "text=Выдать зарплату"},
+    {"wait": 400},
+    {"screenshot": "01-payout-modal-no-balance"},
+    {"click": "input[inputmode]"},
+    {"fill": "input[inputmode]", "value": "3000"},
+    {"click": "role=button[name='Выдать'] >> nth=-1"},
+    {"wait": 700},
+    {"screenshot": "02-after-advance-expect-negative-3000"}
+  ]
+}

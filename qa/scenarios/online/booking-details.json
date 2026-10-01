@@ -1,0 +1,19 @@
+{
+  "route": "/b/nuri-nail-studio/book",
+  "persona": "guest",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "wait": 800 },
+    { "click": "text=Маникюр классический" },
+    { "wait": 200 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 300 },
+    { "click": "text=Сона Григорян" },
+    { "wait": 300 },
+    { "click": "role=button[name=/Продолжить/]" },
+    { "wait": 600 },
+    { "screenshot": "time-step" }
+  ]
+}

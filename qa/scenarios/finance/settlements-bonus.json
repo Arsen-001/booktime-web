@@ -1,0 +1,20 @@
+{
+  "route": "/biz/finance/settlements",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"wait": 800},
+    {"screenshot": "01-before"},
+    {"click": "role=button[name=\"Выписать премию\"]"},
+    {"wait": 300},
+    {"fill": "input[type=text] >> nth=0", "value": "Тест премия"},
+    {"fill": "input[inputmode=\"numeric\"]", "value": "50"},
+    {"click": "role=button[name=\"Сохранить\"]"},
+    {"wait": 700},
+    {"screenshot": "02-after-save"},
+    {"goto": "/biz/finance/settlements"},
+    {"wait": 800},
+    {"screenshot": "03-after-reload"}
+  ]
+}

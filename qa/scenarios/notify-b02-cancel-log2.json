@@ -1,0 +1,18 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Педикюр с гель-лаком" },
+    { "wait": 300 },
+    { "click": "button[aria-label=Удалить]" },
+    { "wait": 300 },
+    { "screenshot": "confirm" },
+    { "click": "role=button[name=\"Удалить\"]" },
+    { "wait": 600 },
+    { "goto": "/biz/notifications/log" },
+    { "fill": "input[placeholder*='телефон']", "value": "98 878" },
+    { "wait": 300 },
+    { "screenshot": "log-after-cancel2" }
+  ]
+}

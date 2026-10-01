@@ -1,0 +1,24 @@
+ERROR locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[role=dialog]').first().getByRole('button', { name: 'Сохранить изменения' })[22m
+[2m    - locator resolved to <button type="button" data-variant="primary" data-f="F-01-116 F-16-128" class="inline-flex items-center justify-center font-medium whitespace-nowrap select-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none aria-disabled:opacity-50 aria-disabled:pointer-events-none h-11 md:h-10 …>Сохранить изменения</button>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is visible, enabled and stable[22m
+[2m    - scrolling into view if needed[22m
+[2m    - done scrolling[22m
+[2m    - <main id="content" class="relative flex-1 px-4 pt-5 pb-10 md:px-6 md:pb-24 lg:px-8 lg:pt-7">…</main> from <div class="flex min-h-dvh bg-bg">…</div> subtree intercepts pointer events[22m
+[2m  - retrying click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is not stable[22m
+[2m  - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not stable[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m  - element was detached from the DOM, retrying[22m
+
+    at Module.default (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/cmd/1790797644520540000.mjs?t=1790797644645:10:64)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/journal-2/runner.mjs:19:75

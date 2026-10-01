@@ -1,0 +1,19 @@
+{
+  "route": "/biz/apps/stories",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "screenshot": "b05m1-before-fill" },
+    { "click": "role=radio[name=\"Завтра\"]" },
+    { "click": "role=button[name=\"Собрать картинку\"]" },
+    { "wait": 500 },
+    { "click": "role=button >> text=/Опубликовать за/" },
+    { "wait": 500 },
+    { "screenshot": "b05m1-after-fill-6of6" },
+    { "click": "role=button[name=\"Собрать картинку\"]" },
+    { "wait": 500 },
+    { "screenshot": "b05m1-queue-price-shown" }
+  ]
+}

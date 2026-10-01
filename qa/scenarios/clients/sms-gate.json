@@ -1,0 +1,15 @@
+[
+  {"route": "/biz/clients", "persona": "owner", "lang": "ru", "device": "desktop",
+   "steps": [
+     {"click": "role=button[name=\"Действия\"]"},
+     {"wait": 300},
+     {"click": "text=Отправить сообщение"},
+     {"wait": 300},
+     {"fill": "textarea", "value": "Привет, %CLIENT_NAME%!"},
+     {"expectVisible": "role=button[name=\"Отправить\"][disabled]"},
+     {"screenshot": "sms-unchecked"},
+     {"click": "role=checkbox"},
+     {"wait": 200},
+     {"screenshot": "sms-checked"}
+   ]}
+]

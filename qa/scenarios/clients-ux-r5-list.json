@@ -1,0 +1,13 @@
+[
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"fill":"input[placeholder^=\"Поиск (по\"]","value":"zzzqqq"},{"press":"Enter"},{"wait":900},{"screenshot":"search-empty"}]},
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":1200},{"fill":"input[placeholder^=\"Поиск (по\"]","value":"zzzqqq"},{"press":"Enter"},{"wait":900},{"screenshot":"search-empty"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Фильтры\"]"},{"wait":800},{"screenshot":"filters"}]},
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=button[name=\"Фильтры\"]"},{"wait":800},{"screenshot":"filters"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=checkbox >> nth=1"},{"click":"role=checkbox >> nth=2"},{"wait":500},{"screenshot":"bulk"}]},
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=checkbox >> nth=0"},{"wait":500},{"screenshot":"bulk"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Операции с Excel\"]"},{"wait":500},{"screenshot":"excel"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить клиента\"] >> nth=0"},{"wait":900},{"screenshot":"add-open"},{"fill":"input[type=tel] >> nth=0","value":"91234567"},{"wait":300},{"screenshot":"add-phone"}]},
+ {"route":"/biz/clients","persona":"owner","device":"phone","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить клиента\"] >> nth=0"},{"wait":900},{"screenshot":"add-open"},{"click":"role=button[name=\"Добавить\"] >> nth=-1"},{"wait":500},{"screenshot":"add-errors"},{"fill":"input[placeholder=\"Как зовут клиента\"]","value":"Лилит Арутюнян"},{"fill":"input[type=tel] >> nth=0","value":"91234599"},{"click":"role=button[name=\"Добавить\"] >> nth=-1"},{"wait":1500},{"screenshot":"add-saved"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Новый\"]"},{"wait":900},{"screenshot":"segment-new"}]},
+ {"route":"/biz/clients","persona":"owner","device":"desktop","steps":[{"wait":1200},{"click":"role=button[name=\"Добавить визит\"] >> nth=0"},{"wait":900},{"screenshot":"add-visit"}]}
+]

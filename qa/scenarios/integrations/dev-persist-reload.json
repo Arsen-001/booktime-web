@@ -1,0 +1,20 @@
+{
+  "route": "/biz/integrations/developers",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "label:has-text(\"Согласен\") input[type=checkbox]" },
+    { "fill": "label:has-text(\"Название компании-разработчика\") ~ input, label:has-text(\"Название компании-разработчика\") ~ div input", "value": "Persist Co" },
+    { "fill": "label:has-text(\"Для чего будет использоваться\") ~ textarea, label:has-text(\"Для чего будет использоваться\") ~ div textarea", "value": "Проверка сохранения" },
+    { "fill": "label:text-is(\"Имя\") ~ input, label:text-is(\"Имя\") ~ div input", "value": "Иван Тест" },
+    { "fill": "label:text-is(\"Email\") ~ input, label:text-is(\"Email\") ~ div input", "value": "persist@test.com" },
+    { "click": "role=button[name=\"Зарегистрироваться\"]" },
+    { "wait": 600 },
+    { "screenshot": "01-before-reload" },
+    { "goto": "/biz/integrations/developers" },
+    { "wait": 600 },
+    { "screenshot": "02-after-reload" },
+    { "expectVisible": "[data-f~=\"F-13-032\"]" }
+  ]
+}

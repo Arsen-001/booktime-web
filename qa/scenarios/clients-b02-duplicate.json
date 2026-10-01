@@ -1,0 +1,14 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Добавить клиента\"]" },
+    { "fill": "input[placeholder=\"Как зовут клиента\"]", "value": "Дубликат Номера" },
+    { "fill": "input[placeholder=\"Номер телефона\"]", "value": "99001122" },
+    { "click": "role=button[name=\"Добавить\"]" },
+    { "expectText": "Клиент с таким номером уже есть в базе" },
+    { "screenshot": "01-duplicate-phone-error" }
+  ]
+}

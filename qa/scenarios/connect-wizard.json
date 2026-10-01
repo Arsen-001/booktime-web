@@ -1,0 +1,12 @@
+{
+  "route": "/platform/connect",
+  "persona": "platform",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=button[name=\"Начать подключение\"]" },
+    { "wait": 500 },
+    { "screenshot": "wizard-step1" }
+  ]
+}

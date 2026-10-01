@@ -1,0 +1,19 @@
+{
+  "route": "/biz/stock",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "text=Добавить категорию" },
+    { "wait": 300 },
+    { "fill": "input[placeholder*='Расходники']", "value": "QA Персист Категория" },
+    { "click": "role=button[name='Сохранить']" },
+    { "wait": 500 },
+    { "screenshot": "persist-created" },
+    { "goto": "/biz/stock" },
+    { "wait": 700 },
+    { "screenshot": "persist-after-reload" }
+  ]
+}

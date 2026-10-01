@@ -1,0 +1,24 @@
+[
+ {"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1500},
+  {"click":"role=button[name=\"Новая ссылка\"]"},{"wait":800},{"screenshot":"b01-newlink-sheet"},
+  {"click":"text=Ссылку для сотрудника"},{"wait":400},{"screenshot":"b02-newlink-staff"},
+  {"press":"Escape"},{"wait":500},
+  {"click":"role=link[name=\"Настроить\"] >> nth=0"},{"wait":4000},{"screenshot":"b03-link-settings"}
+ ]},
+ {"route":"/biz/online","persona":"owner","sphere":"nails","lang":"ru","device":"desktop","steps":[
+  {"wait":1500},
+  {"click":"role=link[name=\"Настроить\"] >> nth=0"},{"wait":4000},{"screenshot":"d01-link-settings"}
+ ]},
+ {"route":"/biz/online/requests","persona":"individual","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1500},
+  {"click":"role=button[name=/Отклонить/] >> nth=0"},{"wait":700},{"screenshot":"r01-after-reject"},
+  {"click":"role=button[name=/Подтвердить/] >> nth=0"},{"wait":700},{"screenshot":"r02-after-confirm"},
+  {"click":"role=button[name=/Подтвердить/] >> nth=0"},{"wait":2500},{"screenshot":"r03-empty"}
+ ]},
+ {"route":"/biz/online/settings","persona":"owner","sphere":"nails","lang":"ru","device":"phone","steps":[
+  {"wait":1500},
+  {"click":"role=switch >> nth=0"},{"wait":600},{"screenshot":"s01-pause-on"},
+  {"click":"text=Мариам Петросян"},{"wait":600},{"screenshot":"s02-master-open"}
+ ]}
+]

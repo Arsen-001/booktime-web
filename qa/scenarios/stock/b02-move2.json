@@ -1,0 +1,22 @@
+{
+  "route": "/biz/stock/operations/new/move",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder=\"Название, артикул или штрихкод\"]", "value": "а" },
+    { "wait": 700 },
+    { "click": "text=Гель-лак «Розовый нюд»" },
+    { "wait": 600 },
+    { "screenshot": "01-line-added-from-autoset" },
+    { "click": "role=combobox >> nth=1" },
+    { "wait": 300 },
+    { "screenshot": "02-to-open" },
+    { "click": "role=option >> nth=0" },
+    { "screenshot": "03-to-selected" },
+    { "click": "role=button[name=\"Переместить\"]" },
+    { "wait": 800 },
+    { "screenshot": "04-after-save" }
+  ]
+}

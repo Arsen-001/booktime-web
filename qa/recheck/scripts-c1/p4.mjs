@@ -1,0 +1,11 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+await start();
+const { page } = await open('platform', '/platform/moderation', { device: 'desktop' });
+const d = await db(page);
+const mi = d.areas.platform.moderationItems;
+log(JSON.stringify(mi.filter(x=>x.kind==='service' || x.kind==='story' || x.kind==='text').map(x=>({id:x.id,kind:x.kind,biz:x.businessId,ref:x.refId,label:x.label,status:x.status,source:x.source,text:x.text?.slice?.(0,60)}))));
+const svc = d.core.services.filter(s=>/гель-лак/i.test(s.name.ru) && /снят/i.test(s.name.ru));
+log('core services named Снятие гель-лака', JSON.stringify(svc.map(s=>[s.id,s.businessId,s.name.ru,s.active,s.onlineBookable,s.staffIds])));
+log('ERR', page.errors.slice(0,3));
+await stop();

@@ -1,0 +1,19 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "role=combobox >> nth=0" },
+    { "wait": 300 },
+    { "screenshot": "01-view-menu" },
+    { "click": "role=option[name=\"Неделя\"]" },
+    { "wait": 500 },
+    { "screenshot": "02-week-view" },
+    { "click": "role=button[name=\"Статусы\"]" },
+    { "wait": 300 },
+    { "screenshot": "03-status-filter" }
+  ]
+}

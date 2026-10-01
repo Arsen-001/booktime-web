@@ -1,0 +1,21 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Продать" },
+    { "wait": 300 },
+    { "screenshot": "sell-menu" },
+    { "press": "Escape" },
+    { "click": "text=Добавить сотрудника" },
+    { "wait": 400 },
+    { "screenshot": "add-staff-modal" },
+    { "press": "Escape" },
+    { "wait": 200 },
+    { "click": "button[aria-label=\"Клиенты и чат\"], button:has-text(\"Клиенты\")" },
+    { "wait": 400 },
+    { "screenshot": "right-panel" }
+  ]
+}

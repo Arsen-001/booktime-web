@@ -1,0 +1,20 @@
+{
+  "route": "/biz/loyalty/auto-apply",
+  "persona": "owner",
+  "sphere": "barber",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "screenshot": "01-initial-master-off" },
+    { "click": "role=combobox >> nth=0" },
+    { "wait": 150 },
+    { "screenshot": "02-promotion-select-open" },
+    { "press": "Escape" },
+    { "click": "role=switch[name=\"Использовать автоматическое применение программ\"]" },
+    { "screenshot": "03-master-on" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 500 },
+    { "expectText": "Настройки автоприменения сохранены" },
+    { "screenshot": "04-saved" }
+  ]
+}

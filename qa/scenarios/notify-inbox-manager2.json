@@ -1,0 +1,11 @@
+{
+  "route": "/biz/notifications/inbox",
+  "persona": "owner",
+  "sphere": "nails",
+  "device": "phone",
+  "steps": [
+    { "click": "text=Новости сервиса" },
+    { "wait": 500 },
+    { "screenshot": "inbox-news-manager-owner" }
+  ]
+}

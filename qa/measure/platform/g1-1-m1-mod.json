@@ -1,0 +1,161 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-24T22:03:40.608Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-168",
+      "F-00-179"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/platform/moderation",
+      "url": "http://localhost:3710/platform/moderation?demo=platform&sphere=nails&lang=ru&theme=light",
+      "persona": "platform",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "desktop",
+      "status": 200,
+      "loadMs": 709,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-168",
+        "F-00-179"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 401
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "role=tab[name=\"Без проверки\"]"
+          },
+          "ok": true,
+          "ms": 443
+        },
+        {
+          "i": 3,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 302
+        },
+        {
+          "i": 4,
+          "step": {
+            "screenshot": "auto"
+          },
+          "ok": true,
+          "ms": 33,
+          "screenshot": "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__auto.png"
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=tab[name=\"Отклонено\"]"
+          },
+          "ok": true,
+          "ms": 581
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 7,
+          "step": {
+            "screenshot": "rejected"
+          },
+          "ok": true,
+          "ms": 35,
+          "screenshot": "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__rejected.png"
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "text=Отклонено >> nth=0"
+          },
+          "ok": true,
+          "ms": 160
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 300
+          },
+          "ok": true,
+          "ms": 301
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "rejected-detail"
+          },
+          "ok": true,
+          "ms": 31,
+          "screenshot": "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__rejected-detail.png"
+        }
+      ],
+      "screenshots": [
+        "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop.png",
+        "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__auto.png",
+        "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__rejected.png",
+        "qa/measure/platform/g1-1-m1-mod/platform-moderation__platform-nails-ru-light-desktop__rejected-detail.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "click": "text=Посмотреть визиты с долгом" },
+      { "wait": 400 },
+      { "screenshot": "debt-list" },
+      { "goto": "/biz/clients/cl_001" },
+      { "wait": 300 },
+      { "click": "text=История визитов" },
+      { "wait": 300 },
+      { "screenshot": "history-tab" },
+      { "click": "text=Статистика" },
+      { "wait": 300 },
+      { "screenshot": "stats-tab" },
+      { "click": "text=Звонки" },
+      { "wait": 300 },
+      { "screenshot": "calls-tab" }
+    ]
+  },
+  {
+    "route": "/biz/clients/cl_001",
+    "persona": "admin",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "admin-card" },
+      { "goto": "/biz/clients" },
+      { "wait": 300 },
+      { "screenshot": "admin-list-export" }
+    ]
+  },
+  {
+    "route": "/dev/ext/settingsHub/clients",
+    "persona": "owner",
+    "sphere": "nails",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      { "wait": 300 },
+      { "screenshot": "settings-hub-rights" }
+    ]
+  }
+]

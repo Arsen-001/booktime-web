@@ -1,0 +1,13 @@
+{
+  "route": "/search",
+  "persona": "client",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "search-default" },
+    { "expectText": "QA Тест-Салон g11" },
+    { "screenshot": "search-found" }
+  ]
+}

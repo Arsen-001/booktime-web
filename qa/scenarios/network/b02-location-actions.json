@@ -1,0 +1,14 @@
+{
+  "route": "/biz/clients",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 1000 },
+    { "click": "table tbody tr:first-child input[type=checkbox]" },
+    { "wait": 300 },
+    { "screenshot": "location-clients-actions" }
+  ]
+}

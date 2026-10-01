@@ -1,0 +1,26 @@
+{
+  "route": "/biz/journal",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Лист ожидания" },
+    { "wait": 400 },
+    { "screenshot": "01-panel-list" },
+    { "expectVisible": "[data-f=\"F-01-156 F-01-162\"]" },
+    { "click": "role=button[name=\"+ Создать\"]" },
+    { "wait": 300 },
+    { "screenshot": "02-form-empty" },
+    { "click": "role=button[name=\"Создать заявку\"]" },
+    { "wait": 300 },
+    { "screenshot": "03-form-validation" },
+    { "fill": "input[name=phone]", "value": "77123456" },
+    { "wait": 200 },
+    { "screenshot": "04-form-filled-phone" },
+    { "click": "role=button[name=\"Отмена\"]" },
+    { "wait": 300 },
+    { "screenshot": "05-back-to-list" }
+  ]
+}

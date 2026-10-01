@@ -1,0 +1,13 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+await start();
+const { page } = await open('platform', '/platform/moderation', { device: 'desktop' });
+log((await text(page)).slice(0, 1500));
+const d = await db(page);
+const mi = d.areas.platform.moderationItems;
+log('items', mi.length, JSON.stringify(mi.slice(0,3)).slice(0,900));
+log('by status', JSON.stringify(mi.reduce((a,x)=>(a[x.status]=(a[x.status]||0)+1,a),{})), 'kinds', JSON.stringify(mi.reduce((a,x)=>(a[x.kind]=(a[x.kind]||0)+1,a),{})));
+const v = d.areas.platform.visits; log('visits', v.length, JSON.stringify(v.reduce((a,x)=>(a[x.status]=(a[x.status]||0)+1,a),{})), JSON.stringify(v[0]).slice(0,300));
+await go(page, '/platform/visits'); log('--- visits\n' + (await text(page)).slice(0, 700));
+log('ERR', page.errors.slice(0,3));
+await stop();

@@ -1,0 +1,15 @@
+{
+  "route": "/biz/notifications/inbox",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "screenshot": "inbox-before-click" },
+    { "click": "ul li:first-child button" },
+    { "wait": 1200 },
+    { "screenshot": "after-click-row" }
+  ]
+}

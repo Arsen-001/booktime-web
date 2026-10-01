@@ -1,0 +1,31 @@
+
+========== s3-cancel-paid.mjs ==========
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+goto retry / page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://lo
+goto retry / page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://lo
+SCENARIO FAILED s3-cancel-paid.mjs page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+    at go (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/h.mjs:55:18)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/s3-cancel-paid.mjs?1790797512681:59:3
+
+========== s2-expired.mjs ==========
+goto retry / page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://lo
+goto retry / page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://lo
+SCENARIO FAILED s2-expired.mjs page.goto: Timeout 180000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/?demo=client&lang=ru&theme=light&api=normal", waiting until "domcontentloaded"[22m
+
+    at go (/Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/h.mjs:55:18)
+    at async file:///Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/client/s2-expired.mjs?1790799554278:10:3
+
+========== s4-sweep.mjs ==========

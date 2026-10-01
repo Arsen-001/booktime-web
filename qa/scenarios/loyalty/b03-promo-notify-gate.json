@@ -1,0 +1,14 @@
+{
+  "route": "/biz/loyalty/promotions",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=button[name=\"Скидка постоянному гостю\"]" },
+    { "wait": 800 },
+    { "screenshot": "fixed-discount-no-notify" }
+  ]
+}

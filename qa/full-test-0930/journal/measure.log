@@ -1,0 +1,51 @@
+Замер: 20 стр. → qa/full-test-0930/shots/journal/ (по 3 одновременно)
+  1/20  2/20  3/20  4/20  5/20  6/20  7/20  8/20  9/20  10/20  11/20  12/20  13/20  14/20  15/20  16/20  17/20  18/20  19/20  20/20
+страница                      кто    яз  уст   конс  4xx  ключи  вылет  <40  data-f  hy-шрифт  загр  
+────────────────────────────  ─────  ──  ────  ────  ───  ─────  ─────  ───  ──────  ────────  ──────
+/biz/journal                  owner  ru  тел   0     0    0      —      11   49      ·         73.6с 
+/biz/journal                  owner  ru  деск  0     0    0      —      13   59      ·         73.7с 
+/biz/journal                  owner  en  тел   0     0    0      —      11   49      ·         73.0с 
+/biz/journal                  owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/journal/settings         owner  ru  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/journal/settings         owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/journal/settings         owner  en  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/journal/settings         owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/records                  owner  ru  тел   1     0    0      —      0    0       ·         0.0с  
+/biz/records                  owner  ru  деск  1     0    0      —      0    0       ·         0.0с  
+/biz/records                  owner  en  тел   0     0    0      —      0    9       ·         72.9с 
+/biz/records                  owner  en  деск  1     0    0      —      0    0       ·         0.0с  
+/dev/ext/clientCard/journal   owner  ru  тел   0     0    0      —      0    0       ·         103.0с
+/dev/ext/clientCard/journal   owner  ru  деск  0     0    0      —      0    0       ·         висит 
+/dev/ext/clientCard/journal   owner  en  тел   0     0    0      —      0    0       ·         51.8с 
+/dev/ext/clientCard/journal   owner  en  деск  0     0    0      —      0    0       ·         35.9с 
+/dev/ext/settingsHub/journal  owner  ru  тел   0     0    0      —      0    1       ·         38.5с 
+/dev/ext/settingsHub/journal  owner  ru  деск  0     0    0      —      0    0       ·         висит 
+/dev/ext/settingsHub/journal  owner  en  тел   0     0    0      —      0    0       ·         висит 
+/dev/ext/settingsHub/journal  owner  en  деск  0     0    0      —      0    1       ·         64.9с 
+
+Итог: страниц 20 · ошибок консоли 8 · предупреждений 0 · 4xx/5xx 0 · i18n нет ключа 0 / нет en 0 / hy→ru 0 · сырых ключей 0 · вылет 0 стр. · мелких целей 35 · висит загрузка 3 · data-f 72
+Отчёт: qa/full-test-0930/shots/journal/report.json
+
+• /biz/journal [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/journal/settings [owner/ru/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/journal/settings [owner/ru/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/journal/settings [owner/en/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/journal/settings [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/records [owner/ru/phone]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/records [owner/ru/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.
+
+• /biz/records [owner/en/desktop]
+   замер не удался: page.goto: Timeout 120000ms exceeded.

@@ -1,0 +1,15 @@
+import { start, stop, open, go, as, reload, text, shot, db, toasts, pick } from './lib.mjs';
+await start();
+const { page } = await open('network', '/biz/online');
+const T = async (n=1200) => (await text(page)).slice(0, n);
+const purchases = async () => { await as(page, 'client', '/places/biz_manana_nn'); const t = await T(20000); const i = t.indexOf('Покупки'); return i < 0 ? 'нет блока «Покупки»' : t.slice(i, i + 120).replace(/\n/g, ' | '); };
+const widget = async () => { await as(page, 'guest', '/b/manana-nor-nork'); return (await page.locator('[data-f~="F-03-107"]').count()) + ' F-03-107 elems; ' + (await T(3000)).split('\n').filter(l => /Купить|абонемент|сертификат/i.test(l)).slice(0, 3).join(' / '); };
+console.log('client app (initial):', await purchases()); console.log('widget (initial):', await widget());
+await as(page, 'network', '/biz/online'); const href = await page.locator('main a[href^="/biz/online/links/"]').filter({ hasText: 'Настроить' }).first().getAttribute('href'); await go(page, href);
+const sec = page.locator('main section, main [data-f~="F-03-107"]').filter({ hasText: 'Показывать кнопку онлайн-продаж' }).last();
+const sw = sec.getByRole('switch').first(); console.log('switch state', await sw.getAttribute('aria-checked'));
+await sw.click(); await page.waitForTimeout(500); console.log('switch now', await sw.getAttribute('aria-checked'));
+const t = await T(20000); const i = t.indexOf('Продажа абонементов'); console.log('sales block now:', t.slice(i, i + 300).replace(/\n/g, ' | '));
+await page.getByRole('button', { name: 'Сохранить' }).last().click(); await page.waitForTimeout(1500); console.log('toasts', await toasts(page));
+console.log('client app (after toggle):', await purchases()); console.log('widget (after toggle):', await widget());
+await stop();

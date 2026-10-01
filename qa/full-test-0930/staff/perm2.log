@@ -1,0 +1,17 @@
+[pw-slots] все 4 слотов браузера заняты — жду очереди
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.goto: Timeout 240000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:3710/biz/staff?demo=master&sphere=nails&lang=ru&empty=0&api=normal", waiting until "domcontentloaded"[22m
+
+    at /Users/arsen/WebstormProjects/booking-platform/qa/full-test-0930/staff/perm.mjs:14:16 {
+  log: [
+    '  - navigating to "http://localhost:3710/biz/staff?demo=master&sphere=nails&lang=ru&empty=0&api=normal", waiting until "domcontentloaded"'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v26.4.0

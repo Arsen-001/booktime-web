@@ -1,0 +1,21 @@
+{
+  "route": "/biz/payroll/staff/st_nuri_ani",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "click": "text=Скопировать у другого сотрудника" },
+    { "wait": 300 },
+    { "screenshot": "01-copy-dialog" },
+    { "press": "Escape" },
+    { "wait": 200 },
+    { "click": "[data-f=\"F-09-031\"] button[role=\"switch\"]" },
+    { "wait": 200 },
+    { "screenshot": "02-products-on" },
+    { "click": "text=Уточнить значение для категорий товара или отдельных товаров" },
+    { "wait": 200 },
+    { "screenshot": "03-products-overrides" }
+  ]
+}

@@ -1,0 +1,12 @@
+[
+  { "route": "/biz/schedule/calendar", "persona": "master", "sphere": "nails", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "wait": 700 },
+      { "screenshot": "before" },
+      { "click": "text=Открыть весь день" },
+      { "wait": 500 },
+      { "screenshot": "toast-just-shown" },
+      { "wait": 6000 },
+      { "screenshot": "toast-after-6s-total" }
+    ] }
+]

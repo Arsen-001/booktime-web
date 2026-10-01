@@ -1,0 +1,27 @@
+{
+  "route": "/biz/resources/new",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder=\"Например, «Кресло педикюра»\"]", "value": "Аппарат УФ-лампа" },
+    { "click": "role=button[name=\"Выберите услуги\"]" },
+    { "wait": 300 },
+    { "screenshot": "picker-open" },
+    { "click": "role=checkbox >> nth=7" },
+    { "click": "role=checkbox >> nth=9" },
+    { "click": "role=button[name=\"Готово\"]" },
+    { "screenshot": "services-picked" },
+    { "click": "role=button[name=\"Сохранить\"]" },
+    { "wait": 700 },
+    { "screenshot": "after-create" },
+    { "click": "text=Аппарат УФ-лампа" },
+    { "wait": 500 },
+    { "screenshot": "detail" },
+    { "click": "role=button[name=\"Добавить экземпляр\"]" },
+    { "wait": 300 },
+    { "screenshot": "add-instance-sheet" }
+  ]
+}

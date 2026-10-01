@@ -1,0 +1,13 @@
+{
+  "route": "/biz/integrations/api?tab=keys",
+  "persona": "master",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 400 },
+    { "click": "role=button[name=\"Выпустить\"] >> nth=0" },
+    { "wait": 500 },
+    { "screenshot": "01-master-issued-key" }
+  ]
+}

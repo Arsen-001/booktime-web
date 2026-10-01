@@ -1,0 +1,34 @@
+import { start, stop, open, go, text, shot, db, settle } from './lib.mjs';
+const log = (...a) => console.log(...a);
+const toast = async (page) => (await page.locator('[role=status], [role=alert]').allInnerTexts().catch(()=>[])).filter(Boolean);
+await start();
+const { page } = await open('guest', '/masters/st_lusine', { device: 'phone' });
+log((await text(page)).match(/Ближайшие[\s\S]{0,200}/)?.[0]); await page.locator('a,button').filter({ hasText: /^(Сегодня|Завтра|[а-я]{2}, \d+ [а-я]+), \d\d:\d\d$/ }).first().click(); await settle(page);
+log('URL', page.url());
+// service step if any
+if (await page.getByText('Шаг 1 из').count()) { const r = page.getByRole('radio').first(); if (await r.count()) { await r.click(); await page.getByRole('button', { name: 'Продолжить' }).click(); await page.waitForTimeout(800);} }
+log((await text(page)).slice(0, 1500));
+const btn = page.getByRole('button', { name: 'Получить код' });
+await page.getByPlaceholder('Как к вам обращаться').fill('Тест Гость');
+await page.locator('input[type=tel]').first().fill('99112233');
+log('disabled before consent', await btn.isDisabled());
+await page.getByText(/Согласен с пользовательским/).click();
+log('disabled after consent', await btn.isDisabled());
+await btn.click(); await page.waitForTimeout(1500);
+await page.locator('input[inputmode=numeric]').fill('1234');
+await page.getByRole('button', { name: 'Подтвердить запись' }).click(); await page.waitForTimeout(2000);
+log('wrong code ->', await toast(page), (await text(page)).match(/Неверный код[^\n]*/)?.[0]);
+await page.locator('input[inputmode=numeric]').fill('0000');
+await page.getByRole('button', { name: 'Подтвердить запись' }).click();
+await page.waitForURL(/\/bookings/, { timeout: 60000 }).catch(()=>log('NO REDIRECT'));
+await settle(page);
+log('--- bookings after guest\n' + (await text(page)).slice(0, 900));
+await page.reload(); await settle(page);
+log('--- reload\n' + (await text(page)).slice(0, 500));
+const d = await db(page);
+const u = d.core.appUsers.find(x=>x.phone.endsWith('99112233'));
+log('user', JSON.stringify(u), 'bookings', JSON.stringify(d.core.bookings.filter(b=>b.appUserId===u?.id).map(b=>[b.id,b.start,b.status,b.clientId])));
+const cl = d.core.clients.filter(c=>c.phone?.endsWith('99112233'));
+log('business clients created', JSON.stringify(cl.map(c=>[c.id,c.businessId,c.name])));
+log('ERR', page.errors.slice(0,3));
+await stop();

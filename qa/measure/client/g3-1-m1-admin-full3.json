@@ -1,0 +1,174 @@
+{
+  "base": "http://localhost:3710",
+  "measuredAt": "2026-09-25T09:02:13.379Z",
+  "summary": {
+    "pages": 1,
+    "consoleErrors": 0,
+    "consoleWarnings": 0,
+    "badResponses": 0,
+    "i18nMissing": 0,
+    "i18nNoEn": 0,
+    "i18nFallbackRu": 0,
+    "rawKeys": 0,
+    "overflowPages": 0,
+    "smallTargets": 0,
+    "stuckLoading": 0,
+    "armenianFont": {
+      "checked": 0,
+      "ok": 0,
+      "fail": 0
+    },
+    "dataF": [
+      "F-00-002",
+      "F-00-003",
+      "F-00-005",
+      "F-00-032",
+      "F-00-033",
+      "F-00-034",
+      "F-14-006",
+      "F-14-007",
+      "F-14-008"
+    ],
+    "scenarioSteps": {
+      "ok": 10,
+      "fail": 0
+    }
+  },
+  "results": [
+    {
+      "route": "/login",
+      "url": "http://localhost:3710/login?demo=guest&empty=0&sphere=nails&lang=ru&theme=light",
+      "persona": "guest",
+      "sphere": "nails",
+      "lang": "ru",
+      "theme": "light",
+      "device": "phone",
+      "status": 200,
+      "loadMs": 735,
+      "stuckLoading": false,
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "i18n": {
+        "missing": [],
+        "noEn": [],
+        "fallbackRu": 0
+      },
+      "pageErrors": [],
+      "badResponses": [],
+      "rawKeys": [],
+      "overflow": {
+        "pageOverflow": false,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "offenders": []
+      },
+      "smallTargets": [],
+      "smallTargetsTotal": 0,
+      "dataF": [
+        "F-00-002",
+        "F-00-003",
+        "F-00-005",
+        "F-00-032",
+        "F-00-033",
+        "F-00-034",
+        "F-14-006",
+        "F-14-007",
+        "F-14-008"
+      ],
+      "armenianFont": null,
+      "scenario": [
+        {
+          "i": 1,
+          "step": {
+            "click": "text=Мастер или бизнес"
+          },
+          "ok": true,
+          "ms": 196
+        },
+        {
+          "i": 2,
+          "step": {
+            "click": "text=Логин и пароль"
+          },
+          "ok": true,
+          "ms": 196
+        },
+        {
+          "i": 3,
+          "step": {
+            "fill": "input[autocomplete=\"username\"]",
+            "value": "owner1"
+          },
+          "ok": true,
+          "ms": 8
+        },
+        {
+          "i": 4,
+          "step": {
+            "fill": "input[autocomplete=\"current-password\"]",
+            "value": "owner1"
+          },
+          "ok": true,
+          "ms": 4
+        },
+        {
+          "i": 5,
+          "step": {
+            "click": "role=button[name=\"Войти\"]"
+          },
+          "ok": true,
+          "ms": 593
+        },
+        {
+          "i": 6,
+          "step": {
+            "wait": 400
+          },
+          "ok": true,
+          "ms": 403
+        },
+        {
+          "i": 7,
+          "step": {
+            "fill": "[role=\"dialog\"] input",
+            "value": "NewPass123"
+          },
+          "ok": true,
+          "ms": 19
+        },
+        {
+          "i": 8,
+          "step": {
+            "click": "role=button[name=\"Войти\"] >> nth=-1"
+          },
+          "ok": true,
+          "ms": 202
+        },
+        {
+          "i": 9,
+          "step": {
+            "wait": 500
+          },
+          "ok": true,
+          "ms": 502
+        },
+        {
+          "i": 10,
+          "step": {
+            "screenshot": "after-submit"
+          },
+          "ok": true,
+          "ms": 65,
+          "screenshot": "qa/shots/g3-1-m1/admin-full3/login__guest-nails-ru-light-phone__after-submit.png"
+        }
+      ],
+      "screenshots": [
+        "qa/shots/g3-1-m1/admin-full3/login__guest-nails-ru-light-phone.png",
+        "qa/shots/g3-1-m1/admin-full3/login__guest-nails-ru-light-phone__after-submit.png"
+      ],
+      "title": "Azat — запись к мастерам"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+[{ "route": "/dev/ui/b", "persona": "owner", "device": "phone",
+   "steps": [ {"click": "text=с описанием и действием"}, {"wait": 450}, {"screenshot": "toast-phone"} ] },
+ { "route": "/dev/ui/b", "persona": "owner", "device": "phone",
+   "steps": [ {"click": "role=button[name=\"Sheet auto\"]"}, {"wait": 400}, {"press": "Escape"}, {"wait": 400}, {"screenshot": "after-esc"}, {"click": "text=с описанием и действием"}, {"wait": 450}, {"screenshot": "toast-after-sheet"} ] }]

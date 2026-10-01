@@ -1,0 +1,13 @@
+{
+  "route": "/dev/ext/bookingWindow/finance",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    {"click": "text=Полный возврат"},
+    {"wait": 400},
+    {"screenshot": "refund-dialog"},
+    {"expectVisible": "text=Подтвердите"}
+  ]
+}

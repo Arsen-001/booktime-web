@@ -1,0 +1,27 @@
+{
+  "route": "/biz/integrations/developers",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "fill": "input[placeholder=\"Например, «СтудияКод»\"]", "value": "ArmSMS Studio" },
+    { "fill": "textarea", "value": "Отправка SMS-уведомлений клиентам салонов" },
+    { "fill": "role=textbox[name=\"Имя\"]", "value": "Ованес Петросян" },
+    { "fill": "input[type=\"email\"]", "value": "dev@armsms.am" },
+    { "click": "text=Согласен с условиями кабинета разработчика" },
+    { "click": "role=button[name=\"Зарегистрироваться\"]" },
+    { "wait": 500 },
+    { "click": "role=link[name=\"Создать приложение\"]" },
+    { "wait": 400 },
+    { "fill": "input[placeholder=\"Например, «Напоминания в WhatsApp»\"]", "value": "Reload Test App" },
+    { "click": "role=button[name=\"Создать\"]" },
+    { "wait": 600 },
+    { "click": "role=link[name=\"Назад\"]" },
+    { "wait": 500 },
+    { "screenshot": "01-hub-with-app" },
+    { "click": "text=Reload Test App" },
+    { "wait": 600 },
+    { "screenshot": "02-clicked-into-app-clientside" }
+  ]
+}

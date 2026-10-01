@@ -1,0 +1,26 @@
+[
+{
+  "route": "/biz/stock/inventory",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "device": "desktop",
+  "steps": [
+    { "wait": 500 },
+    { "click": "role=link[name=\"Создать инвентаризацию\"] >> nth=0" },
+    { "wait": 500 },
+    { "click": "role=button[name=\"Начать инвентаризацию\"]" },
+    { "wait": 700 },
+    { "screenshot": "m1-30-table-before" },
+    { "fill": "input[placeholder='—'] >> nth=0", "value": "2" },
+    { "wait": 300 },
+    { "screenshot": "m1-31-after-fact-typed" },
+    { "click": "role=button[name=\"Рассчитать\"]" },
+    { "wait": 400 },
+    { "screenshot": "m1-32-after-calculate" },
+    { "click": "role=button[name=\"Обнулить\"]" },
+    { "wait": 500 },
+    { "screenshot": "m1-33-after-reset-confirm-dialog" }
+  ]
+}
+]

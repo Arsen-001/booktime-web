@@ -1,0 +1,11 @@
+{"route":"/biz/payroll/settings","persona":"owner","sphere":"nails","lang":"ru","device":"desktop",
+ "steps":[
+   {"click":"text=Включить согласование и подпись"},
+   {"click":"role=button[name=\"Сохранить\"]"},
+   {"wait":800},
+   {"goto":"/biz/payroll/daily"},
+   {"wait":1500},
+   {"click":"role=button[name=\"Создать ведомость\"]"},
+   {"wait":6000},
+   {"screenshot":"statement-with-approval-block"}
+ ]}

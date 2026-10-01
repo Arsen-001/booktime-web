@@ -1,0 +1,49 @@
+{
+  "route": "/biz/notifications/loyalty",
+  "persona": "owner",
+  "sphere": "nails",
+  "lang": "ru",
+  "theme": "light",
+  "device": "desktop",
+  "steps": [
+    {
+      "screenshot": "00-initial"
+    },
+    {
+      "click": "text=Выпуск карты лояльности"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "01-expanded"
+    },
+    {
+      "click": "role=checkbox[name=\"Включено\"] >> nth=0"
+    },
+    {
+      "wait": 600
+    },
+    {
+      "screenshot": "02-toggled-off"
+    },
+    {
+      "goto": "/biz/notifications/loyalty"
+    },
+    {
+      "wait": 400
+    },
+    {
+      "screenshot": "03-after-reload"
+    },
+    {
+      "click": "text=Открыть тип 17"
+    },
+    {
+      "wait": 600
+    },
+    {
+      "screenshot": "04-type17"
+    }
+  ]
+}
