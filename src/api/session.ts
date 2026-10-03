@@ -194,8 +194,8 @@ export function requestMyDataBlock(): Promise<AccountView> {
   return http('POST', '/v1/me/account/data-block');
 }
 
-export function sendPhoneChangeCodeApi(phone: string): Promise<unknown> {
-  return http('POST', '/v1/me/account/phone/code', { phone, channel: 'telegram' });
+export function sendPhoneChangeCodeApi(phone: string, channel: 'telegram' | 'whatsapp' | 'sms' = 'telegram'): Promise<unknown> {
+  return http('POST', '/v1/me/account/phone/code', { phone, channel });
 }
 
 export function confirmPhoneChangeApi(input: { phone: string; code: string }): Promise<AccountView> {

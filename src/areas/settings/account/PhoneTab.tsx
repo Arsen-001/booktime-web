@@ -1,7 +1,11 @@
 'use client';
 
-/** Личный кабинет → «Телефон» (F-15-149): смена номера входа по коду. Занятый другим аккаунтом номер — отказ. */
+/**
+ * Личный кабинет → «Телефон» (F-15-149): смена номера входа по коду. Занятый другим аккаунтом номер — отказ.
+ * Код — в выбранный канал (Telegram / WhatsApp / SMS из включённых на сервере).
+ */
 import { useState } from 'react';
+import { getLoginChannels, type LoginChannel } from '@/api/client';
 import { coreGet } from '@/api/core';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { confirmPhoneChange, sendPhoneChangeCode } from '@/api/settings';
@@ -17,7 +21,9 @@ export function PhoneTab({ staffId }: { staffId: Id }) {
   const t = useT('settings');
   const toast = useToast();
   const staffQ = useApiQuery(['core', 'staff', staffId], () => coreGet('staff', staffId));
-  const send = useApiMutation((phone: string) => sendPhoneChangeCode(phone));
+  const send = useApiMutation((a: { phone: string; channel: LoginChannel }) => sendPhoneChangeCode(a.phone, a.channel));
+  // Куда прислать код — только каналы, включённые на сервере (Telegram всегда; WhatsApp и SMS — когда подключены)
+  const channels = useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ['telegram'];
   const confirmChange = useApiMutation(confirmPhoneChange, { invalidates: [['core', 'staff', staffId]] });
   const [phone, setPhone] = useState('');
 
@@ -39,8 +45,9 @@ export function PhoneTab({ staffId }: { staffId: Id }) {
             canSend={!sameAsCurrent}
             sendLabel={t('account.phone.changeButton')}
             codeHint={t('account.phone.codeHint')}
-            onSendCode={async ({ phone: p }) => {
-              await send.mutate(p);
+            channels={channels}
+            onSendCode={async ({ phone: p, channel }) => {
+              await send.mutate({ phone: p, channel });
             }}
             onVerify={async ({ phone: p, code }) => {
               try {

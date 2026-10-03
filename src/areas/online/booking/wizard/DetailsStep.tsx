@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { getStaffRules, type PlanLegSlot } from '@/api/online';
+import { getStaffRules, type OnlineCodeChannel, type PlanLegSlot } from '@/api/online';
 import { useApiQuery } from '@/api/request';
 import { CustomFieldInput } from '@/areas/online/booking/wizard/CustomFieldInput';
 import { PhoneCodeBlock, type CodeState } from '@/areas/online/booking/wizard/PhoneCodeBlock';
@@ -119,7 +119,7 @@ export function DetailsStep({
   onCodeChange: (v: string) => void;
   phoneVerified: boolean;
   phoneRemembered: boolean;
-  onSendCode: () => void;
+  onSendCode: (channel: OnlineCodeChannel) => void;
   onVerifyCode: (code: string) => void;
   onForgetPhone: () => void;
   /** О5: сумма и условия предоплаты — до записи */

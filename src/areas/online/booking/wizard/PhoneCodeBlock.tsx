@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { CircleCheck } from 'lucide-react';
+import type { OnlineCodeChannel, OnlineCodeSent } from '@/api/online';
+import { CodeChannelPicker, CodeSentVia } from '@/areas/online/booking/wizard/CodeChannelChoice';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { Button } from '@/ui/Button';
@@ -9,14 +12,16 @@ import { CodeInput } from '@/ui/CodeInput';
 export type CodeState =
   | { kind: 'idle' }
   | { kind: 'sending' }
-  | { kind: 'sent'; demoCode?: string }
-  | { kind: 'wrong' }
+  /** via — куда код ушёл на самом деле и какие каналы ещё есть; requested — какой выбрал человек */
+  | { kind: 'sent'; demoCode?: string; via?: OnlineCodeSent; requested?: OnlineCodeChannel }
+  | { kind: 'wrong'; via?: OnlineCodeSent; requested?: OnlineCodeChannel }
   | { kind: 'sendFailed' };
 
 /**
  * Подтверждение номера при записи (F-03-077, F-03-078). О9: «подтверждён» относится к конкретному номеру — сменили
  * номер, блок снова просит код. О14: код проверяется сам на 4-й цифре, без второй кнопки; поле с one-time-code.
  * О16: всё сообщается прямо здесь, без всплывающих сообщений поверх согласия и «Записаться».
+ * Канал кода (03.10.2026): до отправки — выбор Telegram / WhatsApp, после — «Код отправлен в …» и «Прислать в …».
  */
 export function PhoneCodeBlock({
   verified,
@@ -35,12 +40,15 @@ export function PhoneCodeBlock({
   state: CodeState;
   code: string;
   onCodeChange: (v: string) => void;
-  onSend: () => void;
+  /** Отправить код в канал (Telegram / WhatsApp / SMS) */
+  onSend: (channel: OnlineCodeChannel) => void;
   onVerify: (code: string) => void;
   onForget: () => void;
   error?: string;
 }) {
   const t = useT('online');
+  const [channel, setChannel] = useState<OnlineCodeChannel>('telegram');
+  const shownVia = (state.kind === 'sent' || state.kind === 'wrong') && state.via ? { via: state.via, requested: state.requested } : undefined;
   if (verified) {
     return (
       <div className="flex min-h-11 flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-surface-2 px-3 py-2" data-f="F-03-077 F-03-078">
@@ -64,10 +72,12 @@ export function PhoneCodeBlock({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="min-w-0 flex-1 text-sm text-muted">{sent ? t('booking.details.codeEnterHint') : t('booking.details.verifyPhoneHint')}</p>
-        <Button size="sm" variant="secondary" onClick={onSend} loading={state.kind === 'sending'} type="button">
+        <Button size="sm" variant="secondary" onClick={() => onSend(shownVia?.via.channel ?? channel)} loading={state.kind === 'sending'} type="button">
           {sent ? t('booking.details.resendCode') : t('booking.details.sendCode')}
         </Button>
       </div>
+      {!sent && <CodeChannelPicker value={channel} onChange={setChannel} />}
+      {shownVia && <CodeSentVia sent={shownVia.via} requested={shownVia.requested} pending={state.kind === 'sending'} onSendVia={onSend} />}
       {sent && (
         <CodeInput
           length={4}

@@ -10,6 +10,7 @@ import { coreCreate, coreGet, coreList, coreTx, coreUpdate, createBooking, findC
 import { getClientLoyalty } from '@/api/clients';
 import { isApiMode } from '@/api/http';
 import * as OnlineServer from '@/api/online.server';
+import type { OnlineCodeSent } from '@/api/online.server';
 import { pickFreeResourceInstances, waitlistTx } from '@/api/resources';
 import { findSameWaitlistRequest, wishesForDay, type WaitlistEntry as BusinessWaitlistEntry } from '@/domain/resources';
 import { ApiError, request } from '@/api/request';
@@ -832,15 +833,20 @@ export interface SendOnlineCodeInput {
   channel?: 'telegram' | 'whatsapp' | 'sms';
 }
 
-/** F-00-007, B2: код перед записью без входа — в `api` доставляет сервер (Telegram Gateway/заглушка) */
-export function sendOnlineBookingCode(input: SendOnlineCodeInput): Promise<{ demoCode?: string }> {
-  if (isApiMode()) return OnlineServer.sendOnlineBookingCodeServer(input).then(() => ({}));
+export type { OnlineCodeChannel, OnlineCodeSent } from '@/api/online.server';
+
+/**
+ * F-00-007, B2: код перед записью без входа — в `api` доставляет сервер в выбранный канал (Telegram / WhatsApp / SMS);
+ * не доставил — сам шлёт в следующий включённый, ответ говорит куда.
+ */
+export function sendOnlineBookingCode(input: SendOnlineCodeInput): Promise<OnlineCodeSent> {
+  if (isApiMode()) return OnlineServer.sendOnlineBookingCodeServer(input);
   return request(() => {
     const code = String(1000 + Math.floor(Math.random() * 9000));
     // О9: код привязан к номеру, на который ушёл; запись сверяет пару «номер + код»
     const phone = normalizePhone(input.phone);
     if (phone) sentDemoCodes.set(phone, code);
-    return { demoCode: code };
+    return { demoCode: code, channel: input.channel ?? 'telegram', channels: ['telegram', 'whatsapp', 'sms'] };
   });
 }
 

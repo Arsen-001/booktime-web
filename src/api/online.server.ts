@@ -65,9 +65,21 @@ export interface SendOnlineCodeInput {
   channel?: 'telegram' | 'whatsapp' | 'sms';
 }
 
-/** F-00-007, B2: код перед записью без входа — доставляет сервер (Telegram Gateway/заглушка), не показывает его */
-export function sendOnlineBookingCodeServer(input: SendOnlineCodeInput): Promise<void> {
-  return http('POST', `/v1/public/b/${input.slug}/code`, { phone: input.phone, channel: input.channel ?? 'telegram' }).then(() => undefined);
+export type OnlineCodeChannel = NonNullable<SendOnlineCodeInput['channel']>;
+
+/** Код ушёл: куда на самом деле (сервер мог отправить в запасной канал) и какие каналы ещё можно предложить */
+export interface OnlineCodeSent {
+  demoCode?: string;
+  channel: OnlineCodeChannel;
+  channels: OnlineCodeChannel[];
+}
+
+/** F-00-007, B2: код перед записью без входа — доставляет сервер в выбранный канал, не показывает его */
+export function sendOnlineBookingCodeServer(input: SendOnlineCodeInput): Promise<OnlineCodeSent> {
+  return http<OnlineCodeSent>('POST', `/v1/public/b/${input.slug}/code`, { phone: input.phone, channel: input.channel ?? 'telegram' }).then((r) => ({
+    channel: r.channel,
+    channels: r.channels,
+  }));
 }
 
 /** ⭐ О28: запись в окно, которое предложили вместо записи (мастер «Другое время» / не ответил), одним вызовом по хэшу */

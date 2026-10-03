@@ -5,8 +5,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { CalendarPlus, ChevronRight, LogOut, Ticket, User } from 'lucide-react';
-import { getCabinetData, getPublicBusinessData, sendOnlineBookingCode } from '@/api/online';
+import { getCabinetData, getPublicBusinessData, sendOnlineBookingCode, type OnlineCodeChannel, type OnlineCodeSent } from '@/api/online';
 import { useApiMutation, useApiQuery, type QueryResult } from '@/api/request';
+import { CodeChannelPicker, CodeSentVia } from '@/areas/online/booking/wizard/CodeChannelChoice';
 import { rememberClient, useRememberedClient } from '@/areas/online/booking/wizard/rememberedClient';
 import { useBookingDecisionBroadcast, type BookingDecisionMessage } from '@/areas/online/lib/bookingDecisionChannel';
 import { useFormat } from '@/i18n/useFormat';
@@ -37,6 +38,9 @@ export function CabinetScreen({ slug }: { slug: string }) {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [codeWrong, setCodeWrong] = useState(false);
+  // Куда прислать код (Telegram / WhatsApp) и куда он ушёл на самом деле
+  const [channel, setChannel] = useState<OnlineCodeChannel>('telegram');
+  const [sentVia, setSentVia] = useState<{ via: OnlineCodeSent; requested: OnlineCodeChannel } | undefined>();
   // Вход помним как «клиент этого браузера» — тот же номер подставится в записи без кода (О14)
   const remembered = useRememberedClient();
   const loggedPhone = remembered?.phone;
@@ -63,6 +67,22 @@ export function CabinetScreen({ slug }: { slug: string }) {
       return;
     }
     rememberClient({ phone: codeFor });
+  };
+
+  const send = async (via: OnlineCodeChannel) => {
+    if (!normalized) {
+      setError(t('booking.details.phoneInvalid'));
+      return;
+    }
+    try {
+      const { demoCode: demo, ...sent } = await codeMutation.mutate({ slug, phone: normalized, channel: via });
+      setCodeFor(normalized);
+      setDemoCode(demo);
+      setSentVia({ via: sent, requested: via });
+      setCode('');
+    } catch {
+      setError(t('booking.details.codeSendFailed'));
+    }
   };
 
   if (!loggedPhone) {
@@ -101,24 +121,9 @@ export function CabinetScreen({ slug }: { slug: string }) {
               {codeWrong && <p className="text-sm text-danger">{t('booking.details.codeWrong')}</p>}
             </div>
           )}
-          <Button
-            variant={codeSent ? 'secondary' : 'primary'}
-            loading={codeMutation.isPending}
-            onClick={async () => {
-              if (!normalized) {
-                setError(t('booking.details.phoneInvalid'));
-                return;
-              }
-              try {
-                const r = await codeMutation.mutate({ slug, phone: normalized });
-                setCodeFor(normalized);
-                setDemoCode(r.demoCode);
-                setCode('');
-              } catch {
-                setError(t('booking.details.codeSendFailed'));
-              }
-            }}
-          >
+          {!codeSent && <CodeChannelPicker value={channel} onChange={setChannel} />}
+          {codeSent && sentVia && <CodeSentVia sent={sentVia.via} requested={sentVia.requested} pending={codeMutation.isPending} onSendVia={(c) => void send(c)} />}
+          <Button variant={codeSent ? 'secondary' : 'primary'} loading={codeMutation.isPending} onClick={() => void send(codeSent && sentVia ? sentVia.via.channel : channel)}>
             {codeSent ? t('booking.details.resendCode') : t('booking.details.sendCode')}
           </Button>
         </Card>

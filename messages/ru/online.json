@@ -362,6 +362,19 @@
       "verifyPhoneHint": "Подтвердите номер кодом, чтобы завершить запись",
       "sendCode": "Получить код",
       "resendCode": "Отправить код ещё раз",
+      "channelLabel": "Куда прислать код",
+      "channel": {
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp",
+        "sms": "SMS"
+      },
+      "codeSentVia": "Код отправлен {channel, select, telegram {в Telegram — чат «Verification Codes»} whatsapp {в WhatsApp} sms {по SMS} other {}}.",
+      "codeFallback": "{requested, select, telegram {В Telegram} whatsapp {В WhatsApp} other {Туда}} не дошёл — отправили сюда.",
+      "sendVia": {
+        "telegram": "Прислать в Telegram",
+        "whatsapp": "Прислать в WhatsApp",
+        "sms": "Прислать SMS"
+      },
       "verifyCode": "Подтвердить",
       "codeSentDemo": "Демо-код (в жизни придёт в WhatsApp/Telegram/SMS): {code}",
       "codeSentReal": "Код отправлен в мессенджер",

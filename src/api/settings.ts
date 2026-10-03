@@ -2235,9 +2235,9 @@ export async function updateProfile(input: { staffId: Id; name: string; avatarUr
 }
 
 /** Отправить код на НОВЫЙ номер (F-15-149) — в демо код всегда «0000» */
-export async function sendPhoneChangeCode(phone: string): Promise<{ demoCode: string }> {
+export async function sendPhoneChangeCode(phone: string, channel?: 'telegram' | 'whatsapp' | 'sms'): Promise<{ demoCode: string }> {
   if (isApiMode()) {
-    await sendPhoneChangeCodeApi(phone);
+    await sendPhoneChangeCodeApi(phone, channel);
     return { demoCode: '' };
   }
   return request(() => ({ demoCode: DEMO_CODE }));

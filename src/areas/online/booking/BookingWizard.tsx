@@ -14,6 +14,7 @@ import {
   listStaffRules,
   rememberedPhoneSkipsCode,
   sendOnlineBookingCode,
+  type OnlineCodeChannel,
   trackWidgetEvent,
   type CreateOnlineBookingInput,
   type PlanLegSlot,
@@ -347,12 +348,13 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
       setErrors((e) => ({ ...e, code: undefined }));
       rememberClient({ phone: forPhone, name: shownName.trim() || undefined });
     } else {
-      setCodeState({ kind: 'wrong' });
+      // «Куда ушёл код» остаётся на экране, пока человек исправляет код
+      setCodeState((s) => ({ kind: 'wrong', via: s.kind === 'sent' || s.kind === 'wrong' ? s.via : undefined, requested: s.kind === 'sent' || s.kind === 'wrong' ? s.requested : undefined }));
       setCode('');
     }
   };
 
-  const sendCode = async () => {
+  const sendCode = async (channel: OnlineCodeChannel = 'telegram') => {
     if (!normalized) {
       setErrors((e) => ({ ...e, phone: t('booking.details.phoneInvalid') }));
       return;
@@ -360,8 +362,8 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
     setCodeState({ kind: 'sending' });
     setCodeFor(normalized);
     try {
-      const { demoCode } = await codeMutation.mutate({ slug: business.slug, phone: normalized });
-      setCodeState({ kind: 'sent', demoCode });
+      const { demoCode, ...via } = await codeMutation.mutate({ slug: business.slug, phone: normalized, channel });
+      setCodeState({ kind: 'sent', demoCode, via, requested: channel });
       // О16: демо-код — прямо в поле и сразу проверен, без всплывающего сообщения поверх формы
       if (demoCode) {
         setCode(demoCode);
@@ -633,7 +635,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
           code={code}
           onCodeChange={(v) => {
             setCode(v);
-            if (codeState.kind === 'wrong') setCodeState({ kind: 'sent' });
+            if (codeState.kind === 'wrong') setCodeState({ kind: 'sent', via: codeState.via, requested: codeState.requested });
           }}
           phoneVerified={phoneVerified}
           phoneRemembered={rememberedOk && verifiedPhone !== normalized}

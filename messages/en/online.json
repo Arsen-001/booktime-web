@@ -362,6 +362,19 @@
       "verifyPhoneHint": "Confirm your number with a code to finish booking",
       "sendCode": "Get code",
       "resendCode": "Resend code",
+      "channelLabel": "Where to send the code",
+      "channel": {
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp",
+        "sms": "SMS"
+      },
+      "codeSentVia": "Code sent {channel, select, telegram {to Telegram — “Verification Codes” chat} whatsapp {to WhatsApp} sms {by SMS} other {}}.",
+      "codeFallback": "{requested, select, telegram {Telegram} whatsapp {WhatsApp} other {That channel}} didn’t deliver — sent here instead.",
+      "sendVia": {
+        "telegram": "Send to Telegram",
+        "whatsapp": "Send to WhatsApp",
+        "sms": "Send by SMS"
+      },
       "verifyCode": "Confirm",
       "codeSentDemo": "Demo code (in real life sent via WhatsApp/Telegram/SMS): {code}",
       "codeSentReal": "Code sent to your messenger",

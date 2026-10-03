@@ -1,0 +1,13 @@
+[
+  { "route": "/b/nuri-nail-studio/me", "persona": "guest", "device": "phone",
+    "steps": [
+      { "wait": 1500 },
+      { "screenshot": "cabinet-channel" },
+      { "click": "role=radio[name=/WhatsApp/]" },
+      { "fill": "input[type=tel]", "value": "91123456" },
+      { "click": "role=button[name=\"Получить код\"]" },
+      { "expectText": "Код отправлен в WhatsApp" },
+      { "wait": 500 },
+      { "screenshot": "cabinet-sent" }
+    ] }
+]
