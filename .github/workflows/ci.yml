@@ -19,6 +19,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Типы маршрутов Next (PageProps, LayoutProps)
+        run: npx next typegen
       - name: Типы
         run: npx tsc --noEmit
       - name: Правила кода (eslint)
