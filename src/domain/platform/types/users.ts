@@ -9,7 +9,11 @@ export type PlatformUserStatus = 'active' | 'blocked' | 'delete_requested' | 'de
 export type PlatformUserRole = 'owner' | 'admin' | 'master';
 export type PlatformUserRoleFilter = 'client' | PlatformUserRole | 'multiple';
 export type PlatformUserSort = 'registered' | 'last_login' | 'bookings';
-/** code — код из Telegram/SMS, google — «Войти через Google», password — логин администратора или команды */
+/** Куда пришёл код входа (вход по коду) */
+export type PlatformCodeChannel = 'telegram' | 'whatsapp' | 'sms';
+/** Чем человек вошёл в первый раз: канал кода или Google/Apple */
+export type PlatformFirstLoginVia = PlatformCodeChannel | 'google' | 'apple';
+/** code — код из Telegram/WhatsApp/SMS (канал — в channel), google — «Войти через Google», password — логин администратора или команды */
 export type PlatformLoginMethod = 'code' | 'google' | 'password' | 'platform' | 'second_factor';
 
 export interface PlatformUsersQuery {
@@ -19,6 +23,8 @@ export interface PlatformUsersQuery {
   regTo?: ISODate;
   activeDays?: number;
   telegram?: 'yes' | 'no';
+  /** Код входа приходил в WhatsApp */
+  whatsapp?: 'yes' | 'no';
   google?: 'yes' | 'no';
   status?: PlatformUserStatus;
   sort: PlatformUserSort;
@@ -37,6 +43,7 @@ export interface PlatformUserRow {
   lastActiveAt: ISODateTime | null;
   roles: PlatformUserRole[];
   telegram: boolean;
+  whatsapp: boolean;
   google: boolean;
   status: PlatformUserStatus;
   bookingsCount: number;
@@ -48,6 +55,7 @@ export interface PlatformUsersCounters {
   new7d: number;
   active7d: number;
   telegram: number;
+  whatsapp: number;
 }
 
 export interface PlatformUsersPage {
@@ -75,8 +83,11 @@ export interface PlatformUserCard {
   roles: { businessId: Id; businessName: string; businessSlug: string; kind: string; role: PlatformUserRole; fired: boolean }[];
   networks: { id: Id; name: string }[];
   telegram: { connected: boolean; since: ISODateTime | null; stopped: boolean };
+  /** Коды входа в WhatsApp: первый и последний введённый */
+  whatsapp: { used: boolean; since: ISODateTime | null; lastAt: ISODateTime | null };
+  firstLoginVia: PlatformFirstLoginVia | string | null;
   google: { linked: boolean; email: string | null; since: ISODateTime | null; lastUsedAt: ISODateTime | null };
   bookings: { total: number; recent: { id: Id; businessId: Id; businessName: string; start: ISODateTime; status: BookingStatus | string }[] };
-  logins: { at: ISODateTime; method: PlatformLoginMethod | string; app: string; result: string; ip: string | null }[];
+  logins: { at: ISODateTime; method: PlatformLoginMethod | string; channel: PlatformCodeChannel | string | null; app: string; result: string; ip: string | null }[];
   activeSessions: number;
 }

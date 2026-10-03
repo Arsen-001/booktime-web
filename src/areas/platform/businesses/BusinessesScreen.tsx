@@ -2,6 +2,8 @@
 
 /** /platform/businesses — все салоны и мастера на платформе: как пришли, бесплатный период, копии и выгрузка (F-00-183). */
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { setUrlParam } from '@/areas/platform/lib/urlParam';
 import { Store } from 'lucide-react';
 import { TabCountSkeleton } from '@/areas/platform/components/TabCountSkeleton';
 import { BusinessSheet } from '@/areas/platform/businesses/BusinessSheet';
@@ -35,7 +37,13 @@ export function BusinessesScreen() {
   const freeText = useFreeUntilText();
   const q = useBusinessesOverview();
   const [search, setSearch] = useState('');
-  const [openId, setOpenId] = useState<string | null>(null);
+  const params = useSearchParams();
+  // Открытая карточка — в адресе (?b=<id>): из карточки человека и по пересланной ссылке
+  const [openId, setOpenIdState] = useState<string | null>(() => params.get('b'));
+  const setOpenId = (id: string | null) => {
+    setOpenIdState(id);
+    setUrlParam('b', id);
+  };
   const [status, setStatus] = useState<StatusTab>('all');
   const needle = normalizeSearch(search);
   const found = (q.data ?? []).filter((r) => !needle || normalizeSearch(r.name).includes(needle));

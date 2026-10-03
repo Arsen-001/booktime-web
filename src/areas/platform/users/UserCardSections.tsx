@@ -4,7 +4,7 @@
  * Блоки карточки человека: статус (блок / удаление), профиль, роли в бизнесах, подключения (Telegram, Google),
  * записи как клиент, последние входы. Тот же каркас у скелетона — данные приходят без сдвигов.
  */
-import { AlertTriangle, Ban, CalendarX2, ExternalLink, LogIn, Send, Store } from 'lucide-react';
+import { AlertTriangle, Ban, CalendarX2, ExternalLink, LogIn, MessageCircle, Send, Store } from 'lucide-react';
 import { UserRoleBadges } from '@/areas/platform/users/UserBadges';
 import type { BookingStatus } from '@/domain/core';
 import type { PlatformUserCard } from '@/domain/platform/types/users';
@@ -13,10 +13,12 @@ import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { formatPhone } from '@/lib/phone';
 import { Badge } from '@/ui/Badge';
+import { LinkButton } from '@/ui/Button';
 import { BookingStatusBadge } from '@/ui/BookingStatusBadge';
 import { EmptyState } from '@/ui/EmptyState';
 import { KeyValueList } from '@/ui/KeyValueList';
 import { SkeletonText } from '@/ui/Skeleton';
+import { Tooltip } from '@/ui/Tooltip';
 import { BOOKING_STATUSES } from '@/domain/rules';
 
 /** Заголовок блока внутри шторки — как в карточке бизнеса */
@@ -63,13 +65,15 @@ export function ProfileBlock({ card }: { card: PlatformUserCard }) {
   return (
     <Block title={t('users.card.profile')}>
       <KeyValueList
+        columns={2}
         items={[
           { label: t('users.card.phone'), value: card.phone ? <span className="whitespace-nowrap select-all">{formatPhone(card.phone)}</span> : <span className="text-muted">{t('users.noPhone')}</span> },
           { label: t('users.card.language'), value: localeLabel },
           { label: t('users.card.registered'), value: fmt.date(card.createdAt, 'long') },
+          ...(card.firstLoginVia && isVia(card.firstLoginVia) ? [{ label: t('users.card.firstLoginVia'), value: t(`users.via.${card.firstLoginVia}`) }] : []),
           {
             label: t('users.card.lastLogin'),
-            value: card.lastLogin ? `${fmt.dateTime(card.lastLogin.at)} · ${methodLabel(t, card.lastLogin.method)}` : <span className="text-muted">{t('users.never')}</span>,
+            value: card.lastLogin ? `${fmt.dateTime(card.lastLogin.at)} · ${methodLabel(t, card.lastLogin.method, lastLoginChannel(card))}` : <span className="text-muted">{t('users.never')}</span>,
           },
           ...(card.lastActiveAt ? [{ label: t('users.card.lastActive'), value: fmt.ago(card.lastActiveAt) }] : []),
           { label: t('users.card.sessions'), value: t('users.card.sessionsCount', { n: card.activeSessions }) },
@@ -85,8 +89,19 @@ const METHODS = ['code', 'google', 'apple', 'password', 'platform', 'second_fact
 const RESULTS = ['ok', 'wrong_code', 'wrong_password', 'locked', 'blocked', 'second_factor_sent', 'google_unlinked', 'google_invalid', 'google_linked', 'google_taken'] as const;
 const APPS = ['client', 'business', 'platform'] as const;
 
-function methodLabel(t: T, method: string): string {
+const VIAS = ['telegram', 'whatsapp', 'sms', 'google', 'apple'] as const;
+const isVia = (v: string): v is (typeof VIAS)[number] => (VIAS as readonly string[]).includes(v);
+
+/** «кодом в WhatsApp», если у входа по коду известен канал; иначе «по коду» / «через Google» … */
+function methodLabel(t: T, method: string, channel?: string | null): string {
+  if (method === 'code' && channel && isVia(channel)) return t(`users.via.${channel}`);
   return (METHODS as readonly string[]).includes(method) ? t(`users.method.${method as (typeof METHODS)[number]}`) : method;
+}
+
+/** Канал последнего входа — из журнала входов (там же, где «последний вход») */
+function lastLoginChannel(card: PlatformUserCard): string | null {
+  const at = card.lastLogin?.at;
+  return card.logins.find((l) => l.at === at && l.result === 'ok')?.channel ?? null;
 }
 
 export function RolesBlock({ card }: { card: PlatformUserCard }) {
@@ -116,17 +131,25 @@ export function RolesBlock({ card }: { card: PlatformUserCard }) {
                   )}
                 </span>
               </span>
-              {r.businessSlug && (
-                <a
-                  href={`/b/${r.businessSlug}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-primary-text hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-focus focus-visible:outline-none"
-                >
-                  {t('users.card.openPage')}
-                  <ExternalLink aria-hidden className="size-4" />
-                </a>
-              )}
+              <span className="flex shrink-0 items-center gap-1">
+                {/* Главное — карточка бизнеса в нашей панели; публичная страница — значком в новой вкладке */}
+                <LinkButton href={`/platform/businesses?b=${encodeURIComponent(r.businessId)}`} variant="ghost" size="sm">
+                  {t('users.card.openBusiness')}
+                </LinkButton>
+                {r.businessSlug && (
+                  <Tooltip content={t('users.card.openPage')}>
+                    <a
+                      href={`/b/${r.businessSlug}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={t('users.card.openPage')}
+                      className="inline-flex size-10 items-center justify-center rounded-lg text-muted hover:bg-surface-2 hover:text-fg focus-visible:ring-2 focus-visible:ring-focus focus-visible:outline-none"
+                    >
+                      <ExternalLink aria-hidden className="size-4" />
+                    </a>
+                  </Tooltip>
+                )}
+              </span>
             </li>
           ))}
         </ul>
@@ -143,6 +166,7 @@ export function LinksBlock({ card }: { card: PlatformUserCard }) {
     : card.telegram.stopped
       ? t('users.card.telegramStopped')
       : t('users.card.telegramOff');
+  const wa = card.whatsapp.used ? t('users.card.whatsappOn', { date: fmt.date(card.whatsapp.lastAt ?? card.createdAt, 'long') }) : t('users.card.whatsappOff');
   const google = card.google.linked ? [card.google.email, card.google.since ? t('users.card.googleOn', { date: fmt.date(card.google.since, 'long') }) : null].filter(Boolean).join(' · ') : t('users.card.googleOff');
   return (
     <Block title={t('users.card.links')}>
@@ -156,6 +180,15 @@ export function LinksBlock({ card }: { card: PlatformUserCard }) {
               </span>
             ),
             value: <span className={card.telegram.connected ? 'text-fg' : 'text-muted'}>{tg}</span>,
+          },
+          {
+            label: (
+              <span className="inline-flex items-center gap-1.5">
+                <MessageCircle aria-hidden className="size-4" />
+                {t('users.card.whatsapp')}
+              </span>
+            ),
+            value: <span className={card.whatsapp.used ? 'text-fg' : 'text-muted'}>{wa}</span>,
           },
           {
             label: (
@@ -215,7 +248,7 @@ export function LoginsBlock({ card }: { card: PlatformUserCard }) {
               <li key={`${l.at}-${i}`} className="flex min-h-14 items-center gap-3 px-4 py-3">
                 <span className="flex min-w-0 flex-1 flex-col">
                   <span className="text-fg">{fmt.dateTime(l.at)}</span>
-                  <span className="truncate text-sm text-muted">{[app, methodLabel(t, l.method), l.ip].filter(Boolean).join(' · ')}</span>
+                  <span className="truncate text-sm text-muted">{[app, methodLabel(t, l.method, l.channel), l.ip].filter(Boolean).join(' · ')}</span>
                 </span>
                 <Badge size="sm" tone={ok ? 'success' : l.result === 'second_factor_sent' || l.result === 'google_linked' ? 'neutral' : 'warning'}>
                   {result}
@@ -252,6 +285,7 @@ export function UserCardSkeleton() {
     <div className="flex flex-col gap-6" aria-busy>
       <Block title={t('users.card.profile')}>
         <KeyValueList
+          columns={2}
           items={[t('users.card.phone'), t('users.card.language'), t('users.card.registered'), t('users.card.lastLogin'), t('users.card.sessions')].map((label, i) => ({
             label,
             value: <SkeletonText width={i % 2 ? '10ch' : '16ch'} />,

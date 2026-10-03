@@ -6,13 +6,15 @@
  * карточку (Sheet) с действиями. На телефоне — карточки строк. Поиск, фильтры и страница — в api (§16.10).
  */
 import { useState } from 'react';
-import { CalendarPlus, Send, UserCheck, Users } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Users } from 'lucide-react';
+import { setUrlParam } from '@/areas/platform/lib/urlParam';
+import { UsersCounters } from '@/areas/platform/users/UsersCounters';
 import { UserSheet } from '@/areas/platform/users/UserSheet';
 import { useUsersFilters, type UsersFilterState } from '@/areas/platform/users/useUsersFilters';
 import { USER_MOBILE_CARD_SKELETON, UserMobileCard, useUserColumns } from '@/areas/platform/users/useUserColumns';
 import { usePlatformUsers } from '@/areas/platform/users/useUsers';
 import type { PlatformUserRow, PlatformUserSort, PlatformUsersQuery } from '@/domain/platform/types/users';
-import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { EmptyState } from '@/ui/EmptyState';
@@ -21,21 +23,31 @@ import { ExitHold } from '@/ui/ExitHold';
 import { FilterBar } from '@/ui/FilterBar';
 import { PageHeader } from '@/ui/PageHeader';
 import { DEFAULT_PAGE_SIZE, Pagination } from '@/ui/Pagination';
-import { StatCard } from '@/ui/StatCard';
 import { Table, type TableSort } from '@/ui/Table';
 
-const EMPTY: UsersFilterState = { role: '', status: '', activeDays: '', telegram: '', google: '', range: {} };
+const EMPTY: UsersFilterState = { role: '', status: '', activeDays: '', telegram: '', whatsapp: '', google: '', range: {} };
 
 export function UsersScreen() {
   const t = useT('platform');
-  const fmt = useFormat();
+  const params = useSearchParams();
   const columns = useUserColumns();
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState<UsersFilterState>(EMPTY);
   const [sort, setSort] = useState<{ sort: PlatformUserSort; dir: 'asc' | 'desc' }>({ sort: 'registered', dir: 'desc' });
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const [open, setOpen] = useState<PlatformUserRow | null>(null);
+  // Открытая карточка — в адресе (?u=<id>): ссылку можно переслать, карточку открывают и с других экранов
+  const [openId, setOpenId] = useState<string | null>(() => params.get('u'));
+  const [openRow, setOpenRow] = useState<PlatformUserRow | null>(null);
+  const openUser = (row: PlatformUserRow | null) => {
+    setOpenId(row?.id ?? null);
+    if (row) setOpenRow(row);
+    setUrlParam('u', row?.id ?? null);
+  };
+  const closeUser = () => {
+    setOpenId(null);
+    setUrlParam('u', null);
+  };
 
   const query: PlatformUsersQuery = {
     q: search.trim() || undefined,
@@ -43,6 +55,7 @@ export function UsersScreen() {
     status: filters.status || undefined,
     activeDays: filters.activeDays ? Number(filters.activeDays) : undefined,
     telegram: filters.telegram || undefined,
+    whatsapp: filters.whatsapp || undefined,
     google: filters.google || undefined,
     regFrom: filters.range.from,
     regTo: filters.range.to,
@@ -70,7 +83,6 @@ export function UsersScreen() {
   const filterItems = useUsersFilters(filters, changeFilters, sort, changeSort);
   const narrowed = Boolean(query.q) || Object.entries(filters).some(([k, v]) => (k === 'range' ? Boolean(filters.range.from || filters.range.to) : Boolean(v)));
   const tableSort: TableSort = { columnId: sort.sort, dir: sort.dir };
-  const c = data?.counters;
   const loading = q.isLoading;
 
   return (
@@ -78,12 +90,7 @@ export function UsersScreen() {
       <PageHeader title={t('users.title')} description={t('users.subtitle')} />
 
       {!q.isError && (
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <StatCard label={t('users.counters.total')} value={fmt.number(c?.total ?? 0)} icon={<Users aria-hidden />} loading={loading} />
-          <StatCard label={t('users.counters.new7d')} value={fmt.number(c?.new7d ?? 0)} icon={<CalendarPlus aria-hidden />} loading={loading} />
-          <StatCard label={t('users.counters.active7d')} value={fmt.number(c?.active7d ?? 0)} icon={<UserCheck aria-hidden />} loading={loading} />
-          <StatCard label={t('users.counters.telegram')} value={fmt.number(c?.telegram ?? 0)} icon={<Send aria-hidden />} loading={loading} />
-        </div>
+        <UsersCounters counters={data?.counters} loading={loading} filters={filters} narrowed={narrowed} onChange={changeFilters} onReset={resetAll} />
       )}
 
       <FilterBar
@@ -115,7 +122,7 @@ export function UsersScreen() {
             manualSort
             sort={tableSort}
             onSortChange={(s) => changeSort(s ? { sort: s.columnId as PlatformUserSort, dir: s.dir } : { sort: 'registered', dir: 'desc' })}
-            onRowClick={(r) => setOpen(r)}
+            onRowClick={(r) => openUser(r)}
             mobileCard={(r) => <UserMobileCard row={r} />}
             mobileCardSkeleton={USER_MOBILE_CARD_SKELETON}
             classNames={{ table: cn(q.isPlaceholderData && 'opacity-60 transition-opacity'), cards: cn(q.isPlaceholderData && 'opacity-60 transition-opacity') }}
@@ -142,7 +149,7 @@ export function UsersScreen() {
           )}
         </div>
       )}
-      <ExitHold value={open}>{(row) => <UserSheet key={row.id} row={row} onClose={() => setOpen(null)} />}</ExitHold>
+      <ExitHold value={openId}>{(id) => <UserSheet key={id} id={id} row={openRow?.id === id ? openRow : undefined} onClose={closeUser} />}</ExitHold>
     </div>
   );
 }

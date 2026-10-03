@@ -1066,7 +1066,8 @@
       "total": "Всего",
       "new7d": "Новых за 7 дней",
       "active7d": "Активных за 7 дней",
-      "telegram": "С Telegram"
+      "telegram": "С Telegram",
+      "whatsapp": "С WhatsApp"
     },
     "filters": {
       "role": "Роль",
@@ -1083,6 +1084,9 @@
       "telegramNo": "Не подключён",
       "googleYes": "Привязан",
       "googleNo": "Не привязан",
+      "whatsapp": "WhatsApp",
+      "whatsappYes": "Пользуется",
+      "whatsappNo": "Не пользуется",
       "registered": "Зарегистрирован",
       "sort": "Порядок"
     },
@@ -1127,6 +1131,7 @@
     "noPhone": "Без телефона",
     "team": "Команда BookTime",
     "telegramShort": "Telegram подключён",
+    "whatsappShort": "WhatsApp — код входа приходил сюда",
     "googleShort": "Google привязан",
     "bookingsCount": "{n, plural, one {# запись} few {# записи} many {# записей} other {# записи}}",
     "loginAgo": "вход: {when}",
@@ -1139,6 +1144,7 @@
       "phone": "Телефон",
       "language": "Язык",
       "registered": "Зарегистрирован",
+      "firstLoginVia": "Первый вход",
       "lastLogin": "Последний вход",
       "lastActive": "Был активен",
       "sessions": "Открытых сессий",
@@ -1149,12 +1155,16 @@
       "rolesEmpty": "Только клиент приложения — в бизнесах не работает",
       "fired": "Уволен",
       "openPage": "Открыть страницу",
+      "openBusiness": "Карточка бизнеса",
       "networkOwner": "Владелец сети «{name}»",
       "links": "Подключения",
       "telegram": "Telegram",
       "telegramOn": "Подключён с {date}",
       "telegramStopped": "Отписался от бота",
       "telegramOff": "Не подключён",
+      "whatsapp": "WhatsApp",
+      "whatsappOn": "Код входа приходил сюда, последний раз {date}",
+      "whatsappOff": "Код входа сюда не приходил",
       "google": "Вход через Google",
       "googleOn": "Привязан с {date}",
       "googleOff": "Не привязан",
@@ -1177,6 +1187,13 @@
       "password": "по паролю",
       "platform": "в панель",
       "second_factor": "второй шаг",
+      "apple": "через Apple"
+    },
+    "via": {
+      "telegram": "кодом в Telegram",
+      "whatsapp": "кодом в WhatsApp",
+      "sms": "кодом по SMS",
+      "google": "через Google",
       "apple": "через Apple"
     },
     "result": {

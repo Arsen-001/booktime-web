@@ -1,0 +1,19 @@
+[
+  { "route": "/platform/users", "persona": "platform", "device": "desktop",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "role=button[name=/С Telegram/]" },
+      { "wait": 1200 },
+      { "screenshot": "counter-telegram" },
+      { "click": "table tbody tr >> nth=0" },
+      { "expectText": "Роли в бизнесах" },
+      { "wait": 1000 },
+      { "screenshot": "card-columns" },
+      { "click": "text=Карточка бизнеса >> nth=0" },
+      { "expectText": "Сведения" },
+      { "wait": 1200 },
+      { "screenshot": "business-from-user" }
+    ] },
+  { "route": "/platform/users?u=au_01", "persona": "platform", "device": "phone",
+    "steps": [ { "wait": 2500 }, { "screenshot": "deeplink-phone" } ] }
+]

@@ -1,7 +1,7 @@
 'use client';
 
 /** Колонки таблицы «Пользователи» и карточка строки на телефоне (та же разметка у скелетона). */
-import { Send } from 'lucide-react';
+import { MessageCircle, Send } from 'lucide-react';
 import { UserRoleBadges, UserStatusBadge } from '@/areas/platform/users/UserBadges';
 import type { PlatformUserRow } from '@/domain/platform/types/users';
 import { useFormat } from '@/i18n/useFormat';
@@ -20,15 +20,22 @@ function GoogleMark() {
   );
 }
 
-export function UserLinks({ row }: { row: Pick<PlatformUserRow, 'telegram' | 'google'> }) {
+export function UserLinks({ row }: { row: Pick<PlatformUserRow, 'telegram' | 'whatsapp' | 'google'> }) {
   const t = useT('platform');
-  if (!row.telegram && !row.google) return <span className="text-muted">—</span>;
+  if (!row.telegram && !row.whatsapp && !row.google) return <span className="text-muted">—</span>;
   return (
     <span className="flex items-center gap-2">
       {row.telegram && (
         <Tooltip content={t('users.telegramShort')}>
           <span className="inline-flex size-5 items-center justify-center rounded-full bg-info-soft text-info" aria-label={t('users.telegramShort')} role="img">
             <Send className="size-3" aria-hidden />
+          </span>
+        </Tooltip>
+      )}
+      {row.whatsapp && (
+        <Tooltip content={t('users.whatsappShort')}>
+          <span className="inline-flex size-5 items-center justify-center rounded-full bg-success-soft text-success" aria-label={t('users.whatsappShort')} role="img">
+            <MessageCircle className="size-3" aria-hidden />
           </span>
         </Tooltip>
       )}
@@ -93,7 +100,7 @@ export function useUserColumns(): TableColumn<PlatformUserRow>[] {
       cell: (r) => (r.lastLoginAt ? <span className="whitespace-nowrap">{fmt.ago(r.lastLoginAt)}</span> : <span className="text-muted">{t('users.never')}</span>),
     },
     { id: 'bookings', header: t('users.columns.bookings'), width: '6.5rem', align: 'right', sortable: true, skeletonWidth: '3ch', cell: (r) => fmt.number(r.bookingsCount) },
-    { id: 'links', header: t('users.columns.links'), width: '6rem', skeleton: <span className="text-muted">—</span>, cell: (r) => <UserLinks row={r} /> },
+    { id: 'links', header: t('users.columns.links'), width: '7rem', skeleton: <span className="text-muted">—</span>, cell: (r) => <UserLinks row={r} /> },
     {
       id: 'status',
       header: <span className="sr-only">{t('users.columns.status')}</span>,

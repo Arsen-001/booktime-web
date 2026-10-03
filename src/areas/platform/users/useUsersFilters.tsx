@@ -13,6 +13,7 @@ export interface UsersFilterState {
   status: PlatformUserStatus | '';
   activeDays: '' | '1' | '7' | '30' | '90';
   telegram: '' | 'yes' | 'no';
+  whatsapp: '' | 'yes' | 'no';
   google: '' | 'yes' | 'no';
   range: DateRange;
 }
@@ -31,9 +32,9 @@ export function useUsersFilters(
   changeSort: (s: SortState) => void,
 ): FilterBarFilter[] {
   const t = useT('platform');
-  const yesNo = (kind: 'telegram' | 'google') => [
-    { value: 'yes', label: t(kind === 'telegram' ? 'users.filters.telegramYes' : 'users.filters.googleYes') },
-    { value: 'no', label: t(kind === 'telegram' ? 'users.filters.telegramNo' : 'users.filters.googleNo') },
+  const yesNo = (kind: 'telegram' | 'whatsapp' | 'google') => [
+    { value: 'yes', label: t(`users.filters.${kind}Yes`) },
+    { value: 'no', label: t(`users.filters.${kind}No`) },
   ];
   return [
     {
@@ -97,6 +98,11 @@ export function useUsersFilters(
       id: 'telegram',
       label: t('users.filters.telegram'),
       node: <Select placeholder={t('users.filters.any')} options={yesNo('telegram')} value={f.telegram} onValueChange={(v) => change({ telegram: v as UsersFilterState['telegram'] })} />,
+    },
+    {
+      id: 'whatsapp',
+      label: t('users.filters.whatsapp'),
+      node: <Select placeholder={t('users.filters.any')} options={yesNo('whatsapp')} value={f.whatsapp} onValueChange={(v) => change({ whatsapp: v as UsersFilterState['whatsapp'] })} />,
     },
     {
       id: 'google',

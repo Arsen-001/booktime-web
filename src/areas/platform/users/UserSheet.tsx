@@ -14,32 +14,34 @@ import { BookingsBlock, LinksBlock, LoginsBlock, ProfileBlock, RolesBlock, Statu
 import { usePlatformUser, useUserActionsAccess } from '@/areas/platform/users/useUsers';
 import type { PlatformUserRow } from '@/domain/platform/types/users';
 import { useT } from '@/i18n/useT';
+import { maskPhone } from '@/lib/phone';
 import { DropdownMenu, type DropdownMenuItem } from '@/ui/DropdownMenu';
 import { ErrorState } from '@/ui/ErrorState';
 import { IconButton } from '@/ui/IconButton';
 import { Sheet } from '@/ui/Sheet';
 import { useConfirm, useToast } from '@/ui/Toast';
 
-export function UserSheet({ row, onClose }: { row: PlatformUserRow; onClose: () => void }) {
+/** id — кого открыть; row — строка списка, если карточку открыли из него (имя в шапке сразу, без ожидания) */
+export function UserSheet({ id, row, onClose }: { id: string; row?: PlatformUserRow; onClose: () => void }) {
   const t = useT('platform');
   const toast = useToast();
   const confirm = useConfirm();
-  const q = usePlatformUser(row.id);
+  const q = usePlatformUser(id);
   const { canManage, selfId } = useUserActionsAccess();
   const [blocking, setBlocking] = useState(false);
   const unblock = useApiMutation((id: string) => setPlatformUserBlocked(id, false));
   const revoke = useApiMutation((id: string) => revokePlatformUserSessions(id));
   const card = q.data;
-  const name = card?.name ?? row.name;
-  const status = card?.status ?? row.status;
-  const isSelf = selfId === row.id;
+  const name = card?.name ?? row?.name ?? '';
+  const status = card?.status ?? row?.status ?? 'active';
+  const isSelf = selfId === id;
   const fail = (e: unknown) => toast.error(e instanceof ApiError && e.code === 'forbidden' ? t('users.forbidden') : t('users.actionFailed'));
 
   const doUnblock = async () => {
     const ok = await confirm({ title: t('users.unblock.title', { name }), description: t('users.unblock.text'), confirmLabel: t('users.unblock.confirm'), tone: 'primary' });
     if (!ok) return;
     try {
-      await unblock.mutate(row.id);
+      await unblock.mutate(id);
       toast.success(t('users.unblock.done', { name }));
     } catch (e) {
       fail(e);
@@ -49,7 +51,7 @@ export function UserSheet({ row, onClose }: { row: PlatformUserRow; onClose: () 
     const ok = await confirm({ title: t('users.revoke.title', { name }), description: t('users.revoke.text'), confirmLabel: t('users.revoke.confirm'), tone: 'danger' });
     if (!ok) return;
     try {
-      const res = await revoke.mutate(row.id);
+      const res = await revoke.mutate(id);
       toast.success(t('users.revoke.done', { n: res.revoked }));
     } catch (e) {
       fail(e);
@@ -71,7 +73,7 @@ export function UserSheet({ row, onClose }: { row: PlatformUserRow; onClose: () 
       open
       onOpenChange={(o) => !o && onClose()}
       title={name}
-      description={row.phoneMasked ?? undefined}
+      description={row?.phoneMasked ?? (card?.phone ? maskPhone(card.phone) : undefined)}
       size="md"
       headerActions={
         menu.length ? <DropdownMenu label={t('users.card.more')} trigger={(p) => <IconButton {...p} icon={<MoreHorizontal />} label={t('users.card.more')} size="sm" />} items={menu} /> : undefined
@@ -94,7 +96,7 @@ export function UserSheet({ row, onClose }: { row: PlatformUserRow; onClose: () 
           </>
         )}
       </div>
-      <BlockUserDialog userId={row.id} name={name} open={blocking} onOpenChange={setBlocking} />
+      <BlockUserDialog userId={id} name={name} open={blocking} onOpenChange={setBlocking} />
     </Sheet>
   );
 }

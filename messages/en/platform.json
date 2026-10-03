@@ -1066,7 +1066,8 @@
       "total": "Total",
       "new7d": "New in 7 days",
       "active7d": "Active in 7 days",
-      "telegram": "With Telegram"
+      "telegram": "With Telegram",
+      "whatsapp": "On WhatsApp"
     },
     "filters": {
       "role": "Role",
@@ -1083,6 +1084,9 @@
       "telegramNo": "Not connected",
       "googleYes": "Linked",
       "googleNo": "Not linked",
+      "whatsapp": "WhatsApp",
+      "whatsappYes": "Uses it",
+      "whatsappNo": "Doesn't use it",
       "registered": "Signed up",
       "sort": "Order"
     },
@@ -1127,6 +1131,7 @@
     "noPhone": "No phone",
     "team": "BookTime team",
     "telegramShort": "Telegram connected",
+    "whatsappShort": "WhatsApp — sign-in codes were sent here",
     "googleShort": "Google linked",
     "bookingsCount": "{n, plural, one {# booking} other {# bookings}}",
     "loginAgo": "signed in {when}",
@@ -1139,6 +1144,7 @@
       "phone": "Phone",
       "language": "Language",
       "registered": "Signed up",
+      "firstLoginVia": "First sign-in",
       "lastLogin": "Last sign-in",
       "lastActive": "Last active",
       "sessions": "Open sessions",
@@ -1149,12 +1155,16 @@
       "rolesEmpty": "App client only — doesn't work in any business",
       "fired": "Dismissed",
       "openPage": "Open page",
+      "openBusiness": "Business card",
       "networkOwner": "Owner of the “{name}” network",
       "links": "Connections",
       "telegram": "Telegram",
       "telegramOn": "Connected since {date}",
       "telegramStopped": "Unsubscribed from the bot",
       "telegramOff": "Not connected",
+      "whatsapp": "WhatsApp",
+      "whatsappOn": "Sign-in codes sent here, last on {date}",
+      "whatsappOff": "No sign-in codes sent here",
       "google": "Google sign-in",
       "googleOn": "Linked since {date}",
       "googleOff": "Not linked",
@@ -1177,6 +1187,13 @@
       "password": "with a password",
       "platform": "to the panel",
       "second_factor": "second step",
+      "apple": "with Apple"
+    },
+    "via": {
+      "telegram": "code via Telegram",
+      "whatsapp": "code via WhatsApp",
+      "sms": "code via SMS",
+      "google": "with Google",
       "apple": "with Apple"
     },
     "result": {

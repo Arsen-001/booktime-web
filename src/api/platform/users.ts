@@ -13,6 +13,8 @@ import { PANEL } from '@/api/platform/shared';
 import * as S from '@/api/platform/users.server';
 import type { CoreData, Id, ISODateTime } from '@/domain/core';
 import type {
+  PlatformCodeChannel,
+  PlatformFirstLoginVia,
   PlatformLoginMethod,
   PlatformUserCard,
   PlatformUserRole,
@@ -99,10 +101,19 @@ function loginsOf(p: DemoPerson, now: ISODateTime): PlatformUserCard['logins'] {
     if (i > 0 && at < p.createdAt) break;
     const wrong = (h >>> i) % 5 === 0;
     const method: PlatformLoginMethod = p.staff.some((s) => s.role === 'admin') && i % 3 === 2 ? 'password' : google && i % 2 === 0 ? 'google' : 'code';
-    out.push({ at, method, app: p.staff.length ? 'business' : 'client', result: wrong ? (method === 'password' ? 'wrong_password' : 'wrong_code') : 'ok', ip: `37.252.•.•` });
+    out.push({ at, method, channel: method === 'code' ? codeChannelOf(p, i) : null, app: p.staff.length ? 'business' : 'client', result: wrong ? (method === 'password' ? 'wrong_password' : 'wrong_code') : 'ok', ip: `37.252.•.•` });
     at = addMinutes(at, -(((h >>> (i + 2)) % 5) + 1) * 24 * 60 - (i * 37) % 300);
   }
   return out;
+}
+
+/** Демо: у части людей коды приходят в WhatsApp (нет Telegram или выбрали сами), у редких — по SMS */
+function whatsappOf(p: DemoPerson): boolean {
+  return Boolean(p.phone) && hashOf(`wa${p.id}`) % 3 === 0;
+}
+function codeChannelOf(p: DemoPerson, i: number): PlatformCodeChannel {
+  if (whatsappOf(p) && (!telegramOf(p) || i % 2 === 0)) return 'whatsapp';
+  return hashOf(p.id) % 17 === 5 ? 'sms' : 'telegram';
 }
 
 function telegramOf(p: DemoPerson): boolean {
@@ -125,6 +136,8 @@ function rowOf(p: DemoPerson, core: CoreData, now: ISODateTime): PlatformUserRow
     lastActiveAt: logins[0]?.at ?? null,
     roles: rolesOf(p),
     telegram: telegramOf(p),
+    // Как на сервере: WhatsApp есть, если код туда приходил и был введён
+    whatsapp: logins.some((l) => l.channel === 'whatsapp' && l.result === 'ok'),
     google: googleOf(p),
     status: statusOf(p),
     bookingsCount: core.bookings.filter((b) => b.appUserId === p.id).length,
@@ -147,6 +160,7 @@ function matches(r: PlatformUserRow, p: DemoPerson, q: PlatformUsersQuery, now: 
   if (q.regTo && datePart(r.createdAt) > q.regTo) return false;
   if (q.activeDays && (!r.lastActiveAt || datePart(r.lastActiveAt) < addDays(datePart(now), -q.activeDays))) return false;
   if (q.telegram && r.telegram !== (q.telegram === 'yes')) return false;
+  if (q.whatsapp && r.whatsapp !== (q.whatsapp === 'yes')) return false;
   if (q.google && r.google !== (q.google === 'yes')) return false;
   if (q.status && r.status !== q.status) return false;
   return true;
@@ -182,6 +196,7 @@ export function listPlatformUsers(query: PlatformUsersQuery): Promise<PlatformUs
         new7d: live.filter(({ r }) => datePart(r.createdAt) >= weekAgo).length,
         active7d: live.filter(({ r }) => r.lastActiveAt && datePart(r.lastActiveAt) >= weekAgo).length,
         telegram: live.filter(({ r }) => r.telegram).length,
+        whatsapp: live.filter(({ r }) => r.whatsapp).length,
       },
     };
   }, PANEL);
@@ -207,6 +222,9 @@ export function getPlatformUser(id: Id): Promise<PlatformUserCard> {
     const notLater = (dt: ISODateTime) => (dt > now ? now : dt);
     const tgSince = row.telegram ? notLater(addMinutes(p.createdAt, 60 * 24 * ((h % 9) + 1))) : null;
     const lastOk = logins.find((l) => l.result === 'ok');
+    const waCodes = logins.filter((l) => l.channel === 'whatsapp' && l.result === 'ok');
+    const first = logins.filter((l) => l.result === 'ok').at(-1);
+    const firstLoginVia: PlatformFirstLoginVia | null = first ? ((first.channel as PlatformCodeChannel | null) ?? (first.method === 'google' ? 'google' : null)) : null;
     return {
       id: p.id,
       name: p.name,
@@ -227,6 +245,8 @@ export function getPlatformUser(id: Id): Promise<PlatformUserCard> {
       }),
       networks: core.networks.filter((n) => p.staff.some((s) => s.id === n.ownerStaffId)).map((n) => ({ id: n.id, name: n.name })),
       telegram: { connected: row.telegram, since: tgSince, stopped: false },
+      whatsapp: { used: waCodes.length > 0, since: waCodes.at(-1)?.at ?? null, lastAt: waCodes[0]?.at ?? null },
+      firstLoginVia,
       google: row.google
         ? { linked: true, email: `${(p.name.split(' ')[0] ?? 'user').toLowerCase().replace(/[^a-z]/g, '') || 'user'}${h % 100}@gmail.com`, since: notLater(addMinutes(p.createdAt, 60 * 24 * 2)), lastUsedAt: lastOk?.at ?? null }
         : { linked: false, email: null, since: null, lastUsedAt: null },

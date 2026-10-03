@@ -1,0 +1,19 @@
+[
+  { "route": "/platform/users", "persona": "platform", "device": "desktop",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "role=button[name=/С WhatsApp/]" },
+      { "wait": 1200 },
+      { "screenshot": "wa-filter" },
+      { "click": "table tbody tr >> nth=0" },
+      { "expectText": "Код входа приходил сюда" },
+      { "wait": 1000 },
+      { "screenshot": "wa-card" },
+      { "click": "role=dialog >> text=Последние входы" },
+      { "press": "End" },
+      { "wait": 500 },
+      { "screenshot": "wa-card-logins" }
+    ] },
+  { "route": "/platform/users", "persona": "platform", "device": "phone", "theme": "dark",
+    "steps": [ { "wait": 1500 }, { "screenshot": "wa-phone-dark" } ] }
+]
