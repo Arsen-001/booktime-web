@@ -3,7 +3,7 @@
 /**
  * Ряд платных сторис на главной вошедшего клиента (F-00-159), сначала подписки клиента, автопрокрутка раз в 3,5 с,
  * стоп при касании (F-00-161, предл.). Вертикальные карточки 9:16 с самой картинкой сторис (владелец 03.10.2026:
- * «вертикальные прямоугольники» вместо кружков), внизу логотип и имя салона, сверху «Реклама» (F-00-162).
+ * «вертикальные прямоугольники» вместо кружков), внизу «Реклама» (F-00-162), логотип и имя салона.
  * Свой скролл-контейнер, а не ScrollRow: автопрокрутке нужен scrollLeft (просьба про вариант с автопрокруткой — qa/requests/client.md).
  */
 import { useEffect, useRef, useState } from 'react';
@@ -76,10 +76,10 @@ export function StoriesRow() {
               className="group relative block aspect-[9/16] w-[6.5rem] overflow-hidden rounded-2xl bg-surface-2 ring-2 ring-primary ring-offset-2 ring-offset-bg transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus sm:w-28"
             >
               <Image src={s.imageUrl} alt="" fill sizes="112px" unoptimized className="object-cover transition-transform duration-500 group-hover:scale-105" />
-              <span className="absolute top-1.5 right-1.5 rounded-md bg-overlay px-1.5 py-0.5 text-[10px] font-semibold text-primary-contrast">
-                {t('home.adBadge')}
-              </span>
-              <span className="absolute inset-x-0 bottom-0 flex items-center gap-1.5 bg-linear-to-t from-overlay to-transparent px-2 pt-6 pb-2">
+              <span className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-linear-to-t from-overlay to-transparent px-2 pt-8 pb-2">
+                {/* «Реклама» видна всегда (F-00-162) — внизу, чтобы не закрывать название салона на самой картинке */}
+                <span className="text-[10px] font-semibold text-primary-contrast/80">{t('home.adBadge')}</span>
+                <span className="flex min-w-0 items-center gap-1.5">
                 <span className="block size-6 shrink-0 overflow-hidden rounded-full bg-surface ring-1 ring-primary-contrast">
                   {logo ? (
                     <Image src={logo} alt="" width={24} height={24} unoptimized className="size-full object-cover" />
@@ -88,6 +88,7 @@ export function StoriesRow() {
                   )}
                 </span>
                 <span className="min-w-0 truncate text-xs font-semibold text-primary-contrast">{nameOf(s.business.name)}</span>
+                </span>
               </span>
             </Link>
           </li>

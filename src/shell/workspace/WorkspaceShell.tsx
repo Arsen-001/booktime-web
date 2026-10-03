@@ -32,6 +32,8 @@ export interface WorkspaceShellProps {
   logoHref: string;
   /** Слева в верхней полосе (переключатель филиала, поиск) */
   topBarStart?: ReactNode;
+  /** Справа в верхней полосе, перед колокольчиком (например, язык в нашей панели) */
+  topBarEnd?: ReactNode;
   /** Вверху выезжающего меню телефона (переключатель филиала) */
   drawerTop?: ReactNode;
   children: ReactNode;
@@ -50,6 +52,7 @@ export function WorkspaceShell({
   caption,
   logoHref,
   topBarStart,
+  topBarEnd,
   drawerTop,
   children,
 }: WorkspaceShellProps) {
@@ -195,6 +198,7 @@ export function WorkspaceShell({
                 {topBarStart}
               </div>
               <div className="flex shrink-0 items-center gap-1">
+                {topBarEnd}
                 <NotificationsBell href={inboxHref} />
                 <UserMenu kind={kind} />
               </div>

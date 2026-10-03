@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { PLATFORM_NAV } from '@/config/nav';
 import { useDemo } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
+import { LanguageSwitch } from '@/shell/LanguageSwitch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
 
 /** Каркас нашей панели /platform — только персона «Наша панель» */
@@ -27,6 +28,8 @@ export function PlatformShell({ children }: { children: ReactNode }) {
           {t('app.platformPanel')}
         </span>
       }
+      // Язык панели — Հայ / Рус / Eng (владелец 03.10.2026); армянский, где перевода ещё нет, показывает русский
+      topBarEnd={<LanguageSwitch />}
     >
       {children}
     </WorkspaceShell>

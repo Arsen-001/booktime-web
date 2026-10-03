@@ -165,7 +165,7 @@ export interface ClientState {
 const CALL_MODES: CallMode[] = ['always', 'hours', 'busy', 'messages'];
 
 export const clientSlice = defineSlice<ClientState>({
-  version: 16,
+  version: 17,
   seed: (core, now) => {
     const contacts: Record<Id, StaffContacts> = {};
     core.staff.forEach((s, i) => {
@@ -629,10 +629,14 @@ export const clientSlice = defineSlice<ClientState>({
           const shortest = core.services
             .filter((sv) => sv.staffIds.includes(s.id) && sv.active)
             .reduce<number | undefined>((m, sv) => (m === undefined || sv.durationMin < m ? sv.durationMin : m), undefined);
-          const times = freeSlots(core, { staffId: s.id, date: toISODate(today), durationMin: shortest ?? 30 }, nowIso)
-            .slice(0, 2)
-            .map((slot) => slot.start.slice(11, 16));
-          return { staff: s, label: times.join(', ') };
+          const slotsOn = (day: typeof today) =>
+            freeSlots(core, { staffId: s.id, date: toISODate(day), durationMin: shortest ?? 30 }, nowIso)
+              .slice(0, 2)
+              .map((slot) => slot.start.slice(11, 16));
+          // Вечером сегодня окон может не остаться — тогда завтрашние, иначе демо без сторис (владелец 03.10.2026)
+          const todayTimes = slotsOn(today);
+          const times = todayTimes.length ? todayTimes : slotsOn(today.add(1, 'day'));
+          return { staff: s, label: times.join(', '), tomorrow: !todayTimes.length };
         })
         .filter((w) => w.label)
         .slice(0, 2);
@@ -644,7 +648,7 @@ export const clientSlice = defineSlice<ClientState>({
           kind: 'generated',
           imageUrl: generateStoryImage({
             businessName: b.name,
-            lines: ['Свободно сегодня', ...staffWindows.map((w) => (showNames ? `${w.staff.name} · ${w.label}` : w.label))],
+            lines: [staffWindows.every((w) => w.tomorrow) ? 'Свободно завтра' : 'Свободно сегодня', ...staffWindows.map((w) => (showNames ? `${w.staff.name} · ${w.label}` : w.label))],
             lang: 'ru',
           }),
           lang: ['ru'],
@@ -653,7 +657,8 @@ export const clientSlice = defineSlice<ClientState>({
           status: 'active',
           price: 1500,
           createdAt: at(0),
-          expiresAt: toISODateTime(today.add(1, 'day')),
+          // Демо пересоздаётся раз в 7 дней — сторис живёт столько же, чтобы ряд сторис у клиента не пустел через сутки
+          expiresAt: toISODateTime(today.add(7, 'day')),
           viewCount: 340 + i * 12,
           clickCount: 28 + i,
           bookingCount: i % 2,
