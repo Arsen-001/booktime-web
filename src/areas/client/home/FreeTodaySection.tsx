@@ -17,13 +17,16 @@ const QUERY = { limit: 6 } as const;
 
 /**
  * «Свободно сегодня» — главное отличие продукта, поэтому сразу под поиском (ux-best-c3 №5, demo-q3/q4). «Рядом» в
- * заголовке — только когда есть геолокация (ux-r1 №2), поэтому здесь «Свободно сегодня».
+ * заголовке — только когда есть геолокация (ux-r1 №2), поэтому здесь «Свободно сегодня». hideWhenEmpty — главная гостя.
  */
-export function FreeTodaySection() {
+export function FreeTodaySection({ hideWhenEmpty = false }: { hideWhenEmpty?: boolean }) {
   const t = useT('client');
   const { ready } = useCurrent();
   const q = useApiQuery(clientKeys.catalog(QUERY), () => listCatalog(QUERY), { enabled: ready });
   const skeletonCount = useSkeletonCount('home-free-today', { loading: q.isLoading, count: q.data?.length, fallback: QUERY.limit, max: QUERY.limit });
+
+  // Гостю на первой странице пустая секция — тупик («никто не свободен»); прячем её, пока база заведений растёт
+  if (hideWhenEmpty && !q.isLoading && !q.isError && !q.data?.length) return null;
 
   return (
     <section data-f="F-00-001 F-00-108" className="flex flex-col gap-3">
