@@ -14,16 +14,23 @@ export const SPHERE_REQUEST_TONE: Record<SphereRequestStatus, BadgeTone> = { ope
 /** «Места»: статус из визитов; «работает в BookTime» — главный успех, «не были» — нейтрально */
 export const PROSPECT_TONE: Record<ProspectStatus, BadgeTone> = { new: 'neutral', thinking: 'warning', connected: 'info', refused: 'danger', live: 'success' };
 /** Система записи: прямые конкуренты-онлайн — акцентом, «без системы» (телефон, Instagram) — проще всего подключить */
+/**
+ * Группы «Запись сейчас» (макет «Места для продаж»): зелёный — системы нет, подключить проще всего; жёлтый — Emly
+ * выключен; синий — уже на чужой онлайн-записи (переманиваем; не красный — это не ошибка); серый — не видно или своё.
+ */
 export const BOOKING_SYSTEM_TONE: Record<BookingSystem, BadgeTone> = {
-  emly: 'accent',
-  altegio: 'accent',
-  fresha: 'accent',
-  dikidi: 'accent',
-  booksy: 'accent',
-  own_site: 'info',
-  other_online: 'info',
-  medical_platform: 'info',
-  phone_whatsapp: 'primary',
-  instagram: 'primary',
+  phone_whatsapp: 'success',
+  instagram: 'success',
+  emly_off: 'warning',
   unknown: 'neutral',
+  own_site: 'neutral',
+  medical_platform: 'neutral',
+  emly: 'info',
+  booker: 'info',
+  altegio: 'info',
+  dikidi: 'info',
+  fresha: 'info',
+  sonline: 'info',
+  booksy: 'info',
+  other_online: 'info',
 };

@@ -2,17 +2,18 @@
 
 /**
  * /platform/prospects — «Места» (03.10.2026): все заведения Еревана, куда отдел продаж может предложить BookTime.
- * Сверху — счётчики по системам записи (они же главный фильтр, мультивыбор), строка фильтров, таблица по числу мастеров.
+ * Сверху — счётчики по системам записи (они же главный фильтр, мультивыбор), строка фильтров с порядком, «Показано N из M»,
+ * таблица по макету «Места для продаж»: сфера, район, мастеров, «Запись сейчас», ссылки и телефон прямо в строке.
  * Строка открывает карточку места; из карточки — «Записать визит» (визит привязывается к месту, статус места — из визитов).
  */
 import { useState } from 'react';
 import { MapPinned } from 'lucide-react';
 import { useProspects } from '@/areas/platform/hooks/usePlatformData';
-import { BOOKING_SYSTEM_TONE, PROSPECT_TONE } from '@/areas/platform/lib/tones';
 import { CheckListFilter } from '@/areas/platform/prospects/CheckListFilter';
 import { ProspectsActions } from '@/areas/platform/prospects/ProspectsActions';
 import { ProspectSheet } from '@/areas/platform/prospects/ProspectSheet';
 import { SystemCounters } from '@/areas/platform/prospects/SystemCounters';
+import { useProspectColumns } from '@/areas/platform/prospects/useProspectColumns';
 import { VisitSheet } from '@/areas/platform/visits/VisitSheet';
 import {
   BOOKING_SYSTEMS,
@@ -23,14 +24,11 @@ import {
   type ProspectCategory,
   type ProspectDistrict,
   type ProspectListQuery,
-  type ProspectRow,
   type ProspectSort,
   type ProspectStatus,
   type VisitInput,
 } from '@/domain/platform';
-import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
-import { Badge } from '@/ui/Badge';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { ExitHold } from '@/ui/ExitHold';
@@ -40,19 +38,21 @@ import { PageHeader } from '@/ui/PageHeader';
 import { DEFAULT_PAGE_SIZE, Pagination } from '@/ui/Pagination';
 import { Select } from '@/ui/Select';
 import { SkeletonText } from '@/ui/Skeleton';
-import { Table, type TableColumn, type TableSort } from '@/ui/Table';
+import { Table, type TableSort } from '@/ui/Table';
 
 const DEFAULT_SORT: TableSort = { columnId: 'staff', dir: 'desc' };
 
+const SORTS: ProspectSort[] = ['staff_desc', 'staff_asc', 'name_asc', 'name_desc', 'reviews_desc'];
+
 function toSort(s: TableSort | null): ProspectSort {
   if (!s) return 'staff_desc';
+  if (s.columnId === 'reviews') return 'reviews_desc';
   return s.columnId === 'name' ? (s.dir === 'asc' ? 'name_asc' : 'name_desc') : s.dir === 'asc' ? 'staff_asc' : 'staff_desc';
 }
 
 export function ProspectsScreen() {
   const t = useT('platform');
   const tc = useT('common');
-  const fmt = useFormat();
   const [systems, setSystems] = useState<BookingSystem[]>([]);
   const [category, setCategory] = useState<ProspectCategory | ''>('');
   const [district, setDistrict] = useState<ProspectDistrict | ''>('');
@@ -97,78 +97,14 @@ export function ProspectsScreen() {
 
   const districtLabel = (d: ProspectDistrict) => (d === 'unknown' ? t('prospects.districtUnknown') : tc(`districts.${d}`));
   const systemLabel = (s: BookingSystem) => t(`prospects.system.${s}`);
+  const sortValue = toSort(sort);
+  const setSortValue = (v: ProspectSort) => {
+    // Порядок «по отзывам» — не колонка таблицы: стрелки в заголовках гаснут, порядок виден в поле
+    setSort(v === 'name_asc' ? { columnId: 'name', dir: 'asc' } : v === 'reviews_desc' ? { columnId: 'reviews', dir: 'desc' } : DEFAULT_SORT);
+    setPage(1);
+  };
 
-  const columns: TableColumn<ProspectRow>[] = [
-    {
-      id: 'name',
-      header: t('prospects.col.name'),
-      mobile: 'title',
-      sortable: true,
-      width: '14rem',
-      skeletonWidth: '16ch',
-      cell: (p) => (
-        <span className="flex min-w-0 flex-col">
-          <span className="truncate font-medium text-fg">{p.name}</span>
-          {p.address && <span className="truncate text-sm text-muted max-md:hidden">{p.address}</span>}
-        </span>
-      ),
-    },
-    {
-      id: 'where',
-      header: t('prospects.col.where'),
-      mobile: 'subtitle',
-      width: '12rem',
-      skeletonWidth: '20ch',
-      cell: (p) => <span className="block truncate text-muted">{[t(`prospects.category.${p.category}`), districtLabel(p.district)].join(' · ')}</span>,
-    },
-    {
-      id: 'staff',
-      header: t('prospects.col.staff'),
-      mobile: 'meta',
-      sortable: true,
-      align: 'right',
-      width: '6.5rem',
-      skeletonWidth: '3ch',
-      cell: (p) => (p.staffEstimate !== undefined ? <span className="font-medium text-fg">{p.staffEstimate}</span> : <span className="text-muted">—</span>),
-    },
-    {
-      id: 'system',
-      header: t('prospects.col.system'),
-      mobile: 'meta',
-      width: '11.5rem',
-      cell: (p) => (
-        <Badge size="sm" tone={BOOKING_SYSTEM_TONE[p.bookingSystem]}>
-          {systemLabel(p.bookingSystem)}
-        </Badge>
-      ),
-      skeleton: (
-        <Badge size="sm" tone="neutral">
-          <SkeletonText width="8ch" />
-        </Badge>
-      ),
-    },
-    {
-      id: 'lastVisit',
-      header: t('prospects.col.lastVisit'),
-      mobile: 'meta',
-      width: '8.5rem',
-      skeletonWidth: '8ch',
-      cell: (p) => <span className="whitespace-nowrap text-muted">{p.lastVisit ? fmt.relativeDay(p.lastVisit.visitedAt) : '—'}</span>,
-    },
-    {
-      id: 'status',
-      header: t('prospects.col.status'),
-      mobile: 'badge',
-      align: 'right',
-      width: '10.5rem',
-      cell: (p) => <Badge tone={PROSPECT_TONE[p.status]}>{t(`prospects.status.${p.status}`)}</Badge>,
-      skeleton: (
-        <Badge tone="neutral">
-          <SkeletonText width="8ch" />
-        </Badge>
-      ),
-    },
-  ];
+  const columns = useProspectColumns();
 
   return (
     <div className="flex flex-col gap-6">
@@ -180,6 +116,12 @@ export function ProspectsScreen() {
         search={{ value: q, onValueChange: withReset(setQ), placeholder: t('prospects.search') }}
         onReset={resetAll}
         filters={[
+          {
+            id: 'sort',
+            label: t('prospects.filter.sort'),
+            primary: true,
+            node: <Select aria-label={t('prospects.filter.sort')} value={sortValue} onValueChange={(v) => setSortValue(v as ProspectSort)} options={SORTS.map((v) => ({ value: v, label: t(`prospects.sort.${v}`) }))} />,
+          },
           {
             id: 'system',
             label: t('prospects.filter.system'),
@@ -243,6 +185,9 @@ export function ProspectsScreen() {
         <ErrorState onRetry={listQ.refetch} />
       ) : (
         <div className="flex flex-col gap-3">
+          <p className="text-sm text-muted" aria-live="polite">
+            {listQ.isLoading ? <SkeletonText width="16ch" /> : t('prospects.shown', { shown: data?.total ?? 0, total: data?.totalAll ?? 0 })}
+          </p>
           <Table
             label={t('prospects.title')}
             columns={columns}

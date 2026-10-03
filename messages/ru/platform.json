@@ -372,7 +372,7 @@
   },
   "prospects": {
     "title": "Места",
-    "subtitle": "Салоны и клиники Еревана, которым можно предложить BookTime",
+    "subtitle": "Салоны и клиники Еревана, куда можно предложить BookTime. Начинайте с тех, у кого нет системы записи или Emly выключен",
     "import": "Импорт",
     "importDone": "Импорт: добавлено {added}, обновлено {updated}, без изменений {unchanged}, пропущено {skipped}",
     "importBadFile": "Файл не похож на список мест: нужен JSON-массив",
@@ -392,7 +392,15 @@
       "staffMin": "Мастеров от",
       "staffMinPlaceholder": "Например, 5",
       "status": "Статус",
-      "allStatuses": "Все статусы"
+      "allStatuses": "Все статусы",
+      "sort": "Порядок"
+    },
+    "sort": {
+      "staff_desc": "Больше мастеров",
+      "staff_asc": "Меньше мастеров",
+      "name_asc": "По названию, А–Я",
+      "name_desc": "По названию, Я–А",
+      "reviews_desc": "Больше отзывов"
     },
     "col": {
       "name": "Место",
@@ -400,7 +408,12 @@
       "staff": "Мастеров",
       "system": "Запись через",
       "lastVisit": "Последний визит",
-      "status": "Статус"
+      "status": "Статус",
+      "category": "Сфера",
+      "district": "Район",
+      "bookingNow": "Запись сейчас",
+      "links": "Ссылки",
+      "phone": "Телефон"
     },
     "districtUnknown": "Район не указан",
     "system": {
@@ -409,12 +422,15 @@
       "fresha": "Fresha",
       "dikidi": "DIKIDI",
       "booksy": "Booksy",
-      "own_site": "Свой сайт",
-      "other_online": "Другая онлайн-запись",
-      "medical_platform": "Медицинская платформа",
-      "phone_whatsapp": "Телефон и WhatsApp",
-      "instagram": "Instagram",
-      "unknown": "Не знаем"
+      "own_site": "Своя форма на сайте",
+      "other_online": "Другая онлайн-система",
+      "medical_platform": "Медплатформа",
+      "phone_whatsapp": "Телефон / WhatsApp",
+      "instagram": "Только Instagram",
+      "unknown": "Не видно",
+      "emly_off": "Emly выключен",
+      "booker": "Booker.am",
+      "sonline": "Sonline"
     },
     "bookingVia": "Запись: {system}",
     "category": {
@@ -454,6 +470,12 @@
     "nameRequired": "Укажите название",
     "aboutTitle": "О месте",
     "linksTitle": "Ссылки",
+    "link": {
+      "booking": "Запись",
+      "site": "Сайт",
+      "instagram": "Instagram",
+      "source": "Источник"
+    },
     "visitsTitle": "Визиты",
     "noVisits": "Ещё не были — запишите первый визит",
     "noLinks": "Ссылок нет",
@@ -476,7 +498,9 @@
       "instagram": "Instagram",
       "sources": "Источники",
       "note": "Заметка"
-    }
+    },
+    "shown": "Показано {shown} из {total}",
+    "branchesN": "{n, plural, one {# филиал} few {# филиала} many {# филиалов} other {# филиала}}"
   },
   "promocodes": {
     "title": "Промокоды",

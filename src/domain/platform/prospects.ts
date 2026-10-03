@@ -19,19 +19,23 @@ import type {
   VisitTool,
 } from '@/domain/platform/types';
 
-/** Порядок систем в счётчиках и фильтре: сначала конкуренты-онлайн, в конце «не знаем» */
+/** Порядок систем в счётчиках и фильтре */
 export const BOOKING_SYSTEMS: BookingSystem[] = [
-  'emly',
-  'altegio',
-  'fresha',
-  'dikidi',
-  'booksy',
-  'own_site',
-  'other_online',
-  'medical_platform',
+  // Сначала те, кого проще подключить (без системы, Emly выключен), потом конкуренты-онлайн (03.10.2026, макет «Места для продаж»)
   'phone_whatsapp',
   'instagram',
+  'emly_off',
   'unknown',
+  'own_site',
+  'emly',
+  'booker',
+  'altegio',
+  'dikidi',
+  'fresha',
+  'sonline',
+  'booksy',
+  'other_online',
+  'medical_platform',
 ];
 
 export const PROSPECT_CATEGORIES: ProspectCategory[] = ['beauty', 'nails', 'barber', 'hair', 'brows_lashes', 'cosmetology', 'massage_spa', 'clinic', 'dental', 'other'];
@@ -233,11 +237,21 @@ export function matchesProspect(p: Filterable, f: ProspectFilter): boolean {
 }
 
 /** По мастерам — неизвестное число всегда в конце; при равенстве — по имени */
-export function sortProspects<T extends { name: string; staffEstimate?: number | null }>(rows: readonly T[], sort: ProspectSort = 'staff_desc'): T[] {
+export function sortProspects<T extends { name: string; staffEstimate?: number | null; reviews?: { count?: number } | null }>(
+  rows: readonly T[],
+  sort: ProspectSort = 'staff_desc',
+): T[] {
   const byName = (a: T, b: T) => a.name.localeCompare(b.name, 'ru', { sensitivity: 'base', numeric: true });
   return [...rows].sort((a, b) => {
     if (sort === 'name_asc') return byName(a, b);
     if (sort === 'name_desc') return byName(b, a);
+    if (sort === 'reviews_desc') {
+      // Больше отзывов — заметнее место; без отзывов — в конце, между ними — по мастерам
+      const ra = a.reviews?.count ?? -1;
+      const rb = b.reviews?.count ?? -1;
+      if (ra !== rb) return rb - ra;
+      return (b.staffEstimate ?? -1) - (a.staffEstimate ?? -1) || byName(a, b);
+    }
     const sa = a.staffEstimate ?? null;
     const sb = b.staffEstimate ?? null;
     if (sa === null && sb === null) return byName(a, b);
@@ -316,6 +330,9 @@ const CATEGORY_SPHERE: Record<ProspectCategory, SphereId | undefined> = {
 
 const SYSTEM_TOOL: Record<BookingSystem, VisitTool | undefined> = {
   emly: 'emly',
+  emly_off: 'emly',
+  booker: 'other',
+  sonline: 'other',
   altegio: 'altegio',
   fresha: 'fresha',
   dikidi: 'dikidi',

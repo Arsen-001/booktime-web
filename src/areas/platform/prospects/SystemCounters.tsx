@@ -4,10 +4,16 @@
  * Счётчики по системам записи — сколько мест на Emly, Altegio, без системы… Это и главный фильтр экрана: нажатие
  * добавляет систему в выбор (мультивыбор), «Все» снимает выбор. Все чипы на месте уже при загрузке (числа — полосой).
  */
+import { BOOKING_SYSTEM_TONE } from '@/areas/platform/lib/tones';
 import { BOOKING_SYSTEMS, type BookingSystem } from '@/domain/platform';
+import { cn } from '@/lib/cn';
+import type { BadgeTone } from '@/ui/Badge';
 import { useT } from '@/i18n/useT';
 import { Chip } from '@/ui/Chip';
 import { ScrollRow } from '@/ui/ScrollRow';
+
+/** Точка группы в чипе — тот же цвет, что у бейджа «Запись сейчас» в строке (зелёный — проще подключить …) */
+const DOT: Partial<Record<BadgeTone, string>> = { success: 'bg-success', warning: 'bg-warning', info: 'bg-info', neutral: 'bg-border-strong' };
 
 export function SystemCounters({ counts, value, onValueChange }: { counts?: Record<BookingSystem, number>; value: BookingSystem[]; onValueChange: (v: BookingSystem[]) => void }) {
   const t = useT('platform');
@@ -28,6 +34,7 @@ export function SystemCounters({ counts, value, onValueChange }: { counts?: Reco
             countLoading={!counts}
             // Пустую систему не выбрать (ноль мест), но она видна — ряд не прыгает от фильтра к фильтру
             disabled={Boolean(counts) && counts?.[s] === 0 && !value.includes(s)}
+            icon={<span aria-hidden className={cn('block size-2 rounded-full', DOT[BOOKING_SYSTEM_TONE[s]])} />}
           >
             {t(`prospects.system.${s}`)}
           </Chip>

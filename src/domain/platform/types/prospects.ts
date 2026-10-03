@@ -7,6 +7,10 @@ export type ProspectCategory = 'beauty' | 'nails' | 'barber' | 'hair' | 'brows_l
 /** Чем место ведёт запись сейчас — главный признак для продаж («кого переманиваем») */
 export type BookingSystem =
   | 'emly'
+  /** Страница на Emly есть, онлайн-запись выключена — главный кандидат */
+  | 'emly_off'
+  | 'booker'
+  | 'sonline'
   | 'altegio'
   | 'fresha'
   | 'dikidi'
@@ -23,7 +27,7 @@ export type ProspectDistrict = DistrictId | 'unknown';
 /** Выводится из визитов: не были / думает / подключили / отказ / работает в BookTime (есть бизнес) */
 export type ProspectStatus = 'new' | VisitStatus | 'live';
 
-export type ProspectSort = 'staff_desc' | 'staff_asc' | 'name_asc' | 'name_desc';
+export type ProspectSort = 'staff_desc' | 'staff_asc' | 'name_asc' | 'name_desc' | 'reviews_desc';
 
 export interface ProspectReviews {
   rating?: number;

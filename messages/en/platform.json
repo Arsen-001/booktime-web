@@ -372,7 +372,7 @@
   },
   "prospects": {
     "title": "Places",
-    "subtitle": "Yerevan salons and clinics we can offer BookTime to",
+    "subtitle": "Salons and clinics in Yerevan we can offer BookTime to. Start with those that have no booking system or Emly turned off",
     "import": "Import",
     "importDone": "Import: {added} added, {updated} updated, {unchanged} unchanged, {skipped} skipped",
     "importBadFile": "This file doesn’t look like a list of places: a JSON array is expected",
@@ -392,7 +392,15 @@
       "staffMin": "Staff from",
       "staffMinPlaceholder": "For example, 5",
       "status": "Status",
-      "allStatuses": "All statuses"
+      "allStatuses": "All statuses",
+      "sort": "Order"
+    },
+    "sort": {
+      "staff_desc": "Most staff",
+      "staff_asc": "Fewest staff",
+      "name_asc": "By name, A–Z",
+      "name_desc": "By name, Z–A",
+      "reviews_desc": "Most reviews"
     },
     "col": {
       "name": "Place",
@@ -400,7 +408,12 @@
       "staff": "Staff",
       "system": "Books via",
       "lastVisit": "Last visit",
-      "status": "Status"
+      "status": "Status",
+      "category": "Category",
+      "district": "District",
+      "bookingNow": "Booking now",
+      "links": "Links",
+      "phone": "Phone"
     },
     "districtUnknown": "District unknown",
     "system": {
@@ -409,12 +422,15 @@
       "fresha": "Fresha",
       "dikidi": "DIKIDI",
       "booksy": "Booksy",
-      "own_site": "Own website",
-      "other_online": "Other online booking",
+      "own_site": "Own form on website",
+      "other_online": "Other online system",
       "medical_platform": "Medical platform",
-      "phone_whatsapp": "Phone and WhatsApp",
-      "instagram": "Instagram",
-      "unknown": "Unknown"
+      "phone_whatsapp": "Phone / WhatsApp",
+      "instagram": "Instagram only",
+      "unknown": "Not visible",
+      "emly_off": "Emly turned off",
+      "booker": "Booker.am",
+      "sonline": "Sonline"
     },
     "bookingVia": "Books via {system}",
     "category": {
@@ -454,6 +470,12 @@
     "nameRequired": "Enter a name",
     "aboutTitle": "About",
     "linksTitle": "Links",
+    "link": {
+      "booking": "Booking",
+      "site": "Website",
+      "instagram": "Instagram",
+      "source": "Source"
+    },
     "visitsTitle": "Visits",
     "noVisits": "Not visited yet — log the first visit",
     "noLinks": "No links",
@@ -476,7 +498,9 @@
       "instagram": "Instagram",
       "sources": "Sources",
       "note": "Note"
-    }
+    },
+    "shown": "Showing {shown} of {total}",
+    "branchesN": "{n, plural, one {# branch} other {# branches}}"
   },
   "promocodes": {
     "title": "Promo codes",
