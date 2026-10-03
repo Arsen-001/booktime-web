@@ -1,0 +1,16 @@
+[
+  { "route": "/platform/users", "persona": "platform", "device": "desktop",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "role=button[name=/Фильтры/]" },
+      { "wait": 400 },
+      { "screenshot": "filters" },
+      { "press": "Escape" },
+      { "fill": "input[type=search]", "value": "яяяя" },
+      { "wait": 1200 },
+      { "expectText": "Никого не нашли" },
+      { "screenshot": "empty" }
+    ] },
+  { "route": "/platform/users", "persona": "platform", "device": "phone", "theme": "dark",
+    "steps": [ { "wait": 1800 }, { "screenshot": "dark" } ] }
+]

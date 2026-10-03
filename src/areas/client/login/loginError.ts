@@ -34,6 +34,13 @@ export function loginErrorText(t: ClientT, error: unknown, fallback: string): st
       return t('login.google.errors.unavailable');
     case 'google_taken':
       return t('login.google.errors.taken');
+    case 'apple_invalid':
+      return t('login.apple.errors.invalid');
+    case 'apple_disabled':
+    case 'apple_unavailable':
+      return t('login.apple.errors.unavailable');
+    case 'apple_taken':
+      return t('login.apple.errors.taken');
     case 'consent_required':
       return t('login.consentRequired');
     case 'network':

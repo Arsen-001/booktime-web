@@ -15,7 +15,7 @@ export interface VisitEvent {
 }
 
 /** Чем салон ведёт запись сейчас — спрашиваем на визите (F-00-207, к решению о цене) */
-export type VisitTool = 'dikidi' | 'altegio' | 'whatsapp' | 'notebook' | 'other' | 'nothing';
+export type VisitTool = 'dikidi' | 'altegio' | 'emly' | 'fresha' | 'whatsapp' | 'notebook' | 'other' | 'nothing';
 
 export interface Visit {
   id: Id;
@@ -37,6 +37,8 @@ export interface Visit {
   responsibleId: Id;
   businessId?: Id;
   promoCodeId?: Id;
+  /** Место из базы «Места», к которому ходили (статус места — из последнего визита) */
+  prospectId?: Id;
   history: VisitEvent[];
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
@@ -58,4 +60,5 @@ export type VisitInput = Pick<
   | 'currentTool'
   | 'willingToPay'
   | 'responsibleId'
+  | 'prospectId'
 >;

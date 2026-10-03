@@ -19,6 +19,7 @@ import type {
   PromoCode,
   RejectReason,
   SphereRequest,
+  StoredProspect,
   StoryBooking,
   StoryPlacesConfig,
   SupportTicket,
@@ -26,6 +27,7 @@ import type {
   Visit,
   WaveItem,
 } from '@/domain/platform';
+import { prospectDedupKey } from '@/domain/platform';
 
 export interface PlatformState {
   team: TeamMember[];
@@ -34,6 +36,8 @@ export interface PlatformState {
   coinEntries: CoinEntry[];
   connectDrafts: ConnectDraft[];
   visits: Visit[];
+  /** «Места» (03.10.2026): база заведений для отдела продаж; статус — из визитов с prospectId */
+  prospects: StoredProspect[];
   promoCodes: PromoCode[];
   bizMeta: Record<Id, BizMeta>;
   supportTickets: SupportTicket[];
@@ -97,7 +101,7 @@ function buildStats(baseNow: Date, fromDelta: number, days: number): Record<stri
 }
 
 export const platformSlice = defineSlice<PlatformState>({
-  version: 10,
+  version: 11,
   seed: (core: CoreData, now: Date): PlatformState => {
     const team: TeamMember[] = [
       { id: 'team_anna', name: 'Анна Григорян' },
@@ -241,6 +245,30 @@ export const platformSlice = defineSlice<PlatformState>({
         updatedAt: createdAt,
       };
     });
+
+    // ── Места (03.10.2026): демо-база заведений для отдела продаж. Первые три — те же места, что визиты 1–3 (статус
+    // места выводится из визита: подключён бизнес / думает / отказ), остальные — ещё не были. Названия вымышленные.
+    const prospectSeed: Omit<StoredProspect, 'id' | 'dedupKey' | 'version' | 'createdAt' | 'updatedAt'>[] = [
+      { name: 'Nail Studio Ева', category: 'nails', district: 'kentron', address: 'ул. Абовяна, 10', branches: 1, staffEstimate: 6, staffSource: 'Instagram: мастера в сторис', bookingSystem: 'altegio', bookingUrl: 'https://n000000.alteg.io/', instagram: 'https://instagram.com/nailstudio.eva.demo', phone: '+37400100000', reviews: { rating: 4.8, count: 112, text: 'Google' }, sourceUrls: ['https://maps.google.com/?q=Nail+Studio+Eva'] },
+      { name: 'Barbershop Гарни', category: 'barber', district: 'arabkir', address: 'ул. Комитаса, 11', branches: 2, staffEstimate: 9, staffSource: 'Сайт: страница «Команда»', bookingSystem: 'dikidi', bookingUrl: 'https://dikidi.net/000000', website: 'https://garni-barber.example', phone: '+37400100037', reviews: { rating: 4.6, count: 240 }, sourceUrls: ['https://garni-barber.example', 'https://yandex.ru/maps/?text=Garni'] },
+      { name: 'Salon de Paris', category: 'beauty', district: 'davtashen', address: 'Давташен, 3-й квартал, 12', branches: 1, staffEstimate: 12, staffSource: 'Google: фото команды', bookingSystem: 'fresha', bookingUrl: 'https://www.fresha.com/a/salon-de-paris-demo', sourceUrls: ['https://www.fresha.com/a/salon-de-paris-demo'] },
+      { name: 'Лаш-студия Мирак', category: 'brows_lashes', district: 'achapnyak', address: 'ул. Шинарарнери, 5', branches: 1, staffEstimate: 4, staffSource: 'Instagram', bookingSystem: 'emly', bookingUrl: 'https://emly.am/mirak-demo', instagram: 'https://instagram.com/mirak.lash.demo', reviews: { count: 38 }, sourceUrls: ['https://emly.am/mirak-demo'] },
+      { name: 'Аревик Бьюти', category: 'hair', district: 'shengavit', address: 'ул. Гарегина Нжде, 21', staffEstimate: 3, staffSource: 'Звонок', bookingSystem: 'phone_whatsapp', phone: '+37400100074', sourceUrls: ['https://www.list.am/'] },
+      { name: 'Клиника Ануш', category: 'clinic', district: 'malatia-sebastia', address: 'ул. Себастия, 40', branches: 3, staffEstimate: 25, staffSource: 'Сайт: врачи', bookingSystem: 'medical_platform', website: 'https://anush-clinic.example', phone: '+37400100111', reviews: { rating: 4.4, count: 510, text: 'Google' }, sourceUrls: ['https://anush-clinic.example'] },
+      { name: 'Hair Lab Нор', category: 'hair', district: 'nor-nork', address: 'Нор-Норк, 2-й массив, 7', staffEstimate: 5, bookingSystem: 'instagram', instagram: 'https://instagram.com/hairlab.nor.demo', sourceUrls: ['https://instagram.com/hairlab.nor.demo'] },
+      { name: 'SPA Арагац', category: 'massage_spa', district: 'unknown', bookingSystem: 'unknown', sourceUrls: [] },
+    ];
+    const prospects: StoredProspect[] = prospectSeed.map((p, i) => ({
+      ...p,
+      id: `pros_${i + 1}`,
+      dedupKey: prospectDedupKey(p.name, p.address),
+      version: 1,
+      createdAt: iso(now, -10 - i),
+      updatedAt: iso(now, -10 - i),
+    }));
+    visits[0].prospectId = 'pros_1';
+    visits[1].prospectId = 'pros_2';
+    visits[2].prospectId = 'pros_3';
 
     // ── Промокоды ──
     const promoCodes: PromoCode[] = [
@@ -523,6 +551,7 @@ export const platformSlice = defineSlice<PlatformState>({
       coinEntries,
       connectDrafts: [],
       visits,
+      prospects,
       promoCodes,
       bizMeta,
       supportTickets,

@@ -18,6 +18,8 @@ import {
   getAdReach,
   getBrand,
   getVisitCounts,
+  getProspect,
+  listProspects,
   listAdPlacements,
   listAds,
   listAllBusinessesLite,
@@ -42,7 +44,7 @@ import {
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { DistrictId, Id } from '@/domain/core';
-import type { AdKind, DemandPeriod, ModerationKind, ModerationStatus, SphereRequestKind, SupportChannel, SupportStatus, VisitStatus } from '@/domain/platform';
+import type { AdKind, DemandPeriod, ModerationKind, ModerationStatus, ProspectListQuery, SphereRequestKind, SupportChannel, SupportStatus, VisitStatus } from '@/domain/platform';
 
 function useReady(): boolean {
   return useCurrent().ready;
@@ -67,6 +69,10 @@ export const useVisits = (status: VisitStatus | 'all', district: DistrictId | 'a
     enabled: useReady(),
   });
 export const useVisitCounts = () => useApiQuery(['platform', 'visit-counts'], () => getVisitCounts(), { enabled: useReady() });
+
+/** «Места»: фильтр целиком в ключе (объект), прежняя страница остаётся на экране, пока грузится новая */
+export const useProspects = (query: ProspectListQuery) => useApiQuery(['platform', 'prospects', query], () => listProspects(query), { enabled: useReady() });
+export const useProspect = (id: Id | null) => useApiQuery(['platform', 'prospect', id], () => getProspect(id ?? ''), { enabled: useReady() && Boolean(id) });
 export const useCallbacks = () => useApiQuery(['platform', 'callbacks'], () => listCallbacks(), { enabled: useReady() });
 
 export const usePromoCodes = () => useApiQuery(['platform', 'promocodes'], () => listPromoCodes(), { enabled: useReady() });

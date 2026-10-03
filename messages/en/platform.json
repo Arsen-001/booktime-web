@@ -2,7 +2,8 @@
   "nav": {
     "overview": "Overview",
     "businesses": "Businesses",
-    "plan": "Launch plan"
+    "plan": "Launch plan",
+    "users": "Users"
   },
   "common": {
     "undo": "Undo"
@@ -362,10 +363,120 @@
       "whatsapp": "WhatsApp",
       "notebook": "Paper notebook",
       "other": "Other",
-      "nothing": "Nothing"
+      "nothing": "Nothing",
+      "emly": "Emly",
+      "fresha": "Fresha"
     },
     "willingToPay": "Would pay per month",
     "willingToPayHint": "As they said on the visit, no rounding"
+  },
+  "prospects": {
+    "title": "Places",
+    "subtitle": "Yerevan salons and clinics we can offer BookTime to",
+    "import": "Import",
+    "importDone": "Import: {added} added, {updated} updated, {unchanged} unchanged, {skipped} skipped",
+    "importBadFile": "This file doesn’t look like a list of places: a JSON array is expected",
+    "importFailed": "Couldn’t upload the file. Please try again.",
+    "export": "Download CSV",
+    "exportDone": "{n, plural, one {Exported # place} other {Exported # places}}",
+    "exportFailed": "Couldn’t export. Please try again.",
+    "countsLabel": "Places per booking system",
+    "allSystems": "All",
+    "search": "Place name",
+    "filter": {
+      "system": "Books via",
+      "category": "Sphere",
+      "allCategories": "All spheres",
+      "district": "District",
+      "allDistricts": "All districts",
+      "staffMin": "Staff from",
+      "staffMinPlaceholder": "For example, 5",
+      "status": "Status",
+      "allStatuses": "All statuses"
+    },
+    "col": {
+      "name": "Place",
+      "where": "Sphere and district",
+      "staff": "Staff",
+      "system": "Books via",
+      "lastVisit": "Last visit",
+      "status": "Status"
+    },
+    "districtUnknown": "District unknown",
+    "system": {
+      "emly": "Emly",
+      "altegio": "Altegio",
+      "fresha": "Fresha",
+      "dikidi": "DIKIDI",
+      "booksy": "Booksy",
+      "own_site": "Own website",
+      "other_online": "Other online booking",
+      "medical_platform": "Medical platform",
+      "phone_whatsapp": "Phone and WhatsApp",
+      "instagram": "Instagram",
+      "unknown": "Unknown"
+    },
+    "bookingVia": "Books via {system}",
+    "category": {
+      "beauty": "Beauty salon",
+      "nails": "Nails",
+      "barber": "Barbershop",
+      "hair": "Hair",
+      "brows_lashes": "Brows and lashes",
+      "cosmetology": "Cosmetology",
+      "massage_spa": "Massage and spa",
+      "clinic": "Clinic",
+      "dental": "Dental",
+      "other": "Other"
+    },
+    "status": {
+      "new": "Not visited",
+      "thinking": "Thinking",
+      "connected": "Agreed",
+      "refused": "Refused",
+      "live": "On BookTime"
+    },
+    "empty": "No places yet",
+    "emptyHint": "Upload the places database as a JSON file — it will appear here",
+    "emptyFilter": "No places match these filters",
+    "recordVisit": "Log a visit",
+    "more": "More",
+    "edit": "Edit",
+    "delete": "Delete place",
+    "deleteConfirm": "Delete “{name}”?",
+    "deleteHint": "Visits stay, but without a link to the place.",
+    "deleted": "Place deleted",
+    "save": "Save",
+    "saveNote": "Save note",
+    "saved": "Place saved",
+    "saveFailed": "Couldn’t save. Please try again.",
+    "conflict": "Someone else has already changed this place — reopen it",
+    "nameRequired": "Enter a name",
+    "aboutTitle": "About",
+    "linksTitle": "Links",
+    "visitsTitle": "Visits",
+    "noVisits": "Not visited yet — log the first visit",
+    "noLinks": "No links",
+    "staffFrom": "Source: {source}",
+    "reviewsCount": "{n, plural, one {# review} other {# reviews}}",
+    "notePlaceholder": "For example: the owner is in after 6 pm",
+    "field": {
+      "name": "Name",
+      "category": "Sphere",
+      "district": "District",
+      "address": "Address",
+      "branches": "Branches",
+      "staff": "Staff",
+      "staffSource": "Where the staff count comes from",
+      "phone": "Phone",
+      "reviews": "Reviews",
+      "system": "Books via",
+      "bookingUrl": "Booking page",
+      "website": "Website",
+      "instagram": "Instagram",
+      "sources": "Sources",
+      "note": "Note"
+    }
   },
   "promocodes": {
     "title": "Promo codes",
@@ -946,5 +1057,182 @@
     "loginRequired": "Enter your login",
     "passwordRequired": "Enter your password",
     "codeShort": "Enter all 4 digits"
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Everyone who signed up: app clients, owners, administrators and specialists",
+    "search": "Name or phone",
+    "counters": {
+      "total": "Total",
+      "new7d": "New in 7 days",
+      "active7d": "Active in 7 days",
+      "telegram": "With Telegram"
+    },
+    "filters": {
+      "role": "Role",
+      "anyRole": "Any role",
+      "status": "Status",
+      "anyStatus": "Any status",
+      "active": "Last active",
+      "anyTime": "Any time",
+      "activeDays": "{n, plural, one {In the last day} other {In the last # days}}",
+      "telegram": "Telegram",
+      "google": "Google sign-in",
+      "any": "Any",
+      "telegramYes": "Connected",
+      "telegramNo": "Not connected",
+      "googleYes": "Linked",
+      "googleNo": "Not linked",
+      "registered": "Signed up",
+      "sort": "Order"
+    },
+    "roleFilter": {
+      "client": "App client only",
+      "owner": "Owner",
+      "admin": "Administrator",
+      "master": "Specialist",
+      "multiple": "Several roles"
+    },
+    "role": {
+      "owner": "Owner",
+      "admin": "Administrator",
+      "master": "Specialist",
+      "client": "Client",
+      "network": "Network owner"
+    },
+    "status": {
+      "active": "Active",
+      "blocked": "Blocked",
+      "delete_requested": "Asked to delete",
+      "deleted": "Deleted"
+    },
+    "sort": {
+      "registered_desc": "Newest first",
+      "registered_asc": "Oldest first",
+      "last_login_desc": "Recently signed in",
+      "bookings_desc": "Most bookings",
+      "last_login_asc": "Longest without signing in",
+      "bookings_asc": "Fewest bookings"
+    },
+    "columns": {
+      "person": "Person",
+      "roles": "Role",
+      "registered": "Signed up",
+      "lastLogin": "Last sign-in",
+      "bookings": "Bookings",
+      "links": "Connections",
+      "status": "Status"
+    },
+    "never": "Never signed in",
+    "noPhone": "No phone",
+    "team": "BookTime team",
+    "telegramShort": "Telegram connected",
+    "googleShort": "Google linked",
+    "bookingsCount": "{n, plural, one {# booking} other {# bookings}}",
+    "loginAgo": "signed in {when}",
+    "empty": "Nobody has signed up yet",
+    "emptyHint": "People appear here as soon as they sign in to the app with their phone number",
+    "emptySearch": "Nobody found",
+    "card": {
+      "more": "Actions",
+      "profile": "Profile",
+      "phone": "Phone",
+      "language": "Language",
+      "registered": "Signed up",
+      "lastLogin": "Last sign-in",
+      "lastActive": "Last active",
+      "sessions": "Open sessions",
+      "sessionsCount": "{n, plural, =0 {None} one {# device} other {# devices}}",
+      "teamRole": "In our team",
+      "teamRoleValue": "{role, select, admin {Panel administrator} other {Reviewer}}",
+      "roles": "Roles in businesses",
+      "rolesEmpty": "App client only — doesn't work in any business",
+      "fired": "Dismissed",
+      "openPage": "Open page",
+      "networkOwner": "Owner of the “{name}” network",
+      "links": "Connections",
+      "telegram": "Telegram",
+      "telegramOn": "Connected since {date}",
+      "telegramStopped": "Unsubscribed from the bot",
+      "telegramOff": "Not connected",
+      "google": "Google sign-in",
+      "googleOn": "Linked since {date}",
+      "googleOff": "Not linked",
+      "bookings": "Bookings as a client",
+      "bookingsTotal": "{n} in total",
+      "bookingsEmpty": "Hasn't booked through the app yet",
+      "logins": "Recent sign-ins",
+      "loginsHint": "IP is shown without the last digits",
+      "loginsEmpty": "No sign-ins yet",
+      "blockedBanner": "Blocked on {date}",
+      "blockedReason": "Reason: {reason}",
+      "deleteBanner": "Asked to delete the account on {date}",
+      "deleteBannerHint": "The account is deleted automatically 25 days after the request unless the person changes their mind",
+      "deletedBanner": "Account deleted on {date}",
+      "loadFailed": "Couldn't open the card"
+    },
+    "method": {
+      "code": "with a code",
+      "google": "with Google",
+      "password": "with a password",
+      "platform": "to the panel",
+      "second_factor": "second step",
+      "apple": "with Apple"
+    },
+    "result": {
+      "ok": "Signed in",
+      "wrong_code": "Wrong code",
+      "wrong_password": "Wrong password",
+      "locked": "Temporarily locked",
+      "blocked": "Blocked",
+      "second_factor_sent": "Code sent",
+      "google_unlinked": "Google not linked",
+      "google_invalid": "Google error",
+      "google_linked": "Linked Google",
+      "google_taken": "Google already used",
+      "other": "Other"
+    },
+    "app": {
+      "client": "app",
+      "business": "business account",
+      "platform": "panel"
+    },
+    "actions": {
+      "block": "Block",
+      "unblock": "Unblock",
+      "revoke": "End all sessions",
+      "onlyAdmin": "Only a panel administrator can block people and end sessions",
+      "self": "This is you — change your own account in your profile"
+    },
+    "block": {
+      "title": "Block {name}?",
+      "text": "They will be signed out on all devices right away and won't be able to sign in to the app or the business account. Bookings and data stay.",
+      "reason": "Reason",
+      "reasonHint": "Only our team sees it; it's saved in the log",
+      "reasonPlaceholder": "For example: spam in reviews",
+      "reasonRequired": "Write a reason — a few words are enough",
+      "confirm": "Block",
+      "done": "{name} is blocked",
+      "doneSessions": "{name} is blocked, sessions ended: {n}"
+    },
+    "unblock": {
+      "title": "Unblock {name}?",
+      "text": "They will be able to sign in with their phone number again.",
+      "confirm": "Unblock",
+      "done": "{name} can sign in again"
+    },
+    "revoke": {
+      "title": "End all sessions of {name}?",
+      "text": "They will be signed out on all devices and sign in again with a code. The account isn't blocked.",
+      "confirm": "End sessions",
+      "done": "Sessions ended: {n}"
+    },
+    "actionFailed": "That didn't work. Please try again",
+    "forbidden": "Only a panel administrator can do this",
+    "locale": {
+      "ru": "Русский",
+      "en": "English",
+      "hy": "Հայերեն"
+    }
   }
 }

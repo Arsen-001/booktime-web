@@ -7,6 +7,7 @@
 export * from '@/api/platform/moderation';
 export * from '@/api/platform/connect';
 export * from '@/api/platform/visits';
+export * from '@/api/platform/prospects';
 export * from '@/api/platform/promo';
 export * from '@/api/platform/support';
 export * from '@/api/platform/demand';

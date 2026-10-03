@@ -6,6 +6,7 @@
  */
 import { http, isApiMode } from '@/api/http';
 import { useApiQuery } from '@/api/request';
+import { forgetNativePushToken } from '@/lib/native/push';
 
 export type SessionApp = 'client' | 'business' | 'platform';
 export type SessionMode = 'client' | 'business';
@@ -65,7 +66,9 @@ export function useSession() {
   return useApiQuery(SESSION_KEY, getSession, { enabled: isApiMode() });
 }
 
-export function logout(): Promise<void> {
+export async function logout(): Promise<void> {
+  // В приложении — сначала убрать пуш-токен телефона, пока сессия ещё действует (src/lib/native/push.ts)
+  await forgetNativePushToken();
   return http('POST', '/v1/auth/logout');
 }
 

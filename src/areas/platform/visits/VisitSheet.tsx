@@ -34,10 +34,10 @@ import { Sheet } from '@/ui/Sheet';
 import { Textarea } from '@/ui/Textarea';
 import { useToast } from '@/ui/Toast';
 
-const TOOLS: VisitTool[] = ['dikidi', 'altegio', 'whatsapp', 'notebook', 'other', 'nothing'];
+const TOOLS: VisitTool[] = ['emly', 'altegio', 'fresha', 'dikidi', 'whatsapp', 'notebook', 'other', 'nothing'];
 
-function inputOf(v: Visit | undefined, responsibleId: string): VisitInput {
-  return {
+function inputOf(v: Visit | undefined, responsibleId: string, prefill?: Partial<VisitInput>): VisitInput {
+  const base: VisitInput = {
     placeName: v?.placeName ?? '',
     contactName: v?.contactName ?? '',
     phone: v?.phone ?? '',
@@ -52,17 +52,23 @@ function inputOf(v: Visit | undefined, responsibleId: string): VisitInput {
     currentTool: v?.currentTool,
     willingToPay: v?.willingToPay,
     responsibleId: v?.responsibleId ?? responsibleId,
+    prospectId: v?.prospectId,
   };
+  // Новый визит из карточки места («Места»): название, адрес, район, сфера, чем ведут запись — уже заполнены
+  if (v || !prefill) return base;
+  const filled = Object.fromEntries(Object.entries(prefill).filter(([, x]) => x !== undefined)) as Partial<VisitInput>;
+  return { ...base, ...filled };
 }
 
-export function VisitSheet({ visit, onClose }: { visit?: Visit; onClose: () => void }) {
+/** prefill — для нового визита (из карточки места: prospectId и поля места) */
+export function VisitSheet({ visit, prefill, onClose }: { visit?: Visit; prefill?: Partial<VisitInput>; onClose: () => void }) {
   const t = useT('platform');
   const tc = useT('common');
   const fmt = useFormat();
   const toast = useToast();
   const router = useRouter();
   const teamQ = useTeam();
-  const [initial, setInitial] = useState<VisitInput>(() => inputOf(visit, ''));
+  const [initial, setInitial] = useState<VisitInput>(() => inputOf(visit, '', prefill));
   const [form, setForm] = useState<VisitInput>(initial);
   // Закрыть шторку с несохранённым визитом — только после нашего вопроса
   const onOpenChange = useGuardedClose(JSON.stringify(form) !== JSON.stringify(initial), onClose);

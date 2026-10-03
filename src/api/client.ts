@@ -798,9 +798,11 @@ export interface VerifyLoginInput {
   consent: boolean;
   /** «Войти через Google» с непривязанным аккаунтом: верный код привяжет этот Google к номеру (03.10.2026) */
   pendingGoogle?: string;
+  /** То же для «Войти через Apple» (приложение iOS) */
+  pendingApple?: string;
 }
 
-/** Вошли по коду; с pendingGoogle — привязался ли Google (false — ожидание истекло или этот Google уже у другого) */
+/** Вошли по коду; с pendingGoogle/pendingApple — привязался ли Google/Apple (false — ожидание истекло или он уже у другого) */
 export type VerifiedAppUser = AppUser & { googleLinked?: boolean };
 
 const DEMO_CODE = '0000';
@@ -823,15 +825,16 @@ function appUserOfSession(session: SessionView): AppUser {
 
 export async function verifyLoginCode(input: VerifyLoginInput): Promise<VerifiedAppUser> {
   if (isApiMode()) {
-    const session = await http<SessionView & { googleLinked?: boolean }>('POST', '/v1/auth/verify', {
+    const session = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean }>('POST', '/v1/auth/verify', {
       phone: input.phone,
       code: input.code,
       app: 'client',
       name: input.name,
       consent: input.consent,
       pendingGoogle: input.pendingGoogle,
+      pendingApple: input.pendingApple,
     });
-    return { ...appUserOfSession(session), googleLinked: session.googleLinked };
+    return { ...appUserOfSession(session), googleLinked: session.googleLinked ?? session.appleLinked };
   }
   return request(() => {
     if (!input.consent) throw new ApiError('consent_required');
@@ -867,15 +870,17 @@ export async function verifyBusinessPhoneLogin(input: {
   phone: string;
   code: string;
   pendingGoogle?: string;
+  pendingApple?: string;
 }): Promise<{ hasBusiness: boolean; googleLinked?: boolean }> {
   if (isApiMode()) {
-    const view = await http<SessionView & { googleLinked?: boolean }>('POST', '/v1/auth/verify', {
+    const view = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean }>('POST', '/v1/auth/verify', {
       phone: input.phone,
       code: input.code,
       app: 'business',
       pendingGoogle: input.pendingGoogle,
+      pendingApple: input.pendingApple,
     });
-    return { hasBusiness: view.memberships.length > 0, googleLinked: view.googleLinked };
+    return { hasBusiness: view.memberships.length > 0, googleLinked: view.googleLinked ?? view.appleLinked };
   }
   return request(() => {
     if (input.code !== DEMO_CODE) throw new ApiError('wrong_code');
@@ -886,11 +891,20 @@ export async function verifyBusinessPhoneLogin(input: {
 
 // ─────────────────────────── «Войти через Google» (03.10.2026) ───────────────────────────
 
-/** Google-аккаунт ещё не привязан: номер и код один раз, token — в verify (pendingGoogle) */
+/** Google-аккаунт (или Apple ID — приложение iOS) ещё не привязан: номер и код один раз, token — в verify */
 export interface PendingGoogle {
   token: string;
-  email: string;
+  /** Apple отдаёт почту не всегда — тогда null */
+  email: string | null;
   name: string | null;
+  /** Чей вход ждёт привязки; по умолчанию Google */
+  provider?: 'google' | 'apple';
+}
+
+/** Токен ожидающей привязки — в нужное поле verify: pendingGoogle или pendingApple */
+export function pendingLinkTokens(pending: PendingGoogle | undefined): { pendingGoogle?: string; pendingApple?: string } {
+  if (!pending) return {};
+  return pending.provider === 'apple' ? { pendingApple: pending.token } : { pendingGoogle: pending.token };
 }
 
 export type GoogleSignInResult =
@@ -923,6 +937,28 @@ export async function signInWithGoogle(input: { idToken?: string; app: 'client' 
     throw new ApiError('google_invalid');
   }
   // Демо: клиент — демо-клиент по умолчанию (как resolveDemoContext), бизнес — владелец салона
+  return request(() => ({ kind: 'signedIn' as const, user: input.app === 'client' ? (readCore().appUsers[0] ?? null) : null, hasBusiness: true }));
+}
+
+/**
+ * «Войти через Apple» — только внутри приложения BookTime на iOS (правило App Store 4.8; кнопка — GoogleSignIn.tsx,
+ * токен — нативное окно Apple, src/lib/native). Сервер проверяет identity token; привязан — сессия, нет — pending.
+ * name — имя из Apple (его дают только при первом входе). Демо — как Google: сразу вход демо-персоной.
+ */
+export async function signInWithApple(input: { identityToken?: string; name?: string | null; app: 'client' | 'business'; consent?: boolean }): Promise<GoogleSignInResult> {
+  if (isApiMode()) {
+    const r = await http<{ session: SessionView | null; pendingApple: (PendingGoogle & { expiresIn: number }) | null }>('POST', '/v1/auth/apple', {
+      identityToken: input.identityToken,
+      app: input.app,
+      consent: input.consent,
+      name: input.name ?? undefined,
+    });
+    if (r.session) return { kind: 'signedIn', user: appUserOfSession(r.session), hasBusiness: r.session.memberships.length > 0 };
+    if (r.pendingApple) {
+      return { kind: 'linkRequired', pending: { token: r.pendingApple.token, email: r.pendingApple.email, name: r.pendingApple.name, provider: 'apple' } };
+    }
+    throw new ApiError('apple_invalid');
+  }
   return request(() => ({ kind: 'signedIn' as const, user: input.app === 'client' ? (readCore().appUsers[0] ?? null) : null, hasBusiness: true }));
 }
 

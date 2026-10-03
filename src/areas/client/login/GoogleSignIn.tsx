@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
-import { GOOGLE_CLIENT_ID, googleSignInAvailable, signInWithGoogle, type GoogleSignInResult, type PendingGoogle } from '@/api/client';
+import { GOOGLE_CLIENT_ID, googleSignInAvailable, signInWithApple, signInWithGoogle, type GoogleSignInResult, type PendingGoogle } from '@/api/client';
 import { isApiMode } from '@/api/http';
 import { useApiMutation } from '@/api/request';
 import { SESSION_KEY } from '@/api/session';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useT } from '@/i18n/useT';
 import { track } from '@/lib/analytics';
+import { callNative, nativeApp, NativeError, type NativePlatform } from '@/lib/native/bridge';
 import { Button } from '@/ui/Button';
 import { Spinner } from '@/ui/Spinner';
 import { useToast } from '@/ui/Toast';
@@ -18,6 +19,10 @@ import { useToast } from '@/ui/Toast';
  * Google; скрипт https://accounts.google.com/gsi/client грузится только на экране входа) → ID token → сервер. Без
  * NEXT_PUBLIC_GOOGLE_CLIENT_ID кнопки нет. Демо — наша кнопка того же вида: сразу вход демо-персоной, без Google.
  * Google не привязан к номеру — onResult({ kind: 'linkRequired' }): экран просит номер и код один раз.
+ *
+ * Внутри приложения BookTime (booktime-mobile, src/lib/native): Google не пускает свой вход во встроенный WebView,
+ * поэтому кнопка зовёт нативный вход Google (BooktimeAuth) — тот же ID token и тот же сервер. На iOS рядом — «Продолжить
+ * с Apple» (правило App Store 4.8: есть Google — должен быть и Apple); в браузере кнопки Apple нет.
  */
 
 type GoogleMode = 'loading' | 'gis' | 'mock' | 'off';
@@ -35,6 +40,48 @@ const noSubscribe = () => () => {};
 
 export function useGoogleMode(): GoogleMode {
   return useSyncExternalStore(noSubscribe, clientMode, serverMode);
+}
+
+// ─────────── Вход внутри приложения (нативные Google и Apple) ───────────
+
+interface NativeAuth {
+  platform: NativePlatform;
+  google: boolean;
+  apple: boolean;
+}
+
+const nativePlatform = () => nativeApp()?.platform ?? null;
+
+/** null — обычный браузер; undefined — приложение, ещё спрашиваем, что настроено; иначе — что доступно */
+function useNativeAuth(): NativeAuth | null | undefined {
+  const platform = useSyncExternalStore(noSubscribe, nativePlatform, () => null);
+  const [available, setAvailable] = useState<{ google: boolean; apple: boolean } | undefined>(undefined);
+  useEffect(() => {
+    if (!platform) return;
+    let cancelled = false;
+    callNative<{ google: boolean; apple: boolean }>('BooktimeAuth', 'available')
+      .then((r) => !cancelled && setAvailable({ google: Boolean(r.google), apple: Boolean(r.apple) }))
+      .catch(() => !cancelled && setAvailable({ google: false, apple: false }));
+    return () => {
+      cancelled = true;
+    };
+  }, [platform]);
+  if (!platform) return null;
+  return available ? { platform, ...available } : undefined;
+}
+
+/** Значок Apple для «Продолжить с Apple» (Apple HIG: логотип цвета текста кнопки) */
+export function AppleMark() {
+  return (
+    <svg viewBox="0 0 73 73" aria-hidden className="size-5 fill-current">
+      <path d="M47.11,11.51 C49.89,8.52 51.41,4.3 51.15,0.07 C47.36,0.07 42.93,2.31 40.19,5.56 C38,8.31 35.68,12.53 36.52,16.79 C40.44,17.25 44.66,14.76 47.11,11.51 Z M50.82,17.72 C44.91,17.72 39.68,20.97 36.94,20.97 C33.99,20.97 29.78,17.55 25.01,17.72 C18.81,17.84 13.12,21.52 9.87,26.92 C7.68,30.76 6.79,35.28 6.84,39.92 C6.92,48.7 10.38,57.86 14.43,63.72 C17.55,68.16 21.05,72.93 26.02,72.93 C30.49,72.93 32.18,69.93 38,69.93 C43.44,69.93 45.17,72.93 49.89,72.93 C54.82,72.93 58.11,68.41 61.06,63.94 C64.77,58.7 66,53.72 66.16,53.55 C66,53.55 56.64,49.75 56.3,38.91 C56.3,29.41 64.01,25.15 64.31,24.94 C60.13,18.44 53.35,17.72 50.82,17.72 Z" />
+    </svg>
+  );
+}
+
+/** Ключ текста про привязку: «Google привязан…» или «Apple ID привязан…» */
+export function pendingTextKey<K extends 'linked' | 'linkFailed'>(pending: PendingGoogle, key: K) {
+  return pending.provider === 'apple' ? (`login.apple.${key}` as const) : (`login.google.${key}` as const);
 }
 
 // ─────────── Google Identity Services ───────────
@@ -170,9 +217,15 @@ export function GoogleSignIn({ app, onResult, consent, footer }: GoogleSignInPro
   const t = useT('client');
   const toast = useToast();
   const mode = useGoogleMode();
+  const native = useNativeAuth();
   const signIn = useApiMutation(signInWithGoogle, { invalidates: [SESSION_KEY] });
+  const appleSignIn = useApiMutation(signInWithApple, { invalidates: [SESSION_KEY] });
+  const [nativeBusy, setNativeBusy] = useState<'google' | 'apple' | null>(null);
 
-  if (mode === 'off') return null;
+  // В приложении: Google — нативный (если настроен и в приложении, и на сайте), Apple — только iOS
+  const nativeGoogle = Boolean(native?.google) && mode !== 'off';
+  const nativeApple = native?.platform === 'ios' && Boolean(native.apple);
+  if (native === null ? mode === 'off' : native !== undefined && !nativeGoogle && !nativeApple) return null;
 
   const run = async (idToken?: string) => {
     if (signIn.isPending) return;
@@ -185,10 +238,58 @@ export function GoogleSignIn({ app, onResult, consent, footer }: GoogleSignInPro
     }
   };
 
+  const runNativeGoogle = async () => {
+    if (nativeBusy || signIn.isPending) return;
+    setNativeBusy('google');
+    try {
+      // Демо (без сервера) — сразу вход демо-персоной, как у кнопки на сайте
+      const token = isApiMode() ? (await callNative<{ idToken: string }>('BooktimeAuth', 'signInWithGoogle')).idToken : undefined;
+      await run(token);
+    } catch (e) {
+      if (!(e instanceof NativeError && e.code === 'canceled')) toast.error(t('login.google.failed'));
+    } finally {
+      setNativeBusy(null);
+    }
+  };
+
+  const runApple = async () => {
+    if (nativeBusy || appleSignIn.isPending) return;
+    setNativeBusy('apple');
+    try {
+      const apple = isApiMode() ? await callNative<{ identityToken: string; name: string | null }>('BooktimeAuth', 'signInWithApple') : undefined;
+      try {
+        onResult(await appleSignIn.mutate({ identityToken: apple?.identityToken, name: apple?.name, app, consent }));
+      } catch (e) {
+        toast.error(loginErrorText(t, e, t('login.apple.failed')));
+      }
+    } catch (e) {
+      if (!(e instanceof NativeError && e.code === 'canceled')) toast.error(t('login.apple.failed'));
+    } finally {
+      setNativeBusy(null);
+    }
+  };
+
   return (
     <div data-f="F-00-032" className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        {mode === 'gis' ? (
+        {native !== null ? (
+          native === undefined ? (
+            <div className="min-h-12 md:min-h-11" aria-hidden />
+          ) : (
+            <>
+              {nativeApple && (
+                <Button variant="outline" size="lg" fullWidth leftIcon={<AppleMark />} loading={nativeBusy === 'apple'} onClick={() => void runApple()}>
+                  {t('login.apple.button')}
+                </Button>
+              )}
+              {nativeGoogle && (
+                <Button variant="outline" size="lg" fullWidth leftIcon={<GoogleMark />} loading={nativeBusy === 'google'} onClick={() => void runNativeGoogle()}>
+                  {t('login.google.button')}
+                </Button>
+              )}
+            </>
+          )
+        ) : mode === 'gis' ? (
           <GisButton onCredential={(token) => void run(token)} busy={signIn.isPending} />
         ) : mode === 'mock' ? (
           <Button variant="outline" size="lg" fullWidth leftIcon={<GoogleMark />} loading={signIn.isPending} onClick={() => void run()}>
@@ -208,18 +309,19 @@ export function GoogleSignIn({ app, onResult, consent, footer }: GoogleSignInPro
   );
 }
 
-/** Google не привязан: «Google: anna@gmail.com — подтвердите номер один раз, привяжем Google к нему» */
+/** Google (или Apple ID) не привязан: «Google: anna@gmail.com — подтвердите номер один раз, привяжем Google к нему» */
 export function PendingGoogleNote({ pending, onCancel }: { pending: PendingGoogle; onCancel: () => void }) {
   const t = useT('client');
+  const apple = pending.provider === 'apple';
   return (
     <div className="flex flex-col gap-1 rounded-lg bg-primary-soft p-4 text-sm text-fg" role="status">
       <div className="flex items-center gap-2 font-medium">
-        <GoogleMark />
-        <span className="min-w-0 truncate">{pending.email}</span>
+        {apple ? <AppleMark /> : <GoogleMark />}
+        <span className="min-w-0 truncate">{pending.email ?? pending.name ?? t('login.apple.pendingFallback')}</span>
       </div>
-      <p className="text-muted">{t('login.google.pendingText')}</p>
+      <p className="text-muted">{t(apple ? 'login.apple.pendingText' : 'login.google.pendingText')}</p>
       <Button variant="link" size="sm" className="-ml-1 self-start" onClick={onCancel}>
-        {t('login.google.pendingCancel')}
+        {t(apple ? 'login.apple.pendingCancel' : 'login.google.pendingCancel')}
       </Button>
     </div>
   );

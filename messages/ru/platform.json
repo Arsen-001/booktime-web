@@ -2,7 +2,8 @@
   "nav": {
     "overview": "Обзор",
     "businesses": "Бизнесы",
-    "plan": "План запуска"
+    "plan": "План запуска",
+    "users": "Пользователи"
   },
   "common": {
     "undo": "Отменить"
@@ -362,10 +363,120 @@
       "whatsapp": "WhatsApp",
       "notebook": "Тетрадь",
       "other": "Другое",
-      "nothing": "Ничем"
+      "nothing": "Ничем",
+      "emly": "Emly",
+      "fresha": "Fresha"
     },
     "willingToPay": "Готовы платить в месяц",
     "willingToPayHint": "Как сказали на визите, без округления"
+  },
+  "prospects": {
+    "title": "Места",
+    "subtitle": "Салоны и клиники Еревана, которым можно предложить BookTime",
+    "import": "Импорт",
+    "importDone": "Импорт: добавлено {added}, обновлено {updated}, без изменений {unchanged}, пропущено {skipped}",
+    "importBadFile": "Файл не похож на список мест: нужен JSON-массив",
+    "importFailed": "Не получилось загрузить файл. Попробуйте ещё раз.",
+    "export": "Скачать CSV",
+    "exportDone": "{n, plural, one {Выгрузили # место} few {Выгрузили # места} many {Выгрузили # мест} other {Выгрузили # места}}",
+    "exportFailed": "Не получилось выгрузить. Попробуйте ещё раз.",
+    "countsLabel": "Сколько мест на каждой системе записи",
+    "allSystems": "Все",
+    "search": "Название места",
+    "filter": {
+      "system": "Запись через",
+      "category": "Сфера",
+      "allCategories": "Все сферы",
+      "district": "Район",
+      "allDistricts": "Все районы",
+      "staffMin": "Мастеров от",
+      "staffMinPlaceholder": "Например, 5",
+      "status": "Статус",
+      "allStatuses": "Все статусы"
+    },
+    "col": {
+      "name": "Место",
+      "where": "Сфера и район",
+      "staff": "Мастеров",
+      "system": "Запись через",
+      "lastVisit": "Последний визит",
+      "status": "Статус"
+    },
+    "districtUnknown": "Район не указан",
+    "system": {
+      "emly": "Emly",
+      "altegio": "Altegio",
+      "fresha": "Fresha",
+      "dikidi": "DIKIDI",
+      "booksy": "Booksy",
+      "own_site": "Свой сайт",
+      "other_online": "Другая онлайн-запись",
+      "medical_platform": "Медицинская платформа",
+      "phone_whatsapp": "Телефон и WhatsApp",
+      "instagram": "Instagram",
+      "unknown": "Не знаем"
+    },
+    "bookingVia": "Запись: {system}",
+    "category": {
+      "beauty": "Салон красоты",
+      "nails": "Ногти",
+      "barber": "Барбершоп",
+      "hair": "Волосы",
+      "brows_lashes": "Брови и ресницы",
+      "cosmetology": "Косметология",
+      "massage_spa": "Массаж и SPA",
+      "clinic": "Клиника",
+      "dental": "Стоматология",
+      "other": "Другое"
+    },
+    "status": {
+      "new": "Не были",
+      "thinking": "Думает",
+      "connected": "Подключили",
+      "refused": "Отказ",
+      "live": "Работает в BookTime"
+    },
+    "empty": "Мест пока нет",
+    "emptyHint": "Загрузите базу заведений файлом JSON — места появятся здесь",
+    "emptyFilter": "По этим условиям мест нет",
+    "recordVisit": "Записать визит",
+    "more": "Ещё",
+    "edit": "Изменить",
+    "delete": "Удалить место",
+    "deleteConfirm": "Удалить «{name}»?",
+    "deleteHint": "Визиты останутся, но без связи с местом.",
+    "deleted": "Место удалено",
+    "save": "Сохранить",
+    "saveNote": "Сохранить заметку",
+    "saved": "Место сохранено",
+    "saveFailed": "Не получилось сохранить. Попробуйте ещё раз.",
+    "conflict": "Место уже изменил кто-то другой — откройте его заново",
+    "nameRequired": "Укажите название",
+    "aboutTitle": "О месте",
+    "linksTitle": "Ссылки",
+    "visitsTitle": "Визиты",
+    "noVisits": "Ещё не были — запишите первый визит",
+    "noLinks": "Ссылок нет",
+    "staffFrom": "Откуда: {source}",
+    "reviewsCount": "{n, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзыва}}",
+    "notePlaceholder": "Например: хозяйка бывает после 18:00",
+    "field": {
+      "name": "Название",
+      "category": "Сфера",
+      "district": "Район",
+      "address": "Адрес",
+      "branches": "Филиалов",
+      "staff": "Мастеров",
+      "staffSource": "Откуда число мастеров",
+      "phone": "Телефон",
+      "reviews": "Отзывы",
+      "system": "Запись через",
+      "bookingUrl": "Страница записи",
+      "website": "Сайт",
+      "instagram": "Instagram",
+      "sources": "Источники",
+      "note": "Заметка"
+    }
   },
   "promocodes": {
     "title": "Промокоды",
@@ -946,5 +1057,182 @@
     "loginRequired": "Введите логин",
     "passwordRequired": "Введите пароль",
     "codeShort": "Введите все 4 цифры кода"
+  },
+  "users": {
+    "title": "Пользователи",
+    "subtitle": "Все, кто зарегистрирован: клиенты приложения, владельцы, администраторы и мастера",
+    "search": "Имя или телефон",
+    "counters": {
+      "total": "Всего",
+      "new7d": "Новых за 7 дней",
+      "active7d": "Активных за 7 дней",
+      "telegram": "С Telegram"
+    },
+    "filters": {
+      "role": "Роль",
+      "anyRole": "Любая роль",
+      "status": "Статус",
+      "anyStatus": "Любой статус",
+      "active": "Был активен",
+      "anyTime": "Когда угодно",
+      "activeDays": "{n, plural, one {За последний # день} few {За последние # дня} many {За последние # дней} other {За последние # дня}}",
+      "telegram": "Telegram",
+      "google": "Вход через Google",
+      "any": "Неважно",
+      "telegramYes": "Подключён",
+      "telegramNo": "Не подключён",
+      "googleYes": "Привязан",
+      "googleNo": "Не привязан",
+      "registered": "Зарегистрирован",
+      "sort": "Порядок"
+    },
+    "roleFilter": {
+      "client": "Только клиент приложения",
+      "owner": "Владелец",
+      "admin": "Администратор",
+      "master": "Мастер",
+      "multiple": "Несколько ролей"
+    },
+    "role": {
+      "owner": "Владелец",
+      "admin": "Администратор",
+      "master": "Мастер",
+      "client": "Клиент",
+      "network": "Владелец сети"
+    },
+    "status": {
+      "active": "Активен",
+      "blocked": "Заблокирован",
+      "delete_requested": "Просил удалить",
+      "deleted": "Удалён"
+    },
+    "sort": {
+      "registered_desc": "Сначала новые",
+      "registered_asc": "Сначала давние",
+      "last_login_desc": "Недавно входили",
+      "bookings_desc": "Больше всего записей",
+      "last_login_asc": "Давно не входили",
+      "bookings_asc": "Меньше всего записей"
+    },
+    "columns": {
+      "person": "Человек",
+      "roles": "Роль",
+      "registered": "Регистрация",
+      "lastLogin": "Последний вход",
+      "bookings": "Записей",
+      "links": "Связи",
+      "status": "Статус"
+    },
+    "never": "Не входил",
+    "noPhone": "Без телефона",
+    "team": "Команда BookTime",
+    "telegramShort": "Telegram подключён",
+    "googleShort": "Google привязан",
+    "bookingsCount": "{n, plural, one {# запись} few {# записи} many {# записей} other {# записи}}",
+    "loginAgo": "вход: {when}",
+    "empty": "Пока никто не зарегистрировался",
+    "emptyHint": "Люди появятся здесь, как только войдут в приложение по номеру",
+    "emptySearch": "Никого не нашли",
+    "card": {
+      "more": "Действия",
+      "profile": "Профиль",
+      "phone": "Телефон",
+      "language": "Язык",
+      "registered": "Зарегистрирован",
+      "lastLogin": "Последний вход",
+      "lastActive": "Был активен",
+      "sessions": "Открытых сессий",
+      "sessionsCount": "{n, plural, =0 {Нет} one {# устройство} few {# устройства} many {# устройств} other {# устройства}}",
+      "teamRole": "В нашей команде",
+      "teamRoleValue": "{role, select, admin {Администратор панели} other {Проверяющий}}",
+      "roles": "Роли в бизнесах",
+      "rolesEmpty": "Только клиент приложения — в бизнесах не работает",
+      "fired": "Уволен",
+      "openPage": "Открыть страницу",
+      "networkOwner": "Владелец сети «{name}»",
+      "links": "Подключения",
+      "telegram": "Telegram",
+      "telegramOn": "Подключён с {date}",
+      "telegramStopped": "Отписался от бота",
+      "telegramOff": "Не подключён",
+      "google": "Вход через Google",
+      "googleOn": "Привязан с {date}",
+      "googleOff": "Не привязан",
+      "bookings": "Записи как клиент",
+      "bookingsTotal": "Всего {n}",
+      "bookingsEmpty": "Ещё не записывался через приложение",
+      "logins": "Последние входы",
+      "loginsHint": "IP показан без последних цифр",
+      "loginsEmpty": "Входов пока не было",
+      "blockedBanner": "Заблокирован {date}",
+      "blockedReason": "Причина: {reason}",
+      "deleteBanner": "Просил удалить аккаунт {date}",
+      "deleteBannerHint": "Аккаунт удалится сам через 25 дней после заявки, если человек не передумает",
+      "deletedBanner": "Аккаунт удалён {date}",
+      "loadFailed": "Не удалось открыть карточку"
+    },
+    "method": {
+      "code": "по коду",
+      "google": "через Google",
+      "password": "по паролю",
+      "platform": "в панель",
+      "second_factor": "второй шаг",
+      "apple": "через Apple"
+    },
+    "result": {
+      "ok": "Вошёл",
+      "wrong_code": "Неверный код",
+      "wrong_password": "Неверный пароль",
+      "locked": "Временно закрыт",
+      "blocked": "Заблокирован",
+      "second_factor_sent": "Отправлен код",
+      "google_unlinked": "Google не привязан",
+      "google_invalid": "Ошибка Google",
+      "google_linked": "Привязал Google",
+      "google_taken": "Google занят",
+      "other": "Другое"
+    },
+    "app": {
+      "client": "приложение",
+      "business": "кабинет",
+      "platform": "панель"
+    },
+    "actions": {
+      "block": "Заблокировать",
+      "unblock": "Разблокировать",
+      "revoke": "Завершить все сессии",
+      "onlyAdmin": "Блокировать и завершать сессии может только администратор панели",
+      "self": "Это вы — свой аккаунт меняйте в профиле"
+    },
+    "block": {
+      "title": "Заблокировать {name}?",
+      "text": "Человек сразу выйдет на всех устройствах и не сможет войти ни в приложение, ни в кабинет. Записи и данные останутся.",
+      "reason": "Причина",
+      "reasonHint": "Видна только нашей команде, сохраняется в журнале",
+      "reasonPlaceholder": "Например: спам в отзывах",
+      "reasonRequired": "Напишите причину — хотя бы пару слов",
+      "confirm": "Заблокировать",
+      "done": "{name} заблокирован",
+      "doneSessions": "{name} заблокирован, сессий завершено: {n}"
+    },
+    "unblock": {
+      "title": "Разблокировать {name}?",
+      "text": "Человек снова сможет войти по номеру телефона.",
+      "confirm": "Разблокировать",
+      "done": "{name} снова может входить"
+    },
+    "revoke": {
+      "title": "Завершить все сессии {name}?",
+      "text": "Человек выйдет на всех устройствах и войдёт заново по коду. Аккаунт не блокируется.",
+      "confirm": "Завершить",
+      "done": "Сессий завершено: {n}"
+    },
+    "actionFailed": "Не получилось. Попробуйте ещё раз",
+    "forbidden": "Это может только администратор панели",
+    "locale": {
+      "ru": "Русский",
+      "en": "English",
+      "hy": "Հայերեն"
+    }
   }
 }

@@ -5,6 +5,7 @@ import { Providers } from '@/app/providers';
 import { DemoProvider } from '@/demo/DemoProvider';
 import { getDemoSettings } from '@/demo/server';
 import { SessionBridge } from '@/demo/SessionBridge';
+import { NativeAppBridge } from '@/lib/native/NativeAppBridge';
 import { IntlProvider } from '@/i18n/IntlProvider';
 import { loadMessages } from '@/i18n/load';
 import { DemoSwitcher } from '@/shell/demo/DemoSwitcher';
@@ -95,6 +96,8 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
               <Providers>
                 {children}
                 <SessionBridge />
+                {/* Сайт внутри приложений BookTime (booktime-mobile): пуши, «Поделиться», «Назад» — src/lib/native */}
+                <NativeAppBridge />
                 {/* Демо-персоны и сброс демо-данных — только без настоящего сервера (сборка с NEXT_PUBLIC_DATA=api — booktime.am, staging) */}
                 {process.env.NEXT_PUBLIC_DATA !== 'api' && <DemoSwitcher />}
                 <ToastViewport />

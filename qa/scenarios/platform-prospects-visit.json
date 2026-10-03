@@ -1,0 +1,11 @@
+[
+  { "route": "/platform/prospects", "persona": "platform", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "click": "text=Клиника Ануш" }, { "expectText": "Медицинская платформа" }, { "wait": 600 }, { "screenshot": "card" },
+      { "click": "role=button[name=\"Записать визит\"]" }, { "wait": 800 }, { "screenshot": "visit-prefilled" },
+      { "click": "role=button[name=\"Сохранить\"]" }, { "expectText": "Визит сохранён" }, { "wait": 800 },
+      { "click": "role=button[name=\"Emly 1\"]" }, { "wait": 800 }, { "screenshot": "after-visit-filter-emly" }
+    ] },
+  { "route": "/platform/prospects", "persona": "platform", "lang": "ru", "device": "phone",
+    "steps": [ { "click": "text=Nail Studio Ева" }, { "expectText": "Страница записи" }, { "wait": 600 }, { "screenshot": "card-phone" } ] }
+]

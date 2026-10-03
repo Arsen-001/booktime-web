@@ -7,6 +7,7 @@ export type * from '@/domain/platform/types/team';
 export type * from '@/domain/platform/types/moderation';
 export type * from '@/domain/platform/types/connect';
 export type * from '@/domain/platform/types/visits';
+export type * from '@/domain/platform/types/prospects';
 export type * from '@/domain/platform/types/promo';
 export type * from '@/domain/platform/types/support';
 export type * from '@/domain/platform/types/demand';

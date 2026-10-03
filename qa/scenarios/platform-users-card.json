@@ -1,0 +1,28 @@
+[
+  { "route": "/platform/users", "persona": "platform", "device": "desktop",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "table tbody tr >> nth=4" },
+      { "expectText": "Профиль" },
+      { "wait": 1200 },
+      { "screenshot": "card" },
+      { "click": "role=button[name=\"Действия\"]" },
+      { "click": "text=Заблокировать" },
+      { "wait": 400 },
+      { "click": "role=dialog >> role=button[name=\"Заблокировать\"]" },
+      { "expectText": "Напишите причину" },
+      { "fill": "textarea", "value": "Спам в отзывах" },
+      { "click": "role=dialog >> role=button[name=\"Заблокировать\"]" },
+      { "expectText": "заблокирован" },
+      { "wait": 1200 },
+      { "screenshot": "blocked" }
+    ] },
+  { "route": "/platform/users", "persona": "platform", "device": "phone",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "ul li >> text=записей >> nth=0" },
+      { "expectText": "Профиль" },
+      { "wait": 1200 },
+      { "screenshot": "card-phone" }
+    ] }
+]

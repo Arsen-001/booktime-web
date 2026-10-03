@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { GoogleSignInResult, LoginChannel, PendingGoogle } from '@/api/client';
-import { changeAdminPassword, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client';
+import { changeAdminPassword, pendingLinkTokens, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client';
 import type { SecondFactorChallenge } from '@/api/session';
 import { SESSION_KEY, verifySecondFactor } from '@/api/session';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
-import { GoogleSignIn, PendingGoogleNote } from '@/areas/client/login/GoogleSignIn';
+import { GoogleSignIn, PendingGoogleNote, pendingTextKey } from '@/areas/client/login/GoogleSignIn';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useApiMutation } from '@/api/request';
 import { useApplyDemo } from '@/demo/hooks';
@@ -124,8 +124,8 @@ function ClientLoginForm({ next }: { next: string }) {
           submitLabel={t('login.verify')}
           onVerified={(user) => {
             apply({ persona: 'client', appUser: user.id });
-            if (pending && user.googleLinked === false) toast.error(t('login.google.linkFailed'));
-            else toast.success(t(pending ? 'login.google.linked' : 'login.success'));
+            if (pending && user.googleLinked === false) toast.error(t(pendingTextKey(pending, 'linkFailed')));
+            else toast.success(t(pending ? pendingTextKey(pending, 'linked') : 'login.success'));
             router.push(safeNext(next));
           }}
           agreementAction={agreementLink}
@@ -227,9 +227,9 @@ function BusinessPhoneLoginForm() {
     if (verify.isPending) return;
     setCodeError(undefined);
     try {
-      const result = await verify.mutate({ phone, code: value, pendingGoogle: pending?.token });
-      if (pending && result.googleLinked === false) toast.error(t('login.google.linkFailed'));
-      else toast.success(t(pending ? 'login.google.linked' : 'login.success'));
+      const result = await verify.mutate({ phone, code: value, ...pendingLinkTokens(pending) });
+      if (pending && result.googleLinked === false) toast.error(t(pendingTextKey(pending, 'linkFailed')));
+      else toast.success(t(pending ? pendingTextKey(pending, 'linked') : 'login.success'));
       enter(result.hasBusiness);
     } catch (error) {
       setCodeError(loginErrorText(t, error, t('login.codeWrong')));

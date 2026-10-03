@@ -7,8 +7,10 @@ export type DataMode = 'api' | 'mock';
 /** Cookie переключателя режима при разработке (ставит src/proxy.ts по ?data=) */
 export const DATA_COOKIE = 'bt_data';
 /** Cookie сессии сервера (httpOnly — прочесть нельзя, но proxy.ts видит, есть ли она) */
-export const SESSION_COOKIE = 'bt_session';
-export const PLATFORM_COOKIE = 'bt_platform';
+/** Суффикс имён cookie сервера — как COOKIE_SUFFIX на сервере (staging: _stg), иначе cookie staging и production путаются на общем домене */
+const COOKIE_SUFFIX = process.env.NEXT_PUBLIC_COOKIE_SUFFIX ?? '';
+export const SESSION_COOKIE = `bt_session${COOKIE_SUFFIX}`;
+export const PLATFORM_COOKIE = `bt_platform${COOKIE_SUFFIX}`;
 
 function readCookie(name: string): string | undefined {
   if (typeof document === 'undefined') return undefined;

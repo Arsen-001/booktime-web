@@ -4,3 +4,4 @@
  */
 export * from '@/domain/platform/types/index';
 export * from '@/domain/platform/rules';
+export * from '@/domain/platform/prospects';

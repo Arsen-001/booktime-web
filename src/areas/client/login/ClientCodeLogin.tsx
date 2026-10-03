@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { sendLoginCode, verifyLoginCode, type LoginChannel, type PendingGoogle, type VerifiedAppUser } from '@/api/client';
+import { pendingLinkTokens, sendLoginCode, verifyLoginCode, type LoginChannel, type PendingGoogle, type VerifiedAppUser } from '@/api/client';
 import { useApiMutation } from '@/api/request';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';
@@ -117,8 +117,8 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
     if (verify.isPending || busy) return;
     setCodeError(undefined);
     try {
-      const user = await verify.mutate({ name: name.trim(), phone, code: value, consent, pendingGoogle: google?.token });
-      track('login_completed', { method: google ? 'google' : 'code' });
+      const user = await verify.mutate({ name: name.trim(), phone, code: value, consent, ...pendingLinkTokens(google) });
+      track('login_completed', { method: google && google.provider !== 'apple' ? 'google' : 'code' });
       await onVerified(user);
     } catch (e) {
       setCodeError(loginErrorText(t, e, t('login.codeWrong')));

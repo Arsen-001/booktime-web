@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import type { GoogleSignInResult, PendingGoogle } from '@/api/client';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
-import { GoogleSignIn, PendingGoogleNote } from '@/areas/client/login/GoogleSignIn';
+import { GoogleSignIn, PendingGoogleNote, pendingTextKey } from '@/areas/client/login/GoogleSignIn';
 import type { AppUser } from '@/domain/core';
 import { useT } from '@/i18n/useT';
 import { useToast } from '@/ui/Toast';
@@ -48,7 +48,7 @@ export function GuestLogin({ onVerified, submitLabel, busy }: { onVerified: (use
         submitLabel={submitLabel}
         busy={busy}
         onVerified={async (user) => {
-          if (pending && user.googleLinked === false) toast.error(t('login.google.linkFailed'));
+          if (pending && user.googleLinked === false) toast.error(t(pendingTextKey(pending, 'linkFailed')));
           await onVerified(user);
         }}
       />
