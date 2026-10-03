@@ -793,7 +793,12 @@ export interface VerifyLoginInput {
   code: string;
   /** Принято пользовательское соглашение и разрешена обработка данных (F-14-008) — без него вход не завершается */
   consent: boolean;
+  /** «Войти через Google» с непривязанным аккаунтом: верный код привяжет этот Google к номеру (03.10.2026) */
+  pendingGoogle?: string;
 }
+
+/** Вошли по коду; с pendingGoogle — привязался ли Google (false — ожидание истекло или этот Google уже у другого) */
+export type VerifiedAppUser = AppUser & { googleLinked?: boolean };
 
 const DEMO_CODE = '0000';
 
@@ -813,16 +818,17 @@ function appUserOfSession(session: SessionView): AppUser {
   };
 }
 
-export async function verifyLoginCode(input: VerifyLoginInput): Promise<AppUser> {
+export async function verifyLoginCode(input: VerifyLoginInput): Promise<VerifiedAppUser> {
   if (isApiMode()) {
-    const session = await http<SessionView>('POST', '/v1/auth/verify', {
+    const session = await http<SessionView & { googleLinked?: boolean }>('POST', '/v1/auth/verify', {
       phone: input.phone,
       code: input.code,
       app: 'client',
       name: input.name,
       consent: input.consent,
+      pendingGoogle: input.pendingGoogle,
     });
-    return appUserOfSession(session);
+    return { ...appUserOfSession(session), googleLinked: session.googleLinked };
   }
   return request(() => {
     if (!input.consent) throw new ApiError('consent_required');
@@ -854,16 +860,66 @@ export async function hasLoginConsent(appUserId: Id | undefined): Promise<boolea
 
 /** Вход мастера/индивидуала/владельца по номеру телефона и коду — тем же демо-кодом, что у клиента (F-00-033) */
 /** hasBusiness: false — номер вошёл, но бизнеса у человека ещё нет (экран ведёт на регистрацию бизнеса) */
-export async function verifyBusinessPhoneLogin(input: { phone: string; code: string }): Promise<{ hasBusiness: boolean }> {
+export async function verifyBusinessPhoneLogin(input: {
+  phone: string;
+  code: string;
+  pendingGoogle?: string;
+}): Promise<{ hasBusiness: boolean; googleLinked?: boolean }> {
   if (isApiMode()) {
-    const view = await http<SessionView>('POST', '/v1/auth/verify', { phone: input.phone, code: input.code, app: 'business' });
-    return { hasBusiness: view.memberships.length > 0 };
+    const view = await http<SessionView & { googleLinked?: boolean }>('POST', '/v1/auth/verify', {
+      phone: input.phone,
+      code: input.code,
+      app: 'business',
+      pendingGoogle: input.pendingGoogle,
+    });
+    return { hasBusiness: view.memberships.length > 0, googleLinked: view.googleLinked };
   }
   return request(() => {
     if (input.code !== DEMO_CODE) throw new ApiError('wrong_code');
     if (!normalizePhone(input.phone)) throw new ApiError('invalid_phone');
     return { hasBusiness: true };
   });
+}
+
+// ─────────────────────────── «Войти через Google» (03.10.2026) ───────────────────────────
+
+/** Google-аккаунт ещё не привязан: номер и код один раз, token — в verify (pendingGoogle) */
+export interface PendingGoogle {
+  token: string;
+  email: string;
+  name: string | null;
+}
+
+export type GoogleSignInResult =
+  /** Google привязан к номеру — вошли. user — клиент приложения (null в демо: демо-клиент по умолчанию) */
+  | { kind: 'signedIn'; user: AppUser | null; hasBusiness: boolean }
+  /** Не привязан — экран просит номер и код, «привяжем Google к номеру» */
+  | { kind: 'linkRequired'; pending: PendingGoogle };
+
+/** Web Client ID из Google Cloud Console; без него на живом сайте кнопки «Войти через Google» нет */
+export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? '';
+
+/** Показывать ли «Войти через Google»: живой сайт — если задан Client ID; демо — всегда (вход имитируется) */
+export function googleSignInAvailable(): boolean {
+  return isApiMode() ? Boolean(GOOGLE_CLIENT_ID) : true;
+}
+
+/**
+ * Войти через Google: idToken — от Google Identity Services. Сервер проверяет токен; привязан — сессия, нет — pending.
+ * Демо (без настоящего Google): сразу вход демо-персоной — клиент по умолчанию или владелец салона.
+ */
+export async function signInWithGoogle(input: { idToken?: string; app: 'client' | 'business'; consent?: boolean }): Promise<GoogleSignInResult> {
+  if (isApiMode()) {
+    const r = await http<{ session: SessionView | null; pendingGoogle: (PendingGoogle & { expiresIn: number }) | null }>('POST', '/v1/auth/google', {
+      idToken: input.idToken,
+      app: input.app,
+      consent: input.consent,
+    });
+    if (r.session) return { kind: 'signedIn', user: appUserOfSession(r.session), hasBusiness: r.session.memberships.length > 0 };
+    if (r.pendingGoogle) return { kind: 'linkRequired', pending: { token: r.pendingGoogle.token, email: r.pendingGoogle.email, name: r.pendingGoogle.name } };
+    throw new ApiError('google_invalid');
+  }
+  return request(() => ({ kind: 'signedIn' as const, user: null, hasBusiness: true }));
 }
 
 export interface AdminLoginInput {

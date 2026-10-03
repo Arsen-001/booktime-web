@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import type { LoginChannel } from '@/api/client';
+import type { GoogleSignInResult, LoginChannel, PendingGoogle } from '@/api/client';
 import { changeAdminPassword, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client';
 import type { SecondFactorChallenge } from '@/api/session';
 import { SESSION_KEY, verifySecondFactor } from '@/api/session';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
+import { GoogleSignIn, PendingGoogleNote } from '@/areas/client/login/GoogleSignIn';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useApiMutation } from '@/api/request';
 import { useApplyDemo } from '@/demo/hooks';
@@ -73,29 +74,60 @@ export function LoginScreen({ next }: { next: string }) {
   );
 }
 
-/** Клиентский вход по имени, телефону и коду (F-00-032, F-14-006…F-14-008) — тот же вид, что и вход прямо в записи */
+/**
+ * Клиентский вход: «Войти через Google» одним нажатием (03.10.2026) или имя, телефон и код (F-00-032, F-14-006…F-14-008) —
+ * тот же вид, что и вход прямо в записи. Google ещё не привязан — та же форма номера и кода с пометкой «привяжем Google
+ * к номеру»: номер подтверждает только код, дальше вход через Google — без кода.
+ */
 function ClientLoginForm({ next }: { next: string }) {
   const t = useT('client');
   const router = useRouter();
   const toast = useToast();
   const apply = useApplyDemo();
   const [agreementOpen, setAgreementOpen] = useState(false);
+  const [pending, setPending] = useState<PendingGoogle | undefined>(undefined);
+
+  const agreementLink = (
+    <Button variant="link" size="sm" className="self-start" onClick={() => setAgreementOpen(true)}>
+      {t('login.agreementLink')}
+    </Button>
+  );
+
+  const onGoogle = (r: GoogleSignInResult) => {
+    if (r.kind === 'linkRequired') {
+      setPending(r.pending);
+      return;
+    }
+    // Демо: user = null — демо-клиент по умолчанию
+    apply({ persona: 'client', appUser: r.user?.id ?? '' });
+    toast.success(t('login.success'));
+    router.push(safeNext(next));
+  };
 
   return (
     <div data-f="F-00-032 F-14-006 F-14-007 F-00-002 F-15-003 F-14-068">
-      <Card padding="lg">
+      <Card padding="lg" className="flex flex-col gap-4">
+        {pending ? (
+          <PendingGoogleNote pending={pending} onCancel={() => setPending(undefined)} />
+        ) : (
+          <GoogleSignIn
+            app="client"
+            consent
+            onResult={onGoogle}
+            footer={<p className="text-center text-sm text-muted">{t('login.google.consentNote')}</p>}
+          />
+        )}
         <ClientCodeLogin
+          key={pending?.token ?? 'phone'}
+          google={pending}
           submitLabel={t('login.verify')}
           onVerified={(user) => {
             apply({ persona: 'client', appUser: user.id });
-            toast.success(t('login.success'));
+            if (pending && user.googleLinked === false) toast.error(t('login.google.linkFailed'));
+            else toast.success(t(pending ? 'login.google.linked' : 'login.success'));
             router.push(safeNext(next));
           }}
-          agreementAction={
-            <Button variant="link" size="sm" className="self-start" onClick={() => setAgreementOpen(true)}>
-              {t('login.agreementLink')}
-            </Button>
-          }
+          agreementAction={agreementLink}
         />
       </Card>
       <AgreementModal open={agreementOpen} onOpenChange={setAgreementOpen} />
@@ -159,6 +191,8 @@ function BusinessPhoneLoginForm() {
   const [left, setLeft] = useState(0);
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState<string | undefined>(undefined);
+  /** «Войти через Google» — аккаунт ещё не привязан: номер и код один раз, потом вход одним нажатием (03.10.2026) */
+  const [pending, setPending] = useState<PendingGoogle | undefined>(undefined);
 
   // Обратный отсчёт до повторной отправки (в тот же или другой канал)
   useEffect(() => {
@@ -192,24 +226,40 @@ function BusinessPhoneLoginForm() {
     if (verify.isPending) return;
     setCodeError(undefined);
     try {
-      const result = await verify.mutate({ phone, code: value });
-      toast.success(t('login.success'));
-      // Номер вошёл, но своего бизнеса ещё нет — регистрация бизнеса (живой сайт, этап 3)
-      if (!result.hasBusiness) {
-        router.push('/register-business');
-        return;
-      }
-      apply({ persona: 'owner' });
-      router.push('/biz');
+      const result = await verify.mutate({ phone, code: value, pendingGoogle: pending?.token });
+      if (pending && result.googleLinked === false) toast.error(t('login.google.linkFailed'));
+      else toast.success(t(pending ? 'login.google.linked' : 'login.success'));
+      enter(result.hasBusiness);
     } catch (error) {
       setCodeError(loginErrorText(t, error, t('login.codeWrong')));
     }
+  };
+
+  // Номер вошёл, но своего бизнеса ещё нет — регистрация бизнеса (живой сайт, этап 3)
+  const enter = (hasBusiness: boolean) => {
+    if (!hasBusiness) {
+      router.push('/register-business');
+      return;
+    }
+    apply({ persona: 'owner' });
+    router.push('/biz');
+  };
+
+  const onGoogle = (r: GoogleSignInResult) => {
+    if (r.kind === 'linkRequired') {
+      setPending(r.pending);
+      setStep('form');
+      return;
+    }
+    toast.success(t('login.success'));
+    enter(r.hasBusiness);
   };
 
   return (
     <Card padding="lg" className="flex flex-col gap-4">
       {step === 'form' ? (
         <>
+          {pending ? <PendingGoogleNote pending={pending} onCancel={() => setPending(undefined)} /> : <GoogleSignIn app="business" onResult={onGoogle} />}
           <FormField label={t('login.phoneLabel')}>
             <PhoneInput value={phone} onValueChange={setPhone} />
           </FormField>

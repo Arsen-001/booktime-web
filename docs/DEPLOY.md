@@ -74,4 +74,21 @@
   `TELEGRAM_BOT_USERNAME`, вебхук `https://api.booktime.am/v1/telegram/webhook` с секретом
   `TELEGRAM_WEBHOOK_SECRET` (без секрета — 403). У бота один вебхук, поэтому на staging бота нет — сообщения
   там пишутся в лог. Проверить: `getWebhookInfo` (поле `last_error_message`).
+- **«Войти через Google»** (03.10.2026) — без Client ID кнопки нет, вход по номеру работает как раньше. Что сделать владельцу:
+  1. console.cloud.google.com → создать проект **BookTime** (или выбрать существующий).
+  2. APIs & Services → **OAuth consent screen** (Google Auth Platform → Branding): User type **External**, имя
+     приложения **BookTime**, почта поддержки, логотип (необязательно); Authorized domains — **booktime.am**; ссылки на
+     главную (https://booktime.am), **политику конфиденциальности** и условия использования (страницы должны открываться
+     без входа). Scopes — только базовые `openid`, `email`, `profile` (проверка Google для них не нужна). Publishing
+     status — **In production** (в Testing войти могут только добавленные тестовые аккаунты).
+  3. APIs & Services → **Credentials** → Create credentials → **OAuth client ID** → Application type **Web application**,
+     имя «BookTime web». **Authorized JavaScript origins**: `https://booktime.am`, `https://staging.booktime.am`,
+     `http://localhost:3710` (и `https://demo.booktime.am`, если там нужен настоящий Google). Redirect URIs не нужны.
+  4. Прислать **Client ID** (вида `…apps.googleusercontent.com`; секрет не нужен). Дальше ставим:
+     Vercel (оба окружения) `NEXT_PUBLIC_GOOGLE_CLIENT_ID=<Client ID>` (переменная сборки — нужна пересборка),
+     Railway (api и api-staging) `GOOGLE_CLIENT_ID=<Client ID>`; для Android/iOS-приложений позже — их Client ID
+     через запятую в `GOOGLE_CLIENT_ID`.
+  5. Миграция `20261003120000_user_identities_google` (таблица `user_identities`) применится сама при выкладке сервера.
+  - iOS-приложение: если в нём будет «Войти через Google», App Store требует ещё **«Войти через Apple»** (правило 4.8) —
+    сейчас не делаем.
 - Vercel Hobby — только некоммерческое использование; для салонов — Vercel Pro.

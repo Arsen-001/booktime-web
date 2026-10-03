@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { sendLoginCode, verifyLoginCode, type LoginChannel } from '@/api/client';
+import { sendLoginCode, verifyLoginCode, type LoginChannel, type PendingGoogle, type VerifiedAppUser } from '@/api/client';
 import { useApiMutation } from '@/api/request';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';
-import type { AppUser } from '@/domain/core';
 import { SESSION_KEY } from '@/api/session';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -19,13 +18,18 @@ import { PhoneInput } from '@/ui/PhoneInput';
 
 export interface ClientCodeLoginProps {
   /** Код подошёл — вход готов; экран решает, что дальше (перейти, создать запись). Бросило — текст ошибки под кодом */
-  onVerified: (user: AppUser) => Promise<void> | void;
+  onVerified: (user: VerifiedAppUser) => Promise<void> | void;
   /** Подпись кнопки на шаге кода («Войти», «Записаться») */
   submitLabel: string;
   /** Экран ещё что-то делает после входа (создаёт запись) — кнопка крутится */
   busy?: boolean;
   /** Ссылка «Читать соглашение» под галочкой согласия */
   agreementAction?: ReactNode;
+  /**
+   * «Войти через Google» с непривязанным аккаунтом (03.10.2026): имя — из Google, согласие уже дано под кнопкой Google,
+   * верный код привяжет Google к номеру. Экран монтирует форму заново (key) при новом ожидании.
+   */
+  google?: PendingGoogle;
 }
 
 /**
@@ -36,10 +40,10 @@ export interface ClientCodeLoginProps {
  * деле (сервер сам шлёт в запасной, если Telegram не доставил); «Отправить ещё раз» и «Прислать в WhatsApp / SMS» —
  * после отсчёта, который задаёт сервер (03.10.2026).
  */
-export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreementAction }: ClientCodeLoginProps) {
+export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreementAction, google }: ClientCodeLoginProps) {
   const t = useT('client');
   const fmt = useFormat();
-  const [name, setName] = useState('');
+  const [name, setName] = useState(google?.name ?? '');
   const [phone, setPhone] = useState('');
   const channels = useLoginChannels();
   /** Выбор на первом шаге — куда просить код */
@@ -47,7 +51,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
   /** Куда код ушёл на самом деле и куда просили (разные — сервер отправил в запасной канал) */
   const [sent, setSent] = useState<{ channel: LoginChannel; requested: LoginChannel; channels: LoginChannel[] } | undefined>(undefined);
   const [pendingChannel, setPendingChannel] = useState<LoginChannel | undefined>(undefined);
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(Boolean(google));
   const [step, setStep] = useState<'form' | 'code'>('form');
   const [code, setCode] = useState('');
   const [showErrors, setShowErrors] = useState(false);
@@ -107,7 +111,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
     if (verify.isPending || busy) return;
     setCodeError(undefined);
     try {
-      const user = await verify.mutate({ name: name.trim(), phone, code: value, consent });
+      const user = await verify.mutate({ name: name.trim(), phone, code: value, consent, pendingGoogle: google?.token });
       await onVerified(user);
     } catch (e) {
       setCodeError(loginErrorText(t, e, t('login.codeWrong')));

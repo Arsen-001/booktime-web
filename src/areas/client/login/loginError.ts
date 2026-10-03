@@ -27,6 +27,15 @@ export function loginErrorText(t: ClientT, error: unknown, fallback: string): st
       return t('login.errors.blocked');
     case 'weak_password':
       return t('login.errors.weakPassword');
+    case 'google_invalid':
+      return t('login.google.errors.invalid');
+    case 'google_disabled':
+    case 'google_unavailable':
+      return t('login.google.errors.unavailable');
+    case 'google_taken':
+      return t('login.google.errors.taken');
+    case 'consent_required':
+      return t('login.consentRequired');
     case 'network':
       return t('login.errors.network');
     default:
