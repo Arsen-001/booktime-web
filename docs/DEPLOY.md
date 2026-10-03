@@ -15,6 +15,12 @@
 
 - Репозитории (публичные): https://github.com/Arsen-001/booktime-web, https://github.com/Arsen-001/booktime-api.
 - Каждый push в `develop` / `main` выкладывается сам (GitHub-приложения Vercel и Railway).
+  Если Railway не подхватил push (03.10.2026 так было: в `railway deployment list -s api -e staging` нет нового коммита,
+  а `railway redeploy --from-source` берёт старый), выложить рабочую копию сервера, совпадающую с `origin/develop`:
+  `railway up -s api -e staging --detach` из `booktime-backend` (секреты из `.gitignore` не загружаются; сборка — `npm run
+  build` с `prebuild: prisma generate`).
+- Разовый импорт мест в базу staging: `railway tcp-proxy create --port 3306 -s MySQL -e staging` → `ProspectsService.import`
+  с `DATABASE_URL` на прокси (тот же код, что кнопка «Импорт») → `railway tcp-proxy delete <id> -s MySQL -e staging --yes`.
 - В production попадает только слиянием `develop` → `main` (fast-forward) — по слову владельца.
 - Регион Railway — `europe-west4` (Нидерланды), записан в `railway.json` сервера: без этого сервис уезжал в `sfo`
   и каждый запрос к базе шёл через океан (карточка салона — 40 с вместо 0,8 с).
