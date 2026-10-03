@@ -17,8 +17,8 @@ const src = readFileSync(srcPath, 'utf8');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
-// Конкуренты, с которыми сравниваем. Сейчас — Altegio; следующих добавить сюда и писать в .md «У <Имя>: …»
-const COMPETITORS = ['Altegio'];
+// Конкуренты, с которыми сравниваем (03.10.2026: + армянские Emly и Booker.am); в .md — «У <Имя>: …»
+const COMPETITORS = ['Altegio', 'Emly', 'Booker.am'];
 const LATER = 'Другие конкуренты';
 
 function inline(s) {
@@ -31,7 +31,7 @@ function inline(s) {
 /** Пункт: название, что это даёт у нас, ссылки на ТЗ, как у каждого конкурента */
 function parseItem(text) {
   const them = {};
-  const re = new RegExp(`\\s*У (${COMPETITORS.join('|')}):\\s*`, 'g');
+  const re = new RegExp(`\\s*У (${COMPETITORS.map((c) => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')}):\\s*`, 'g');
   const parts = text.split(re);
   let ours = parts[0];
   for (let i = 1; i < parts.length; i += 2) them[parts[i]] = cap(parts[i + 1].trim());
