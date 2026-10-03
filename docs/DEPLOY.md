@@ -169,6 +169,9 @@
      Railway (api и api-staging) `GOOGLE_CLIENT_ID=<Client ID>`; для Android/iOS-приложений позже — их Client ID
      через запятую в `GOOGLE_CLIENT_ID`.
   5. Миграция `20261003120000_user_identities_google` (таблица `user_identities`) применится сама при выкладке сервера.
-  - iOS-приложение: если в нём будет «Войти через Google», App Store требует ещё **«Войти через Apple»** (правило 4.8) —
-    сейчас не делаем.
+  - iOS-приложение: раз в нём есть «Войти через Google», App Store требует ещё **«Войти через Apple»** (правило 4.8) —
+    сделано (03.10.2026): сервер `POST /v1/auth/apple`, env Railway `APPLE_CLIENT_IDS=am.booktime.app,am.booktime.business`
+    (пусто — вход через Apple выключен).
+- Приложения iOS/Android (`../booktime-mobile`, README там): диплинки — env Vercel (production) `APPLE_TEAM_ID`,
+  `ANDROID_SHA256_CERT`, `ANDROID_BUSINESS_SHA256_CERT` (без них `/.well-known/*` — 404); пуши — env Railway `FCM_*`.
 - Vercel Hobby — только некоммерческое использование; для салонов — Vercel Pro.

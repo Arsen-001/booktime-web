@@ -10,6 +10,12 @@ import { COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, isValidDemoValue, type DemoS
 export function proxy(request: NextRequest) {
   const url = request.nextUrl;
 
+  // Диплинки приложений (booktime-mobile): /.well-known/apple-app-site-association и /.well-known/assetlinks.json
+  // отдают маршруты src/app/well-known/* — папки с точкой в начале Next в маршруты не берёт
+  if (url.pathname === '/.well-known/apple-app-site-association' || url.pathname === '/.well-known/assetlinks.json') {
+    return NextResponse.rewrite(new URL(url.pathname.replace('/.well-known/', '/well-known/'), url));
+  }
+
   // Разработка: ?data=api|mock — режим данных без пересборки (src/api/mode.ts)
   const dataParam = url.searchParams.get('data');
   if (process.env.NODE_ENV === 'development' && (dataParam === 'api' || dataParam === 'mock')) {
