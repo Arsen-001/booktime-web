@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { MessageCircle, Send } from 'lucide-react';
 import { sendLoginCode, verifyLoginCode, type LoginChannel } from '@/api/client';
 import { useApiMutation } from '@/api/request';
+import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import type { AppUser } from '@/domain/core';
 import { SESSION_KEY } from '@/api/session';
@@ -16,10 +16,6 @@ import { CodeInput } from '@/ui/CodeInput';
 import { FormField } from '@/ui/FormField';
 import { Input } from '@/ui/Input';
 import { PhoneInput } from '@/ui/PhoneInput';
-import { SegmentedControl } from '@/ui/SegmentedControl';
-
-/** Через сколько секунд можно попросить код ещё раз */
-const RESEND_AFTER_SEC = 30;
 
 export interface ClientCodeLoginProps {
   /** Код подошёл — вход готов; экран решает, что дальше (перейти, создать запись). Бросило — текст ошибки под кодом */
@@ -34,16 +30,23 @@ export interface ClientCodeLoginProps {
 
 /**
  * Вход клиента по номеру и коду — один вид на экране «Вход» и прямо в записи (F-00-032, F-14-006…F-14-008).
- * Шаг 1: имя, номер, куда прислать код (WhatsApp / Telegram; SMS — запасной, на шаге кода, decision-c1 №9), согласие.
- * Кнопка не бледнеет молча: нажали — под полями видно, чего не хватает; Enter отправляет форму.
- * Шаг 2: код клетками — четвёртая цифра сама проверяет код; «Отправить ещё раз» — через 30 с, со счётчиком.
+ * Шаг 1: имя, номер, куда прислать код (Telegram / WhatsApp — из включённых на сервере; SMS — запасной, на шаге кода,
+ * decision-c1 №9), согласие. Кнопка не бледнеет молча: нажали — под полями видно, чего не хватает; Enter отправляет форму.
+ * Шаг 2: код клетками — четвёртая цифра сама проверяет код. «Код отправлен в …» — по каналу, куда код ушёл на самом
+ * деле (сервер сам шлёт в запасной, если Telegram не доставил); «Отправить ещё раз» и «Прислать в WhatsApp / SMS» —
+ * после отсчёта, который задаёт сервер (03.10.2026).
  */
 export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreementAction }: ClientCodeLoginProps) {
   const t = useT('client');
   const fmt = useFormat();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [channel, setChannel] = useState<LoginChannel>('whatsapp');
+  const channels = useLoginChannels();
+  /** Выбор на первом шаге — куда просить код */
+  const [channel, setChannel] = useState<LoginChannel>('telegram');
+  /** Куда код ушёл на самом деле и куда просили (разные — сервер отправил в запасной канал) */
+  const [sent, setSent] = useState<{ channel: LoginChannel; requested: LoginChannel; channels: LoginChannel[] } | undefined>(undefined);
+  const [pendingChannel, setPendingChannel] = useState<LoginChannel | undefined>(undefined);
   const [consent, setConsent] = useState(false);
   const [step, setStep] = useState<'form' | 'code'>('form');
   const [code, setCode] = useState('');
@@ -70,17 +73,20 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
 
   const sendCode = async (c: LoginChannel) => {
     setSendError(undefined);
+    setPendingChannel(c);
     try {
-      await send.mutate({ p: phone, c });
-      setChannel(c);
+      const res = await send.mutate({ p: phone, c });
+      setSent({ channel: res.channel, requested: c, channels: res.channels });
       setCode('');
       setCodeError(undefined);
-      setLeft(RESEND_AFTER_SEC);
+      setLeft(res.resendAfter);
       setStep('code');
     } catch (e) {
       const text = loginErrorText(t, e, t('login.sendFailed'));
       if (step === 'code') setCodeError(text);
       else setSendError(text);
+    } finally {
+      setPendingChannel(undefined);
     }
   };
 
@@ -109,10 +115,10 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
     }
   };
 
-  const channelName = channel === 'whatsapp' ? t('login.channelWhatsapp') : channel === 'telegram' ? t('login.channelTelegram') : t('login.channelSms');
   const mmss = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
 
-  if (step === 'code') {
+  if (step === 'code' && sent) {
+    const shownPhone = normalized ? fmt.phone(normalized) : phone;
     return (
       <form
         noValidate
@@ -123,11 +129,16 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
         className="flex animate-rise flex-col gap-4"
       >
         <div className="flex flex-wrap items-center gap-x-2 text-sm text-muted">
-          <span>{t('login.codeSentTo', { phone: normalized ? fmt.phone(normalized) : phone, channel: channelName })}</span>
+          <span>{codeSentText(t, shownPhone, sent.channel)}</span>
           <Button variant="link" size="sm" className="-ml-1" onClick={() => setStep('form')}>
             {t('login.changePhone')}
           </Button>
         </div>
+        {sent.requested !== sent.channel && (
+          <p className="-mt-2 text-sm text-muted">
+            {t('login.channelFallback', { requested: channelName(t, sent.requested), channel: channelName(t, sent.channel) })}
+          </p>
+        )}
         <FormField label={t('login.codeLabel')} hint={codeError ? undefined : t('login.codeHint')} error={codeError}>
           <CodeInput
             value={code}
@@ -143,21 +154,23 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
         <Button type="submit" size="lg" fullWidth loading={verify.isPending || busy}>
           {submitLabel}
         </Button>
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-col gap-2">
           {left > 0 ? (
             <p aria-live="off" className="nums flex min-h-11 items-center text-sm text-muted">
               {t('login.resendIn', { time: mmss })}
             </p>
           ) : (
-            <Button variant="ghost" className="-ml-2" onClick={() => void sendCode(channel)} loading={send.isPending}>
+            <Button
+              variant="ghost"
+              className="-ml-2 self-start"
+              onClick={() => void sendCode(sent.channel)}
+              loading={pendingChannel === sent.channel}
+              disabled={pendingChannel !== undefined && pendingChannel !== sent.channel}
+            >
               {t('login.resend')}
             </Button>
           )}
-          {channel !== 'sms' && (
-            <Button variant="ghost" className="-mr-2" onClick={() => void sendCode('sms')} disabled={send.isPending}>
-              {t('login.viaSms')}
-            </Button>
-          )}
+          <OtherChannelButtons t={t} current={sent.channel} channels={sent.channels} waiting={left > 0} pending={pendingChannel} onSend={(c) => void sendCode(c)} />
         </div>
       </form>
     );
@@ -171,17 +184,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
       <FormField label={t('login.phoneLabel')} error={showErrors ? errors.phone : sendError}>
         <PhoneInput value={phone} onValueChange={setPhone} />
       </FormField>
-      <FormField label={t('login.channelLabel')}>
-        <SegmentedControl
-          value={channel === 'sms' ? 'whatsapp' : channel}
-          onValueChange={(v) => setChannel(v as LoginChannel)}
-          fullWidth
-          options={[
-            { value: 'whatsapp', label: t('login.channelWhatsapp'), icon: <MessageCircle aria-hidden /> },
-            { value: 'telegram', label: t('login.channelTelegram'), icon: <Send aria-hidden /> },
-          ]}
-        />
-      </FormField>
+      <ChannelPicker t={t} value={channel} onChange={setChannel} channels={channels} />
       <div data-f="F-14-008" className="flex flex-col gap-1">
         <Checkbox checked={consent} onCheckedChange={setConsent} label={t('login.consentText')} />
         {showErrors && errors.consent && <p className="text-sm text-danger">{errors.consent}</p>}

@@ -752,17 +752,38 @@ export async function submitDemandLead(input: DemandLeadInput): Promise<void> {
 
 export type LoginChannel = 'whatsapp' | 'telegram' | 'sms';
 
+/** Порядок каналов кода, как на сервере: Telegram (дешёвый) → WhatsApp → SMS (дорогой, запасной) */
+export const LOGIN_CHANNELS: readonly LoginChannel[] = ['telegram', 'whatsapp', 'sms'];
+
+/** Код ушёл: куда на самом деле (сервер мог отправить в запасной канал) и какие каналы ещё можно предложить */
+export interface LoginCodeSent {
+  channel: LoginChannel;
+  channels: LoginChannel[];
+  /** Через сколько секунд можно попросить новый код (в любой канал) */
+  resendAfter: number;
+}
+
+/** Демо: повтор через 30 с (сервер — 60 с, он сам присылает resendAfter) */
+const DEMO_RESEND_AFTER_SEC = 30;
+
+/** Куда можно прислать код — экран входа показывает выбор только из включённых каналов. В демо — все. */
+export async function getLoginChannels(): Promise<LoginChannel[]> {
+  if (isApiMode()) return (await http<{ channels: LoginChannel[] }>('GET', '/v1/auth/channels')).channels;
+  return request(() => [...LOGIN_CHANNELS]);
+}
+
 /** Отправить код входа. В демо код всегда '0000' — показывается подсказкой на экране. */
-export async function sendLoginCode(phone: string, channel: LoginChannel): Promise<void> {
+export async function sendLoginCode(phone: string, channel: LoginChannel): Promise<LoginCodeSent> {
   if (isApiMode()) {
-    // Сервер: 4 цифры, 5 минут, повтор через 60 с (ApiError code_resend_wait с retryAfter), только +374
-    await http('POST', '/v1/auth/code', { phone, channel });
-    return;
+    // Сервер: 4 цифры, 5 минут, повтор через 60 с (ApiError code_resend_wait с retryAfter), только +374.
+    // Канал не доставил (у номера нет Telegram) — сервер сам шлёт тот же код в следующий включённый канал.
+    const sent = await http<LoginCodeSent>('POST', '/v1/auth/code', { phone, channel });
+    return { channel: sent.channel, channels: sent.channels ?? [sent.channel], resendAfter: sent.resendAfter };
   }
   return request(() => {
     if (!normalizePhone(phone)) throw new ApiError('invalid_phone');
     // Демо не отправляет настоящих сообщений — канал только определяет подсказку на экране
-    void channel;
+    return { channel, channels: [...LOGIN_CHANNELS], resendAfter: DEMO_RESEND_AFTER_SEC };
   });
 }
 

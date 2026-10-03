@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { LoginChannel } from '@/api/client';
@@ -8,6 +8,7 @@ import { changeAdminPassword, sendLoginCode, verifyAdminLogin, verifyBusinessPho
 import type { SecondFactorChallenge } from '@/api/session';
 import { SESSION_KEY, verifySecondFactor } from '@/api/session';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
+import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useApiMutation } from '@/api/request';
 import { useApplyDemo } from '@/demo/hooks';
@@ -28,12 +29,6 @@ type Step = 'form' | 'code';
 type LoginRole = 'client' | 'business';
 /** Способ входа бизнеса: по телефону (мастер/владелец) или логином и паролем (администратор) */
 type BusinessMode = 'phone' | 'password';
-
-function channelLabel(t: ReturnType<typeof useT<'client'>>, channel: LoginChannel): string {
-  if (channel === 'whatsapp') return t('login.channelWhatsapp');
-  if (channel === 'telegram') return t('login.channelTelegram');
-  return t('login.channelSms');
-}
 
 /** Пользовательское соглашение — текст, который клиент читает перед согласием на входе (F-14-008) */
 function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
@@ -156,23 +151,40 @@ function BusinessPhoneLoginForm() {
 
   const [step, setStep] = useState<Step>('form');
   const [phone, setPhone] = useState('');
-  const [channel, setChannel] = useState<LoginChannel>('whatsapp');
+  const channels = useLoginChannels();
+  const [channel, setChannel] = useState<LoginChannel>('telegram');
+  /** Куда код ушёл на самом деле (сервер шлёт в запасной канал, если Telegram не доставил) и куда просили */
+  const [sent, setSent] = useState<{ channel: LoginChannel; requested: LoginChannel; channels: LoginChannel[] } | undefined>(undefined);
+  const [pendingChannel, setPendingChannel] = useState<LoginChannel | undefined>(undefined);
+  const [left, setLeft] = useState(0);
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState<string | undefined>(undefined);
+
+  // Обратный отсчёт до повторной отправки (в тот же или другой канал)
+  useEffect(() => {
+    if (left <= 0) return;
+    const id = setTimeout(() => setLeft((s) => s - 1), 1000);
+    return () => clearTimeout(id);
+  }, [left]);
 
   const sendCode = useApiMutation(({ phone: p, channel: c }: { phone: string; channel: LoginChannel }) => sendLoginCode(p, c));
   const verify = useApiMutation(verifyBusinessPhoneLogin, { invalidates: [SESSION_KEY] });
 
   const phoneValid = Boolean(normalizePhone(phone));
 
-  const handleSend = async () => {
+  const handleSend = async (c: LoginChannel = channel) => {
+    setPendingChannel(c);
     try {
-      await sendCode.mutate({ phone, channel });
+      const res = await sendCode.mutate({ phone, channel: c });
+      setSent({ channel: res.channel, requested: c, channels: res.channels });
+      setLeft(res.resendAfter);
       setStep('code');
       setCode('');
       setCodeError(undefined);
     } catch (error) {
       toast.error(loginErrorText(t, error, t('login.codeWrong')));
+    } finally {
+      setPendingChannel(undefined);
     }
   };
 
@@ -201,25 +213,19 @@ function BusinessPhoneLoginForm() {
           <FormField label={t('login.phoneLabel')}>
             <PhoneInput value={phone} onValueChange={setPhone} />
           </FormField>
-          <FormField label={t('login.channelLabel')}>
-            <SegmentedControl
-              value={channel}
-              onValueChange={(v) => setChannel(v as LoginChannel)}
-              fullWidth
-              options={[
-                { value: 'whatsapp', label: t('login.channelWhatsapp') },
-                { value: 'telegram', label: t('login.channelTelegram') },
-                { value: 'sms', label: t('login.channelSms') },
-              ]}
-            />
-          </FormField>
-          <Button onClick={handleSend} loading={sendCode.isPending} disabled={!phoneValid} fullWidth>
+          <ChannelPicker t={t} value={channel} onChange={setChannel} channels={channels} />
+          <Button onClick={() => void handleSend()} loading={sendCode.isPending} disabled={!phoneValid} fullWidth>
             {t('login.continue')}
           </Button>
         </>
-      ) : (
+      ) : sent ? (
         <>
-          <p className="text-sm text-muted">{t('login.codeSentTo', { phone, channel: channelLabel(t, channel) })}</p>
+          <p className="text-sm text-muted">{codeSentText(t, phone, sent.channel)}</p>
+          {sent.requested !== sent.channel && (
+            <p className="-mt-2 text-sm text-muted">
+              {t('login.channelFallback', { requested: channelName(t, sent.requested), channel: channelName(t, sent.channel) })}
+            </p>
+          )}
           <FormField label={t('login.codeLabel')} hint={t('login.codeHint')} error={codeError}>
             <CodeInput
               value={code}
@@ -235,11 +241,27 @@ function BusinessPhoneLoginForm() {
           <Button onClick={() => void handleVerify()} loading={verify.isPending} disabled={code.length < 4} fullWidth>
             {t('login.verify')}
           </Button>
+          {left > 0 ? (
+            <p aria-live="off" className="nums text-sm text-muted">
+              {t('login.resendIn', { time: `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` })}
+            </p>
+          ) : (
+            <Button
+              variant="ghost"
+              className="-ml-2 self-start"
+              onClick={() => void handleSend(sent.channel)}
+              loading={pendingChannel === sent.channel}
+              disabled={pendingChannel !== undefined && pendingChannel !== sent.channel}
+            >
+              {t('login.resend')}
+            </Button>
+          )}
+          <OtherChannelButtons t={t} current={sent.channel} channels={sent.channels} waiting={left > 0} pending={pendingChannel} onSend={(c) => void handleSend(c)} />
           <button type="button" className="min-h-11 self-start text-sm text-primary-text hover:underline" onClick={() => setStep('form')}>
             {t('login.changePhone')}
           </button>
         </>
-      )}
+      ) : null}
     </Card>
   );
 }
