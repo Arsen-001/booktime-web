@@ -8,6 +8,7 @@ import { loginErrorText } from '@/areas/client/login/loginError';
 import { SESSION_KEY } from '@/api/session';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
+import { track } from '@/lib/analytics';
 import { normalizePhone } from '@/lib/phone';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
@@ -61,6 +62,11 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
   const send = useApiMutation(({ p, c }: { p: string; c: LoginChannel }) => sendLoginCode(p, c));
   const verify = useApiMutation(verifyLoginCode, { invalidates: [SESSION_KEY] });
 
+  // Аналитика воронки: форма входа показана — в записи или на экране «Вход»
+  useEffect(() => {
+    track('login_shown', { context: window.location.pathname.startsWith('/login') ? 'login' : 'booking' });
+  }, []);
+
   // Обратный отсчёт до «Отправить ещё раз»
   useEffect(() => {
     if (left <= 0) return;
@@ -112,6 +118,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
     setCodeError(undefined);
     try {
       const user = await verify.mutate({ name: name.trim(), phone, code: value, consent, pendingGoogle: google?.token });
+      track('login_completed', { method: google ? 'google' : 'code' });
       await onVerified(user);
     } catch (e) {
       setCodeError(loginErrorText(t, e, t('login.codeWrong')));

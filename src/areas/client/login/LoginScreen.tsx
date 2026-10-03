@@ -39,6 +39,7 @@ function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (
       <div className="flex flex-col gap-3 text-sm text-fg">
         <p>{t('login.agreementIntro')}</p>
         <p>{t('login.agreementData')}</p>
+        <p>{t('login.agreementAnalytics')}</p>
         <p>{t('login.agreementScope')}</p>
       </div>
     </Modal>

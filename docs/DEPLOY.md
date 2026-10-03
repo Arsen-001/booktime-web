@@ -53,6 +53,57 @@
   production + preview; для `booktime-demo` — добавить вручную, окружение будет `demo`). Без DSN всё выключено.
 - Личные данные не уходят: пользователь, cookie, заголовки, тело и строка запроса вырезаются (`beforeSend`).
 
+## Аналитика (посещения и воронки, 03.10.2026)
+
+Код — `src/lib/analytics.ts` (список событий, источник, очистка адресов) и `src/shell/AnalyticsScripts.tsx`
+(подключение); решение — `docs/design/DESIGN.md` «Аналитика». Работает **только на booktime.am** (сборка
+`NEXT_PUBLIC_DATA=api` + `NEXT_PUBLIC_VERCEL_ENV=production` — Vercel выставляет её сам). demo, staging, превью и
+разработка ничего не грузят и не шлют; браузер с Do Not Track / Global Privacy Control — тоже. Личных данных нет.
+
+**Что включить владельцу:**
+1. **Vercel Web Analytics** — vercel.com → проект `booktime-web` → вкладка **Analytics** → **Enable**, затем любая
+   новая выкладка `main` (скрипт `/_vercel/insights/script.js` появляется после включения). Видно: посетители, страницы,
+   referrer (Google, Instagram…), страны, устройства, UTM. **Свои события** (воронки ниже) Vercel показывает только на
+   **Pro** (до 2 свойств на событие; 8 — с Web Analytics Plus) — на Hobby их не видно, поэтому воронки — в PostHog.
+2. **PostHog** (воронки, бесплатно до 1 млн событий в месяц) — posthog.com → Sign up → регион **EU Cloud**
+   (eu.posthog.com) → создать проект **BookTime** → Settings → Project → **Project API key** (`phc_…`, он публичный) —
+   прислать. В настройках проекта: **Discard client IP data** — включить; Session replay, Surveys, Autocapture —
+   оставить выключенными (сайт их и так не включает). Дальше ставим в Vercel (`booktime-web`, только **Production**):
+   `NEXT_PUBLIC_POSTHOG_KEY=phc_…` (и `NEXT_PUBLIC_POSTHOG_HOST`, только если не EU: по умолчанию
+   `https://eu.i.posthog.com`) — переменная сборки, нужна пересборка. Без ключа PostHog не грузится вовсе.
+3. Проверить без отправки: `NEXT_PUBLIC_ANALYTICS_DEBUG=1` (локально, перезапуск дев-сервера) — события пишутся
+   в консоль браузера `[analytics] …`.
+
+**События** (PostHog → Product analytics → Funnels; в Vercel — Events на Pro):
+
+| Событие | Когда | Свойства |
+|---|---|---|
+| `$pageview` / просмотр | каждая страница (сам) | адрес без строки запроса (кроме `utm_*`), токены в пути — шаблоном |
+| `search` | поиск в каталоге, через 1,5 с после ввода/фильтра | `query_length` (не текст), `results`, `sphere`, `district` |
+| `place_viewed` | открыта страница салона/мастера | `businessId`, `sphere`, `district`, `page`: public (`/b/<slug>`) · place · master |
+| `booking_started` | открыт путь записи | `businessId`, `sphere`, `source`, `slotPreselected` |
+| `slot_selected` | выбрано время | `businessId`, `source` |
+| `login_shown` | показана форма входа по номеру | `context`: booking · login |
+| `login_completed` | вошёл | `method`: code · google |
+| `booking_created` | запись создана | `businessId`, `sphere`, `source`, `prepayment` + источник |
+| `business_signup_started` | открыта анкета «Регистрация бизнеса» | — |
+| `business_signup_completed` | бизнес создан | `businessId`, `sphere`, `type`: salon · individual + источник |
+| `first_service_created`, `first_staff_added` | чек-лист «Первые шаги» впервые отметил шаг | `businessId` |
+| `first_booking_created` | — | **TODO сервер** (точно знает только он) |
+
+- `source` записи: `link` — страница салона `/b/<slug>/book`, `widget` — `/embed` на чужом сайте, `catalog` — запись в
+  BookTime из каталога, `app` — то же из установленного на телефон приложения (PWA).
+- **Источник** к `booking_created` и `business_signup_completed`: `first_*` — первый заход за 90 дней, `session_*` — этот
+  визит: `channel` (campaign · search · social · referral · direct), `referrer` (только домен), `landing`, `utm_source`,
+  `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`. Ссылки для рекламы — с метками, например
+  `https://booktime.am/?utm_source=instagram&utm_medium=story&utm_campaign=october`.
+- Воронка клиента: `place_viewed` → `booking_started` → `slot_selected` → `login_shown` → `login_completed` →
+  `booking_created` (вошедшему форма входа не показывается — для них шаги входа пропускаются). Воронка салона:
+  `business_signup_started` → `business_signup_completed` → `first_service_created` → `first_staff_added`.
+- Ограничения: вехи салона — только для бизнеса, зарегистрированного в этом же браузере, и приходят, когда владелец
+  открывает «Первые шаги» (`/biz/onboarding`); групповая запись (`GroupBookingFlow`) и подтверждение номера в виджете
+  событий входа не шлют.
+
 ## Автопроверки (GitHub Actions)
 
 - `.github/workflows/ci.yml` в обоих репозиториях, на каждый push в `develop`/`main` и pull request:

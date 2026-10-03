@@ -16,6 +16,7 @@ import { clientKeys } from '@/areas/client/ui/clientKeys';
 import { ServiceRow } from '@/areas/client/ui/ServiceRow';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useCurrent } from '@/demo/hooks';
+import { useTrackOnce } from '@/lib/analytics';
 import type { Id } from '@/domain/core';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
@@ -69,6 +70,8 @@ function MasterCardBody({ card }: { card: MasterCard }) {
   const fmt = useClientFormat();
   const { staff, business, services, nearestSlots, slotService } = card;
   const backHref = useLastSearchHref();
+  // Аналитика воронки: карточка мастера открыта (src/lib/analytics.ts)
+  useTrackOnce('place_viewed', { businessId: business.id, sphere: staff.sphereIds[0], district: card.locations[0]?.district, page: 'master' });
   const next = nearestSlots[0];
   const bookHref = next
     ? `/book?staff=${staff.id}&slot=${encodeURIComponent(next.start)}${slotService ? `&service=${slotService.id}` : ''}`

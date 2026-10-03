@@ -41,6 +41,7 @@ import { Stepper } from '@/ui/Stepper';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { forgetReferral, readReferral } from '@/lib/referralCapture';
+import { appBookingSource, track, useTrackOnce } from '@/lib/analytics';
 
 const ORDER: BookStep[] = ['service', 'place', 'slot', 'confirm'];
 
@@ -83,6 +84,9 @@ export function BookFlow({
   const [result, setResult] = useState<BookAppointmentResult | undefined>(undefined);
   const [confirmError, setConfirmError] = useState<string | undefined>(undefined);
   const patch = (p: Partial<BookDraft>) => setDraft((d) => ({ ...d, ...p }));
+  // Аналитика воронки (src/lib/analytics.ts): без имён и телефонов — бизнес, сфера, источник
+  const sphere = staff.sphereIds[0];
+  useTrackOnce('booking_started', { businessId: staff.businessId, sphere, source: appBookingSource(), slotPreselected: Boolean(initialSlot) });
 
   const service = services.find((s) => s.id === draft.serviceId);
   const offersVisit = Boolean(service?.workplaces.includes('visit'));
@@ -164,6 +168,7 @@ export function BookFlow({
         addOns: addedCount ? addOns : undefined,
       });
       forgetReferral(card.business.slug);
+      track('booking_created', { businessId: staff.businessId, sphere: service.sphereId, source: appBookingSource(), prepayment: res.booking.status === 'awaiting_prepayment' });
       setResult(res);
       toast.success(
         res.booking.status === 'scheduled'
@@ -266,6 +271,7 @@ export function BookFlow({
                 loading={daysQ.isLoading}
                 value={draft.slot}
                 onSelect={(s) => {
+                  track('slot_selected', { businessId: staff.businessId, source: appBookingSource() });
                   patch({ slot: s.start, workplace: workplace === 'visit' ? 'visit' : s.workplace });
                   goNext();
                 }}

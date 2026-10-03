@@ -8,12 +8,15 @@ import { SessionBridge } from '@/demo/SessionBridge';
 import { IntlProvider } from '@/i18n/IntlProvider';
 import { loadMessages } from '@/i18n/load';
 import { DemoSwitcher } from '@/shell/demo/DemoSwitcher';
+import { AnalyticsScripts } from '@/shell/AnalyticsScripts';
 import { ToastViewport } from '@/ui/Toast';
 import { ViewportHintProvider } from '@/ui/device/ViewportHintProvider';
 import { getViewportHint } from '@/ui/device/viewportHint.server';
 import { SidebarHintProvider } from '@/shell/workspace/SidebarHint';
 import { SIDEBAR_COOKIE } from '@/demo/store';
 import { cookies } from 'next/headers';
+import { getTranslations } from 'next-intl/server';
+import { isIndexable, siteUrl } from '@/lib/seo/site';
 import './globals.css';
 
 // Шрифт ОБЯЗАН иметь армянские буквы (F-00-175): Noto Sans (латиница, кириллица) + Noto Sans Armenian
@@ -28,24 +31,35 @@ const notoArmenian = Noto_Sans_Armenian({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: { default: 'BookTime — запись к мастерам', template: '%s · BookTime' },
-  description: 'Кто когда свободен: запись к мастерам и салонам Еревана',
-  manifest: '/manifest.webmanifest',
-  appleWebApp: {
-    // Открыт с домашнего экрана — без адресной строки Safari (PWA "как приложение").
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'BookTime',
-  },
-  icons: {
-    icon: [
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-  },
-};
+// SEO (03.10.2026): заголовок и описание по умолчанию — на языке запроса (common.seo); адрес сайта для canonical и
+// og:url; noindex на всех страницах сборок, которые не индексируются (demo, staging, превью) — src/lib/seo/site.ts
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('common');
+  const indexable = isIndexable();
+  return {
+    metadataBase: new URL(siteUrl()),
+    title: { default: t('seo.home.title'), template: '%s · BookTime' },
+    description: t('seo.home.description'),
+    applicationName: 'BookTime',
+    ...(!indexable && { robots: { index: false, follow: false } }),
+    openGraph: { type: 'website', siteName: 'BookTime', title: t('seo.home.title'), description: t('seo.home.description') },
+    twitter: { card: 'summary_large_image' },
+    manifest: '/manifest.webmanifest',
+    appleWebApp: {
+      // Открыт с домашнего экрана — без адресной строки Safari (PWA "как приложение").
+      capable: true,
+      statusBarStyle: 'default',
+      title: 'BookTime',
+    },
+    icons: {
+      icon: [
+        { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+        { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      ],
+      apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -84,6 +98,8 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
                 {/* Демо-персоны и сброс демо-данных — только без настоящего сервера (сборка с NEXT_PUBLIC_DATA=api — booktime.am, staging) */}
                 {process.env.NEXT_PUBLIC_DATA !== 'api' && <DemoSwitcher />}
                 <ToastViewport />
+                {/* Аналитика посещений — только живой сайт (api + production), без DNT/GPC: src/lib/analytics.ts */}
+                <AnalyticsScripts />
               </Providers>
               </SidebarHintProvider>
             </ViewportHintProvider>

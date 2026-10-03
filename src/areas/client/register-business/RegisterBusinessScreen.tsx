@@ -13,6 +13,7 @@ import type { SphereId } from '@/domain/core';
 import { ONBOARDING_GOAL_IDS, saveOnboardingGoals, startIntroTrial, type OnboardingGoalId } from '@/api/settings';
 import { useT } from '@/i18n/useT';
 import { normalizePhone } from '@/lib/phone';
+import { startBusinessMilestones, track, useTrackOnce } from '@/lib/analytics';
 import { Button } from '@/ui/Button';
 import { Card } from '@/ui/Card';
 import { Chip } from '@/ui/Chip';
@@ -48,6 +49,8 @@ export function RegisterBusinessScreen() {
   const [goals, setGoals] = useState<OnboardingGoalId[]>([]);
 
   const submit = useApiMutation(registerBusiness, { invalidates: [SESSION_KEY] });
+  // Аналитика воронки салона (src/lib/analytics.ts): анкета открыта → бизнес создан
+  useTrackOnce('business_signup_started', {});
 
   const steps = [
     { id: 'type', label: t('registerBusiness.stepType') },
@@ -80,6 +83,8 @@ export function RegisterBusinessScreen() {
   const handleSubmit = async () => {
     try {
       const result = await submit.mutate({ type, sphereIds: spheres, promoCode: promoCode || undefined, name, phone });
+      track('business_signup_completed', { businessId: result.businessId, sphere: spheres[0], type });
+      startBusinessMilestones(result.businessId, type);
       // F-00-019: регистрация = пробный период. Живой сайт открывает его сам при POST /v1/biz; на моке — здесь, явно
       if (!isApiMode()) await startIntroTrial(result.businessId).catch(() => undefined);
       // F-15-007: цели не обязательны и не должны сорвать регистрацию — бизнес уже создан выше

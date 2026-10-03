@@ -22,6 +22,7 @@ import { SectionCard } from '@/ui/SectionCard';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { useRememberedLayout } from '@/ui/hooks/useSkeletonCount';
 import { cn } from '@/lib/cn';
+import { reportBusinessMilestones } from '@/lib/analytics';
 
 type SettingsKey = Parameters<ReturnType<typeof useT<'settings'>>>[0];
 
@@ -63,6 +64,12 @@ export function OnboardingScreen() {
     if (!stepsLoading && !subLoading && stepsQ.data) saveLayout({ done: stepsQ.data.map((st) => st.done), visitBanner: Boolean(subQ.data?.freeMonthUntil) });
   });
   const layout = remembered ?? TYPICAL_LAYOUT;
+  // Аналитика воронки салона: первая услуга / первый мастер — по тем же отметкам чек-листа (src/lib/analytics.ts)
+  const servicesDone = stepsQ.data?.find((st) => st.id === 'services')?.done;
+  const staffDone = stepsQ.data?.find((st) => st.id === 'staff')?.done;
+  useEffect(() => {
+    if (businessId && servicesDone !== undefined) reportBusinessMilestones(businessId, { services: servicesDone, staff: Boolean(staffDone) });
+  }, [businessId, servicesDone, staffDone]);
 
   if (stepsQ.isError) return <ErrorState onRetry={() => stepsQ.refetch()} />;
 

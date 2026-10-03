@@ -6,6 +6,7 @@ import { MapPin } from 'lucide-react';
 import type { CatalogQuery } from '@/api/client';
 import { listCatalog } from '@/api/client';
 import { useApiQuery } from '@/api/request';
+import { track } from '@/lib/analytics';
 import { CatalogEntryCard, CatalogEntryCardSkeleton } from '@/areas/client/catalog/CatalogEntryCard';
 import { QuickFilters } from '@/areas/client/search/QuickFilters';
 import { SearchEmptyResult } from '@/areas/client/search/SearchEmptyResult';
@@ -106,6 +107,15 @@ export function SearchScreen({ initialSphere, initialDay, initialQuery = '', ini
     near,
   };
   const resultsQ = useApiQuery(clientKeys.catalog(query), () => listCatalog(query));
+  // Аналитика: поиск — длина запроса (не текст) и сколько нашлось; после паузы, чтобы не слать каждую букву
+  const searchResults = resultsQ.data?.length;
+  useEffect(() => {
+    if (searchResults === undefined) return;
+    const id = setTimeout(() => {
+      track('search', { query_length: search?.trim().length ?? 0, results: searchResults, sphere: filters.sphereId, district: filters.district });
+    }, 1500);
+    return () => clearTimeout(id);
+  }, [searchResults, search, filters.sphereId, filters.district]);
 
   const update = (next: SearchFilters) => {
     setFilters(next);

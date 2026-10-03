@@ -8,6 +8,7 @@ import { useApiMutation } from '@/api/request';
 import { SESSION_KEY } from '@/api/session';
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useT } from '@/i18n/useT';
+import { track } from '@/lib/analytics';
 import { Button } from '@/ui/Button';
 import { Spinner } from '@/ui/Spinner';
 import { useToast } from '@/ui/Toast';
@@ -176,7 +177,9 @@ export function GoogleSignIn({ app, onResult, consent, footer }: GoogleSignInPro
   const run = async (idToken?: string) => {
     if (signIn.isPending) return;
     try {
-      onResult(await signIn.mutate({ idToken, app, consent }));
+      const result = await signIn.mutate({ idToken, app, consent });
+      if (result.kind === 'signedIn' && app === 'client') track('login_completed', { method: 'google' });
+      onResult(result);
     } catch (e) {
       toast.error(loginErrorText(t, e, t('login.google.failed')));
     }

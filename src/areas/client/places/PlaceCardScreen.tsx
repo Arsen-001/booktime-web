@@ -42,6 +42,7 @@ import { usePagedList } from '@/ui/Pagination';
 import { SectionCard } from '@/ui/SectionCard';
 import { Skeleton } from '@/ui/Skeleton';
 import { useToast } from '@/ui/Toast';
+import { useTrackOnce } from '@/lib/analytics';
 
 export function PlaceCardScreen({ businessId }: { businessId: Id }) {
   const t = useT('client');
@@ -78,6 +79,8 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
   const toast = useToast();
   const location = locations[0];
   const { ready, appUserId } = useCurrent();
+  // Аналитика воронки: карточка места в каталоге открыта (src/lib/analytics.ts)
+  useTrackOnce('place_viewed', { businessId: business.id, sphere: business.sphereIds[0], district: location?.district, page: 'place' });
   const backHref = useLastSearchHref();
   const socials = business.socials ?? {};
   // У индивидуала публичный номер уходит только через карточку мастера (PublicBusiness.phone) — здесь подстраховка от пустого

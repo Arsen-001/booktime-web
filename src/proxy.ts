@@ -34,7 +34,9 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  const keys = Object.keys(DEMO_PARAMS) as (keyof DemoSettings)[];
+  // На /search «sphere» — фильтр поиска (/search?sphere=nails с главной, адреса в sitemap — SEO 03.10.2026), а не
+  // демо-сфера бизнеса: не забираем его в cookie и не перенаправляем (иначе страница сферы не индексируется)
+  const keys = (Object.keys(DEMO_PARAMS) as (keyof DemoSettings)[]).filter((key) => !(key === 'sphere' && url.pathname === '/search'));
   if (!keys.some((key) => url.searchParams.has(DEMO_PARAMS[key]))) return NextResponse.next();
 
   const clean = url.clone();

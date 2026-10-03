@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type CSSProperties } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { ChevronLeft } from 'lucide-react';
 import {
@@ -60,6 +60,7 @@ import { Stepper } from '@/ui/Stepper';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { forgetReferral, readReferral } from '@/lib/referralCapture';
+import { track, useTrackOnce, type BookingSource } from '@/lib/analytics';
 
 /** Публичный путь записи /b/<slug>/book (и /embed): услуги → мастер → время → детали (F-03-081…F-03-098) */
 export function BookingWizard({ slug, formId }: { slug: string; formId?: string }) {
@@ -121,6 +122,9 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
   const url = useWizardUrl();
   const sel = url.state;
   const { business, categories, services, staff, link } = data;
+  // Аналитика воронки (src/lib/analytics.ts): виджет на чужом сайте (/embed) или ссылка салона; без имён и телефонов
+  const analyticsSource: BookingSource = usePathname()?.includes('/embed') ? 'widget' : 'link';
+  useTrackOnce('booking_started', { businessId: business.id, sphere: business.sphereIds[0], source: analyticsSource });
 
   const businessRulesQ = useApiQuery(['online-business-rules', business.id], () => getBusinessRules(business.id));
   const clientFieldsQ = useApiQuery(['online-client-fields-widget', business.id], () => getClientFieldsConfig(business.id));
@@ -433,6 +437,12 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
     };
     try {
       const results = await bookMutation.mutate({ base, legs });
+      track('booking_created', {
+        businessId: business.id,
+        sphere: selectedServices[0]?.sphereId ?? business.sphereIds[0],
+        source: analyticsSource,
+        prepayment: results.some((r) => r.booking.status === 'awaiting_prepayment'),
+      });
       forgetReferral(business.slug);
       rememberClient({ phone: normalized!, name: shownName.trim() });
       void trackWidgetEvent(link?.id, business.id, 'booked');
@@ -592,6 +602,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
             selectedStart={sel.start}
             onSelect={(slot) => {
               void trackWidgetEvent(link?.id, business.id, 'time_selected');
+              track('slot_selected', { businessId: business.id, source: analyticsSource });
               setSlotTaken(false);
               url.replace({ date: slot.date, start: slot.start, assigned: slot.legs.map((l) => l.staffId) });
             }}

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Clock, ExternalLink, MapPin, Megaphone, MessageCircle, MessageSquare, Phone, Send, Star, Ticket } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { getPublicBusinessData, trackWidgetEvent } from '@/api/online';
+import { getPublicBusinessData, trackWidgetEvent, type PublicBusinessData } from '@/api/online';
 import { useApiQuery } from '@/api/request';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
@@ -24,13 +24,14 @@ import { Sheet } from '@/ui/Sheet';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import type { PromoBlock } from '@/domain/online';
+import { useTrackOnce } from '@/lib/analytics';
 
 /**
  * Публичная страница салона/мастера по ссылке /b/<slug>[/f/<formId>] (F-00-006, F-00-007, раздел 03).
  * Правило: никаких каталогов, соседей, сторис и рекламы — только этот бизнес.
  * Файл принадлежит разделу online.
  */
-export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: string }) {
+export function PublicBusinessPage({ slug, formId, initialData }: { slug: string; formId?: string; initialData?: PublicBusinessData }) {
   const t = useT('online');
   const tc = useT('common');
   const locale = useLocale();
@@ -40,9 +41,17 @@ export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: st
   // есть) была кликабельна и раньше, отдельного окна не было (fix2).
   const [openPromo, setOpenPromo] = useState<PromoBlock | undefined>();
 
-  const q = useApiQuery(['public-business', slug, formId], () => getPublicBusinessData(slug, formId));
+  const q = useApiQuery(['public-business', slug, formId], () => getPublicBusinessData(slug, formId), { initialData });
+  // SEO (03.10.2026): данные с сервера (режим api, src/app/b/[slug]/page.tsx) — страница рисуется сразу, и в HTML до
+  // гидрации, и после: кэш запроса тоже стартует с них и тихо перечитывается в фоне
+  const data = q.data ?? (q.isError ? undefined : initialData);
   // F-03-116: время показывается в формате, который бизнес выбрал в «Правилах записи»
-  const fmt = useFormat({ hourCycle: q.data?.hourCycle });
+  const fmt = useFormat({ hourCycle: data?.hourCycle });
+  // Аналитика воронки: страница салона открыта (src/lib/analytics.ts)
+  useTrackOnce(
+    'place_viewed',
+    q.data ? { businessId: q.data.business.id, sphere: q.data.business.sphereIds[0], district: q.data.location?.district, page: 'public' } : undefined,
+  );
 
   // «Записаться» внизу — один и тот же элемент до и после данных (второй ребёнок фрагмента): панель не пересоздаётся
   // и не въезжает заново, когда скелетон сменяется страницей
@@ -51,7 +60,7 @@ export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: st
       <LinkButton href={`/b/${slug}/book`}>{t('public.book')}</LinkButton>
     </StickyActionBar>
   );
-  if (q.isLoading) {
+  if (q.isLoading && !data) {
     return (
       <>
         <PublicBusinessPageSkeleton slug={slug} />
@@ -59,7 +68,7 @@ export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: st
       </>
     );
   }
-  if (q.isError) {
+  if (q.isError && !data) {
     const code = (q.error as { code?: string } | undefined)?.code;
     if (code === 'not_published') return <UnpublishedNotice slug={slug} />;
     const notFound = code === 'not_found';
@@ -69,9 +78,9 @@ export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: st
       <ErrorState onRetry={q.refetch} />
     );
   }
-  if (!q.data) return null;
+  if (!data) return null;
 
-  const { business, location, categories, services, staff, link, linkStaffGone, promoBlocks, businessStars, networkBranches, addressHidden, todayHours } = q.data;
+  const { business, location, categories, services, staff, link, linkStaffGone, promoBlocks, businessStars, networkBranches, addressHidden, todayHours } = data;
   const displayName = business.name.trim() || t('public.unnamedBusiness');
 
   // F-03-008/083: сетевая ссылка без выбранного филиала — сначала выбор локации, дальше — обычная страница.
@@ -188,12 +197,15 @@ export function PublicBusinessPage({ slug, formId }: { slug: string; formId?: st
         <div className="flex items-center gap-4">
           <Avatar name={displayName} src={business.logoUrl} size="xl" colorIndex={1} />
           <div className="min-w-0">
-            <Link
-              href={`/b/${slug}/about`}
-              className="inline-flex min-h-10 items-center text-2xl font-semibold tracking-tight text-fg hover:underline"
-            >
-              {displayName}
-            </Link>
+            {/* SEO: название салона — заголовок страницы (h1) */}
+            <h1>
+              <Link
+                href={`/b/${slug}/about`}
+                className="inline-flex min-h-10 items-center text-2xl font-semibold tracking-tight text-fg hover:underline"
+              >
+                {displayName}
+              </Link>
+            </h1>
             <div className="mt-1 flex flex-wrap gap-1.5">
               <Badge tone="neutral">{tc(`businessKind.${business.kind}`)}</Badge>
               {business.sphereIds.map((s) => (
