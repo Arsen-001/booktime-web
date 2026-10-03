@@ -40,7 +40,7 @@
 .lp-rot {
   display: inline-block;
   position: relative;
-  height: 1.16em;
+  height: 1.3em;
   vertical-align: bottom;
   overflow: hidden;
   color: var(--primary-text);
@@ -55,9 +55,17 @@
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .lp-rot-list > span {
-  height: 1.16em;
-  line-height: 1.16em;
+  /* С запасом под хвосты букв (армянские ր ք ու): иначе край соседнего слова виден над строкой */
+  height: 1.3em;
+  line-height: 1.3em;
   white-space: nowrap;
+}
+
+/* Армянские слова длиннее: на компьютере заголовок мельче, чтобы самое длинное меняющееся слово помещалось в строку */
+@media (min-width: 1024px) {
+  :lang(hy) .lp-title {
+    font-size: 2.5rem;
+  }
 }
 
 /* --- Кнопка с бликом --- */

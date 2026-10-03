@@ -31,8 +31,8 @@ export function HomeScreen() {
     return (
       <div data-f="F-00-172 F-00-175" className="flex flex-col gap-14 md:gap-24">
         <GuestHero />
-        <div data-f="F-00-008" className="flex flex-col gap-6">
-          <StoriesRow />
+        {/* Сторис гостю не показываем (владелец 03.10.2026): пустые кружки мелькали и пропадали */}
+        <div data-f="F-00-008">
           <SphereGrid />
         </div>
         <FreeTodaySection hideWhenEmpty />

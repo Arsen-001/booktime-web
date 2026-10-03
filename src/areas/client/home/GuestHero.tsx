@@ -27,10 +27,14 @@ export function GuestHero() {
           <span className="lp-pulse" />
           {t('home.hero.eyebrow')}
         </span>
-        <h1 className="font-display text-[clamp(1.85rem,8vw,2.5rem)] leading-[1.08] font-extrabold text-fg sm:text-[3.25rem] lg:text-[3.25rem] xl:text-[3.5rem]">
-          {t('home.hero.titleStart')} <RotatingWord />
-          <br />
-          {t('home.hero.titleEnd')}
+        {/* Каждая часть — своей строкой: меняющееся слово не перескакивает со строки на строку и не двигает текст ниже
+            (на армянском слова длинные — владелец 03.10.2026: «текст меняет место») */}
+        <h1 className="lp-title font-display text-[clamp(1.85rem,8vw,2.5rem)] leading-[1.08] font-extrabold text-fg sm:text-[3.25rem] lg:text-[3.25rem] xl:text-[3.5rem]">
+          <span className="block">{t('home.hero.titleStart')}</span>
+          <span className="block">
+            <RotatingWord />
+          </span>
+          <span className="block">{t('home.hero.titleEnd')}</span>
         </h1>
         <p className="max-w-[52ch] text-base text-muted md:text-lg">{t('home.hero.text')}</p>
         <HeroSearch />
@@ -81,7 +85,7 @@ function RotatingWord() {
   return (
     <span ref={boxRef} className="lp-rot">
       <span className="sr-only">{words[0]}</span>
-      <span ref={listRef} aria-hidden className="lp-rot-list" style={{ transform: `translateY(${-i * 1.16}em)` }}>
+      <span ref={listRef} aria-hidden className="lp-rot-list" style={{ transform: `translateY(${-i * 1.3}em)` }}>
         {words.map((w) => (
           <span key={w}>{w}</span>
         ))}

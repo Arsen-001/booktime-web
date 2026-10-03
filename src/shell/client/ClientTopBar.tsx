@@ -25,8 +25,9 @@ export function ClientTopBar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-surface pt-[env(safe-area-inset-top,0px)]">
-      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-4 px-4 md:px-6">
-        <Logo href="/" />
+      <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-2 px-4 sm:gap-4 md:px-6">
+        {/* Совсем узкий телефон (360 px): только знак, иначе армянское «Մուտք գործել» наезжает на название */}
+        <Logo href="/" className="shrink-0 max-[379px]:[&>span:last-child]:hidden" />
         <nav aria-label={t('shell.mainNav')} className="ml-4 hidden flex-1 items-center gap-1 lg:flex">
           {items.map((item) => (
             <Link
@@ -42,7 +43,7 @@ export function ClientTopBar() {
             </Link>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <LanguageSwitch />
           <ThemeToggle />
           {persona === 'guest' && !loginOnScreen && (

@@ -33,7 +33,8 @@ export function LanguageSwitch() {
           className="inline-flex h-11 items-center gap-1.5 rounded-md px-2.5 text-sm font-semibold text-fg transition-colors hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus md:h-10"
         >
           <Globe aria-hidden className="size-4 text-muted" />
-          {SHORT[lang]}
+          {/* На телефоне только значок: полоса узкая, а «Մուտք գործել» длинное */}
+          <span className="hidden sm:inline">{SHORT[lang]}</span>
         </button>
       )}
     />
