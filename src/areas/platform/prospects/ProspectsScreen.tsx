@@ -9,14 +9,12 @@
 import { useState } from 'react';
 import { MapPinned } from 'lucide-react';
 import { useProspects } from '@/areas/platform/hooks/usePlatformData';
-import { CheckListFilter } from '@/areas/platform/prospects/CheckListFilter';
 import { ProspectsActions } from '@/areas/platform/prospects/ProspectsActions';
 import { ProspectSheet } from '@/areas/platform/prospects/ProspectSheet';
 import { SystemCounters } from '@/areas/platform/prospects/SystemCounters';
 import { useProspectColumns } from '@/areas/platform/prospects/useProspectColumns';
 import { VisitSheet } from '@/areas/platform/visits/VisitSheet';
 import {
-  BOOKING_SYSTEMS,
   PROSPECT_CATEGORIES,
   PROSPECT_DISTRICTS,
   PROSPECT_STATUSES,
@@ -32,7 +30,9 @@ import { useT } from '@/i18n/useT';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { ExitHold } from '@/ui/ExitHold';
-import { FilterBar } from '@/ui/FilterBar';
+import { Button } from '@/ui/Button';
+import { FormField } from '@/ui/FormField';
+import { SearchInput } from '@/ui/SearchInput';
 import { Input } from '@/ui/Input';
 import { PageHeader } from '@/ui/PageHeader';
 import { DEFAULT_PAGE_SIZE, Pagination } from '@/ui/Pagination';
@@ -96,7 +96,6 @@ export function ProspectsScreen() {
   const anyFilter = Boolean(filter.systems || filter.category || filter.district || filter.staffMin !== undefined || filter.status || filter.q);
 
   const districtLabel = (d: ProspectDistrict) => (d === 'unknown' ? t('prospects.districtUnknown') : tc(`districts.${d}`));
-  const systemLabel = (s: BookingSystem) => t(`prospects.system.${s}`);
   const sortValue = toSort(sort);
   const setSortValue = (v: ProspectSort) => {
     // Порядок «по отзывам» — не колонка таблицы: стрелки в заголовках гаснут, порядок виден в поле
@@ -112,82 +111,54 @@ export function ProspectsScreen() {
 
       <SystemCounters counts={data?.systemCounts} value={systems} onValueChange={withReset(setSystems)} />
 
-      <FilterBar
-        search={{ value: q, onValueChange: withReset(setQ), placeholder: t('prospects.search') }}
-        onReset={resetAll}
-        filters={[
-          {
-            id: 'sort',
-            label: t('prospects.filter.sort'),
-            primary: true,
-            node: <Select aria-label={t('prospects.filter.sort')} value={sortValue} onValueChange={(v) => setSortValue(v as ProspectSort)} options={SORTS.map((v) => ({ value: v, label: t(`prospects.sort.${v}`) }))} />,
-          },
-          {
-            id: 'system',
-            label: t('prospects.filter.system'),
-            node: (
-              <CheckListFilter
-                options={BOOKING_SYSTEMS.map((s) => ({ value: s, label: systemLabel(s) }))}
-                value={systems}
-                onValueChange={(v) => withReset(setSystems)(v as BookingSystem[])}
-              />
-            ),
-          },
-          {
-            id: 'category',
-            label: t('prospects.filter.category'),
-            node: (
-              <Select
-                value={category}
-                onValueChange={(v) => withReset(setCategory)(v as ProspectCategory | '')}
-                options={[{ value: '', label: t('prospects.filter.allCategories') }, ...PROSPECT_CATEGORIES.map((c) => ({ value: c, label: t(`prospects.category.${c}`) }))]}
-              />
-            ),
-          },
-          {
-            id: 'district',
-            label: t('prospects.filter.district'),
-            node: (
-              <Select
-                value={district}
-                onValueChange={(v) => withReset(setDistrict)(v as ProspectDistrict | '')}
-                options={[{ value: '', label: t('prospects.filter.allDistricts') }, ...PROSPECT_DISTRICTS.map((d) => ({ value: d, label: districtLabel(d) }))]}
-              />
-            ),
-          },
-          {
-            id: 'staffMin',
-            label: t('prospects.filter.staffMin'),
-            node: (
-              <Input
-                inputMode="numeric"
-                value={staffMin}
-                onChange={(e) => withReset(setStaffMin)(e.target.value.replace(/\D/g, ''))}
-                placeholder={t('prospects.filter.staffMinPlaceholder')}
-              />
-            ),
-          },
-          {
-            id: 'status',
-            label: t('prospects.filter.status'),
-            node: (
-              <Select
-                value={status}
-                onValueChange={(v) => withReset(setStatus)(v as ProspectStatus | '')}
-                options={[{ value: '', label: t('prospects.filter.allStatuses') }, ...PROSPECT_STATUSES.map((s) => ({ value: s, label: t(`prospects.status.${s}`) }))]}
-              />
-            ),
-          },
-        ]}
-      />
+      {/* Строка фильтров макета «Места для продаж»: всё на виду, без панели; на телефоне — две колонки, поиск во всю ширину */}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-[minmax(0,1.7fr)_repeat(4,minmax(0,1fr))_minmax(0,1.4fr)]">
+        <FormField label={t('prospects.filter.search')} className="col-span-2 lg:col-span-1">
+          <SearchInput value={q} onValueChange={withReset(setQ)} debounceMs={250} placeholder={t('prospects.search')} />
+        </FormField>
+        <FormField label={t('prospects.filter.category')}>
+          <Select
+            value={category}
+            onValueChange={(v) => withReset(setCategory)(v as ProspectCategory | '')}
+            options={[{ value: '', label: t('prospects.filter.allCategories') }, ...PROSPECT_CATEGORIES.map((c) => ({ value: c, label: t(`prospects.category.${c}`) }))]}
+          />
+        </FormField>
+        <FormField label={t('prospects.filter.district')}>
+          <Select
+            value={district}
+            onValueChange={(v) => withReset(setDistrict)(v as ProspectDistrict | '')}
+            options={[{ value: '', label: t('prospects.filter.allDistricts') }, ...PROSPECT_DISTRICTS.map((d) => ({ value: d, label: districtLabel(d) }))]}
+          />
+        </FormField>
+        <FormField label={t('prospects.filter.staffMin')}>
+          <Input inputMode="numeric" value={staffMin} onChange={(e) => withReset(setStaffMin)(e.target.value.replace(/\D/g, ''))} placeholder="0" />
+        </FormField>
+        <FormField label={t('prospects.filter.status')}>
+          <Select
+            value={status}
+            onValueChange={(v) => withReset(setStatus)(v as ProspectStatus | '')}
+            options={[{ value: '', label: t('prospects.filter.allStatuses') }, ...PROSPECT_STATUSES.map((s) => ({ value: s, label: t(`prospects.status.${s}`) }))]}
+          />
+        </FormField>
+        <FormField label={t('prospects.filter.sort')} className="col-span-2 lg:col-span-1">
+          <Select value={sortValue} onValueChange={(v) => setSortValue(v as ProspectSort)} options={SORTS.map((v) => ({ value: v, label: t(`prospects.sort.${v}`) }))} />
+        </FormField>
+      </div>
 
       {listQ.isError ? (
         <ErrorState onRetry={listQ.refetch} />
       ) : (
         <div className="flex flex-col gap-3">
-          <p className="text-sm text-muted" aria-live="polite">
-            {listQ.isLoading ? <SkeletonText width="16ch" /> : t('prospects.shown', { shown: data?.total ?? 0, total: data?.totalAll ?? 0 })}
-          </p>
+          <div className="flex min-h-10 flex-wrap items-center gap-x-4 gap-y-1">
+            <p className="text-sm text-muted" aria-live="polite">
+              {listQ.isLoading ? <SkeletonText width="16ch" /> : t('prospects.shown', { shown: data?.total ?? 0, total: data?.totalAll ?? 0 })}
+            </p>
+            {anyFilter && (
+              <Button variant="link" size="sm" onClick={resetAll}>
+                {t('prospects.resetFilters')}
+              </Button>
+            )}
+          </div>
           <Table
             label={t('prospects.title')}
             columns={columns}
