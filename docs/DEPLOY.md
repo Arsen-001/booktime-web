@@ -40,6 +40,8 @@
 ## Нужно для настоящего входа
 
 - `TELEGRAM_GATEWAY_TOKEN` (коды входа) — без него код только пишется в лог сервера.
-- `TELEGRAM_BOT_TOKEN` + `TELEGRAM_BOT_USERNAME` (напоминания) и вебхук
-  `https://api.booktime.am/v1/telegram/webhook` с секретом `TELEGRAM_WEBHOOK_SECRET`.
+- Бот напоминаний **@booktime_am_bot** подключён к production (03.10.2026): `TELEGRAM_BOT_TOKEN` +
+  `TELEGRAM_BOT_USERNAME`, вебхук `https://api.booktime.am/v1/telegram/webhook` с секретом
+  `TELEGRAM_WEBHOOK_SECRET` (без секрета — 403). У бота один вебхук, поэтому на staging бота нет — сообщения
+  там пишутся в лог. Проверить: `getWebhookInfo` (поле `last_error_message`).
 - Vercel Hobby — только некоммерческое использование; для салонов — Vercel Pro.

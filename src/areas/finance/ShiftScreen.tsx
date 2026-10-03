@@ -22,7 +22,7 @@ export function ShiftScreen() {
   const { ready, businessId, activeLocationIds } = useCurrent();
   const canShift = useCan('finance.shift');
   const canEdit = useCan('finance.edit');
-  const accountsQ = useApiQuery(['finance', 'accounts', businessId, activeLocationIds], () => listAccountsWithBalance(businessId!, activeLocationIds), {
+  const accountsQ = useApiQuery(['finance', 'accounts', businessId, activeLocationIds, 'withBalance'], () => listAccountsWithBalance(businessId!, activeLocationIds), {
     enabled: ready && Boolean(businessId),
   });
   const cash = (accountsQ.data ?? []).filter((a) => a.kind === 'cash');

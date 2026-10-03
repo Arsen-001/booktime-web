@@ -106,7 +106,7 @@ export function AccountsScreen() {
   const [reordering, setReordering] = useState(false);
 
   const accountsQ = useApiQuery(
-    ['finance', 'accounts', businessId, activeLocationIds],
+    ['finance', 'accounts', businessId, activeLocationIds, 'withBalance'],
     () => listAccountsWithBalance(businessId!, activeLocationIds),
     { enabled: ready && Boolean(businessId) },
   );
