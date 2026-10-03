@@ -31,9 +31,18 @@ interface Plan {
   price: number;
   prepaid: number;
   comment?: string;
+  /** Авто-напоминания «заказ ждёт вас», уже ушедшие: [дней назад, время] */
+  reminders?: [number, string][];
 }
 
 const PLANS: Plan[] = [
+  {
+    // Готов 9 дней назад и не забран — клиенту уже дважды напомнили (3-й и 7-й день): «Напомнили клиенту: 2 раза»
+    n: 1011, code: 'g8mz3wq6tr', client: ['cl_fix_02', 'Давид Саркисян', '+37400170002'],
+    items: [{ title: 'Samsung Galaxy Tab S7 — замена гнезда зарядки', qty: 1 }],
+    staff: ST.fixNarek, path: [['received', 22, '12:40'], ['in_progress', 21, '10:15'], ['ready', 9, '15:20']],
+    due: -10, price: 16000, prepaid: 5000, comment: 'Гнездо ждали от поставщика две недели', reminders: [[6, '15:20'], [2, '15:20']],
+  },
   {
     n: 1012, code: 'k4qz8m2wte', client: ['cl_fix_02', 'Давид Саркисян', '+37400170002'],
     items: [{ title: 'iPhone 12 — замена экрана', qty: 1, note: 'Трещина по диагонали, Face ID работает' }],
@@ -118,7 +127,7 @@ const PLANS: Plan[] = [
 ];
 
 export const ordersSlice = defineSlice<OrdersState>({
-  version: 1,
+  version: 2,
   seed: (core: CoreData, now: Date) => {
     if (!core.businesses.some((b) => b.id === BIZ.fixpoint)) return { orders: [], settings: {} };
     const at = (daysAgo: number, time: string) => `${toISODate(dayjs(now).subtract(daysAgo, 'day'))}T${time}`;
@@ -148,6 +157,8 @@ export const ordersSlice = defineSlice<OrdersState>({
         history,
         readyNotifiedAt: ready ? ready.at : null,
         issuedAt: issued ? issued.at : null,
+        pickupReminderCount: p.reminders?.length ?? 0,
+        pickupRemindedAt: p.reminders?.length ? at(...p.reminders[p.reminders.length - 1]) : null,
         createdAt: history[0].at,
         updatedAt: last.at,
       };

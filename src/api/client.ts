@@ -78,6 +78,8 @@ import {
   type PublicStaff,
 } from '@/domain/rules/public';
 import { BIZ } from '@/mock/seed/ids';
+import { defaultOrdersEnabled } from '@/domain/orders';
+import { SPHERES } from '@/config/spheres';
 import { bookingPaymentBreakdown } from '@/domain/client';
 import type {
   BookingPaymentBreakdown,
@@ -163,6 +165,11 @@ const SPHERE_SYNONYMS: Partial<Record<SphereId, string[]>> = {
   dental: ['зуб', 'стоматолог', 'dental', 'teeth', 'ատամ'],
   fitness: ['тренер', 'фитнес', 'fitness', 'trainer', 'ֆիթնես'],
   carwash: ['мойка', 'автомойка', 'carwash', 'car wash', 'լվացում'],
+  // Сферы «заказов» (04.10.2026) — те же слова, что у сервера (booktime-backend: modules/client/catalog.service.ts)
+  tailor: ['ателье', 'портной', 'пошив', 'подгонка', 'ремонт одежды', 'tailor', 'atelier', 'alteration', 'դերձակ'],
+  repair: ['ремонт телефона', 'ремонт телефонов', 'ремонт техники', 'сервисный центр', 'repair', 'phone repair', 'վերանորոգում'],
+  drycleaning: ['химчистка', 'чистка одежды', 'dry cleaning', 'drycleaning', 'laundry', 'քիմմաքրում'],
+  detailing: ['детейлинг', 'полировка', 'керамика', 'detailing', 'car detailing', 'դեթեյլինգ'],
 };
 
 const CATALOG_DAYS = 14;
@@ -180,6 +187,12 @@ const MASTER_SLOT_LIMIT = 8;
  * по самой долгой услуге сегодняшние окна пропадали). Ссылка окна сразу несёт эту услугу — запись в 2 нажатия.
  */
 export interface CatalogEntry {
+  /**
+   * 'orders' (04.10.2026) — мастерская «заказов» (ателье, ремонт техники, химчистка, детейлинг): записи по времени нет,
+   * вещь приносят в часы работы. Окон нет (nearestSlots пуст), staff — владелец (для ключа и аватара), карточка — место:
+   * адрес, телефон, «Принесите вещь — о готовности сообщат сами». Нет поля — обычный мастер с окнами.
+   */
+  kind?: 'orders';
   staff: PublicStaff;
   business: PublicBusiness;
   location?: PublicLocation;
@@ -352,6 +365,7 @@ export function listCatalog(q: CatalogQuery = {}): Promise<CatalogEntry[]> {
       out.push(entry);
     }
 
+    const places = ordersPlacesTx(core, q, search, searchSpheres, hiddenIds, new Set(out.map((e) => e.business.id)));
     const rank = (e: CatalogEntry) => relevance.get(e) ?? 2;
     if (q.near) {
       out.sort((a, b) => rank(a) - rank(b) || (a.distanceKm ?? Number.POSITIVE_INFINITY) - (b.distanceKm ?? Number.POSITIVE_INFINITY));
@@ -363,8 +377,56 @@ export function listCatalog(q: CatalogQuery = {}): Promise<CatalogEntry[]> {
       const firstBoosted = out.findIndex((e) => e.boosted && rank(e) === topRank);
       if (firstBoosted > 0) out.unshift(...out.splice(firstBoosted, 1));
     }
+    // Мастерские заказов — после тех, к кому можно записаться на время (у них нет окон), ближние — первыми
+    if (q.near) places.sort((a, b) => (a.distanceKm ?? Number.POSITIVE_INFINITY) - (b.distanceKm ?? Number.POSITIVE_INFINITY));
+    out.push(...places);
     return q.limit ? out.slice(0, q.limit) : out;
   });
+}
+
+const isOrdersSphere = (sphere: SphereId) => SPHERES[sphere]?.features.includes('orders') ?? false;
+
+/**
+ * Мастерские «заказов» в каталоге (04.10.2026): ателье, ремонт техники, химчистка, детейлинг работают не по записи —
+ * клиент приносит вещь. В каталог «кто когда свободен» они попадают, только когда клиент их ищет: выбрал такую сферу,
+ * написал «ремонт телефона» / «химчистка» или название мастерской. «Свободно сегодня / завтра», «выезд», «принимает»
+ * и материал — про запись по времени, с ними мастерских нет; на главной («Свободно сегодня») — тоже нет.
+ * Раздел «Заказы» у бизнеса выключен — не показываем. У бизнеса есть мастер с окнами — он уже в списке обычной карточкой.
+ */
+function ordersPlacesTx(core: CoreSnapshot, q: CatalogQuery, search: string, searchSpheres: SphereId[], hiddenIds: ReadonlySet<Id>, listed: ReadonlySet<Id>): CatalogEntry[] {
+  if (q.freeToday || q.freeTomorrow || q.workplace || q.accepts || q.material) return [];
+  const bySphere = Boolean(q.sphereId && isOrdersSphere(q.sphereId));
+  const bySearch = searchSpheres.some(isOrdersSphere);
+  if (!bySphere && !bySearch && !search && !q.businessId) return [];
+  const settings = readArea('orders').settings;
+  const out: CatalogEntry[] = [];
+  for (const business of core.businesses) {
+    if (business.status !== 'active' || listed.has(business.id)) continue;
+    if (q.businessId && business.id !== q.businessId) continue;
+    if (!business.sphereIds.some(isOrdersSphere)) continue;
+    if (!(settings[business.id]?.ordersEnabled ?? defaultOrdersEnabled(business.sphereIds))) continue;
+    if (q.sphereId && !business.sphereIds.includes(q.sphereId)) continue;
+    if (searchSpheres.length && !business.sphereIds.some((sp) => searchSpheres.includes(sp))) continue;
+    const locations = core.locations.filter((l) => business.locationIds.includes(l.id));
+    if (search && !searchSpheres.length) {
+      const hit = normalizeSearch(business.brandName || business.name).includes(search) || locations.some((l) => normalizeSearch(l.name.ru).includes(search));
+      if (!hit) continue;
+    }
+    if (q.district && !locations.some((l) => l.district === q.district)) continue;
+    const owner = core.staff.find((st) => st.id === business.ownerStaffId) ?? core.staff.find((st) => st.businessId === business.id);
+    if (!owner) continue;
+    const location = (q.district ? locations.find((l) => l.district === q.district) : undefined) ?? locations[0];
+    out.push({
+      kind: 'orders',
+      staff: toPublicStaff(owner, { hiddenIds }),
+      business: toPublicBusiness(business, { hiddenIds }),
+      location: location ? toPublicLocation(location) : undefined,
+      nearestSlots: [],
+      hotToday: false,
+      distanceKm: q.near && location?.coords ? haversineKm(q.near, location.coords) : undefined,
+    });
+  }
+  return out;
 }
 
 /** Постоянные клиенты мастера — только по состоявшимся визитам (recheck-c1: будущие и неявки не считаются) */

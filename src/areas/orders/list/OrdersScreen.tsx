@@ -5,6 +5,7 @@
  * постранично с сервера. На телефоне — карточки, на компьютере — таблица; строка открывает заказ. Главное действие —
  * «Принять заказ» (шторка с формой; на телефоне — кнопка внизу у большого пальца).
  */
+import { usePickupRemindersTick } from '@/areas/orders/lib/usePickupRemindersTick';
 import { useState } from 'react';
 import { PackageCheck, Plus } from 'lucide-react';
 import { ordersKeys } from '@/api/orders';
@@ -33,6 +34,7 @@ export function OrdersScreen() {
   const t = useT('orders');
   const { businessId } = useCurrent();
   const columns = useOrderColumns();
+  usePickupRemindersTick();
   const [status, setStatus] = useState<OrderStatusFilter>('active');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);

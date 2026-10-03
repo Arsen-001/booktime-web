@@ -11,7 +11,7 @@
 import { http } from '@/api/http';
 import { trackRead } from '@/api/request';
 import type { Id } from '@/domain/core';
-import type { Order, OrderInput, OrderPatch, OrdersPage, OrdersQuery, OrderStatus, PublicOrder } from '@/domain/orders';
+import { pickupReminderModeOf, type Order, type OrderInput, type OrderPatch, type OrdersPage, type OrdersQuery, type OrderStatus, type PickupReminderMode, type PublicOrder } from '@/domain/orders';
 import { toLocalDateTime } from '@/areas/orders/lib/serverTime';
 import { notifyDbChange } from '@/mock/db';
 
@@ -31,6 +31,8 @@ function normalizeOrder(o: Order): Order {
     photos: o.photos ?? [],
     readyNotifiedAt: localTime(o.readyNotifiedAt),
     issuedAt: localTime(o.issuedAt),
+    pickupReminderCount: o.pickupReminderCount ?? 0,
+    pickupRemindedAt: localTime(o.pickupRemindedAt ?? null),
     createdAt: localTime(o.createdAt) ?? o.createdAt,
     updatedAt: localTime(o.updatedAt) ?? o.updatedAt,
   };
@@ -75,6 +77,8 @@ export async function getPublicOrderServer(code: string): Promise<PublicOrder> {
 
 interface BusinessOut {
   ordersEnabled?: boolean;
+  /** «Заказ ждёт вас» (04.10.2026): off | 3 | 3_7 — сервер уже подставил умолчание */
+  orderPickupReminders?: string;
   version: number;
 }
 
@@ -90,4 +94,18 @@ export async function setOrdersEnabledServer(businessId: Id, enabled: boolean): 
   await http<BusinessOut>('PATCH', BUSINESS_PATH(businessId), { ordersEnabled: enabled }, { version: b.version ?? 0 });
   notifyDbChange('areas.orders');
   return enabled;
+}
+
+/** «Заказ ждёт вас»: когда напоминать клиенту, который не забрал готовый заказ (поле бизнеса orderPickupReminders) */
+export async function getPickupRemindersServer(businessId: Id): Promise<PickupReminderMode> {
+  trackRead('areas.orders');
+  const b = await http<BusinessOut>('GET', BUSINESS_PATH(businessId));
+  return pickupReminderModeOf(b.orderPickupReminders);
+}
+
+export async function setPickupRemindersServer(businessId: Id, mode: PickupReminderMode): Promise<PickupReminderMode> {
+  const b = await http<BusinessOut>('GET', BUSINESS_PATH(businessId));
+  await http<BusinessOut>('PATCH', BUSINESS_PATH(businessId), { orderPickupReminders: mode }, { version: b.version ?? 0 });
+  notifyDbChange('areas.orders');
+  return mode;
 }

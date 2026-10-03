@@ -4,6 +4,7 @@ import { Flame, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import type { CatalogEntry } from '@/api/client';
+import { OrdersPlaceCard } from '@/areas/client/catalog/OrdersPlaceCard';
 import { SlotsByDay } from '@/areas/client/ui/SlotsByDay';
 import { usePlaceLine } from '@/areas/client/ui/usePlaceLine';
 import { useClientFormat } from '@/areas/client/useClientFormat';
@@ -23,6 +24,11 @@ import { Skeleton, SkeletonText } from '@/ui/Skeleton';
  * ссылка на мастера — на фото и имени, чтобы окна оставались своими ссылками (без вложенных <a>).
  */
 export function CatalogEntryCard({ entry }: { entry: CatalogEntry }) {
+  if (entry.kind === 'orders') return <OrdersPlaceCard entry={entry} />;
+  return <MasterEntryCard entry={entry} />;
+}
+
+function MasterEntryCard({ entry }: { entry: CatalogEntry }) {
   const t = useT('client');
   const nameOf = useDisplayName();
   const tc = useT('common');

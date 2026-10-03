@@ -5,7 +5,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  // Демо без бэкенда: картинки — локальные data:/blob: и /public.
+  // Картинки рисуются как есть: data:/blob: (демо), /public и фото с сервера (https://api…/v1/files/… или бакет,
+  // docs/DEPLOY.md «Файлы и фото») — без оптимизатора Next, поэтому remotePatterns не нужны.
   images: { unoptimized: true },
   // Значок Next в углу мешает снимкам замеров и перекрывает нижние вкладки
   devIndicators: false,

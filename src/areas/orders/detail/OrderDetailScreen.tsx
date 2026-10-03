@@ -6,8 +6,9 @@
  * Ниже — что сдали, клиент, деньги (осталось = цена − предоплата), ссылка для клиента и история. Редактирование,
  * «Вернуть в работу» и отмена (с подтверждением) — в меню «⋯».
  */
-import { useState, useSyncExternalStore } from 'react';
-import { Ban, MoreHorizontal, PackageX, Pencil, Send, Undo2 } from 'lucide-react';
+import { usePickupRemindersTick } from '@/areas/orders/lib/usePickupRemindersTick';
+import { useState } from 'react';
+import { Ban, MoreHorizontal, PackageX, Pencil, ReceiptText, Send, Undo2 } from 'lucide-react';
 import { useCoreGet } from '@/api/core';
 import { useCurrent } from '@/demo/hooks';
 import { canTransitionOrder, nextOrderStep, orderReadyAt, type Order, type OrderStatus } from '@/domain/orders';
@@ -24,10 +25,12 @@ import { useStaffNames } from '@/areas/orders/detail/useStaffNames';
 import { OrderDetailSkeleton } from '@/areas/orders/detail/OrderDetailSkeleton';
 import { OrderFormSheet } from '@/areas/orders/form/OrderFormSheet';
 import { useOrder } from '@/areas/orders/lib/useOrdersData';
+import { useOrigin } from '@/areas/orders/lib/useOrigin';
 import { OrderProgress } from '@/areas/orders/ui/OrderProgress';
 import { OrderStatusBadge } from '@/areas/orders/ui/OrderStatusBadge';
 import { ApiError } from '@/api/request';
 import { Button, LinkButton } from '@/ui/Button';
+import { useNavigate } from '@/ui/navigation/useNavigate';
 import { DropdownMenu, type DropdownMenuItem } from '@/ui/DropdownMenu';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
@@ -35,8 +38,6 @@ import { ExitHold } from '@/ui/ExitHold';
 import { IconButton } from '@/ui/IconButton';
 import { PageHeader } from '@/ui/PageHeader';
 import { StickyActionBar } from '@/ui/StickyActionBar';
-
-const noop = () => () => {};
 
 /** «Сегодня, 12:10» → «сегодня, 12:10» внутри фразы «принят …» */
 const lowerFirst = (text: string) => (text ? text.charAt(0).toLocaleLowerCase() + text.slice(1) : text);
@@ -58,7 +59,9 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
   const staffName = useStaffNames(businessId ?? '');
   const actions = useOrderActions(businessId ?? '', order);
   const [editing, setEditing] = useState(false);
-  const origin = useSyncExternalStore(noop, () => window.location.origin, () => '');
+  usePickupRemindersTick();
+  const origin = useOrigin();
+  const nav = useNavigate();
 
   if (q.isLoading) return <OrderDetailSkeleton />;
   if (q.isError || !order) {
@@ -96,6 +99,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
 
   const menu: DropdownMenuItem[] = [
     { id: 'edit', label: t('detail.edit'), icon: <Pencil aria-hidden />, onSelect: () => setEditing(true) },
+    { id: 'receipt', label: t('detail.receipt'), icon: <ReceiptText aria-hidden />, onSelect: () => nav.go(`/biz/orders/${order.id}/receipt`) },
     ...(order.status === 'ready' ? [{ id: 'back', label: t('detail.backToWork'), icon: <Undo2 aria-hidden />, onSelect: () => void actions.move('in_progress') }] : []),
     ...(canTransitionOrder(order.status, 'cancelled')
       ? [{ id: 'sep', separator: true as const }, { id: 'cancel', label: t('detail.cancel'), icon: <Ban aria-hidden />, danger: true, onSelect: () => void actions.cancel() }]

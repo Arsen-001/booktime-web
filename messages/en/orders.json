@@ -169,7 +169,10 @@
     "notifiedAt": "Last “ready” message to the client: {when}",
     "notFound": "Order not found",
     "notFoundHint": "The link may be outdated, or the order belongs to another business.",
-    "backToList": "Back to orders"
+    "backToList": "Back to orders",
+    "receipt": "Receipt",
+    "reminded": "Client reminded: {count, plural, one {# time} other {# times}}, last on {when}",
+    "remindNext": "If not picked up, we’ll remind them: {when}"
   },
   "public": {
     "metaTitle": "Order status",
@@ -217,7 +220,44 @@
       "link": {
         "title": "No more “is it ready?” calls",
         "text": "The link shows the status, what's left to pay, your address and phone — no sign-in."
+      },
+      "remind": {
+        "title": "Not picked up? We remind",
+        "text": "After 3 and 7 days the client automatically gets “Your order is ready and waiting”. You can change the timing above."
       }
+    },
+    "reminders": {
+      "title": "If the client doesn’t pick up",
+      "description": "We’ll remind the client the same way as “Ready”: push, Telegram or your SMS/WhatsApp. No messages at night (21:00–10:00).",
+      "label": "When to remind",
+      "off": "Don’t remind",
+      "offHint": "Only the “Ready” message",
+      "d3": "After 3 days",
+      "d3Hint": "Once, on the third day after “Ready”",
+      "d3_7": "After 3 and 7 days",
+      "d3_7Hint": "Twice — the fastest way to get orders picked up",
+      "saved": "Saved"
     }
+  },
+  "receipt": {
+    "title": "Receipt",
+    "subtitle": "Show it to the client or send it — the QR code opens the order status",
+    "order": "Order #{number}",
+    "accepted": "Accepted",
+    "client": "Client",
+    "items": "Items",
+    "due": "Ready by",
+    "noDue": "The master will confirm the date",
+    "price": "Price",
+    "prepaid": "Prepaid",
+    "remaining": "Left to pay",
+    "scan": "Point your phone camera here to see the order status",
+    "qrAlt": "QR code with the status link of order #{number}",
+    "download": "Download PNG",
+    "downloaded": "Receipt saved",
+    "downloadFailed": "Couldn’t save the image",
+    "share": "Send to the client",
+    "fileName": "receipt-{number}",
+    "cancelled": "Order cancelled — this receipt is no longer valid"
   }
 }

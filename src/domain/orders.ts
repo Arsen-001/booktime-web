@@ -6,6 +6,7 @@
  */
 import type { Id, ISODate, ISODateTime, LocalizedText, SphereId } from '@/domain/core';
 import { SPHERES } from '@/config/spheres';
+import { addDays, diffMinutes } from '@/lib/date';
 
 export type OrderStatus = 'received' | 'in_progress' | 'ready' | 'issued' | 'cancelled';
 
@@ -51,6 +52,10 @@ export interface Order {
   /** Когда клиенту ушло «Готово» (последний раз) */
   readyNotifiedAt: ISODateTime | null;
   issuedAt: ISODateTime | null;
+  /** «Заказ ждёт вас» (04.10.2026): сколько авто-напоминаний ушло за текущий «Готов» (нет поля — 0) */
+  pickupReminderCount?: number;
+  /** Когда ушло последнее авто-напоминание */
+  pickupRemindedAt?: ISODateTime | null;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }
@@ -106,8 +111,15 @@ export interface PublicOrder {
   };
 }
 
+/** Напомнить клиенту, что готовый заказ ждёт: выключено / через 3 дня / через 3 и 7 дней после «Готов» */
+export type PickupReminderMode = 'off' | '3' | '3_7';
+export const PICKUP_REMINDER_MODES: readonly PickupReminderMode[] = ['off', '3', '3_7'];
+export const DEFAULT_PICKUP_REMINDER_MODE: PickupReminderMode = '3_7';
+
 export interface OrdersSettings {
-  ordersEnabled: boolean;
+  ordersEnabled?: boolean;
+  /** Нет поля — по умолчанию «3 и 7 дней» */
+  pickupReminders?: PickupReminderMode;
 }
 
 // ─────────────────────────── правила ───────────────────────────
@@ -180,3 +192,58 @@ export function orderItemsSummary(items: readonly Pick<OrderItem, 'title' | 'qty
 export const ORDER_CODE_ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
 export const ORDER_CODE_LENGTH = 10;
 export const FIRST_ORDER_NUMBER = 1001;
+
+// ─────────────── «Заказ ждёт вас» — напоминание, если не забрали (04.10.2026) ───────────────
+// Те же правила, что у сервера (booktime-backend: modules/orders/order-rules.ts → pickupReminderDue, задача воркера
+// jobs/orders-pickup-reminders.ts): только «Готов», сроки от последнего перехода в «Готов», не больше двух, ручное
+// «Отправить ещё раз» меньше суток назад — ждём; воркер лежал и прошли оба срока — одно сообщение.
+
+export function pickupReminderModeOf(stored: string | null | undefined): PickupReminderMode {
+  return (PICKUP_REMINDER_MODES as readonly string[]).includes(String(stored)) ? (stored as PickupReminderMode) : DEFAULT_PICKUP_REMINDER_MODE;
+}
+
+/** Через сколько дней после «Готов» — каждое напоминание по порядку */
+export function pickupReminderDays(mode: PickupReminderMode): readonly number[] {
+  return mode === 'off' ? [] : mode === '3' ? [3] : [3, 7];
+}
+
+const DAY_MIN = 24 * 60;
+
+/** Минуты b − a для 'YYYY-MM-DDTHH:mm' (время Еревана, без пояса) */
+const minutesBetween = (a: ISODateTime, b: ISODateTime) => diffMinutes(a.slice(0, 16), b.slice(0, 16));
+
+/** Пора ли напомнить: null — нет; иначе новое значение счётчика напоминаний */
+export function pickupReminderDue(
+  order: Pick<Order, 'status' | 'history' | 'readyNotifiedAt' | 'pickupReminderCount'>,
+  mode: PickupReminderMode,
+  now: ISODateTime,
+): { nextCount: number } | null {
+  if (order.status !== 'ready') return null;
+  const days = pickupReminderDays(mode);
+  const done = Math.max(0, order.pickupReminderCount ?? 0);
+  if (done >= days.length) return null;
+  const readyAt = orderReadyAt(order) ?? order.readyNotifiedAt;
+  if (!readyAt) return null;
+  const elapsed = minutesBetween(readyAt, now);
+  if (elapsed < days[done] * DAY_MIN) return null;
+  if (order.readyNotifiedAt && order.readyNotifiedAt > readyAt && minutesBetween(order.readyNotifiedAt, now) < DAY_MIN) return null;
+  let nextCount = done + 1;
+  while (nextCount < days.length && elapsed >= days[nextCount] * DAY_MIN) nextCount++;
+  return { nextCount };
+}
+
+/** Когда уйдёт следующее авто-напоминание (для подсказки в истории заказа): 'YYYY-MM-DDTHH:mm' или null */
+export function nextPickupReminderAt(order: Pick<Order, 'status' | 'history' | 'readyNotifiedAt' | 'pickupReminderCount'>, mode: PickupReminderMode): ISODateTime | null {
+  if (order.status !== 'ready') return null;
+  const days = pickupReminderDays(mode);
+  const done = Math.max(0, order.pickupReminderCount ?? 0);
+  const readyAt = orderReadyAt(order) ?? order.readyNotifiedAt;
+  if (done >= days.length || !readyAt) return null;
+  return `${addDays(readyAt.slice(0, 10), days[done])}T${readyAt.slice(11, 16)}`;
+}
+
+/** Тихие часы 21:00–10:00 по Еревану — напоминание «заказ ждёт» не шлём (как сервер, notify/quiet-hours.ts) */
+export function inQuietHours(now: ISODateTime): boolean {
+  const h = Number(now.slice(11, 13));
+  return h >= 21 || h < 10;
+}

@@ -110,6 +110,57 @@
   открывает «Первые шаги» (`/biz/onboarding`); групповая запись (`GroupBookingFlow`) и подтверждение номера в виджете
   событий входа не шлют.
 
+## Файлы и фото (04.10.2026)
+
+Фото (логотипы, фото салона/мастеров/услуг, сторис, новости, заказы, аватары) больше не хранятся data: URL в базе:
+в режиме `api` выбор фото (`src/ui/ImageUpload.tsx`, `UploadButton`, фото сотрудника) отправляет файл на сервер
+(`src/api/uploads.ts` → `POST /v1/biz/:businessId/uploads`, `/v1/me/uploads`, `/v1/platform/uploads`, поле `file`),
+показывает процент и «Повторить» при ошибке, и кладёт в поле ответ `url`. Мок (demo) — по-прежнему data: URL.
+Поля фото на сервере принимают оба вида строк — старые клиенты и старые строки работают.
+
+- Сервер (`booktime-backend/src/modules/uploads`): JPEG/PNG/WebP/GIF до 10 МБ, тип — по первым байтам файла
+  (HEIC с iPhone не читается — браузер iPhone обычно сам присылает JPEG); перекодирование `sharp`: поворот по EXIF,
+  ≤ 2048 px по длинной стороне, превью 512 px (`…_t.jpg`), EXIF/GPS вырезаются; без прозрачности — JPEG, с
+  прозрачностью — WebP. Ответ `{ id, url, thumbUrl, width, height, bytes }`. Таблица `uploads` — владелец и размер.
+- Права: кабинет — любой сотрудник бизнеса из адреса; `/v1/me` — вошедший человек; панель — сессия команды.
+  Лимит — 60 фото за 10 минут на сессию; квота — `UPLOADS_QUOTA_MB` на бизнес (2048 по умолчанию), 100 МБ человеку.
+  Ошибки: `file_required` 422, `file_too_large` 413, `unsupported_image` 415, `upload_quota` 422, `rate_limited` 429.
+- Ключ файла — хеш содержимого (`uploads/<бизнес|человек|platform>/<sha256[:32]>.jpg`), поэтому раздача с вечным
+  кэшем (`Cache-Control: public, max-age=31536000, immutable`, `ETag`, `X-Content-Type-Options: nosniff`).
+  Сайт рисует фото как есть (`images.unoptimized` в `next.config.ts`) — адрес API в `remotePatterns` не нужен.
+
+**Где лежат файлы** — переменные сервера (Railway, сервис `api`):
+
+| Переменная | Что это |
+|---|---|
+| `S3_BUCKET`, `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | Заданы все четыре — хранилище S3 (AWS S3, Cloudflare R2, Railway Buckets). Старые имена `S3_ACCESS_KEY` / `S3_SECRET_KEY` тоже читаются |
+| `S3_REGION` | R2 — `auto` (по умолчанию), AWS — регион бакета |
+| `S3_PUBLIC_URL` | Публичный адрес бакета (`https://files.booktime.am`) — ссылки на фото ведут прямо туда, API их не раздаёт. Пусто — фото из бакета раздаёт API (`/v1/files/…`) |
+| `S3_FORCE_PATH_STYLE` | `1` (по умолчанию) — адреса `<endpoint>/<bucket>/<key>`; `0` — `<bucket>.<endpoint>` |
+| `UPLOADS_DIR` | Без S3 — папка фото на диске: по умолчанию `/data/uploads` в production (диск Railway), `./.uploads` локально |
+| `PUBLIC_API_URL` | Адрес API для ссылок на фото (`https://api.booktime.am`, `https://api-staging.booktime.am`). Пусто — из заголовков запроса (за прокси Railway работает, но лучше задать) |
+| `UPLOADS_QUOTA_MB` | Предел фото на бизнес, МБ |
+
+- **Сейчас (диск Railway)** — достаточно для старта: переменные не нужны (по желанию `PUBLIC_API_URL`), фото ложатся
+  на тот же диск `/data`, что и бэкапы, раздаёт API. Ограничения: один экземпляр сервиса (диск не делится), раздача
+  фото нагружает API, диск надо растить по мере роста (тысяча салонов × ~50 фото × ~0,3 МБ ≈ 15 ГБ), бэкап базы фото
+  не включает. Скачать фото к себе: `railway volume -e production files -v api-volume download /uploads ./`.
+- **Переезд на Cloudflare R2** (рекомендуем, когда салонов станет больше десятка — 10 ГБ бесплатно, без платы за
+  трафик): Cloudflare → R2 → Create bucket `booktime-photos` (регион Eastern Europe) → Settings → Public access →
+  Custom domain `files.booktime.am` (CNAME в DNS Vercel) → R2 → Manage API tokens → Create token (Object Read & Write,
+  только этот бакет) → в Railway (production): `S3_BUCKET=booktime-photos`,
+  `S3_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`,
+  `S3_PUBLIC_URL=https://files.booktime.am`. Для staging — свой бакет. Уже загруженные на диск фото перенести:
+  `rclone copy` папки `/data/uploads/uploads` в бакет под префикс `uploads/` и заменить в базе
+  `https://api.booktime.am/v1/files/` на `https://files.booktime.am/` (или оставить старые адреса — пока диск жив,
+  они продолжают работать). Бакет с `S3_PUBLIC_URL` открыт на чтение, поэтому выгрузки отчётов тогда остаются на
+  диске (`STORAGE_DIR`); без `S3_PUBLIC_URL` они идут в тот же бакет под `private/`.
+- **Перенос старых data: URL из базы** — `booktime-backend/scripts/migrate-data-urls.ts`: ищет картинки во всех
+  текстовых и JSON-колонках, кладёт в хранилище, заменяет на адрес, переносит `ref_id` модерации на новый адрес.
+  Без `--apply` — только отчёт. Запускать по слову владельца, после свежего бэкапа, с `PUBLIC_API_URL` (или
+  `S3_PUBLIC_URL`) и `DATABASE_URL` через временный `railway tcp-proxy`. Документы клиентов (`client_files`, там
+  бывают PDF) не трогает.
+
 ## Автопроверки (GitHub Actions)
 
 - `.github/workflows/ci.yml` в обоих репозиториях, на каждый push в `develop`/`main` и pull request:

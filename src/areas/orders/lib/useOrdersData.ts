@@ -4,7 +4,7 @@
  * Чтения раздела «Заказы»: один ключ = одна функция api (ordersKeys). Бизнес и сфера — из демо-контекста / сессии.
  */
 import { useCoreGet } from '@/api/core';
-import { getOrder, getPublicOrder, listOrders, ordersKeys, useOrdersEnabledQuery } from '@/api/orders';
+import { getOrder, getPickupReminders, getPublicOrder, listOrders, ordersKeys, useOrdersEnabledQuery } from '@/api/orders';
 import { useApiQuery, type QueryOptions } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
@@ -46,4 +46,10 @@ export function useOrdersEnabled(): { enabled: boolean; loading: boolean } {
   const sphereIds = businessQ.data?.sphereIds ?? [sphere];
   const q = useOrdersEnabledQuery(businessId, sphereIds, { enabled: ready && Boolean(businessQ.data) });
   return { enabled: q.data ?? defaultOrdersEnabled(sphereIds), loading: !ready || businessQ.isLoading || q.isLoading };
+}
+
+/** «Заказ ждёт вас»: когда напоминать клиенту, который не забрал готовый заказ (по умолчанию — 3 и 7 дней) */
+export function usePickupReminders() {
+  const { ready, businessId } = useCurrent();
+  return useApiQuery(ordersKeys.pickupReminders(businessId ?? ''), () => getPickupReminders(businessId ?? ''), { enabled: ready && Boolean(businessId) });
 }

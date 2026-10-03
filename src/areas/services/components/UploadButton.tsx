@@ -2,28 +2,17 @@
 
 /**
  * Кнопка «+ Загрузить» без собственного предпросмотра (У26): снимок показывается один раз — в списке экрана со
- * статусом проверки, а не дважды. Картинка уменьшается в браузере (как в ImageUpload), чтобы влезть в моковую базу.
+ * статусом проверки, а не дважды. Мок — картинка уменьшается в браузере (data: URL), режим api — файл уходит на
+ * сервер и в список попадает его адрес (src/api/uploads.ts, 04.10.2026).
  */
 import { useId, useState } from 'react';
 import { Plus } from 'lucide-react';
+import { IMAGE_ACCEPT, SERVER_UPLOAD_MAX_MB } from '@/api/uploads';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
+import { uploadErrorKey, useImageUploader } from '@/ui/useImageUploader';
 
-const ACCEPT = ['image/jpeg', 'image/png', 'image/webp'];
-const MAX_SIDE = 800;
-
-async function toDataUrl(file: File): Promise<string> {
-  const bitmap = await createImageBitmap(file);
-  const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.round(bitmap.width * scale);
-  canvas.height = Math.round(bitmap.height * scale);
-  const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('canvas');
-  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-  bitmap.close();
-  return canvas.toDataURL('image/jpeg', 0.8);
-}
+const ACCEPT = IMAGE_ACCEPT;
 
 export interface UploadButtonProps {
   label: string;
@@ -38,6 +27,7 @@ export function UploadButton({ label, onFiles, max = 10, disabled, variant = 'se
   const id = useId();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const upload = useImageUploader();
   return (
     <div className="flex flex-col gap-1.5">
       <input
@@ -58,13 +48,13 @@ export function UploadButton({ label, onFiles, max = 10, disabled, variant = 'se
             onFiles(
               await Promise.all(
                 files.map(async (f) => ({
-                  url: await toDataUrl(f),
+                  url: (await upload(f)).url,
                   name: f.name,
                 })),
               ),
             );
-          } catch {
-            setError(t('upload.wrongType'));
+          } catch (err) {
+            setError(t(uploadErrorKey(err), { mb: SERVER_UPLOAD_MAX_MB }));
           } finally {
             setBusy(false);
           }

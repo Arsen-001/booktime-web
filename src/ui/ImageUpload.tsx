@@ -1,16 +1,18 @@
 'use client';
 
-import { ImagePlus, LoaderCircle, X } from 'lucide-react';
+import { ImagePlus, LoaderCircle, RotateCcw, X } from 'lucide-react';
 import Image from 'next/image';
-import { useId, useState, type ChangeEvent, type DragEvent } from 'react';
+import { useEffect, useId, useRef, useState, type ChangeEvent, type DragEvent } from 'react';
+import { fileToDataUrl, IMAGE_ACCEPT, readImageSize, SERVER_UPLOAD_MAX_MB, uploadsUseServer, type UploadTarget } from '@/api/uploads';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { IconButton } from '@/ui/IconButton';
+import { uploadErrorKey, useImageUploader } from '@/ui/useImageUploader';
 
 export type ImageAspect = 'square' | '4/3' | '16/9';
 
 export interface ImageUploadProps {
-  /** data: URL картинок */
+  /** Адреса картинок: файл на сервере (режим api) или data: URL (мок и старые данные) */
   value?: string[];
   onValueChange: (urls: string[]) => void;
   /** Сколько фото можно (1 по умолчанию; 6 — фото работ мастера, F-00-085) */
@@ -18,13 +20,15 @@ export interface ImageUploadProps {
   aspect?: ImageAspect;
   /** Подпись кнопки добавления */
   label?: string;
-  /** Предел исходного файла, МБ */
+  /** Предел исходного файла, МБ (на сервере — не больше 10) */
   maxSizeMb?: number;
   /** Минимальные размеры ИСХОДНОГО файла (до сжатия), px */
   minWidth?: number;
   minHeight?: number;
   disabled?: boolean;
   className?: string;
+  /** Куда грузить в режиме api; по умолчанию — по разделу (кабинет → бизнес, панель → панель, иначе — профиль) */
+  uploadTarget?: UploadTarget;
 }
 
 const ASPECT: Record<ImageAspect, string> = {
@@ -33,34 +37,21 @@ const ASPECT: Record<ImageAspect, string> = {
   '16/9': 'aspect-video',
 };
 
-const ACCEPT = ['image/jpeg', 'image/png', 'image/webp'];
-const MAX_SIDE = 800;
-const QUALITY = 0.8;
-
-/**
- * Файл → уменьшенный JPEG data URL (≈50–150 КБ), чтобы влезать в localStorage моковой базы.
- * Возвращает и РАЗМЕР ИСХОДНОГО файла — проверка минимальных размеров (например «нужно
- * минимум 2208×1024 для обложки приложения») должна идти по нему, а не по уже сжатой
- * картинке: она всегда ужата до MAX_SIDE=800 и такую проверку не пройдёт никогда.
- */
-async function toDataUrl(file: File): Promise<{ url: string; width: number; height: number }> {
-  const bitmap = await createImageBitmap(file);
-  const width = bitmap.width;
-  const height = bitmap.height;
-  const scale = Math.min(1, MAX_SIDE / Math.max(width, height));
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.round(width * scale);
-  canvas.height = Math.round(height * scale);
-  const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('canvas');
-  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-  bitmap.close();
-  return { url: canvas.toDataURL('image/jpeg', QUALITY), width, height };
+/** Фото, которое сейчас грузится на сервер или не загрузилось (предпросмотр — локальный blob:) */
+interface Pending {
+  id: number;
+  file: File;
+  preview: string;
+  progress: number;
+  error: string | null;
 }
 
+let pendingSeq = 0;
+
 /**
- * Загрузка фото без сервера: выбор или перетаскивание, уменьшение в браузере, предпросмотр,
- * удаление. Значение — массив data URL.
+ * Выбор фото: кнопка или перетаскивание, предпросмотр, удаление. Режим mock — картинка уменьшается в браузере и
+ * хранится data: URL; режим api — файл уходит на сервер (src/api/uploads.ts) с процентом поверх предпросмотра,
+ * при ошибке — «Повторить», в значение попадает адрес файла.
  */
 export function ImageUpload({
   value = [],
@@ -73,35 +64,95 @@ export function ImageUpload({
   minHeight,
   disabled = false,
   className,
+  uploadTarget,
 }: ImageUploadProps) {
   const t = useT('ui');
   const inputId = useId();
+  const upload = useImageUploader(uploadTarget);
+  const server = uploadsUseServer();
+  const limitMb = server ? Math.min(maxSizeMb, SERVER_UPLOAD_MAX_MB) : maxSizeMb;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
-  const free = Math.max(0, max - value.length);
+  const [pending, setPending] = useState<Pending[]>([]);
+  // Последнее значение: несколько загрузок заканчиваются по очереди, каждая добавляет к уже добавленному
+  const valueRef = useRef(value);
+  useEffect(() => {
+    valueRef.current = value;
+  }, [value]);
+  const previews = useRef(new Set<string>());
+  useEffect(() => {
+    const urls = previews.current;
+    return () => urls.forEach((u) => URL.revokeObjectURL(u));
+  }, []);
+
   const single = max === 1;
+  const free = Math.max(0, max - value.length - pending.length);
+  const uploading = pending.some((p) => !p.error);
+
+  const commit = (url: string) => {
+    const next = single ? [url] : [...valueRef.current, url];
+    valueRef.current = next;
+    onValueChange(next);
+  };
+
+  const patchPending = (id: number, patch: Partial<Pending>) => setPending((list) => list.map((p) => (p.id === id ? { ...p, ...patch } : p)));
+
+  const dropPending = (id: number) =>
+    setPending((list) => {
+      const item = list.find((p) => p.id === id);
+      if (item) {
+        URL.revokeObjectURL(item.preview);
+        previews.current.delete(item.preview);
+      }
+      return list.filter((p) => p.id !== id);
+    });
+
+  const runUpload = async (item: Pending) => {
+    patchPending(item.id, { progress: 0, error: null });
+    try {
+      const res = await upload(item.file, (f) => patchPending(item.id, { progress: f }));
+      commit(res.url);
+      dropPending(item.id);
+    } catch (e) {
+      patchPending(item.id, { error: t(uploadErrorKey(e), { mb: SERVER_UPLOAD_MAX_MB }) });
+    }
+  };
 
   const addFiles = async (files: File[]) => {
     setError(null);
     const list = single ? files.slice(0, 1) : files.slice(0, free);
     if (list.length === 0) return;
-    const bad = list.find((f) => !ACCEPT.includes(f.type));
+    const bad = list.find((f) => !IMAGE_ACCEPT.includes(f.type));
     if (bad) return setError(t('upload.wrongType'));
-    const big = list.find((f) => f.size > maxSizeMb * 1024 * 1024);
-    if (big) return setError(t('upload.tooLarge', { mb: maxSizeMb }));
+    const big = list.find((f) => f.size > limitMb * 1024 * 1024);
+    if (big) return setError(t('upload.tooLarge', { mb: limitMb }));
     setBusy(true);
     try {
-      const results = await Promise.all(list.map(toDataUrl));
       if (minWidth || minHeight) {
-        const tooSmall = results.find((r) => r.width < (minWidth ?? 0) || r.height < (minHeight ?? 0));
-        if (tooSmall) {
+        const sizes = await Promise.all(list.map(readImageSize));
+        if (sizes.some((s) => s.width < (minWidth ?? 0) || s.height < (minHeight ?? 0))) {
           setError(t('upload.tooSmall', { w: minWidth ?? 0, h: minHeight ?? 0 }));
           return;
         }
       }
-      const urls = results.map((r) => r.url);
-      onValueChange(single ? urls : [...value, ...urls]);
+      if (!server) {
+        const results = await Promise.all(list.map(fileToDataUrl));
+        const urls = results.map((r) => r.url);
+        onValueChange(single ? urls : [...value, ...urls]);
+        return;
+      }
+      const items = list.map((file): Pending => {
+        const preview = URL.createObjectURL(file);
+        previews.current.add(preview);
+        return { id: ++pendingSeq, file, preview, progress: 0, error: null };
+      });
+      setPending((cur) => {
+        if (!single) return [...cur, ...items];
+        cur.forEach((p) => URL.revokeObjectURL(p.preview));
+        return items;
+      });
+      void Promise.all(items.map(runUpload));
     } catch {
       setError(t('upload.wrongType'));
     } finally {
@@ -124,6 +175,9 @@ export function ImageUpload({
 
   const removeAt = (index: number) => onValueChange(value.filter((_, i) => i !== index));
   const canAdd = !disabled && (single || free > 0);
+  // Одно фото: пока новое грузится, вместо старого показывается оно
+  const shown = single && pending.length ? [] : value;
+  const failed = pending.find((p) => p.error);
 
   const addTile = (
     <label
@@ -158,14 +212,14 @@ export function ImageUpload({
       <input
         id={inputId}
         type="file"
-        accept={ACCEPT.join(',')}
+        accept={IMAGE_ACCEPT.join(',')}
         multiple={!single}
-        disabled={!canAdd || busy}
+        disabled={!canAdd || busy || (single && uploading)}
         onChange={onInput}
         className="sr-only"
       />
       <div className={cn('grid gap-3', single ? 'max-w-xs grid-cols-1' : 'grid-cols-3 sm:grid-cols-4 lg:grid-cols-6')}>
-        {value.map((url, i) => (
+        {shown.map((url, i) => (
           <div
             key={`${i}-${url.slice(-16)}`}
             className={cn('relative overflow-hidden rounded-xl border border-border bg-surface-2', ASPECT[aspect])}
@@ -183,9 +237,47 @@ export function ImageUpload({
             )}
           </div>
         ))}
-        {canAdd && (single ? value.length === 0 : true) && addTile}
+        {pending.map((p) => (
+          <div
+            key={p.id}
+            className={cn(
+              'relative overflow-hidden rounded-xl border bg-surface-2',
+              p.error ? 'border-danger' : 'border-border',
+              ASPECT[aspect],
+            )}
+          >
+            <Image src={p.preview} alt="" fill sizes="(max-width: 768px) 33vw, 200px" className="object-cover opacity-60" unoptimized />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-surface/50 p-2 text-center">
+              {p.error ? (
+                <IconButton
+                  variant="secondary"
+                  icon={<RotateCcw aria-hidden />}
+                  label={t('upload.retry')}
+                  onClick={() => void runUpload(p)}
+                  className="rounded-full bg-surface shadow-sm"
+                />
+              ) : (
+                <>
+                  <LoaderCircle className="size-6 animate-spin text-primary-text" aria-hidden />
+                  <span className="text-xs font-semibold text-fg tabular-nums" aria-live="polite">
+                    {t('upload.uploading', { pct: Math.round(p.progress * 100) })}
+                  </span>
+                </>
+              )}
+            </div>
+            <IconButton
+              size="sm"
+              variant="secondary"
+              icon={<X aria-hidden />}
+              label={t('upload.remove')}
+              onClick={() => dropPending(p.id)}
+              className="absolute top-1.5 right-1.5 rounded-full bg-surface/90 shadow-sm"
+            />
+          </div>
+        ))}
+        {canAdd && (single ? value.length === 0 && pending.length === 0 : true) && addTile}
       </div>
-      {single && value.length > 0 && canAdd && (
+      {single && value.length > 0 && pending.length === 0 && canAdd && (
         <label
           htmlFor={inputId}
           className="mt-2 inline-flex min-h-10 cursor-pointer items-center text-sm font-medium text-primary-text hover:underline"
@@ -193,9 +285,15 @@ export function ImageUpload({
           {t('upload.replace')}
         </label>
       )}
-      <p className={cn('mt-2 text-sm', error ? 'text-danger' : 'text-muted')} role={error ? 'alert' : undefined}>
-        {error ?? t('upload.hint', { mb: maxSizeMb })}
-      </p>
+      {failed ? (
+        <p className="mt-2 text-sm text-danger" role="alert">
+          {failed.error} <span className="text-muted">· {t('upload.retryHint')}</span>
+        </p>
+      ) : (
+        <p className={cn('mt-2 text-sm', error ? 'text-danger' : 'text-muted')} role={error ? 'alert' : undefined}>
+          {error ?? t('upload.hint', { mb: limitMb })}
+        </p>
+      )}
     </div>
   );
 }

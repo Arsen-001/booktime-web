@@ -46,6 +46,7 @@ export const ordersKeys = {
   order: (businessId: Id, orderId: Id) => ['orders', 'order', businessId, orderId] as const,
   public: (code: string) => ['orders', 'public', code] as const,
   enabled: (businessId: Id) => ['orders', 'enabled', businessId] as const,
+  pickupReminders: (businessId: Id) => ['orders', 'pickup-reminders', businessId] as const,
 };
 
 // ─────────────────────────── мок: помощники ───────────────────────────
@@ -294,7 +295,8 @@ export function setOrderStatus(args: { businessId: Id; orderId: Id; status: Orde
       status,
       history: [...current.history, { at: now, status, by: currentActor().staffId ?? null }],
       updatedAt: now,
-      ...(status === 'ready' ? { readyNotifiedAt: now } : {}),
+      // Новый «Готов» — новый отсчёт напоминаний «заказ ждёт вас»
+      ...(status === 'ready' ? { readyNotifiedAt: now, pickupReminderCount: 0, pickupRemindedAt: null } : {}),
       ...(status === 'issued' ? { issuedAt: now } : {}),
     };
     if (status === 'ready') logReadyTx(next, now);
@@ -323,7 +325,7 @@ export function setOrdersEnabled(args: { businessId: Id; enabled: boolean }): Pr
   return request(
     () => {
       mutateArea('orders', (s) => {
-        s.settings[businessId] = { ordersEnabled: enabled };
+        s.settings[businessId] = { ...s.settings[businessId], ordersEnabled: enabled };
       });
       return enabled;
     },
@@ -336,3 +338,5 @@ export function publicAddressText(address: PublicOrder['business']['address'], l
   if (!address) return '';
   return typeof address === 'string' ? address : pickText(address, locale);
 }
+
+export { getPickupReminders, runPickupReminders, setPickupReminders } from '@/api/ordersReminders';

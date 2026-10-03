@@ -20,6 +20,7 @@ import {
   updateStaffPhoto,
 } from "@/api/staff";
 import { optimistic, useApiMutation, useApiQuery } from "@/api/request";
+import { IMAGE_ACCEPT, SERVER_UPLOAD_MAX_MB } from "@/api/uploads";
 import { useCardSection } from "@/areas/staff/components/card/cardForm";
 import { StaffExtraSection } from "@/areas/staff/components/card/StaffSettingsTab";
 import { StaffLegalSection } from "@/areas/staff/components/card/StaffLegalTab";
@@ -38,6 +39,7 @@ import { FormField } from "@/ui/FormField";
 import { Input } from "@/ui/Input";
 import { PhoneInput } from "@/ui/PhoneInput";
 import { SegmentedControl } from "@/ui/SegmentedControl";
+import { uploadErrorKey, useImageUploader } from "@/ui/useImageUploader";
 import { Textarea } from "@/ui/Textarea";
 import { Skeleton, SkeletonText } from "@/ui/Skeleton";
 import { useToast } from "@/ui/Toast";
@@ -366,18 +368,6 @@ function BioField({ value, onChange, disabled }: { value: InfoDraft["bio"]; onCh
   );
 }
 
-/** Файл → уменьшенный JPEG (как ImageUpload кита): мок хранит data URL в localStorage */
-async function toDataUrl(file: File): Promise<string> {
-  const bitmap = await createImageBitmap(file);
-  const scale = Math.min(1, 800 / Math.max(bitmap.width, bitmap.height));
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.round(bitmap.width * scale);
-  canvas.height = Math.round(bitmap.height * scale);
-  canvas.getContext("2d")?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-  bitmap.close();
-  return canvas.toDataURL("image/jpeg", 0.8);
-}
-
 /** Фото 96 px с «Заменить» и «Убрать» (С16) */
 function PhotoField({
   name,
@@ -395,13 +385,22 @@ function PhotoField({
   const t = useT("staff");
   const inputId = useId();
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  // Мок — data: URL; режим api — файл на сервере, в поле — его адрес (src/api/uploads.ts)
+  const upload = useImageUploader();
+  const tUi = useT("ui");
   const onInput = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = "";
-    if (!file || !file.type.startsWith("image/") || file.size > 12 * 1024 * 1024) return;
+    setError(null);
+    if (!file) return;
+    if (!IMAGE_ACCEPT.includes(file.type)) return setError(tUi("upload.wrongType"));
+    if (file.size > SERVER_UPLOAD_MAX_MB * 1024 * 1024) return setError(tUi("upload.tooLarge", { mb: SERVER_UPLOAD_MAX_MB }));
     setBusy(true);
     try {
-      onChange(await toDataUrl(file));
+      onChange((await upload(file)).url);
+    } catch (err) {
+      setError(tUi(uploadErrorKey(err), { mb: SERVER_UPLOAD_MAX_MB }));
     } finally {
       setBusy(false);
     }
@@ -423,7 +422,7 @@ function PhotoField({
       </span>
       {!disabled && (
         <span className="flex flex-wrap gap-2">
-          <input id={inputId} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={(e) => void onInput(e)} />
+          <input id={inputId} type="file" accept={IMAGE_ACCEPT.join(",")} disabled={busy} className="sr-only" onChange={(e) => void onInput(e)} />
           <label
             htmlFor={inputId}
             className="inline-flex h-10 cursor-pointer items-center gap-2 rounded-xl border border-border bg-surface px-4 text-sm font-medium text-fg hover:bg-surface-2 focus-within:outline-2 focus-within:outline-focus"
@@ -435,6 +434,11 @@ function PhotoField({
             <Button variant="ghost" size="sm" onClick={() => onChange(undefined)}>
               {t("infoTab.photoRemove")}
             </Button>
+          )}
+          {error && (
+            <p role="alert" className="w-full text-sm text-danger">
+              {error}
+            </p>
           )}
         </span>
       )}
