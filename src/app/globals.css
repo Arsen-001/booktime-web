@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '../styles/tokens.css';
 @import '../styles/polish.css';
+@import '../styles/landing.css';
 
 /* Тёмная тема по атрибуту на <html>, а не по системной настройке */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -43,6 +44,10 @@
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
   --color-focus: var(--focus);
+  --color-deep: var(--deep);
+  --color-brand-b: var(--brand-b);
+  --color-brand-t: var(--brand-t);
+  --color-brand-empty: var(--brand-empty);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -66,6 +71,8 @@
   --shadow-xl: var(--sh-xl);
 
   --font-sans: var(--font-noto-sans), var(--font-noto-armenian), ui-sans-serif, system-ui, sans-serif;
+  /* Крупные заголовки главной (владелец 03.10.2026, вариант «Живая запись»): Manrope, армянские буквы — из Noto */
+  --font-display: var(--font-manrope), var(--font-noto-armenian), var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade-in: fade-in 160ms ease-out both;
   --animate-scale-in: scale-in 160ms ease-out both;

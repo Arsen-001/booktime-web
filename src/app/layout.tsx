@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans, Noto_Sans_Armenian } from 'next/font/google';
+import { Manrope, Noto_Sans, Noto_Sans_Armenian } from 'next/font/google';
 import '@/i18n/types';
 import { Providers } from '@/app/providers';
 import { DemoProvider } from '@/demo/DemoProvider';
@@ -24,6 +24,13 @@ import './globals.css';
 const notoSans = Noto_Sans({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-noto-sans',
+  display: 'swap',
+});
+// Заголовки главной (font-display): Manrope; армянских букв в нём нет — их берёт Noto Sans Armenian из стека
+const manrope = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['700', '800'],
+  variable: '--font-manrope',
   display: 'swap',
 });
 const notoArmenian = Noto_Sans_Armenian({
@@ -85,7 +92,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
       lang={demo.lang}
       data-theme={demo.theme}
       data-font={demo.font}
-      className={`${notoSans.variable} ${notoArmenian.variable}`}
+      className={`${notoSans.variable} ${notoArmenian.variable} ${manrope.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-bg text-fg">

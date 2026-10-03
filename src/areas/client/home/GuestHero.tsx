@@ -1,31 +1,39 @@
 'use client';
 
-import { BadgeCheck, Check, Send } from 'lucide-react';
-import { HomeSearchBar } from '@/areas/client/home/HomeSearchBar';
+import { Bell, Check, Repeat, Search } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useReducedMotion } from '@/areas/client/home/landing';
+import { PhoneDemo } from '@/areas/client/home/PhoneDemo';
 import { useT } from '@/i18n/useT';
-import { Avatar } from '@/ui/Avatar';
 
-const PREVIEW_SLOTS = ['16:00', '17:30', '18:15'] as const;
-const PREVIEW_PICKED = '17:30';
+const ROTATE = [1, 2, 3, 4, 5] as const;
+const HINTS = [1, 2, 3, 4] as const;
+const ROTATE_MS = 2200;
 
 /**
- * Первый экран главной для гостя (владелец 03.10.2026: «переработать первую страницу»): кто мы, одна фраза — зачем,
- * поиск как главное действие и три обещания. Справа на компьютере — картинка продукта (карточка записи), не фото.
+ * Первый экран главной для гостя — вариант «Живая запись» (владелец 03.10.2026): в заголовке меняется услуга
+ * («на маникюр / на стрижку / к стоматологу…»), в поиске сама печатается подсказка, справа телефон показывает запись.
  */
 export function GuestHero() {
   const t = useT('client');
   const points = [t('home.hero.free'), t('home.hero.noCalls'), t('home.hero.reminders')];
 
   return (
-    <section data-f="F-00-005" className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
-      <div className="flex min-w-0 flex-col gap-5">
-        <p className="text-sm font-semibold tracking-wide text-primary-text">{t('home.hero.eyebrow')}</p>
-        <h1 className="text-[2rem] leading-[1.1] font-bold tracking-tight text-balance text-fg md:text-[2.75rem]">
-          {t('home.hero.title')}
+    <section data-f="F-00-005" className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+      <div className="flex min-w-0 flex-col gap-6">
+        <span className="inline-flex w-max max-w-full items-center gap-2.5 rounded-full border border-border bg-surface py-1.5 pr-3.5 pl-2.5 text-sm font-semibold text-muted">
+          <span className="lp-pulse" />
+          {t('home.hero.eyebrow')}
+        </span>
+        <h1 className="font-display text-[clamp(1.85rem,8.4vw,2.6rem)] leading-[1.04] font-extrabold tracking-[-0.035em] text-fg sm:text-6xl lg:text-[4.25rem]">
+          {t('home.hero.titleStart')} <RotatingWord />
+          <br />
+          {t('home.hero.titleEnd')}
         </h1>
-        <p className="max-w-[54ch] text-base text-muted md:text-lg">{t('home.hero.text')}</p>
-        <HomeSearchBar />
-        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-fg">
+        <p className="max-w-[52ch] text-base text-muted md:text-lg">{t('home.hero.text')}</p>
+        <HeroSearch />
+        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-fg">
           {points.map((p) => (
             <li key={p} className="inline-flex items-center gap-1.5">
               <Check aria-hidden className="size-4 shrink-0 text-success" />
@@ -34,50 +42,103 @@ export function GuestHero() {
           ))}
         </ul>
       </div>
-      <HeroPreview />
+      <div className="relative flex justify-center py-2">
+        <PhoneDemo />
+        <span aria-hidden className="lp-chip absolute top-[22%] left-0 hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm font-semibold text-fg shadow-md xl:flex">
+          <Bell className="size-4 text-primary-text" />
+          {t('home.hero.chipReminder')}
+        </span>
+        <span aria-hidden data-late="" className="lp-chip absolute right-0 bottom-[20%] hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm font-semibold text-fg shadow-md xl:flex">
+          <Repeat className="size-4 text-primary-text" />
+          {t('home.hero.chipReschedule')}
+        </span>
+      </div>
     </section>
   );
 }
 
-/** Картинка продукта из настоящих деталей интерфейса: карточка мастера с окнами и подтверждение записи */
-function HeroPreview() {
+/** «на маникюр → на стрижку → …»: ширина плавно подстраивается под слово, текст для чтения — первый вариант */
+function RotatingWord() {
   const t = useT('client');
+  const reduced = useReducedMotion();
+  const words = ROTATE.map((n) => t(`home.hero.rotate${n}`));
+  const wordsKey = words.join('|');
+  const [i, setI] = useState(0);
+  const boxRef = useRef<HTMLSpanElement>(null);
+  const listRef = useRef<HTMLSpanElement>(null);
+
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    const item = listRef.current?.children[i] as HTMLElement | undefined;
+    if (box && item) box.style.width = `${item.getBoundingClientRect().width}px`;
+  }, [i, wordsKey]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = window.setInterval(() => setI((v) => (v + 1) % ROTATE.length), ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [reduced]);
+
   return (
-    <div aria-hidden className="relative max-lg:hidden">
-      <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-md">
-        <div className="flex items-center gap-3">
-          <Avatar name={t('home.hero.previewMaster')} size="md" />
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-fg">{t('home.hero.previewService')}</p>
-            <p className="truncate text-xs text-muted">{t('home.hero.previewMaster')}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="mr-1 text-xs text-muted">{t('home.hero.previewDay')}</span>
-          {PREVIEW_SLOTS.map((s) => (
-            <span
-              key={s}
-              className={
-                s === PREVIEW_PICKED
-                  ? 'rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-contrast tabular-nums'
-                  : 'rounded-lg bg-primary-soft px-3 py-2 text-sm font-semibold text-primary-text tabular-nums'
-              }
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="relative -mt-3 ml-8 flex flex-col gap-1.5 rounded-2xl border border-border bg-success-soft p-4 shadow-lg">
-        <p className="inline-flex items-center gap-2 text-sm font-semibold text-fg">
-          <BadgeCheck className="size-5 text-success" />
-          {t('home.hero.previewBooked')}
-        </p>
-        <p className="inline-flex items-center gap-2 text-xs text-muted">
-          <Send className="size-4" />
-          {t('home.hero.previewReminder')}
-        </p>
-      </div>
-    </div>
+    <span ref={boxRef} className="lp-rot">
+      <span className="sr-only">{words[0]}</span>
+      <span ref={listRef} aria-hidden className="lp-rot-list" style={{ transform: `translateY(${-i * 1.16}em)` }}>
+        {words.map((w) => (
+          <span key={w}>{w}</span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+/** Поиск — кнопка-поле, ведёт на /search с фокусом; подсказка в поле сама печатается и стирается */
+function HeroSearch() {
+  const t = useT('client');
+  const reduced = useReducedMotion();
+  const hints = HINTS.map((n) => t(`home.hero.hint${n}`));
+  const [text, setText] = useState(hints[0]);
+
+  useEffect(() => {
+    if (reduced) return;
+    let p = 0;
+    let c = hints[0].length;
+    let dir = -1;
+    let id = 0;
+    const tick = () => {
+      const s = hints[p];
+      c += dir;
+      setText(s.slice(0, Math.max(0, c)));
+      let wait = dir > 0 ? 70 : 30;
+      if (c >= s.length) {
+        dir = -1;
+        wait = 1800;
+      } else if (c <= 0) {
+        dir = 1;
+        p = (p + 1) % hints.length;
+        wait = 300;
+      }
+      id = window.setTimeout(tick, wait);
+    };
+    id = window.setTimeout(tick, 2200);
+    return () => window.clearTimeout(id);
+    // Подсказки меняются только со сменой языка
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduced, hints.join('|')]);
+
+  return (
+    <Link
+      href="/search?focus=1"
+      aria-label={t('home.searchPlaceholder')}
+      className="group flex h-14 max-w-xl items-center gap-3 rounded-2xl border border-border bg-surface py-1.5 pr-1.5 pl-4 text-muted shadow-md transition-[border-color,box-shadow] hover:border-primary-text focus-visible:outline-2 focus-visible:outline-focus"
+    >
+      <Search aria-hidden className="size-5 shrink-0" />
+      <span aria-hidden className="min-w-0 flex-1 truncate text-base">
+        {text}
+        <span className="ml-px inline-block h-5 w-px translate-y-1 animate-pulse-soft bg-muted" />
+      </span>
+      <span className="lp-shine inline-flex h-11 shrink-0 items-center rounded-xl bg-primary px-5 text-[15px] font-semibold text-primary-contrast transition-colors group-hover:bg-primary-hover">
+        {t('home.hero.find')}
+      </span>
+    </Link>
   );
 }

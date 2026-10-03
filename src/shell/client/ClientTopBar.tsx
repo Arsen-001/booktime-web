@@ -9,6 +9,7 @@ import { useTDynamic } from '@/i18n/useTDynamic';
 import { cn } from '@/lib/cn';
 import { Logo } from '@/shell/Logo';
 import { useClientNav } from '@/shell/client/useClientNav';
+import { ThemeToggle } from '@/shell/ThemeToggle';
 import { LinkButton } from '@/ui/Button';
 
 /** Верхняя полоса приложения клиента; на десктопе в ней меню */
@@ -41,6 +42,7 @@ export function ClientTopBar() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
           {persona === 'guest' && !loginOnScreen && (
             <LinkButton href={`/login?next=${encodeURIComponent(pathname)}`} size="sm" variant="secondary">
               {t('actions.login')}
