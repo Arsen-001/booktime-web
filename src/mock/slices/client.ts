@@ -145,6 +145,8 @@ export interface ClientState {
    * настоящий — подключение отмечается по нажатию «Подключить»; в режиме api связь хранит сервер (TelegramLink).
    */
   telegramLinked: Record<string, ISODateTime>;
+  /** «Вход через Google» привязан (03.10.2026): ключ — id клиента приложения, значение — почта Google (демо) */
+  googleLinked: Record<Id, string>;
   /** Когда клиенту отправлена квитанция об оплате визита (F-14-095); ключ — id записи */
   visitReceiptSentAt: Record<Id, ISODateTime>;
   /** Пользователь выключил пуши о новостях нашего продукта (F-14-136); ключ — id клиента приложения */
@@ -805,6 +807,7 @@ export const clientSlice = defineSlice<ClientState>({
       visitReceiptSentAt: {},
       eventsSeenAt: {},
       telegramLinked: {},
+      googleLinked: {},
       visitAddress: {},
       newsPushOptOut: {},
       payrollPaid: {},

@@ -919,7 +919,39 @@ export async function signInWithGoogle(input: { idToken?: string; app: 'client' 
     if (r.pendingGoogle) return { kind: 'linkRequired', pending: { token: r.pendingGoogle.token, email: r.pendingGoogle.email, name: r.pendingGoogle.name } };
     throw new ApiError('google_invalid');
   }
-  return request(() => ({ kind: 'signedIn' as const, user: null, hasBusiness: true }));
+  // Демо: клиент — демо-клиент по умолчанию (как resolveDemoContext), бизнес — владелец салона
+  return request(() => ({ kind: 'signedIn' as const, user: input.app === 'client' ? (readCore().appUsers[0] ?? null) : null, hasBusiness: true }));
+}
+
+/** Профиль: привязан ли Google (email) и включён ли вход через Google на сервере */
+export interface GoogleLinkStatus {
+  enabled: boolean;
+  email: string | null;
+}
+
+export function getGoogleLink(appUserId: Id): Promise<GoogleLinkStatus> {
+  if (isApiMode()) return http<GoogleLinkStatus>('GET', '/v1/auth/google/link');
+  return request(() => ({ enabled: true, email: readArea('client').googleLinked?.[appUserId] ?? null }));
+}
+
+/** Привязать Google к вошедшему (прежний заменяется). Демо — без настоящего Google: почта из имени клиента */
+export function linkGoogle(appUserId: Id, idToken?: string): Promise<GoogleLinkStatus> {
+  if (isApiMode()) return http<GoogleLinkStatus>('POST', '/v1/auth/google/link', { idToken });
+  return request(() => {
+    const user = readCore().appUsers.find((u) => u.id === appUserId);
+    const local = (user?.name ?? 'client').toLowerCase().replace(/[^a-z0-9]+/g, '.').replace(/^\.|\.$/g, '') || 'client';
+    const email = `${local}@gmail.com`;
+    mutateArea('client', (s) => void ((s.googleLinked ??= {})[appUserId] = email));
+    return { enabled: true, email };
+  });
+}
+
+export function unlinkGoogle(appUserId: Id): Promise<GoogleLinkStatus> {
+  if (isApiMode()) return http<GoogleLinkStatus>('DELETE', '/v1/auth/google/link');
+  return request(() => {
+    mutateArea('client', (s) => void delete s.googleLinked?.[appUserId]);
+    return { enabled: true, email: null };
+  });
 }
 
 export interface AdminLoginInput {

@@ -82,7 +82,7 @@ function loadGis(): Promise<GisApi> {
   return gisLoading;
 }
 
-function GisButton({ onCredential, busy }: { onCredential: (token: string) => void; busy: boolean }) {
+export function GisButton({ onCredential, busy }: { onCredential: (token: string) => void; busy: boolean }) {
   const t = useT('client');
   const locale = useLocale();
   const ref = useRef<HTMLDivElement>(null);
@@ -149,7 +149,7 @@ function GisButton({ onCredential, busy }: { onCredential: (token: string) => vo
 }
 
 /** Значок Google — файл бренда из /public (цвета Google — данные, не токены) */
-function GoogleMark() {
+export function GoogleMark() {
   // eslint-disable-next-line @next/next/no-img-element -- маленький svg-значок, оптимизация next/image не нужна
   return <img src="/brand/google-g.svg" alt="" aria-hidden className="size-5" />;
 }

@@ -9,6 +9,7 @@ import { HttpApiError, isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { SESSION_KEY, logout, setSessionMode } from '@/api/session';
 import { useApplyDemo, useDemo } from '@/demo/hooks';
+import { GoogleAccountCard } from '@/areas/client/profile/GoogleAccountCard';
 import { TelegramRemindersCard } from '@/areas/client/profile/TelegramRemindersCard';
 import { InviteFriendsEntry } from '@/areas/client/referral/InviteFriendsEntry';
 import { useClientSession } from '@/areas/client/ui/useClientSession';
@@ -262,6 +263,8 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
       {appUserId && <InviteFriendsEntry appUserId={appUserId} />}
 
       {appUserId && <TelegramRemindersCard appUserId={appUserId} />}
+
+      {appUserId && <GoogleAccountCard appUserId={appUserId} />}
 
       {appUserId && extEntries.map((entry) => (
         <ExtensionSlot key={entry.area} entry={entry} props={{ appUserId }} />
