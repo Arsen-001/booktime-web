@@ -10,6 +10,9 @@ import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { TopSearch } from '@/shell/biz/TopSearch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
 import { useNetworkAccess } from '@/areas/network/lib/useNetworkAccess';
+import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersData';
+
+const HIDE_ORDERS: ReadonlySet<string> = new Set(['orders']);
 
 /** Каркас кабинета бизнеса /biz: меню зависит от персоны, её прав и сферы */
 export function BizShell({ children }: { children: ReactNode }) {
@@ -19,11 +22,14 @@ export function BizShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   // 01.10.2026: пользователь сети (без network.manage) видит «Сеть и филиалы», но только разделы своих прав сети
   const networkAccess = useNetworkAccess();
+  // ⭐ 03.10.2026: «Заказы» в меню — когда они включены у бизнеса (по умолчанию у ателье, ремонта, химчистки, детейлинга)
+  const orders = useOrdersEnabled();
   const items = visibleNav(BIZ_NAV, {
     persona,
     sphere,
     can: (p) => permissions.has(p) || (p === 'network.manage' && networkAccess.member),
     hiddenHrefs: networkAccess.hiddenHrefs,
+    hiddenItemIds: orders.enabled ? undefined : HIDE_ORDERS,
   });
 
   // Э5 (clients-review 27.09.2026): анкета/согласие клиента открывается по ссылке, которую мастер отправляет

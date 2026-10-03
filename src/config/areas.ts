@@ -23,6 +23,8 @@ export const AREA_IDS = [
   'settings',
   'resources',
   'services',
+  // ⭐ Заказы (03.10.2026): ателье, ремонт техники, химчистка, детейлинг
+  'orders',
 ] as const;
 
 export type AreaId = (typeof AREA_IDS)[number];

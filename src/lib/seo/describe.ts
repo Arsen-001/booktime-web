@@ -10,7 +10,7 @@ import { pickText } from '@/lib/text';
 
 /**
  * Тексты и разметка schema.org для поисковиков (SEO, 03.10.2026). Слова — common.seo / common.districts на языке
- * запроса (cookie `lang`; поисковик без cookie видит ru — язык в адресе не живёт, см. DESIGN.md «Поисковики»).
+ * запроса: язык в адресе (/hy/…, /en/… — src/i18n/localePath.ts), иначе cookie `lang`, без них ru.
  */
 
 type T = Awaited<ReturnType<typeof getTranslations<'common'>>>;
@@ -145,6 +145,10 @@ const SPHERE_TYPE: Record<SphereId, string> = {
   dental: 'Dentist',
   fitness: 'ExerciseGym',
   carwash: 'AutoWash',
+  tailor: 'LocalBusiness',
+  repair: 'LocalBusiness',
+  drycleaning: 'DryCleaningOrLaundry',
+  detailing: 'AutoWash',
   general: 'LocalBusiness',
 };
 const BEAUTY_TYPES = new Set(['NailSalon', 'HairSalon', 'BeautySalon', 'DaySpa']);

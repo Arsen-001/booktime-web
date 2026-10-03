@@ -299,6 +299,27 @@ export function buildBusinesses(clock: SeedClock): { networks: Network[]; busine
       status: 'draft',
       createdAt: created(0),
     },
+    // ⭐ Сфера «заказов» (03.10.2026): мастерская по ремонту телефонов — демо раздела «Заказы». В конце списка, чтобы
+    // не сдвигать сид остальных; услуг и графика нет — работа идёт заказами (приняли → в работе → готово → выдали)
+    {
+      id: BIZ.fixpoint,
+      kind: 'salon',
+      name: 'FixPoint',
+      slug: 'fixpoint',
+      sphereIds: ['repair'],
+      ownerStaffId: ST.fixOwner,
+      locationIds: [LOC.fixpoint],
+      phone: '+37400101616',
+      description: lt(
+        'Ремонт телефонов, планшетов и ноутбуков в Арабкире. Диагностика бесплатно, о готовности сообщим сами.',
+        'Հեռախոսների, պլանշետների և նոութբուքերի վերանորոգում Արաբկիրում։ Ախտորոշումն անվճար է, պատրաստ լինելու մասին կհայտնենք ինքներս։',
+        'Phone, tablet and laptop repair in Arabkir. Free diagnostics; we’ll let you know when it’s ready.',
+      ),
+      logoUrl: logoPhoto('F', ['#EAF0FB', '#D2DEF3'], '#3F5F9A'),
+      photos: [],
+      status: 'active',
+      createdAt: created(200),
+    },
   ];
 
   const salonHours = (from: string, to: string) => sameDays([0, 1, 2, 3, 4, 5, 6], [h(from, to)]);
@@ -343,6 +364,7 @@ export function buildBusinesses(clock: SeedClock): { networks: Network[]; busine
     // Пустые: адрес есть (без него бизнес не завести), часов работы ещё нет
     loc('empty', { ru: 'Новый салон' }, lt('ул. Абовяна, 3', 'Աբովյան փ., 3', '3 Abovyan St'), 'kentron', [40.1818, 44.5186], undefined),
     loc('emptySolo', lt('Новый мастер', 'Նոր վարպետ', 'New master'), lt('ул. Кохбаци, 20', 'Կողբացու փ., 20', '20 Koghbatsi St'), 'kentron', [40.1872, 44.5091], undefined),
+    loc('fixpoint', { ru: 'FixPoint' }, lt('ул. Киевяна, 8', 'Կիևյան փ., 8', '8 Kievyan St'), 'arabkir', [40.1957, 44.5011], week({ 0: [h('10:00', '20:00')], 1: [h('10:00', '20:00')], 2: [h('10:00', '20:00')], 3: [h('10:00', '20:00')], 4: [h('10:00', '20:00')], 5: [h('11:00', '18:00')] }), '+37400101616'),
   ];
 
   return { networks, businesses, locations };

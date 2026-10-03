@@ -27,6 +27,7 @@
 | **settings** | Регистрация бизнеса, быстрый старт, сферы, подписка, промокоды, монеты, биллинг, настройки компании | `src/app/biz/settings/**`<br>`src/app/biz/billing/**`<br>`src/app/biz/onboarding/**`<br>`src/app/biz/coins/**` | 15-billing-onboarding-settings.md | 00 §2 (F-00-011…030), §13 (F-00-145…154) |
 | **resources** | Ресурсы, групповые события, пакеты, ассистенты, лист ожидания | `src/app/biz/resources/**`<br>`src/app/biz/groups/**`<br>`src/app/biz/waitlist/**` | 16-resources-groups-waitlist.md | — |
 | **services** | Услуги: каталог, категории, карточка услуги, цены от–до, длительность, фото (6 мест), дипломы, материалы | `src/app/biz/services/**` | — | 00 §8 (F-00-082…091); плюс все функции каталога услуг, которые в других разделах описаны как «Настройки → Услуги» |
+| **orders** | Заказы: приём вещей и техники (ателье, ремонт, химчистка, детейлинг), статусы, «Готово» клиенту и публичная ссылка статуса | `src/app/biz/orders/**`<br>`src/app/o/**` | — | решение владельца 03.10.2026 (DESIGN.md «Заказы») |
 
 ## Меню, хосты и вклады по разделам
 
@@ -190,6 +191,15 @@
 
 **Вклады в чужие хосты:** Карточка сотрудника → `src/areas/services/extensions/StaffCard.tsx` (смотреть: `/dev/ext/staffCard/services`), Настройки → `src/areas/services/extensions/SettingsHub.tsx` (смотреть: `/dev/ext/settingsHub/services`)
 
+### orders — Заказы
+
+**Пункты меню:**
+- Заказы — `/biz/orders` (виден, когда у бизнеса включены «Заказы»: по умолчанию у сфер tailor, repair, drycleaning, detailing)
+  - подпункты (файл `src/areas/orders/nav.ts`): Все заказы `/biz/orders` (счётчик готовых), Настройки заказов `/biz/orders/settings`
+- Публичная страница статуса — `/o/[code]` (без входа)
+
+**Вклады в чужие хосты:** Настройки → `src/areas/orders/extensions/SettingsHub.tsx` (смотреть: `/dev/ext/settingsHub/orders`)
+
 ## Хосты расширений
 
 | Хост | Хозяин | Вкладчики (порядок) | Пропсы |
@@ -198,7 +208,7 @@
 | Карточка клиента (`clientCard`) | clients | journal, finance, loyalty, notify, online | `ClientCardExtProps` |
 | Карточка сотрудника (`staffCard`) | staff | schedule, services, online, payroll, resources | `StaffCardExtProps` |
 | Карточка услуги (`serviceCard`) | services | online, stock, payroll, resources, loyalty | `ServiceCardExtProps` |
-| Настройки (`settingsHub`) | settings | journal, schedule, online, services, staff, clients, notify, loyalty, finance, payroll, stock, resources, network, integrations | `SettingsHubExtProps` |
+| Настройки (`settingsHub`) | settings | journal, schedule, online, services, staff, clients, notify, loyalty, finance, payroll, stock, resources, network, integrations, orders | `SettingsHubExtProps` |
 | Профиль клиента (`clientProfile`) | client | loyalty, finance | `ClientProfileExtProps` |
 
 ## Функции ТЗ без хозяина

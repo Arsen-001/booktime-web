@@ -146,6 +146,10 @@
       "integrations": {
         "description": "Integration catalogue, installed, API",
         "keywords": "integrations api connections webhooks"
+      },
+      "orders": {
+        "description": "Take orders: drop-offs, statuses, “ready” message to the client",
+        "keywords": "orders drop-off repair tailoring dry cleaning detailing ready status"
       }
     },
     "keywords": {
@@ -522,6 +526,19 @@
       "carwash": {
         "wash": "Body wash"
       },
+      "tailor": {
+        "alteration": "Clothing alterations"
+      },
+      "repair": {
+        "diagnostics": "Diagnostics",
+        "screen": "Screen replacement"
+      },
+      "drycleaning": {
+        "cleaning": "Dry cleaning an item"
+      },
+      "detailing": {
+        "polish": "Paint polishing"
+      },
       "general": {
         "service": "Service"
       }
@@ -570,7 +587,8 @@
       "stock": "Stock & supplies",
       "resources": "Chairs, rooms, equipment",
       "vehicle": "Client's vehicle details",
-      "dependents": "Booking for a child or pet"
+      "dependents": "Booking for a child or pet",
+      "orders": "Orders: drop-off, statuses, “ready” alert to the client"
     },
     "wave": "Wave {n}",
     "comingSoonTitle": "Coming soon",

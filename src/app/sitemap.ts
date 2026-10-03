@@ -1,9 +1,11 @@
 import type { MetadataRoute } from 'next';
 import { CLIENT_SPHERES } from '@/areas/client/ui/sphereIcons';
 import type { DistrictId, SphereId } from '@/domain/core';
+import { CLIENT_LOCALES } from '@/i18n/config';
+import { localeAlternates, localizedPath } from '@/i18n/localePath';
 import { listCatalogForSitemap } from '@/lib/seo/publicData';
 import { searchPath } from '@/lib/seo/searchPath';
-import { absoluteUrl } from '@/lib/seo/site';
+import { absoluteUrl, siteUrl } from '@/lib/seo/site';
 
 /**
  * sitemap.xml (SEO, 03.10.2026): главная, поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
@@ -11,9 +13,20 @@ import { absoluteUrl } from '@/lib/seo/site';
  * Источник — публичный каталог сервера, кэш на час. Сервер недоступен — только статические страницы.
  *
  * Демо (моковая сборка) получает только статические адреса; staging — свои, но обе закрыты в robots.txt.
- * Альтернатив hreflang нет: язык сайта — в cookie, адрес у всех языков один (см. DESIGN.md «Поисковики»).
+ * Язык в адресе (03.10.2026, src/i18n/localePath.ts): каждая страница — три адреса (/…, /hy/…, /en/…), у каждого
+ * hreflang-альтернативы на все три языка + x-default (ru).
  */
 export const revalidate = 3600;
+
+/** Строка sitemap → по строке на каждый язык, у каждой — альтернативы всех языков */
+function withLocales(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  const origin = siteUrl();
+  return entries.flatMap((e) => {
+    const path = e.url.slice(origin.length) || '/';
+    const languages = Object.fromEntries(Object.entries(localeAlternates(path)).map(([l, p]) => [l, absoluteUrl(p)]));
+    return CLIENT_LOCALES.map((l) => ({ ...e, url: absoluteUrl(localizedPath(path, l)), alternates: { languages } }));
+  });
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
@@ -53,5 +66,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const id of masters) {
     entries.push({ url: absoluteUrl(`/masters/${id}`), changeFrequency: 'weekly', priority: 0.5 });
   }
-  return entries;
+  return withLocales(entries);
 }

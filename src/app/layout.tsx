@@ -8,6 +8,8 @@ import { SessionBridge } from '@/demo/SessionBridge';
 import { NativeAppBridge } from '@/lib/native/NativeAppBridge';
 import { IntlProvider } from '@/i18n/IntlProvider';
 import { loadMessages } from '@/i18n/load';
+import { getUrlLocale } from '@/i18n/locale';
+import { UrlLocaleProvider } from '@/i18n/useLocalizedHref';
 import { DemoSwitcher } from '@/shell/demo/DemoSwitcher';
 import { AnalyticsScripts } from '@/shell/AnalyticsScripts';
 import { ToastViewport } from '@/ui/Toast';
@@ -82,6 +84,8 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
   const demo = await getDemoSettings();
+  // Язык в адресе (/hy/…, /en/…) — клиентским ссылкам до гидрации (src/i18n/useLocalizedHref.tsx)
+  const urlLocale = await getUrlLocale();
   const { messages, fallbackKeys } = await loadMessages(demo.lang);
   const viewportWidth = await getViewportHint();
   const sidebarCookie = (await cookies()).get(SIDEBAR_COOKIE)?.value;
@@ -97,6 +101,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className="min-h-dvh bg-bg text-fg">
         <IntlProvider locale={demo.lang} messages={messages} fallbackKeys={fallbackKeys}>
+          <UrlLocaleProvider value={urlLocale}>
           <DemoProvider initial={demo}>
             <ViewportHintProvider width={viewportWidth}>
               <SidebarHintProvider value={sidebar}>
@@ -114,6 +119,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
               </SidebarHintProvider>
             </ViewportHintProvider>
           </DemoProvider>
+          </UrlLocaleProvider>
         </IntlProvider>
       </body>
     </html>

@@ -20,6 +20,8 @@ export const BIZ = {
   // только владелец и один филиал — ни услуг, ни мастеров, ни клиентов, ни записей, ни графиков
   empty: 'biz_empty',
   emptySolo: 'biz_empty_solo',
+  // ⭐ Сфера «заказов» (03.10.2026): ремонт телефонов — демо раздела «Заказы» (?demo=owner&sphere=repair)
+  fixpoint: 'biz_fixpoint',
 } as const;
 
 export type BizKey = keyof typeof BIZ;
@@ -40,6 +42,7 @@ export const LOC: Record<BizKey, string> = {
   shushan: 'loc_shushan',
   empty: 'loc_empty',
   emptySolo: 'loc_empty_solo',
+  fixpoint: 'loc_fixpoint',
 };
 
 /** Бизнесы, которые демо-контекст выбирает только по флагу «пусто» (src/demo/context.ts) */
@@ -105,4 +108,8 @@ export const ST = {
   kaytsakMher: 'st_kaytsak_mher',
   emptyOwner: 'st_empty_owner',
   emptySolo: 'st_empty_solo',
+  // FixPoint (ремонт техники, 03.10.2026) — без услуг и графика: заказы, а не записи по времени
+  fixOwner: 'st_fix_owner',
+  fixTigran: 'st_fix_tigran',
+  fixNarek: 'st_fix_narek',
 } as const;

@@ -58,6 +58,22 @@ const SPHERE_SERVICE_TEMPLATES: Record<SphereId, SphereTemplateService[]> = {
     { templateId: 'wash_full', name: { ru: 'Полная мойка кузова', en: 'Full body wash' }, durationMin: 45, price: 4000 },
     { templateId: 'wash_interior', name: { ru: 'Химчистка салона', en: 'Interior deep clean' }, durationMin: 90, price: 15000 },
   ],
+  tailor: [
+    { templateId: 'tailor_hem', name: { ru: 'Подшить брюки', en: 'Trouser hemming' }, durationMin: 30, price: 2500 },
+    { templateId: 'tailor_zip', name: { ru: 'Замена молнии', en: 'Zip replacement' }, durationMin: 45, price: 3000 },
+  ],
+  repair: [
+    { templateId: 'repair_diag', name: { ru: 'Диагностика', en: 'Diagnostics' }, durationMin: 30, price: 0 },
+    { templateId: 'repair_screen', name: { ru: 'Замена экрана', en: 'Screen replacement' }, durationMin: 60, price: 15000 },
+  ],
+  drycleaning: [
+    { templateId: 'dry_suit', name: { ru: 'Химчистка костюма', en: 'Suit dry cleaning' }, durationMin: 30, price: 6000 },
+    { templateId: 'dry_coat', name: { ru: 'Химчистка пальто', en: 'Coat dry cleaning' }, durationMin: 30, price: 7000 },
+  ],
+  detailing: [
+    { templateId: 'det_polish', name: { ru: 'Полировка кузова', en: 'Paint polishing' }, durationMin: 240, price: 60000 },
+    { templateId: 'det_interior', name: { ru: 'Химчистка салона', en: 'Interior deep clean' }, durationMin: 180, price: 35000 },
+  ],
   general: [{ templateId: 'general_basic', name: { ru: 'Услуга', en: 'Service' }, durationMin: 60, price: 5000 }],
 };
 

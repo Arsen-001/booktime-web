@@ -28,7 +28,9 @@ export type SphereFeature =
   /** Авто клиента: марка, номер (мойка) */
   | 'vehicle'
   /** Запись ребёнка или питомца (F-00-125) */
-  | 'dependents';
+  | 'dependents'
+  /** ⭐ Заказы: приём вещи/техники, статусы, «Готово» клиенту и публичная ссылка (03.10.2026) — включены по умолчанию */
+  | 'orders';
 
 export interface SphereConfig {
   id: SphereId;
@@ -48,6 +50,10 @@ export const SPHERE_IDS: SphereId[] = [
   'dental',
   'fitness',
   'carwash',
+  'tailor',
+  'repair',
+  'drycleaning',
+  'detailing',
   'general',
 ];
 
@@ -98,6 +104,32 @@ export const SPHERES: Record<SphereId, SphereConfig> = {
     id: 'carwash',
     icon: 'Car',
     features: ['vehicle', 'homeVisit', 'stock', 'resources'],
+    terms: 'carwash',
+  },
+  // ⭐ Сферы «заказов» (владелец, 03.10.2026): клиент сдаёт вещь или технику, бизнес ведёт заказ по статусам,
+  // «Готово» уходит клиенту само. Записи по времени тоже доступны (примерка, диагностика, детейлинг по слоту).
+  tailor: {
+    id: 'tailor',
+    icon: 'Spool',
+    features: ['orders', 'homeVisit', 'stock'],
+    terms: 'default',
+  },
+  repair: {
+    id: 'repair',
+    icon: 'Smartphone',
+    features: ['orders', 'stock'],
+    terms: 'default',
+  },
+  drycleaning: {
+    id: 'drycleaning',
+    icon: 'WashingMachine',
+    features: ['orders', 'homeVisit', 'stock'],
+    terms: 'default',
+  },
+  detailing: {
+    id: 'detailing',
+    icon: 'CarFront',
+    features: ['orders', 'vehicle', 'stock', 'resources'],
     terms: 'carwash',
   },
   general: {

@@ -8,6 +8,7 @@ import { SlotsByDay } from '@/areas/client/ui/SlotsByDay';
 import { usePlaceLine } from '@/areas/client/ui/usePlaceLine';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useDisplayName } from '@/areas/client/useDisplayName';
+import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 import { pickText } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
@@ -29,7 +30,9 @@ export function CatalogEntryCard({ entry }: { entry: CatalogEntry }) {
   const locale = useLocale();
   const placeLine = usePlaceLine();
   const { staff, business, location, service } = entry;
-  const masterHref = `/masters/${staff.id}${service ? `?service=${service.id}` : ''}`;
+  // На /hy, /en карточка мастера — тоже с языком в адресе (src/i18n/localePath.ts)
+  const localized = useLocalizedHref();
+  const masterHref = localized(`/masters/${staff.id}${service ? `?service=${service.id}` : ''}`);
   const bookHref = (slotStart: string) =>
     `/book?staff=${staff.id}&slot=${encodeURIComponent(slotStart)}${service ? `&service=${service.id}` : ''}`;
 

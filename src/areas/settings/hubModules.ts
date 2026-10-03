@@ -14,6 +14,7 @@ import {
   Globe2,
   Network,
   Package,
+  PackageCheck,
   Scissors,
   Users,
   UserCog,
@@ -44,6 +45,7 @@ export const HUB_MODULES: Partial<Record<AreaId, HubModule>> = {
   resources: { href: '/biz/resources', icon: Package },
   network: { icon: Network },
   integrations: { href: '/biz/integrations', icon: Blocks },
+  orders: { href: '/biz/orders/settings', icon: PackageCheck },
 };
 
 /** Раздел без своего экрана — вклад открывается отдельной страницей хаба */

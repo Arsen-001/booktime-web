@@ -9,6 +9,7 @@ import { SectionHeader } from '@/areas/client/ui/SectionHeader';
 import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import type { Id } from '@/domain/core';
+import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 import { Avatar } from '@/ui/Avatar';
 import { ScrollRow } from '@/ui/ScrollRow';
@@ -73,9 +74,10 @@ function MyMasterItem({
   const nameOf = useDisplayName();
   const q = useApiQuery(clientKeys.cashback(businessId, appUserId), () => getCashbackForBusiness(appUserId, businessId));
   const cashback = q.data && q.data.balance > 0 ? q.data.balance : undefined;
+  const localized = useLocalizedHref();
   return (
     <Link
-      href={`/masters/${staffId}`}
+      href={localized(`/masters/${staffId}`)}
       className="flex w-20 flex-col items-center gap-1.5 rounded-xl py-1 text-center focus-visible:outline-2 focus-visible:outline-focus"
     >
       <Avatar name={name} src={avatarUrl} colorIndex={colorIndex} size="lg" />

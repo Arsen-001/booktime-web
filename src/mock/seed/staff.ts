@@ -27,6 +27,8 @@ const POS = {
   universal: lt('Парикмахер-универсал', 'Ունիվերսալ վարսավիր', 'All-round hairdresser'),
   assistant: lt('Ассистент мастера', 'Վարպետի օգնական', 'Assistant'),
   specialist: lt('Мастер', 'Վարպետ', 'Specialist'),
+  repairOwner: lt('Владелец мастерской', 'Արհեստանոցի սեփականատեր', 'Workshop owner'),
+  repairMaster: lt('Мастер по ремонту', 'Վերանորոգման վարպետ', 'Repair technician'),
 };
 
 /** Специализация — короткая метка отдельно от должности (F-03-017): у части мастеров, чтобы была видна разница */
@@ -512,6 +514,11 @@ export function buildStaff(clock: SeedClock): Staff[] {
     // ── Пустые бизнесы (демо «… — пусто»): только сам владелец, без услуг, графика и фото
     { ...base, id: ST.emptyOwner, businessId: BIZ.empty, locationIds: [LOC.empty], name: 'Тереза Мовсесян', phone: '+37400150101', role: 'owner', position: POS.owner, sphereIds: ['general'], workplaces: ['salon'], colorIndex: 7, hiredDaysAgo: 0 },
     { ...base, id: ST.emptySolo, businessId: BIZ.emptySolo, locationIds: [LOC.emptySolo], name: 'Артак Саакян', phone: '+37400150102', role: 'owner', position: POS.specialist, sphereIds: ['general'], workplaces: ['salon'], colorIndex: 1, hiredDaysAgo: 0 },
+
+    // ── FixPoint (ремонт техники, 03.10.2026): владелец и два мастера — «ответственный» в заказах
+    { ...base, id: ST.fixOwner, businessId: BIZ.fixpoint, locationIds: [LOC.fixpoint], name: 'Арсен Оганян', phone: '+37400160101', role: 'owner', position: POS.repairOwner, sphereIds: ['repair'], workplaces: ['salon'], colorIndex: 2, hiredDaysAgo: 200 },
+    { ...base, id: ST.fixTigran, businessId: BIZ.fixpoint, locationIds: [LOC.fixpoint], name: 'Тигран Арутюнян', phone: '+37400160102', role: 'master', position: POS.repairMaster, sphereIds: ['repair'], workplaces: ['salon'], colorIndex: 4, hiredDaysAgo: 180 },
+    { ...base, id: ST.fixNarek, businessId: BIZ.fixpoint, locationIds: [LOC.fixpoint], name: 'Нарек Симонян', phone: '+37400160103', role: 'master', position: POS.repairMaster, sphereIds: ['repair'], workplaces: ['salon'], colorIndex: 6, hiredDaysAgo: 90 },
   ];
 
   return drafts.map(({ hiredDaysAgo, ...d }) => ({

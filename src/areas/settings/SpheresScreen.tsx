@@ -51,6 +51,7 @@ const FEATURE_ORDER: SphereFeature[] = [
   'resources',
   'vehicle',
   'dependents',
+  'orders',
 ];
 
 export function SpheresScreen() {

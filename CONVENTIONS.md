@@ -150,7 +150,7 @@ src/
   mock/                   моковая база: db.ts (zustand+persist), seed/ (сид ядра), slices/<area>.ts
   api/                    фасад API: request.ts, core.ts, area.ts (фундамент), <area>.ts (разделы)
   extensions/             точки расширения: types, pairs, registry, ExtensionSlot
-  i18n/                   next-intl без языка в адресе: useT, useFormat, загрузчик словарей
+  i18n/                   next-intl (язык в cookie; /hy/…, /en/… у публичных — localePath): useT, useFormat, словари
   lib/                    cn, date (dayjs), money (֏), phone (+374), text, id
   styles/tokens.css       ВСЕ цвета, радиусы, тени (светлая и тёмная тема)
 messages/{ru,en,hy}/<ns>.json   словари: common, ui + по файлу на раздел
@@ -387,7 +387,9 @@ const terms = useTerms(); terms.client;            // «Клиент» / «Па�
 - Словари раздела: `messages/ru/<area>.json` (**основной**, по нему проверяются типы ключей — нет ключа
   в ru → ошибка tsc), `messages/en/<area>.json` (**пишется сразу**), `messages/hy/<area>.json` (можно
   позже: при отсутствии ключа показывается ru; армянский дольём отдельным проходом).
-- Язык не в адресе, а в cookie; смена языка перерисовывает страницу.
+- Язык — в cookie; смена языка перерисовывает страницу. Исключение — публичные страницы (главная, поиск, `/b/<slug>`,
+  `/masters/<id>`): у них есть адреса `/hy/…`, `/en/…` для поисковиков (`src/i18n/localePath.ts`); ссылку на публичную
+  страницу с такой страницы — через `useLocalizedHref()` из `@/i18n/useLocalizedHref`.
 - Консоль сообщает о пропусках (это ловит `measure.mjs`): `[i18n:missing]` — ключа нет даже в ru
   (на экране «⋯»), `[i18n:no-en]` — нет английского (ошибка раздела), `[i18n:fallback-ru]` — нет
   армянского (ожидаемо).

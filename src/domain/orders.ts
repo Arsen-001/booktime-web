@@ -1,0 +1,182 @@
+/**
+ * ⭐ Заказы (владелец, 03.10.2026): ателье, ремонт техники, химчистка, детейлинг. Бизнес принимает вещь (что сдали,
+ * фото, срок, цена, предоплата), ведёт заказ по статусам; «Готово» уходит клиенту само, а статус клиент смотрит по
+ * публичной ссылке /o/<code> без входа. Типы — как у сервера (booktime-backend, контракт 03.10.2026), правила —
+ * чистые функции: одни и те же для мока, экранов и (по смыслу) сервера.
+ */
+import type { Id, ISODate, ISODateTime, LocalizedText, SphereId } from '@/domain/core';
+import { SPHERES } from '@/config/spheres';
+
+export type OrderStatus = 'received' | 'in_progress' | 'ready' | 'issued' | 'cancelled';
+
+/** Фильтр списка: статус, «активные» (принят · в работе · готов) или все */
+export type OrderStatusFilter = OrderStatus | 'active' | 'all';
+
+export interface OrderItem {
+  title: string;
+  qty: number;
+  note?: string;
+}
+
+export interface OrderHistoryEntry {
+  at: ISODateTime;
+  status: OrderStatus;
+  /** Кто перевёл (id сотрудника); null — система или неизвестно */
+  by: string | null;
+}
+
+export interface Order {
+  id: Id;
+  businessId: Id;
+  locationId: Id | null;
+  /** Номер заказа в бизнесе — с 1001 */
+  number: number;
+  /** Публичный код ссылки /o/<code> (10 символов) */
+  code: string;
+  clientId: Id | null;
+  clientName: string;
+  /** E.164: '+374XXXXXXXX' */
+  clientPhone: string;
+  items: OrderItem[];
+  photos: string[];
+  staffId: Id | null;
+  status: OrderStatus;
+  dueDate: ISODate | null;
+  /** Цена, ֏ */
+  price: number;
+  /** Предоплата, ֏ */
+  prepaid: number;
+  comment: string | null;
+  history: OrderHistoryEntry[];
+  /** Когда клиенту ушло «Готово» (последний раз) */
+  readyNotifiedAt: ISODateTime | null;
+  issuedAt: ISODateTime | null;
+  createdAt: ISODateTime;
+  updatedAt: ISODateTime;
+}
+
+/** Новый заказ (POST /orders) */
+export interface OrderInput {
+  clientName: string;
+  clientPhone: string;
+  clientId?: Id | null;
+  items: OrderItem[];
+  photos?: string[];
+  staffId?: Id | null;
+  dueDate?: ISODate | null;
+  price: number;
+  prepaid?: number;
+  comment?: string | null;
+  locationId?: Id | null;
+}
+
+/** Что можно поменять у заказа (PATCH) */
+export type OrderPatch = Partial<
+  Pick<Order, 'clientName' | 'clientPhone' | 'clientId' | 'items' | 'photos' | 'staffId' | 'dueDate' | 'price' | 'prepaid' | 'comment' | 'locationId'>
+>;
+
+export interface OrdersQuery {
+  status?: OrderStatusFilter;
+  q?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface OrdersPage {
+  items: Order[];
+  total: number;
+}
+
+/** Публичный статус заказа — то, что видит клиент по ссылке (без телефона клиента и внутренних полей) */
+export interface PublicOrder {
+  number: number;
+  status: OrderStatus;
+  items: { title: string; qty: number }[];
+  dueDate: ISODate | null;
+  /** Когда стал «Готов» (последний раз) */
+  readyAt: ISODateTime | null;
+  price: number;
+  prepaid: number;
+  business: {
+    name: string;
+    phone: string | null;
+    /** Сервер отдаёт строку; мок — текст на трёх языках */
+    address: string | LocalizedText | null;
+    slug: string;
+  };
+}
+
+export interface OrdersSettings {
+  ordersEnabled: boolean;
+}
+
+// ─────────────────────────── правила ───────────────────────────
+
+/** Путь заказа по шагам (отмена — вне шагов) */
+export const ORDER_STEPS = ['received', 'in_progress', 'ready', 'issued'] as const satisfies readonly OrderStatus[];
+
+/** Активные — те, что ещё у мастера */
+export const ACTIVE_ORDER_STATUSES: readonly OrderStatus[] = ['received', 'in_progress', 'ready'];
+
+/** Разрешённые переходы (сервер отвечает 422 на остальные) */
+export const ORDER_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
+  received: ['in_progress', 'ready', 'cancelled'],
+  in_progress: ['ready', 'cancelled'],
+  ready: ['issued', 'in_progress'],
+  issued: [],
+  cancelled: [],
+};
+
+export function canTransitionOrder(from: OrderStatus, to: OrderStatus): boolean {
+  return ORDER_TRANSITIONS[from].includes(to);
+}
+
+/** Главный следующий шаг (одна кнопка): принят → в работу, в работе → готово, готов → выдать */
+export function nextOrderStep(status: OrderStatus): OrderStatus | null {
+  if (status === 'received') return 'in_progress';
+  if (status === 'in_progress') return 'ready';
+  if (status === 'ready') return 'issued';
+  return null;
+}
+
+export function isActiveOrder(status: OrderStatus): boolean {
+  return ACTIVE_ORDER_STATUSES.includes(status);
+}
+
+/** Просрочен: срок прошёл, а заказ ещё не готов */
+export function isOrderOverdue(order: Pick<Order, 'status' | 'dueDate'>, today: ISODate): boolean {
+  return Boolean(order.dueDate) && (order.status === 'received' || order.status === 'in_progress') && order.dueDate! < today;
+}
+
+/** Осталось заплатить: цена минус предоплата, не меньше нуля */
+export function orderRemaining(order: Pick<Order, 'price' | 'prepaid'>): number {
+  return Math.max(0, order.price - order.prepaid);
+}
+
+/** Подходит ли заказ под фильтр списка */
+export function matchesOrderStatus(status: OrderStatus, filter: OrderStatusFilter): boolean {
+  if (filter === 'all') return true;
+  if (filter === 'active') return isActiveOrder(status);
+  return status === filter;
+}
+
+/** «Заказы» включены по умолчанию у сфер с функцией orders (ателье, ремонт, химчистка, детейлинг) */
+export function defaultOrdersEnabled(sphereIds: readonly SphereId[]): boolean {
+  return sphereIds.some((s) => SPHERES[s]?.features.includes('orders'));
+}
+
+/** Когда заказ последний раз стал «Готов» (из истории) */
+export function orderReadyAt(order: Pick<Order, 'history'>): ISODateTime | null {
+  for (let i = order.history.length - 1; i >= 0; i--) if (order.history[i].status === 'ready') return order.history[i].at;
+  return null;
+}
+
+/** Короткая строка «что сдали»: «iPhone 13 · Чехол ×2» */
+export function orderItemsSummary(items: readonly Pick<OrderItem, 'title' | 'qty'>[]): string {
+  return items.map((i) => (i.qty > 1 ? `${i.title} ×${i.qty}` : i.title)).join(' · ');
+}
+
+/** Алфавит публичного кода — без похожих символов (0/O, 1/l/I) */
+export const ORDER_CODE_ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
+export const ORDER_CODE_LENGTH = 10;
+export const FIRST_ORDER_NUMBER = 1001;

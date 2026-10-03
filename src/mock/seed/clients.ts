@@ -33,6 +33,8 @@ const CLIENT_PLAN: Record<BizKey, { count: number; female: number }> = {
   // Пустые бизнесы — без клиентов (демо «… — пусто»)
   empty: { count: 0, female: 0.5 },
   emptySolo: { count: 0, female: 0.5 },
+  // FixPoint (заказы, 03.10.2026) — без случайных клиентов: свои клиенты ниже (FIXPOINT_CLIENTS), сид остальных не сдвигается
+  fixpoint: { count: 0, female: 0.5 },
 };
 
 /** Клиенты приложения и в каких бизнесах они есть в базе. Первый — демо-персона «Клиент». */
@@ -96,7 +98,20 @@ const SPHERE_OF: Record<BizKey, SphereId[]> = {
   shushan: ['hair'],
   empty: ['general'],
   emptySolo: ['general'],
+  fixpoint: ['repair'],
 };
+
+/** Клиенты FixPoint (ремонт техники) — постоянные, без ГПСЧ; первая — демо-клиент приложения au_01 (пуш «Готово») */
+const FIXPOINT_CLIENTS: { id: string; name: string; gender: Gender; phone: string; appUserId?: string; daysAgo: number }[] = [
+  { id: 'cl_fix_01', name: 'Ани Мелкумян', gender: 'female', phone: '+37400160001', appUserId: 'au_01', daysAgo: 120 },
+  { id: 'cl_fix_02', name: 'Давид Саркисян', gender: 'male', phone: '+37400170002', daysAgo: 95 },
+  { id: 'cl_fix_03', name: 'Лилит Аветисян', gender: 'female', phone: '+37400170003', daysAgo: 60 },
+  { id: 'cl_fix_04', name: 'Карен Манукян', gender: 'male', phone: '+37400170004', daysAgo: 41 },
+  { id: 'cl_fix_05', name: 'Мери Петросян', gender: 'female', phone: '+37400170005', daysAgo: 30 },
+  { id: 'cl_fix_06', name: 'Гор Хачатрян', gender: 'male', phone: '+37400170006', daysAgo: 14 },
+  { id: 'cl_fix_07', name: 'Ануш Григорян', gender: 'female', phone: '+37400170007', daysAgo: 9 },
+  { id: 'cl_fix_08', name: 'Артур Мкртчян', gender: 'male', phone: '+37400170008', daysAgo: 3 },
+];
 
 const notesFor = (key: BizKey): string[] => [...SPHERE_OF[key].flatMap((sp) => NOTES_BY_SPHERE[sp] ?? []), ...NOTES_COMMON];
 
@@ -138,7 +153,7 @@ export function buildClients(rng: Rng, clock: SeedClock): { appUsers: AppUser[];
 
   const appUsers: AppUser[] = [];
   const members: Record<BizKey, (Person & { appUserId?: string })[]> = {
-    nuri: [], kaytsak: [], atam: [], mananaNN: [], mananaSH: [], lusine: [], arman: [], mariam: [], davit: [], vard: [], hayk: [], meline: [], shushan: [], empty: [], emptySolo: [],
+    nuri: [], kaytsak: [], atam: [], mananaNN: [], mananaSH: [], lusine: [], arman: [], mariam: [], davit: [], vard: [], hayk: [], meline: [], shushan: [], empty: [], emptySolo: [], fixpoint: [],
   };
 
   APP_USERS.forEach((plan, i) => {
@@ -217,6 +232,20 @@ export function buildClients(rng: Rng, clock: SeedClock): { appUsers: AppUser[];
       });
     });
   });
+
+  FIXPOINT_CLIENTS.forEach((c) =>
+    clients.push({
+      id: c.id,
+      businessId: BIZ.fixpoint,
+      phone: c.phone,
+      name: c.name,
+      gender: c.gender,
+      tags: [],
+      appUserId: c.appUserId,
+      noShowCount: 0,
+      createdAt: clock.at(-c.daysAgo, '12:00'),
+    }),
+  );
 
   return { appUsers, clients };
 }

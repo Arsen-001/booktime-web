@@ -26,11 +26,25 @@ export function useScrollEdges(ref: RefObject<HTMLElement | null>): ScrollEdges 
     };
     update();
     el.addEventListener('scroll', update, { passive: true });
+    // Ширина содержимого меняется и без смены размера самого блока: подгрузился шрифт, пришли подписи или данные.
+    // В WebView Android страница рисуется раньше, чем приходит шрифт, — без слежки за детьми край так и оставался
+    // «без продолжения», хотя полосу можно листать.
     const ro = new ResizeObserver(update);
-    ro.observe(el);
+    const observeChildren = () => {
+      ro.disconnect();
+      ro.observe(el);
+      for (const child of Array.from(el.children)) ro.observe(child);
+    };
+    observeChildren();
+    const mo = new MutationObserver(() => {
+      observeChildren();
+      update();
+    });
+    mo.observe(el, { childList: true });
     return () => {
       el.removeEventListener('scroll', update);
       ro.disconnect();
+      mo.disconnect();
     };
   }, [ref]);
 

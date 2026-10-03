@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { DATA_COOKIE, PLATFORM_COOKIE, SESSION_COOKIE, resolveDataMode } from '@/api/mode';
 import { COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, isValidDemoValue, type DemoSettings } from '@/demo/settings';
+import { isLocale } from '@/i18n/config';
+import { URL_LOCALE_HEADER, isLocalizablePath, localizedPath, splitLocalePrefix } from '@/i18n/localePath';
 
 /**
  * Демо-параметры из адреса (?demo=owner&sphere=nails&lang=hy&theme=dark&font=large&api=error) —
@@ -26,10 +28,13 @@ export function proxy(request: NextRequest) {
     return response;
   }
 
+  // Язык в адресе (SEO, 03.10.2026, src/i18n/localePath.ts): /hy/…, /en/… — публичные страницы на этом языке
+  const prefixed = splitLocalePrefix(url.pathname);
+  const path = prefixed.pathname;
+
   // Живой сайт (PLAN.md §8.1–8.2): без сессии кабинет ведёт на вход, панель — на вход команды платформы.
   // Здесь видно только, есть ли cookie; истёкшую сессию ловит SessionBridge в браузере.
   if (resolveDataMode(request.cookies.get(DATA_COOKIE)?.value) === 'api') {
-    const path = url.pathname;
     if (path.startsWith('/biz') && !request.cookies.has(SESSION_COOKIE)) {
       const login = new URL('/login', url);
       login.searchParams.set('next', path + url.search);
@@ -42,8 +47,8 @@ export function proxy(request: NextRequest) {
 
   // На /search «sphere» — фильтр поиска (/search?sphere=nails с главной, адреса в sitemap — SEO 03.10.2026), а не
   // демо-сфера бизнеса: не забираем его в cookie и не перенаправляем (иначе страница сферы не индексируется)
-  const keys = (Object.keys(DEMO_PARAMS) as (keyof DemoSettings)[]).filter((key) => !(key === 'sphere' && url.pathname === '/search'));
-  if (!keys.some((key) => url.searchParams.has(DEMO_PARAMS[key]))) return NextResponse.next();
+  const keys = (Object.keys(DEMO_PARAMS) as (keyof DemoSettings)[]).filter((key) => !(key === 'sphere' && path === '/search'));
+  if (!keys.some((key) => url.searchParams.has(DEMO_PARAMS[key]))) return prefixed.locale ? localeResponse(request, prefixed.locale, path) : NextResponse.next();
 
   const clean = url.clone();
   const updates: [string, string][] = [];
@@ -53,10 +58,36 @@ export function proxy(request: NextRequest) {
     if (value !== null && isValidDemoValue(key, value)) updates.push([DEMO_COOKIES[key], value]);
   });
 
+  // ?lang= на странице с языком в адресе — сразу на адрес этого языка (иначе префикс перебил бы команду)
+  const langParam = url.searchParams.get(DEMO_PARAMS.lang);
+  if (prefixed.locale && isLocale(langParam)) clean.pathname = localizedPath(path, langParam);
+
   const response = NextResponse.redirect(clean, 307);
   updates.forEach(([name, value]) =>
     response.cookies.set(name, value, { path: '/', maxAge: COOKIE_MAX_AGE, sameSite: 'lax' }),
   );
+  return response;
+}
+
+/**
+ * /hy/<путь>, /en/<путь>: публичная страница — переписываем на /<путь> с языком в заголовке URL_LOCALE_HEADER
+ * (сервер читает его раньше cookie) и запоминаем язык в cookie, чтобы дальше по приложению он сохранился.
+ * Непубличная (/hy/biz, /hy/b/x/book) — перенаправляем на адрес без префикса, язык — тоже в cookie.
+ */
+function localeResponse(request: NextRequest, locale: string, path: string): NextResponse {
+  const target = request.nextUrl.clone();
+  target.pathname = path;
+  let response: NextResponse;
+  if (isLocalizablePath(path)) {
+    const headers = new Headers(request.headers);
+    headers.set(URL_LOCALE_HEADER, locale);
+    response = NextResponse.rewrite(target, { request: { headers } });
+  } else {
+    response = NextResponse.redirect(target, 307);
+  }
+  if (request.cookies.get(DEMO_COOKIES.lang)?.value !== locale) {
+    response.cookies.set(DEMO_COOKIES.lang, locale, { path: '/', maxAge: COOKIE_MAX_AGE, sameSite: 'lax' });
+  }
   return response;
 }
 

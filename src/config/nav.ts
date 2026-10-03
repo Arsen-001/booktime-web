@@ -29,6 +29,7 @@ import {
   Megaphone,
   Network,
   Package,
+  PackageCheck,
   PiggyBank,
   Plug,
   Rocket,
@@ -68,6 +69,7 @@ import { subnav as integrationsSub } from '@/areas/integrations/nav';
 import { subnav as settingsSub } from '@/areas/settings/nav';
 import { subnav as resourcesSub } from '@/areas/resources/nav';
 import { subnav as servicesSub } from '@/areas/services/nav';
+import { subnav as ordersSub } from '@/areas/orders/nav';
 
 const ALL_SUBNAV: SubNav = Object.assign(
   {},
@@ -89,6 +91,7 @@ const ALL_SUBNAV: SubNav = Object.assign(
   settingsSub,
   resourcesSub,
   servicesSub,
+  ordersSub,
 );
 
 /** Сферы, где у сферы НЕТ функции → пункт скрыт */
@@ -133,6 +136,8 @@ export const BIZ_NAV: NavItem[] = [
   item('home', 'reports', '/biz', House, 'work', MANAGERS, { permission: 'reports.view' }),
   item('journal', 'journal', '/biz/journal', CalendarDays, 'work', BIZ, { permission: 'journal.view' }),
   item('records', 'journal', '/biz/records', ListChecks, 'work', BIZ, { permission: 'journal.view' }),
+  // ⭐ Заказы (03.10.2026): виден, когда у бизнеса включены «Заказы» (BizShell → hiddenItemIds; по умолчанию — у сфер с orders)
+  item('orders', 'orders', '/biz/orders', PackageCheck, 'work', BIZ),
   item('schedule', 'schedule', '/biz/schedule', CalendarClock, 'work', BIZ),
   item('groups', 'resources', '/biz/groups', UsersRound, 'work', BIZ, { hiddenInSpheres: withoutFeature('groups') }),
   item('waitlist', 'resources', '/biz/waitlist', Hourglass, 'work', MANAGERS),
@@ -219,6 +224,8 @@ export interface NavVisibilityContext {
   can: (permission: Permission) => boolean;
   /** Подпункты, закрытые правами раздела (01.10.2026: права пользователя сети, useNetworkAccess) */
   hiddenHrefs?: ReadonlySet<string>;
+  /** Пункты верхнего уровня, выключенные настройкой бизнеса (03.10.2026: «Заказы» выключены — пункта нет) */
+  hiddenItemIds?: ReadonlySet<string>;
 }
 
 function childVisible(child: NavChild, ctx: NavVisibilityContext): boolean {
@@ -233,6 +240,7 @@ function childVisible(child: NavChild, ctx: NavVisibilityContext): boolean {
 export function visibleNav(items: NavItem[], ctx: NavVisibilityContext): NavItem[] {
   return items
     .filter((i) => i.personas.includes(ctx.persona))
+    .filter((i) => !ctx.hiddenItemIds?.has(i.id))
     .filter((i) => !i.hiddenInSpheres?.includes(ctx.sphere))
     .filter((i) => !i.permission || ctx.can(i.permission))
     .map((i) => ({ ...i, children: i.children?.filter((c) => childVisible(c, ctx)) }));

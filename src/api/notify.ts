@@ -87,6 +87,18 @@ function capLog(log: LogMessage[]): LogMessage[] {
   return log.length > MAX_LOG_PER_BUSINESS ? log.slice(0, MAX_LOG_PER_BUSINESS) : log;
 }
 
+/**
+ * Строки журнала отправок из api других разделов (мок, внутри их request()): «Заказ готов» (orders, 03.10.2026).
+ * Свежие — впереди, с тем же потолком. Сервер пишет свой журнал сам.
+ */
+export function appendNotifyLogTx(businessId: Id, rows: Omit<LogMessage, 'id' | 'businessId'>[]): void {
+  if (!rows.length) return;
+  mutateArea('notify', (s) => {
+    const fresh = rows.map((r) => ({ ...r, id: newId('lg'), businessId }));
+    s.log[businessId] = capLog([...fresh, ...(s.log[businessId] ?? [])]);
+  });
+}
+
 /** Тот же потолок для рассылок (новые впереди, `unshift`) — тот же класс неограниченного роста */
 function capMailings(list: Mailing[]): Mailing[] {
   return list.length > MAX_LOG_PER_BUSINESS ? list.slice(0, MAX_LOG_PER_BUSINESS) : list;

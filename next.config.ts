@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-// Язык живёт в cookie `lang` (без префикса в адресе); см. src/i18n/request.ts.
+// Язык живёт в cookie `lang`; у публичных страниц есть адреса /hy/…, /en/… (src/i18n/localePath.ts); см. src/i18n/request.ts.
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {

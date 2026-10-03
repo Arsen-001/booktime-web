@@ -40,7 +40,12 @@ export type SphereId =
   | 'dental'
   | 'fitness'
   | 'carwash'
-  | 'general';
+  | 'general'
+  // ⭐ Сферы «заказов» (владелец, 03.10.2026): клиент сдаёт вещь или технику и забирает, когда готово
+  | 'tailor'
+  | 'repair'
+  | 'drycleaning'
+  | 'detailing';
 
 /** Районы Еревана (административные) */
 export type DistrictId =

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { DEMO_COOKIES } from '@/demo/settings';
 import { CLIENT_LOCALES, type Locale } from '@/i18n/config';
+import { refreshInLocale } from '@/i18n/switchLocale';
 import { useT } from '@/i18n/useT';
 import { SegmentedControl } from '@/ui/SegmentedControl';
 
@@ -34,7 +35,8 @@ export function ClientLanguageSwitch() {
           } catch {
             /* приватный режим — ссылка сможет предложить свой язык в следующий раз */
           }
-          router.refresh();
+          // Язык в адресе (/hy/b/x → /en/b/x) меняем вместе с cookie — src/i18n/switchLocale.ts
+          refreshInLocale(router, v as Locale);
         }}
         options={CLIENT_LOCALES.map((l) => ({ value: l, label: NATIVE[l] }))}
       />

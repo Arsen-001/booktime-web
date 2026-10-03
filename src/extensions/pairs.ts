@@ -62,6 +62,8 @@ export const EXTENSION_PAIRS: ExtensionPair[] = [
   { host: 'settingsHub', area: 'resources', order: 120, feature: 'resources' },
   { host: 'settingsHub', area: 'network', order: 130, personas: ['owner', 'network'] },
   { host: 'settingsHub', area: 'integrations', order: 140 },
+  // ⭐ Заказы (03.10.2026): вкл/выкл у любого бизнеса — плитка видна во всех сферах
+  { host: 'settingsHub', area: 'orders', order: 150 },
   // Профиль клиента в приложении (хозяин client)
   { host: 'clientProfile', area: 'loyalty', order: 10 },
   { host: 'clientProfile', area: 'finance', order: 20 },

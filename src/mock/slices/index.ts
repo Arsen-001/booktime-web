@@ -21,6 +21,7 @@ import { integrationsSlice } from '@/mock/slices/integrations';
 import { settingsSlice } from '@/mock/slices/settings';
 import { resourcesSlice } from '@/mock/slices/resources';
 import { servicesSlice } from '@/mock/slices/services';
+import { ordersSlice } from '@/mock/slices/orders';
 
 export const SLICES = {
   client: clientSlice,
@@ -41,6 +42,7 @@ export const SLICES = {
   settings: settingsSlice,
   resources: resourcesSlice,
   services: servicesSlice,
+  orders: ordersSlice,
 } satisfies Record<AreaId, SliceDef<unknown>>;
 
 type SliceState<T> = T extends SliceDef<infer S> ? S : never;

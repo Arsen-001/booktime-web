@@ -53,6 +53,7 @@ const LOADERS: Record<string, Loader> = {
   'settingsHub:resources': () => import('@/areas/resources/extensions/SettingsHub'),
   'settingsHub:network': () => import('@/areas/network/extensions/SettingsHub'),
   'settingsHub:integrations': () => import('@/areas/integrations/extensions/SettingsHub'),
+  'settingsHub:orders': () => import('@/areas/orders/extensions/SettingsHub'),
   'clientProfile:loyalty': () => import('@/areas/loyalty/extensions/ClientProfile'),
   'clientProfile:finance': () => import('@/areas/finance/extensions/ClientProfile'),
   'journalWaitlist:resources': () => import('@/areas/resources/extensions/JournalWaitlist'),

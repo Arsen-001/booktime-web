@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { COOKIE_MAX_AGE, DEMO_COOKIES, type DemoSettings } from '@/demo/settings';
 import { loadLocalUi, setLocationId, useDemoStore } from '@/demo/store';
 import type { Id } from '@/domain/core';
+import { refreshInLocale } from '@/i18n/switchLocale';
 import { addMinutes, nowDateTime } from '@/lib/date';
 import { bootDb, useDb } from '@/mock/db';
 import type { AreaStates } from '@/mock/slices';
@@ -80,7 +81,8 @@ export function DemoProvider({ initial, children }: { initial: DemoSettings; chi
     root.lang = next.lang;
     if (personaChanged || (patch.empty !== undefined && patch.empty !== settings.empty)) setLocationId(undefined);
     setSettings(next);
-    if (patch.lang && patch.lang !== settings.lang) router.refresh();
+    // Язык в адресе: на публичной странице — на адрес нового языка (/hy/b/x → /en/b/x), src/i18n/switchLocale.ts
+    if (patch.lang && patch.lang !== settings.lang) refreshInLocale(router, patch.lang);
   };
 
   return <Ctx.Provider value={{ settings, apply }}>{children}</Ctx.Provider>;

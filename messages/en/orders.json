@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "list": "All orders",
+    "settings": "Order settings"
+  },
+  "title": "Orders",
+  "subtitle": "What's in work, what's ready and what's been picked up",
+  "add": "New order",
+  "number": "Order #{number}",
+  "numberShort": "#{number}",
+  "tabs": {
+    "active": "Active",
+    "ready": "Ready",
+    "issued": "Picked up",
+    "all": "All"
+  },
+  "status": {
+    "received": "Received",
+    "in_progress": "In progress",
+    "ready": "Ready",
+    "issued": "Picked up",
+    "cancelled": "Cancelled"
+  },
+  "steps": {
+    "received": "Received",
+    "in_progress": "In progress",
+    "ready": "Ready",
+    "issued": "Picked up"
+  },
+  "history": {
+    "received": "Order received",
+    "in_progress": "Work started",
+    "ready": "Ready, client notified",
+    "issued": "Picked up by the client",
+    "cancelled": "Order cancelled"
+  },
+  "progress": {
+    "label": "Order progress",
+    "cancelled": "Order cancelled"
+  },
+  "columns": {
+    "number": "#",
+    "client": "Client",
+    "items": "Items",
+    "due": "Due",
+    "status": "Status",
+    "money": "Amount"
+  },
+  "list": {
+    "search": "#, name, phone or item",
+    "issuedOn": "Picked up {date}",
+    "noDue": "No due date",
+    "overdue": "overdue",
+    "paid": "paid",
+    "left": "{amount} left",
+    "emptySearch": "Nothing found",
+    "empty": {
+      "active": "No orders in work right now",
+      "ready": "No orders are ready",
+      "issued": "No orders picked up yet",
+      "all": "No orders yet",
+      "received": "No received orders",
+      "in_progress": "No orders in progress",
+      "cancelled": "No cancelled orders"
+    },
+    "emptyHint": "Take in an item or a device — the client gets a status link and a message when it's ready."
+  },
+  "form": {
+    "createTitle": "New order",
+    "createHint": "What was handed in, when it'll be ready and the price",
+    "editTitle": "Order #{number}",
+    "sectionClient": "Client",
+    "sectionItems": "Items",
+    "sectionPhotos": "Photos at drop-off",
+    "sectionWork": "Who and when",
+    "sectionMoney": "Money",
+    "sectionComment": "Comment",
+    "client": "Client",
+    "clientSearch": "Client's phone or name",
+    "clientSearchHint": "We'll look in your client base. Not there? Choose “New client”.",
+    "clientSearchStart": "Start typing a phone or a name",
+    "clientNotFound": "No such client yet",
+    "newClient": "New client",
+    "findClient": "Find in client base",
+    "changeClient": "Change client",
+    "clientName": "Name",
+    "clientNamePlaceholder": "Client's name",
+    "clientPhone": "Phone",
+    "clientPhoneHint": "The “ready” message goes here",
+    "itemTitle": "Item {n}",
+    "itemTitlePlaceholder": "e.g. iPhone 13 — screen replacement",
+    "itemQty": "Quantity",
+    "itemNote": "Note",
+    "itemNotePlaceholder": "Scratches, accessories, wishes",
+    "itemRemove": "Remove",
+    "itemAdd": "Add item",
+    "photosHint": "How the item looked at drop-off — handy if questions come up.",
+    "photosAdd": "Add photo",
+    "staff": "Specialist",
+    "staffNone": "Not assigned",
+    "dueDate": "Ready by",
+    "dueDatePlaceholder": "Pick a date",
+    "price": "Price",
+    "prepaid": "Prepayment",
+    "remaining": "Left to pay:",
+    "commentPlaceholder": "For yourself: what you promised, what to check",
+    "cancel": "Cancel",
+    "create": "Create order",
+    "save": "Save",
+    "created": "Order #{number} created",
+    "saved": "Order saved",
+    "saveFailed": "Couldn't save. Please try again.",
+    "errors": {
+      "client": "Pick a client or add a new one",
+      "clientName": "Enter the client's name",
+      "clientPhone": "Enter the full phone number",
+      "items": "Add at least one item",
+      "price": "Enter a price (0 is fine)",
+      "prepaidOverPrice": "Prepayment is more than the price"
+    }
+  },
+  "next": {
+    "in_progress": "Start work",
+    "ready": "Ready — notify the client",
+    "issued": "Hand over"
+  },
+  "toast": {
+    "received": "Order #{number} received",
+    "in_progress": "Order #{number} is in progress",
+    "ready": "Order #{number} is ready — client notified",
+    "issued": "Order #{number} picked up",
+    "cancelled": "Order #{number} cancelled",
+    "notified": "Sent to the client again",
+    "failed": "That didn't work. Please try again."
+  },
+  "cancel": {
+    "title": "Cancel order #{number}?",
+    "text": "The order moves to cancelled and can't be taken back into work.",
+    "confirm": "Cancel order",
+    "keep": "Keep it"
+  },
+  "detail": {
+    "more": "More actions",
+    "edit": "Edit",
+    "backToWork": "Back to work",
+    "cancel": "Cancel order",
+    "notifyAgain": "Send again",
+    "notifyAgainShort": "Resend",
+    "receivedAt": "received {when}",
+    "receivedHint": "Start work when you begin.",
+    "readyWillNotify": "When it's ready, the client gets a message with the link.",
+    "readyHint": "The client has been notified. Waiting for pickup.",
+    "items": "Items",
+    "photoAlt": "Drop-off photo {n}",
+    "comment": "Comment",
+    "client": "Client",
+    "call": "Call",
+    "staff": "Specialist",
+    "due": "Ready by",
+    "money": "Money",
+    "price": "Price",
+    "prepaid": "Prepayment",
+    "remaining": "Left to pay",
+    "link": "Link for the client",
+    "linkHint": "The client sees the status without calling or signing in.",
+    "shareMessage": "Your order #{number} at {business}. Check the status here: {url}",
+    "shareTelegram": "Your order #{number} at {business} — status at the link",
+    "history": "History",
+    "notifiedAt": "Last “ready” message to the client: {when}",
+    "notFound": "Order not found",
+    "notFoundHint": "The link may be outdated, or the order belongs to another business.",
+    "backToList": "Back to orders"
+  },
+  "public": {
+    "metaTitle": "Order status",
+    "status": {
+      "received": "Order received",
+      "in_progress": "In progress",
+      "ready": "Ready for pickup",
+      "issued": "Picked up",
+      "cancelled": "Order cancelled"
+    },
+    "readySinceToday": "Ready since {time}",
+    "readySince": "Ready since {when}",
+    "readyNow": "You can come by",
+    "due": "Ready by: {when}",
+    "noDue": "The specialist will confirm the date",
+    "issuedHint": "Thank you for choosing us!",
+    "cancelledHint": "If this is a mistake, give us a call.",
+    "items": "Items",
+    "toPay": "To pay at pickup",
+    "total": "Total",
+    "prepaidLine": "Price {price}, prepaid {prepaid}",
+    "call": "Call",
+    "notFound": "Order not found",
+    "notFoundHint": "Check the link or call the workshop."
+  },
+  "settings": {
+    "title": "Orders",
+    "subtitle": "Drop-offs, statuses and the “ready” message to the client",
+    "toggleTitle": "Orders section",
+    "toggleLabel": "Take orders",
+    "toggleHint": "“Orders” in the menu: drop-off, statuses, a link for the client",
+    "noRights": "Only the owner can turn this on or off",
+    "enabledToast": "Orders turned on — see the menu",
+    "disabledToast": "Orders turned off",
+    "howTitle": "How it works",
+    "how": {
+      "accept": {
+        "title": "You take in an item",
+        "text": "What was handed in, photos, due date and price. The order gets a link — send it to the client."
+      },
+      "ready": {
+        "title": "You tap “Ready”",
+        "text": "The client gets a message with the link automatically: an app push or Telegram."
+      },
+      "link": {
+        "title": "No more “is it ready?” calls",
+        "text": "The link shows the status, what's left to pay, your address and phone — no sign-in."
+      }
+    }
+  }
+}

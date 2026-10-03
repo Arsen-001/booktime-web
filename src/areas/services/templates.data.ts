@@ -231,6 +231,28 @@ const GENERAL: ServiceTemplateItem[] = [
   },
 ];
 
+// ⭐ Сферы «заказов» (03.10.2026): услуги — то, что принимают в работу (цена «от»); длительность — время приёма/работы
+const TAILOR: ServiceTemplateItem[] = [
+  { id: 'hem', categoryName: t('Ремонт одежды', 'Հագուստի վերանորոգում', 'Alterations'), name: t('Подшить брюки', 'Տաբատի ծալքի կարում', 'Trouser hemming'), durationMin: 30, priceMin: 2500 },
+  { id: 'zip', categoryName: t('Ремонт одежды', 'Հագուստի վերանորոգում', 'Alterations'), name: t('Замена молнии', 'Կայծակաճարմանդի փոխարինում', 'Zip replacement'), durationMin: 45, priceMin: 3000 },
+  { id: 'fit', categoryName: t('Пошив', 'Կարում', 'Tailoring'), name: t('Примерка и снятие мерок', 'Չափսերի վերցում և փորձարկում', 'Fitting and measurements'), durationMin: 30, priceMin: 0 },
+];
+const REPAIR: ServiceTemplateItem[] = [
+  { id: 'diag', categoryName: t('Диагностика', 'Ախտորոշում', 'Diagnostics'), name: t('Диагностика устройства', 'Սարքի ախտորոշում', 'Device diagnostics'), durationMin: 30, priceMin: 0 },
+  { id: 'screen', categoryName: t('Ремонт телефонов', 'Հեռախոսների վերանորոգում', 'Phone repair'), name: t('Замена экрана', 'Էկրանի փոխարինում', 'Screen replacement'), durationMin: 60, priceMin: 15000 },
+  { id: 'battery', categoryName: t('Ремонт телефонов', 'Հեռախոսների վերանորոգում', 'Phone repair'), name: t('Замена аккумулятора', 'Մարտկոցի փոխարինում', 'Battery replacement'), durationMin: 45, priceMin: 9000 },
+];
+const DRYCLEANING: ServiceTemplateItem[] = [
+  { id: 'suit', categoryName: t('Химчистка', 'Քիմմաքրում', 'Dry cleaning'), name: t('Костюм', 'Կոստյում', 'Suit'), durationMin: 30, priceMin: 6000 },
+  { id: 'coat', categoryName: t('Химчистка', 'Քիմմաքրում', 'Dry cleaning'), name: t('Пальто', 'Վերարկու', 'Coat'), durationMin: 30, priceMin: 7000 },
+  { id: 'dress', categoryName: t('Химчистка', 'Քիմմաքրում', 'Dry cleaning'), name: t('Платье', 'Զգեստ', 'Dress'), durationMin: 30, priceMin: 4500 },
+];
+const DETAILING: ServiceTemplateItem[] = [
+  { id: 'polish', categoryName: t('Кузов', 'Թափք', 'Body'), name: t('Полировка кузова', 'Թափքի փայլեցում', 'Paint polishing'), durationMin: 240, priceMin: 60000 },
+  { id: 'ceramic', categoryName: t('Кузов', 'Թափք', 'Body'), name: t('Керамическое покрытие', 'Կերամիկական ծածկույթ', 'Ceramic coating'), durationMin: 360, priceMin: 120000 },
+  { id: 'interior', categoryName: t('Салон', 'Սրահ', 'Interior'), name: t('Химчистка салона', 'Սրահի քիմմաքրում', 'Interior deep clean'), durationMin: 180, priceMin: 35000 },
+];
+
 export const SERVICE_TEMPLATES: Record<SphereId, ServiceTemplateItem[]> = {
   nails: NAILS,
   barber: BARBER,
@@ -240,5 +262,9 @@ export const SERVICE_TEMPLATES: Record<SphereId, ServiceTemplateItem[]> = {
   dental: DENTAL,
   fitness: FITNESS,
   carwash: CARWASH,
+  tailor: TAILOR,
+  repair: REPAIR,
+  drycleaning: DRYCLEANING,
+  detailing: DETAILING,
   general: GENERAL,
 };

@@ -26,6 +26,7 @@ export interface Messages {
   settings: typeof import('../../messages/ru/settings.json');
   resources: typeof import('../../messages/ru/resources.json');
   services: typeof import('../../messages/ru/services.json');
+  orders: typeof import('../../messages/ru/orders.json');
 }
 
 declare module 'next-intl' {

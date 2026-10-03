@@ -1,0 +1,32 @@
+{
+  "route": "/biz/orders",
+  "persona": "owner",
+  "sphere": "repair",
+  "lang": "ru",
+  "device": "phone",
+  "steps": [
+    { "click": "role=button[name=\"Принять заказ\"] >> nth=-1" },
+    { "wait": 800 },
+    { "screenshot": "sheet-open" },
+    { "click": "role=dialog >> role=button[name=\"Новый клиент\"]" },
+    { "fill": "role=dialog >> input[placeholder=\"Как зовут клиента\"]", "value": "Тест Тестян" },
+    { "fill": "role=dialog >> input[type=tel]", "value": "00177001" },
+    { "fill": "role=dialog >> input[placeholder^=\"Например\"]", "value": "Pixel 7 — замена экрана" },
+    { "fill": "role=dialog >> role=textbox[name=\"Цена\"]", "value": "30000" },
+    { "fill": "role=dialog >> role=textbox[name=/Предоплата/]", "value": "10000" },
+    { "screenshot": "sheet-filled" },
+    { "click": "role=dialog >> role=button[name=\"Принять заказ\"]" },
+    { "expectText": "Заказ №1025" },
+    { "wait": 800 },
+    { "screenshot": "created" },
+    { "click": "role=button[name=\"Взять в работу\"] >> nth=-1" },
+    { "expectText": "в работе" },
+    { "click": "role=button[name=\"Готово — сообщить клиенту\"] >> nth=-1" },
+    { "expectText": "клиенту сообщили" },
+    { "wait": 600 },
+    { "screenshot": "ready" },
+    { "goto": "/biz/notifications/log" },
+    { "expectText": "Заказ готов" },
+    { "screenshot": "notify-log" }
+  ]
+}

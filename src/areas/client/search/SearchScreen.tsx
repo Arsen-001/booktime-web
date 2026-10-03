@@ -26,6 +26,7 @@ import { CLIENT_SPHERES } from '@/areas/client/ui/sphereIcons';
 import { DISTRICT_IDS } from '@/config/districts';
 import { useCurrent } from '@/demo/hooks';
 import type { AcceptsWhom, DistrictId, SphereId, Workplace } from '@/domain/core';
+import { localizedPath, splitLocalePrefix } from '@/i18n/localePath';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { Button } from '@/ui/Button';
@@ -87,7 +88,10 @@ export function SearchScreen({ initialSphere, initialDay, initialQuery = '', ini
   useEffect(() => {
     const qs = filtersToParams(filters, search).toString();
     const url = `/search${qs ? `?${qs}` : ''}`;
-    if (`${location.pathname}${location.search}` !== url) window.history.replaceState(window.history.state, '', url);
+    // /hy/search, /en/search — язык в адресе сохраняем (src/i18n/localePath.ts)
+    const urlLocale = splitLocalePrefix(location.pathname).locale;
+    const address = urlLocale ? localizedPath(url, urlLocale) : url;
+    if (`${location.pathname}${location.search}` !== address) window.history.replaceState(window.history.state, '', address);
     try {
       sessionStorage.setItem(LAST_SEARCH_KEY, url);
     } catch {

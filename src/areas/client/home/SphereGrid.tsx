@@ -6,6 +6,7 @@ import type { CSSProperties, PointerEvent } from 'react';
 import { inAttr, useInView, useReducedMotion } from '@/areas/client/home/landing';
 import { CLIENT_SPHERES, SPHERE_ICON } from '@/areas/client/ui/sphereIcons';
 import type { SphereId } from '@/domain/core';
+import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 
 /** Цвет сферы на плитке — из палитры графиков (токены, свои для тёмной темы) */
@@ -18,6 +19,10 @@ const SPHERE_TONE: Record<SphereId, string> = {
   dental: 'var(--chart-1)',
   fitness: 'var(--chart-8)',
   carwash: 'var(--chart-7)',
+  tailor: 'var(--chart-6)',
+  repair: 'var(--chart-1)',
+  drycleaning: 'var(--chart-4)',
+  detailing: 'var(--chart-2)',
   general: 'var(--chart-7)',
 };
 
@@ -27,6 +32,7 @@ const SPHERE_TONE: Record<SphereId, string> = {
  */
 export function SphereGrid() {
   const tc = useT('common');
+  const localize = useLocalizedHref();
   const t = useT('client');
   const reduced = useReducedMotion();
   const [ref, inView] = useInView<HTMLUListElement>();
@@ -49,7 +55,7 @@ export function SphereGrid() {
           return (
             <li key={id} className="lp-rv min-w-0" style={{ '--d': i } as CSSProperties} {...inAttr(inView)}>
               <Link
-                href={`/search?sphere=${id}`}
+                href={localize(`/search?sphere=${id}`)}
                 onPointerMove={tilt}
                 onPointerLeave={(e) => (e.currentTarget.style.transform = '')}
                 style={{ '--tone': SPHERE_TONE[id] } as CSSProperties}
