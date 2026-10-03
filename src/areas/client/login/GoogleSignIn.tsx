@@ -256,9 +256,9 @@ export function GoogleSignIn({ app, onResult, consent, footer }: GoogleSignInPro
     if (nativeBusy || appleSignIn.isPending) return;
     setNativeBusy('apple');
     try {
-      const apple = isApiMode() ? await callNative<{ identityToken: string; name: string | null }>('BooktimeAuth', 'signInWithApple') : undefined;
+      const apple = isApiMode() ? await callNative<{ identityToken: string; authorizationCode?: string | null; name: string | null }>('BooktimeAuth', 'signInWithApple') : undefined;
       try {
-        onResult(await appleSignIn.mutate({ identityToken: apple?.identityToken, name: apple?.name, app, consent }));
+        onResult(await appleSignIn.mutate({ identityToken: apple?.identityToken, authorizationCode: apple?.authorizationCode, name: apple?.name, app, consent }));
       } catch (e) {
         toast.error(loginErrorText(t, e, t('login.apple.failed')));
       }

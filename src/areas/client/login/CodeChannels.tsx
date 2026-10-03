@@ -5,8 +5,7 @@ import { getLoginChannels, type LoginChannel } from '@/api/client';
 import { useApiQuery } from '@/api/request';
 import type { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
-import { FormField } from '@/ui/FormField';
-import { SegmentedControl } from '@/ui/SegmentedControl';
+import { ChannelPicker as TilePicker } from '@/ui/parts/ChannelPicker';
 
 type ClientT = ReturnType<typeof useT<'client'>>;
 
@@ -35,25 +34,29 @@ export function codeSentText(t: ClientT, phone: string, channel: LoginChannel): 
 
 const ICONS: Record<LoginChannel, typeof Send> = { telegram: Send, whatsapp: MessageCircle, sms: MessageSquare };
 
+const ALL_CHANNELS: LoginChannel[] = ['telegram', 'whatsapp', 'sms'];
+
 /**
- * «Куда прислать код» на первом шаге: только мессенджеры (SMS — запасной, на шаге кода, F-00-032) и только включённые.
- * Включён один — выбирать нечего, поля нет.
+ * «Куда прислать код» на первом шаге (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда три плитки
+ * Telegram · WhatsApp · SMS, выключенные на сервере — неактивны с подписью «скоро», и под ними одна строка — куда именно
+ * придёт код. Выбранный выключенный канал не остаётся: берётся первый включённый.
  */
 export function ChannelPicker({ t, value, onChange, channels }: { t: ClientT; value: LoginChannel; onChange: (c: LoginChannel) => void; channels: LoginChannel[] }) {
-  const options: LoginChannel[] = channels.filter((c) => c !== 'sms');
-  if (options.length < 2) return null;
+  const enabled = ALL_CHANNELS.filter((c) => channels.includes(c));
+  const current = enabled.includes(value) ? value : (enabled[0] ?? 'telegram');
   return (
-    <FormField label={t('login.channelLabel')}>
-      <SegmentedControl
-        value={options.includes(value) ? value : options[0]!}
-        onValueChange={(v) => onChange(v as LoginChannel)}
-        fullWidth
-        options={options.map((c) => {
-          const Icon = ICONS[c];
-          return { value: c, label: channelName(t, c), icon: <Icon aria-hidden /> };
-        })}
+    <div data-f="F-00-032" className="flex flex-col gap-2">
+      <TilePicker
+        label={t('login.channelLabel')}
+        channels={ALL_CHANNELS}
+        value={current}
+        onValueChange={(c) => onChange(c as LoginChannel)}
+        nameOf={(c) => channelName(t, c as LoginChannel)}
+        disabled={ALL_CHANNELS.filter((c) => !channels.includes(c))}
+        disabledNote={t('login.channelSoon')}
       />
-    </FormField>
+      <p className="text-sm text-muted">{t(`login.channelWhere.${current}`)}</p>
+    </div>
   );
 }
 

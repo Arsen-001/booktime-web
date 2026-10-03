@@ -16,6 +16,7 @@ import { HttpApiError, http } from '@/api/http';
 import { mirrorClients, unmirrorClient } from '@/api/mirror';
 import { ApiError, trackRead } from '@/api/request';
 import { DuplicatePhoneError } from '@/api/clients/shared';
+import { uploadMultipart } from '@/api/uploads.server';
 import type { Client, Id } from '@/domain/core';
 import type {
   AppActivity,
@@ -228,6 +229,19 @@ export function listFiles(businessId: Id, clientId: Id): Promise<ClientFile[]> {
 
 export function addFile(businessId: Id, clientId: Id, input: { name: string; ext: string; size: number; dataUrl: string }): Promise<ClientFile> {
   return http<ClientFile>('POST', `${base(businessId)}/clients/${clientId}/files`, input);
+}
+
+/**
+ * Документ файлом (04.10.2026): сервер проверяет тип по содержимому (PDF, фото, Word/Excel, текст до 10 МБ) и кладёт
+ * его в закрытое хранилище; скачать — только из кабинета (contentUrl, cookie сессии).
+ */
+export function uploadFile(
+  businessId: Id,
+  clientId: Id,
+  file: File,
+  opts: { onProgress?: (fraction: number) => void; signal?: AbortSignal } = {},
+): Promise<ClientFile> {
+  return uploadMultipart<ClientFile>(`${base(businessId)}/clients/${clientId}/files/upload`, file, { name: file.name }, opts, (d) => typeof (d as ClientFile).id === 'string');
 }
 
 export function deleteFile(businessId: Id, clientId: Id, fileId: string): Promise<void> {

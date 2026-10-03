@@ -3,20 +3,21 @@ import { CLIENT_SPHERES } from '@/areas/client/ui/sphereIcons';
 import type { DistrictId, SphereId } from '@/domain/core';
 import { CLIENT_LOCALES } from '@/i18n/config';
 import { localeAlternates, localizedPath } from '@/i18n/localePath';
-import { listCatalogForSitemap } from '@/lib/seo/publicData';
+import { listSitemapData } from '@/lib/seo/publicData';
 import { searchPath } from '@/lib/seo/searchPath';
 import { absoluteUrl, siteUrl } from '@/lib/seo/site';
 
 /**
  * sitemap.xml (SEO, 03.10.2026): главная, поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
  * страница каждого опубликованного салона/мастера-одиночки /b/<slug> и карточки мастеров салонов /masters/<id>.
- * Источник — публичный каталог сервера, кэш на час. Сервер недоступен — только статические страницы.
+ * Источник — лёгкий список сервера `GET /v1/public/sitemap` (04.10.2026: slug, сферы, районы, фото, дата изменения —
+ * без расчёта окон, как было через каталог), кэш 10 минут. Сервер недоступен — только статические страницы.
  *
  * Демо (моковая сборка) получает только статические адреса; staging — свои, но обе закрыты в robots.txt.
  * Язык в адресе (03.10.2026, src/i18n/localePath.ts): каждая страница — три адреса (/…, /hy/…, /en/…), у каждого
  * hreflang-альтернативы на все три языка + x-default (ru).
  */
-export const revalidate = 3600;
+export const revalidate = 600;
 
 /** Строка sitemap → по строке на каждый язык, у каждой — альтернативы всех языков */
 function withLocales(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
@@ -34,24 +35,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl('/search'), changeFrequency: 'daily', priority: 0.8 },
     { url: absoluteUrl('/register-business'), changeFrequency: 'monthly', priority: 0.4 },
   ];
-  const catalog = await listCatalogForSitemap();
+  const { businesses, masters } = await listSitemapData();
   const spheres = new Set<SphereId>();
   const pairs = new Set<string>();
-  const businesses = new Map<string, string[]>();
-  const masters = new Set<string>();
-  for (const e of catalog) {
-    const district = e.location?.district;
-    for (const s of e.business.sphereIds) {
+  for (const b of businesses) {
+    for (const s of b.sphereIds as SphereId[]) {
       if (!CLIENT_SPHERES.includes(s)) continue;
       spheres.add(s);
-      if (district) pairs.add(`${s}|${district}`);
+      for (const d of b.districts) pairs.add(`${s}|${d}`);
     }
-    if (!businesses.has(e.business.slug)) {
-      businesses.set(e.business.slug, e.business.photos.filter((p) => /^https?:\/\//.test(p)).slice(0, 5));
-    }
-    // У мастера-одиночки своя страница — /b/<slug>; карточки отдельно — только у мастеров салонов
-    if (e.business.kind !== 'individual') masters.add(e.staff.id);
   }
+  const lastModified = (iso?: string) => (iso && !Number.isNaN(Date.parse(iso)) ? { lastModified: new Date(iso) } : {});
 
   for (const s of CLIENT_SPHERES) {
     if (spheres.has(s)) entries.push({ url: absoluteUrl(searchPath(s)), changeFrequency: 'daily', priority: 0.7 });
@@ -60,11 +54,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [s, d] = key.split('|') as [SphereId, DistrictId];
     entries.push({ url: absoluteUrl(searchPath(s, d)), changeFrequency: 'daily', priority: 0.6 });
   }
-  for (const [slug, images] of businesses) {
-    entries.push({ url: absoluteUrl(`/b/${slug}`), changeFrequency: 'weekly', priority: 0.9, ...(images.length > 0 && { images }) });
+  const seen = new Set<string>();
+  for (const b of businesses) {
+    if (seen.has(b.slug)) continue;
+    seen.add(b.slug);
+    const images = b.images.filter((p) => /^https?:\/\//.test(p)).slice(0, 5);
+    entries.push({ url: absoluteUrl(`/b/${b.slug}`), changeFrequency: 'weekly', priority: 0.9, ...lastModified(b.updatedAt), ...(images.length > 0 && { images }) });
   }
-  for (const id of masters) {
-    entries.push({ url: absoluteUrl(`/masters/${id}`), changeFrequency: 'weekly', priority: 0.5 });
+  // У мастера-одиночки своя страница — /b/<slug>; сервер отдаёт только мастеров салонов
+  for (const m of new Map(masters.map((x) => [x.id, x])).values()) {
+    entries.push({ url: absoluteUrl(`/masters/${m.id}`), changeFrequency: 'weekly', priority: 0.5, ...lastModified(m.updatedAt) });
   }
   return withLocales(entries);
 }

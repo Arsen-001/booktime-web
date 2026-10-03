@@ -1005,12 +1005,21 @@ export async function signInWithGoogle(input: { idToken?: string; app: 'client' 
 /**
  * «Войти через Apple» — только внутри приложения BookTime на iOS (правило App Store 4.8; кнопка — GoogleSignIn.tsx,
  * токен — нативное окно Apple, src/lib/native). Сервер проверяет identity token; привязан — сессия, нет — pending.
- * name — имя из Apple (его дают только при первом входе). Демо — как Google: сразу вход демо-персоной.
+ * name — имя из Apple (его дают только при первом входе). authorizationCode — одноразовый код из того же ответа Apple:
+ * сервер меняет его на refresh token, чтобы отозвать вход через Apple при удалении аккаунта (App Store 5.1.1(v)).
+ * Демо — как Google: сразу вход демо-персоной.
  */
-export async function signInWithApple(input: { identityToken?: string; name?: string | null; app: 'client' | 'business'; consent?: boolean }): Promise<GoogleSignInResult> {
+export async function signInWithApple(input: {
+  identityToken?: string;
+  authorizationCode?: string | null;
+  name?: string | null;
+  app: 'client' | 'business';
+  consent?: boolean;
+}): Promise<GoogleSignInResult> {
   if (isApiMode()) {
     const r = await http<{ session: SessionView | null; pendingApple: (PendingGoogle & { expiresIn: number }) | null }>('POST', '/v1/auth/apple', {
       identityToken: input.identityToken,
+      authorizationCode: input.authorizationCode ?? undefined,
       app: input.app,
       consent: input.consent,
       name: input.name ?? undefined,

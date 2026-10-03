@@ -18,22 +18,27 @@ export interface ChannelPickerProps {
   value: PhoneVerifyChannel;
   onValueChange: (value: PhoneVerifyChannel) => void;
   nameOf: (channel: PhoneVerifyChannel) => string;
+  /** Видны, но не выбираются (канал ещё не подключён) — с маленькой подписью под названием */
+  disabled?: PhoneVerifyChannel[];
+  disabledNote?: string;
 }
 
 /**
  * Куда прислать код — плитки «иконка над подписью» во всю ширину. Влезают в 390 px (в отличие от сегментов в строку),
  * выбранная — рамкой, заливкой и галочкой-цветом. Радиогруппа: стрелки ←/→ переключают.
  */
-export function ChannelPicker({ label, channels, value, onValueChange, nameOf }: ChannelPickerProps) {
+export function ChannelPicker({ label, channels, value, onValueChange, nameOf, disabled = [], disabledNote }: ChannelPickerProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
     if (!dir) return;
     e.preventDefault();
-    const i = (channels.indexOf(value) + dir + channels.length) % channels.length;
-    onValueChange(channels[i]);
-    refs.current[i]?.focus();
+    const live = channels.filter((c) => !disabled.includes(c));
+    if (!live.length) return;
+    const next = live[(live.indexOf(value) + dir + live.length) % live.length];
+    onValueChange(next);
+    refs.current[channels.indexOf(next)]?.focus();
   };
 
   return (
@@ -48,6 +53,7 @@ export function ChannelPicker({ label, channels, value, onValueChange, nameOf }:
       >
         {channels.map((c, i) => {
           const on = c === value;
+          const off = disabled.includes(c);
           return (
             <button
               key={c}
@@ -58,17 +64,21 @@ export function ChannelPicker({ label, channels, value, onValueChange, nameOf }:
               role="radio"
               aria-checked={on}
               tabIndex={on ? 0 : -1}
+              disabled={off}
               onClick={() => onValueChange(c)}
               className={cn(
                 'flex min-h-16 min-w-0 flex-col items-center justify-center gap-1 rounded-xl border px-1.5 py-2 text-sm font-medium',
                 'transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] [&_svg]:size-5',
-                on
-                  ? 'border-primary bg-primary-soft text-primary-text shadow-xs ring-1 ring-primary'
-                  : 'border-border-strong/60 bg-surface text-fg hover:border-border-strong hover:bg-surface-2',
+                off
+                  ? 'cursor-not-allowed border-dashed border-border bg-surface-2 text-muted'
+                  : on
+                    ? 'border-primary bg-primary-soft text-primary-text shadow-xs ring-1 ring-primary'
+                    : 'border-border-strong/60 bg-surface text-fg hover:border-border-strong hover:bg-surface-2',
               )}
             >
               {CHANNEL_ICON[c]}
               <span className="max-w-full truncate">{nameOf(c)}</span>
+              {off && disabledNote && <span className="text-[11px] leading-none font-normal">{disabledNote}</span>}
             </button>
           );
         })}

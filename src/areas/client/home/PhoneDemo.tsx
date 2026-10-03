@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useReducedMotion } from '@/areas/client/home/landing';
 import { useT } from '@/i18n/useT';
 import { BrandMark } from '@/shell/BrandMark';
+import { useIsClient } from '@/ui/hooks/useIsClient';
 
 const TODAY = ['15:00', '16:00', '17:30', '18:15', '19:00', '19:45'] as const;
 const TOMORROW = ['10:00', '11:30', '12:00'] as const;
@@ -19,6 +20,12 @@ const LOOP_MS = 8800;
 export function PhoneDemo() {
   const t = useT('client');
   const reduced = useReducedMotion();
+  // «Сегодня, <день недели>» — по дате в браузере и только после монтирования (у сервера свой пояс — гидрация
+  // разошлась бы); до этого просто «Сегодня». Названия — из словаря, как в CalendarMark (Intl может не знать армянский)
+  const client = useIsClient();
+  const todayLabel = client
+    ? t('home.demo.todayWeekday', { weekday: t('home.demo.weekdaysFull').split(',')[new Date().getDay()] })
+    : t('home.demo.today');
   const appRef = useRef<HTMLDivElement>(null);
   const fingerRef = useRef<HTMLSpanElement>(null);
   const pickRef = useRef<HTMLSpanElement>(null);
@@ -111,7 +118,7 @@ export function PhoneDemo() {
               <span className="block truncate text-xs text-muted">{t('home.demo.service')}</span>
             </div>
           </div>
-          <p className="mt-1 text-xs font-semibold text-muted">{t('home.demo.today')}</p>
+          <p className="mt-1 text-xs font-semibold text-muted">{todayLabel}</p>
           <div className="grid grid-cols-3 gap-1.5">
             {TODAY.map((s) => (
               <span key={s} ref={s === PICK ? pickRef : undefined} className="lp-slot">

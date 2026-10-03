@@ -139,7 +139,9 @@
 | `S3_FORCE_PATH_STYLE` | `1` (по умолчанию) — адреса `<endpoint>/<bucket>/<key>`; `0` — `<bucket>.<endpoint>` |
 | `UPLOADS_DIR` | Без S3 — папка фото на диске: по умолчанию `/data/uploads` в production (диск Railway), `./.uploads` локально |
 | `PUBLIC_API_URL` | Адрес API для ссылок на фото (`https://api.booktime.am`, `https://api-staging.booktime.am`). Пусто — из заголовков запроса (за прокси Railway работает, но лучше задать) |
-| `UPLOADS_QUOTA_MB` | Предел фото на бизнес, МБ |
+| `UPLOADS_QUOTA_MB` | Предел фото и документов клиентов на бизнес, МБ |
+| `PRIVATE_FILES_DIR` | Документы клиентов на диске (закрытые): по умолчанию `/data/private` в production, `./.private` локально |
+| `UPLOADS_CLEANUP` | `1` — ночная уборка неиспользуемых файлов удаляет; пусто — только отчёт в лог воркера |
 
 - **Сейчас (диск Railway)** — достаточно для старта: переменные не нужны (по желанию `PUBLIC_API_URL`), фото ложатся
   на тот же диск `/data`, что и бэкапы, раздаёт API. Ограничения: один экземпляр сервиса (диск не делится), раздача
@@ -158,8 +160,47 @@
 - **Перенос старых data: URL из базы** — `booktime-backend/scripts/migrate-data-urls.ts`: ищет картинки во всех
   текстовых и JSON-колонках, кладёт в хранилище, заменяет на адрес, переносит `ref_id` модерации на новый адрес.
   Без `--apply` — только отчёт. Запускать по слову владельца, после свежего бэкапа, с `PUBLIC_API_URL` (или
-  `S3_PUBLIC_URL`) и `DATABASE_URL` через временный `railway tcp-proxy`. Документы клиентов (`client_files`, там
-  бывают PDF) не трогает.
+  `S3_PUBLIC_URL`) и `DATABASE_URL` через временный `railway tcp-proxy`. Тот же запуск переносит и документы клиентов
+  (`client_files`): файл как есть в закрытое хранилище, `data_url` очищается (`--skip=client_files` — без них,
+  `--only=client_files` — только они).
+- **Документы клиентов** (вкладка «Файлы» карточки, 04.10.2026): в режиме `api` файл уходит на сервер как есть
+  (`POST /v1/biz/:businessId/clients/:id/files/upload`, поле `file` + `name`): PDF, JPEG/PNG/GIF/WebP, Word/Excel,
+  текст — до 10 МБ, тип по первым байтам (`unsupported_file` 415), без перекодирования. Это личные данные, поэтому
+  хранилище **закрытое**: S3 без `S3_PUBLIC_URL` — тот же бакет под `private/`; с публичным бакетом или без S3 — диск
+  `PRIVATE_FILES_DIR` (по умолчанию `/data/private` в production — тот же постоянный диск Railway, `./.private`
+  локально). `GET /v1/files/…` их не отдаёт; скачать — `GET /v1/biz/:businessId/clients/:id/files/:fileId/content`
+  (cookie сессии, право «Клиенты: просмотр», клиент этого бизнеса; `Content-Disposition: attachment`, `nosniff`,
+  `no-store`). Старые строки с data: URL работают как раньше (скачиваются тем же адресом). Мок — без изменений.
+- **Уборка неиспользуемых файлов** (воркер, каждую ночь 03:40 по Еревану): строки `uploads` старше 7 дней, ключ
+  которых не встречается ни в одной текстовой/JSON-колонке базы (кроме журналов изменений) и ни в одном документе
+  клиента, — удаляются вместе с файлами. По умолчанию **пробный режим**: только строка в логе воркера
+  `uploads.cleanup (пробный режим…)` со списком того, что удалилось бы. Удалять — `UPLOADS_CLEANUP=1` в Railway
+  (сервис `worker`), после того как неделю отчёты выглядят правильно. Файлы моложе 7 дней не трогаются никогда.
+
+## Защита API от нагрузки поисковиков (04.10.2026)
+
+Публичные страницы, которые сайт рисует на сервере (`/b/<slug>`, `/masters/<id>`, `/places/<id>`, картинки соцсетей,
+`sitemap.xml`), берут данные с API. Чтобы поисковый робот, листающий сотни страниц, не превращался в сотни запросов:
+
+- **Кэш Next** (`src/lib/seo/publicData.ts`): страница салона/мастера/места — 5 минут, sitemap — 10 минут. Только общие
+  для всех данные: запрос к API идёт без cookie посетителя, личное (вошедший человек) читает экран в браузере.
+  Главная и поиск на сервере к API не ходят.
+- **Лёгкий список для sitemap**: `GET /v1/public/sitemap` (slug, сферы, районы, фото, даты изменения) вместо каталога
+  с окнами; ответ кэшируется в памяти сервера и `Cache-Control: public, max-age=600`.
+- **Лимиты по IP** на сервере — как были (`@RateLimit`, Redis). Все посетители сайта приходят к API с нескольких адресов
+  Vercel, поэтому SSR сайта подписывает запросы секретом: заголовок `X-BT-SSR`. С верным секретом публичные GET-лимиты
+  умножаются на `SSR_RATE_MULTIPLIER` (20) и считаются в своей корзине; записи (код, запись, отмена) — как у всех.
+  Секрет не задан ни там, ни там — обычные лимиты для всех (ничего не ломается).
+
+| Где | Переменная | Значение |
+|---|---|---|
+| Vercel `booktime-web` (Production и Preview), только сервер — без `NEXT_PUBLIC_` | `SSR_SHARED_SECRET` | случайная строка: `openssl rand -hex 32` |
+| Railway `api` (production и staging) | `SSR_SHARED_SECRET` | то же значение, что в Vercel этого окружения |
+| Railway `api` | `SSR_RATE_MULTIPLIER` | по желанию, по умолчанию 20 |
+| Railway `api` | `TRUST_PROXY` | `1` — IP для лимитов берётся из `X-Forwarded-For` прокси Railway (без него все запросы для лимитов — с адреса прокси) |
+
+После смены переменной в Vercel — пересборка (Redeploy), в Railway — перезапуск сервиса. Проверка:
+`curl -sI https://api.booktime.am/v1/public/sitemap | grep -i cache-control`.
 
 ## Автопроверки (GitHub Actions)
 
@@ -229,6 +270,19 @@
   - iOS-приложение: раз в нём есть «Войти через Google», App Store требует ещё **«Войти через Apple»** (правило 4.8) —
     сделано (03.10.2026): сервер `POST /v1/auth/apple`, env Railway `APPLE_CLIENT_IDS=am.booktime.app,am.booktime.business`
     (пусто — вход через Apple выключен).
+  - **Войти через Apple: отзыв при удалении аккаунта** (App Store 5.1.1(v), код готов 04.10.2026). Приложение присылает
+    вместе с identity token одноразовый `authorizationCode`; сервер меняет его на refresh token Apple и хранит
+    зашифрованным (`user_identities.refresh_token_enc`); когда наступает удаление аккаунта (25 дней после запроса),
+    воркер отзывает его (`https://appleid.apple.com/auth/revoke`, задача `apple.revoke`, до 6 повторов) — удаление от
+    Apple не зависит. Нужно в Railway (api и worker, оба окружения):
+    - Apple Developer → Certificates, IDs & Profiles → **Keys** → «+» → включить **Sign in with Apple** → Configure →
+      Primary App ID `am.booktime.app` → Register → скачать `.p8` (один раз!), записать **Key ID**; **Team ID** — в
+      правом верхнем углу (Membership).
+    - `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` (содержимое `.p8` целиком; переводы строк можно `\n`).
+    - `SECRETS_KEY` — ключ шифрования токенов в базе: `openssl rand -base64 32`, одно значение на окружение, менять
+      нельзя (сохранённые токены перестанут расшифровываться). Хранить копию в менеджере паролей.
+    Без этих переменных вход через Apple работает как раньше, токены не сохраняются, в логе — предупреждение
+    `apple tokens: … skipped — not configured`.
 - Приложения iOS/Android (`../booktime-mobile`, README там): диплинки — env Vercel (production) `APPLE_TEAM_ID`,
   `ANDROID_SHA256_CERT`, `ANDROID_BUSINESS_SHA256_CERT` (без них `/.well-known/*` — 404); пуши — env Railway `FCM_*`.
 - Vercel Hobby — только некоммерческое использование; для салонов — Vercel Pro.

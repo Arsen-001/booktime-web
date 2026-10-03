@@ -19,9 +19,23 @@ export function uploadImageServer(
   file: File,
   opts: { onProgress?: (fraction: number) => void; signal?: AbortSignal } = {},
 ): Promise<UploadedImage> {
+  return uploadMultipart<UploadedImage>(uploadPath(target), file, {}, opts, (d) => typeof (d as UploadedImage).url === 'string');
+}
+
+/**
+ * Любой файл multipart-запросом (поле file + текстовые поля) с процентом загрузки. Документы клиента
+ * (POST /v1/biz/:id/clients/:id/files/upload, 04.10.2026) идут этим же путём.
+ */
+export function uploadMultipart<T>(
+  path: string,
+  file: File,
+  fields: Record<string, string>,
+  opts: { onProgress?: (fraction: number) => void; signal?: AbortSignal } = {},
+  isOk: (data: unknown) => boolean = (d) => Boolean(d),
+): Promise<T> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', API_URL + uploadPath(target));
+    xhr.open('POST', API_URL + path);
     xhr.withCredentials = true;
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.responseType = 'text';
@@ -35,9 +49,9 @@ export function uploadImageServer(
       } catch {
         data = undefined;
       }
-      if (xhr.status >= 200 && xhr.status < 300 && data && typeof (data as UploadedImage).url === 'string') {
+      if (xhr.status >= 200 && xhr.status < 300 && data && isOk(data)) {
         opts.onProgress?.(1);
-        resolve(data as UploadedImage);
+        resolve(data as T);
         return;
       }
       const err = (data ?? {}) as { code?: string; message?: string; retryAfter?: number };
@@ -47,7 +61,9 @@ export function uploadImageServer(
     xhr.onabort = () => reject(new HttpApiError(0, 'aborted', 'Upload cancelled'));
     opts.signal?.addEventListener('abort', () => xhr.abort(), { once: true });
     const form = new FormData();
-    form.append('file', file, file.name || 'photo');
+    // Текстовые поля — до файла: multer видит их раньше, чем файл
+    for (const [k, v] of Object.entries(fields)) form.append(k, v);
+    form.append('file', file, file.name || 'file');
     xhr.send(form);
   });
 }

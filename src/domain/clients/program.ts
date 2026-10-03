@@ -272,6 +272,8 @@ export interface PastVisitInput {
 export const CLIENT_FILE_EXTENSIONS = ['jpeg', 'jpg', 'png', 'gif', 'doc', 'docx', 'pdf', 'xls', 'xlsx', 'txt'] as const;
 export type ClientFileExt = (typeof CLIENT_FILE_EXTENSIONS)[number];
 export const CLIENT_FILE_MAX_MB = 12;
+/** На сервере (режим api, 04.10.2026) — до 10 МБ, как фото */
+export const CLIENT_FILE_SERVER_MAX_MB = 10;
 
 export interface ClientFile {
   id: string;
@@ -279,7 +281,13 @@ export interface ClientFile {
   name: string;
   ext: string;
   size: number;
+  /** Мок и старые строки сервера — файл целиком data: URL; файл в хранилище сервера — адрес скачивания (= contentUrl) */
   dataUrl: string;
+  /** Сервер: скачать через кабинет (cookie сессии, право «Клиенты: просмотр»), Content-Disposition: attachment */
+  contentUrl?: string;
+  /** Сервер: файл в закрытом хранилище, а не data: URL в базе */
+  stored?: boolean;
+  mime?: string | null;
   uploadedAt: ISODateTime;
   uploadedBy: string;
   /** Файл прикреплён к визиту (фото работы, F-00-128 доп. к F-04-075) */

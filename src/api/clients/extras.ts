@@ -2,7 +2,7 @@
 
 /** Всё вокруг карточки: комментарии, файлы, звонки, посетители, согласие на рекламу, приглашение в приложение, плитки окна записи. */
 import type { AppActivity, BookingWindowSection, ClientCall, ClientComment, ClientFile, ClientProfile, ConsentMethod, VisitorInfo } from '@/domain/clients';
-import { CLIENT_FILE_EXTENSIONS, CLIENT_FILE_MAX_MB, emptyProfile } from '@/domain/clients';
+import { CLIENT_FILE_EXTENSIONS, CLIENT_FILE_MAX_MB, CLIENT_FILE_SERVER_MAX_MB, emptyProfile } from '@/domain/clients';
 import type { Booking, Client, Id, ISODate, ISODateTime } from '@/domain/core';
 import * as C from '@/api/clients/clients.server';
 import * as S from '@/api/journal.server';
@@ -169,6 +169,35 @@ export function addFile(input: { clientId: Id; name: string; ext: string; size: 
     });
     return file;
   });
+}
+
+/** Предел файла клиента, МБ: сервер (10 — как у фото) или мок (data: URL в localStorage, как раньше) */
+export function clientFileMaxMb(): number {
+  return isApiMode() ? CLIENT_FILE_SERVER_MAX_MB : CLIENT_FILE_MAX_MB;
+}
+
+/**
+ * Прикрепить файл к карточке (F-04-086). Режим `api` — файл уходит на сервер как есть (закрытое хранилище, 04.10.2026),
+ * с процентом загрузки; мок — как раньше: data: URL в моковой базе.
+ */
+export async function uploadClientFile(
+  input: { clientId: Id; file: File; uploadedBy: string },
+  opts: { onProgress?: (fraction: number) => void; signal?: AbortSignal } = {},
+): Promise<ClientFile> {
+  if (isApiMode()) return C.uploadFile(C.bizOf(), input.clientId, input.file, opts);
+  const dataUrl: string = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(input.file);
+  });
+  const ext = input.file.name.split('.').pop()?.toLowerCase() ?? '';
+  return addFile({ clientId: input.clientId, name: input.file.name, ext, size: input.file.size, dataUrl, uploadedBy: input.uploadedBy });
+}
+
+/** Ссылка «Скачать»: файл на сервере — адрес скачивания через кабинет; старые строки и мок — data: URL */
+export function clientFileHref(f: ClientFile): string {
+  return f.contentUrl ?? f.dataUrl;
 }
 
 export function deleteFile(clientId: Id, fileId: string): Promise<void> {

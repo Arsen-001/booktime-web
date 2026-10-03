@@ -1,12 +1,12 @@
 'use client';
 
 /** Вкладка «Файлы» карточки клиента (F-04-086). Раздел «clients». */
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { Download, File as FileIcon, Trash2, Upload } from 'lucide-react';
-import { addFile, deleteFile, listFiles } from '@/api/clients';
+import { clientFileHref, clientFileMaxMb, deleteFile, listFiles, uploadClientFile } from '@/api/clients';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { CLIENT_FILE_EXTENSIONS, CLIENT_FILE_MAX_MB } from '@/domain/clients';
+import { CLIENT_FILE_EXTENSIONS } from '@/domain/clients';
 import { useCan } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { useFormat } from '@/i18n/useFormat';
@@ -32,6 +32,26 @@ function extOf(name: string): string {
   return name.split('.').pop()?.toLowerCase() ?? '';
 }
 
+/** Ошибка загрузки → ключ текста (сервер проверяет тип по содержимому файла, размер и место) */
+function uploadErrorKey(error: unknown): 'card.files.tooBig' | 'card.files.badExt' | 'card.files.quota' | 'card.files.tooMany' | 'card.files.network' | 'card.files.uploadFailed' {
+  switch ((error as { code?: string } | null)?.code) {
+    case 'file_too_large':
+    case 'too_big':
+      return 'card.files.tooBig';
+    case 'unsupported_file':
+    case 'bad_ext':
+      return 'card.files.badExt';
+    case 'upload_quota':
+      return 'card.files.quota';
+    case 'rate_limited':
+      return 'card.files.tooMany';
+    case 'network':
+      return 'card.files.network';
+    default:
+      return 'card.files.uploadFailed';
+  }
+}
+
 /** Размер файла на языке интерфейса (было «КБ/МБ» по-русски на любом языке) */
 function formatSize(bytes: number, locale: string): string {
   const small = bytes < 1024 * 1024;
@@ -54,7 +74,12 @@ export function FilesTab({ clientId, uploaderName, canUpload: canUploadProp, can
   const inputRef = useRef<HTMLInputElement>(null);
 
   const filesQ = useApiQuery(['clients', 'files', clientId], () => listFiles(clientId), { enabled: Boolean(clientId) });
-  const upload = useApiMutation(addFile);
+  // Режим api: файл уходит на сервер как есть (закрытое хранилище) с процентом; мок — data: URL, как раньше
+  const upload = useApiMutation((args: { file: File; onProgress: (f: number) => void }) =>
+    uploadClientFile({ clientId, file: args.file, uploadedBy: uploaderName }, { onProgress: args.onProgress }),
+  );
+  const [progress, setProgress] = useState<number | null>(null);
+  const maxMb = clientFileMaxMb();
   const remove = useApiMutation((args: { clientId: string; fileId: string }) => deleteFile(args.clientId, args.fileId));
   // Постранично, как во всех списках (DESIGN.md → Long lists)
   const { pageItems, pager } = usePagedList(filesQ.data ?? []);
@@ -67,20 +92,17 @@ export function FilesTab({ clientId, uploaderName, canUpload: canUploadProp, can
         toast.error(t('card.files.badExt'));
         continue;
       }
-      if (file.size > CLIENT_FILE_MAX_MB * 1024 * 1024) {
-        toast.error(t('card.files.tooBig', { mb: CLIENT_FILE_MAX_MB }));
+      if (file.size > maxMb * 1024 * 1024) {
+        toast.error(t('card.files.tooBig', { mb: maxMb }));
         continue;
       }
-      const dataUrl: string = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result));
-        reader.onerror = () => reject(reader.error);
-        reader.readAsDataURL(file);
-      });
+      setProgress(0);
       try {
-        await upload.mutate({ clientId, name: file.name, ext, size: file.size, dataUrl, uploadedBy: uploaderName });
-      } catch {
-        toast.error(t('card.files.uploadFailed'));
+        await upload.mutate({ file, onProgress: setProgress });
+      } catch (e) {
+        toast.error(t(uploadErrorKey(e), { mb: maxMb }));
+      } finally {
+        setProgress(null);
       }
     }
     filesQ.refetch();
@@ -105,10 +127,10 @@ export function FilesTab({ clientId, uploaderName, canUpload: canUploadProp, can
         }}
       />
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-muted">{t('card.files.hint', { mb: CLIENT_FILE_MAX_MB })}</p>
+        <p className="text-sm text-muted">{t('card.files.hint', { mb: maxMb })}</p>
         {canUpload && (
           <Button size="sm" variant="outline" leftIcon={<Upload aria-hidden />} loading={upload.isPending} onClick={() => inputRef.current?.click()}>
-            {t('card.files.upload')}
+            {progress !== null && progress > 0 ? t('card.files.uploading', { pct: Math.round(progress * 100) }) : t('card.files.upload')}
           </Button>
         )}
       </div>
@@ -137,7 +159,7 @@ export function FilesTab({ clientId, uploaderName, canUpload: canUploadProp, can
                 </p>
               </div>
               <a
-                href={f.dataUrl}
+                href={clientFileHref(f)}
                 download={f.name}
                 aria-label={t('card.files.download')}
                 className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-fg hover:bg-surface-2 active:bg-surface-3 [&_svg]:size-4"

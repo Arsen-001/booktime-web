@@ -1,8 +1,8 @@
 'use client';
 
 /**
- * Куда прислать код при записи без входа и входе в кабинет на странице салона (03.10.2026): Telegram / WhatsApp —
- * из каналов, включённых на сервере (SMS — только запасной, кнопкой после отправки). Включён один — выбирать нечего.
+ * Куда прислать код при записи без входа и входе в кабинет на странице салона: всегда три канала, включённые — из
+ * сервера, остальные видны неактивными («скоро»).
  * После отправки: «Код отправлен в WhatsApp» по факту (сервер мог переслать в запасной канал) и «Прислать в …».
  */
 import { getLoginChannels } from '@/api/client';
@@ -19,19 +19,29 @@ export function useCodeChannels(): OnlineCodeChannel[] {
   return useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ASSUMED;
 }
 
-/** Выбор до отправки: только мессенджеры; меньше двух — ничего не рисуем */
+const ALL: OnlineCodeChannel[] = ['telegram', 'whatsapp', 'sms'];
+
+/**
+ * Выбор до отправки (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда Telegram · WhatsApp · SMS,
+ * не подключённые на сервере — неактивны с «скоро»; под плитками — куда именно придёт код.
+ */
 export function CodeChannelPicker({ value, onChange }: { value: OnlineCodeChannel; onChange: (c: OnlineCodeChannel) => void }) {
   const t = useT('online');
-  const messengers: OnlineCodeChannel[] = useCodeChannels().filter((c) => c !== 'sms');
-  if (messengers.length < 2) return null;
+  const enabled = useCodeChannels();
+  const current = enabled.includes(value) ? value : (ALL.find((c) => enabled.includes(c)) ?? 'telegram');
   return (
-    <ChannelPicker
-      label={t('booking.details.channelLabel')}
-      channels={messengers}
-      value={messengers.includes(value) ? value : messengers[0]!}
-      onValueChange={(c) => onChange(c)}
-      nameOf={(c) => t(`booking.details.channel.${c}`)}
-    />
+    <div className="flex flex-col gap-2">
+      <ChannelPicker
+        label={t('booking.details.channelLabel')}
+        channels={ALL}
+        value={current}
+        onValueChange={(c) => onChange(c)}
+        nameOf={(c) => t(`booking.details.channel.${c}`)}
+        disabled={ALL.filter((c) => !enabled.includes(c))}
+        disabledNote={t('booking.details.channelSoon')}
+      />
+      <p className="text-sm text-muted">{t(`booking.details.channelWhere.${current}`)}</p>
+    </div>
   );
 }
 

@@ -437,7 +437,13 @@
         "fullHint": "Nothing to pay at the visit",
         "timerAmount": "Transfer {amount} within {minutes} min after booking, otherwise the time is released."
       },
-      "prepayNoShowsRule": "This master asks for a prepayment only if {count, plural, one {# visit} other {# visits}} with them didn’t happen in the last {months, plural, one {# month} other {# months}}. If that applies, we’ll show the amount and where to pay after “Book”."
+      "prepayNoShowsRule": "This master asks for a prepayment only if {count, plural, one {# visit} other {# visits}} with them didn’t happen in the last {months, plural, one {# month} other {# months}}. If that applies, we’ll show the amount and where to pay after “Book”.",
+      "channelSoon": "soon",
+      "channelWhere": {
+        "telegram": "The code will come in Telegram — in the “Verification Codes” chat. Telegram must be on this number.",
+        "whatsapp": "The code will come in WhatsApp to this number.",
+        "sms": "The code will come as an SMS to this number."
+      }
     },
     "workplaceStep": {
       "title": "Where the service happens",
