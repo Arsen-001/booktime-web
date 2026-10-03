@@ -29,7 +29,7 @@
 От владельца: аккаунт Apple Developer ($99 в год, на компанию — нужен D-U-N-S), аккаунт Google Play Console ($25
 один раз), решение «одно приложение или два».
 
-**Сделано 03.10.2026 — первый выпуск собран.** Проект `../booktime-mobile` (свой git, без GitHub). Как собрать и
+**Сделано 03.10.2026 — первый выпуск собран.** Проект `../booktime-mobile`, закрытый репозиторий https://github.com/Arsen-001/booktime-mobile. Как собрать и
 выложить, что нужно от владельца — в его [README](../../booktime-mobile/README.md).
 - Два приложения: «BookTime» (`am.booktime.app`, booktime.am) и «BookTime Business» (`am.booktime.business`,
   booktime.am/biz), iOS (Swift Package Manager) и Android. Отладочные сборки для симулятора iOS и APK для Android
