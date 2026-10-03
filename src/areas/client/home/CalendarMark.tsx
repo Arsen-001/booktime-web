@@ -1,100 +1,114 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { inAttr, useInView, useReducedMotion } from '@/areas/client/home/landing';
+import { useReducedMotion } from '@/areas/client/home/landing';
 import mark from '@/shell/brand-mark.json';
 import { useT } from '@/i18n/useT';
+import { useIsClient } from '@/ui/hooks/useIsClient';
 
-const TIMES = ['10:00', '12:00', '14:00', '16:00', '18:00'] as const;
-const BOOK_EVERY_MS = 1100;
+const BOOK_EVERY_MS = 2400;
 const BOOKED_FOR_MS = 2600;
+const COLS = mark.rows[0].length;
 
 /**
- * Календарь-логотип (владелец 03.10.2026: «календарь делай как лого — 30 кубиков»): знак BookTime 6×5 — это неделя
- * мастера. Клетки B и T заняты, бледные свободны; свободные то и дело «занимаются» — кто-то только что записался.
- * Клетки появляются волной, когда блок попадает в экран; при наведении — день, время и занято ли.
+ * Календарь-логотип рядом с телефоном (владелец 03.10.2026): знак BookTime 6×5 — это 30 дней текущего месяца.
+ * Месяц, число дней и «сегодня» — из даты в браузере: 31-е встаёт под 30-м (в той же строке — подписи, карточка не
+ * растёт), в коротком месяце лишние клетки бледные и без числа, чтобы знак не ломался. Клетки B и T заняты, бледные
+ * свободны и то и дело «занимаются» — кто-то только что записался. Картинка (aria-hidden), не настоящие записи.
  */
 export function CalendarMark() {
   const t = useT('client');
   const reduced = useReducedMotion();
-  const [ref, inView] = useInView<HTMLDivElement>(0.3);
-  const days = t('home.calendar.days').split(',');
-  const free = mark.rows.flatMap((row, r) => [...row].map((k, c) => (k === '.' ? r * row.length + c : -1))).filter((i) => i >= 0);
+  // Дата — только в браузере: у сервера свой часовой пояс, на стыке месяцев числа разошлись бы с гидрацией
+  const client = useIsClient();
+  const now = client ? new Date() : null;
+  const year = now?.getFullYear() ?? 2026;
+  const month = now?.getMonth() ?? 0;
+  const today = now?.getDate() ?? 0;
+  const daysIn = now ? new Date(year, month + 1, 0).getDate() : 30;
+  // Названия месяцев и дней — из словаря: в Intl армянского может не оказаться (WebView), а подпись должна быть на языке сайта
+  const months = t('home.calendar.months').split(',');
+  const monthsOf = t('home.calendar.monthsOf').split(',');
+  const weekdays = t('home.calendar.weekdays').split(',');
+  const monthName = now ? months[month] : '';
+  const dayLabel = (d: number) =>
+    t('home.calendar.dayLabel', { weekday: weekdays[new Date(year, month, d).getDay()], day: d, month: monthsOf[month] });
+
+  const free = mark.rows
+    .flatMap((row, r) => [...row].map((k, c) => (k === '.' ? r * COLS + c + 1 : 0)))
+    .filter((d) => d > 0 && d <= daysIn)
+    .concat(daysIn === 31 ? [31] : []);
   const [booked, setBooked] = useState<number | null>(null);
   const last = useRef<number | null>(null);
+  const freeKey = free.join(',');
 
   useEffect(() => {
-    if (reduced || !inView) return;
+    if (reduced || !client) return;
+    const days = freeKey.split(',').map(Number);
     let off = 0;
     const id = window.setInterval(() => {
-      let next = free[Math.floor(Math.random() * free.length)];
-      if (next === last.current) next = free[(free.indexOf(next) + 1) % free.length];
+      let next = days[Math.floor(Math.random() * days.length)];
+      if (next === last.current) next = days[(days.indexOf(next) + 1) % days.length];
       last.current = next;
       setBooked(next);
       window.clearTimeout(off);
       off = window.setTimeout(() => setBooked(null), BOOKED_FOR_MS);
-    }, BOOK_EVERY_MS + BOOKED_FOR_MS / 2);
+    }, BOOK_EVERY_MS);
     return () => {
       window.clearInterval(id);
       window.clearTimeout(off);
     };
-    // free — из файла знака, не меняется
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduced, inView]);
+  }, [reduced, client, freeKey]);
+
+  const cell = (day: number, k: string, w: number) => {
+    const kind = k === 'b' || k === 't' ? k : undefined;
+    if (day > daysIn) return <span key={day} className="lp-cell" data-k={kind} data-out="" style={{ ['--w' as string]: w }} />;
+    const isBooked = booked === day;
+    const busy = Boolean(kind) || isBooked;
+    return (
+      <span
+        key={day}
+        className="lp-cell"
+        data-k={kind}
+        {...(isBooked ? { 'data-booked': '' } : {})}
+        {...(day === today ? { 'data-today': '' } : {})}
+        style={{ ['--w' as string]: w }}
+      >
+        {client && <span className="lp-num">{day}</span>}
+        {client && (
+          <span className="lp-tip">
+            {dayLabel(day)}
+            {day === today ? ` · ${t('home.calendar.today')}` : ''} · {busy ? t('home.calendar.busyShort') : t('home.calendar.freeShort')}
+          </span>
+        )}
+      </span>
+    );
+  };
 
   return (
-    <section className="grid items-center gap-10 rounded-[2rem] border border-border bg-surface p-6 sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:gap-16 lg:p-14">
-      <div className="flex min-w-0 flex-col gap-4">
-        <span className="text-sm font-semibold text-primary-text">{t('home.calendar.eyebrow')}</span>
-        <h2 className="font-display text-[1.75rem] leading-[1.1] font-extrabold tracking-tight text-balance text-fg md:text-[2.5rem]">
-          {t('home.calendar.title')}
-        </h2>
-        <p className="max-w-[48ch] text-base text-muted md:text-lg">{t('home.calendar.text')}</p>
-        <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1 text-sm text-muted">
-          <span className="inline-flex items-center gap-2">
-            <span className="size-3.5 rounded bg-brand-b" />
+    <div aria-hidden data-in="" className="lp-cal lp-calcard flex w-[16.25rem] min-w-0 shrink flex-col gap-3 rounded-3xl border border-border bg-surface p-[1.125rem] shadow-lg">
+      <div className="flex flex-col">
+        <b className="min-h-6 font-display text-base font-extrabold text-fg first-letter:uppercase">{monthName}</b>
+        <span className="text-[13px] text-muted">{t('home.calendar.who')}</span>
+      </div>
+      <div className="grid grid-cols-6 gap-2">
+        {mark.rows.flatMap((row, r) => [...row].map((k, c) => cell(r * COLS + c + 1, k, Number(Math.hypot(c - 2.5, r - 2).toFixed(2)))))}
+        <span className="col-span-5 flex flex-wrap content-center items-center gap-x-3 gap-y-1 text-xs text-muted">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-[0.6875rem] rounded-[3px] bg-brand-b" />
             {t('home.calendar.busy')}
           </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="size-3.5 rounded bg-brand-empty" />
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-[0.6875rem] rounded-[3px] bg-brand-empty" />
             {t('home.calendar.free')}
           </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="size-3.5 rounded bg-primary-soft ring-2 ring-primary-text ring-inset" />
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-[0.6875rem] rounded-[3px] bg-primary-soft ring-2 ring-primary-text ring-inset" />
             {t('home.calendar.justBooked')}
           </span>
-        </div>
+        </span>
+        {daysIn === 31 && cell(31, '.', 4.6)}
       </div>
-
-      <div ref={ref} aria-hidden className="lp-cal w-full max-w-[440px] justify-self-center" {...inAttr(inView)}>
-        <div className="mb-2 grid grid-cols-6 gap-2.5 text-center text-xs font-semibold text-muted sm:gap-3.5">
-          {days.map((d) => (
-            <span key={d}>{d}</span>
-          ))}
-        </div>
-        <div className="grid grid-cols-6 gap-2.5 sm:gap-3.5">
-          {mark.rows.flatMap((row, r) =>
-            [...row].map((k, c) => {
-              const i = r * row.length + c;
-              const isBooked = booked === i;
-              const busy = k !== '.';
-              return (
-                <span
-                  key={i}
-                  className="lp-cell"
-                  data-k={k}
-                  {...(isBooked ? { 'data-booked': '' } : {})}
-                  style={{ ['--w' as string]: Math.hypot(c - 2.5, r - 2).toFixed(2) }}
-                >
-                  <span className="lp-tip">
-                    {days[c]} · {TIMES[r]} · {busy || isBooked ? t('home.calendar.busyShort') : t('home.calendar.freeShort')}
-                  </span>
-                </span>
-              );
-            }),
-          )}
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }

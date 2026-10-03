@@ -15,7 +15,6 @@ export function ThemeToggle() {
     <IconButton
       icon={dark ? <Sun aria-hidden /> : <Moon aria-hidden />}
       label={dark ? t('shell.themeLight') : t('shell.themeDark')}
-      size="sm"
       onClick={() => apply({ theme: dark ? 'light' : 'dark' })}
     />
   );

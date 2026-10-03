@@ -25,7 +25,7 @@ export function ClientShell({ children }: { children: ReactNode }) {
       {/* Телефон: любая кнопка и кнопка-ссылка приложения клиента — не ниже 44 px под палец (§0), даже «маленькая» */}
       <main
         id="content"
-        className="mx-auto w-full max-w-5xl flex-1 px-4 pb-28 pt-4 max-md:[&_[data-icon-button]]:min-h-11 max-md:[&_[data-icon-button]]:min-w-11 max-md:[&_[data-variant]]:min-h-11 md:px-6 md:pb-16 md:pt-8"
+        className="mx-auto w-full max-w-5xl flex-1 px-4 pb-28 pt-4 max-md:[&_[data-icon-button]]:min-h-11 max-md:[&_[data-icon-button]]:min-w-11 max-md:[&_[data-variant]]:min-h-11 md:px-6 md:pt-8 lg:pb-16"
       >
         {/* Смена страниц — как в кабинете: без мигания, старая держится, пока новая не получит данные */}
         <PageTransition>{children}</PageTransition>

@@ -1,8 +1,9 @@
 'use client';
 
-import { Bell, Check, Repeat, Search } from 'lucide-react';
+import { Check, Repeat, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { CalendarMark } from '@/areas/client/home/CalendarMark';
 import { useReducedMotion } from '@/areas/client/home/landing';
 import { PhoneDemo } from '@/areas/client/home/PhoneDemo';
 import { useT } from '@/i18n/useT';
@@ -20,13 +21,13 @@ export function GuestHero() {
   const points = [t('home.hero.free'), t('home.hero.noCalls'), t('home.hero.reminders')];
 
   return (
-    <section data-f="F-00-005" className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+    <section data-f="F-00-005" className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-8">
       <div className="flex min-w-0 flex-col gap-6">
         <span className="inline-flex w-max max-w-full items-center gap-2.5 rounded-full border border-border bg-surface py-1.5 pr-3.5 pl-2.5 text-sm font-semibold text-muted">
           <span className="lp-pulse" />
           {t('home.hero.eyebrow')}
         </span>
-        <h1 className="font-display text-[clamp(1.85rem,8.4vw,2.6rem)] leading-[1.04] font-extrabold tracking-[-0.035em] text-fg sm:text-6xl lg:text-[4.25rem]">
+        <h1 className="font-display text-[clamp(1.85rem,8vw,2.5rem)] leading-[1.08] font-extrabold text-fg sm:text-[3.25rem] lg:text-[3.25rem] xl:text-[3.5rem]">
           {t('home.hero.titleStart')} <RotatingWord />
           <br />
           {t('home.hero.titleEnd')}
@@ -42,13 +43,11 @@ export function GuestHero() {
           ))}
         </ul>
       </div>
-      <div className="relative flex justify-center py-2">
+      {/* Телефон и календарь рядом (владелец 03.10.2026); на узком телефоне календарь над телефоном */}
+      <div className="relative flex flex-col items-center justify-center gap-5 py-2 min-[560px]:flex-row min-[560px]:gap-4 lg:gap-6">
+        <CalendarMark />
         <PhoneDemo />
-        <span aria-hidden className="lp-chip absolute top-[22%] left-0 hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm font-semibold text-fg shadow-md xl:flex">
-          <Bell className="size-4 text-primary-text" />
-          {t('home.hero.chipReminder')}
-        </span>
-        <span aria-hidden data-late="" className="lp-chip absolute right-0 bottom-[20%] hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm font-semibold text-fg shadow-md xl:flex">
+        <span aria-hidden data-late="" className="lp-chip absolute right-0 bottom-[12%] hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm font-semibold text-fg shadow-md xl:flex">
           <Repeat className="size-4 text-primary-text" />
           {t('home.hero.chipReschedule')}
         </span>

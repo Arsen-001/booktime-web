@@ -49,6 +49,8 @@
 .lp-rot-list {
   display: flex;
   flex-direction: column;
+  /* Каждое слово своей ширины — рамка подстраивается под текущее, а не под самое длинное */
+  align-items: flex-start;
   /* Без «пружины»: перелёт показывал край соседнего слова над строкой */
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -79,7 +81,8 @@ a:hover > .lp-shine::after {
 /* --- Телефон с живой записью --- */
 .lp-phone {
   position: relative;
-  width: 300px;
+  width: 270px;
+  flex-shrink: 0;
   max-width: 100%;
   aspect-ratio: 300 / 610;
   border-radius: 44px;
@@ -319,6 +322,7 @@ a:hover > .lp-shine::after {
 /* --- Календарь-логотип: 30 клеток знака BookTime --- */
 .lp-cell {
   position: relative;
+  container-type: inline-size;
   aspect-ratio: 1;
   border-radius: 22%;
   background: var(--brand-empty);
@@ -388,6 +392,54 @@ a:hover > .lp-shine::after {
   transform: none;
 }
 
+/* Число дня: по центру клетки, размер — от клетки; цифры своей ширины (у «1» в таблице цифр зазор сбоку) */
+.lp-num {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(11px, 40cqi, 22px);
+  line-height: 1;
+  font-variant-numeric: proportional-nums;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.lp-cell[data-k] .lp-num {
+  color: var(--primary-contrast);
+}
+.lp-cell[data-booked] .lp-num {
+  color: var(--primary-text);
+}
+.lp-cell[data-today] {
+  outline: 2.5px solid var(--text);
+  outline-offset: 2px;
+}
+.lp-cell[data-out] {
+  opacity: 0.35;
+}
+.lp-cell:last-child .lp-tip {
+  left: auto;
+  right: 0;
+  transform: translate(0, 4px);
+}
+.lp-cell:last-child:hover .lp-tip {
+  transform: none;
+}
+@media (min-width: 1024px) {
+  .lp-phone {
+    width: 250px;
+  }
+  .lp-calcard {
+    width: 14.5rem;
+  }
+}
+.lp-calcard {
+  animation: lp-float 7s ease-in-out infinite;
+  animation-delay: -3.5s;
+}
+
 /* --- Шаги: линия дорисовывается при прокрутке --- */
 .lp-step-n {
   transition: background 0.4s, color 0.4s, border-color 0.4s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -428,12 +480,29 @@ a:hover > .lp-shine::after {
   to { opacity: 0; transform: scale(0.92); }
 }
 
+/* Телефон и календарь рядом на планшете — оба чуть меньше */
+@media (min-width: 560px) and (max-width: 1023.98px) {
+  .lp-phone {
+    width: min(270px, 46vw);
+  }
+  .lp-calcard {
+    width: min(16.25rem, 42vw);
+  }
+}
+@media (max-width: 559.98px) {
+  .lp-calcard {
+    width: 100%;
+    max-width: 20rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lp-rv:not([data-in]) {
     opacity: 1;
     transform: none;
   }
   .lp-phone,
+  .lp-calcard,
   .lp-chip,
   .lp-biz::before,
   .lp-pulse::after {

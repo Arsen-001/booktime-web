@@ -1,7 +1,6 @@
 'use client';
 
 import { AdBanner } from '@/areas/client/ui/AdBanner';
-import { CalendarMark } from '@/areas/client/home/CalendarMark';
 import { ForBusinessBanner } from '@/areas/client/home/ForBusinessBanner';
 import { FreeTodaySection } from '@/areas/client/home/FreeTodaySection';
 import { GuestHero } from '@/areas/client/home/GuestHero';
@@ -21,7 +20,7 @@ import { useT } from '@/i18n/useT';
  * Главная приложения клиента (F-00-001, F-00-008, F-14-010). Порядок — по важности (ux-best-c3 №5, demo-q3/q4):
  * поиск и сферы → сторис → «Свободно сегодня» → мои записи и «снова к мастеру» → мои мастера → реклама.
  * Гостю (владелец 03.10.2026) — первая страница сайта: кто мы и поиск → сферы плитками → «Свободно сегодня», если есть
- * → календарь-логотип → как записаться → «Вы мастер или салон?» (вариант «Живая запись»). Пустое «Свободно сегодня» гостю не показываем: тупик на первом экране.
+ * → как записаться → «Вы мастер или салон?» (вариант «Живая запись»). Пустое «Свободно сегодня» гостю не показываем: тупик на первом экране.
  */
 export function HomeScreen() {
   const t = useT('client');
@@ -37,7 +36,6 @@ export function HomeScreen() {
           <SphereGrid />
         </div>
         <FreeTodaySection hideWhenEmpty />
-        <CalendarMark />
         <HowItWorks />
         <ForBusinessBanner />
         <AdBanner placementId="pl_banner_home" />

@@ -9,10 +9,11 @@ import { useTDynamic } from '@/i18n/useTDynamic';
 import { cn } from '@/lib/cn';
 import { Logo } from '@/shell/Logo';
 import { useClientNav } from '@/shell/client/useClientNav';
+import { LanguageSwitch } from '@/shell/LanguageSwitch';
 import { ThemeToggle } from '@/shell/ThemeToggle';
 import { LinkButton } from '@/ui/Button';
 
-/** Верхняя полоса приложения клиента; на десктопе в ней меню */
+/** Верхняя полоса приложения клиента; на десктопе (от 1024 px) в ней меню — на планшете меню внизу: с языком и темой в полосе армянские пункты не помещались */
 export function ClientTopBar() {
   const t = useT('common');
   const tDyn = useTDynamic();
@@ -26,14 +27,14 @@ export function ClientTopBar() {
     <header className="sticky top-0 z-30 border-b border-border bg-surface pt-[env(safe-area-inset-top,0px)]">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-4 px-4 md:px-6">
         <Logo href="/" />
-        <nav aria-label={t('shell.mainNav')} className="ml-4 hidden flex-1 items-center gap-1 md:flex">
+        <nav aria-label={t('shell.mainNav')} className="ml-4 hidden flex-1 items-center gap-1 lg:flex">
           {items.map((item) => (
             <Link
               key={item.id}
               href={item.href}
               aria-current={item.active ? 'page' : undefined}
               className={cn(
-                'inline-flex min-h-11 items-center rounded-lg px-3 text-[15px] font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg',
+                'inline-flex min-h-11 items-center rounded-lg px-2.5 text-[15px] font-medium whitespace-nowrap text-muted xl:px-3 transition-colors hover:bg-surface-2 hover:text-fg',
                 item.active && 'bg-primary-soft text-primary-text hover:bg-primary-soft hover:text-primary-text',
               )}
             >
@@ -42,6 +43,7 @@ export function ClientTopBar() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <LanguageSwitch />
           <ThemeToggle />
           {persona === 'guest' && !loginOnScreen && (
             <LinkButton href={`/login?next=${encodeURIComponent(pathname)}`} size="sm" variant="secondary">

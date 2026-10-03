@@ -18,7 +18,7 @@ export function ClientTabBar() {
       data-client-tabbar=""
       // Свой снимок при смене страницы: стоит на месте и сразу показывает новую вкладку (globals.css → shell-*)
       style={{ viewTransitionName: 'shell-tabbar' }}
-      className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface shadow-[0_-4px_16px_-8px_var(--overlay)] md:hidden"
+      className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface shadow-[0_-4px_16px_-8px_var(--overlay)] lg:hidden"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-5">
         {items.map((item) => {
