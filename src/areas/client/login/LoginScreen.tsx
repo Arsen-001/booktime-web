@@ -379,7 +379,7 @@ function AdminLoginForm() {
   if (challenge) {
     return (
       <Card padding="lg" className="flex flex-col gap-4">
-        <p className="text-sm text-muted">{t('login.secondFactorSent', { phone: challenge.phoneMasked })}</p>
+        <p className="text-sm text-muted">{t('login.secondFactorSent', { phone: challenge.phoneMasked, channel: challenge.channel ?? 'other' })}</p>
         <FormField label={t('login.secondFactorTitle')} error={error}>
           <CodeInput value={code} onValueChange={setCode} onComplete={(v) => void handleCode(v)} invalid={Boolean(error)} autoFocus />
         </FormField>

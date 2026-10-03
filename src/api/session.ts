@@ -45,6 +45,8 @@ export interface SecondFactorChallenge {
   phoneMasked: string;
   resendAfter: number;
   expiresIn: number;
+  /** Куда код ушёл на самом деле — экран пишет «в Telegram / в WhatsApp / по SMS» */
+  channel?: 'telegram' | 'whatsapp' | 'sms';
 }
 
 export interface PlatformSessionView {

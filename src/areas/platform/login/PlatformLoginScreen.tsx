@@ -129,7 +129,7 @@ export function PlatformLoginScreen() {
               void handleCode();
             }}
           >
-            <p className="text-sm text-muted">{t('login.codeSentTo', { phone: challenge.phoneMasked })}</p>
+            <p className="text-sm text-muted">{t('login.codeSentTo', { phone: challenge.phoneMasked, channel: challenge.channel ?? 'other' })}</p>
             <FormField label={t('login.codeLabel')} error={error}>
               {/* 4 клеточки; все введены — проверяем сразу, без лишнего нажатия */}
               <CodeInput
