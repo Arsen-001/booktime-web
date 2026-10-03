@@ -49,7 +49,8 @@ function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (
 /** Вход клиента: имя + телефон → согласие на соглашение и обработку данных → код в WhatsApp/Telegram/SMS (F-00-032, F-14-006…F-14-008) */
 export function LoginScreen({ next }: { next: string }) {
   const t = useT('client');
-  const [role, setRole] = useState<LoginRole>('client');
+  // Пришли на вход из кабинета (/biz, в т.ч. приложение «BookTime Business») — сразу вкладка бизнеса
+  const [role, setRole] = useState<LoginRole>(next.startsWith('/biz') ? 'business' : 'client');
 
   return (
     <div className="mx-auto flex max-w-sm flex-col gap-5 py-6">
