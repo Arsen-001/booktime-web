@@ -43,6 +43,16 @@
   `railway volume -e production files -v api-volume download /backups/db-ГГГГ-ММ-ДД.sql.gz ./`
 - Восстановление: `gunzip -c db-….sql.gz | mysql -h… -u… -p… <база>` (через временный `railway tcp-proxy`).
 
+## Мониторинг ошибок (Sentry)
+
+- Организация **BookTime** (`booktime-l0.sentry.io`, данные в ЕС), проекты `booktime-api` и `booktime-web` (03.10.2026).
+- Сервер: `@sentry/node`, `src/common/monitoring/sentry.ts` — 500 из `ErrorFilter` и упавшие задачи воркера;
+  `SENTRY_DSN` в Railway (staging и production; окружение = имя окружения Railway).
+- Сайт: `@sentry/nextjs`, `src/instrumentation-client.ts` (браузер), `src/instrumentation.ts` (сервер Next),
+  `error.tsx` и `ExtensionBoundary` шлют пойманные падения; `NEXT_PUBLIC_SENTRY_DSN` в Vercel (`booktime-web`,
+  production + preview; для `booktime-demo` — добавить вручную, окружение будет `demo`). Без DSN всё выключено.
+- Личные данные не уходят: пользователь, cookie, заголовки, тело и строка запроса вырезаются (`beforeSend`).
+
 ## Автопроверки (GitHub Actions)
 
 - `.github/workflows/ci.yml` в обоих репозиториях, на каждый push в `develop`/`main` и pull request:

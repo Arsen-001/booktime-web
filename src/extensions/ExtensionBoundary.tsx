@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { captureException } from '@sentry/nextjs';
 import { ErrorState } from '@/ui/ErrorState';
 
 interface ExtensionBoundaryProps {
@@ -26,6 +27,7 @@ export class ExtensionBoundary extends Component<ExtensionBoundaryProps, Extensi
 
   componentDidCatch(error: unknown, info: ErrorInfo): void {
     console.error(`[ext] вклад ${this.props.name} упал`, error, info.componentStack);
+    captureException(error, { tags: { extension: this.props.name }, contexts: { react: { componentStack: info.componentStack ?? '' } } });
   }
 
   private retry = () => this.setState({ failed: false });
