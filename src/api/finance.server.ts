@@ -107,7 +107,7 @@ import type {
   OperationFilter,
   OperationInput,
 } from '@/domain/finance';
-import type { AccountWithBalance, BookingPaymentSummary, CashShiftView, OperationUpdate, SplitPaymentPart, TransferFundsInput, UnpaidVisitRow } from '@/api/finance';
+import type { AccountWithBalance, BookingPaymentSummary, CashShiftView, LoyaltySaleInput, OperationUpdate, SplitPaymentPart, TransferFundsInput, UnpaidVisitRow } from '@/api/finance';
 
 const b = (businessId: Id) => `/v1/biz/${businessId}`;
 const fb = (businessId: Id) => `${b(businessId)}/finance`;
@@ -197,6 +197,12 @@ export function updateOperation(businessId: Id, id: Id, patch: OperationUpdate):
 
 export async function cancelOperation(businessId: Id, id: Id): Promise<void> {
   await http('POST', `${fb(businessId)}/fin-ops/${id}/cancel`);
+}
+
+/** recordLoyaltySale мока: приход за абонемент/сертификат/пополнение счёта в кассу способа (POST …/finance/loyalty-sales).
+ * Продажи из «Лояльности» сервер проводит сам в той же транзакции — этот маршрут для продаж, собранных отдельно. */
+export function recordLoyaltySale(businessId: Id, input: LoyaltySaleInput): Promise<Operation> {
+  return http('POST', `${fb(businessId)}/loyalty-sales`, { ...input, amount: Math.round(input.amount) }, { idempotencyKey: crypto.randomUUID() });
 }
 
 export function importOperations(businessId: Id, rows: OperationInput[]): Promise<Operation[]> {

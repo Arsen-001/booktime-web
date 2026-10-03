@@ -136,11 +136,19 @@ describe('F-05-043 · когда уведомления не уходят', () =
     assert.equal(entries.filter((e) => e.typeCode === 75).length, 0, 'статус после начала визита (12:30 > старт 12:00) не должен слать ничего');
   });
 
-  test('тип 73 (запрос подтверждения): только статус «Ожидание», не «Записан»', () => {
-    const c = core({ clients: [client()], bookings: [booking({ status: 'scheduled' })] });
+  test('⭐ тип 73 (запрос подтверждения, 03.10): только «Записан» (= «Ожидание клиента» Altegio), как сервер', () => {
     const types = onlyType(buildTypes(BIZ), 73, { enabled: true, conditions: { timingHours: 24 } });
-    const entries = deriveLiveLogEntries(ctxFor({ core: c, types, now: '2026-10-01T11:00' }));
-    assert.equal(entries.filter((e) => e.typeCode === 73).length, 0, 'запись уже подтверждена (scheduled) — запрос не нужен');
+    const rows = (status: Booking['status']) =>
+      deriveLiveLogEntries(ctxFor({ core: core({ clients: [client()], bookings: [booking({ status })] }), types, now: '2026-10-01T11:00' })).filter((e) => e.typeCode === 73);
+    assert.deepEqual(rows('scheduled').map((e) => e.channel), ['push'], '«Записан» — клиент ещё не подтвердил, просим');
+    assert.equal(rows('awaiting_confirmation').length, 0, '«Ждёт подтверждения» ждёт мастера — клиенту подтверждать нечего');
+    assert.equal(rows('client_confirmed').length, 0, 'уже подтвердил');
+    // Пуш выключен у записи — запроса нет
+    const off = deriveLiveLogEntries({
+      ...ctxFor({ core: core({ clients: [client()], bookings: [booking()] }), types, now: '2026-10-01T11:00' }),
+      overrides: { bk_t: { ...DEFAULT_OVERRIDE_FOR_TEST, pushEnabled: false } },
+    }).filter((e) => e.typeCode === 73);
+    assert.equal(off.length, 0);
   });
 
   test('тип 72 (приглашение недошедшим): у клиента с будущей записью приглашение не уходит', () => {
@@ -296,7 +304,7 @@ describe('F-05-043 · когда уведомления не уходят', () =
   test('⭐ типы 1 и 73 (30.09): клиенту без приложения Telegram уходит, только если он подключил бота', () => {
     const c = core({
       clients: [client({ appUserId: undefined })],
-      bookings: [booking({ status: 'awaiting_confirmation', start: '2026-10-02T12:00', createdAt: '2026-09-20T10:00' })],
+      bookings: [booking({ status: 'scheduled', start: '2026-10-02T12:00', createdAt: '2026-09-20T10:00' })],
     });
     const types = buildTypes(BIZ).map((t) => (t.code === 1 || t.code === 73 ? { ...t, enabled: true, conditions: { ...t.conditions, timingHours: 1 } } : { ...t, enabled: false }));
     const now = '2026-10-02T11:30';
@@ -304,16 +312,39 @@ describe('F-05-043 · когда уведомления не уходят', () =
     assert.equal(none.length, 0, 'бот не подключён и приложения нет — ни пуша, ни Telegram (раньше писалось «Telegram, доставлено»)');
     const linked = deriveLiveLogEntries({ ...ctxFor({ core: c, types, now }), telegramLinked: { '+37400199999': '2026-09-30T10:00' } })
       .filter((e) => e.typeCode === 1 || e.typeCode === 73);
-    // Напоминание в Telegram — два: за 24 ч и за 2 ч (как сервер telegram-reminders.ts). Запроса подтверждения (73)
-    // в Telegram нет (01.10.2026, как на сервере): у напоминания за сутки уже есть кнопка «Приду».
-    assert.deepEqual(linked.map((e) => [e.typeCode, e.channel]).sort(), [[1, 'telegram'], [1, 'telegram']]);
+    // Напоминание в Telegram — два: за 24 ч и за 2 ч (как сервер telegram-reminders.ts); запрос подтверждения за 1 ч
+    // (03.10.2026, сервер notify-confirm-requests.ts) — позже напоминания за сутки, оно остаётся
+    assert.deepEqual(linked.map((e) => [e.typeCode, e.channel]).sort(), [[1, 'telegram'], [1, 'telegram'], [73, 'telegram']]);
+  });
+
+  test('⭐ тип 73 в Telegram (03.10): запрос за сутки заменяет напоминание за сутки, за 2 часа остаётся', () => {
+    const c = core({
+      clients: [client({ appUserId: undefined })],
+      bookings: [booking({ status: 'scheduled', start: '2026-10-02T12:00', createdAt: '2026-09-20T10:00' })],
+    });
+    const types = buildTypes(BIZ).map((t) => (t.code === 1 || t.code === 73 ? { ...t, enabled: true } : { ...t, enabled: false }));
+    const ctx = { ...ctxFor({ core: c, types, now: '2026-10-02T11:30' }), telegramLinked: { '+37400199999': '2026-09-30T10:00' } };
+    const rows = deriveLiveLogEntries(ctx).filter((e) => e.typeCode === 1 || e.typeCode === 73);
+    assert.deepEqual(rows.map((e) => [e.typeCode, e.channel, e.createdAt]).sort(), [
+      [1, 'telegram', '2026-10-02T10:00'],
+      [73, 'telegram', '2026-10-01T12:00'],
+    ]);
+    // Telegram у записи выключен — ни запроса, ни напоминаний в Telegram
+    const off = deriveLiveLogEntries({ ...ctx, overrides: { bk_t: { ...DEFAULT_OVERRIDE_FOR_TEST, telegramEnabled: false } } }).filter(
+      (e) => (e.typeCode === 1 || e.typeCode === 73) && e.channel === 'telegram',
+    );
+    assert.equal(off.length, 0);
   });
 
   test('⭐ предпросмотр типа (01.10): с приложением — только пуш, Telegram не дублирует; без приложения — Telegram', () => {
     const type1 = buildTypes(BIZ).find((t) => t.code === 1)!;
     assert.deepEqual(previewDelivery({ ...type1, enabled: true }, true).willSend, ['push']);
     assert.deepEqual(previewDelivery({ ...type1, enabled: true }, false).willSend, ['telegram']);
-    assert.ok(!buildTypes(BIZ).find((t) => t.code === 73)!.availableChannels.includes('telegram'));
+    // 03.10.2026: запрос подтверждения (73) — тоже пуш с приложением, Telegram без него (сервер notify-confirm-requests.ts)
+    const type73 = buildTypes(BIZ).find((t) => t.code === 73)!;
+    assert.equal(type73.enabled, true);
+    assert.deepEqual(previewDelivery(type73, true).willSend, ['push']);
+    assert.deepEqual(previewDelivery(type73, false).willSend, ['telegram']);
   });
 
   test('⭐ тип 1 (30.09): Telegram — только без приложения; выключатель Telegram у записи свой', () => {

@@ -548,11 +548,41 @@ const ACTIVE_STATUSES = new Set(['awaiting_confirmation', 'awaiting_prepayment',
 /** ⭐ 30.09: напоминания в Telegram-бот — за сутки и за 2 часа до визита (сервер: telegram-reminders.ts, reminder24h/2h) */
 const TELEGRAM_REMINDER_HOURS = [24, 2] as const;
 
+/**
+ * Момент запроса подтверждения (тип 73, F-05-028): за N часов до визита (по умолчанию 24) или, с галочкой «Отправлять в
+ * выбранное время», накануне визита в это время. Один расчёт для журнала и ленты приложения (api/client.ts), как сервер
+ * (jobs/notify-confirm-requests.ts confirmRequestAt).
+ */
+export function confirmRequestMoment(start: ISODateTime, conditions: NotificationType['conditions']): dayjs.Dayjs {
+  return conditions?.useSpecificTime && conditions.specificTime
+    ? dayjs(start).subtract(1, 'day').hour(Number(conditions.specificTime.slice(0, 2))).minute(Number(conditions.specificTime.slice(3, 5)))
+    : dayjs(start).subtract(conditions?.timingHours ?? 24, 'hour');
+}
+
+/**
+ * ⭐ Тип 73 (03.10.2026): только «Записан» (scheduled) = «Ожидание клиента» Altegio — клиент подтверждает только из него
+ * (сервер rules.ts: scheduled → client_confirmed), «Ждёт подтверждения» ждёт мастера. Как сервер и «Подтвердить завтра».
+ */
+export const CONFIRM_REQUEST_STATUS = 'scheduled';
+
 /** Напоминание (тип 1, F-05-029) и запрос подтверждения (тип 73, F-05-028) — считаются от текущего времени */
 function timeBasedBookingEntries(ctx: LiveLogContext): LogMessage[] {
   const out: LogMessage[] = [];
   const type1 = ctx.types.find((t) => t.code === 1);
   const type73 = ctx.types.find((t) => t.code === 73);
+  /** Канал запроса подтверждения: пуш с приложением, Telegram без него (если бот подключён); выключатели записи */
+  const confirmChannel = (booking: Booking, client: Client, override: BookingNotifyOverride | undefined): NotifyChannel | undefined => {
+    if (!type73) return undefined;
+    const channel = pickChannel(type73, !!client.appUserId, telegramLinked(ctx, client) && override?.telegramEnabled !== false);
+    if ((channel === 'push' || channel === 'brandedApp') && override?.pushEnabled === false) return undefined;
+    return channel;
+  };
+  /** Когда запрос подтверждения уйдёт в Telegram (или undefined — не уйдёт) — для замены напоминания за сутки */
+  const confirmViaTelegramAt = (booking: Booking, client: Client, override: BookingNotifyOverride | undefined): dayjs.Dayjs | undefined => {
+    if (!type73?.enabled || booking.status !== CONFIRM_REQUEST_STATUS || confirmChannel(booking, client, override) !== 'telegram') return undefined;
+    const at = confirmRequestMoment(booking.start, type73.conditions);
+    return dayjs(booking.createdAt).isAfter(at) || !at.isBefore(dayjs(booking.start)) ? undefined : at;
+  };
 
   ctx.core.bookings
     .filter((b) => b.businessId === ctx.businessId && !b.deletedAt && ACTIVE_STATUSES.has(b.status))
@@ -616,7 +646,13 @@ function timeBasedBookingEntries(ctx: LiveLogContext): LogMessage[] {
           : 'off';
         const viaTelegram = !hasApp && telegramScenario !== 'off' && telegramLinked(ctx, client) && override?.telegramEnabled !== false;
         if (viaTelegram) {
-          for (const hours of TELEGRAM_REMINDER_HOURS) remind('telegram', hours, `rm_tg${hours}_${booking.id}`);
+          // Запрос подтверждения (73) в Telegram, ушедший не позже напоминания за сутки, его заменяет (как сервер
+          // notify-confirm-requests.ts replaceReminder24h): та же карточка и кнопка «Приду» — одно сообщение, а не два
+          const askAt = confirmViaTelegramAt(booking, client, override);
+          for (const hours of TELEGRAM_REMINDER_HOURS) {
+            if (hours === 24 && askAt && !askAt.isAfter(dayjs(booking.start).subtract(24, 'hour'))) continue;
+            remind('telegram', hours, `rm_tg${hours}_${booking.id}`);
+          }
         } else {
           const channel = pickChannel(type1, hasApp, false);
           if (channel) {
@@ -637,14 +673,11 @@ function timeBasedBookingEntries(ctx: LiveLogContext): LogMessage[] {
         }
       }
 
-      // Запрос подтверждения (тип 73) — F-05-028: только записям в статусе «Ожидание»
-      if (type73?.enabled && booking.status === 'awaiting_confirmation') {
-        const channel = pickChannel(type73, hasApp, telegramLinked(ctx, client));
+      // Запрос подтверждения (тип 73) — F-05-028: только записям «Записан» (CONFIRM_REQUEST_STATUS)
+      if (type73?.enabled && booking.status === CONFIRM_REQUEST_STATUS) {
+        const channel = confirmChannel(booking, client, override);
         if (channel) {
-          const conditions = type73.conditions;
-          const plannedAt = conditions?.useSpecificTime && conditions.specificTime
-            ? dayjs(booking.start).subtract(1, 'day').hour(Number(conditions.specificTime.slice(0, 2))).minute(Number(conditions.specificTime.slice(3, 5)))
-            : dayjs(booking.start).subtract(conditions?.timingHours ?? 24, 'hour');
+          const plannedAt = confirmRequestMoment(booking.start, type73.conditions);
           const sendAt = dayjs(quietShift(quietHoursOf(ctx), plannedAt.format('YYYY-MM-DDTHH:mm')));
           const scheduled = sendAt.isAfter(ctx.now);
           const createdAfterMoment = dayjs(booking.createdAt).isAfter(plannedAt);

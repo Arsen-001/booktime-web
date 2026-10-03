@@ -35,6 +35,9 @@ import { computeFreeSlots, getNearestSlots, type FreeSlot } from '@/api/schedule
 import { upsellGoodsLinesTx, upsellServiceLinesTx } from '@/api/services-upsell';
 import { attachUpsellGoodsTx } from '@/api/journal';
 import { waitlistTx } from '@/api/resources';
+import type { NotificationType } from '@/domain/notify';
+import { buildTypes, upgradeRegistryChannels } from '@/areas/notify/lib/registry';
+import { CONFIRM_REQUEST_STATUS, confirmRequestMoment } from '@/areas/notify/lib/liveLog';
 import {
   computeWaitlistStatus,
   findSameWaitlistRequest,
@@ -1659,6 +1662,10 @@ export function markPrepaymentPaid(bookingId: Id, viewerAppUserId: Id | undefine
  */
 function notifyWaitlist(freed: Booking): void {
   const serviceId = freed.services[0]?.serviceId ?? '';
+  // Окно короче обычной длительности услуги (запись укоротили) — записаться в него нельзя, никому не предлагаем
+  // (сценарии 30.09: окно 30 мин ушло ждавшей услугу на 45 мин). Как сервер (journal/waitlist-match.ts) и journal-offers
+  const serviceMin = readCore().services.find((x) => x.id === serviceId)?.durationMin ?? 0;
+  if (serviceMin > freed.durationMin) return;
   const target = { businessId: freed.businessId, staffId: freed.staffId, serviceId, date: freed.start.slice(0, 10), time: freed.start.slice(11, 16) as TimeHM };
   const day = today();
   const matched = waitlistTx.entries(freed.businessId).filter((e) => e.appUserId !== freed.appUserId && waitlistWantsSlot(e, target, day));
@@ -2118,40 +2125,55 @@ function eventNotifications(core: CoreSnapshot, appUserId: Id, seenAt: ISODateTi
   return out;
 }
 
-/** Время напоминания по умолчанию, когда клиент не выбирал своё (F-00-120) */
-const REMINDER_WINDOW_HOURS = 24;
 const ACTIVE_BOOKING_STATUSES: Booking['status'][] = ['awaiting_confirmation', 'awaiting_prepayment', 'scheduled', 'client_confirmed'];
 
+/** Тип уведомлений бизнеса (свои настройки поверх реестра; у бизнеса без сохранённых — реестр) — только внутри request() */
+function notifyTypeOf(businessId: Id, code: number): NotificationType | undefined {
+  const stored = readArea('notify').types[businessId];
+  return (stored?.length ? upgradeRegistryChannels(stored) : buildTypes(businessId)).find((t) => t.code === code);
+}
+
+const pushOn = (type: NotificationType | undefined): boolean =>
+  Boolean(type?.enabled) && (type?.channels.find((c) => c.channel === 'push')?.scenario ?? 'off') !== 'off';
+
 /**
- * Пуш-напоминание перед визитом (F-00-120): как только запись входит в окно напоминания — заводим
- * настоящую запись в ленте (один раз на бронирование), а не рисуем её только для одного примера из сида.
- * F-05-083: у записи может быть свой выбор клиента (notify.bookingOverrides) — «не отправлять» вообще
- * гасит напоминание, иначе окно берётся из pushTimingHours записи, а не из общего умолчания.
+ * Пуш перед визитом в ленту приложения — как только наступил его момент, заводим настоящую строку (одну на запись),
+ * а не рисуем её только для одного примера из сида. Те же правила, что сервер (jobs/notify-reminders.ts,
+ * jobs/notify-confirm-requests.ts) и журнал уведомлений (liveLog.ts):
+ *  · напоминание (тип 1, F-00-120, решение владельца 01.10.2026) — по настройке салона «Отправлять за»: своё у записи
+ *    (notify.bookingOverrides, F-05-083) → у услуги → у типа, по умолчанию 1 ч; пуш выключен у записи или у типа — нет;
+ *  · ⭐ запрос подтверждения (тип 73, 03.10.2026) — записи «Записан», в момент из условий типа (за N часов или накануне
+ *    в выбранное время), если запись существовала к этому моменту; в ленте — кнопка «Подтвердить».
  */
 function materializeBookingReminders(appUserId: Id): void {
   const core = readCore();
   const now = nowDateTime();
   const overrides = readArea('notify').bookingOverrides;
-  const already = new Set(readArea('client').notifications.filter((n) => n.kind === 'booking_reminder').map((n) => n.bookingId));
-  const due = core.bookings.filter((b) => {
-    if (
-      b.appUserId !== appUserId ||
-      b.deletedAt ||
-      !ACTIVE_BOOKING_STATUSES.includes(b.status) ||
-      already.has(b.id) ||
-      b.start <= now
-    )
-      return false;
+  const existing = readArea('client').notifications;
+  const reminded = new Set(existing.filter((n) => n.kind === 'booking_reminder').map((n) => n.bookingId));
+  const asked = new Set(existing.filter((n) => n.kind === 'confirm_request').map((n) => n.bookingId));
+  const fresh: NotificationItem[] = [];
+  for (const b of core.bookings) {
+    if (b.appUserId !== appUserId || b.deletedAt || !ACTIVE_BOOKING_STATUSES.includes(b.status) || b.start <= now) continue;
     const override = overrides[b.id];
-    if (override && !override.pushEnabled) return false;
-    const windowHours = override?.pushEnabled ? override.pushTimingHours : REMINDER_WINDOW_HOURS;
-    return addMinutes(b.start, -windowHours * 60) <= now;
-  });
-  if (!due.length) return;
-  mutateArea('client', (s) => {
-    for (const b of due) {
-      s.notifications.push({ id: newId('ntf'), appUserId, kind: 'booking_reminder', businessId: b.businessId, staffId: b.staffId, bookingId: b.id, createdAt: now });
+    if (override?.pushEnabled === false) continue;
+    const base = { appUserId, businessId: b.businessId, staffId: b.staffId, bookingId: b.id };
+    const t1 = notifyTypeOf(b.businessId, 1);
+    if (!reminded.has(b.id) && pushOn(t1)) {
+      const serviceId = b.services[0]?.serviceId;
+      const serviceHours = serviceId !== undefined ? t1?.conditions?.serviceTimingHours?.[serviceId] : undefined;
+      const hours = override?.pushTimingHours ?? serviceHours ?? t1?.conditions?.timingHours ?? 1;
+      if (addMinutes(b.start, -hours * 60) <= now) fresh.push({ id: newId('ntf'), kind: 'booking_reminder', ...base, createdAt: now });
     }
+    const t73 = notifyTypeOf(b.businessId, 73);
+    if (!asked.has(b.id) && b.status === CONFIRM_REQUEST_STATUS && pushOn(t73)) {
+      const at = confirmRequestMoment(b.start, t73?.conditions).format('YYYY-MM-DDTHH:mm');
+      if (at <= now && b.createdAt <= at) fresh.push({ id: newId('ntf'), kind: 'confirm_request', ...base, createdAt: at });
+    }
+  }
+  if (!fresh.length) return;
+  mutateArea('client', (s) => {
+    s.notifications.push(...fresh);
   });
 }
 

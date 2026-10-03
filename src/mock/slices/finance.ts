@@ -135,6 +135,11 @@ function historyEntry(at: ISODateTime, by: string, action: OperationHistoryEntry
   return { at, by, action };
 }
 
+/** Визиты за столько дней — подробно: своя операция на визит, документ, комиссия эквайринга */
+const FULL_PAYMENT_DAYS = 3;
+/** Операции «Оплата визитов за день» для более старых визитов — чтобы касса и отчёты прошлого месяца были полными */
+const HISTORY_OPS_DAYS = 35;
+
 function roundLine(n: number): number {
   return Math.round(n);
 }
@@ -350,23 +355,29 @@ function seed(core: CoreData, now: Date): FinanceState {
     // Операции из визитов «Клиент пришёл» — короче окно и потолок на бизнес, чтобы не переполнять localStorage
     // (block, замер b02-m0/b03-m2/b04-m2 25.09: 5,86М символов на запись, QuotaExceededError). Список в интерфейсе
     // читает пагинацию (OperationsScreen), поэтому урезанный сид не теряет функциональность — только демо-объём.
-    // Владелец, 01.10.2026: каждый прошедший визит «Пришёл» за 2 недели (окно «Неоплаченных») оплачен, кроме ~5 свежих
-    // примеров на бизнес. Окно не шире: срез finance пишется в localStorage ОДНИМ ключом вместе с ключом bookings при
-    // оплате, 31 день давал 2,5 млн символов + 2,7 млн bookings — выше квоты (~5 млн). Документы и комиссия — у первых
-    // 18. Полученная мастером предоплата (F-00-097) — своя операция, визит добирает остаток.
+    // Владелец, 01.10.2026: каждый прошедший визит «Пришёл» оплачен, кроме ~5 свежих примеров на бизнес (экран
+    // «Не оплачены»). Подробно (своя операция, документ, комиссия) — визиты последних FULL_PAYMENT_DAYS дней; старше —
+    // компактно ниже (historyPayments). Всё подробно не помещается: срез finance пишется в localStorage ОДНИМ ключом
+    // вместе с ключом bookings при оплате, 31 день подробно давал 2,5 млн символов + 2,7 млн bookings — выше квоты
+    // (~5 млн). Документы и комиссия — у первых 18. Полученная мастером предоплата (F-00-097) — своя операция, визит
+    // добирает остаток.
     const nowIso = toISODateTime(dayjs(now));
-    const pastArrived = core.bookings
+    const fullFrom = dayjs(now).subtract(FULL_PAYMENT_DAYS, 'day').format('YYYY-MM-DD');
+    const recentArrived = core.bookings
       .filter((b) => b.businessId === business.id && b.status === 'arrived' && !b.deletedAt && b.total > 0)
-      .filter((b) => b.start < nowIso && b.start >= dayjs(now).subtract(14, 'day').format('YYYY-MM-DD'))
-      .sort((a, b) => (a.start < b.start ? 1 : -1));
+      .filter((b) => b.start < nowIso && dayjs(b.start).isAfter(dayjs(now).subtract(13, 'day')));
+    // Неоплаченные примеры — из 2 недель (окно «Не оплачены»), а не только из подробных дней: иначе в тихий день все
+    // визиты попадали в примеры и «Остатки по дням» показывали день без единого прихода
     const unpaidExamples = new Set(
-      pastArrived
-        .filter((b) => dayjs(b.start).isAfter(dayjs(now).subtract(13, 'day')) && !b.prepayment?.paid)
+      recentArrived
+        .filter((b) => !b.prepayment?.paid)
         .sort((a, b) => hashId(a.id) - hashId(b.id))
         .slice(0, 5)
         .map((b) => b.id),
     );
-    const arrivedBookings = pastArrived.filter((b) => !unpaidExamples.has(b.id));
+    const arrivedBookings = recentArrived
+      .filter((b) => b.start >= fullFrom && !unpaidExamples.has(b.id))
+      .sort((a, b) => (a.start < b.start ? 1 : -1));
     let prepaymentAccountId: Id | undefined;
 
     arrivedBookings.forEach((booking, i) => {
@@ -506,6 +517,75 @@ function seed(core: CoreData, now: Date): FinanceState {
       }
       void i;
     });
+
+    // 03.10.2026: визиты старше FULL_PAYMENT_DAYS — тоже оплачены. Раньше их не было вовсе: «Расчёт за период» за
+    // прошлый месяц показывал ~100 неоплаченных визитов и зарплату мастеров около нуля, а сводка журнала — десятки
+    // «должников» (долг считается за год). Компактно, ~230 символов на визит: строки оплаты по услугам (по ним
+    // считают зарплата, долги, «Не оплачены», окно оплаты; возврат берёт кассу из accountId строки) без своей
+    // операции. Касса и отчёты за прошлый месяц получают одну операцию «Оплата визитов за день» на филиал и способ
+    // (до HISTORY_OPS_DAYS дней назад; раньше — история до подключения кассы, деньги уже в начальном остатке).
+    const historyOpsFrom = dayjs(now).subtract(HISTORY_OPS_DAYS, 'day').format('YYYY-MM-DD');
+    const dayTotals = new Map<string, { locationId: Id; accountId: Id; method: 'cash' | 'card'; day: string; amount: number }>();
+    for (const booking of core.bookings) {
+      if (booking.businessId !== business.id || booking.status !== 'arrived' || booking.deletedAt || booking.total <= 0) continue;
+      if (booking.start >= fullFrom || unpaidExamples.has(booking.id)) continue;
+      const prepaid = booking.prepayment?.paid && !booking.prepayment.refundedAt ? Math.min(booking.prepayment.amount, booking.total) : 0;
+      const payAmount = booking.total - prepaid;
+      if (payAmount <= 0) continue;
+      const accs = accountsByLocation[booking.locationId] ?? accounts.filter((a) => a.businessId === business.id).map((a) => a.id);
+      const method: 'cash' | 'card' = hashId(booking.id) % 2 === 0 ? 'cash' : 'card';
+      const accountId = method === 'cash' ? accs[0] : accs[1];
+      const at = toISODateTime(dayjs(booking.start).add(booking.durationMin, 'minute'));
+      let left = payAmount;
+      let groupId: Id | undefined;
+      booking.services.forEach((line, idx) => {
+        const lineTotal = idx === booking.services.length - 1 ? left : Math.min(roundLine(line.price * line.qty), left);
+        if (lineTotal <= 0) return;
+        left -= lineTotal;
+        const id = `bpl_h${booking.id.replace(/^bk_/, '')}_${idx}`;
+        if (booking.services.length > 1) groupId ??= id;
+        bookingPayments.push({
+          id,
+          businessId: business.id,
+          bookingId: booking.id,
+          serviceIndex: idx,
+          kind: 'money',
+          methodKey: method,
+          methodLabel: method === 'cash' ? 'Наличные' : 'Банковская карта',
+          accountId,
+          amount: lineTotal,
+          ...(groupId ? { groupId } : {}),
+          createdAt: at,
+          createdBy: booking.staffId,
+        });
+      });
+      const day = booking.start.slice(0, 10);
+      if (day < historyOpsFrom || !accountId) continue;
+      const key = `${booking.locationId}|${day}|${method}`;
+      const cur = dayTotals.get(key);
+      if (cur) cur.amount += payAmount;
+      else dayTotals.set(key, { locationId: booking.locationId, accountId, method, day, amount: payAmount });
+    }
+    for (const t of dayTotals.values()) {
+      const at = `${t.day}T21:00`;
+      operations.push({
+        id: `op_h${hashId(`${t.locationId}|${t.day}|${t.method}`).toString(36)}`,
+        businessId: business.id,
+        locationId: t.locationId,
+        accountId: t.accountId,
+        itemId: itemMap.servicePayment,
+        kind: 'income',
+        amount: t.amount,
+        date: at,
+        method: t.method,
+        partyType: 'none',
+        source: 'booking',
+        comment: 'Оплата визитов за день',
+        createdBy: business.ownerStaffId,
+        createdAt: at,
+        history: [historyEntry(at, business.ownerStaffId, 'created')],
+      });
+    }
 
     // Немного ручных расходов и один перевод, один отменённый платёж
     const firstLoc = locations[0];
@@ -1086,6 +1166,6 @@ function seed(core: CoreData, now: Date): FinanceState {
 }
 
 export const financeSlice = defineSlice<FinanceState>({
-  version: 14,
+  version: 15,
   seed,
 });

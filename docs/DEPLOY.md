@@ -31,6 +31,25 @@
 - База закрыта от интернета (нет TCP-прокси). Для разовой работы — `railway tcp-proxy create --port 3306 -s MySQL
   -e <env>`, после — `railway tcp-proxy delete`.
 
+## Бэкапы базы
+
+- Снимки дисков Railway (по расписанию и вручную) — только на тарифе Pro; сейчас Hobby (API отвечает «Not Authorized»).
+- Пока — своя выгрузка: воркер в 04:30 по Еревану пишет полную копию базы в `/data/backups/db-ГГГГ-ММ-ДД.sql.gz`
+  (`src/jobs/db-backup.ts`, переменные `DB_BACKUP=1`, `DB_BACKUP_DIR=/data/backups`, `DB_BACKUP_KEEP=14` — только
+  в production). Папка — вне `STORAGE_DIR`: файлы хранилища раздаются, копия базы — никогда. Проверено 03.10.2026:
+  выгрузка → загрузка в пустую базу → все 196 таблиц совпали по контрольным суммам.
+- Диск `/data` — у сервиса api, отдельный от диска MySQL: спасает от неудачной миграции и случайного удаления, но не
+  от потери проекта. Вторая копия вне Railway — скачать к себе:
+  `railway volume -e production files -v api-volume download /backups/db-ГГГГ-ММ-ДД.sql.gz ./`
+- Восстановление: `gunzip -c db-….sql.gz | mysql -h… -u… -p… <база>` (через временный `railway tcp-proxy`).
+
+## Автопроверки (GitHub Actions)
+
+- `.github/workflows/ci.yml` в обоих репозиториях, на каждый push в `develop`/`main` и pull request:
+  сайт — tsc, eslint, тесты правил (`src/domain/rules/tests/run.mjs`), `check-tokens`; сервер — prisma generate, tsc,
+  `npm test`, сверка прав с сайтом (`check-permissions.mjs`), сборка. Выкладку не блокируют (её делают Vercel и
+  Railway сами) — красная галочка в GitHub значит «не сливать `develop` → `main`, пока не починим».
+
 ## Демо-данные staging
 
 - Сид прогоняется локально на временной базе и переносится дампом (через прокси длинные транзакции сида не

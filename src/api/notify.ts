@@ -66,7 +66,7 @@ import { ApiError, request } from '@/api/request';
 import { dayjs, toISODateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { deriveLiveLogEntries } from '@/areas/notify/lib/liveLog';
-import { upgradeSmsDefaults } from '@/areas/notify/lib/registry';
+import { upgradeRegistryChannels, upgradeSmsDefaults } from '@/areas/notify/lib/registry';
 import { isSafeTarget, isShortCode, shortCodeFor, type ShortLink } from '@/areas/notify/lib/shortLink';
 import { countSms } from '@/areas/notify/lib/sms';
 import { PARTNER_APPS } from '@/areas/notify/lib/partnerCatalog';
@@ -99,7 +99,8 @@ function capChat(list: ChatMessage[]): ChatMessage[] {
 
 function types(businessId: Id): NotificationType[] {
   // 28.09: прежний полный SMS-текст по умолчанию читается как короткий; свои тексты салона не трогаем
-  return upgradeSmsDefaults(readArea('notify').types[businessId] ?? []);
+  // 03.10: канал, добавленный в реестр позже сида (Telegram у типа 73), — у сохранённых типов тоже
+  return upgradeRegistryChannels(upgradeSmsDefaults(readArea('notify').types[businessId] ?? []));
 }
 
 export const listTypes = (businessId: Id) => {

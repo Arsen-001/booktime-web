@@ -249,7 +249,8 @@ function NotificationRow({ entry, appUserId, onChanged }: { entry: NotificationE
             {t('notifications.actionDetails')}
           </LinkButton>
         )}
-        {entry.kind === 'confirm_request' && (
+        {/* «Подтвердить» — пока запись «Записан»: подтвердил, отменил или перенёс — кнопки нет (сервер иначе ответит отказом) */}
+        {entry.kind === 'confirm_request' && entry.booking?.status === 'scheduled' && (
           <Button size="sm" onClick={() => void handleConfirm()} loading={confirm.isPending}>
             {t('notifications.actionConfirm')}
           </Button>

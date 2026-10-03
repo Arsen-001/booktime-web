@@ -2082,6 +2082,7 @@ export function refundLoyaltySaleSync(businessId: Id, input: LoyaltyRefundInput)
 }
 
 export function recordLoyaltySale(businessId: Id, input: LoyaltySaleInput): Promise<Operation> {
+  if (isApiMode()) return Server.recordLoyaltySale(businessId, input);
   // Права — у продажи в «Лояльности» (администратор продаёт абонемент без права править финансы)
   return request(() => recordLoyaltySaleSync(businessId, input));
 }

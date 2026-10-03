@@ -484,7 +484,7 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
                     <p className="text-sm text-muted">{t('typeDetail.previewNothing')}</p>
                   )}
                   {code !== 7 && previewNoApp.willSend.includes('telegram') && (
-                    <p className="text-sm text-muted">{t('typeDetail.previewTelegramNote')}</p>
+                    <p className="text-sm text-muted">{t(code === 73 ? 'typeDetail.previewTelegramNoteConfirm' : 'typeDetail.previewTelegramNote')}</p>
                   )}
                 </div>
               </div>

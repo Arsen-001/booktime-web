@@ -288,7 +288,7 @@ export default function NotifyBookingWindow({ mode, bookingId, businessId, draft
               </div>
 
               {/* ⭐ 30.09: Telegram-бот — бесплатно, клиенту без приложения; время фиксированное (за сутки и за 2 ч),
-              поэтому только выключатель — свой, не общий с SMS */}
+              поэтому только выключатель — свой, не общий с SMS. 03.10: он же выключает запрос подтверждения (тип 73) */}
               <div className="rounded-lg border border-border p-3">
                 <Checkbox
                   checked={value.telegramEnabled !== false}

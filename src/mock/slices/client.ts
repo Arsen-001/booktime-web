@@ -245,7 +245,6 @@ export const clientSlice = defineSlice<ClientState>({
       const upcoming = myBookings
         .filter((b) => (b.status === 'awaiting_confirmation' || b.status === 'scheduled') && b.start > nowIso && b.start <= dayAhead)
         .sort((x, y) => x.start.localeCompare(y.start))[0];
-      const confirmNeeded = myBookings.find((b) => b.status === 'awaiting_confirmation');
       const cancelledByMaster = myBookings.find((b) => b.status === 'cancelled_by_master');
       if (arrived[1]) {
         notifications.push({
@@ -259,17 +258,9 @@ export const clientSlice = defineSlice<ClientState>({
           readAt: at(14),
         });
       }
-      if (confirmNeeded) {
-        notifications.push({
-          id: newId('ntf'),
-          appUserId,
-          kind: 'confirm_request',
-          businessId: confirmNeeded.businessId,
-          staffId: confirmNeeded.staffId,
-          bookingId: confirmNeeded.id,
-          createdAt: at(1),
-        });
-      }
+      // Просьбу подтвердить визит (тип 73) сид не кладёт: её, как напоминание, создаёт listNotifications в момент из
+      // настроек типа и только записи «Записан» (materializeBookingReminders, 03.10.2026 — правила сервера). Готовая строка
+      // сида просила подтвердить запись «Ждёт подтверждения» за трое суток — кнопка «Подтвердить» на ней не работала.
       if (upcoming) {
         notifications.push({
           id: newId('ntf'),

@@ -27,7 +27,7 @@ export interface TypeDef {
   descriptionRu: string;
   descriptionEn: string;
   descriptionHy: string;
-  /** Выключен по умолчанию (F-05-003): 72, 16, 17, 65; ⭐ 73 у нас включён (30.09.2026) */
+  /** Выключен по умолчанию (F-05-003): 72, 16, 17, 65; ⭐ 73 у нас включён (30.09.2026, сервер шлёт с 03.10.2026) */
   enabledDefault: boolean;
   availableChannels: NotifyChannel[];
   /** Сценарий по умолчанию для каждого доступного канала (не указан — 'off') */
@@ -49,8 +49,8 @@ const OFF_BY_DEFAULT = new Set([72, 16, 17, 65]);
 
 // ⭐ F-00-120: клиенту главный канал — бесплатный пуш в наше приложение, не Email
 const CLIENT_DEFAULT: Partial<Record<NotifyChannel, NotifyScenario>> = { push: 'always' };
-// ⭐ Напоминание (1): клиенту без приложения — бесплатный Telegram-бот, если он его подключил, за 24 ч и за 2 ч
-// (одно правило с сервером telegram-reminders.ts, 01.10.2026); с приложением — только пуш
+// ⭐ Напоминание (1) и запрос подтверждения (73): клиенту без приложения — бесплатный Telegram-бот, если он его подключил
+// (напоминание — за 24 ч и за 2 ч, одно правило с сервером telegram-reminders.ts, 01.10.2026); с приложением — только пуш
 const CLIENT_REMINDER_DEFAULT: Partial<Record<NotifyChannel, NotifyScenario>> = { push: 'always', telegram: 'always' };
 const ADMIN_DEFAULT: Partial<Record<NotifyChannel, NotifyScenario>> = { adminApp: 'always', email: 'always' };
 
@@ -141,13 +141,13 @@ export const TYPE_REGISTRY: TypeDef[] = [
     descriptionRu: 'Просим клиента подтвердить, что придёт на визит.',
     descriptionEn: 'We ask the client to confirm they will come.',
     descriptionHy: 'Խնդրում ենք հաճախորդին հաստատել, որ կգա այցի։',
-    // 01.10.2026: по умолчанию выключен, как на сервере — сервер этот тип пока не отправляет (подтвердить визит можно
-    // кнопкой в напоминании и в приложении), включённый по умолчанию показывал бы в журнале отправки, которых не будет
-    enabledDefault: false,
-    // 01.10.2026: без Telegram, как на сервере — у Telegram-напоминания за сутки уже есть кнопка «Приду» (подтверждение),
-    // отдельный запрос в Telegram был бы третьим сообщением, которого сервер не шлёт.
-    availableChannels: ['push', 'email', 'sms', 'brandedApp'],
-    defaultScenario: CLIENT_DEFAULT,
+    // ⭐ 03.10.2026: сервер отправляет (jobs/notify-confirm-requests.ts) — снова включён по умолчанию, как решил владелец
+    // 30.09 (01.10 выключали только потому, что сервер его ещё не слал). Только записям «Записан» (= «Ожидание клиента»
+    // Altegio): пуш клиенту с приложением (кнопка «Подтвердить» в ленте), Telegram-бот — без приложения (кнопка «Приду»);
+    // запрос в Telegram заменяет напоминание за сутки — одно сообщение, а не два с той же кнопкой.
+    enabledDefault: true,
+    availableChannels: ['push', 'telegram', 'email', 'sms', 'brandedApp'],
+    defaultScenario: CLIENT_REMINDER_DEFAULT,
     templateRu: '{companyName}: подтвердите визит {date} в {time} ({service}, мастер: {staff}). Подтвердить или отменить: {link}',
     templateEn: '{companyName}: please confirm your visit {date} at {time} ({service}, specialist: {staff}). Confirm or cancel: {link}',
     templateHy: '{companyName}․ խնդրում ենք հաստատել այցը՝ {date}, ժամը {time} ({service}, վարպետ՝ {staff})։ Հաստատել կամ չեղարկել՝ {link}',
@@ -931,6 +931,29 @@ export function upgradeSmsDefaults(types: NotificationType[]): NotificationType[
     if (current && sms.ru === current.ru && sms.en === current.en && sms.hy === current.hy) return type;
     changed = true;
     return { ...type, templates: { ...type.templates, sms } };
+  });
+  return changed ? next : types;
+}
+
+/**
+ * 03.10.2026 — канал, добавленный в реестр после сида среза (Telegram у типа 73), появляется у сохранённых типов без
+ * подъёма версии среза (подъём стёр бы правки салонов): доступен, сценарий — из реестра, текст — шаблон по умолчанию.
+ * Как applyOverride сервера (notify-rich-types.service.ts). Каналы, которые салон уже настроил, не трогаем.
+ */
+export function upgradeRegistryChannels(types: NotificationType[]): NotificationType[] {
+  let changed = false;
+  const next = types.map((type) => {
+    const def = TYPE_REGISTRY.find((d) => d.code === type.code);
+    const missing = def?.availableChannels.filter((c) => !type.availableChannels.includes(c)) ?? [];
+    if (!def || missing.length === 0) return type;
+    changed = true;
+    const template: LocalizedText = { ru: def.templateRu, en: def.templateEn, hy: def.templateHy };
+    return {
+      ...type,
+      availableChannels: def.availableChannels.filter((c) => type.availableChannels.includes(c) || missing.includes(c)),
+      channels: [...type.channels, ...missing.map((channel) => ({ channel, scenario: def.defaultScenario[channel] ?? 'off' }))],
+      templates: { ...type.templates, ...Object.fromEntries(missing.map((c) => [c, { ...template }])) },
+    };
   });
   return changed ? next : types;
 }

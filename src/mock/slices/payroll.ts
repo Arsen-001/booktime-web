@@ -111,8 +111,11 @@ function seed(core: CoreData, now: Date): PayrollState {
     if (EMPTY_BIZ_IDS.includes(staff.businessId)) continue;
     const h = hashId(staff.id);
 
-    if (staff.role === "master" && h % 3 !== 0) {
-      // Две трети мастеров уже настроены — остальные показывают заставку «Настроить» (F-09-010)
+    // Ассистент без своих записей и графика (F-16-139, hiddenInJournal) — схему владелец заводит сам
+    if (staff.role === "master" && staff.hiddenInJournal) continue;
+    if (staff.role === "master") {
+      // Демо как у живого салона (03.10.2026): схема есть у всех мастеров, иначе «Расчёт за период» показывал 0 ֏.
+      // Заставку «Настроить» (F-09-010) видно у владельца и в пустом салоне (owner-empty).
       const scheme = emptyScheme(staff.id, nowIso);
       const hasConsumables = h % 7 === 0;
       scheme.personalServices = {
@@ -152,7 +155,7 @@ function seed(core: CoreData, now: Date): PayrollState {
         };
       }
       schemesByStaff[staff.id] = scheme;
-    } else if (staff.role === "admin" && h % 2 === 0) {
+    } else if (staff.role === "admin") {
       const scheme = emptyScheme(staff.id, nowIso);
       scheme.workday = {
         enabled: true,
@@ -371,6 +374,6 @@ function seed(core: CoreData, now: Date): PayrollState {
 }
 
 export const payrollSlice = defineSlice<PayrollState>({
-  version: 5,
+  version: 6,
   seed,
 });

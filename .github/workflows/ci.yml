@@ -1,0 +1,31 @@
+# Автопроверки на каждый push и pull request (03.10.2026): типы, правила кода, тесты правил, сырые цвета.
+# Сборку и выкладку делает Vercel сам; здесь — чтобы сломанное было видно до слияния develop → main.
+name: CI
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Типы
+        run: npx tsc --noEmit
+      - name: Правила кода (eslint)
+        run: npx eslint . --max-warnings=200
+      - name: Тесты правил домена
+        run: node src/domain/rules/tests/run.mjs
+      - name: Тесты уведомлений
+        run: node src/areas/notify/lib/run-tests.mjs
+      - name: Цвета только из токенов
+        run: node scripts/check-tokens.mjs
