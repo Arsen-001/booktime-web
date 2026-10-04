@@ -817,8 +817,8 @@ export async function submitDemandLead(input: DemandLeadInput): Promise<void> {
 
 export type LoginChannel = 'whatsapp' | 'telegram' | 'sms';
 
-/** Порядок каналов кода, как на сервере: Telegram (дешёвый) → WhatsApp → SMS (дорогой, запасной) */
-export const LOGIN_CHANNELS: readonly LoginChannel[] = ['telegram', 'whatsapp', 'sms'];
+/** Каналы кода, как на сервере: Telegram → WhatsApp. SMS для кода не используется (владелец 04.10.2026: «нужно и Telegram, и WhatsApp») */
+export const LOGIN_CHANNELS: readonly LoginChannel[] = ['telegram', 'whatsapp'];
 
 /** Код ушёл: куда на самом деле (сервер мог отправить в запасной канал) и какие каналы ещё можно предложить */
 export interface LoginCodeSent {

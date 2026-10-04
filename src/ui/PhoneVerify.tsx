@@ -62,7 +62,7 @@ export function PhoneVerify({
   phone,
   defaultPhone = '',
   onPhoneChange,
-  channels = ['whatsapp', 'telegram', 'sms'],
+  channels = ['telegram', 'whatsapp'],
   channel,
   defaultChannel,
   onChannelChange,

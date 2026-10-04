@@ -23,7 +23,7 @@ export function PhoneTab({ staffId }: { staffId: Id }) {
   const staffQ = useApiQuery(['core', 'staff', staffId], () => coreGet('staff', staffId));
   const send = useApiMutation((a: { phone: string; channel: LoginChannel }) => sendPhoneChangeCode(a.phone, a.channel));
   // Куда прислать код — только каналы, включённые на сервере (Telegram всегда; WhatsApp и SMS — когда подключены)
-  const channels = useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ['telegram'];
+  const channels = (useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ['telegram']).filter((c) => c !== 'sms');
   const confirmChange = useApiMutation(confirmPhoneChange, { invalidates: [['core', 'staff', staffId]] });
   const [phone, setPhone] = useState('');
 

@@ -104,7 +104,7 @@ BookTime показывает, у каких мастеров и салонов 
 
 ЗАПИСЬ ЗА МИНУТУ
 • Выберите услугу, мастера или «Любой мастер», день и время.
-• Вход по номеру телефона: код приходит в Telegram, WhatsApp или SMS. Можно войти через Apple или Google.
+• Вход по номеру телефона: код приходит в Telegram или WhatsApp. Можно войти через Apple или Google.
 • Можно записать не себя, а ребёнка или питомца.
 • Выбирайте оттенок или вариант услуги прямо при записи.
 • Если мастер просит предоплату, переведите её по реквизитам мастера и нажмите «Я оплатил».
@@ -183,7 +183,7 @@ WHO IS FREE AND WHEN
 
 BOOK IN A MINUTE
 • Pick a service, a professional or “Any master”, a day and a time.
-• Sign in with your phone number: the code arrives via Telegram, WhatsApp or SMS. Sign in with Apple or Google also works.
+• Sign in with your phone number: the code arrives via Telegram or WhatsApp. Sign in with Apple or Google also works.
 • Book for someone else, such as your child or your pet.
 • Choose a shade or a service option while booking.
 • If the professional asks for a prepayment, transfer it to their details and tap “I’ve paid”.
@@ -246,7 +246,7 @@ BookTime-ը ցույց է տալիս, թե Երևանի որ վարպետներ�
 
 ԳՐԱՆՑՈՒՄ ՄԵԿ ՐՈՊԵՈՒՄ
 • Ընտրեք ծառայությունը, վարպետին կամ «Ցանկացած վարպետ», օրն ու ժամը։
-• Մուտք հեռախոսահամարով. կոդը գալիս է Telegram-ով, WhatsApp-ով կամ SMS-ով։ Կարելի է մուտք գործել Apple-ով կամ Google-ով։
+• Մուտք հեռախոսահամարով. կոդը գալիս է Telegram-ով կամ WhatsApp-ով։ Կարելի է մուտք գործել Apple-ով կամ Google-ով։
 • Կարող եք գրանցել ոչ թե ձեզ, այլ երեխային կամ ընտանի կենդանուն։
 • Ընտրեք երանգը կամ ծառայության տարբերակը հենց գրանցման ժամանակ։
 • Եթե վարպետը կանխավճար է խնդրում, փոխանցեք այն վարպետի վավերապայմաններով և սեղմեք «Ես վճարել եմ»։

@@ -846,7 +846,7 @@ export function sendOnlineBookingCode(input: SendOnlineCodeInput): Promise<Onlin
     // О9: код привязан к номеру, на который ушёл; запись сверяет пару «номер + код»
     const phone = normalizePhone(input.phone);
     if (phone) sentDemoCodes.set(phone, code);
-    return { demoCode: code, channel: input.channel ?? 'telegram', channels: ['telegram', 'whatsapp', 'sms'] };
+    return { demoCode: code, channel: input.channel ?? 'telegram', channels: ['telegram', 'whatsapp'] };
   });
 }
 

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Куда прислать код при записи без входа и входе в кабинет на странице салона: всегда три канала, включённые — из
+ * Куда прислать код при записи без входа и входе в кабинет на странице салона: всегда Telegram и WhatsApp, включённые — из
  * сервера, остальные видны неактивными («скоро»).
  * После отправки: «Код отправлен в WhatsApp» по факту (сервер мог переслать в запасной канал) и «Прислать в …».
  */
@@ -16,13 +16,14 @@ import { CHANNEL_ICON, ChannelPicker } from '@/ui/parts/ChannelPicker';
 const ASSUMED: OnlineCodeChannel[] = ['telegram'];
 
 export function useCodeChannels(): OnlineCodeChannel[] {
-  return useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ASSUMED;
+  return (useApiQuery(['auth', 'code-channels'], getLoginChannels).data ?? ASSUMED).filter((c) => ALL.includes(c));
 }
 
-const ALL: OnlineCodeChannel[] = ['telegram', 'whatsapp', 'sms'];
+/** SMS для кода нет (владелец 04.10.2026: «нужно и Telegram, и WhatsApp») */
+const ALL: OnlineCodeChannel[] = ['telegram', 'whatsapp'];
 
 /**
- * Выбор до отправки (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда Telegram · WhatsApp · SMS,
+ * Выбор до отправки (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда Telegram · WhatsApp,
  * не подключённые на сервере — неактивны с «скоро»; под плитками — куда именно придёт код.
  */
 export function CodeChannelPicker({ value, onChange }: { value: OnlineCodeChannel; onChange: (c: OnlineCodeChannel) => void }) {
@@ -48,7 +49,7 @@ export function CodeChannelPicker({ value, onChange }: { value: OnlineCodeChanne
 /** После отправки: куда ушёл код и кнопки других включённых каналов */
 export function CodeSentVia({ sent, requested, pending, onSendVia }: { sent: OnlineCodeSent; requested?: OnlineCodeChannel; pending: boolean; onSendVia: (c: OnlineCodeChannel) => void }) {
   const t = useT('online');
-  const others = sent.channels.filter((c) => c !== sent.channel);
+  const others = sent.channels.filter((c) => c !== sent.channel && ALL.includes(c));
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm text-muted">

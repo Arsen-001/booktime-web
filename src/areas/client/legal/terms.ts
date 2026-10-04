@@ -26,7 +26,7 @@ export const TERMS: LegalDocs = {
         id: 'account',
         heading: 'Аккаунт',
         list: [
-          'Вход — по номеру телефона и одноразовому коду, который приходит в Telegram, WhatsApp или SMS. Можно также войти через Google или Apple.',
+          'Вход — по номеру телефона и одноразовому коду, который приходит в Telegram или WhatsApp. Можно также войти через Google или Apple.',
           'Указывайте своё настоящее имя и свой номер. Один аккаунт — для одного человека. Не передавайте коды входа другим.',
           'Вы отвечаете за действия, совершённые из вашего аккаунта. Если думаете, что в него вошёл кто-то чужой, сразу напишите нам.',
           'Удалить аккаунт можно в любой момент в приложении или на сайте (см. страницу «Удаление аккаунта»).',
@@ -125,7 +125,7 @@ export const TERMS: LegalDocs = {
         id: 'account',
         heading: 'Your account',
         list: [
-          'You sign in with your phone number and a one-time code sent via Telegram, WhatsApp or SMS. You can also sign in with Google or Apple.',
+          'You sign in with your phone number and a one-time code sent via Telegram or WhatsApp. You can also sign in with Google or Apple.',
           'Use your real name and your own number. One account is for one person. Do not share sign-in codes.',
           'You are responsible for actions taken from your account. If you think someone else has signed in, write to us immediately.',
           'You can delete your account at any time in the app or on the website (see the “Account deletion” page).',
@@ -225,7 +225,7 @@ export const TERMS: LegalDocs = {
         id: 'account',
         heading: 'Հաշիվ',
         list: [
-          'Մուտքը հեռախոսահամարով և միանգամյա կոդով է, որը գալիս է Telegram-ով, WhatsApp-ով կամ SMS-ով։ Կարող եք նաև մուտք գործել Google-ով կամ Apple-ով։',
+          'Մուտքը հեռախոսահամարով և միանգամյա կոդով է, որը գալիս է Telegram-ով կամ WhatsApp-ով։ Կարող եք նաև մուտք գործել Google-ով կամ Apple-ով։',
           'Նշեք ձեր իրական անունը և ձեր համարը։ Մեկ հաշիվը մեկ մարդու համար է։ Մուտքի կոդերը մի փոխանցեք ուրիշներին։',
           'Դուք պատասխանատու եք ձեր հաշվից կատարված գործողությունների համար։ Եթե կարծում եք, որ ձեր հաշիվ մուտք է գործել օտար մարդ, անմիջապես գրեք մեզ։',
           'Հաշիվը կարող եք ջնջել ցանկացած պահի հավելվածում կամ կայքում (տե՛ս «Հաշվի ջնջում» էջը)։',

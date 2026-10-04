@@ -60,7 +60,7 @@ export const PRIVACY: LegalDocs = {
         p: ['Мы не продаём данные и не передаём их рекламодателям. Данные получают только те, без кого сервис не работает:'],
         list: [
           'Салон или мастер, к которому вы записались: имя, телефон, выбранные услуги, время и комментарий к записи. Салоны, к которым вы не записывались, ваших данных не видят.',
-          'Доставка кодов и сообщений: Telegram (Telegram Gateway — коды входа; бот — напоминания), Meta (WhatsApp Business — коды входа, если в Telegram код не доставлен), Twilio (SMS — запасной канал). Им передаются номер телефона и текст сообщения.',
+          'Доставка кодов и сообщений: Telegram (Telegram Gateway — коды входа; бот — напоминания), Meta (WhatsApp Business — коды входа, если в Telegram код не доставлен). Им передаются номер телефона и текст сообщения.',
           'Вход и уведомления: Google (вход через Google, Firebase Cloud Messaging) и Apple (вход через Apple, пуши на iPhone).',
           'Хостинг: Railway (серверы и база данных в ЕС, Нидерланды) и Vercel (сайт и его доставка).',
           'Мониторинг ошибок: Sentry (хранение в ЕС). Перед отправкой из отчётов убираются данные пользователя, cookie, заголовки и тело запроса.',
@@ -201,7 +201,7 @@ export const PRIVACY: LegalDocs = {
         p: ['We do not sell data and do not share it with advertisers. Data goes only to those the service cannot work without:'],
         list: [
           'The business you book with: your name, phone, chosen services, time and booking comment. Businesses you have not booked with do not see your data.',
-          'Delivery of codes and messages: Telegram (Telegram Gateway for sign-in codes; the bot for reminders), Meta (WhatsApp Business, for sign-in codes if Telegram could not deliver), Twilio (SMS as a fallback). They receive the phone number and the message text.',
+          'Delivery of codes and messages: Telegram (Telegram Gateway for sign-in codes; the bot for reminders), Meta (WhatsApp Business, for sign-in codes if Telegram could not deliver). They receive the phone number and the message text.',
           'Sign-in and notifications: Google (Sign in with Google, Firebase Cloud Messaging) and Apple (Sign in with Apple, iPhone push notifications).',
           'Hosting: Railway (servers and database in the EU, the Netherlands) and Vercel (website delivery).',
           'Error monitoring: Sentry (EU data storage). User data, cookies, headers and request bodies are removed before a report is sent.',
@@ -342,7 +342,7 @@ export const PRIVACY: LegalDocs = {
         p: ['Մենք չենք վաճառում տվյալները և չենք փոխանցում գովազդատուներին։ Տվյալները ստանում են միայն նրանք, առանց որոնց ծառայությունը չի աշխատի.'],
         list: [
           'Սրահը կամ վարպետը, որի մոտ գրանցվել եք՝ անունը, հեռախոսը, ընտրված ծառայությունները, ժամը և մեկնաբանությունը։ Սրահները, որոնց մոտ չեք գրանցվել, ձեր տվյալները չեն տեսնում։',
-          'Կոդերի և հաղորդագրությունների առաքում՝ Telegram (Telegram Gateway՝ մուտքի կոդեր, բոտ՝ հիշեցումներ), Meta (WhatsApp Business՝ մուտքի կոդեր, եթե Telegram-ով կոդը չի հասել), Twilio (SMS՝ պահուստային ալիք)։ Նրանք ստանում են հեռախոսահամարը և հաղորդագրության տեքստը։',
+          'Կոդերի և հաղորդագրությունների առաքում՝ Telegram (Telegram Gateway՝ մուտքի կոդեր, բոտ՝ հիշեցումներ), Meta (WhatsApp Business՝ մուտքի կոդեր, եթե Telegram-ով կոդը չի հասել)։ Նրանք ստանում են հեռախոսահամարը և հաղորդագրության տեքստը։',
           'Մուտք և ծանուցումներ՝ Google (մուտք Google-ով, Firebase Cloud Messaging) և Apple (մուտք Apple-ով, push ծանուցումներ iPhone-ում)։',
           'Հոսթինգ՝ Railway (սերվերներ և տվյալների բազա ԵՄ-ում, Նիդեռլանդներ) և Vercel (կայքի առաքում)։',
           'Սխալների մոնիթորինգ՝ Sentry (պահպանում ԵՄ-ում)։ Ուղարկելուց առաջ հաշվետվություններից հեռացվում են օգտատիրոջ տվյալները, cookie-ները, գլխագրերը և հարցման մարմինը։',

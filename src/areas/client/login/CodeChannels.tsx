@@ -10,15 +10,15 @@ import { ChannelPicker as TilePicker } from '@/ui/parts/ChannelPicker';
 type ClientT = ReturnType<typeof useT<'client'>>;
 
 /** Пока список каналов грузится — самый частый случай на сервере, чтобы выбор не прыгал */
-const ASSUMED: LoginChannel[] = ['telegram', 'whatsapp', 'sms'];
+const ASSUMED: LoginChannel[] = ['telegram', 'whatsapp'];
 
 /**
- * Включённые каналы кода (03.10.2026): Telegram всегда, WhatsApp и SMS — если настроены на сервере; в демо — все.
- * Порядок как на сервере: Telegram → WhatsApp → SMS.
+ * Включённые каналы кода (03.10.2026): Telegram всегда, WhatsApp — если настроен на сервере; в демо — оба.
+ * Порядок как на сервере: Telegram → WhatsApp. SMS для кода нет (владелец 04.10.2026).
  */
 export function useLoginChannels(): LoginChannel[] {
   const q = useApiQuery(['auth', 'code-channels'], getLoginChannels);
-  return q.data ?? ASSUMED;
+  return (q.data ?? ASSUMED).filter((c) => ALL_CHANNELS.includes(c));
 }
 
 export function channelName(t: ClientT, channel: LoginChannel): string {
@@ -34,11 +34,11 @@ export function codeSentText(t: ClientT, phone: string, channel: LoginChannel): 
 
 const ICONS: Record<LoginChannel, typeof Send> = { telegram: Send, whatsapp: MessageCircle, sms: MessageSquare };
 
-const ALL_CHANNELS: LoginChannel[] = ['telegram', 'whatsapp', 'sms'];
+const ALL_CHANNELS: LoginChannel[] = ['telegram', 'whatsapp'];
 
 /**
- * «Куда прислать код» на первом шаге (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда три плитки
- * Telegram · WhatsApp · SMS, выключенные на сервере — неактивны с подписью «скоро», и под ними одна строка — куда именно
+ * «Куда прислать код» на первом шаге (владелец 04.10.2026: «откуда понять, куда придёт код?»): всегда две плитки
+ * Telegram · WhatsApp (SMS убрали — владелец 04.10.2026), выключенные на сервере — неактивны с подписью «скоро», и под ними одна строка — куда именно
  * придёт код. Выбранный выключенный канал не остаётся: берётся первый включённый.
  */
 export function ChannelPicker({ t, value, onChange, channels }: { t: ClientT; value: LoginChannel; onChange: (c: LoginChannel) => void; channels: LoginChannel[] }) {
@@ -87,7 +87,7 @@ export function OtherChannelButtons({
   pending?: LoginChannel;
   onSend: (c: LoginChannel) => void;
 }) {
-  const others = channels.filter((c) => c !== current);
+  const others = channels.filter((c) => c !== current && ALL_CHANNELS.includes(c));
   if (others.length === 0) return null;
   return (
     <div data-f="F-00-032" className="flex flex-wrap items-center gap-2">
