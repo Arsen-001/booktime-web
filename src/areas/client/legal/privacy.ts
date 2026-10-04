@@ -129,7 +129,7 @@ export const PRIVACY: LegalDocs = {
         id: 'children',
         heading: 'Дети',
         p: [
-          'Сервис рассчитан на людей от 16 лет. Записать ребёнка к мастеру или врачу может его родитель из своего аккаунта. Если вы узнали, что ребёнок младше 16 лет создал аккаунт сам, напишите нам — мы его удалим.',
+          'Ограничений по возрасту в сервисе нет: подростки записываются сами. Аккаунт можно создать с 13 лет. Ребёнка младше 13 лет записывает к мастеру или врачу родитель из своего аккаунта. Если вы узнали, что ребёнок младше 13 лет создал аккаунт сам, напишите нам — мы его удалим.',
         ],
       },
       {
@@ -270,7 +270,7 @@ export const PRIVACY: LegalDocs = {
         id: 'children',
         heading: 'Children',
         p: [
-          'The service is intended for people aged 16 and over. A parent can book for a child from their own account. If you learn that a child under 16 created an account, write to us and we will delete it.',
+          'The service has no age restrictions: teenagers can book on their own. You can create an account from age 13. A child under 13 is booked by a parent from the parent’s own account. If you learn that a child under 13 created an account, write to us and we will delete it.',
         ],
       },
       {
@@ -411,7 +411,7 @@ export const PRIVACY: LegalDocs = {
         id: 'children',
         heading: 'Երեխաներ',
         p: [
-          'Ծառայությունը նախատեսված է 16 տարեկանից բարձր անձանց համար։ Երեխային վարպետի կամ բժշկի մոտ կարող է գրանցել ծնողը՝ իր հաշվից։ Եթե իմացել եք, որ 16 տարեկանից փոքր երեխան ինքն է հաշիվ ստեղծել, գրեք մեզ, և մենք այն կջնջենք։',
+          'Ծառայությունում տարիքային սահմանափակումներ չկան․ դեռահասները կարող են գրանցվել ինքնուրույն։ Հաշիվ կարելի է ստեղծել 13 տարեկանից։ 13 տարեկանից փոքր երեխային վարպետի կամ բժշկի մոտ գրանցում է ծնողը՝ իր հաշվից։ Եթե իմացել եք, որ 13 տարեկանից փոքր երեխան ինքն է հաշիվ ստեղծել, գրեք մեզ, և մենք այն կջնջենք։',
         ],
       },
       {

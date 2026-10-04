@@ -153,7 +153,7 @@
    - App access — review-notes.md;
    - Ads — «No ads»;
    - Content rating — анкета IARC из listing-*.md;
-   - Target audience — 18+ (client: 16+);
+   - Target audience — Business: 18+; BookTime: 13–15, 16–17, 18+ (без «до 13», см. listing-client.md);
    - Data safety — privacy-answers.md, ссылка на удаление https://booktime.am/account-deletion;
    - Government apps — нет; Financial features — нет; Health — нет (client) / «Health apps → нет», это CRM.
 7. **Main store listing:**
