@@ -14,7 +14,7 @@
   "searchPlaceholder": "Name, phone, email or card number",
   "excel": {
     "title": "Import & export",
-    "import": "Upload from Excel",
+    "import": "Import clients",
     "export": "Export to Excel",
     "exported": "{file} downloaded: {count, plural, one {# client} other {# clients}}",
     "exportCount": "Export {count, plural, one {# client} other {# clients}} to Excel",
@@ -133,8 +133,8 @@
     "searchTitle": "No one found for “{query}”",
     "searchText": "Check the spelling or reset the filters",
     "baseTitle": "Your clients will appear here",
-    "baseText": "A client card appears on its own after the first booking. You can also add clients by hand or upload a list from Excel.",
-    "importAction": "Upload from Excel",
+    "baseText": "A card appears automatically after the first booking in the calendar. Add clients manually or move your base from Altegio, DIKIDI or Excel in a minute.",
+    "importAction": "Import from Altegio or Excel",
     "filterTitle": "No one found",
     "addWithQuery": "Add “{query}”"
   },
@@ -734,57 +734,144 @@
   },
   "importPage": {
     "title": "Import and export",
-    "subtitle": "Bring clients in from Excel or your phone — or export them",
-    "emptyBaseTitle": "The base is empty",
-    "emptyBaseText": "Load clients from Excel or add the first one manually in the client base",
+    "subtitle": "Move your clients from Altegio, DIKIDI or Excel in a minute — or export your base",
     "noAccessTitle": "No access",
     "noAccessText": "You don't have permission to import or export the client base — ask the business owner",
     "import": {
-      "title": "Load from Excel",
-      "description": "Paste data copied from a spreadsheet or upload a .csv/.xls/.xlsx file — up to 500 rows at once",
-      "doubleWarning": "Upload the same file again and “Total spent” and “Paid” will be added up, not replaced",
-      "pastePlaceholder": "Paste your spreadsheet data here (first row = column headers)",
-      "loadPasted": "Upload pasted data",
-      "chooseFile": "Choose file",
-      "parseError": "Could not read the data — check the format",
-      "empty": "No data to import — paste the table rows together with the headers",
-      "rowError": {
-        "noName": "name is empty",
-        "noPhone": "phone is empty",
-        "phoneFormat": "phone must be digits only, without “+”, dashes or spaces",
-        "emailFormat": "invalid email format",
-        "genderFormat": "gender must be M/F or 1/2",
-        "birthdayFormat": "date of birth must be DD-MM or DD-MM-YYYY"
+      "title": "Import clients",
+      "description": "An export from Altegio, DIKIDI, Emly, Booker or any Excel / Google Sheets table",
+      "steps": {
+        "file": "File",
+        "columns": "Columns",
+        "check": "Review"
       },
-      "binaryUnsupported": "Upload a .csv, .xls or .xlsx file — other formats aren't supported",
-      "legacyXlsUnsupported": "This old Excel format can’t be opened — save the file as .xlsx or .csv",
-      "tooManyRows": "You can load at most {max} rows at once",
-      "mapHint": "Match columns to base fields — rows to load: {count}",
+      "drop": {
+        "title": "Choose a file or drop it here",
+        "hint": ".xlsx or .csv · up to {max} rows",
+        "choose": "Choose file",
+        "reading": "Reading the file…"
+      },
+      "pasteToggle": "Paste from a spreadsheet",
+      "pastePlaceholder": "Copy the rows in Excel or Google Sheets together with the headers and paste them here",
+      "pasteContinue": "Continue",
+      "pasteCancel": "Cancel",
+      "noDuplicatesNote": "No duplicates: clients are matched by phone number, and uploading the same file again changes nothing",
+      "errors": {
+        "parse": "Couldn't read the file — save it as .xlsx or .csv and try again",
+        "empty": "No client rows in the file — it needs a header row and rows below it",
+        "legacyXls": "This is the old Excel format (.xls) — open it in Excel and save as .xlsx",
+        "binary": "Upload an .xlsx or .csv table — this format cannot be opened",
+        "tooManyRows": "The file has more than {max} rows — split it into parts"
+      },
+      "preset": {
+        "altegio": "Altegio export — columns matched automatically",
+        "dikidi": "DIKIDI export — columns matched automatically",
+        "generic": "Check what each column means"
+      },
+      "fileLine": "{file} · {count, plural, one {# row} other {# rows}}",
+      "pastedLine": "Pasted {count, plural, one {# row} other {# rows}}",
+      "columnsHint": "fields are matched by column names, change them if something is off",
       "column": "Column {n}",
+      "sampleEmpty": "empty in the first rows",
+      "required": "required",
       "field": {
-        "ignore": "Don't load",
-        "name": "Name (required)",
+        "ignore": "Don't import",
+        "name": "First name",
         "lastName": "Last name",
-        "phone": "Phone (required)",
+        "phone": "Phone",
         "additionalPhone": "Second phone",
         "email": "Email",
         "comment": "Comment",
         "birthday": "Date of birth",
         "gender": "Gender",
+        "categories": "Categories",
+        "discount": "Discount, %",
         "sold": "Total spent",
         "paid": "Total paid",
         "balance": "Client balance",
-        "discount": "Discount",
-        "card": "Card number"
+        "card": "Card number",
+        "visits": "Number of visits",
+        "firstVisit": "First visit",
+        "lastVisit": "Last visit"
       },
-      "needNamePhone": "Match the “Name” and “Phone” columns to continue",
+      "needPhone": "Pick the phone column — clients are matched by their number",
+      "noNameHint": "There's no name column — clients will be saved under their phone number; you can fix names later",
+      "previewTitle": "This is how clients will appear",
+      "previewMore": "and {count, plural, one {# more client} other {# more clients}}",
+      "previewEmpty": "No recognizable phone number in the first rows — check the “Phone” column",
+      "previewBirthday": "Birthday: {date}",
+      "previewSold": "Spent: {sum}",
+      "previewDiscount": "{n}% discount",
       "back": "Back",
-      "loadButton": "Load",
-      "failed": "Couldn’t upload the clients — check the file and try again",
-      "okCount": "{count, plural, one {# client loaded} other {# clients loaded}}",
-      "failedCount": "{count, plural, one {# row rejected} other {# rows rejected}}",
-      "rowLabel": "Row {n}",
-      "newImport": "New import"
+      "toCheck": "Check {count, plural, one {# row} other {# rows}}",
+      "checking": "Checking against your base",
+      "checkFailed": "Couldn't check against your base",
+      "summary": {
+        "new": "New clients",
+        "existing": "Already in base",
+        "rejected": "Won't be imported"
+      },
+      "existingTitle": "{count, plural, one {# client is} other {# clients are}} already in your base — what should we do?",
+      "existing": {
+        "fillEmpty": "Fill in empty fields",
+        "fillEmptyHint": "We'll add email, birthday, comment and the rest where the card is empty ({count, plural, one {# card} other {# cards}}). Names and filled-in fields stay as they are",
+        "fillEmptyNothing": "These cards are already complete — nothing to change",
+        "skip": "Skip",
+        "skipHint": "Cards stay as they are"
+      },
+      "warningsTitle": "We'll import these, but take note",
+      "warning": {
+        "foreignPhone": "{count, plural, one {# number isn't} other {# numbers aren't}} Armenian — imported as is",
+        "nameFromPhone": "{count, plural, one {# client has} other {# clients have}} no name — saved under the phone number",
+        "emailDropped": "{count, plural, one {# invalid email} other {# invalid emails}} — imported without email",
+        "birthdayDropped": "{count, plural, one {# birthday wasn't} other {# birthdays weren't}} recognized — imported without it",
+        "genderDropped": "Gender wasn't recognized {count, plural, one {once} other {# times}} — left as “not set”",
+        "additionalPhoneDropped": "{count, plural, one {# invalid second number} other {# invalid second numbers}} — imported without it"
+      },
+      "rejectedTitle": "These rows won't be imported",
+      "reason": {
+        "noPhone": "no phone",
+        "phoneFormat": "number not recognized",
+        "duplicateInFile": "number repeats in the file",
+        "exists": "already in base",
+        "nothingToFill": "card already complete",
+        "invalid": "rejected by the server"
+      },
+      "reasonCount": "{reason} — {count, plural, one {# row} other {# rows}}",
+      "duplicateOf": "number repeats — first seen in row {n}",
+      "downloadRejected": "Download these rows (CSV)",
+      "lineColumn": "Row in file",
+      "reasonColumn": "Reason",
+      "start": "Import {count, plural, one {# client} other {# clients}}",
+      "startPending": "Import",
+      "nothingToImport": "Nothing to import: every client in the file is already in your base",
+      "running": {
+        "title": "Importing clients",
+        "progress": "{done} of {total}",
+        "keepOpen": "Keep this page open — it usually takes less than a minute",
+        "stop": "Stop",
+        "stopping": "Stopping after the current batch…",
+        "paused": "Connection lost — {done} of {total} imported. Continue: retrying will not create duplicates",
+        "resume": "Continue"
+      },
+      "result": {
+        "title": "Done — your clients are in",
+        "stoppedTitle": "Import stopped",
+        "subtitle": "Your base now has {count, plural, one {# new or updated client} other {# new or updated clients}}",
+        "created": "Added",
+        "updated": "Filled in",
+        "skipped": "Skipped",
+        "errors": "Not imported",
+        "openBase": "Open client base",
+        "again": "Import another file"
+      },
+      "stats": {
+        "line": "From the previous system: {details}",
+        "visits": "{count, plural, one {# visit} other {# visits}}",
+        "first": "first visit {date}",
+        "last": "last visit {date}"
+      },
+      "failed": "The server didn't accept the data — check the file and try again"
     },
     "export": {
       "title": "Export to Excel",
@@ -796,12 +883,7 @@
     },
     "log": {
       "title": "Import and export history",
-      "line": "{at} · {author} · {method, select, file {file upload} other {pasted data}}: created {created}, updated {updated}, rejected {rejected}"
-    },
-    "migration": {
-      "title": "Migration by our team",
-      "description": "Moving data from another system, Excel or a paper log is done by our onboarding team when connecting a salon — not from this cabinet. Fill in the template file in advance.",
-      "downloadTemplate": "Download the file template"
+      "line": "{at} · {author} · {method, select, file {file} other {pasted table}}: added {created}, filled in {updated}, skipped {skipped}, not imported {rejected}"
     },
     "phoneBook": {
       "sectionTitle": "Phone contacts",
@@ -816,6 +898,31 @@
       "cancel": "Cancel",
       "importSelected": "Import ({count})",
       "imported": "{count, plural, one {# client added} other {# clients added}}"
+    },
+    "help": {
+      "title": "How to export clients from another system",
+      "altegio": {
+        "title": "From Altegio",
+        "step1": "Open Altegio on a computer: Clients → Client Database.",
+        "step2": "In the top right corner click Excel → Export to Excel.",
+        "step3": "To export everyone, reset the filters first. You need the “Export client list to Excel” permission.",
+        "step4": "Upload the downloaded file here — columns are matched automatically."
+      },
+      "dikidi": {
+        "title": "From DIKIDI",
+        "step1": "Open DIKIDI Business on a computer and go to Clients.",
+        "step2": "Export the list to Excel with the export button above the list. If there's no button, ask DIKIDI support for an export.",
+        "step3": "Upload the file here."
+      },
+      "sheet": {
+        "title": "From Excel, Google Sheets, Emly or Booker",
+        "step1": "The first row holds column names: “Name” and “Phone”, optionally “Email”, “Date of birth”, “Comment”, “Categories”.",
+        "step2": "Google Sheets: File → Download → Microsoft Excel (.xlsx). Or just select the rows, copy and paste them.",
+        "step3": "Any phone format works: 093 000 000, +374 93 000 000, 37493000000.",
+        "template": "Download template",
+        "templateHeader": "Name;Last name;Phone;Email;Date of birth;Gender;Comment;Categories;Discount;Total spent;Total paid",
+        "templateRow": "Anna;Petrosyan;093 000 000;anna@example.com;15.03.1990;F;Example — replace with your clients;VIP;10;45000;45000"
+      }
     }
   },
   "rights": {

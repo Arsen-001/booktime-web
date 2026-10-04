@@ -1,8 +1,18 @@
 'use client';
 
-/** Импорт из Excel, выгрузка и журнал выгрузок. */
-import type { ClientRow, ExportLogEntry, ImportColumnTarget, ImportRowErrorCode, ImportRowResult, ImportRunSummary } from '@/domain/clients';
-import { emptyProfile } from '@/domain/clients';
+/** Импорт клиентов пачками, выгрузка и журнал выгрузок. */
+import type {
+  ClientProfile,
+  ClientRow,
+  ExportLogEntry,
+  ImportableClientFields,
+  ImportBatchInput,
+  ImportBatchResult,
+  ImportBatchRowResult,
+  ImportClientInput,
+  ImportRunSummary,
+} from '@/domain/clients';
+import { emptyProfile, fillEmptyPatch, IMPORT_BATCH_MAX, isImportEmail, normalizeImportPhone } from '@/domain/clients';
 import type { Client, Id } from '@/domain/core';
 import * as C from '@/api/clients/clients.server';
 import { isApiMode } from '@/api/http';
@@ -10,204 +20,194 @@ import { readArea, readCore, mutateArea } from '@/api/area';
 import { assertCan, coreTx, currentActor } from '@/api/core';
 import { ApiError, request } from '@/api/request';
 import { newId } from '@/lib/id';
-import { dayjs, nowDateTime, today } from '@/lib/date';
+import { nowDateTime } from '@/lib/date';
 import { normalizePhone } from '@/lib/phone';
 import { businessIdsFor, rowsFor } from '@/api/clients/shared';
 
-// ─────────────────────────── Импорт из Excel (F-04-126…129, 177) ───────────────────────────
+// ─────────────────────────── Импорт клиентов (F-04-126…129, 177; ⭐ переезд за минуту, 04.10.2026) ───────────────────────────
+// Экран сам разбирает файл и проверяет строки (prepareImport из domain) и шлёт готовые строки пачками до
+// IMPORT_BATCH_MAX. Номер уже в базе: «пропустить» или «дополнить пустые поля» — повтор того же файла ничего не
+// удваивает и не плодит дублей (было у Altegio: «Продано/Оплачено» складывались, F-04-129 — заменено решением 04.10).
 
-export interface ParsedImportSheet {
-  headers: string[];
-  rows: string[][];
-}
-
-export const IMPORT_MAX_ROWS = 500;
-
-/** Разбирает вставленный текст или содержимое .csv (F-04-126): авто-определяет разделитель `,`/`;`/Tab */
-export function parseImportText(text: string): ParsedImportSheet {
-  const lines = text.split(/\r\n|\n|\r/).filter((l) => l.trim().length > 0);
-  if (lines.length === 0) throw new ApiError('empty_import', 'Нет данных для загрузки');
-  const sep = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
-  const table = lines.map((l) => l.split(sep).map((c) => c.trim().replace(/^"(.*)"$/, '$1')));
-  const headers = table[0];
-  const rows = table.slice(1);
-  if (rows.length > IMPORT_MAX_ROWS) throw new ApiError('too_many_rows', `За раз можно загрузить не больше ${IMPORT_MAX_ROWS} строк`);
-  return { headers, rows };
-}
-
-function parseImportGender(v: string): Client['gender'] | undefined {
-  const s = v.trim().toUpperCase();
-  if (s === 'M' || s === '1') return 'male';
-  if (s === 'F' || s === '2') return 'female';
-  return undefined;
-}
-
-/** «ДД-ММ» или «ДД-ММ-ГГГГ» → ISODate; без года подставляется текущий (F-04-128) */
-function parseImportBirthday(v: string): string | undefined {
-  const m = v.trim().match(/^(\d{2})-(\d{2})(?:-(\d{4}))?$/);
-  if (!m) return undefined;
-  const [, dd, mm, yyyy] = m;
-  const year = yyyy ?? String(dayjs(today()).year());
-  const candidate = `${year}-${mm}-${dd}`;
-  return dayjs(candidate, 'YYYY-MM-DD', true).isValid() ? candidate : undefined;
-}
-
-/**
- * Применяет одну сопоставленную строку (F-04-127/128): создаёт клиента или, если номер уже есть в базе,
- * ПРИБАВЛЯЕТ «Продано»/«Оплачено» к существующей карточке (F-04-129) — не создаёт дубль (F-00-128).
- */
-async function applyImportRow(
-  businessId: Id,
-  headers: ImportColumnTarget[],
-  values: string[],
-): Promise<{ ok: boolean; error?: string; errorCode?: ImportRowErrorCode; created?: boolean; clientId?: Id }> {
-  const get = (target: ImportColumnTarget): string | undefined => {
-    const i = headers.indexOf(target);
-    return i >= 0 ? values[i]?.trim() : undefined;
+/** Карточка мока в общей форме правила fillEmptyPatch */
+function importableOf(c: Client, p: ClientProfile): ImportableClientFields {
+  return {
+    name: c.name,
+    lastName: p.lastName,
+    email: c.email,
+    note: c.note,
+    birthday: c.birthday,
+    gender: c.gender,
+    tags: c.tags,
+    additionalPhone: p.additionalPhone,
+    discountPercent: p.discountPercent,
+    cardNumber: p.cardNumber,
+    importedSold: p.importedSold ?? 0,
+    paidAmount: p.paidAmount,
   };
-  const name = get('name');
-  const phoneRaw = get('phone');
-  if (!name) return { ok: false, errorCode: 'noName', error: 'Не заполнено имя' };
-  if (!phoneRaw) return { ok: false, errorCode: 'noPhone', error: 'Не заполнен телефон' };
-  if (!/^\d{7,15}$/.test(phoneRaw))
-    return {
-      ok: false,
-      errorCode: 'phoneFormat',
-      error: 'Телефон должен быть числом без «+», тире и пробелов',
-    };
-
-  const emailRaw = get('email');
-  if (emailRaw && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw)) return { ok: false, errorCode: 'emailFormat', error: 'Неверный формат email' };
-
-  const genderRaw = get('gender');
-  const gender = genderRaw ? parseImportGender(genderRaw) : undefined;
-  if (genderRaw && !gender) return { ok: false, errorCode: 'genderFormat', error: 'Пол должен быть M/F или 1/2' };
-
-  const birthdayRaw = get('birthday');
-  const birthday = birthdayRaw ? parseImportBirthday(birthdayRaw) : undefined;
-  if (birthdayRaw && !birthday)
-    return {
-      ok: false,
-      errorCode: 'birthdayFormat',
-      error: 'Дата рождения должна быть ДД-ММ или ДД-ММ-ГГГГ',
-    };
-
-  const soldRaw = get('sold');
-  const paidRaw = get('paid');
-  const balanceRaw = get('balance');
-  const discountRaw = get('discount');
-  const card = get('card');
-  const additionalPhoneRaw = get('additionalPhone');
-  const comment = get('comment');
-  const lastName = get('lastName');
-
-  const core = readCore();
-  const normalizedImportPhone = normalizePhone(`+${phoneRaw}`);
-  const existing = core.clients.find((c) => {
-    if (c.businessId !== businessId || c.deletedAt) return false;
-    return normalizedImportPhone ? normalizePhone(c.phone) === normalizedImportPhone : c.phone === `+${phoneRaw}`;
-  });
-
-  const addSold = (Number(soldRaw) || 0) + (Number(balanceRaw) || 0);
-  const addPaid = (Number(paidRaw) || 0) + (Number(balanceRaw) || 0);
-
-  if (existing) {
-    mutateArea('clients', (s) => {
-      const prev = s.profiles[existing.id] ?? emptyProfile();
-      s.profiles[existing.id] = {
-        ...prev,
-        importedSold: (prev.importedSold ?? 0) + addSold,
-        paidAmount: prev.paidAmount + addPaid,
-        cardNumber: card || prev.cardNumber,
-        discountPercent: discountRaw !== undefined && discountRaw !== '' ? Number(discountRaw) : prev.discountPercent,
-        additionalPhone: additionalPhoneRaw || prev.additionalPhone,
-      };
-    });
-    if (comment)
-      coreTx.update('clients', existing.id, {
-        note: existing.note ? `${existing.note}\n${comment}` : comment,
-      });
-    return { ok: true, created: false, clientId: existing.id };
-  }
-
-  const client = coreTx.create('clients', {
-    businessId,
-    phone: `+${phoneRaw}`,
-    name,
-    gender: gender ?? 'unknown',
-    birthday,
-    tags: [],
-    note: comment || undefined,
-    noShowCount: 0,
-    createdAt: nowDateTime(),
-  });
-  mutateArea('clients', (s) => {
-    s.profiles[client.id] = {
-      discountPercent: discountRaw !== undefined && discountRaw !== '' ? Number(discountRaw) : 0,
-      paidAmount: addPaid,
-      importedSold: addSold,
-      cardNumber: card || undefined,
-      lastName: lastName || undefined,
-      additionalPhone: additionalPhoneRaw || undefined,
-    };
-  });
-  return { ok: true, created: true, clientId: client.id };
 }
 
-/**
- * Запускает импорт (F-04-126…129): построчно валидирует и применяет; пишет прогон в свой журнал раздела
- * и в общий журнал «Операции с данными» (`coreTx.logDataOperation`, core-k3 №2).
- */
-export function runImport(
-  businessId: Id,
-  authorName: string,
-  mapping: ImportColumnTarget[],
-  rows: string[][],
-  method: ImportRunSummary['method'] = 'paste',
-): Promise<{ results: ImportRowResult[]; summary: ImportRunSummary }> {
-  if (isApiMode()) return C.runImport(businessId, authorName, mapping, rows, method);
-  return request(async () => {
+/** Тот же номер у разных записей: '+374…' сравниваем нормализованным, иностранный — как есть */
+const phoneKey = (phone: string) => normalizePhone(phone) ?? phone.replace(/[^\d+]/g, '');
+
+/** Одна пачка импорта: проверка (dryRun) или запись. Строка — создан / дополнен / пропущен / ошибка */
+export function importClientsBatch(businessId: Id, input: ImportBatchInput): Promise<ImportBatchResult> {
+  if (isApiMode()) return C.importClientsBatch(businessId, input);
+  return request(() => {
     assertCan('clients.edit');
-    const results: ImportRowResult[] = [];
-    let created = 0;
-    let updated = 0;
-    for (let i = 0; i < rows.length; i++) {
-      const outcome = await applyImportRow(businessId, mapping, rows[i]);
-      results.push({
-        rowIndex: i,
-        raw: rows[i],
-        ok: outcome.ok,
-        error: outcome.error,
-        errorCode: outcome.errorCode,
-        clientId: outcome.clientId,
-        created: outcome.created,
+    if (input.rows.length > IMPORT_BATCH_MAX) throw new ApiError('too_many_rows', `Не больше ${IMPORT_BATCH_MAX} строк за вызов`);
+    const core = readCore();
+    const byPhone = new Map<string, Client>();
+    core.clients.filter((c) => c.businessId === businessId && !c.deletedAt).forEach((c) => byPhone.set(phoneKey(c.phone), c));
+    const seen = new Set<string>();
+    const results: ImportBatchRowResult[] = [];
+
+    for (const row of input.rows) {
+      // Сервер проверяет строки сам — мок повторяет ту же проверку телефона, а не верит экрану
+      const phone = normalizeImportPhone(row.phone);
+      if (!phone) {
+        results.push({
+          rowIndex: row.rowIndex,
+          status: 'error',
+          code: row.phone ? 'phoneFormat' : 'noPhone',
+        });
+        continue;
+      }
+      const key = phoneKey(phone.phone);
+      if (seen.has(key)) {
+        results.push({
+          rowIndex: row.rowIndex,
+          status: 'skipped',
+          code: 'duplicateInFile',
+        });
+        continue;
+      }
+      seen.add(key);
+      const clean: ImportClientInput = {
+        ...row,
+        phone: phone.phone,
+        name: (row.name || phone.phone).trim().slice(0, 160),
+        email: row.email && isImportEmail(row.email) ? row.email : undefined,
+      };
+      const existing = byPhone.get(key);
+
+      if (existing) {
+        if (input.onExisting === 'skip') {
+          results.push({
+            rowIndex: row.rowIndex,
+            status: 'skipped',
+            code: 'exists',
+            clientId: existing.id,
+          });
+          continue;
+        }
+        const profile = readArea('clients').profiles[existing.id] ?? emptyProfile();
+        const patch = fillEmptyPatch(importableOf(existing, profile), clean);
+        if (Object.keys(patch).length === 0) {
+          results.push({
+            rowIndex: row.rowIndex,
+            status: 'skipped',
+            code: 'nothingToFill',
+            clientId: existing.id,
+          });
+          continue;
+        }
+        if (!input.dryRun) {
+          const corePatch: Partial<Client> = {};
+          if (patch.email) corePatch.email = patch.email;
+          if (patch.note) corePatch.note = patch.note;
+          if (patch.birthday) corePatch.birthday = patch.birthday;
+          if (patch.gender && patch.gender !== 'unknown') corePatch.gender = patch.gender;
+          if (patch.tags) corePatch.tags = patch.tags;
+          if (Object.keys(corePatch).length) coreTx.update('clients', existing.id, corePatch);
+          mutateArea('clients', (s) => {
+            const prev = s.profiles[existing.id] ?? emptyProfile();
+            s.profiles[existing.id] = {
+              ...prev,
+              ...(patch.lastName ? { lastName: patch.lastName } : {}),
+              ...(patch.additionalPhone ? { additionalPhone: patch.additionalPhone } : {}),
+              ...(patch.discountPercent ? { discountPercent: patch.discountPercent } : {}),
+              ...(patch.cardNumber ? { cardNumber: patch.cardNumber } : {}),
+              ...(patch.importedSold ? { importedSold: patch.importedSold } : {}),
+              ...(patch.paidAmount ? { paidAmount: patch.paidAmount } : {}),
+            };
+          });
+        }
+        results.push({
+          rowIndex: row.rowIndex,
+          status: 'updated',
+          clientId: existing.id,
+        });
+        continue;
+      }
+
+      if (input.dryRun) {
+        results.push({ rowIndex: row.rowIndex, status: 'created' });
+        continue;
+      }
+      const client = coreTx.create('clients', {
+        businessId,
+        phone: clean.phone,
+        name: clean.name,
+        gender: clean.gender ?? 'unknown',
+        birthday: clean.birthday,
+        email: clean.email,
+        tags: clean.tags ?? [],
+        note: clean.note || undefined,
+        noShowCount: 0,
+        createdAt: nowDateTime(),
       });
-      if (outcome.ok && outcome.created) created++;
-      else if (outcome.ok) updated++;
+      byPhone.set(key, client);
+      mutateArea('clients', (s) => {
+        s.profiles[client.id] = {
+          discountPercent: clean.discountPercent ?? 0,
+          paidAmount: clean.paid ?? 0,
+          importedSold: clean.sold ?? 0,
+          cardNumber: clean.cardNumber,
+          lastName: clean.lastName,
+          additionalPhone: clean.additionalPhone,
+        };
+      });
+      results.push({
+        rowIndex: row.rowIndex,
+        status: 'created',
+        clientId: client.id,
+      });
     }
-    const summary: ImportRunSummary = {
-      id: newId('import'),
+
+    if (input.dryRun) return { results };
+
+    // Журнал загрузок: один прогон = одна строка, пачки прибавляются к ней
+    const count = (st: ImportBatchRowResult['status']) => results.filter((r) => r.status === st).length;
+    const runId = input.runId ?? newId('import');
+    const before = input.runId ? 0 : (input.rejectedBeforeSend ?? 0);
+    const prev = readArea('clients').importRuns.find((r) => r.id === runId && r.businessId === businessId);
+    const total: ImportRunSummary = {
+      id: runId,
       businessId,
-      at: nowDateTime(),
-      authorName,
-      method,
-      totalRows: rows.length,
-      createdCount: created,
-      updatedCount: updated,
-      rejectedCount: rows.length - created - updated,
+      at: prev?.at ?? nowDateTime(),
+      authorName: input.authorName,
+      method: input.method,
+      totalRows: (prev?.totalRows ?? 0) + results.length + before,
+      createdCount: (prev?.createdCount ?? 0) + count('created'),
+      updatedCount: (prev?.updatedCount ?? 0) + count('updated'),
+      rejectedCount: (prev?.rejectedCount ?? 0) + count('error') + before,
+      skippedCount: (prev?.skippedCount ?? 0) + count('skipped'),
     };
     mutateArea('clients', (s) => {
-      s.importRuns = [summary, ...s.importRuns].slice(0, 50);
+      s.importRuns = [total, ...s.importRuns.filter((r) => r.id !== runId)].slice(0, 50);
     });
-    coreTx.logDataOperation({
-      businessId,
-      kind: 'import',
-      area: 'clients',
-      entity: 'clients',
-      count: created + updated,
-      failed: summary.rejectedCount,
-    });
-    return { results, summary };
+    if (input.final) {
+      coreTx.logDataOperation({
+        businessId,
+        kind: 'import',
+        area: 'clients',
+        entity: 'clients',
+        count: total.createdCount + total.updatedCount,
+        failed: total.rejectedCount,
+      });
+    }
+    return { runId, results };
   });
 }
 

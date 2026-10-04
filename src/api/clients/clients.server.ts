@@ -14,6 +14,7 @@
 import { apiIdentity } from '@/api/identity';
 import { HttpApiError, http } from '@/api/http';
 import { mirrorClients, unmirrorClient } from '@/api/mirror';
+import { notifyDbChange } from '@/mock/db';
 import { ApiError, trackRead } from '@/api/request';
 import { DuplicatePhoneError } from '@/api/clients/shared';
 import { uploadMultipart } from '@/api/uploads.server';
@@ -35,8 +36,8 @@ import type {
   ColumnsPrefs,
   CustomFieldDef,
   ExportLogEntry,
-  ImportColumnTarget,
-  ImportRowResult,
+  ImportBatchInput,
+  ImportBatchResult,
   ImportRunSummary,
   Subscription,
 } from '@/domain/clients';
@@ -363,14 +364,11 @@ export function setStaffFineRights(businessId: Id, staffId: Id, rights: Partial<
 
 // ─────────── импорт (F-04-126…129) ───────────
 
-export function runImport(
-  businessId: Id,
-  authorName: string,
-  mapping: ImportColumnTarget[],
-  rows: string[][],
-  method: ImportRunSummary['method'],
-): Promise<{ results: ImportRowResult[]; summary: ImportRunSummary }> {
-  return http('POST', `${base(businessId)}/clients/import`, { authorName, mapping, rows, method });
+/** Пачка импорта (до 1000 строк): проверка (dryRun) или запись; после записи — перечитать список клиентов */
+export async function importClientsBatch(businessId: Id, input: ImportBatchInput): Promise<ImportBatchResult> {
+  const res = await http<ImportBatchResult>('POST', `${base(businessId)}/clients/import`, input);
+  if (!input.dryRun) notifyDbChange('areas.clients');
+  return res;
 }
 
 export function listImportRuns(businessId: Id): Promise<ImportRunSummary[]> {

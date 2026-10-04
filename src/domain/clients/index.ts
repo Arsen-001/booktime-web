@@ -9,3 +9,4 @@ export * from '@/domain/clients/types';
 export * from '@/domain/clients/program';
 export * from '@/domain/clients/filters';
 export * from '@/domain/clients/money';
+export * from '@/domain/clients/importRules';

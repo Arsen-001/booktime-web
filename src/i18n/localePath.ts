@@ -22,6 +22,7 @@ const LOCALIZABLE: RegExp[] = [
   /^\/$/,
   /^\/search$/,
   /^\/register-business$/,
+  /^\/business$/,
   /^\/b\/[^/]+$/,
   /^\/b\/[^/]+\/about$/,
   /^\/masters\/[^/]+$/,

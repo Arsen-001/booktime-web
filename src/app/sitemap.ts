@@ -8,7 +8,7 @@ import { searchPath } from '@/lib/seo/searchPath';
 import { absoluteUrl, siteUrl } from '@/lib/seo/site';
 
 /**
- * sitemap.xml (SEO, 03.10.2026): главная, поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
+ * sitemap.xml (SEO, 03.10.2026): главная, «Для бизнеса» (/business, 04.10.2026), поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
  * страница каждого опубликованного салона/мастера-одиночки /b/<slug> и карточки мастеров салонов /masters/<id>.
  * Источник — лёгкий список сервера `GET /v1/public/sitemap` (04.10.2026: slug, сферы, районы, фото, дата изменения —
  * без расчёта окон, как было через каталог), кэш 10 минут. Сервер недоступен — только статические страницы.
@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
     { url: absoluteUrl('/'), changeFrequency: 'daily', priority: 1 },
     { url: absoluteUrl('/search'), changeFrequency: 'daily', priority: 0.8 },
+    { url: absoluteUrl('/business'), changeFrequency: 'monthly', priority: 0.6 },
     { url: absoluteUrl('/register-business'), changeFrequency: 'monthly', priority: 0.4 },
   ];
   const { businesses, masters } = await listSitemapData();

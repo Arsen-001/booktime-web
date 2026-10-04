@@ -29,13 +29,14 @@ type SettingsKey = Parameters<ReturnType<typeof useT<'settings'>>>[0];
 const STEP_ACTION: Record<OnboardingStepId, SettingsKey> = {
   services: 'onboarding.step.services.action',
   staff: 'onboarding.step.staff.action',
+  clients: 'onboarding.step.clients.action',
   staffServices: 'onboarding.step.staffServices.action',
   schedule: 'onboarding.step.schedule.action',
   online: 'onboarding.step.online.action',
   profile: 'onboarding.step.profile.action',
 };
 
-/** Шаги чек-листа — всегда эти шесть, в этом порядке (getOnboardingChecklist) */
+/** Шаги чек-листа — всегда эти, в этом порядке (getOnboardingChecklist); «Загрузите клиентов» — с 04.10.2026 */
 const STEP_IDS = Object.keys(STEP_ACTION) as OnboardingStepId[];
 /** Поля профиля — всегда эти шесть (getCompanyProfile) */
 const PROFILE_FIELD_IDS = ['name', 'description', 'logo', 'contacts', 'photos', 'legal'] as const;
@@ -170,7 +171,7 @@ export function OnboardingScreen() {
 }
 
 /**
- * Чек-лист до данных — разметка ChecklistCard (variant="full"): кольцо, заголовок и пояснение, шесть строк шагов.
+ * Чек-лист до данных — разметка ChecklistCard (variant="full"): кольцо, заголовок и пояснение, строки шагов (STEP_IDS).
  * Сделанные шаги (как в прошлый раз) — в одну строку, несделанные — с пояснением; первый несделанный — «следующий»
  * с кнопкой (выключенной).
  */

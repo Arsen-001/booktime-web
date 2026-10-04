@@ -4,9 +4,11 @@
  * (`DecompressionStream('deflate-raw')`) и `DOMParser` для XML. Старый бинарный BIFF-формат .xls (до Excel
  * 2007) в это не входит — такой файл встречается редко и его разбор без библиотеки нереален; в этом случае
  * бросаем `ApiError('legacy_xls_unsupported')`, а не молча портим данные.
+ *
+ * 04.10.2026 (импорт за минуту): ячейки с форматом даты (стиль из xl/styles.xml) отдаются как 'YYYY-MM-DD', а не
+ * числом дней Excel; лимит строк проверяет экран (файл до IMPORT_FILE_MAX_ROWS, на сервер — пачками).
  */
 import { ApiError } from '@/api/request';
-import { IMPORT_MAX_ROWS, type ParsedImportSheet } from '@/api/clients';
 
 const EOCD_SIG = 0x06054b50;
 const CENTRAL_SIG = 0x02014b50;
@@ -93,7 +95,36 @@ function colIndexFromRef(ref: string | null): number {
   return idx - 1;
 }
 
-function cellValue(cell: Element, sharedStrings: string[]): string {
+/** Встроенные форматы Excel, которые показывают дату (ECMA-376, 18.8.30) */
+const BUILTIN_DATE_FORMATS = new Set([14, 15, 16, 17, 22, 27, 30, 36, 45, 46, 47, 50, 57]);
+
+/** Индексы стилей ячеек (cellXfs), у которых формат — дата: встроенный или свой с d/m/y */
+function parseDateStyles(xml: string | undefined): Set<number> {
+  const out = new Set<number>();
+  if (!xml) return out;
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  const custom = new Map<number, string>();
+  for (const f of Array.from(doc.getElementsByTagName('numFmt'))) custom.set(Number(f.getAttribute('numFmtId')), f.getAttribute('formatCode') ?? '');
+  // Дата — если в формате есть день или год (кавычки, [цвет] и экранированные символы не считаются); «h:mm» — не дата
+  const isDateCode = (code: string) => /[dy]/i.test(code.replace(/"[^"]*"|\[[^\]]*\]|\\./g, ''));
+  const xfs = doc.getElementsByTagName('cellXfs')[0];
+  if (!xfs) return out;
+  Array.from(xfs.getElementsByTagName('xf')).forEach((xf, i) => {
+    const id = Number(xf.getAttribute('numFmtId') ?? 0);
+    if (BUILTIN_DATE_FORMATS.has(id) || (custom.has(id) && isDateCode(custom.get(id)!))) out.add(i);
+  });
+  return out;
+}
+
+/** Число дней Excel → 'YYYY-MM-DD' (время суток отбрасывается) */
+function excelSerialToDate(v: string): string | undefined {
+  const n = Number(v);
+  if (!Number.isFinite(n) || n < 1 || n > 73050) return undefined;
+  const dt = new Date(Date.UTC(1899, 11, 30) + Math.floor(n) * 86_400_000);
+  return dt.toISOString().slice(0, 10);
+}
+
+function cellValue(cell: Element, sharedStrings: string[], dateStyles: Set<number>): string {
   const type = cell.getAttribute('t');
   if (type === 'inlineStr') {
     const is = cell.getElementsByTagName('is')[0];
@@ -108,10 +139,12 @@ function cellValue(cell: Element, sharedStrings: string[]): string {
     const i = Number(v);
     return Number.isFinite(i) ? (sharedStrings[i] ?? '') : '';
   }
+  if (type === 'e') return '';
+  if ((type === null || type === 'n') && v && dateStyles.has(Number(cell.getAttribute('s') ?? -1))) return excelSerialToDate(v) ?? v;
   return v;
 }
 
-function parseSheetRows(xml: string, sharedStrings: string[]): string[][] {
+function parseSheetRows(xml: string, sharedStrings: string[], dateStyles: Set<number>): string[][] {
   const doc = new DOMParser().parseFromString(xml, 'application/xml');
   const rowEls = Array.from(doc.getElementsByTagName('row'));
   return rowEls.map((rowEl) => {
@@ -119,9 +152,9 @@ function parseSheetRows(xml: string, sharedStrings: string[]): string[][] {
     const row: string[] = [];
     for (const cell of cells) {
       const col = colIndexFromRef(cell.getAttribute('r'));
-      row[col] = cellValue(cell, sharedStrings);
+      row[col] = cellValue(cell, sharedStrings, dateStyles);
     }
-    return row.map((v) => v ?? '');
+    return Array.from(row, (v) => v ?? ''); // пропущенные ячейки — пустые строки, а не дыры массива
   });
 }
 
@@ -133,19 +166,21 @@ function pickFirstSheetName(entries: ZipEntry[]): string {
   return sheets[0].name;
 }
 
-/** Разбирает настоящий .xlsx (Open XML/ZIP) в ту же форму, что и вставленный текст/CSV */
-export async function parseXlsxBytes(bytes: Uint8Array): Promise<ParsedImportSheet> {
+/** Разбирает настоящий .xlsx (Open XML/ZIP) в таблицу строк первого листа (непустые строки, без шапки — её ищет экран) */
+export async function parseXlsxBytes(bytes: Uint8Array): Promise<string[][]> {
   const entries = readCentralDirectory(bytes);
   const sheetName = pickFirstSheetName(entries);
-  const [sheetXml, sharedXml] = await Promise.all([readZipEntry(bytes, entries, sheetName), readZipEntry(bytes, entries, 'xl/sharedStrings.xml')]);
+  const [sheetXml, sharedXml, stylesXml] = await Promise.all([
+    readZipEntry(bytes, entries, sheetName),
+    readZipEntry(bytes, entries, 'xl/sharedStrings.xml'),
+    readZipEntry(bytes, entries, 'xl/styles.xml'),
+  ]);
   if (!sheetXml) throw new ApiError('no_sheet', 'В файле не найдено ни одного листа');
-  const sharedStrings = parseSharedStrings(sharedXml);
-  const table = parseSheetRows(sheetXml, sharedStrings).filter((r) => r.some((c) => c.trim() !== ''));
+  const table = parseSheetRows(sheetXml, parseSharedStrings(sharedXml), parseDateStyles(stylesXml))
+    .map((r) => r.map((c) => c.trim()))
+    .filter((r) => r.some((c) => c !== ''));
   if (table.length === 0) throw new ApiError('empty_import', 'Нет данных для загрузки');
-  const headers = table[0];
-  const rows = table.slice(1);
-  if (rows.length > IMPORT_MAX_ROWS) throw new ApiError('too_many_rows', `За раз можно загрузить не больше ${IMPORT_MAX_ROWS} строк`);
-  return { headers, rows };
+  return table;
 }
 
 /** true, когда байты начинаются с ZIP-сигнатуры `PK\x03\x04` — так начинаются и .xlsx, и .xls, ошибочно

@@ -1,15 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useT } from '@/i18n/useT';
 
 const STEPS = [1, 2, 3] as const;
 
+/** Чьи тексты: шаги записи для клиента на главной или «Переход за один день» на /business (04.10.2026) */
+type StepsKeys = 'home.how' | 'bizLanding.steps';
+
 /**
  * «Три шага — и вы записаны»: линия между кружками дорисовывается при прокрутке, кружки загораются по очереди
  * (вариант «Живая запись», 03.10.2026). На телефоне шаги столбиком, без линии.
+ * `keys` — набор текстов (title, step1Title…step3Text); `text` — пояснение под заголовком, `footer` — кнопка под шагами.
  */
-export function HowItWorks() {
+export function HowItWorks({ keys = 'home.how', text, footer }: { keys?: StepsKeys; text?: string; footer?: ReactNode }) {
   const t = useT('client');
   const ref = useRef<HTMLOListElement>(null);
   const [progress, setProgress] = useState(0);
@@ -39,7 +43,10 @@ export function HowItWorks() {
 
   return (
     <section className="flex flex-col gap-7">
-      <h2 className="font-display text-2xl font-extrabold tracking-tight text-fg md:text-[2rem]">{t('home.how.title')}</h2>
+      <div className="flex flex-col gap-2">
+        <h2 className="font-display text-2xl font-extrabold tracking-tight text-fg md:text-[2rem]">{t(`${keys}.title`)}</h2>
+        {text ? <p className="max-w-[60ch] text-base text-muted md:text-lg">{text}</p> : null}
+      </div>
       <ol ref={ref} className="relative grid gap-6 md:grid-cols-3 md:gap-8">
         <span aria-hidden className="absolute top-7 right-7 left-7 hidden h-0.5 rounded-full bg-border md:block" />
         <span
@@ -53,12 +60,13 @@ export function HowItWorks() {
               {n}
             </span>
             <div className="flex min-w-0 flex-col gap-1">
-              <h3 className="font-display text-xl font-bold tracking-tight text-fg">{t(`home.how.step${n}Title`)}</h3>
-              <p className="text-[15px] text-muted">{t(`home.how.step${n}Text`)}</p>
+              <h3 className="font-display text-xl font-bold tracking-tight text-fg">{t(`${keys}.step${n}Title`)}</h3>
+              <p className="text-[15px] text-muted">{t(`${keys}.step${n}Text`)}</p>
             </div>
           </li>
         ))}
       </ol>
+      {footer}
     </section>
   );
 }

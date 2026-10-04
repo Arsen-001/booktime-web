@@ -3,7 +3,8 @@
     "overview": "Overview",
     "businesses": "Businesses",
     "plan": "Launch plan",
-    "users": "Users"
+    "users": "Users",
+    "pitch": "Presentation"
   },
   "common": {
     "undo": "Undo"
@@ -1276,6 +1277,237 @@
       "ru": "Русский",
       "en": "English",
       "hy": "Հայերեն"
+    }
+  },
+  "pitch": {
+    "title": "Presentation for salons",
+    "subtitle": "10 slides about BookTime — show them to a salon from a phone, tablet or laptop",
+    "present": "Present",
+    "presentFrom": "Present from this slide",
+    "deckLanguage": "Slide language",
+    "slideOf": "Slide {n} of {total}",
+    "notes": "Notes",
+    "scriptsTitle": "Sales scripts",
+    "scriptsText": "What to tell a salon and how to handle objections — opens in a new tab",
+    "contactLabel": "Your contact on the last slide",
+    "contactHint": "Phone or Telegram — the salon will see it. Stored only on this device",
+    "contactPlaceholder": "+374 … or @telegram",
+    "prev": "Previous slide",
+    "next": "Next slide",
+    "exit": "Exit presentation",
+    "counter": "{n} / {total}",
+    "presentation": "Presentation",
+    "hint": "← → or tap to move, Esc to exit",
+    "lang": {
+      "hy": "Հայ",
+      "ru": "Рус",
+      "en": "Eng"
+    },
+    "rotate": "Turn your phone sideways for a bigger slide"
+  },
+  "pitchDeck": {
+    "footer": "BookTime · booktime.am",
+    "cover": {
+      "eyebrow": "For salons, clinics, independent pros and workshops",
+      "title": "Clients book themselves — even at night",
+      "lead": "Online booking, a calendar, a client base and Telegram reminders. In Armenian, Russian and English.",
+      "brand": "BookTime · booktime.am",
+      "notes": "In short: who we are. BookTime is an Armenian online booking system. Clients see free time and book themselves, the salon keeps its calendar and client base, and reminders go out in Telegram for free."
+    },
+    "pain": {
+      "eyebrow": "How it is now",
+      "title": "Half the day goes to calls and DMs",
+      "cards": [
+        {
+          "title": "Calls and messages",
+          "body": "Clients write on Instagram and WhatsApp asking “any time free?” — and you answer between appointments."
+        },
+        {
+          "title": "No-shows",
+          "body": "A client forgets the visit — the slot is lost and the master earns nothing."
+        },
+        {
+          "title": "Nobody sees free time",
+          "body": "A slot opens up — and only the receptionist knows about it."
+        }
+      ],
+      "notes": "Ask the salon: how much time a day goes to messages about bookings? Do you get no-shows? What do you do with cancellations?"
+    },
+    "what": {
+      "eyebrow": "What BookTime is",
+      "title": "Everything for booking — in one place",
+      "cards": [
+        {
+          "title": "Booking page",
+          "body": "Your own link for Instagram, WhatsApp and Google: the client picks a service, a master and a time."
+        },
+        {
+          "title": "Free today",
+          "body": "BookTime users see your free slots in the catalog — and new clients come in."
+        },
+        {
+          "title": "Telegram reminders",
+          "body": "A day and 2 hours before, free and unlimited. The client confirms with one tap."
+        },
+        {
+          "title": "Calendar",
+          "body": "On phone and computer: day, week, and “find a slot” for a service in seconds."
+        },
+        {
+          "title": "Client base",
+          "body": "Visit history, notes, preferences, regulars."
+        },
+        {
+          "title": "Money and team",
+          "body": "Cash desks, reports, schedules and staff pay in one place."
+        }
+      ]
+    },
+    "clients": {
+      "eyebrow": "For your clients",
+      "title": "Booking in a minute, no calls",
+      "cards": [
+        {
+          "title": "They see free time",
+          "body": "Only real slots — no “we’ll call you back to confirm”."
+        },
+        {
+          "title": "The code comes in Telegram",
+          "body": "One-tap sign-in; WhatsApp, SMS and Google work too."
+        },
+        {
+          "title": "They reschedule and cancel themselves",
+          "body": "In a couple of taps — the freed slot is offered to the waitlist."
+        }
+      ]
+    },
+    "armenia": {
+      "eyebrow": "Made for Armenia",
+      "title": "What other systems don’t have",
+      "cards": [
+        {
+          "title": "Prepayment that works",
+          "body": "The client transfers to your bank details and taps “I’ve paid”, you confirm. A no-show with prepayment doesn’t wipe out your revenue."
+        },
+        {
+          "title": "Three languages everywhere",
+          "body": "Website, catalog, dashboard and booking — in Armenian, Russian and English."
+        },
+        {
+          "title": "The master decides",
+          "body": "Instant booking or with confirmation: accept a request with one button in the calendar."
+        }
+      ]
+    },
+    "orders": {
+      "eyebrow": "Tailoring, repair, dry cleaning, detailing",
+      "title": "“Is my order ready?” — no more calls",
+      "cards": [
+        {
+          "title": "Order taken",
+          "body": "What was dropped off, photos, due date, price and prepayment — in a minute."
+        },
+        {
+          "title": "“Ready — notify the client”",
+          "body": "One button: the client gets a message with a link to the status."
+        },
+        {
+          "title": "Receipt with a QR code",
+          "body": "The client scans it and sees the status. Not picked up — we remind them after 3 and 7 days."
+        }
+      ],
+      "notes": "For workshops: the “Orders” section. Statuses: received → in progress → ready → handed over."
+    },
+    "compare": {
+      "eyebrow": "Comparison",
+      "title": "BookTime and other systems",
+      "columns": [
+        "BookTime",
+        "Altegio",
+        "Emly",
+        "Booker.am"
+      ],
+      "rows": [
+        [
+          "Telegram reminders",
+          "free",
+          "paid SMS",
+          "no",
+          "no"
+        ],
+        [
+          "Online prepayment by the client",
+          "yes, to your bank details",
+          "doesn’t work in Armenia",
+          "—",
+          "no, manual"
+        ],
+        [
+          "Languages",
+          "hy · ru · en everywhere",
+          "ru · en",
+          "catalog in hy only",
+          "—"
+        ],
+        [
+          "“Who’s free” catalog",
+          "yes",
+          "no",
+          "yes, few active",
+          "55 listings"
+        ],
+        [
+          "Salon with 5 masters, per month",
+          "20,000 ֏",
+          "—",
+          "92,500 ֏",
+          "—"
+        ]
+      ],
+      "footnote": "Based on public data from websites, catalogs and price lists as of October 3, 2026. “—” means no data.",
+      "notes": "Only facts from public sources. Don’t criticise competitors — show the difference."
+    },
+    "price": {
+      "eyebrow": "Price",
+      "title": "Clear pricing, no SMS bills",
+      "master": {
+        "label": "Independent master",
+        "amount": "5,000 ֏",
+        "period": "per month"
+      },
+      "salon": {
+        "label": "Salon",
+        "amount": "4,000 ֏",
+        "period": "per master per month, at least 8,000 ֏"
+      },
+      "note": "A salon with 5 masters pays 20,000 ֏ a month. Telegram reminders are included.",
+      "noteStrong": "The first salons get the first month free.",
+      "notes": "Prices confirmed by the owner on October 4, 2026. The first salons get the first month free."
+    },
+    "switch": {
+      "eyebrow": "Switching",
+      "title": "Switch over in one day",
+      "steps": [
+        {
+          "title": "Sign up",
+          "body": "Name, phone, field — 5 minutes."
+        },
+        {
+          "title": "Clients from Altegio or Excel",
+          "body": "Upload a file — your client base moves over in a minute."
+        },
+        {
+          "title": "Link in Instagram and WhatsApp",
+          "body": "Clients start booking themselves."
+        }
+      ],
+      "notes": "The main objection is “we have everything in Altegio”. Answer: clients move over with a file in a minute, and the calendar is full from day one."
+    },
+    "cta": {
+      "title": "Shall we try it at your place?",
+      "lead": "The first month is free. We’ll set everything up and move your clients together with you — in one visit.",
+      "link": "booktime.am/business",
+      "notes": "Leave a contact and agree on a visit to set things up."
     }
   }
 }

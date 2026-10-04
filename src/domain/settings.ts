@@ -206,7 +206,7 @@ export interface PayerTaxInfo {
 
 /** Шаги чек-листа быстрого старта (F-15-022) — порядок важен, порядок = порядок в UI */
 export type OnboardingStepId =
-  'services' | 'staff' | 'staffServices' | 'schedule' | 'online' | 'profile';
+  'services' | 'staff' | 'clients' | 'staffServices' | 'schedule' | 'online' | 'profile';
 
 export interface OnboardingStep {
   id: OnboardingStepId;

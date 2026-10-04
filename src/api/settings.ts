@@ -990,6 +990,8 @@ export function getOnboardingChecklist(
         done: staff.length > 1 || core.businesses.find((b) => b.id === businessId)?.kind === 'individual',
         href: '/biz/staff',
       },
+      // Переезд с Altegio / Excel (04.10.2026): база клиентов загружена или уже набралась из записей
+      { id: 'clients', done: core.clients.some((c) => c.businessId === businessId && !c.deletedAt), href: '/biz/clients/import' },
       {
         id: 'staffServices',
         done: services.some((s) => s.staffIds.length > 0),

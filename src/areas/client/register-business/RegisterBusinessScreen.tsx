@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { RegisterBusinessType } from '@/api/client';
 import { registerBusiness } from '@/api/client';
 import { HttpApiError, isApiMode } from '@/api/http';
@@ -37,10 +37,14 @@ export function RegisterBusinessScreen() {
   const router = useRouter();
   const toast = useToast();
   const apply = useApplyDemo();
+  // Сфера из ссылки (/register-business?sphere=dental — плитки «Для кого» на /business, 04.10.2026) — уже отмечена
+  const sphereParam = useSearchParams().get('sphere');
 
   const [step, setStep] = useState<WizardStep>(0);
   const [type, setType] = useState<RegisterBusinessType>('salon');
-  const [spheres, setSpheres] = useState<SphereId[]>([]);
+  const [spheres, setSpheres] = useState<SphereId[]>(() =>
+    sphereParam && (SPHERE_IDS as readonly string[]).includes(sphereParam) ? [sphereParam as SphereId] : [],
+  );
   const [promoCode, setPromoCode] = useState('');
   const [name, setName] = useState('');
   const [ownerName, setOwnerName] = useState('');

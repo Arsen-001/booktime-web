@@ -96,51 +96,7 @@ export interface LoyaltyRecalcChange {
 
 // ─────────────────────────── Импорт / выгрузка (F-04-126…130, 158→177) ───────────────────────────
 
-export type ImportColumnTarget =
-  | 'ignore'
-  | 'name'
-  | 'lastName'
-  | 'phone'
-  | 'additionalPhone'
-  | 'email'
-  | 'comment'
-  | 'birthday'
-  | 'gender'
-  | 'sold'
-  | 'paid'
-  | 'balance'
-  | 'discount'
-  | 'card';
-
-export const IMPORT_COLUMN_TARGETS: ImportColumnTarget[] = [
-  'ignore',
-  'name',
-  'lastName',
-  'phone',
-  'additionalPhone',
-  'email',
-  'comment',
-  'birthday',
-  'gender',
-  'sold',
-  'paid',
-  'balance',
-  'discount',
-  'card',
-];
-
-/** Почему строка импорта отклонена — код для текста на языке интерфейса (error — запасной текст сервера) */
-export type ImportRowErrorCode = 'noName' | 'noPhone' | 'phoneFormat' | 'emailFormat' | 'genderFormat' | 'birthdayFormat';
-
-export interface ImportRowResult {
-  rowIndex: number;
-  raw: string[];
-  ok: boolean;
-  error?: string;
-  errorCode?: ImportRowErrorCode;
-  clientId?: Id;
-  created?: boolean;
-}
+// Типы и правила импорта (колонки, телефоны, даты, шаблоны Altegio/DIKIDI, пачки) — src/domain/clients/importRules.ts
 
 export interface ImportRunSummary {
   id: string;
@@ -154,6 +110,8 @@ export interface ImportRunSummary {
   createdCount: number;
   updatedCount: number;
   rejectedCount: number;
+  /** Пропущено (уже в базе и нечего дополнить, повтор номера в файле); старые записи — без поля: total − остальные */
+  skippedCount?: number;
 }
 
 export interface ExportLogEntry {

@@ -32,6 +32,7 @@ import {
   PackageCheck,
   PiggyBank,
   Plug,
+  Presentation,
   Rocket,
   Search,
   Settings,
@@ -199,6 +200,8 @@ export const PLATFORM_NAV: NavItem[] = withoutDuplicateChildren([
   item('connect', 'platform', '/platform/connect', Store, 'platform', ['platform']),
   item('visits', 'platform', '/platform/visits', MapPin, 'platform', ['platform']),
   item('prospects', 'platform', '/platform/prospects', MapPinned, 'platform', ['platform']),
+  // Владелец, 04.10.2026: презентация для салонов — показать на визите с телефона или ноутбука
+  item('pitch', 'platform', '/platform/pitch', Presentation, 'platform', ['platform'], { labelKey: 'platform.nav.pitch' }),
   item('promocodes', 'platform', '/platform/promocodes', Ticket, 'platform', ['platform']),
   item('ads', 'platform', '/platform/ads', Megaphone, 'platform', ['platform']),
   item('demand', 'platform', '/platform/demand', TrendingUp, 'platform', ['platform']),
