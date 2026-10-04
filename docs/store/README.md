@@ -158,7 +158,7 @@
    - Government apps — нет; Financial features — нет; Health — нет (client) / «Health apps → нет», это CRM.
 7. **Main store listing:**
    - hy-AM, ru-RU, en-US — тексты из listing-*.md;
-   - иконка `assets/icon-google-play-512.png`;
+   - иконка `assets/icon-google-play-client-512.png` (BookTime) или `assets/icon-google-play-business-512.png` (BookTime Business — фиолетовая с подписью BUSINESS, чтобы не путали); в App Store иконка берётся из сборки (`icon-app-store-<app>-1024.png` — для проверки);
    - баннер `assets/feature-graphic-<app>-<lang>.png`;
    - скриншоты телефона `screenshots/<app>/<lang>/android` (для en — ru или пересобрать `--lang en`).
 8. Production → Create release → тот же `.aab` → Countries → Review.
