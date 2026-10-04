@@ -22,6 +22,7 @@ import { SegmentedControl } from '@/ui/SegmentedControl';
 import { Skeleton } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 
 /** Групповая запись: список событий, места, «Записаться ещё» (F-03-101, F-03-076, F-03-102) */
 export function GroupBookingFlow({
@@ -272,7 +273,7 @@ export function GroupBookingFlow({
             {membershipError && <p className="text-sm text-danger">{membershipError}</p>}
           </div>
 
-          <Checkbox checked={consent} onCheckedChange={setConsent} label={t('booking.details.consent')} />
+          <Checkbox checked={consent} onCheckedChange={setConsent} label={t.rich('booking.details.consent', legalLinkTags)} />
           {errors.consent && <p className="text-sm text-danger">{errors.consent}</p>}
           <Button
             fullWidth

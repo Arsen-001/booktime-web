@@ -24,6 +24,7 @@ import { PhoneInput } from '@/ui/PhoneInput';
 import { RadioGroup } from '@/ui/Radio';
 import { Stepper } from '@/ui/Stepper';
 import { useToast } from '@/ui/Toast';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 
 type WizardStep = 0 | 1 | 2 | 3 | 4;
 
@@ -218,6 +219,7 @@ export function RegisterBusinessScreen() {
             </Button>
           )}
         </div>
+        {step === 4 && <p className="text-center text-xs text-muted">{t.rich('registerBusiness.consentNote', legalLinkTags)}</p>}
       </Card>
     </div>
   );

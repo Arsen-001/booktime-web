@@ -78,7 +78,8 @@ export function FindSlotButton({ services, serviceId, onServiceChange, suggestio
             className={cn(service && 'rounded-r-none pr-3')}
           >
             {/* Уже 1400px без выбранной услуги — только значок, чтобы дата в ряду управления не обрезалась */}
-            <span className={cn('max-w-32 truncate', !service && 'md:max-[1399px]:sr-only', service && 'md:max-[1399px]:max-w-20')}>
+            {/* Своя подпись «Найти окно» не режется (hy «Գտնել ազատ ժամ» длиннее): на телефоне без предела, на компьютере до 144px */}
+            <span className={cn('truncate', service ? 'max-w-32 md:max-[1399px]:max-w-20' : 'max-w-36 max-md:max-w-none md:max-[1399px]:sr-only')}>
               {service ? pickText(service.name, locale) : t('board.findSlot.button')}
             </span>
           </Button>

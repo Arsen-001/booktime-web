@@ -289,7 +289,9 @@
       "repeatReminderNone": "Ինչպես ծառայությունում",
       "repeatReminderDays": "{n} օր",
       "repeatReminderWeeks": "{n} շաբ.",
-      "repeatReminderMonths": "{n} ամիս"
+      "repeatReminderMonths": "{n} ամիս",
+      "qtyDec": "Պակասեցնել քանակը",
+      "qtyInc": "Ավելացնել քանակը"
     },
     "goodsLine": {
       "seller": "Վաճառող",
@@ -434,7 +436,8 @@
       "statusPending": "Սպասում է վճարման",
       "statusPaid": "Վճարված է",
       "statusCharged": "Պահվել է որպես տուգանք",
-      "statusWaived": "Ներվել է, վերադարձվել հաճախորդին"
+      "statusWaived": "Ներվել է, վերադարձվել հաճախորդին",
+      "noShowsReason": "Ինչու՝ հաճախորդը {months, plural, one {# ամսում} other {# ամսում}} {count, plural, one {# անգամ} other {# անգամ}} չի եկել այս վարպետի մոտ — վարպետի կանոնով պահանջվում է կանխավճար"
     },
     "cancelByMaster": {
       "refundTitle": "Չեղարկե՞լ և վերադարձնել կանխավճարը",
@@ -677,7 +680,15 @@
       "bonusUnavailable": "Բոնուսներն այժմ հնարավոր չէ դուրս գրել․ քարտի կամ այցի ծառայությունների սահմանափակում",
       "cashbackPreview": "Վճարումից հետո կհաշվեգրվի բոնուս՝ +{amount}",
       "cashbackAccrued": "Այցի համար հաշվեգրված բոնուս՝ +{amount}"
-    }
+    },
+    "upsell": {
+      "title": "Առաջարկել հաճախորդին",
+      "productMeta": "Ապրանք · {price} · պահեստում՝ {stock}"
+    },
+    "clientOverlapTitle": "Հաճախորդն այս ժամին արդեն գրանցում ունի",
+    "clientOverlapText": "{time} — {service}, վարպետ՝ {master}։ Գրանցե՞լ, միևնույն է",
+    "clientOverlapOk": "Գրանցել, միևնույն է",
+    "duplicateNoSlot": "Վարպետն այդ օրը ազատ ժամ չունի — ընտրեք ժամը"
   },
   "mixedType": {
     "title": "Ի՞նչ ստեղծել",
@@ -1298,7 +1309,14 @@
       "overrunDone": "Ավարտեցինք",
       "overrunNotified": "Ծանուցում կստանա՝ {name} (ուշացում {n} րոպե)",
       "overrunCall": "{name}՝ առանց հավելվածի, զանգահարեք՝ {phone}",
-      "overrunNoApp": "{name}՝ առանց հավելվածի և համարի, զգուշացնել չի ստացվի"
+      "overrunNoApp": "{name}՝ առանց հավելվածի և համարի, զգուշացնել չի ստացվի",
+      "reportedTitle": "{n, plural, one {# հաճախորդ ասում է, որ վճարել է} other {# հաճախորդ ասում են, որ վճարել են}}",
+      "reportedLine": "Կանխավճար {amount} · հայտնել է {when}",
+      "reportedHint": "Ստուգեք հաշիվը և սեղմեք «Գումարը ստացվել է» — գրանցումը կհաստատվի։",
+      "moneyReceived": "Գումարը ստացվել է",
+      "moneyReceivedToast": "Կանխավճարը ստացվեց՝ {name}",
+      "refundTitle": "{n, plural, one {Վերադարձնել կանխավճարը # հաճախորդի} other {Վերադարձնել կանխավճարը # հաճախորդի}}",
+      "moneyTitle": "Գումար՝ վճարումներ և վերադարձներ"
     },
     "phone": {
       "pendingBar": "{n, plural, one {# սպասում է հաստատման} other {# սպասում են հաստատման}}",

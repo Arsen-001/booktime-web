@@ -37,7 +37,7 @@ function SortableRowImpl({ id, disabled, table, selected, handleLabel, content }
       aria-label={handleLabel}
       className={cn(
         'flex shrink-0 cursor-grab touch-none items-center justify-center rounded-md text-muted hover:text-fg active:cursor-grabbing',
-        table ? 'size-8 hover:bg-surface-2' : 'h-11 w-7',
+        table ? 'size-8 hover:bg-surface-2' : '-mx-1.5 h-11 w-10', // зона нажатия 40px, место в строке — прежние 28px
       )}
     >
       <GripVertical aria-hidden className="size-4" />

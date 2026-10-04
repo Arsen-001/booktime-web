@@ -34,6 +34,7 @@ import { useCompanyProfile } from '@/api/settings';
 import { HUB_FALLBACK_ICON, HUB_MODULES, hubModuleHref } from '@/areas/settings/hubModules';
 import { SettingsHubGroup, type HubTile } from '@/areas/settings/SettingsHubGroup';
 import { SubscriptionBanner } from '@/areas/settings/SubscriptionBanner';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { EmptyState } from '@/ui/EmptyState';
 import { PageHeader } from '@/ui/PageHeader';
 import { SearchInput } from '@/ui/SearchInput';
@@ -55,6 +56,7 @@ function matches(tile: HubTile, query: string): boolean {
 export function SettingsHubScreen() {
   const t = useT('settings');
   const tc = useT('common');
+  const hidePurchases = useHideDigitalPurchases();
   const { businessId, ready } = useCurrent();
   const canBilling = useCan('billing.manage');
   const canSettings = useCan('settings.manage');
@@ -113,7 +115,8 @@ export function SettingsHubScreen() {
     // которые вели на «Нет доступа». «Личный кабинет» — свой у каждого сотрудника, он виден всем; журнал изменений
     // настроек компании — только тем, кто их меняет.
     ...(canSettings ? [{ id: 'company', title: t('hub.groupCompany'), tiles: companyTiles }] : []),
-    ...(canBilling ? [{ id: 'billing', title: t('hub.groupBilling'), tiles: billingTiles }] : []),
+    // В приложениях iOS/Android подписки и монет нет (App Store 3.1.1, NativePurchaseGate)
+    ...(canBilling && !hidePurchases ? [{ id: 'billing', title: t('hub.groupBilling'), tiles: billingTiles }] : []),
     ...(canSettings ? [{ id: 'system', title: t('hub.groupSystem'), tiles: systemTiles }] : []),
     { id: 'account', title: t('hub.groupAccount'), tiles: canSettings ? accountTiles : accountTiles.filter((x) => x.id === 'account') },
     { id: 'help', title: t('hub.groupHelp'), tiles: helpTiles },

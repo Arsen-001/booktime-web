@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, LogOut, Pencil, Trash2, User } from 'lucide-react';
+import { ChevronRight, Clock, LogOut, Pencil, Trash2, User } from 'lucide-react';
 import { deleteMyClientAccount, getClientProfile, setProfilePhoto, setTimeFormat, updateProfileName } from '@/api/client';
 import { HttpApiError, isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { SESSION_KEY, logout, setSessionMode } from '@/api/session';
+import { SESSION_KEY, cancelMyAccountDeletion, getAccount, logout, setSessionMode } from '@/api/session';
 import { useApplyDemo, useDemo } from '@/demo/hooks';
 import { GoogleAccountCard } from '@/areas/client/profile/GoogleAccountCard';
 import { TelegramRemindersCard } from '@/areas/client/profile/TelegramRemindersCard';
@@ -84,6 +84,10 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
   const [deleteOpen, setDeleteOpen] = useState(false);
   const removeAccount = useApiMutation((id: Id) => deleteMyClientAccount(id));
   const uid = appUserId ?? '';
+  // Живой сайт: сервер удаляет аккаунт через 25 дней после запроса, до того — «Отменить удаление» (POST /v1/me/account/delete/cancel)
+  const accountQ = useApiQuery(['me', 'account'], getAccount, { enabled: isApiMode() });
+  const cancelDeletion = useApiMutation(() => cancelMyAccountDeletion(), { invalidates: [['me', 'account']] });
+  const deletionAt = accountQ.data?.deletionAt ?? null;
 
   // Один вход и переключатель «Я клиент / Мой бизнес» (В-21, C1): на живом сайте — режим сессии на сервере;
   // бизнеса у человека нет — ведём на регистрацию бизнеса. Демо — переключение на бизнес-персону.
@@ -128,12 +132,29 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
     }
   };
 
-  // В-34: удаление аккаунта клиентом — профиль, избранное и дневник стираются, записи у мастеров остаются без связи
+  // В-34: удаление аккаунта клиентом — профиль, избранное и дневник стираются, записи у мастеров остаются без связи.
+  // Живой сайт: запрос на удаление через 25 дней — остаёмся в профиле, видно дату и «Отменить удаление».
+  // Демо (данные в браузере): стирается сразу.
   const handleDelete = async () => {
     try {
       await removeAccount.mutate(uid);
+      if (isApiMode()) {
+        const at = (await getAccount().catch(() => null))?.deletionAt;
+        void accountQ.refetch();
+        toast.success(at ? t('profile.deleteScheduled', { date: fmt.date(at) }) : t('profile.deleteRequested'));
+        return;
+      }
       toast.success(t('profile.deleteDone'));
       onLogout();
+    } catch {
+      toast.error(t('profile.actionFailed'));
+    }
+  };
+
+  const handleCancelDeletion = async () => {
+    try {
+      await cancelDeletion.mutate(undefined);
+      toast.success(t('profile.deleteCanceled'));
     } catch {
       toast.error(t('profile.actionFailed'));
     }
@@ -151,6 +172,21 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
   return (
     <div data-f="F-14-059" aria-busy={loading || undefined} className="flex flex-col gap-5 pb-6">
       <PageHeader title={t('profile.title')} />
+
+      {deletionAt && (
+        <Card data-f="F-14-062" padding="md" className="flex flex-col gap-3 border-danger/40 bg-danger-soft">
+          <div className="flex items-start gap-3">
+            <Clock aria-hidden className="mt-0.5 size-5 shrink-0 text-danger" />
+            <div className="flex flex-col gap-1">
+              <p className="font-medium text-fg">{t('profile.deletePendingTitle', { date: fmt.date(deletionAt) })}</p>
+              <p className="text-sm text-muted">{t('profile.deletePendingText')}</p>
+            </div>
+          </div>
+          <Button variant="outline" className="self-start" loading={cancelDeletion.isPending} onClick={() => void handleCancelDeletion()}>
+            {t('profile.deleteCancel')}
+          </Button>
+        </Card>
+      )}
 
       <Card padding="md" className="flex items-center gap-4">
         <div className="w-20 shrink-0">
@@ -281,11 +317,13 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
         {t('profile.logout')}
       </Button>
 
-      <div data-f="F-14-062" className="flex flex-col items-center gap-1 pt-2">
-        <Button variant="ghost" className="text-danger hover:bg-danger-soft" leftIcon={<Trash2 aria-hidden />} onClick={() => setDeleteOpen(true)}>
-          {t('profile.deleteAccount')}
-        </Button>
-      </div>
+      {!deletionAt && (
+        <div data-f="F-14-062" className="flex flex-col items-center gap-1 pt-2">
+          <Button variant="ghost" className="text-danger hover:bg-danger-soft" leftIcon={<Trash2 aria-hidden />} onClick={() => setDeleteOpen(true)}>
+            {t('profile.deleteAccount')}
+          </Button>
+        </div>
+      )}
 
       <ConfirmDialog
         open={deleteOpen}

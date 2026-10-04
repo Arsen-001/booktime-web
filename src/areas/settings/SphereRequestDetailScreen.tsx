@@ -12,6 +12,7 @@ import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { Badge, type BadgeTone } from '@/ui/Badge';
 import { LinkButton } from '@/ui/Button';
 import { ErrorState } from '@/ui/ErrorState';
@@ -24,6 +25,7 @@ const STATUS_TONE: Record<string, BadgeTone> = { open: 'warning', answered: 'suc
 
 export function SphereRequestDetailScreen() {
   const t = useT('settings');
+  const hidePurchases = useHideDigitalPurchases();
   const format = useFormat();
   const { businessId, ready } = useCurrent();
   const params = useParams<{ requestId: string }>();
@@ -146,9 +148,11 @@ export function SphereRequestDetailScreen() {
                 <PartyPopper aria-hidden className="size-4 shrink-0" />
                 {t('sphereRequestDetail.readyHint', { date: format.date(item.readyAt) })}
               </div>
-              <LinkButton href="/biz/billing" variant="secondary" size="sm" className="mt-3">
-                {t('sphereRequestDetail.goToBilling')}
-              </LinkButton>
+              {!hidePurchases && (
+                <LinkButton href="/biz/billing" variant="secondary" size="sm" className="mt-3">
+                  {t('sphereRequestDetail.goToBilling')}
+                </LinkButton>
+              )}
             </SectionCard>
           )}
         </>

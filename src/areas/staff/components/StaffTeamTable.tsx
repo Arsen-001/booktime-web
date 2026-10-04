@@ -345,7 +345,7 @@ function DragHandle({ row, reorderEnabled, onHandlePointerDown, onHandleKeyDown 
       onClick={(e) => e.stopPropagation()}
       onPointerDown={onHandlePointerDown}
       onKeyDown={onHandleKeyDown}
-      className="inline-flex size-9 cursor-grab touch-none items-center justify-center rounded-md text-muted hover:bg-surface-3 hover:text-fg focus-visible:outline-2 focus-visible:outline-focus active:cursor-grabbing"
+      className="inline-flex size-10 cursor-grab touch-none items-center justify-center rounded-md text-muted hover:bg-surface-3 hover:text-fg focus-visible:outline-2 focus-visible:outline-focus active:cursor-grabbing"
     >
       <GripVertical aria-hidden className="size-4" />
     </button>

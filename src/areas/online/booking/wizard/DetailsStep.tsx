@@ -21,6 +21,7 @@ import { SegmentedControl } from '@/ui/SegmentedControl';
 import { Select } from '@/ui/Select';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { Textarea } from '@/ui/Textarea';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 
 /** О15: напоминание словами, а не минутами; «утром в день визита» и «за 2 дня» — как у Altegio */
 export const REMINDER_VALUES = ['0', '60', '180', '1440', '2880', 'morning'] as const;
@@ -315,7 +316,7 @@ export function DetailsStep({
         )}
 
         <div data-f="F-03-079 F-03-080 F-14-162 F-04-151">
-          <Checkbox checked={form.consent} onCheckedChange={(v) => onPatch({ consent: v })} label={t('booking.details.consent')} description={consentText} />
+          <Checkbox checked={form.consent} onCheckedChange={(v) => onPatch({ consent: v })} label={t.rich('booking.details.consent', legalLinkTags)} description={consentText} />
         </div>
         {errors.consent && <p className="text-sm text-danger">{errors.consent}</p>}
 

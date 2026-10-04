@@ -177,7 +177,7 @@ export function SystemScreen() {
                   </span>
                   <Link
                     href="/biz/settings/sphere"
-                    className="text-sm font-medium text-accent-text hover:underline"
+                    className="-my-2.5 inline-flex min-h-10 shrink-0 items-center text-sm font-medium text-accent-text hover:underline"
                   >
                     {t('system.sphereLink')}
                   </Link>

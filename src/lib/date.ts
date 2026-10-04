@@ -30,6 +30,15 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 // Неделя с понедельника во всех языках
 dayjs.updateLocale('en', { weekStart: 1 });
+// Армянский: у dayjs только родительный падеж («հոկտեմբերի») — он верен после числа («4 հոկտեմբերի»), а месяц
+// сам по себе («Հոկտեմբեր», «հոկտեմբեր 2026») — в именительном. Так же устроена локаль ru.
+const HY_MONTHS_GENITIVE = 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_');
+const HY_MONTHS_STANDALONE = 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_');
+const hyMonths = Object.assign(
+  (d: Dayjs, format: string) => (/D[oD]?(\[[^[\]]*\]|\s)+MMMM?/.test(format) ? HY_MONTHS_GENITIVE : HY_MONTHS_STANDALONE)[d.month()],
+  { s: HY_MONTHS_STANDALONE, f: HY_MONTHS_GENITIVE },
+);
+dayjs.updateLocale('hy-am', { months: hyMonths });
 
 export { dayjs, type Dayjs };
 

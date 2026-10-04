@@ -114,7 +114,8 @@ export function OrdersScreen() {
                   icon={<PackageCheck aria-hidden />}
                   title={t(`list.empty.${status}`)}
                   description={status === 'active' || status === 'all' ? t('list.emptyHint') : undefined}
-                  action={status === 'active' || status === 'all' ? add : undefined}
+                  // На телефоне «Принять заказ» уже внизу (StickyActionBar) — вторую такую же кнопку в пустом списке не рисуем
+                  action={status === 'active' || status === 'all' ? <span className="max-md:hidden">{add}</span> : undefined}
                 />
               )
             }

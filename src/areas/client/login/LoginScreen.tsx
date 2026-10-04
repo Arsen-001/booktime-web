@@ -7,6 +7,7 @@ import type { GoogleSignInResult, LoginChannel, PendingGoogle } from '@/api/clie
 import { changeAdminPassword, pendingLinkTokens, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client';
 import type { SecondFactorChallenge } from '@/api/session';
 import { SESSION_KEY, verifySecondFactor } from '@/api/session';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { GoogleSignIn, PendingGoogleNote, pendingTextKey } from '@/areas/client/login/GoogleSignIn';
@@ -41,6 +42,7 @@ function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (
         <p>{t('login.agreementData')}</p>
         <p>{t('login.agreementAnalytics')}</p>
         <p>{t('login.agreementScope')}</p>
+        <p className="text-muted">{t.rich('login.agreementFull', legalLinkTags)}</p>
       </div>
     </Modal>
   );
@@ -116,7 +118,7 @@ function ClientLoginForm({ next }: { next: string }) {
             app="client"
             consent
             onResult={onGoogle}
-            footer={<p className="text-center text-sm text-muted">{t('login.google.consentNote')}</p>}
+            footer={<p className="text-center text-sm text-muted">{t.rich('login.google.consentNote', legalLinkTags)}</p>}
           />
         )}
         <ClientCodeLogin

@@ -1040,6 +1040,8 @@ export function createOnlineBooking(input: CreateOnlineBookingInput): Promise<On
       locationId: input.locationId,
       staffId: input.staffId,
       clientId: client.id,
+      // Номер уже есть в приложении — запись сразу в «Моих записях» этого человека (иначе привяжется при входе)
+      appUserId: client.appUserId ?? core.appUsers.find((u) => u.phone === normalizedPhone)?.id,
       start: input.start,
       durationMin,
       status,

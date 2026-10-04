@@ -185,6 +185,11 @@ export function requestMyDataExport(): Promise<MyDataExportRow> {
   return http('POST', '/v1/me/account/data-export');
 }
 
+/** «Скачать мои данные»: сервер сразу собирает JSON своих данных — профиль, записи, входы, свои карточки сотрудника */
+export function fetchMyDataExport(): Promise<unknown> {
+  return http('GET', '/v1/me/data-export');
+}
+
 export function listMyDataExports(): Promise<MyDataExportRow[]> {
   return http('GET', '/v1/me/account/data-exports');
 }

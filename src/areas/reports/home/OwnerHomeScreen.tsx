@@ -191,8 +191,9 @@ function Tiles({ data, loading, range, month, monthLabel, onPlan, onList }: Tile
             ? noSchedule
               ? t('home.load.noSchedule')
               : t('home.load.sub', {
-                  worked: load.workedHours,
-                  scheduled: load.scheduledHours,
+                  // Числа — нашим форматом («1 042»), а не ICU {n, number}: в браузере без данных hy он давал «1,042»
+                  worked: f.number(load.workedHours),
+                  scheduled: f.number(load.scheduledHours),
                 })
             : ''
         }

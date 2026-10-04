@@ -86,7 +86,8 @@ export function CrmSummaryScreen() {
                         href={`/biz/clients?pick=${row.pick}`}
                         variant="link"
                         size="sm"
-                        className="self-start px-0"
+                        // Переносится по словам: hy «Դիտել հաճախորդներին» не влезал в половину ширины телефона
+                        className="h-auto min-h-10 justify-start self-start px-0 text-left whitespace-normal md:min-h-9"
                         rightIcon={<ArrowRight aria-hidden className="size-4" />}
                       >
                         {t('summary.clientBreakdown.viewClients')}

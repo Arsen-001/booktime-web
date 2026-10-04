@@ -99,7 +99,7 @@ function CategoryGroupImpl({
             {...attributes}
             {...listeners}
             aria-label={t('list.dragCategory', { name })}
-            className="flex h-10 w-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md text-muted hover:text-fg sm:w-8"
+            className="-mx-1.5 flex h-10 w-10 shrink-0 cursor-grab touch-none items-center justify-center rounded-md text-muted hover:text-fg sm:-mx-1 sm:w-10"
           >
             <GripVertical aria-hidden className="size-4" />
           </button>
@@ -151,7 +151,7 @@ function CategoryGroupImpl({
             size="sm"
             variant="ghost"
             leftIcon={<Plus aria-hidden />}
-            className="shrink-0 max-sm:px-2"
+            className="shrink-0 max-sm:min-w-10 max-sm:px-2"
             aria-label={t('list.addServiceTo', { name })}
           >
             <span className="max-sm:sr-only">{t('list.addService')}</span>

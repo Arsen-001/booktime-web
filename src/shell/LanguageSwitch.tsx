@@ -30,7 +30,7 @@ export function LanguageSwitch() {
           {...props}
           type="button"
           aria-label={`${t('shell.language')}: ${FULL[lang]}`}
-          className="inline-flex h-11 items-center gap-1.5 rounded-md px-2.5 text-sm font-semibold text-fg transition-colors hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus md:h-10"
+          className="inline-flex h-11 min-w-11 items-center justify-center gap-1.5 rounded-md px-2.5 text-sm font-semibold text-fg transition-colors hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus md:h-10"
         >
           <Globe aria-hidden className="size-4 text-muted" />
           {/* На телефоне только значок: полоса узкая, а «Մուտք գործել» длинное */}

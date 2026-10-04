@@ -910,6 +910,16 @@ export async function verifyLoginCode(input: VerifyLoginInput): Promise<Verified
     mutateArea('client', (s) => {
       s.consents[user.id] = now;
     });
+    // «Записи привязаны к номеру»: запись по ссылке салона до входа (номер подтверждён кодом) попадает в «Мои записи» —
+    // карточки салонов с этим номером и записи, сделанные клиентом по ним, привязываются к пользователю приложения
+    const c = readCore();
+    const cardIds = new Set(
+      c.clients.filter((cl) => cl.phone === normalized && !cl.deletedAt && (!cl.appUserId || cl.appUserId === user.id)).map((cl) => cl.id),
+    );
+    for (const cl of c.clients) if (cardIds.has(cl.id) && !cl.appUserId) coreTx.update('clients', cl.id, { appUserId: user.id });
+    for (const b of c.bookings) {
+      if (!b.appUserId && !b.deletedAt && b.createdBy === 'client' && b.clientId && cardIds.has(b.clientId)) coreTx.update('bookings', b.id, { appUserId: user.id });
+    }
     return user;
   });
 }

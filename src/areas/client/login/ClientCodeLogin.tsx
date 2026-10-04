@@ -16,6 +16,7 @@ import { CodeInput } from '@/ui/CodeInput';
 import { FormField } from '@/ui/FormField';
 import { Input } from '@/ui/Input';
 import { PhoneInput } from '@/ui/PhoneInput';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 
 export interface ClientCodeLoginProps {
   /** Код подошёл — вход готов; экран решает, что дальше (перейти, создать запись). Бросило — текст ошибки под кодом */
@@ -197,7 +198,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
       </FormField>
       <ChannelPicker t={t} value={channel} onChange={setChannel} channels={channels} />
       <div data-f="F-14-008" className="flex flex-col gap-1">
-        <Checkbox checked={consent} onCheckedChange={setConsent} label={t('login.consentText')} />
+        <Checkbox checked={consent} onCheckedChange={setConsent} label={t.rich('login.consentText', legalLinkTags)} />
         {showErrors && errors.consent && <p className="text-sm text-danger">{errors.consent}</p>}
         {agreementAction}
       </div>

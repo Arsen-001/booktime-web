@@ -47,8 +47,15 @@
   - мост к приложению — `src/lib/native/` (в браузере ничего не меняется);
   - `/.well-known/apple-app-site-association` и `assetlinks.json` — из env `APPLE_TEAM_ID`, `ANDROID_SHA256_CERT`
     (`ANDROID_BUSINESS_SHA256_CERT`); без env — 404.
+- **Сделано 04.10.2026 — всё для магазинов** (`docs/store/`, чек-лист — его README):
+  - публичные /privacy, /terms, /account-deletion на hy/ru/en (`src/areas/client/legal/`);
+  - тексты карточек, ответы App Privacy и Data safety, заметки проверяющим;
+  - иконки и баннеры, скриншоты (`docs/store/make-screenshots.mjs`);
+  - версия 1.0.0 (1), подписи разрешений камеры, фото и места в приложениях.
 - Дальше:
-  - от владельца: аккаунты, Firebase, env;
+  - от владельца: аккаунты, Firebase, env, реквизиты в `src/areas/client/legal/operator.ts`;
+  - владелец: env входа проверяющих `REVIEW_LOGIN_PHONES` + `REVIEW_LOGIN_CODE` (код готов 04.10.2026, сначала staging) и салон
+    «BookTime Demo» на production (docs/store/review-notes.md);
   - Apple в профиле;
   - проверка на телефонах.
 

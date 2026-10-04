@@ -15,6 +15,7 @@ import { useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { useSkeletonCount } from '@/ui/hooks/useSkeletonCount';
 
@@ -24,6 +25,8 @@ export function SubscriptionBanner() {
   // Полоса ведёт на /biz/billing — без billing.manage там «Нет прав» (F-15-069); мастеру и администратору её не
   // показываем (QA 30.09: мастер видел «Осталось 3 дня — продлите» на хабе настроек и быстром старте)
   const canBilling = useCan('billing.manage');
+  // «Продлите» — призыв оплатить; в приложениях iOS/Android оплаты нет (App Store 3.1.1) — полосы тоже нет
+  const hidePurchases = useHideDigitalPurchases();
   const q = useApiQuery(
     ['settings', 'subscription', businessId],
     () => getSubscription(businessId ?? ''),
@@ -35,7 +38,7 @@ export function SubscriptionBanner() {
   // Полоса была в прошлый раз (у демо-салона срок скоро кончается) — до ответа на её месте та же полоса с полосой
   // текста: пришли данные — ничего не сдвинулось (DESIGN.md «The skeleton IS the page»)
   const remembered = useSkeletonCount('subscription-banner', { loading, count: q.data ? Number(shows(q.data.status)) : undefined, fallback: 1 });
-  if (!canBilling) return null;
+  if (!canBilling || hidePurchases) return null;
   if (loading) {
     if (!remembered) return null;
     return (

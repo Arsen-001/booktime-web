@@ -1161,12 +1161,10 @@
       "title": "Privacy",
       "exportTitle": "My data",
       "exportDescription": "Export a copy of your data or temporarily block its use.",
-      "exportButton": "Export my data",
-      "exportHint": "Preparation takes up to 24 hours, no more than once a day.",
-      "exportTooSoon": "Already requested today — once a day max",
-      "exportReady": "Archive is ready, a link was sent to your email",
-      "exportHistoryTitle": "Past requests",
-      "exportEmpty": "No requests yet",
+      "exportButton": "Download my data",
+      "exportHint": "A JSON file with your profile, bookings and sign-in history — downloads right away. The salon client base is exported in Clients.",
+      "exportHistoryTitle": "Past downloads",
+      "exportEmpty": "No downloads yet",
       "blockTitle": "Data block request",
       "blockDescription": "Temporarily stops the system from using your data.",
       "blockButton": "Request a data block",
@@ -1174,18 +1172,20 @@
       "blockAlreadySent": "Request already sent {date}",
       "documentsTitle": "Documents",
       "termsOfUse": "Terms of use",
-      "licenseAgreement": "License agreement",
       "securityTitle": "Tips to protect your account",
       "securityTip1": "Give every staff member their own account — that's how you see each person's action log.",
       "securityTip2": "Hide client phone numbers and database export from admin rights they don't need.",
       "securityTip3": "Limit deleting and editing other people's bookings to those who truly need it.",
       "securityTip4": "Test permissions with a fresh test account, not by signing in as a staff member.",
       "securityTip5": "If your database was taken, write to support right away and describe what happened.",
-      "documentDraftNote": "The text is being reviewed with our lawyer — it will appear here once ready.",
       "blockConfirmTitle": "Request a data block?",
       "blockConfirmText": "We will stop processing your personal data: while the block is active you cannot sign in or work in the cabinet. The block is lifted through support.",
       "blockConfirmButton": "Request block",
-      "blockFailed": "Could not send the request"
+      "blockFailed": "Could not send the request",
+      "exportDownloaded": "Your data file has been downloaded",
+      "exportFailed": "Couldn't prepare the file — please try again",
+      "exportDone": "Downloaded",
+      "privacyPolicy": "Privacy policy"
     },
     "management": {
       "title": "Account management",
@@ -1388,5 +1388,9 @@
     "submit": "Add location",
     "success": "Location added",
     "errorGeneric": "Could not add the location — try again"
+  },
+  "nativePurchase": {
+    "title": "Payments are not available in the app",
+    "text": "The BookTime subscription and coins are paid for in the web version of the dashboard in a browser. Everything else in the app works as usual."
   }
 }

@@ -181,13 +181,13 @@ export function HelpScreen() {
           </ul>
           <div data-f="F-15-173 F-15-175" className="mt-5 border-t border-border pt-4">
             <h3 className="mb-2 text-sm font-medium text-fg">{t('help.linksTitle')}</h3>
-            <ul className="flex flex-col gap-2 text-sm">
+            <ul className="flex flex-col text-sm">
               <li>
                 <a
                   href="https://support.example.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 text-fg hover:underline"
+                  className="flex min-h-10 items-center gap-2 text-fg hover:underline"
                 >
                   <BookOpen aria-hidden className="size-4 shrink-0 text-muted" />
                   {t('help.knowledgeBase')}
@@ -199,7 +199,7 @@ export function HelpScreen() {
                   href="https://www.youtube.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 text-fg hover:underline"
+                  className="flex min-h-10 items-center gap-2 text-fg hover:underline"
                 >
                   <PlayCircle aria-hidden className="size-4 shrink-0 text-muted" />
                   {t('help.videoAcademy')}

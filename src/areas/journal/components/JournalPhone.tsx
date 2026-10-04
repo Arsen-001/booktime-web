@@ -132,10 +132,11 @@ export function PendingBar({ count, byTime, onClick }: PendingBarProps) {
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-12 w-full items-center gap-2.5 rounded-xl border border-warning/40 bg-warning-soft px-4 text-left text-warning"
+      className="flex min-h-12 w-full items-center gap-2.5 rounded-xl border border-warning/40 bg-warning-soft px-4 py-1.5 text-left text-warning"
     >
       <Clock aria-hidden className="size-[18px] shrink-0" />
-      <span className="flex-1 truncate text-[15px] font-bold">{t('board.phone.pendingBar', { n: count })}</span>
+      {/* Две строки вместо «…»: «1 սպասում է հաստատման» (hy) не влезал в одну */}
+      <span className="line-clamp-2 min-w-0 flex-1 text-[15px] leading-snug font-bold">{t('board.phone.pendingBar', { n: count })}</span>
       <span className="shrink-0 text-[13px]">{t('board.phone.pendingBy', { time: byTime })}</span>
       <ChevronRight aria-hidden className="size-4 shrink-0" />
     </button>
@@ -169,12 +170,12 @@ export function AlertBar({ label, tone, onClick }: { label: string; tone: 'dange
       type="button"
       onClick={onClick}
       className={cn(
-        'flex min-h-12 w-full items-center gap-2.5 rounded-xl border px-4 text-left',
+        'flex min-h-12 w-full items-center gap-2.5 rounded-xl border px-4 py-1.5 text-left',
         tone === 'danger' ? 'border-danger/40 bg-danger-soft text-danger' : 'border-warning/40 bg-warning-soft text-warning',
       )}
     >
       <Icon aria-hidden className="size-[18px] shrink-0" />
-      <span className="flex-1 truncate text-[15px] font-bold">{label}</span>
+      <span className="line-clamp-2 min-w-0 flex-1 text-[15px] leading-snug font-bold">{label}</span>
       <ChevronRight aria-hidden className="size-4 shrink-0" />
     </button>
   );

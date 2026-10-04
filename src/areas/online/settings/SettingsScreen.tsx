@@ -176,7 +176,8 @@ export function SettingsScreen() {
                 id: s.id,
                 defaultOpen: staffList.length === 1,
                 title: (
-                  <span className="flex items-center gap-2">
+                  // Плашки переносятся под имя: на телефоне (особенно hy) три плашки в ряд вылезали за экран
+                  <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
                     {s.name}
                     <Badge tone={s.confirmMode === 'manual' ? 'warning' : 'success'} size="sm" variant="soft">
                       {s.confirmMode === 'manual' ? t('settings.confirmMode.manualShort') : t('settings.confirmMode.instantShort')}

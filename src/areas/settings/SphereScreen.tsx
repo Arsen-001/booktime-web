@@ -90,11 +90,12 @@ export function SphereScreen() {
         <fieldset disabled={loading} aria-busy={loading || undefined} className="contents">
           <div data-f="F-15-029">
             <SectionCard title={t('sphere.currentTitle')}>
-              <div className="flex items-center gap-3 rounded-lg border border-border bg-surface-2/50 px-4 py-3">
+              {/* flex-wrap: hy «Փոխել հնարավոր չէ» не влезал рядом со сферой на телефоне */}
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface-2/50 px-4 py-3">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-text">
                   <Icon aria-hidden className="size-5" />
                 </span>
-                <span className="flex-1 text-sm font-medium text-fg">
+                <span className="min-w-0 flex-1 text-sm font-medium text-fg">
                   {tc(`spheres.${sphere}` as never)}
                 </span>
                 <Badge tone="neutral">{t('sphere.locked')}</Badge>

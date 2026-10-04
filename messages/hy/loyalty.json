@@ -26,8 +26,8 @@
       "notConfigured": "Կարգավորված չէ",
       "empty": "Կարգավորված է · դեռ ոչինչ չի վաճառվել",
       "cardsWorking": "{count, plural, one {Գործում է · տրված է # քարտ} few {Գործում է · տրված է # քարտ} many {Գործում է · տրված է # քարտ} other {Գործում է · տրված է # քարտ}}",
-      "certificatesWorking": "Գործում է · վաճառվել է {count}, {sum}",
-      "membershipsWorking": "Գործում է · վաճառվել է {count}, {sum}",
+      "certificatesWorking": "Գործում է · վաճառվել է {count}՝ {sum} արժողությամբ",
+      "membershipsWorking": "Գործում է · վաճառվել է {count}՝ {sum} արժողությամբ",
       "depositsWorking": "Գործում է · {count} հաշիվ, մնացորդը՝ {sum}"
     },
     "tiles": {
@@ -1284,7 +1284,8 @@
         "certificate": "«{name}» նվեր-քարտ",
         "membership": "«{name}» աբոնեմենտի օգտագործում",
         "referral": "Զեղչ հրավերի համար",
-        "account": "Վճարում «{name}» հաշվից"
+        "account": "Վճարում «{name}» հաշվից",
+        "referralBy": "Հրավերի զեղչ · {name}"
       },
       "referral": {
         "title": "Ռեֆերալներ",
@@ -1296,7 +1297,8 @@
           "notFirstVisit": "Հաճախորդն արդեն այց ունեցել է․ «Ռեֆերալներ»-ը հասանելի չէ",
           "referrerNoCard": "Հրավիրողը չունի անհրաժեշտ տեսակի քարտ"
         },
-        "replace": "Փոխարինել զեղչը"
+        "replace": "Փոխարինել զեղչը",
+        "byLink": "Հրավիրել է՝ {name}"
       },
       "accountDebtAllowed": "կարելի է մինուս մինչև {limit}",
       "promoBest": "Ամենաշահավետը՝ «{name}» · −{amount}",

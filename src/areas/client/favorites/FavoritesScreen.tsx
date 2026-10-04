@@ -169,7 +169,7 @@ function SubscriptionsTab({ appUserId }: { appUserId: Id | undefined }) {
                   </Badge>
                 </div>
               </Link>
-              <div className="flex items-center justify-between gap-3 sm:flex-col sm:items-end sm:gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 sm:flex-col sm:items-end sm:gap-2">
                 <Switch
                   data-f="F-00-115"
                   checked={!entry.favorite.newsMuted}
@@ -279,7 +279,7 @@ function SubscriptionCardSkeleton() {
           </Badge>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-3 sm:flex-col sm:items-end sm:gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 sm:flex-col sm:items-end sm:gap-2">
         <Switch
           checked={false}
           disabled

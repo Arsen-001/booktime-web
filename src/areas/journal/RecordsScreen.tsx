@@ -584,10 +584,11 @@ export function RecordsScreen() {
         }
       />
 
-      <div className={cn('grid grid-cols-1 gap-3', journalRights.showStatistics ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
+      {/* Телефон: выручка — во всю ширину сверху, «Показано» и «Удалено» — парой под ней (три плитки столбиком занимали экран) */}
+      <div className={cn('grid grid-cols-2 gap-3', journalRights.showStatistics ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
         <StatCard label={t('records.stats.count')} value={format.number(rows.length)} loading={loading} />
         {/* F-01-178 «Показывать статистику»: без права — без выручки */}
-        {journalRights.showStatistics && <StatCard label={t('records.stats.revenue')} value={format.money(revenueTotal)} loading={loading} />}
+        {journalRights.showStatistics && <StatCard className="max-sm:order-first max-sm:col-span-2" label={t('records.stats.revenue')} value={format.money(revenueTotal)} loading={loading} />}
         <StatCard label={t('records.stats.deleted')} value={format.number(deletedCount)} loading={loading} />
       </div>
 

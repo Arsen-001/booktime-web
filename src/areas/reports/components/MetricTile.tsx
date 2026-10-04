@@ -11,6 +11,7 @@
 import { Info, Minus, TrendingDown, TrendingUp } from 'lucide-react';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { cn } from '@/lib/cn';
 import { useT } from '@/i18n/useT';
 import { SkeletonText } from '@/ui/Skeleton';
@@ -47,6 +48,7 @@ const DELTA_BG: Record<DeltaTone, string> = {
 export function MetricTile({ label, value, hint, deltaPct, isNew, sharePct, previous, sub, href, hrefLabel, loading, noTrend, className }: MetricTileProps) {
   const t = useT('reports');
   const tUi = useT('ui');
+  const locale = useLocale();
   const tone: DeltaTone = deltaPct === undefined || deltaPct === 0 ? 'flat' : deltaPct > 0 ? 'up' : 'down';
   const DeltaIcon = tone === 'up' ? TrendingUp : tone === 'down' ? TrendingDown : Minus;
 
@@ -86,7 +88,8 @@ export function MetricTile({ label, value, hint, deltaPct, isNew, sharePct, prev
             <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-px font-semibold tabular-nums', DELTA_BG[tone])}>
               <DeltaIcon aria-hidden className="size-3.5" />
               {deltaPct > 0 ? '+' : ''}
-              {deltaPct}%
+              {/* «2 764,9%» по-русски и по-армянски (было «2764.9%»), «2,764.9%» по-английски */}
+              {deltaPct.toLocaleString(locale === 'en' ? 'en-US' : 'ru-RU', { maximumFractionDigits: 1 })}%
             </span>
             <span className="whitespace-nowrap text-muted tabular-nums">{previous !== undefined ? t('dashboard.wasValue', { value: previous }) : tUi('stat.vsPrev')}</span>
           </span>

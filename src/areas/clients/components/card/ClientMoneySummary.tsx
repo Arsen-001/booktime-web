@@ -82,10 +82,11 @@ export function ClientMoneySummary({ row, showMoney, bookHref, canBook, onShowDe
         {showMoney && (
           <StatCard label={t('table.columns.sold')} value={fmt.money(row.sold)} hint={t('cardView.paidHint', { paid: fmt.money(row.paid) })} />
         )}
+        {/* Слово и сумма переносятся по словам: «Կանխավճար 4 000 ֏» крупным числом не влезал в треть ширины (hy, десктоп) */}
         {/* К3 (clients-review 27.09.2026): плитка «Баланс» — пустое место у клиента без аванса и без долга,
             показываем только когда есть что показать (аванс или долг, не «0 ֏»). */}
         {showMoney && row.balance !== 0 && (
-          <StatCard className="max-sm:col-span-2" label={t('table.columns.balance')} value={<BalanceText balance={row.balance} />} />
+          <StatCard className="max-sm:col-span-2" label={t('table.columns.balance')} value={<BalanceText balance={row.balance} className="whitespace-normal" />} />
         )}
       </div>
       {showMoney && row.balance < 0 && (

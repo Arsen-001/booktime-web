@@ -23,6 +23,8 @@ const LOCALIZABLE: RegExp[] = [
   /^\/search$/,
   /^\/register-business$/,
   /^\/business$/,
+  // юридические страницы (04.10.2026): политика, соглашение, удаление аккаунта — ссылки для App Store и Google Play
+  /^\/(privacy|terms|account-deletion)$/,
   /^\/b\/[^/]+$/,
   /^\/b\/[^/]+\/about$/,
   /^\/masters\/[^/]+$/,

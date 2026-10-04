@@ -4,18 +4,18 @@
  * Личный кабинет → «Конфиденциальность» (F-15-154 выгрузка данных, F-15-155 блокировка, F-15-156 документы,
  * F-15-161 советы по защите — статические, у нас: чужие данные не видны никому, права галочками F-00-039).
  */
-import { useState } from 'react';
-import { FileDown, Lock, ShieldCheck } from 'lucide-react';
+import { FileDown, FileText, Lock, ShieldCheck } from 'lucide-react';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { getPersonalAccount, requestDataBlock, requestDataExport } from '@/api/settings';
+import { downloadMyData, getPersonalAccount, requestDataBlock } from '@/api/settings';
+import { LegalDocLink } from '@/areas/client/legal/LegalDocLink';
 import type { Id } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
+import { nativeApp } from '@/lib/native/bridge';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
 import { EmptyState } from '@/ui/EmptyState';
 import { SectionCard } from '@/ui/SectionCard';
-import { Sheet } from '@/ui/Sheet';
 import { SkeletonText } from '@/ui/Skeleton';
 import { useConfirm, useToast } from '@/ui/Toast';
 
@@ -25,21 +25,22 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
   const toast = useToast();
   const confirm = useConfirm();
   const accQ = useApiQuery(['settings', 'personalAccount', staffId], () => getPersonalAccount(staffId));
-  const exportData = useApiMutation(() => requestDataExport(staffId), { invalidates: [['settings', 'personalAccount', staffId]] });
+  const exportData = useApiMutation(() => downloadMyData(staffId), { invalidates: [['settings', 'personalAccount', staffId]] });
   const blockData = useApiMutation(() => requestDataBlock(staffId), { invalidates: [['settings', 'personalAccount', staffId]] });
-  const [openDoc, setOpenDoc] = useState<'terms' | 'license' | null>(null);
 
   // До данных — те же карточки; в истории выгрузок — полоса на месте ответа, кнопки выключены
   const loading = accQ.isLoading || !accQ.data;
   const requests = accQ.data?.dataExportRequests ?? [];
   const blockRequestedAt = accQ.data?.dataBlockRequestedAt;
 
+  // Файл собирается сразу и скачивается (в приложении — меню «Поделиться» → «Сохранить в Файлы»)
   const runExport = async () => {
     try {
-      await exportData.mutate(undefined);
-      toast.success(t('account.privacy.exportReady'));
+      const file = await exportData.mutate(undefined);
+      await saveJsonFile(file.filename, file.content);
+      toast.success(t('account.privacy.exportDownloaded'));
     } catch {
-      toast.error(t('account.privacy.exportTooSoon'));
+      toast.error(t('account.privacy.exportFailed'));
     }
   };
 
@@ -81,7 +82,7 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
                     <li key={r.id} className="flex items-center justify-between gap-2">
                       <span>{format.dateTime(r.requestedAt)}</span>
                       <Badge tone={r.ready ? 'success' : 'warning'} size="sm">
-                        {r.ready ? t('account.privacy.exportReady') : '…'}
+                        {r.ready ? t('account.privacy.exportDone') : '…'}
                       </Badge>
                     </li>
                   ))}
@@ -103,14 +104,16 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
       </SectionCard>
 
       <SectionCard title={t('account.privacy.documentsTitle')}>
-        <div data-f="F-15-156" className="flex flex-wrap gap-3">
-          <Button variant="outline" onClick={() => setOpenDoc('terms')}>
-            {t('account.privacy.termsOfUse')}
-          </Button>
-          <Button variant="outline" onClick={() => setOpenDoc('license')}>
-            {t('account.privacy.licenseAgreement')}
-          </Button>
-        </div>
+        <ul data-f="F-15-156" className="flex flex-col gap-3 text-sm">
+          <li className="flex items-center gap-2">
+            <FileText aria-hidden className="size-4 shrink-0 text-muted" />
+            <LegalDocLink kind="terms">{t('account.privacy.termsOfUse')}</LegalDocLink>
+          </li>
+          <li className="flex items-center gap-2">
+            <ShieldCheck aria-hidden className="size-4 shrink-0 text-muted" />
+            <LegalDocLink kind="privacy">{t('account.privacy.privacyPolicy')}</LegalDocLink>
+          </li>
+        </ul>
       </SectionCard>
 
       <SectionCard title={t('account.privacy.securityTitle')}>
@@ -123,15 +126,28 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
           ))}
         </ul>
       </SectionCard>
-
-      <Sheet
-        open={openDoc !== null}
-        onOpenChange={(v) => !v && setOpenDoc(null)}
-        title={openDoc === 'terms' ? t('account.privacy.termsOfUse') : t('account.privacy.licenseAgreement')}
-        side="right"
-      >
-        <p className="text-sm leading-relaxed text-muted">{t('account.privacy.documentDraftNote')}</p>
-      </Sheet>
     </div>
   );
+}
+
+/** Сохранить JSON-файл: в приложении — системное «Поделиться» (там нет загрузок браузера), иначе — скачивание */
+async function saveJsonFile(filename: string, content: string): Promise<void> {
+  const blob = new Blob([content], { type: 'application/json' });
+  const file = typeof File === 'function' ? new File([blob], filename, { type: 'application/json' }) : null;
+  if (nativeApp() && file && typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: filename });
+      return;
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+    }
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

@@ -6,6 +6,7 @@ import { BIZ_NAV, BIZ_NAV_GROUPS, visibleNav } from '@/config/nav';
 import { BIZ_PERSONAS } from '@/demo/settings';
 import { useDemo, usePermissions } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { TopSearch } from '@/shell/biz/TopSearch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
@@ -13,6 +14,9 @@ import { useNetworkAccess } from '@/areas/network/lib/useNetworkAccess';
 import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersData';
 
 const HIDE_ORDERS: ReadonlySet<string> = new Set(['orders']);
+// В приложениях iOS/Android цифровое не продаётся (App Store 3.1.1): нет «Подписки», «Монет» и того, что за монеты
+const NATIVE_HIDDEN_ITEMS = ['billing', 'coins'];
+const NATIVE_HIDDEN_HREFS = ['/biz/billing', '/biz/billing/invoices', '/biz/billing/terms', '/biz/coins', '/biz/apps/stories', '/biz/apps/promotion'];
 
 /** Каркас кабинета бизнеса /biz: меню зависит от персоны, её прав и сферы */
 export function BizShell({ children }: { children: ReactNode }) {
@@ -24,12 +28,17 @@ export function BizShell({ children }: { children: ReactNode }) {
   const networkAccess = useNetworkAccess();
   // ⭐ 03.10.2026: «Заказы» в меню — когда они включены у бизнеса (по умолчанию у ателье, ремонта, химчистки, детейлинга)
   const orders = useOrdersEnabled();
+  const hidePurchases = useHideDigitalPurchases();
   const items = visibleNav(BIZ_NAV, {
     persona,
     sphere,
     can: (p) => permissions.has(p) || (p === 'network.manage' && networkAccess.member),
-    hiddenHrefs: networkAccess.hiddenHrefs,
-    hiddenItemIds: orders.enabled ? undefined : HIDE_ORDERS,
+    hiddenHrefs: hidePurchases ? new Set([...(networkAccess.hiddenHrefs ?? []), ...NATIVE_HIDDEN_HREFS]) : networkAccess.hiddenHrefs,
+    hiddenItemIds: hidePurchases
+      ? new Set([...(orders.enabled ? [] : HIDE_ORDERS), ...NATIVE_HIDDEN_ITEMS])
+      : orders.enabled
+        ? undefined
+        : HIDE_ORDERS,
   });
 
   // Э5 (clients-review 27.09.2026): анкета/согласие клиента открывается по ссылке, которую мастер отправляет

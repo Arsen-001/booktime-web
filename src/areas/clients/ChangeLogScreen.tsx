@@ -77,7 +77,7 @@ export function ChangeLogScreen() {
             {pageItems.map((e) => (
               <li key={e.id} className="py-3 first:pt-0 last:pb-0">
                 <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-                  <Link href={`/biz/clients/${e.clientId}`} className="min-w-0 truncate text-sm font-semibold text-fg hover:underline">
+                  <Link href={`/biz/clients/${e.clientId}`} className="-my-2.5 min-w-0 truncate py-2.5 text-sm font-semibold text-fg hover:underline">
                     {e.clientName}
                   </Link>
                   <span className="text-xs whitespace-nowrap text-muted">{fmt.dateTime(e.at)}</span>

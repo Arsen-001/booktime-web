@@ -27,6 +27,7 @@ import {
 import Link from "next/link";
 import { useCurrent, useTerms } from "@/demo/hooks";
 import { useT } from "@/i18n/useT";
+import { useHideDigitalPurchases } from "@/lib/native/useNativeApp";
 import { ChoiceGroup } from "@/ui/ChoiceGroup";
 import { Button } from "@/ui/Button";
 import { FormField } from "@/ui/FormField";
@@ -84,6 +85,7 @@ export function AddStaffSheet({
   onCreated,
 }: AddStaffSheetProps) {
   const t = useT("staff");
+  const hidePurchases = useHideDigitalPurchases();
   const toast = useToast();
   const confirm = useConfirm();
   const { sphere } = useCurrent();
@@ -206,9 +208,12 @@ export function AddStaffSheet({
               count: [...seats.values()].filter((s) => s.paid).length,
               total,
             })}
-            <Link href="/biz/billing" className="text-xs text-accent hover:underline">
-              {t("addStaffForm.billingLink")}
-            </Link>
+            {/* В приложениях iOS/Android «Подписки» нет (App Store 3.1.1) */}
+            {!hidePurchases && (
+              <Link href="/biz/billing" className="text-xs text-accent hover:underline">
+                {t("addStaffForm.billingLink")}
+              </Link>
+            )}
           </span>
           <div className="grid grid-cols-2 gap-2 md:flex md:w-auto md:justify-end">
             <Button variant="outline" onClick={() => void requestOpenChange(false)}>

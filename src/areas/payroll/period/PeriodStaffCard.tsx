@@ -69,7 +69,7 @@ export const PeriodStaffCard = memo(function PeriodStaffCard({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={detailsId}
-          className="-ml-1.5 flex min-h-9 items-center gap-1 rounded-md px-1.5 text-left text-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+          className="-ml-1.5 flex min-h-10 items-center gap-1 rounded-md px-1.5 text-left text-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg"
         >
           {t('period.columns.servicesCount')}: {row.servicesCount} ·{' '}
           {t('period.hoursBySchedule', { hours: duration(Math.round(row.workHours * 60)) })}
@@ -143,7 +143,7 @@ export function PeriodStaffCardSkeleton({ canManage }: { canManage: boolean }) {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3">
-        <span className="-ml-1.5 flex min-h-9 items-center gap-1 px-1.5 text-sm text-muted">
+        <span className="-ml-1.5 flex min-h-10 items-center gap-1 px-1.5 text-sm text-muted">
           <SkeletonText width="24ch" />
           <ChevronDown aria-hidden className="size-4 shrink-0" />
         </span>

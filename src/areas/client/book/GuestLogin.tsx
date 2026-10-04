@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { GoogleSignInResult, PendingGoogle } from '@/api/client';
+import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
 import { GoogleSignIn, PendingGoogleNote, pendingTextKey } from '@/areas/client/login/GoogleSignIn';
 import type { AppUser } from '@/domain/core';
@@ -39,7 +40,7 @@ export function GuestLogin({ onVerified, submitLabel, busy }: { onVerified: (use
           app="client"
           consent
           onResult={(r) => void onGoogle(r)}
-          footer={<p className="text-center text-sm text-muted">{t('login.google.consentNote')}</p>}
+          footer={<p className="text-center text-sm text-muted">{t.rich('login.google.consentNote', legalLinkTags)}</p>}
         />
       )}
       <ClientCodeLogin

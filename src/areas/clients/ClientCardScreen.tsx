@@ -260,7 +260,7 @@ export function ClientCardScreen() {
             <div className="flex items-center gap-1 border-b border-border">
               <Tabs items={primaryTabs} value={primaryTabs.some((x) => x.value === tab) ? tab : primaryTabs[0].value} onValueChange={setTab} className="min-w-0 flex-1" classNames={{ list: 'border-b-0' }} />
               {overflowTabs.length > 0 && (
-                <span className="mb-2 flex shrink-0 items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted">
+                <span className="mb-2 flex min-h-10 shrink-0 items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted">
                   {t('card.tabs.more')}
                   <DropdownChevron open={false} />
                 </span>
@@ -378,7 +378,7 @@ export function ClientCardScreen() {
                     {...p}
                     type="button"
                     aria-label={t('card.tabs.moreAriaLabel')}
-                    className="mb-2 flex shrink-0 items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted hover:bg-surface-2 hover:text-fg"
+                    className="mb-2 flex min-h-10 shrink-0 items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted hover:bg-surface-2 hover:text-fg"
                   >
                     {t('card.tabs.more')}
                     <DropdownChevron open={p['aria-expanded']} />

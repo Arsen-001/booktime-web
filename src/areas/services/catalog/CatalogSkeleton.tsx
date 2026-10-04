@@ -61,7 +61,7 @@ export function CatalogSkeleton({ table, canEdit = true }: { table: boolean; can
         <section key={g} className="overflow-hidden rounded-2xl border border-border bg-surface">
           <header className="flex min-h-14 items-center gap-1 bg-surface-2/60 py-1.5 pr-1.5 pl-1 sm:gap-2 sm:pl-2">
             {canEdit && (
-              <span className="flex h-10 w-7 shrink-0 items-center justify-center text-muted sm:w-8">
+              <span className="-mx-1.5 flex h-10 w-10 shrink-0 items-center justify-center text-muted sm:-mx-1 sm:w-10">
                 <GripVertical aria-hidden className="size-4" />
               </span>
             )}
@@ -121,7 +121,7 @@ export function CatalogSkeleton({ table, canEdit = true }: { table: boolean; can
               ) : (
                 <li key={i} className="flex min-h-16 items-center gap-1 border-t border-border bg-surface py-2 pr-1 pl-1">
                   {canEdit && (
-                    <span className="flex h-11 w-7 shrink-0 items-center justify-center text-muted">
+                    <span className="-mx-1.5 flex h-11 w-10 shrink-0 items-center justify-center text-muted">
                       <GripVertical aria-hidden className="size-4" />
                     </span>
                   )}

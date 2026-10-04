@@ -24,6 +24,7 @@ import {
   logoutAll,
   requestMyAccountDeletion,
   requestMyDataBlock,
+  fetchMyDataExport,
   requestMyDataExport,
   sendPhoneChangeCodeApi,
   setAccountTwoFactor,
@@ -2347,6 +2348,35 @@ export function requestDataExport(staffId: Id): Promise<DataExportRequest> {
     });
     if (!created) throw new ApiError('unknown');
     return created;
+  });
+}
+
+/**
+ * «Скачать мои данные» (F-15-154): JSON-файл своих данных сразу, без писем. Живой сайт — GET /v1/me/data-export
+ * (профиль, записи как клиента, входы, свои карточки сотрудника; сервер записывает выгрузку в историю), демо — то же
+ * из данных браузера. Базу клиентов салона выгружают отдельно (Клиенты → Выгрузить).
+ */
+export async function downloadMyData(staffId: Id): Promise<{ filename: string; content: string }> {
+  const filename = `booktime-my-data-${dayjs().format('YYYY-MM-DD')}.json`;
+  if (isApiMode()) return { filename, content: JSON.stringify(await fetchMyDataExport(), null, 2) };
+  return request(() => {
+    const core = readCore();
+    const staff = core.staff.find((x) => x.id === staffId);
+    if (!staff) throw new ApiError('not_found');
+    let account: PersonalAccount | undefined;
+    mutateArea('settings', (s) => {
+      const acc = ensurePersonalAccount(s, staffId);
+      acc.dataExportRequests.push({ id: newId('export'), requestedAt: toISODateTime(new Date()), ready: true });
+      account = structuredClone(acc);
+    });
+    const business = core.businesses.find((b) => b.id === staff.businessId);
+    const data = {
+      exportedAt: new Date().toISOString(),
+      staffProfile: staff,
+      business: business ? { id: business.id, name: business.name } : null,
+      account,
+    };
+    return { filename, content: JSON.stringify(data, null, 2) };
   });
 }
 

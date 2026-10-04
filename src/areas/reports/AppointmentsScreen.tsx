@@ -202,7 +202,8 @@ export function AppointmentsScreen() {
           ) : (
             <BookingStatusBadge status={r.status as never} />
           ),
-        mobile: 'meta',
+        // На телефоне — плашкой у имени: в сетке «подпись/значение» половины ширины не хватало (hy «Հաճախորդը հաստատել է»)
+        mobile: 'badge',
         // Самая длинная метка («Клиент подтвердил» со значком) — 180 px: колонка под неё
         width: '13.25rem',
         skeleton: (
@@ -298,15 +299,16 @@ export function AppointmentsScreen() {
 
         <div data-f="F-12-004" className="flex flex-col gap-3">
           <div className="flex flex-wrap items-end gap-3">
-            <div className="flex flex-col gap-1">
+            {/* Телефон: поля во всю ширину — длинный период (hy «5 սեպտեմբերի – 4 հոկտեմբերի 2026») вылезал за экран */}
+            <div className="flex min-w-0 flex-col gap-1 max-sm:w-full">
               <span className="text-xs text-muted">{t('appointments.filterCreated')}</span>
-              <DateRangePicker value={{ from: filters.createdFrom, to: filters.createdTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, createdFrom: r.from ?? s.createdFrom, createdTo: r.to ?? s.createdTo }))} presets />
+              <DateRangePicker className="max-sm:w-full" value={{ from: filters.createdFrom, to: filters.createdTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, createdFrom: r.from ?? s.createdFrom, createdTo: r.to ?? s.createdTo }))} presets />
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex min-w-0 flex-col gap-1 max-sm:w-full">
               <span className="text-xs text-muted">{t('appointments.filterVisit')}</span>
-              <DateRangePicker value={{ from: filters.visitFrom, to: filters.visitTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, visitFrom: r.from, visitTo: r.to }))} presets />
+              <DateRangePicker className="max-sm:w-full" value={{ from: filters.visitFrom, to: filters.visitTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, visitFrom: r.from, visitTo: r.to }))} presets />
             </div>
-            <div className="w-full max-w-xs">
+            <div className="w-full sm:max-w-xs">
               <Select
                 aria-label={t('appointments.filterStaff')}
                 value={filters.staffId ?? ''}
@@ -314,7 +316,7 @@ export function AppointmentsScreen() {
                 options={[{ value: '', label: t('appointments.allStaff') }, ...(staffQ.data ?? []).map((s) => ({ value: s.id, label: s.name }))]}
               />
             </div>
-            <div className="w-full max-w-xs">
+            <div className="w-full sm:max-w-xs">
               <Select
                 aria-label={t('appointments.filterCancelled')}
                 value={filters.cancelled}
@@ -322,7 +324,7 @@ export function AppointmentsScreen() {
                 options={CANCELLED_VALUES.map((v) => ({ value: v, label: t(`appointments.cancelled.${v}`) }))}
               />
             </div>
-            <div className="w-full max-w-xs">
+            <div className="w-full sm:max-w-xs">
               <Select
                 aria-label={t('appointments.filterStatus')}
                 value={filters.status ?? ''}
@@ -330,7 +332,7 @@ export function AppointmentsScreen() {
                 options={[{ value: '', label: t('appointments.allStatuses') }, ...STATUS_VALUES.map((v) => ({ value: v, label: statusLabel(v) }))]}
               />
             </div>
-            <div className="w-full max-w-xs">
+            <div className="w-full sm:max-w-xs">
               <Select
                 aria-label={t('appointments.filterSource')}
                 value={filters.source}
@@ -338,7 +340,7 @@ export function AppointmentsScreen() {
                 options={SOURCE_VALUES.map((v) => ({ value: v, label: t(`appointments.sourceFilter.${v}`) }))}
               />
             </div>
-            <div className="w-full max-w-xs">
+            <div className="w-full sm:max-w-xs">
               <Select
                 aria-label={t('appointments.filterServices')}
                 value={filters.hasServices}

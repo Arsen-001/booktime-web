@@ -28,6 +28,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { qrPreviewSvg } from '@/areas/client/apps/qrPreview';
 import { useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { Badge } from '@/ui/Badge';
 import { Button, LinkButton } from '@/ui/Button';
 import { Card } from '@/ui/Card';
@@ -42,6 +43,8 @@ const CLIENT_APP_URL = 'https://luckybooking.am';
 export function AppsHubScreen() {
   const t = useT('client');
   const toast = useToast();
+  // Сторис и продвижение покупаются за монеты — в приложениях iOS/Android их нет (App Store 3.1.1)
+  const hidePurchases = useHideDigitalPurchases();
   const { ready, businessId } = useCurrent();
 
   const copyLink = async () => {
@@ -111,15 +114,17 @@ export function AppsHubScreen() {
           </Card>
         </PermissionGate>
         {/* Сторис публикует и мастер салона — свои (владелец, 01.10.2026) */}
-        <PermissionGate permission="journal.view">
-          <Card data-f="F-00-159" href="/biz/apps/stories" interactive padding="md" className="flex items-start gap-3">
-            <Sparkles aria-hidden className="size-6 shrink-0 text-primary-text" />
-            <div>
-              <p className="font-medium text-fg">{t('apps.hub.tileStoriesTitle')}</p>
-              <p className="text-sm text-muted">{t('apps.hub.tileStoriesHint')}</p>
-            </div>
-          </Card>
-        </PermissionGate>
+        {!hidePurchases && (
+          <PermissionGate permission="journal.view">
+            <Card data-f="F-00-159" href="/biz/apps/stories" interactive padding="md" className="flex items-start gap-3">
+              <Sparkles aria-hidden className="size-6 shrink-0 text-primary-text" />
+              <div>
+                <p className="font-medium text-fg">{t('apps.hub.tileStoriesTitle')}</p>
+                <p className="text-sm text-muted">{t('apps.hub.tileStoriesHint')}</p>
+              </div>
+            </Card>
+          </PermissionGate>
+        )}
         <PermissionGate permission="notify.mailings">
           <Card data-f="F-00-114" href="/biz/apps/news" interactive padding="md" className="flex items-start gap-3">
             <Rss aria-hidden className="size-6 shrink-0 text-primary-text" />
@@ -129,15 +134,17 @@ export function AppsHubScreen() {
             </div>
           </Card>
         </PermissionGate>
-        <PermissionGate permission="billing.manage">
-          <Card data-f="F-00-103 F-00-167" href="/biz/apps/promotion" interactive padding="md" className="flex items-start gap-3">
-            <Megaphone aria-hidden className="size-6 shrink-0 text-primary-text" />
-            <div>
-              <p className="font-medium text-fg">{t('apps.hub.tilePromotionTitle')}</p>
-              <p className="text-sm text-muted">{t('apps.hub.tilePromotionHint')}</p>
-            </div>
-          </Card>
-        </PermissionGate>
+        {!hidePurchases && (
+          <PermissionGate permission="billing.manage">
+            <Card data-f="F-00-103 F-00-167" href="/biz/apps/promotion" interactive padding="md" className="flex items-start gap-3">
+              <Megaphone aria-hidden className="size-6 shrink-0 text-primary-text" />
+              <div>
+                <p className="font-medium text-fg">{t('apps.hub.tilePromotionTitle')}</p>
+                <p className="text-sm text-muted">{t('apps.hub.tilePromotionHint')}</p>
+              </div>
+            </Card>
+          </PermissionGate>
+        )}
         <PermissionGate permission="clients.phones">
           <Card data-f="F-00-121" href="/biz/apps/reminders" interactive padding="md" className="flex items-start gap-3">
             <Smartphone aria-hidden className="size-6 shrink-0 text-primary-text" />
