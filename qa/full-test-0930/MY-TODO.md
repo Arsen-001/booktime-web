@@ -4,7 +4,7 @@
 - [x] notify мок: Telegram только клиентам без приложения, 24ч+2ч — как бэкенд (telegram-reminders.ts); сейчас мок: тип 1 за 1ч + дубль пушу — журнал (liveLog) уже сведён 01.10; 03.10 сведена и лента приложения (materializeBookingReminders: пуш по «Отправлять за», не «за сутки»)
 - [x] «за сутки и за 2 часа» (TelegramRemindersCard, better-than-altegio) vs тип 1 = за 1 ч — свести — 03.10: решение 01.10 (пуш по «Отправлять за», Telegram 24ч/2ч) во всех текстах и в ленте мока; подсказки Telegram дополнены запросом подтверждения (тип 73)
 - [x] admin: hydration error на /biz/notifications* (shell/demo) — исправлено ранее (NavList, leftovers №12 / queue-1001b bugs №4); 03.10 перепроверено measure: все 16 адресов /biz/notifications* admin+owner тел+деск и переходы с сохранённой персоной — 0 ошибок консоли
-- [ ] окно записи: переключатель Telegram в «Уведомления о визите»
+- [x] окно записи: переключатель Telegram в «Уведомления о визите» — 05.10 проверено: есть (BookingWindow.tsx, override.telegramEnabled; сервер notify.schemas bookingNotifyOverrideBody, telegram-reminders и тип 73 его слушают, журнал сервера тоже); hy-подсказка дополнена запросом подтверждения
 - [x] clients: категории/журналы импорта в моке без businessId — сделано 01.10 (seed, slice clients v13), перепроверено 03.10
 - [x] F-00-120 в 00-our-decisions — обновить на Telegram-бот (03.10: «Вы записаны» + профиль, Telegram 24ч/2ч, пуш по «Отправлять за», вопрос №25 закрыт)
 - [x] перезапуск :4010 — 30.09 23:45 и 01.10 02:04 (миграция one_waitlist применена владельцем); ещё раз после backend-2 (финансы, trial)
@@ -26,7 +26,7 @@
 - [x] демо-сид: платёж на каждый прошедший «пришёл» (кроме нескольких), графики администраторам — 03.10: оплачены ВСЕ прошлые визиты (было только 2 недели → прошлый месяц ~100 неоплаченных), 5 неоплаченных на бизнес, схемы у всех мастеров/админов (finance v15, payroll v6); графики админов были
 - [ ] опубликовать better-than-altegio (finance добавил пункт)
 - [x] демо-сид: у персоны client визит без будущей записи (маникюр 30 дн назад) — чтобы «Пора снова» было видно (01.10 seed; 03.10 видно «Снова записаться? Гаяне»)
-- [ ] better-than-altegio: Telegram — «и в профиле приложения»
+- [x] better-than-altegio: Telegram — «и в профиле приложения» — 05.10 проверено: текст уже в пункте «Напоминания в Telegram-боте», в коде есть (ProfileScreen → TelegramRemindersCard, POST /v1/me/telegram-link)
 - [x] журнал: «Верните клиенту» не найдено после своевременной отмены — 03.10 сценарий: деск «Вернуть предоплату 1 клиенту · Верните клиенту 2 100 ֏», телефон — в «Деньги: оплата и возвраты»
 
 ## Из отчёта staff (01.10) — решено по «делай как советуешь»
@@ -109,4 +109,4 @@ telegram (п.4,5,7,9,28) · seed (п.8,25,27,68 + la_biz_nuri) · bugs (п.6,14,
 - ✅ booktime.am 200, api.booktime.am / api-staging 200, CORS ок; staging — демо-сид (пароли случайные, storage/staging-logins.txt).
 - ✅ DemoSwitcher скрыт в api-сборках.
 - [ ] Ждём от владельца: TELEGRAM_GATEWAY_TOKEN, TELEGRAM_BOT_TOKEN/USERNAME (+ setWebhook). [ ] Vercel Pro перед коммерческим запуском.
-- [ ] Бэкапы production MySQL, GitHub Actions (tsc/eslint/rules), S3 (Railway Buckets) — следующие.
+- [ ] Бэкапы production MySQL, S3 (Railway Buckets) — следующие. [x] GitHub Actions — 03.10 (.github/workflows/ci.yml в обоих репо: фронт typegen/tsc/eslint/правила/уведомления/токены, бэкенд prisma generate/tsc/npm test/права/сборка), 05.10 зелёные на develop и main.
