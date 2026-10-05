@@ -19,17 +19,17 @@
 | [privacy-answers.md](privacy-answers.md) | Ответы на App Privacy (Apple) и Data safety (Google) по типам данных |
 | [review-notes.md](review-notes.md) | Заметки проверяющим, предложение демо-входа (номер + постоянный код через env), App access для Play |
 | `assets/` | Иконка App Store 1024×1024 без прозрачности, иконка Play 512×512, баннеры Play 1024×500 (client/business × ru/hy/en). Пересобрать: `npm run store-assets` в booktime-mobile |
-| `screenshots/` | Скриншоты, **в git не попадают** (13 МБ, см. .gitignore). Пересобрать: `node docs/store/make-screenshots.mjs` |
-| `make-screenshots.mjs` | Скриншоты с дев-сервера или `BASE=https://demo.booktime.am` (демо-данные) |
+| `screenshots/` | Скриншоты, **в git не попадают** (см. .gitignore). Пересобрать: `bash scripts/ensure-dev.sh`, затем `node docs/store/make-screenshots.mjs` (оба приложения × ru/hy/en × все устройства, ~10 мин) |
+| `make-screenshots.mjs` | Скриншоты с дев-сервера или `BASE=https://demo.booktime.am` (демо-данные). Снимает как в приложении: строка браузера с `BookTimeApp/client` / `BookTimeApp/business` и заглушка моста `window.Capacitor` (ios/android) — Business без клиентских вкладок, без покупок цифрового (`useHideDigitalPurchases`). Выборочно: `--app business --lang hy --device android --only journal` |
 | `check-limits.mjs` | Проверка длины полей в listing-*.md |
 
-Скриншоты: `screenshots/<client|business>/<ru|hy>/<устройство>/NN-<экран>.png`.
+Скриншоты: `screenshots/<client|business>/<ru|hy|en>/<устройство>/NN-<экран>.png`.
 
 | Устройство | Размер | Что это |
 |---|---|---|
 | `iphone69` | 1320×2868 | iPhone 6.9″ — обязательный размер, 6.5″ Apple построит из него |
 | `android` | 1080×1920 | Телефон Google Play |
-| `ipad13` | 2064×2752 | iPad 13″, только ru — нужен, если приложение остаётся универсальным |
+| `ipad13` | 2064×2752 | iPad 13″ — нужен, если приложение остаётся универсальным |
 
 Экраны BookTime: главная, поиск, страница салона, выбор времени, мои записи.
 Экраны Business: журнал, клиенты, окно записи, заказы, онлайн-запись.
@@ -162,7 +162,7 @@
    - hy-AM, ru-RU, en-US — тексты из listing-*.md;
    - иконка `assets/icon-google-play-client-512.png` (BookTime) или `assets/icon-google-play-business-512.png` (BookTime Business — фиолетовая с подписью BUSINESS, чтобы не путали); в App Store иконка берётся из сборки (`icon-app-store-<app>-1024.png` — для проверки);
    - баннер `assets/feature-graphic-<app>-<lang>.png`;
-   - скриншоты телефона `screenshots/<app>/<lang>/android` (для en — ru или пересобрать `--lang en`).
+   - скриншоты телефона `screenshots/<app>/<lang>/android`.
 8. Production → Create release → тот же `.aab` → Countries → Review.
 
 ### 3. После одобрения

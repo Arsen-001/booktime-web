@@ -3,7 +3,7 @@
  * Скриншоты для App Store и Google Play (04.10.2026) — с дев-сервера в моковом режиме (демо-данные, без настоящих людей).
  *
  *   bash scripts/ensure-dev.sh
- *   node docs/store/make-screenshots.mjs                         # все приложения, ru и hy, все устройства
+ *   node docs/store/make-screenshots.mjs                         # оба приложения, ru, hy и en, все устройства
  *   node docs/store/make-screenshots.mjs --app client --lang ru --device iphone69
  *
  * Куда: docs/store/screenshots/<client|business>/<lang>/<device>/NN-<имя>.png
@@ -11,7 +11,10 @@
  *   ipad13   — 2064×2752 (iPad 13″; нужен, только если приложение остаётся универсальным)
  *   android  — 1080×1920 (телефон Google Play; длинная сторона не больше двух коротких)
  *
- * Экран снимается как в приложении: без строки браузера и без демо-кнопки ([data-demo-fab]).
+ * Экран снимается как в приложении (05.10.2026): строка браузера телефона с «BookTimeApp/client» или
+ * «BookTimeApp/business» (как appendUserAgent в booktime-mobile/shared/config.ts — по ней сервер рисует Business
+ * без клиентских вкладок) и заглушка моста window.Capacitor (ios/android) — с ней сайт прячет то, что в приложениях
+ * скрыто (useHideDigitalPurchases: подписка, монеты); без строки браузера и без демо-кнопки ([data-demo-fab]).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,11 +26,27 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const OUT = path.join(ROOT, 'docs/store/screenshots');
 const BASE = process.env.BASE ?? 'http://localhost:3710';
 
+const UA_IOS = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148';
+const UA_IPAD = 'Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148';
+const UA_ANDROID =
+  'Mozilla/5.0 (Linux; Android 14; Pixel 8; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0.0.0 Mobile Safari/537.36';
+
+/** platform — что отвечает заглушка window.Capacitor.getPlatform() */
 const DEVICES = {
-  iphone69: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
-  ipad13: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
-  android: { viewport: { width: 360, height: 640 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+  iphone69: { viewport: { width: 440, height: 956 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, platform: 'ios', ua: UA_IOS },
+  ipad13: { viewport: { width: 1032, height: 1376 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, platform: 'ios', ua: UA_IPAD },
+  android: { viewport: { width: 360, height: 640 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, platform: 'android', ua: UA_ANDROID },
 };
+
+/** Мост Capacitor, как его кладёт приложение (src/lib/native/bridge.ts): плагины отвечают «unavailable» — сайт их пропускает */
+function capacitorStub(platform) {
+  window.Capacitor = {
+    isNativePlatform: () => true,
+    getPlatform: () => platform,
+    nativePromise: () => Promise.reject({ code: 'unavailable', message: 'screenshot' }),
+    addListener: () => ({ remove: () => {} }),
+  };
+}
 
 /**
  * Экраны. persona/sphere — демо-персона (src/demo/settings.ts). steps — действия перед снимком:
@@ -42,7 +61,7 @@ const SHOTS = {
     { name: 'my-bookings', route: '/bookings', persona: 'client' },
   ],
   business: [
-    { name: 'journal', route: '/biz/journal', persona: 'owner', sphere: 'nails' },
+    { name: 'journal', route: '/biz/journal', persona: 'owner', sphere: 'nails', steps: 'scrollToBookings' },
     { name: 'clients', route: '/biz/clients', persona: 'owner', sphere: 'nails' },
     { name: 'booking-window', route: '/biz/journal', persona: 'owner', sphere: 'nails', steps: 'openBooking' },
     { name: 'orders', route: '/biz/orders', persona: 'owner', sphere: 'repair' },
@@ -76,6 +95,30 @@ const STEPS = {
     await page.waitForTimeout(500);
     if ((await slots.count()) > 1) await slots.nth(1).click({ timeout: 3000 }).catch(() => {});
     await page.waitForTimeout(500);
+    // Нажатие на время прокручивает страницу: на низком экране (Android) календарь обрезался сверху —
+    // ставим календарь к верху экрана, на высоком — всё с начала (видно и шаги, и время)
+    await page.evaluate(() => {
+      const grid = document.querySelector('[role="grid"], table');
+      window.scrollTo(0, 0);
+      // Низкий экран: месяц и «Ближайшее» сверху, шаги уходят за край целиком, ниже — утро и день
+      if (window.innerHeight < 800 && grid) window.scrollBy(0, grid.getBoundingClientRect().top - 120);
+    });
+    await page.waitForTimeout(400);
+  },
+  /** Журнал: утро до первой записи пустое — прокрутить к первой записи (на телефоне иначе видна одна) */
+  async scrollToBookings(page) {
+    await page.evaluate(() => {
+      const first = [...document.querySelectorAll('[data-booking]')].sort(
+        (a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top,
+      )[0];
+      if (!first) return;
+      first.scrollIntoView({ block: 'start' });
+      // Над записью оставить строку времени: прокручиваем назад её ближайший прокручиваемый контейнер
+      let el = first.parentElement;
+      while (el && el.scrollHeight <= el.clientHeight) el = el.parentElement;
+      (el ?? document.scrollingElement)?.scrollBy(0, -48);
+    });
+    await page.waitForTimeout(400);
   },
   /** Окно записи: открыть первую запись в журнале */
   async openBooking(page) {
@@ -90,7 +133,7 @@ const opt = (k, d) => {
   return i === -1 ? d : args[i + 1].split(',');
 };
 const apps = opt('app', ['client', 'business']);
-const langs = opt('lang', ['ru', 'hy']);
+const langs = opt('lang', ['ru', 'hy', 'en']);
 const devices = opt('device', Object.keys(DEVICES));
 const only = opt('only', null);
 
@@ -113,7 +156,13 @@ try {
         for (const s of SHOTS[app]) {
           n++;
           if (only && !only.includes(s.name)) continue;
-          const ctx = await browser.newContext({ ...DEVICES[device], locale: lang === 'hy' ? 'hy-AM' : lang === 'en' ? 'en-US' : 'ru-RU' });
+          const { platform, ua, ...dev } = DEVICES[device];
+          const ctx = await browser.newContext({
+            ...dev,
+            userAgent: `${ua} BookTimeApp/${app}`,
+            locale: lang === 'hy' ? 'hy-AM' : lang === 'en' ? 'en-US' : 'ru-RU',
+          });
+          await ctx.addInitScript(capacitorStub, platform);
           const page = await ctx.newPage();
           const q = new URLSearchParams({ demo: s.persona, empty: '0', sphere: s.sphere ?? 'nails', lang, theme: 'light' });
           const url = `${BASE}${s.route}${s.route.includes('?') ? '&' : '?'}${q}`;
@@ -130,6 +179,14 @@ try {
               warnings.push(`${app}/${lang}/${device}/${s.name}: ${e.message}`);
             }
           }
+          // Ссылки в кабинете строятся от адреса сервера («localhost:3710/b/…») — в магазине показываем боевой адрес
+          await page.evaluate((host) => {
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+            for (let n = walker.nextNode(); n; n = walker.nextNode()) if (n.nodeValue.includes(host)) n.nodeValue = n.nodeValue.replaceAll(host, 'booktime.am');
+            document.querySelectorAll('input, textarea').forEach((i) => {
+              if (i.value.includes(host)) i.value = i.value.replaceAll(host, 'booktime.am');
+            });
+          }, new URL(BASE).host);
           await page.waitForTimeout(500);
           const file = path.join(dir, `${String(n).padStart(2, '0')}-${s.name}.png`);
           await page.screenshot({ path: file });
