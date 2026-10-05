@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { DATA_COOKIE, PLATFORM_COOKIE, SESSION_COOKIE, resolveDataMode } from '@/api/mode';
-import { COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, isValidDemoValue, type DemoSettings } from '@/demo/settings';
+import { BIZ_PERSONAS, COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, DEFAULT_DEMO, isValidDemoValue, type DemoSettings, type PersonaId } from '@/demo/settings';
 import { isLocale } from '@/i18n/config';
 import { URL_LOCALE_HEADER, isLocalizablePath, localizedPath, splitLocalePrefix } from '@/i18n/localePath';
+import { nativeAppKindFromUserAgent } from '@/lib/native/bridge';
+import { isClientOnlyPath } from '@/lib/native/businessApp';
 
 /**
  * Демо-параметры из адреса (?demo=owner&sphere=nails&lang=hy&theme=dark&font=large&api=error) —
@@ -32,9 +34,11 @@ export function proxy(request: NextRequest) {
   const prefixed = splitLocalePrefix(url.pathname);
   const path = prefixed.pathname;
 
+  const api = resolveDataMode(request.cookies.get(DATA_COOKIE)?.value) === 'api';
+
   // Живой сайт (PLAN.md §8.1–8.2): без сессии кабинет ведёт на вход, панель — на вход команды платформы.
   // Здесь видно только, есть ли cookie; истёкшую сессию ловит SessionBridge в браузере.
-  if (resolveDataMode(request.cookies.get(DATA_COOKIE)?.value) === 'api') {
+  if (api) {
     if (path.startsWith('/biz') && !request.cookies.has(SESSION_COOKIE)) {
       const login = new URL('/login', url);
       login.searchParams.set('next', path + url.search);
@@ -48,7 +52,19 @@ export function proxy(request: NextRequest) {
   // На /search «sphere» — фильтр поиска (/search?sphere=nails с главной, адреса в sitemap — SEO 03.10.2026), а не
   // демо-сфера бизнеса: не забираем его в cookie и не перенаправляем (иначе страница сферы не индексируется)
   const keys = (Object.keys(DEMO_PARAMS) as (keyof DemoSettings)[]).filter((key) => !(key === 'sphere' && path === '/search'));
-  if (!keys.some((key) => url.searchParams.has(DEMO_PARAMS[key]))) return prefixed.locale ? localeResponse(request, prefixed.locale, path) : NextResponse.next();
+  const hasDemoParams = keys.some((key) => url.searchParams.has(DEMO_PARAMS[key]));
+
+  // Приложение «BookTime Business» — только кабинет: экраны клиента (главная, поиск, записи…) ведут в кабинет,
+  // а без входа — на вход бизнеса (src/lib/native/businessApp.ts). Демо-параметры сперва запоминаются в cookie (ниже).
+  if (!hasDemoParams && isClientOnlyPath(path) && nativeAppKindFromUserAgent(request.headers.get('user-agent')) === 'business') {
+    const persona = (request.cookies.get(DEMO_COOKIES.persona)?.value ?? DEFAULT_DEMO.persona) as PersonaId;
+    const signedIn = api ? request.cookies.has(SESSION_COOKIE) : BIZ_PERSONAS.includes(persona);
+    const target = new URL(signedIn ? '/biz' : '/login', url);
+    if (!signedIn) target.searchParams.set('next', '/biz');
+    return NextResponse.redirect(target, 307);
+  }
+
+  if (!hasDemoParams) return prefixed.locale ? localeResponse(request, prefixed.locale, path) : NextResponse.next();
 
   const clean = url.clone();
   const updates: [string, string][] = [];

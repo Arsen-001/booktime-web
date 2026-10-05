@@ -10,6 +10,7 @@ import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 import { useTDynamic } from '@/i18n/useTDynamic';
 import { cn } from '@/lib/cn';
+import { useInBusinessApp } from '@/lib/native/NativeAppKind';
 import { Logo } from '@/shell/Logo';
 import { useClientNav } from '@/shell/client/useClientNav';
 import { LanguageSwitch } from '@/shell/LanguageSwitch';
@@ -23,6 +24,8 @@ export function ClientTopBar() {
   const { persona } = useDemo();
   const items = useClientNav();
   const localized = useLocalizedHref();
+  // Приложение «BookTime Business»: в полосе только знак (ведёт в кабинет), язык и тема — без меню клиента
+  const businessApp = useInBusinessApp();
   // Сервер видит путь без языка (/hy → /), браузер — с ним: сравниваем и передаём путь в одном виде
   const pathname = splitLocalePrefix(usePathname()).pathname;
   // Вход уже на экране (/login, шаги записи) — вторая кнопка «Войти» в полосе только спорит с ним
@@ -32,22 +35,24 @@ export function ClientTopBar() {
     <header className="sticky top-0 z-30 border-b border-border bg-surface pt-[env(safe-area-inset-top,0px)]">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-2 px-4 sm:gap-4 md:px-6">
         {/* Совсем узкий телефон (360 px): только знак, иначе армянское «Մուտք գործել» наезжает на название */}
-        <Logo href={localized('/')} className="shrink-0 max-[379px]:[&>span:last-child]:hidden" />
-        <nav aria-label={t('shell.mainNav')} className="ml-4 hidden flex-1 items-center gap-1 lg:flex">
-          {items.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              aria-current={item.active ? 'page' : undefined}
-              className={cn(
-                'inline-flex min-h-11 items-center rounded-lg px-2.5 text-[15px] font-medium whitespace-nowrap text-muted xl:px-3 transition-colors hover:bg-surface-2 hover:text-fg',
-                item.active && 'bg-primary-soft text-primary-text hover:bg-primary-soft hover:text-primary-text',
-              )}
-            >
-              {tDyn(item.labelKey)}
-            </Link>
-          ))}
-        </nav>
+        <Logo href={businessApp ? '/biz' : localized('/')} className="shrink-0 max-[379px]:[&>span:last-child]:hidden" />
+        {!businessApp && (
+          <nav aria-label={t('shell.mainNav')} className="ml-4 hidden flex-1 items-center gap-1 lg:flex">
+            {items.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                aria-current={item.active ? 'page' : undefined}
+                className={cn(
+                  'inline-flex min-h-11 items-center rounded-lg px-2.5 text-[15px] font-medium whitespace-nowrap text-muted xl:px-3 transition-colors hover:bg-surface-2 hover:text-fg',
+                  item.active && 'bg-primary-soft text-primary-text hover:bg-primary-soft hover:text-primary-text',
+                )}
+              >
+                {tDyn(item.labelKey)}
+              </Link>
+            ))}
+          </nav>
+        )}
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <LanguageSwitch />
           <ThemeToggle />
@@ -62,7 +67,7 @@ export function ClientTopBar() {
               <span className="hidden sm:inline">{t('shell.toBizCabinet')}</span>
             </LinkButton>
           )}
-          {persona === 'platform' && (
+          {persona === 'platform' && !businessApp && (
             <LinkButton href="/platform" size="sm" variant="secondary" aria-label={t('shell.toPlatform')} leftIcon={<LayoutDashboard aria-hidden />}>
               <span className="hidden sm:inline">{t('shell.toPlatform')}</span>
             </LinkButton>

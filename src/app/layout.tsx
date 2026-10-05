@@ -6,6 +6,8 @@ import { DemoProvider } from '@/demo/DemoProvider';
 import { getDemoSettings } from '@/demo/server';
 import { SessionBridge } from '@/demo/SessionBridge';
 import { NativeAppBridge } from '@/lib/native/NativeAppBridge';
+import { NativeAppKindProvider } from '@/lib/native/NativeAppKind';
+import { getNativeAppKind } from '@/lib/native/nativeAppKind.server';
 import { IntlProvider } from '@/i18n/IntlProvider';
 import { loadMessages } from '@/i18n/load';
 import { getUrlLocale } from '@/i18n/locale';
@@ -89,6 +91,8 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
   const { messages, fallbackKeys } = await loadMessages(demo.lang);
   const viewportWidth = await getViewportHint();
   const sidebarCookie = (await cookies()).get(SIDEBAR_COOKIE)?.value;
+  // Открыт в приложении BookTime / BookTime Business — по строке браузера (src/lib/native/NativeAppKind.tsx)
+  const nativeAppKind = await getNativeAppKind();
   const sidebar = sidebarCookie === 'collapsed' || sidebarCookie === 'expanded' ? sidebarCookie : undefined;
 
   return (
@@ -105,6 +109,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
           <DemoProvider initial={demo}>
             <ViewportHintProvider width={viewportWidth}>
               <SidebarHintProvider value={sidebar}>
+              <NativeAppKindProvider value={nativeAppKind}>
               <Providers>
                 {children}
                 <SessionBridge />
@@ -116,6 +121,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
                 {/* Аналитика посещений — только живой сайт (api + production), без DNT/GPC: src/lib/analytics.ts */}
                 <AnalyticsScripts />
               </Providers>
+              </NativeAppKindProvider>
               </SidebarHintProvider>
             </ViewportHintProvider>
           </DemoProvider>

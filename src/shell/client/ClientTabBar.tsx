@@ -4,10 +4,24 @@ import Link from 'next/link';
 import { useT } from '@/i18n/useT';
 import { useTDynamic } from '@/i18n/useTDynamic';
 import { cn } from '@/lib/cn';
+import { useInBusinessApp } from '@/lib/native/NativeAppKind';
 import { useClientNav } from '@/shell/client/useClientNav';
+import { useSoftKeyboardOpen } from '@/ui/hooks/useSoftKeyboard';
 
-/** Нижние вкладки приложения клиента (только телефон) */
+/**
+ * Нижние вкладки приложения клиента (только телефон). Нет их:
+ *  - в приложении «BookTime Business» — там только кабинет (вход, регистрация бизнеса, документы — без клиентских вкладок);
+ *  - пока открыта экранная клавиатура — иначе полоса выезжает над ней и закрывает поле (Android WebView сжимает
+ *    страницу). Без вкладок и --app-bottom-inset = 0 (polish.css): липкая кнопка экрана встаёт прямо над клавиатурой.
+ */
 export function ClientTabBar() {
+  const businessApp = useInBusinessApp();
+  const keyboard = useSoftKeyboardOpen();
+  if (businessApp || keyboard) return null;
+  return <ClientTabs />;
+}
+
+function ClientTabs() {
   const t = useT('common');
   const tDyn = useTDynamic();
   const items = useClientNav();

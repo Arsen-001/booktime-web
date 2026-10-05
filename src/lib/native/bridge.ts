@@ -43,13 +43,21 @@ function bridge(): CapacitorBridge | null {
 /** Строка браузера приложения: «… BookTimeApp/client» (appendUserAgent в booktime-mobile/shared/config.ts) */
 const UA_APP = /BookTimeApp\/(client|business)/;
 
+/**
+ * Какое приложение по строке браузера (её видит и сервер — заголовок user-agent, и proxy): null — не наше приложение.
+ * Так сервер с первого кадра рисует Business без клиентских вкладок (src/lib/native/NativeAppKind.tsx, src/proxy.ts).
+ */
+export function nativeAppKindFromUserAgent(userAgent: string | null | undefined): NativeAppKind | null {
+  return (UA_APP.exec(userAgent ?? '')?.[1] as NativeAppKind | undefined) ?? null;
+}
+
 /** Открыт ли сайт в нашем приложении; null — обычный браузер (или сервер Next) */
 export function nativeApp(): NativeApp | null {
   const cap = bridge();
   if (!cap) return null;
   const platform = cap.getPlatform?.();
   if (platform !== 'ios' && platform !== 'android') return null;
-  const app = (UA_APP.exec(navigator.userAgent)?.[1] as NativeAppKind | undefined) ?? (location.pathname.startsWith('/biz') ? 'business' : 'client');
+  const app = nativeAppKindFromUserAgent(navigator.userAgent) ?? (location.pathname.startsWith('/biz') ? 'business' : 'client');
   return { platform, app };
 }
 

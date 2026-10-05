@@ -15,6 +15,7 @@ import { loginErrorText } from '@/areas/client/login/loginError';
 import { useApiMutation } from '@/api/request';
 import { useApplyDemo } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
+import { useInBusinessApp } from '@/lib/native/NativeAppKind';
 import { normalizePhone } from '@/lib/phone';
 import { Button } from '@/ui/Button';
 import { Card } from '@/ui/Card';
@@ -48,11 +49,14 @@ function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (
   );
 }
 
-/** Вход клиента: имя + телефон → согласие на соглашение и обработку данных → код в WhatsApp/Telegram/SMS (F-00-032, F-14-006…F-14-008) */
+/** Вход клиента: имя + телефон → согласие на соглашение и обработку данных → код в Telegram или WhatsApp (F-00-032, F-14-006…F-14-008) */
 export function LoginScreen({ next }: { next: string }) {
   const t = useT('client');
-  // Пришли на вход из кабинета (/biz, в т.ч. приложение «BookTime Business») — сразу вкладка бизнеса
-  const [role, setRole] = useState<LoginRole>(next.startsWith('/biz') ? 'business' : 'client');
+  // Приложение «BookTime Business» — вход только бизнеса, без выбора роли (после входа — кабинет /biz).
+  // Пришли на вход из кабинета (/biz) в браузере или клиентском приложении — сразу вкладка бизнеса
+  const businessApp = useInBusinessApp();
+  const [chosen, setRole] = useState<LoginRole>(next.startsWith('/biz') ? 'business' : 'client');
+  const role: LoginRole = businessApp ? 'business' : chosen;
 
   return (
     <div className="mx-auto flex max-w-sm flex-col gap-5 py-6">
@@ -61,15 +65,17 @@ export function LoginScreen({ next }: { next: string }) {
         <p className="mt-1 text-sm text-muted">{t(role === 'client' ? 'login.subtitle' : 'login.businessSubtitle')}</p>
       </div>
 
-      <SegmentedControl
-        value={role}
-        onValueChange={(v) => setRole(v as LoginRole)}
-        fullWidth
-        options={[
-          { value: 'client', label: t('login.roleClient') },
-          { value: 'business', label: t('login.roleBusiness') },
-        ]}
-      />
+      {!businessApp && (
+        <SegmentedControl
+          value={role}
+          onValueChange={(v) => setRole(v as LoginRole)}
+          fullWidth
+          options={[
+            { value: 'client', label: t('login.roleClient') },
+            { value: 'business', label: t('login.roleBusiness') },
+          ]}
+        />
+      )}
 
       {role === 'client' ? <ClientLoginForm next={next} /> : <BusinessLogin />}
 
