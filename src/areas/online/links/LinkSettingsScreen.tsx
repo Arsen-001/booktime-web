@@ -56,6 +56,7 @@ import { useScrollToHash } from '@/areas/online/lib/useScrollToHash';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
 import { DragReorderList } from '@/areas/online/links/DragReorderList';
+import { isOrderService } from '@/domain/ordersPickup';
 
 const PACKAGE_TEXT_LOCALES: LocaleCode[] = ['ru', 'en', 'hy'];
 const EMPTY_PACKAGE_TEXT: LocalizedText = { ru: '', en: '', hy: '' };
@@ -149,7 +150,7 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
   );
   const servicesQ = useApiQuery(
     ['online-link-services', linkBusinessId],
-    () => coreList('services', (s) => s.businessId === linkBusinessId && s.active && s.kind !== 'intake'),
+    () => coreList('services', (s) => s.businessId === linkBusinessId && s.active && !isOrderService(s)),
     { enabled: Boolean(linkBusinessId) },
   );
 
@@ -871,7 +872,7 @@ function PackagesSection({ businessId }: { businessId: string }) {
   const confirm = useConfirm();
   const [createOpen, setCreateOpen] = useState(false);
   const packagesQ = useApiQuery(['online-packages', businessId], () => listOnlinePackages(businessId));
-  const servicesQ = useApiQuery(['online-packages-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'));
+  const servicesQ = useApiQuery(['online-packages-services', businessId], () => coreList('services', (s) => s.businessId === businessId && !isOrderService(s)));
   const deleteMutation = useApiMutation((id: string) => deleteOnlinePackage(id));
 
   if (packagesQ.isLoading || servicesQ.isLoading) return <Skeleton variant="rect" className="h-32 rounded-xl" />;

@@ -15,7 +15,7 @@
 import { memo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { PackagePlus } from 'lucide-react';
+import { PackageCheck, PackagePlus } from 'lucide-react';
 import type { Booking, Client, Id, Service } from '@/domain/core';
 import type { BookingExtras } from '@/domain/journal';
 import { cn } from '@/lib/cn';
@@ -284,10 +284,12 @@ function BookingBlockInner({
                 <span data-f="F-01-128 F-01-171" className={cn(NAME_SIZE, 'mt-0', text.dimmed && 'max-md:line-through')}>
                   {/* ⭐ Запись на сдачу: на телефоне вторая строка («Сдача: …») у короткой записи не помещается — значок у имени */}
                   {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
+                  {text.pickup && <PackageCheck aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
                   {text.primary}
                 </span>
                 <span className={cn(styles.ink, 'truncate text-xs leading-snug opacity-90', displayHeight < COMPACT_PHONE_TWO_LINES_FROM && 'max-md:hidden')}>
                   {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                  {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
                   {text.secondary}
                 </span>
               </span>
@@ -303,6 +305,7 @@ function BookingBlockInner({
               {displayHeight >= CARD_SERVICE_FROM && (
                 <span className={cn(styles.ink, 'mt-0.5 truncate text-xs leading-snug opacity-90')}>
                   {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                  {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
                   {text.secondary}
                 </span>
               )}

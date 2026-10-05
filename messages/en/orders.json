@@ -236,6 +236,33 @@
       "changed": "We've updated the estimate — please check the new one",
       "alreadyDecided": "This estimate has already been answered",
       "failed": "Couldn't send your reply. Please try again."
+    },
+    "pickup": {
+      "title": "When will you pick it up?",
+      "intro": "Choose a convenient time — your order will be waiting for you.",
+      "choose": "Choose a time",
+      "confirm": "I’ll come {day} at {time}",
+      "none": "No free time this week",
+      "noneHint": "Give us a call — we’ll agree on a time to pick it up.",
+      "booked": "See you {day} at {time}",
+      "bookedHint": "Your order will be ready to collect. Can’t make it? Change the time.",
+      "bookedPhoneHint": "To change the time, give us a call.",
+      "change": "Change time",
+      "keep": "Keep it",
+      "cancel": "I can’t make it",
+      "cancelConfirm": {
+        "title": "Cancel the pickup time?",
+        "text": "Your order stays with us — choose another time or come during opening hours.",
+        "confirm": "Cancel time",
+        "keep": "Keep"
+      },
+      "doneToast": "Done — see you {day} at {time}",
+      "cancelledToast": "Pickup time cancelled",
+      "taken": "That time was just taken — please choose another",
+      "unavailable": "You can’t choose a time right now — please call us",
+      "failed": "Couldn’t book. Please try again.",
+      "slotsLabel": "Free time, {day}",
+      "daysLabel": "Day"
     }
   },
   "settings": {
@@ -287,13 +314,13 @@
       "saved": "Saved"
     },
     "intake": {
-      "title": "Drop-off booking",
-      "description": "Clients choose on your page when they’ll bring the item — the booking appears in the calendar. When they arrive, “Accept order” in one tap.",
-      "toggleLabel": "Accept drop-off bookings",
-      "toggleHint": "A “Book a drop-off” button on your client page",
+      "title": "Drop-off and pickup by time",
+      "description": "Clients choose on your page when they’ll bring the item, and from the ready-order link — when they’ll pick it up. Bookings appear in the calendar: “Accept order” and “Hand over” in one tap.",
+      "toggleLabel": "Take drop-off and pickup bookings",
+      "toggleHint": "A “Book a drop-off” button on your page and “When will you pick it up?” in the ready-order link",
       "slot": "Time per drop-off",
-      "slotHint": "The slot length in the calendar — to check the item and create the order",
-      "staff": "Who accepts",
+      "slotHint": "The slot length in the calendar — to accept or hand over the item",
+      "staff": "Who accepts and hands over",
       "staffHint": "Slots follow their schedules; the client goes to whoever is free.",
       "openPage": "Open the client page",
       "savedOn": "Drop-off booking is on",
@@ -399,5 +426,16 @@
     "windowGone": "Drop-off booking not found",
     "windowGoneHint": "It was cancelled or moved to another day — open it again from the calendar.",
     "allToday": "All drop-offs — in “Orders”"
+  },
+  "pickupToday": {
+    "title": "{count, plural, =0 {Pickups today — all handed over} one {Pickups today · #} other {Pickups today · #}}",
+    "hint": "Clients chose a time from the ready-order link. When they arrive — “Hand over”.",
+    "issue": "Hand over",
+    "issued": "Handed over · #{number}",
+    "order": "Order #{number}",
+    "notReady": "#{number} — not ready yet",
+    "noOrder": "No order",
+    "issuedToast": "Order #{number} handed over",
+    "failed": "Couldn’t hand over. Please try again."
   }
 }

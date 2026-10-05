@@ -1,7 +1,8 @@
 import type { CoreData, Id } from '@/domain/core';
 import { estimateTotalOf, type Order, type OrderEstimate, type OrderHistoryEntry, type OrderItem, type OrderStatus, type OrdersSettings } from '@/domain/orders';
 import { dayjs, toISODate } from '@/lib/date';
-import { FIX_DROPOFF_ACCEPTED_BOOKING_ID } from '@/mock/seed/dropoff';
+import { GL } from '@/mock/seed/detailing';
+import { FIX_DROPOFF_ACCEPTED_BOOKING_ID, FIX_PICKUP_BOOKING_ID } from '@/mock/seed/dropoff';
 import { BIZ, LOC, ST } from '@/mock/seed/ids';
 import { defineSlice } from '@/mock/slice';
 
@@ -20,8 +21,20 @@ export interface OrdersState {
 export const DEMO_READY_ORDER_CODE = 'fxpt7k2m9q';
 /** Заказ, где смета ждёт ответа клиента: /o/v3xd7nh9ga и /biz/orders/ord_fix_1020 */
 export const DEMO_ESTIMATE_ORDER_CODE = 'v3xd7nh9ga';
+/** ⭐ Детейлинг GlossLab: готовая машина, время выдачи ещё не выбрано — /o/dtk7m3wq2h («Когда заберёте?») */
+export const DEMO_DETAILING_READY_CODE = 'dtk7m3wq2h';
+/** ⭐ FixPoint: готовый заказ №1019, клиентка уже выбрала время выдачи — /o/b5tm8wq2je («Ждём вас сегодня в 18:30») */
+export const DEMO_PICKUP_BOOKED_CODE = 'b5tm8wq2je';
+
+/** Демо-бизнесы с заказами: FixPoint (ремонт) и GlossLab (детейлинг, 06.10.2026) */
+const SHOPS = {
+  fix: { businessId: BIZ.fixpoint, locationId: LOC.fixpoint, owner: ST.fixOwner, prefix: 'ord_fix_' },
+  gl: { businessId: GL.biz, locationId: GL.loc, owner: GL.owner, prefix: 'ord_gl_' },
+} as const;
 
 interface Plan {
+  /** Чей заказ; нет — FixPoint */
+  shop?: keyof typeof SHOPS;
   n: number;
   code: string;
   client: [Id | null, string, string];
@@ -38,6 +51,8 @@ interface Plan {
   reminders?: [number, string][];
   /** ⭐ Принят по записи на сдачу (05.10.2026) */
   booking?: Id;
+  /** ⭐ Клиент выбрал время выдачи (06.10.2026) */
+  pickup?: Id;
   /** ⭐ Смета (05.10.2026): строки, комментарий, когда отправили и что ответил клиент */
   estimate?: {
     lines: [string, number][];
@@ -109,7 +124,8 @@ const PLANS: Plan[] = [
     due: 1, price: 27000, prepaid: 10000,
   },
   {
-    n: 1019, code: 'b5tm8wq2je', client: ['cl_fix_07', 'Ануш Григорян', '+37400170007'],
+    // Готов сегодня — клиентка выбрала по ссылке, когда заберёт: сегодня в 18:30 (src/mock/seed/dropoff.ts)
+    n: 1019, code: DEMO_PICKUP_BOOKED_CODE, client: ['cl_fix_07', 'Ануш Григорян', '+37400170007'], pickup: FIX_PICKUP_BOOKING_ID,
     items: [{ title: 'Apple Watch S7 — замена стекла', qty: 1 }],
     staff: ST.fixNarek, path: [['received', 2, '11:50'], ['in_progress', 1, '12:00'], ['ready', 0, '10:15']],
     due: 0, price: 18000, prepaid: 0,
@@ -154,6 +170,41 @@ const PLANS: Plan[] = [
     staff: ST.fixTigran, path: [['received', 2, '12:10'], ['in_progress', 1, '10:00'], ['ready', 0, '14:30']],
     due: 0, price: 52000, prepaid: 20000,
   },
+  // ── ⭐ GlossLab (детейлинг, 06.10.2026): машины оставляют на день, «Готово» — и клиент сам выбирает, когда заберёт
+  {
+    shop: 'gl', n: 1001, code: 'dfq2k7nw3s', client: ['cl_gl_03', 'Карен Минасян', '+37400180003'],
+    items: [{ title: 'Hyundai Tucson — химчистка салона', qty: 1 }],
+    staff: GL.taron, path: [['received', 6, '09:30'], ['in_progress', 6, '10:00'], ['ready', 6, '15:40'], ['issued', 6, '18:20']],
+    due: -6, price: 38000, prepaid: 0,
+  },
+  {
+    shop: 'gl', n: 1002, code: 'dw8h3m5qra', client: ['cl_gl_04', 'Арман Казарян', '+37400180004'],
+    items: [{ title: 'BMW 320i — полировка кузова', qty: 1, note: 'Скол на капоте был при приёме' }],
+    staff: GL.vahe, path: [['received', 1, '09:10'], ['in_progress', 1, '09:30']],
+    due: 1, price: 65000, prepaid: 20000,
+  },
+  {
+    // Готова сегодня, клиентка выбрала время выдачи — 18:00 (src/mock/seed/detailing.ts)
+    shop: 'gl', n: 1003, code: 'dp4x9nb6ea', client: ['cl_gl_05', 'Лилит Петросян', '+37400180005'], pickup: GL.pickupBooking,
+    items: [{ title: 'Kia Sportage — полировка и керамика', qty: 1 }],
+    staff: GL.vahe, path: [['received', 1, '09:00'], ['in_progress', 1, '09:20'], ['ready', 0, '12:00']],
+    due: 0, price: 180000, prepaid: 50000,
+  },
+  {
+    shop: 'gl', n: 1004, code: DEMO_DETAILING_READY_CODE, client: ['cl_gl_01', 'Гор Бадалян', '+37400180001'],
+    items: [
+      { title: 'Toyota Camry — керамическое покрытие', qty: 1 },
+      { title: 'Защитная плёнка на фары', qty: 1 },
+    ],
+    staff: GL.taron, path: [['received', 1, '10:30'], ['in_progress', 1, '11:00'], ['ready', 0, '13:30']],
+    due: 0, price: 175000, prepaid: 0,
+  },
+  {
+    shop: 'gl', n: 1005, code: 'dm6r2tk8yv', client: ['cl_gl_02', 'Мери Давтян', '+37400180002'],
+    items: [{ title: 'Mercedes GLE — химчистка салона', qty: 1, note: 'Пятно от кофе на заднем сиденье' }],
+    staff: GL.taron, path: [['received', 0, '09:15']],
+    due: 0, price: 40000, prepaid: 0,
+  },
 ];
 
 /** Смета из плана: события в истории (перед сменой статуса в ту же минуту) и сама смета */
@@ -191,21 +242,23 @@ function seedEstimate(p: Plan, statuses: OrderHistoryEntry[], at: (d: number, ti
 
 export const ordersSlice = defineSlice<OrdersState>({
   // 4 — запись на сдачу (05.10.2026): заказ №1022 принят по записи (bookingId)
-  version: 4,
+  // 5 — выдача по времени (06.10.2026): №1019 с записью на выдачу (pickupBookingId); заказы детейлинга GlossLab
+  version: 5,
   seed: (core: CoreData, now: Date) => {
-    if (!core.businesses.some((b) => b.id === BIZ.fixpoint)) return { orders: [], settings: {} };
+    const present = new Set(core.businesses.map((b) => b.id));
     const at = (daysAgo: number, time: string) => `${toISODate(dayjs(now).subtract(daysAgo, 'day'))}T${time}`;
     const day = (offset: number) => toISODate(dayjs(now).add(offset, 'day'));
-    const orders = PLANS.map((p): Order => {
-      const statuses: OrderHistoryEntry[] = p.path.map(([status, d, time]) => ({ at: at(d, time), status, by: status === 'received' ? ST.fixOwner : p.staff ?? ST.fixOwner }));
+    const orders = PLANS.filter((p) => present.has(SHOPS[p.shop ?? 'fix'].businessId)).map((p): Order => {
+      const shop = SHOPS[p.shop ?? 'fix'];
+      const statuses: OrderHistoryEntry[] = p.path.map(([status, d, time]) => ({ at: at(d, time), status, by: status === 'received' ? shop.owner : p.staff ?? shop.owner }));
       const last = statuses[statuses.length - 1];
       const ready = [...statuses].reverse().find((h) => h.status === 'ready');
       const issued = statuses.find((h) => h.status === 'issued');
       const { history, estimate } = seedEstimate(p, statuses, at);
       return {
-        id: `ord_fix_${p.n}`,
-        businessId: BIZ.fixpoint,
-        locationId: LOC.fixpoint,
+        id: `${shop.prefix}${p.n}`,
+        businessId: shop.businessId,
+        locationId: shop.locationId,
         number: p.n,
         code: p.code,
         clientId: p.client[0],
@@ -226,6 +279,7 @@ export const ordersSlice = defineSlice<OrdersState>({
         pickupRemindedAt: p.reminders?.length ? at(...p.reminders[p.reminders.length - 1]) : null,
         estimate,
         ...(p.booking ? { bookingId: p.booking } : {}),
+        ...(p.pickup ? { pickupBookingId: p.pickup } : {}),
         createdAt: history[0].at,
         updatedAt: last.at,
       };

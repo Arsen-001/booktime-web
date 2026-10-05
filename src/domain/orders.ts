@@ -8,9 +8,11 @@ import type { Id, ISODate, ISODateTime, LocalizedText, SphereId } from '@/domain
 import { SPHERES } from '@/config/spheres';
 import { addDays, diffMinutes } from '@/lib/date';
 import { canSendEstimate, isStatusEntry, type EstimateStatus, type OrderEstimate, type PublicOrderEstimate } from '@/domain/ordersEstimate';
+import type { PublicOrderPickup } from '@/domain/ordersPickup';
 
 export * from '@/domain/ordersEstimate';
 export * from '@/domain/ordersIntake';
+export * from '@/domain/ordersPickup';
 
 export type OrderStatus = 'received' | 'in_progress' | 'ready' | 'issued' | 'cancelled';
 
@@ -73,6 +75,8 @@ export interface Order {
   estimate?: OrderEstimate | null;
   /** ⭐ Принят по записи на сдачу (05.10.2026); нет поля или null — принят у стойки */
   bookingId?: Id | null;
+  /** ⭐ Выдача по времени (06.10.2026): запись клиента «Выдача заказа»; нет поля или null — время не выбирал */
+  pickupBookingId?: Id | null;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }
@@ -130,6 +134,8 @@ export interface PublicOrder {
     address: string | LocalizedText | null;
     slug: string;
   };
+  /** ⭐ Выдача по времени (06.10.2026): null — выбирать нечего; нет поля — старый сервер */
+  pickup?: PublicOrderPickup | null;
 }
 
 /** Напомнить клиенту, что готовый заказ ждёт: выключено / через 3 дня / через 3 и 7 дней после «Готов» */

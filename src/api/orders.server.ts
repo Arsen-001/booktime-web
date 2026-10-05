@@ -24,7 +24,9 @@ import {
   type OrdersPage,
   type OrdersQuery,
   type OrderStatus,
+  type PickupBooking,
   type PickupReminderMode,
+  type PickupSlots,
   type PublicOrder,
 } from '@/domain/orders';
 import { normalizeEstimate, toLocalDateTime } from '@/areas/orders/lib/serverTime';
@@ -50,6 +52,7 @@ function normalizeOrder(o: Order): Order {
     pickupRemindedAt: localTime(o.pickupRemindedAt ?? null),
     estimate: normalizeEstimate(o.estimate ?? null),
     bookingId: o.bookingId ?? null,
+    pickupBookingId: o.pickupBookingId ?? null,
     createdAt: localTime(o.createdAt) ?? o.createdAt,
     updatedAt: localTime(o.updatedAt) ?? o.updatedAt,
   };
@@ -93,7 +96,7 @@ export async function getPublicOrderServer(code: string): Promise<PublicOrder> {
 }
 
 function normalizePublic(res: PublicOrder): PublicOrder {
-  return { ...res, dueDate: res.dueDate ? res.dueDate.slice(0, 10) : null, readyAt: localTime(res.readyAt), estimate: normalizeEstimate(res.estimate ?? null) };
+  return { ...res, dueDate: res.dueDate ? res.dueDate.slice(0, 10) : null, readyAt: localTime(res.readyAt), estimate: normalizeEstimate(res.estimate ?? null), pickup: res.pickup ?? null };
 }
 
 // ─────────── ⭐ смета (05.10.2026) ───────────
@@ -167,5 +170,34 @@ export async function listIntakeBookingsServer(businessId: Id, date: string): Pr
   // Запись клиента на сдачу приходит в журнал (зеркало записей) — список перечитывается вместе с ним
   trackRead('areas.orders', 'core.bookings');
   const rows = await http<IntakeBooking[]>('GET', `${ORDERS_BASE(businessId)}/intake/bookings`, undefined, { query: { date } });
+  return rows.map((r) => ({ ...r, start: localTime(r.start) ?? r.start }));
+}
+
+// ─────────── ⭐ выдача по времени (06.10.2026) ───────────
+
+/** Публично, без входа: свободное время выдачи готового заказа на неделю вперёд */
+export async function getPublicPickupSlotsServer(code: string): Promise<PickupSlots> {
+  trackRead('areas.orders', 'core.bookings');
+  return http<PickupSlots>('GET', `/v1/public/orders/${encodeURIComponent(code)}/pickup`);
+}
+
+/** Публично: выбрать или поменять время выдачи (ответ — публичный вид заказа) */
+export async function bookPublicPickupServer(code: string, start: string): Promise<PublicOrder> {
+  const res = normalizePublic(await http<PublicOrder>('POST', `/v1/public/orders/${encodeURIComponent(code)}/pickup`, { start }));
+  notifyDbChange('areas.orders');
+  return res;
+}
+
+/** Публично: «Не смогу» — снять запись на выдачу */
+export async function cancelPublicPickupServer(code: string): Promise<PublicOrder> {
+  const res = normalizePublic(await http<PublicOrder>('DELETE', `/v1/public/orders/${encodeURIComponent(code)}/pickup`));
+  notifyDbChange('areas.orders');
+  return res;
+}
+
+/** «Забирают сегодня»: записи на выдачу за день (время Еревана) */
+export async function listPickupBookingsServer(businessId: Id, date: string): Promise<PickupBooking[]> {
+  trackRead('areas.orders', 'core.bookings');
+  const rows = await http<PickupBooking[]>('GET', `${ORDERS_BASE(businessId)}/pickups`, undefined, { query: { date } });
   return rows.map((r) => ({ ...r, start: localTime(r.start) ?? r.start }));
 }

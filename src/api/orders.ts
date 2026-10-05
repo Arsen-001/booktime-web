@@ -14,6 +14,7 @@ import { isApiMode } from '@/api/http';
 import { appendNotifyLogTx } from '@/api/notify';
 import * as S from '@/api/orders.server';
 import { intakeBookingForOrderTx, markIntakeArrivedTx } from '@/api/ordersIntake';
+import { activePickupBookingTx, pickupEnabledTx } from '@/api/ordersPickup';
 import { publicOrderTx } from '@/api/ordersPublic';
 import { ApiError, request, useApiQuery, type QueryOptions } from '@/api/request';
 import type { Client, Id, LocalizedText, SphereId } from '@/domain/core';
@@ -50,6 +51,8 @@ export const ordersKeys = {
   pickupReminders: (businessId: Id) => ['orders', 'pickup-reminders', businessId] as const,
   intake: (businessId: Id) => ['orders', 'intake', businessId] as const,
   intakeBookings: (businessId: Id, date: string) => ['orders', 'intake-bookings', businessId, date] as const,
+  pickupBookings: (businessId: Id, date: string) => ['orders', 'pickup-bookings', businessId, date] as const,
+  pickupSlots: (code: string) => ['orders', 'pickup-slots', code] as const,
 };
 
 // ─────────────────────────── мок: помощники ───────────────────────────
@@ -126,11 +129,18 @@ function logReadyTx(order: Order, at: string): void {
   const channel: LogChannel = client?.appUserId ? 'push' : 'telegram';
   const link = `${publicOrigin()}/o/${order.code}`;
   const name = business?.brandName || business?.name || '';
-  const text: LocalizedText = {
-    ru: `Заказ №${order.number} готов — можно забирать. ${name}. Статус: ${link}`,
-    en: `Order #${order.number} is ready for pickup. ${name}. Status: ${link}`,
-    hy: `Պատվեր №${order.number}-ը պատրաստ է, կարող եք վերցնել։ ${name}։ Կարգավիճակը՝ ${link}`,
-  };
+  // ⭐ Выдача по времени (06.10.2026): мастерская принимает по времени — та же ссылка зовёт выбрать, когда забрать (как сервер)
+  const text: LocalizedText = pickupEnabledTx(order.businessId)
+    ? {
+        ru: `Ваш заказ №${order.number} в «${name}» готов. Выберите, когда удобно забрать: ${link}`,
+        en: `Your order No. ${order.number} at «${name}» is ready. Choose when to pick it up: ${link}`,
+        hy: `Ձեր №${order.number} պատվերը «${name}»-ում պատրաստ է։ Ընտրեք, երբ է հարմար գալ վերցնելու՝ ${link}`,
+      }
+    : {
+        ru: `Заказ №${order.number} готов — можно забирать. ${name}. Статус: ${link}`,
+        en: `Order #${order.number} is ready for pickup. ${name}. Status: ${link}`,
+        hy: `Պատվեր №${order.number}-ը պատրաստ է, կարող եք վերցնել։ ${name}։ Կարգավիճակը՝ ${link}`,
+      };
   appendNotifyLogTx(order.businessId, [
     {
       createdAt: at,
@@ -292,7 +302,11 @@ export function setOrderStatus(args: { businessId: Id; orderId: Id; status: Orde
       ...(status === 'issued' ? { issuedAt: now } : {}),
     };
     if (status === 'ready') logReadyTx(next, now);
-    return saveOrderTx(next);
+    const saved = saveOrderTx(next);
+    // ⭐ Выдали заказ, на который клиент записался по времени, — запись на выдачу «Пришёл» (как сервер, best-effort)
+    const pickup = status === 'issued' ? activePickupBookingTx(current) : undefined;
+    if (pickup) markIntakeArrivedTx(pickup.id);
+    return saved;
   });
 }
 
@@ -334,3 +348,4 @@ export function publicAddressText(address: PublicOrder['business']['address'], l
 export { getPickupReminders, runPickupReminders, setPickupReminders } from '@/api/ordersReminders';
 export { decideOrderEstimate, decidePublicEstimate, resendOrderEstimate, runEstimateReminders, sendOrderEstimate } from '@/api/ordersEstimate';
 export { getIntakeSettings, listIntakeBookings, setIntakeSettings } from '@/api/ordersIntake';
+export { bookPublicPickup, cancelPublicPickup, getPublicPickupSlots, listPickupBookings } from '@/api/ordersPickup';

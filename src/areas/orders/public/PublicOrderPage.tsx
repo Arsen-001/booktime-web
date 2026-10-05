@@ -3,7 +3,8 @@
 /**
  * /o/<code> — ⭐ статус заказа для клиента без входа (03.10.2026): «Заказ №1024», крупный статус («Готов — можно
  * забирать», «Готов с 14:30»), шаги, что сдали, сколько заплатить при получении, телефон (текстом и звонком) и адрес.
- * Клиенту больше не нужно звонить «готово ли?» — ссылка приходит вместе с «Готово» и при приёме заказа.
+ * Клиенту больше не нужно звонить «готово ли?» — ссылка приходит вместе с «Готово» и при приёме заказа. ⭐ Готов —
+ * «Когда заберёте?»: клиент сам выбирает время выдачи (06.10.2026).
  */
 import { MapPin, PackageSearch, Phone } from 'lucide-react';
 import Link from 'next/link';
@@ -18,6 +19,7 @@ import { cn } from '@/lib/cn';
 import { today } from '@/lib/date';
 import { usePublicOrder } from '@/areas/orders/lib/useOrdersData';
 import { PublicEstimateCard } from '@/areas/orders/public/PublicEstimateCard';
+import { PublicPickupCard } from '@/areas/orders/public/PublicPickupCard';
 import { PublicOrderSkeleton } from '@/areas/orders/public/PublicOrderSkeleton';
 import { OrderProgress } from '@/areas/orders/ui/OrderProgress';
 import { ORDER_STATUS_META } from '@/areas/orders/ui/orderStatusMeta';
@@ -99,6 +101,8 @@ function PublicOrderView({ code, order, onStale }: { code: string; order: Public
         {order.status !== 'cancelled' && <OrderProgress status={order.status} skipped={skippedOrderSteps(order)} className="mt-6" times={readySince ? { ready: fmt.time(order.readyAt ?? '') } : undefined} />}
       </section>
 
+      {order.pickup && <PublicPickupCard code={code} pickup={order.pickup} onStale={onStale} />}
+
       {est && <PublicEstimateCard code={code} order={{ ...order, estimate: est }} onStale={onStale} />}
 
       <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
@@ -143,7 +147,7 @@ function PublicOrderView({ code, order, onStale }: { code: string; order: Public
         {order.business.phone && (
           <a
             href={`tel:${order.business.phone}`}
-            className={cn(buttonClasses({ variant: order.status === 'ready' ? 'primary' : 'secondary', size: 'lg', fullWidth: true }), 'mt-4')}
+            className={cn(buttonClasses({ variant: order.status === 'ready' && !order.pickup?.enabled ? 'primary' : 'secondary', size: 'lg', fullWidth: true }), 'mt-4')}
           >
             <Phone aria-hidden />
             {t('public.call')}

@@ -356,6 +356,18 @@ const PHRASES: [string, string, string][] = [
   ['Делайте, жду', 'Արեք, սպասում եմ', "Go ahead, I'll wait"],
   ['Замена модуля Wi-Fi', 'Wi-Fi մոդուլի փոխարինում', 'Wi-Fi module replacement'],
   ['Модуль есть в наличии — сделаем за день', 'Մոդուլը առկա է — կանենք մեկ օրում', "The module is in stock — we'll fix it in a day"],
+  // ── ⭐ Детейлинг GlossLab (06.10.2026): заказы, записи на сдачу и выдачу
+  ['Hyundai Tucson — химчистка салона', 'Hyundai Tucson — սրահի քիմմաքրում', 'Hyundai Tucson — interior deep cleaning'],
+  ['BMW 320i — полировка кузова', 'BMW 320i — թափքի փայլեցում', 'BMW 320i — paint polishing'],
+  ['Скол на капоте был при приёме', 'Կապոտի ճաքը կար ընդունելիս', 'The chip on the bonnet was there at drop-off'],
+  ['Kia Sportage — полировка и керамика', 'Kia Sportage — փայլեցում և կերամիկա', 'Kia Sportage — polishing and ceramic'],
+  ['Toyota Camry — керамическое покрытие', 'Toyota Camry — կերամիկական ծածկույթ', 'Toyota Camry — ceramic coating'],
+  ['Защитная плёнка на фары', 'Լուսարձակների պաշտպանիչ թաղանթ', 'Headlight protection film'],
+  ['Mercedes GLE — химчистка салона', 'Mercedes GLE — սրահի քիմմաքրում', 'Mercedes GLE — interior deep cleaning'],
+  ['Пятно от кофе на заднем сиденье', 'Սուրճի բիծ հետևի նստատեղին', 'Coffee stain on the rear seat'],
+  ['BMW X5 — керамика, приеду к открытию', 'BMW X5 — կերամիկա, կգամ բացմանը', "BMW X5 — ceramic, I'll come at opening"],
+  ['Владелец студии', 'Ստուդիայի սեփականատեր', 'Studio owner'],
+  ['Мастер детейлинга', 'Դիթեյլինգի վարպետ', 'Detailing specialist'],
 ];
 
 // ─────────────────────────── Индексы ───────────────────────────

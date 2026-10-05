@@ -7,7 +7,7 @@
  * Прошедшие видны сразу (серый фон строки + «Прошла»), идущая сейчас — «Идёт»; в каждой строке — быстрые действия
  * «Пришёл» / «Оплатить» / «Позвонить» без окна записи (DayListActions).
  */
-import { CheckCheck, PackagePlus } from 'lucide-react';
+import { CheckCheck, PackageCheck, PackagePlus } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { useState } from 'react';
 import type { Booking, GroupEvent, Id, Service } from '@/domain/core';
@@ -147,11 +147,18 @@ export function DayList({
               const lineServices = lines.map((id) => servicesById.get(id)).filter((s): s is Service => Boolean(s));
               // ⭐ Запись на сдачу (05.10.2026): вместо «Приём заказа» — что сдают (комментарий клиента), со значком
               const dropOff = row.kind === 'booking' && lineServices.some((s) => s.kind === 'intake');
+              // ⭐ Выдача по времени (06.10.2026): вместо «Выдача заказа» — номер и что забирают
+              const pickup = row.kind === 'booking' && lineServices.some((s) => s.kind === 'pickup');
+              const comment = row.kind === 'booking' ? row.item.comment : undefined;
               const serviceNames = dropOff
-                ? row.kind === 'booking' && row.item.comment
-                  ? t('board.card.dropOffWhat', { what: row.item.comment })
+                ? comment
+                  ? t('board.card.dropOffWhat', { what: comment })
                   : t('board.card.dropOff')
-                : lineServices.map((s) => pickText(s.name, locale)).join(', ');
+                : pickup
+                  ? comment
+                    ? t('board.card.pickupWhat', { what: comment })
+                    : t('board.card.pickup')
+                  : lineServices.map((s) => pickText(s.name, locale)).join(', ');
               const client = row.kind === 'booking' && row.item.clientId ? clientsById[row.item.clientId] : undefined;
               const title =
                 row.kind === 'event'
@@ -215,6 +222,7 @@ export function DayList({
                           <span className="truncate text-sm text-muted">
                             {phone && <span className="tabular-nums">{format.phone(phone)} · </span>}
                             {dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3.5 align-[-2px] text-primary-text" />}
+                            {pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3.5 align-[-2px] text-primary-text" />}
                             {serviceNames}
                           </span>
                         </span>

@@ -10,6 +10,7 @@ import { coreTx } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import { syncCore } from '@/api/mirror';
 import * as S from '@/api/orders.server';
+import { syncPickupServiceTx } from '@/api/ordersPickup';
 import { ApiError, request } from '@/api/request';
 import type { Id, ISODate, Service } from '@/domain/core';
 import {
@@ -71,6 +72,8 @@ export function setIntakeSettings(args: { businessId: Id; input: IntakeSettingsI
             order: 0,
             ...fields,
           });
+      // ⭐ Выдача по времени (06.10.2026): «Выдача заказа» — то же окно и те же люди, включена вместе с приёмом
+      syncPickupServiceTx({ businessId, sphereId: business.sphereIds[0] ?? 'general', durationMin: input.slotMin, staffIds, enabled: input.enabled });
       // Пара Service.staffIds ↔ Staff.serviceIds — её читают окна и проверка записи
       for (const s of staff) {
         const has = s.serviceIds.includes(svc.id);

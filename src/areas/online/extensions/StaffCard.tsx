@@ -16,6 +16,7 @@ import { SkeletonText } from '@/ui/Skeleton';
 import { useSkeletonCount } from '@/ui/hooks/useSkeletonCount';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
+import { isOrderService } from '@/domain/ordersPickup';
 
 const WORKPLACE_ICON_KEYS = ['salon', 'home', 'visit', 'gym', 'online'] as const;
 
@@ -31,7 +32,7 @@ export default function OnlineStaffCard({ staffId, businessId }: StaffCardExtPro
 
   const dataQ = useApiQuery(['online-staffcard', staffId], () => getPlacesData(staffId, undefined));
   const rulesQ = useApiQuery(['online-staffcard-rules', staffId], () => getStaffRules(staffId));
-  const servicesQ = useApiQuery(['online-staffcard-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'));
+  const servicesQ = useApiQuery(['online-staffcard-services', businessId], () => coreList('services', (s) => s.businessId === businessId && !isOrderService(s)));
   const pairsQ = useApiQuery(['online-staffcard-pairs', businessId], () => getStaffServiceOnlineFlags(businessId));
 
   const [savedId, setSavedId] = useState<string | null>(null);

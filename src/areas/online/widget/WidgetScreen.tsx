@@ -42,6 +42,7 @@ import { Skeleton } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
 import { Tabs } from '@/ui/Tabs';
 import { useToast } from '@/ui/Toast';
+import { isOrderService } from '@/domain/ordersPickup';
 
 type WidgetTab = 'button' | 'install' | 'addresses';
 type InstallMethod = 'round' | 'custom' | 'form';
@@ -109,7 +110,7 @@ export function WidgetScreen() {
   const staffQ = useApiQuery(['online-widget-staff', businessId], () => coreList('staff', (s) => s.businessId === businessId), {
     enabled: ready && Boolean(businessId),
   });
-  const servicesQ = useApiQuery(['online-widget-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'), {
+  const servicesQ = useApiQuery(['online-widget-services', businessId], () => coreList('services', (s) => s.businessId === businessId && !isOrderService(s)), {
     enabled: ready && Boolean(businessId),
   });
   const locationsQ = useApiQuery(['online-widget-locations', businessId], () => coreList('locations', { businessId: businessId ?? '' }), {

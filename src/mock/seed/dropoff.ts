@@ -1,5 +1,6 @@
 import type { Booking, Service, Staff, WorkSchedule } from '@/domain/core';
 import { INTAKE_SERVICE_NAME } from '@/domain/ordersIntake';
+import { PICKUP_SERVICE_NAME } from '@/domain/ordersPickup';
 import { h, sameDays, week, type SeedClock } from '@/mock/seed/helpers';
 import { BIZ, LOC, ST } from '@/mock/seed/ids';
 
@@ -7,6 +8,9 @@ import { BIZ, LOC, ST } from '@/mock/seed/ids';
 export const FIX_INTAKE_SERVICE_ID = 'sv_fix_intake';
 /** Запись на сдачу, по которой уже принят заказ №1022 (срез orders) */
 export const FIX_DROPOFF_ACCEPTED_BOOKING_ID = 'bk_fix_drop_1';
+/** ⭐ «Выдача заказа» FixPoint и запись на выдачу готового заказа №1019 (срез orders → pickupBookingId) */
+export const FIX_PICKUP_SERVICE_ID = 'sv_fix_pickup';
+export const FIX_PICKUP_BOOKING_ID = 'bk_fix_pickup_1';
 
 /**
  * ⭐ Запись на сдачу по времени (05.10.2026): у демо-мастерской FixPoint включена «Запись на сдачу» — окна по 15 минут,
@@ -35,6 +39,8 @@ export function addFixpointDropOff(clock: SeedClock, staff: Staff[], services: S
     active: true,
     order: 0,
   });
+  // ⭐ Выдача по времени (06.10.2026): «Выдача заказа» — то же окно и те же мастера, не онлайн (только по ссылке заказа)
+  services.push({ ...services[services.length - 1], id: FIX_PICKUP_SERVICE_ID, name: { ...PICKUP_SERVICE_NAME }, kind: 'pickup', onlineBookable: false, staffIds: [...masters] });
   for (const s of staff) if (masters.includes(s.id)) s.serviceIds = [...s.serviceIds, FIX_INTAKE_SERVICE_ID];
   // Часы мастерской (пн–пт 10–20, сб 11–18): мастера на месте — приём по времени возможен
   const hours = week({ ...sameDays([0, 1, 2, 3, 4], [h('10:00', '20:00')]), 5: [h('11:00', '18:00')] });
@@ -48,7 +54,10 @@ export function addFixpointDropOff(clock: SeedClock, staff: Staff[], services: S
     ['bk_fix_drop_3', 0, '18:15', ST.fixNarek, 'cl_fix_06', 'Samsung Galaxy S23 — разбит задний корпус', 'client_confirmed'],
     ['bk_fix_drop_4', 1, '10:15', ST.fixTigran, 'cl_fix_07', 'iPad Air — не реагирует сенсор', 'scheduled'],
   ];
+  // Ануш выбрала по ссылке, когда заберёт готовые часы (заказ №1019) — сегодня в 18:30
+  plan.push([FIX_PICKUP_BOOKING_ID, 0, '18:30', ST.fixNarek, 'cl_fix_07', '№1019 · Apple Watch S7 — замена стекла', 'scheduled']);
   for (const [id, offset, time, staffId, clientId, comment, status] of plan) {
+    const serviceId = id === FIX_PICKUP_BOOKING_ID ? FIX_PICKUP_SERVICE_ID : FIX_INTAKE_SERVICE_ID;
     const createdAt = clock.at(offset - 1, '19:20');
     bookings.push({
       id,
@@ -59,7 +68,7 @@ export function addFixpointDropOff(clock: SeedClock, staff: Staff[], services: S
       start: clock.at(offset, time),
       durationMin: 15,
       status,
-      services: [{ serviceId: FIX_INTAKE_SERVICE_ID, staffId, price: 0, durationMin: 15, qty: 1 }],
+      services: [{ serviceId, staffId, price: 0, durationMin: 15, qty: 1 }],
       total: 0,
       resourceIds: [],
       workplace: 'salon',

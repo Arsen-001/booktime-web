@@ -96,6 +96,12 @@ export interface PlaceBookingInput {
   visitId?: Id;
   /** ⭐ Клиент выбрал «Оплатить всё сразу» вместо процента предоплаты мастера (онлайн) */
   payInFull?: boolean;
+  /**
+   * ⭐ Выдача по времени (06.10.2026): запись на скрытую услугу «Выдача заказа» (kind 'pickup') по ссылке готового заказа —
+   * только из api заказов. Услуга не онлайн (в общем потоке её нет), окно проверяется как у онлайн-записи, статус — сразу
+   * «Записан» (без подтверждения и предоплаты: время предложила сама мастерская). Как сервер (BookingsService.place).
+   */
+  orderPickup?: boolean;
 }
 
 export interface PlaceBookingContext {
@@ -191,7 +197,9 @@ export function planBooking(core: CoreData, input: PlaceBookingInput, ctx: Place
     if (online) {
       const lineStaff = line.staffId ?? staff.id;
       const assigned = svc.staffIds.includes(lineStaff) || core.staff.find((s) => s.id === lineStaff)?.serviceIds.includes(svc.id);
-      if (!isServiceBookableOnline(svc, { hiddenIds: ctx.hiddenIds }) || !assigned) return fail('service_unavailable');
+      // ⭐ «Выдача заказа» — только по ссылке заказа (orderPickup), в общем онлайн-потоке её нет
+      const pickup = svc.kind === 'pickup';
+      if (pickup !== Boolean(input.orderPickup) || (!pickup && !isServiceBookableOnline(svc, { hiddenIds: ctx.hiddenIds })) || !assigned) return fail('service_unavailable');
     }
     services.push({ svc, line });
   }
@@ -356,7 +364,12 @@ export function planBooking(core: CoreData, input: PlaceBookingInput, ctx: Place
   const clientNoShows = noShowRule
     ? recentNoShows(core.bookings, { staffId: staff.id, clientId: client?.id, appUserId: appUser?.id ?? client?.appUserId, now: ctx.now, months: noShowRule.months })
     : 0;
-  const status = online || !input.status ? newBookingStatus({ source: input.source, staff, workplace: place, isOwnClient: own, clientNoShows }) : input.status;
+  const status =
+    online && input.orderPickup
+      ? 'scheduled'
+      : online || !input.status
+        ? newBookingStatus({ source: input.source, staff, workplace: place, isOwnClient: own, clientNoShows })
+        : input.status;
   const need = online ? prepaymentNeed(staff.prepayment, clientNoShows) : undefined;
   const total = lines.reduce((sum, l) => sum + l.price * l.qty, 0);
   // Имя из формы (виджет/журнал) — на самой записи, карточку клиента не трогаем (F-03-125)

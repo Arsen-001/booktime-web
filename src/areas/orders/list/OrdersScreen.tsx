@@ -4,7 +4,8 @@
  * /biz/orders — ⭐ Заказы (03.10.2026): «Активные · Готовы · Выданы · Все», поиск по №, имени, номеру и вещам,
  * постранично с сервера. На телефоне — карточки, на компьютере — таблица; строка открывает заказ. Главное действие —
  * «Принять заказ» (шторка с формой; на телефоне — кнопка внизу у большого пальца). ⭐ Сверху — «Сдают сегодня»: записи на
- * сдачу (05.10.2026), по каждой — «Принять заказ» с клиентом и вещью из записи.
+ * сдачу (05.10.2026), по каждой — «Принять заказ» с клиентом и вещью из записи; ⭐ «Забирают сегодня» — записи на выдачу
+ * готовых заказов (06.10.2026), по каждой — «Выдать».
  */
 import { usePickupRemindersTick } from '@/areas/orders/lib/usePickupRemindersTick';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { OrderFormSheet } from '@/areas/orders/form/OrderFormSheet';
 import { IntakeTodayCard } from '@/areas/orders/list/IntakeTodayCard';
+import { PickupTodayCard } from '@/areas/orders/list/PickupTodayCard';
 import { ORDER_MOBILE_CARD_SKELETON, OrderMobileCard, useOrderColumns } from '@/areas/orders/list/useOrderColumns';
 import { useOrdersList } from '@/areas/orders/lib/useOrdersData';
 import { Button } from '@/ui/Button';
@@ -64,6 +66,7 @@ export function OrdersScreen() {
       <PageHeader title={t('title')} description={t('subtitle')} actions={<span className="hidden md:inline-flex">{add}</span>} />
 
       <IntakeTodayCard />
+      <PickupTodayCard />
 
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <SegmentedControl

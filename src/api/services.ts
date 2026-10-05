@@ -40,6 +40,7 @@ import { apiIdentity } from '@/api/identity';
 import { getStaff as serverGetStaff, listStaff as serverListStaff } from '@/api/staff.server';
 import { newId } from '@/lib/id';
 import { nowDateTime } from '@/lib/date';
+import { isOrderService } from '@/domain/ordersPickup';
 
 /** Бизнес текущей сессии — для функций раздела, у которых нет businessId в подписи (стадия 21, лейн services+rest) */
 function currentBusinessId(): Id {
@@ -57,10 +58,11 @@ export interface ServiceRow {
 }
 
 /**
- * ⭐ «Приём заказа» (kind 'intake', запись на сдачу 05.10.2026) — услуга раздела «Заказы», её настраивают там: в каталоге
+ * ⭐ «Приём заказа» (kind 'intake', запись на сдачу 05.10.2026) и «Выдача заказа» (kind 'pickup', выдача по времени
+ * 06.10.2026) — услуги раздела «Заказы», их настраивают там: в каталоге
  * услуг, выборе услуг мастера и шаблонах её нет (без явного kind).
  */
-const notIntake = (s: Pick<Service, 'kind'>) => s.kind !== 'intake';
+const notIntake = (s: Pick<Service, 'kind'>) => !isOrderService(s);
 
 export function listServices(businessId: Id, q: { kind?: ServiceKind } = {}): Promise<Service[]> {
   if (isApiMode()) return S.listServices(businessId, q.kind).then((rows) => (q.kind ? rows : rows.filter(notIntake)));

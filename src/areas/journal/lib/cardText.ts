@@ -39,6 +39,8 @@ export interface CardText {
   isNew: boolean;
   /** ⭐ Запись на сдачу (05.10.2026): «Приём заказа» мастерской — значок и «Сдача: что сдают» вместо услуги */
   dropOff: boolean;
+  /** ⭐ Выдача по времени (06.10.2026): «Выдача заказа» — значок и «Выдача: №… · что забирают» вместо услуги */
+  pickup: boolean;
 }
 
 /** Постоянные подписи карточек (одинаковые для всех) */
@@ -92,11 +94,16 @@ export function cardText(
   const phone = client?.phone ? (showPhones ? format.phone(client.phone) : maskPhone(client.phone)) : undefined;
   const services = booking.services.map((line) => servicesById.get(line.serviceId));
   const dropOff = services.some((s) => s?.kind === 'intake');
+  const pickup = services.some((s) => s?.kind === 'pickup');
   const serviceNames = dropOff
     ? booking.comment
       ? t('board.card.dropOffWhat', { what: booking.comment })
       : t('board.card.dropOff')
-    : services.length
+    : pickup
+      ? booking.comment
+        ? t('board.card.pickupWhat', { what: booking.comment })
+        : t('board.card.pickup')
+      : services.length
       ? services.map((s) => (s ? pickText(s.name, locale as never) : t('block.service'))).join(' + ')
       : t('block.noService');
   const end = format.time(addMinutes(booking.start, booking.durationMin));
@@ -146,6 +153,7 @@ export function cardText(
     statusIcon: !['awaiting_confirmation', 'scheduled', 'client_confirmed'].includes(booking.status),
     isNew: opts.isNew,
     dropOff,
+    pickup,
   };
 }
 

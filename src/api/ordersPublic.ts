@@ -5,6 +5,7 @@
  * сервера (modules/orders/order-rules.ts). Зовётся внутри request() из '@/api/orders' и '@/api/ordersEstimate'.
  */
 import { readArea, readCore } from '@/api/area';
+import { publicPickupTx } from '@/api/ordersPickup';
 import { ApiError } from '@/api/request';
 import { orderReadyAt, type PublicOrder } from '@/domain/orders';
 
@@ -34,5 +35,7 @@ export function publicOrderTx(code: string): PublicOrder {
       address: location?.address ?? null,
       slug: business?.slug ?? '',
     },
+    // ⭐ Выдача по времени (06.10.2026) — только у готового заказа
+    pickup: publicPickupTx(order),
   };
 }

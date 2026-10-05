@@ -4,7 +4,18 @@
  * Чтения раздела «Заказы»: один ключ = одна функция api (ordersKeys). Бизнес и сфера — из демо-контекста / сессии.
  */
 import { useCoreGet } from '@/api/core';
-import { getIntakeSettings, getOrder, getPickupReminders, getPublicOrder, listIntakeBookings, listOrders, ordersKeys, useOrdersEnabledQuery } from '@/api/orders';
+import {
+  getIntakeSettings,
+  getOrder,
+  getPickupReminders,
+  getPublicOrder,
+  getPublicPickupSlots,
+  listIntakeBookings,
+  listOrders,
+  listPickupBookings,
+  ordersKeys,
+  useOrdersEnabledQuery,
+} from '@/api/orders';
 import { useApiQuery, type QueryOptions } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
@@ -66,4 +77,17 @@ export function useIntakeBookings(date: string, options?: { enabled?: boolean })
   return useApiQuery(ordersKeys.intakeBookings(businessId ?? '', date), () => listIntakeBookings(businessId ?? '', date), {
     enabled: ready && Boolean(businessId) && (options?.enabled ?? true),
   });
+}
+
+/** ⭐ «Забирают сегодня» (выдача по времени, 06.10.2026): записи на выдачу за день и их заказы */
+export function usePickupBookings(date: string, options?: { enabled?: boolean }) {
+  const { ready, businessId } = useCurrent();
+  return useApiQuery(ordersKeys.pickupBookings(businessId ?? '', date), () => listPickupBookings(businessId ?? '', date), {
+    enabled: ready && Boolean(businessId) && (options?.enabled ?? true),
+  });
+}
+
+/** Свободное время выдачи готового заказа на неделю (страница /o/<код>, без входа) */
+export function usePickupSlots(code: string, enabled: boolean) {
+  return useApiQuery(ordersKeys.pickupSlots(code), () => getPublicPickupSlots(code), { enabled: Boolean(code) && enabled });
 }

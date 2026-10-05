@@ -327,8 +327,10 @@ export interface ServiceCategory {
  * 'intake' — ⭐ «Приём заказа» мастерской (запись на сдачу по времени, 05.10.2026; хозяин — orders): скрытая услуга, которой
  * клиент записывается принести вещь; в каталоге, поиске, выборе услуг журнала и в услугах кабинета её нет
  * (isIntakeService). Ведёт себя как индивидуальная: окна, запись, напоминания — общий движок.
+ * 'pickup' — ⭐ «Выдача заказа» (выдача по времени, 06.10.2026; хозяин — orders): вторая скрытая услуга — клиент по ссылке
+ * готового заказа /o/<код> выбирает, когда заберёт; не онлайн (onlineBookable = false), записывает только api заказов.
  */
-export type ServiceKind = 'individual' | 'group' | 'intake';
+export type ServiceKind = 'individual' | 'group' | 'intake' | 'pickup';
 
 export interface Service {
   id: Id;
