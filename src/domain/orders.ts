@@ -7,6 +7,9 @@
 import type { Id, ISODate, ISODateTime, LocalizedText, SphereId } from '@/domain/core';
 import { SPHERES } from '@/config/spheres';
 import { addDays, diffMinutes } from '@/lib/date';
+import { canSendEstimate, isStatusEntry, type EstimateStatus, type OrderEstimate, type PublicOrderEstimate } from '@/domain/ordersEstimate';
+
+export * from '@/domain/ordersEstimate';
 
 export type OrderStatus = 'received' | 'in_progress' | 'ready' | 'issued' | 'cancelled';
 
@@ -19,11 +22,20 @@ export interface OrderItem {
   note?: string;
 }
 
+/** События сметы в истории заказа (status у такой строки — статус заказа в тот момент) */
+export type OrderHistoryEvent = 'estimate_sent' | 'estimate_approved' | 'estimate_declined';
+
 export interface OrderHistoryEntry {
   at: ISODateTime;
   status: OrderStatus;
-  /** Кто перевёл (id сотрудника); null — система или неизвестно */
+  /** Кто перевёл (id сотрудника); null — система, клиент (ответ по ссылке) или неизвестно */
   by: string | null;
+  /** Нет — смена статуса; есть — событие сметы */
+  event?: OrderHistoryEvent;
+  /** Сумма сметы (estimate_sent), ֏ */
+  amount?: number;
+  /** Комментарий клиента к ответу по смете */
+  note?: string;
 }
 
 export interface Order {
@@ -56,6 +68,8 @@ export interface Order {
   pickupReminderCount?: number;
   /** Когда ушло последнее авто-напоминание */
   pickupRemindedAt?: ISODateTime | null;
+  /** ⭐ Смета (05.10.2026); нет поля или null — не отправляли */
+  estimate?: OrderEstimate | null;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }
@@ -102,6 +116,8 @@ export interface PublicOrder {
   readyAt: ISODateTime | null;
   price: number;
   prepaid: number;
+  /** ⭐ Смета, если мастерская её отправила (05.10.2026); нет поля — старый сервер */
+  estimate?: PublicOrderEstimate | null;
   business: {
     name: string;
     phone: string | null;
@@ -139,12 +155,19 @@ export const ORDER_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
   cancelled: [],
 };
 
-export function canTransitionOrder(from: OrderStatus, to: OrderStatus): boolean {
+/** Можно ли перевести заказ. Клиент отказался от сметы — вещь выдают без ремонта: из «Принят» / «В работе» сразу в «Выдан» */
+export function canTransitionOrder(from: OrderStatus, to: OrderStatus, estimateStatus?: EstimateStatus | null): boolean {
+  if (to === 'issued' && estimateStatus === 'declined' && canSendEstimate(from)) return true;
   return ORDER_TRANSITIONS[from].includes(to);
 }
 
-/** Главный следующий шаг (одна кнопка): принят → в работу, в работе → готово, готов → выдать */
-export function nextOrderStep(status: OrderStatus): OrderStatus | null {
+/**
+ * Главный следующий шаг (одна кнопка): принят → в работу, в работе → готово, готов → выдать. Смета ждёт ответа —
+ * кнопки нет (ждём клиента); клиент отказался — «Выдать без ремонта».
+ */
+export function nextOrderStep(status: OrderStatus, estimateStatus?: EstimateStatus | null): OrderStatus | null {
+  if (canSendEstimate(status) && estimateStatus === 'declined') return 'issued';
+  if (canSendEstimate(status) && estimateStatus === 'pending') return null;
   if (status === 'received') return 'in_progress';
   if (status === 'in_progress') return 'ready';
   if (status === 'ready') return 'issued';
@@ -179,7 +202,7 @@ export function defaultOrdersEnabled(sphereIds: readonly SphereId[]): boolean {
 
 /** Когда заказ последний раз стал «Готов» (из истории) */
 export function orderReadyAt(order: Pick<Order, 'history'>): ISODateTime | null {
-  for (let i = order.history.length - 1; i >= 0; i--) if (order.history[i].status === 'ready') return order.history[i].at;
+  for (let i = order.history.length - 1; i >= 0; i--) if (isStatusEntry(order.history[i]) && order.history[i].status === 'ready') return order.history[i].at;
   return null;
 }
 

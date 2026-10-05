@@ -14,3 +14,14 @@ export function toLocalDateTime(value: string | null | undefined): ISODateTime |
     return value.slice(0, 16);
   }
 }
+
+/** Смета с сервера (кабинет или публичная страница): времена — к местному Еревана, остальное как есть */
+export function normalizeEstimate<T extends { sentAt: string | null; decidedAt: string | null; remindedAt?: string | null }>(est: T | null): T | null {
+  if (!est) return null;
+  return {
+    ...est,
+    sentAt: toLocalDateTime(est.sentAt),
+    decidedAt: toLocalDateTime(est.decidedAt),
+    ...('remindedAt' in est ? { remindedAt: toLocalDateTime(est.remindedAt) } : {}),
+  };
+}

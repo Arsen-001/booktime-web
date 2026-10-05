@@ -13,6 +13,7 @@ import { coreTx, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import { appendNotifyLogTx } from '@/api/notify';
 import * as S from '@/api/orders.server';
+import { publicOrderTx } from '@/api/ordersPublic';
 import { ApiError, request, useApiQuery, type QueryOptions } from '@/api/request';
 import type { Client, Id, LocalizedText, SphereId } from '@/domain/core';
 import type { LogChannel } from '@/domain/notify';
@@ -23,7 +24,6 @@ import {
   matchesOrderStatus,
   ORDER_CODE_ALPHABET,
   ORDER_CODE_LENGTH,
-  orderReadyAt,
   type Order,
   type OrderInput,
   type OrderItem,
@@ -175,28 +175,7 @@ export function getOrder(businessId: Id, orderId: Id): Promise<Order> {
 /** Публичный статус по коду ссылки — без входа (страница /o/<code>) */
 export function getPublicOrder(code: string): Promise<PublicOrder> {
   if (isApiMode()) return S.getPublicOrderServer(code);
-  return request(() => {
-    const order = readArea('orders').orders.find((o) => o.code === code);
-    if (!order) throw new ApiError('not_found', 'Заказ не найден');
-    const core = readCore();
-    const business = core.businesses.find((b) => b.id === order.businessId);
-    const location = core.locations.find((l) => l.id === (order.locationId ?? business?.locationIds[0]));
-    return {
-      number: order.number,
-      status: order.status,
-      items: order.items.map((i) => ({ title: i.title, qty: i.qty })),
-      dueDate: order.dueDate,
-      readyAt: order.status === 'ready' || order.status === 'issued' ? orderReadyAt(order) : null,
-      price: order.price,
-      prepaid: order.prepaid,
-      business: {
-        name: business?.brandName || business?.name || '',
-        phone: location?.phone ?? business?.phone ?? null,
-        address: location?.address ?? null,
-        slug: business?.slug ?? '',
-      },
-    };
-  });
+  return request(() => publicOrderTx(code));
 }
 
 /** «Заказы» включены у бизнеса (мок, внутри чужого request — публичная страница /b/<slug>): выбор владельца, иначе — по сфере */
@@ -293,7 +272,7 @@ export function setOrderStatus(args: { businessId: Id; orderId: Id; status: Orde
   if (isApiMode()) return S.setOrderStatusServer(businessId, orderId, status);
   return request(() => {
     const current = findOrderTx(businessId, orderId);
-    if (!canTransitionOrder(current.status, status)) throw new ApiError('invalid_transition', `${current.status} → ${status}`);
+    if (!canTransitionOrder(current.status, status, current.estimate?.status)) throw new ApiError('invalid_transition', `${current.status} → ${status}`);
     const now = nowDateTime();
     const next: Order = {
       ...current,
@@ -345,3 +324,4 @@ export function publicAddressText(address: PublicOrder['business']['address'], l
 }
 
 export { getPickupReminders, runPickupReminders, setPickupReminders } from '@/api/ordersReminders';
+export { decideOrderEstimate, decidePublicEstimate, resendOrderEstimate, runEstimateReminders, sendOrderEstimate } from '@/api/ordersEstimate';

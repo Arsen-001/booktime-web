@@ -11,12 +11,13 @@ import { useLocale } from 'next-intl';
 import { HttpApiError } from '@/api/http';
 import { publicAddressText } from '@/api/orders';
 import { ApiError } from '@/api/request';
-import { orderRemaining, type PublicOrder } from '@/domain/orders';
+import { orderRemaining, skippedOrderSteps, type PublicOrder } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { today } from '@/lib/date';
 import { usePublicOrder } from '@/areas/orders/lib/useOrdersData';
+import { PublicEstimateCard } from '@/areas/orders/public/PublicEstimateCard';
 import { PublicOrderSkeleton } from '@/areas/orders/public/PublicOrderSkeleton';
 import { OrderProgress } from '@/areas/orders/ui/OrderProgress';
 import { ORDER_STATUS_META } from '@/areas/orders/ui/orderStatusMeta';
@@ -46,10 +47,10 @@ export function PublicOrderPage({ code, initialData }: { code: string; initialDa
       <ErrorState onRetry={q.refetch} />
     );
   }
-  return <PublicOrderView order={q.data} />;
+  return <PublicOrderView code={code} order={q.data} onStale={() => void q.refetch()} />;
 }
 
-function PublicOrderView({ order }: { order: PublicOrder }) {
+function PublicOrderView({ code, order, onStale }: { code: string; order: PublicOrder; onStale: () => void }) {
   const t = useT('orders');
   const fmt = useFormat();
   const locale = useLocale() as 'ru' | 'en' | 'hy';
@@ -62,8 +63,11 @@ function PublicOrderView({ order }: { order: PublicOrder }) {
       ? t('public.readySinceToday', { time: fmt.time(order.readyAt) })
       : t('public.readySince', { when: `${fmt.date(order.readyAt, 'dayMonth')}, ${fmt.time(order.readyAt)}` })
     : null;
-  const subline =
-    order.status === 'ready'
+  const est = order.estimate ?? null;
+  const estimatePending = est?.status === 'pending' && (order.status === 'received' || order.status === 'in_progress');
+  const subline = estimatePending
+    ? t('public.estimate.waiting')
+    : order.status === 'ready'
       ? (readySince ?? t('public.readyNow'))
       : order.status === 'issued'
         ? t('public.issuedHint')
@@ -92,8 +96,10 @@ function PublicOrderView({ order }: { order: PublicOrder }) {
             <p className="mt-1 text-base text-muted">{subline}</p>
           </div>
         </div>
-        {order.status !== 'cancelled' && <OrderProgress status={order.status} className="mt-6" times={readySince ? { ready: fmt.time(order.readyAt ?? '') } : undefined} />}
+        {order.status !== 'cancelled' && <OrderProgress status={order.status} skipped={skippedOrderSteps(order)} className="mt-6" times={readySince ? { ready: fmt.time(order.readyAt ?? '') } : undefined} />}
       </section>
+
+      {est && <PublicEstimateCard code={code} order={{ ...order, estimate: est }} onStale={onStale} />}
 
       <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
         <h2 className="text-[1.0625rem] font-bold text-fg">{t('public.items')}</h2>
@@ -105,7 +111,7 @@ function PublicOrderView({ order }: { order: PublicOrder }) {
             </li>
           ))}
         </ul>
-        {order.price > 0 && order.status !== 'cancelled' && (
+        {order.price > 0 && order.status !== 'cancelled' && !estimatePending && (
           <div className="mt-4 flex flex-col gap-1 border-t border-border pt-4">
             <div className="flex items-baseline justify-between gap-4">
               <span className="font-semibold text-fg">{order.status === 'issued' ? t('public.total') : t('public.toPay')}</span>

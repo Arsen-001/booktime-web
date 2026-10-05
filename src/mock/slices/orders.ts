@@ -1,5 +1,5 @@
 import type { CoreData, Id } from '@/domain/core';
-import type { Order, OrderHistoryEntry, OrderItem, OrderStatus, OrdersSettings } from '@/domain/orders';
+import { estimateTotalOf, type Order, type OrderEstimate, type OrderHistoryEntry, type OrderItem, type OrderStatus, type OrdersSettings } from '@/domain/orders';
 import { dayjs, toISODate } from '@/lib/date';
 import { BIZ, LOC, ST } from '@/mock/seed/ids';
 import { defineSlice } from '@/mock/slice';
@@ -17,6 +17,8 @@ export interface OrdersState {
 
 /** Публичный код заказа «Готов» в демо — для замеров и ссылки из отчёта: /o/fxpt7k2m9q */
 export const DEMO_READY_ORDER_CODE = 'fxpt7k2m9q';
+/** Заказ, где смета ждёт ответа клиента: /o/v3xd7nh9ga и /biz/orders/ord_fix_1020 */
+export const DEMO_ESTIMATE_ORDER_CODE = 'v3xd7nh9ga';
 
 interface Plan {
   n: number;
@@ -33,6 +35,13 @@ interface Plan {
   comment?: string;
   /** Авто-напоминания «заказ ждёт вас», уже ушедшие: [дней назад, время] */
   reminders?: [number, string][];
+  /** ⭐ Смета (05.10.2026): строки, комментарий, когда отправили и что ответил клиент */
+  estimate?: {
+    lines: [string, number][];
+    comment?: string;
+    sent: [number, string];
+    decided?: { status: 'approved' | 'declined'; at: [number, string]; note?: string };
+  };
 }
 
 const PLANS: Plan[] = [
@@ -56,10 +65,16 @@ const PLANS: Plan[] = [
     due: -13, price: 12000, prepaid: 0,
   },
   {
+    // Смета после диагностики — клиент отказался по ссылке, ноутбук выдали без ремонта
     n: 1014, code: 'm3jt6yb2rk', client: ['cl_fix_04', 'Карен Манукян', '+37400170004'],
     items: [{ title: 'MacBook Air — залит чаем', qty: 1, note: 'Не включается' }],
-    staff: ST.fixTigran, path: [['received', 12, '17:30'], ['cancelled', 10, '12:00']],
-    due: -7, price: 0, prepaid: 0, comment: 'Клиент отказался от ремонта после диагностики',
+    staff: ST.fixTigran, path: [['received', 12, '17:30'], ['issued', 10, '12:00']],
+    due: -7, price: 5000, prepaid: 0, comment: 'Клиент отказался от ремонта после диагностики',
+    estimate: {
+      lines: [['Замена материнской платы', 165000], ['Чистка после залития', 10000], ['Работа мастера', 15000]],
+      sent: [11, '13:10'],
+      decided: { status: 'declined', at: [11, '18:40'], note: 'Дорого, куплю новый' },
+    },
   },
   {
     n: 1015, code: 'w2hn5ce8ud', client: [null, 'Сона Карапетян', '+37400170011'],
@@ -78,6 +93,11 @@ const PLANS: Plan[] = [
     items: [{ title: 'iPhone 13 Pro — замена камеры', qty: 1, note: 'Царапина на корпусе была при приёме' }],
     staff: ST.fixNarek, path: [['received', 5, '15:40'], ['in_progress', 4, '11:10']],
     due: -1, price: 42000, prepaid: 15000, comment: 'Ждём модуль камеры от поставщика',
+    estimate: {
+      lines: [['Модуль камеры iPhone 13 Pro', 34000], ['Работа мастера', 8000]],
+      sent: [4, '10:20'],
+      decided: { status: 'approved', at: [4, '11:10'], note: 'Делайте, жду' },
+    },
   },
   {
     n: 1018, code: 'h7ub2rs5kw', client: [null, 'Эдгар Мартиросян', '+37400170012'],
@@ -92,10 +112,16 @@ const PLANS: Plan[] = [
     due: 0, price: 18000, prepaid: 0,
   },
   {
+    // Смета отправлена — ждём ответа клиента (DEMO_ESTIMATE_ORDER_CODE)
     n: 1020, code: 'v3xd7nh9ga', client: ['cl_fix_08', 'Артур Мкртчян', '+37400170008'],
     items: [{ title: 'Ноутбук Lenovo — не видит Wi-Fi', qty: 1 }],
-    staff: null, path: [['received', 1, '17:05']],
-    due: 3, price: 8000, prepaid: 0, comment: 'Сначала диагностика, цену уточним',
+    staff: ST.fixTigran, path: [['received', 1, '17:05']],
+    due: 3, price: 3000, prepaid: 0, comment: 'Сначала диагностика, цену уточним',
+    estimate: {
+      lines: [['Замена модуля Wi-Fi', 9000], ['Работа мастера', 5000]],
+      comment: 'Модуль есть в наличии — сделаем за день',
+      sent: [1, '18:30'],
+    },
   },
   {
     n: 1021, code: 'f2kq6ty8ws', client: [null, 'Нарине Оганесян', '+37400170013'],
@@ -126,17 +152,51 @@ const PLANS: Plan[] = [
   },
 ];
 
+/** Смета из плана: события в истории (перед сменой статуса в ту же минуту) и сама смета */
+function seedEstimate(p: Plan, statuses: OrderHistoryEntry[], at: (d: number, time: string) => string): { history: OrderHistoryEntry[]; estimate: OrderEstimate | null } {
+  if (!p.estimate) return { history: statuses, estimate: null };
+  const e = p.estimate;
+  const lines = e.lines.map(([title, price]) => ({ title, price }));
+  const total = estimateTotalOf(lines);
+  const statusAt = (when: string) => [...statuses].reverse().find((h) => h.at <= when)?.status ?? 'received';
+  const sentAt = at(...e.sent);
+  const events: OrderHistoryEntry[] = [{ at: sentAt, status: statusAt(sentAt), by: p.staff ?? ST.fixOwner, event: 'estimate_sent', amount: total }];
+  const decidedAt = e.decided ? at(...e.decided.at) : null;
+  if (e.decided && decidedAt) {
+    const event = e.decided.status === 'approved' ? 'estimate_approved' : 'estimate_declined';
+    events.push({ at: decidedAt, status: statusAt(decidedAt) === 'in_progress' && e.decided.status === 'approved' ? 'received' : statusAt(decidedAt), by: null, event, ...(e.decided.note ? { note: e.decided.note } : {}) });
+  }
+  // События сметы — перед сменой статуса в ту же минуту («согласился» → «взяли в работу»)
+  const history = [...statuses, ...events].sort((a, b) => a.at.localeCompare(b.at) || (a.event ? 0 : 1) - (b.event ? 0 : 1));
+  return {
+    history,
+    estimate: {
+      status: e.decided?.status ?? 'pending',
+      version: 1,
+      lines,
+      total,
+      comment: e.comment ?? null,
+      sentAt,
+      remindedAt: null,
+      decidedAt,
+      decidedBy: e.decided ? 'client' : null,
+      clientComment: e.decided?.note ?? null,
+    },
+  };
+}
+
 export const ordersSlice = defineSlice<OrdersState>({
-  version: 2,
+  version: 3,
   seed: (core: CoreData, now: Date) => {
     if (!core.businesses.some((b) => b.id === BIZ.fixpoint)) return { orders: [], settings: {} };
     const at = (daysAgo: number, time: string) => `${toISODate(dayjs(now).subtract(daysAgo, 'day'))}T${time}`;
     const day = (offset: number) => toISODate(dayjs(now).add(offset, 'day'));
     const orders = PLANS.map((p): Order => {
-      const history: OrderHistoryEntry[] = p.path.map(([status, d, time]) => ({ at: at(d, time), status, by: status === 'received' ? ST.fixOwner : p.staff ?? ST.fixOwner }));
-      const last = history[history.length - 1];
-      const ready = [...history].reverse().find((h) => h.status === 'ready');
-      const issued = history.find((h) => h.status === 'issued');
+      const statuses: OrderHistoryEntry[] = p.path.map(([status, d, time]) => ({ at: at(d, time), status, by: status === 'received' ? ST.fixOwner : p.staff ?? ST.fixOwner }));
+      const last = statuses[statuses.length - 1];
+      const ready = [...statuses].reverse().find((h) => h.status === 'ready');
+      const issued = statuses.find((h) => h.status === 'issued');
+      const { history, estimate } = seedEstimate(p, statuses, at);
       return {
         id: `ord_fix_${p.n}`,
         businessId: BIZ.fixpoint,
@@ -159,6 +219,7 @@ export const ordersSlice = defineSlice<OrdersState>({
         issuedAt: issued ? issued.at : null,
         pickupReminderCount: p.reminders?.length ?? 0,
         pickupRemindedAt: p.reminders?.length ? at(...p.reminders[p.reminders.length - 1]) : null,
+        estimate,
         createdAt: history[0].at,
         updatedAt: last.at,
       };

@@ -11,12 +11,14 @@ import { useState } from 'react';
 import { Ban, MoreHorizontal, PackageX, Pencil, ReceiptText, Send, Undo2 } from 'lucide-react';
 import { useCoreGet } from '@/api/core';
 import { useCurrent } from '@/demo/hooks';
-import { canTransitionOrder, nextOrderStep, orderReadyAt, type Order, type OrderStatus } from '@/domain/orders';
+import { canTransitionOrder, isEstimateDeclined, isEstimatePending, isStatusEntry, nextOrderStep, skippedOrderSteps, orderReadyAt, type Order, type OrderStatus } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
 import { addDays, today } from '@/lib/date';
 import { useT } from '@/i18n/useT';
 import { useOrderActions } from '@/areas/orders/detail/useOrderActions';
 import { ClientCard } from '@/areas/orders/detail/ClientCard';
+import { EstimateCard } from '@/areas/orders/detail/EstimateCard';
+import { EstimateBadge } from '@/areas/orders/ui/EstimateBadge';
 import { HistoryCard } from '@/areas/orders/detail/HistoryCard';
 import { ItemsCard } from '@/areas/orders/detail/ItemsCard';
 import { MoneyCard } from '@/areas/orders/detail/MoneyCard';
@@ -43,7 +45,7 @@ import { StickyActionBar } from '@/ui/StickyActionBar';
 const lowerFirst = (text: string) => (text ? text.charAt(0).toLocaleLowerCase() + text.slice(1) : text);
 
 /** Подпись главной кнопки следующего шага */
-const NEXT_LABEL: Partial<Record<OrderStatus, 'next.in_progress' | 'next.ready' | 'next.issued'>> = {
+const NEXT_LABEL: Partial<Record<OrderStatus, 'next.in_progress' | 'next.ready' | 'next.issued' | 'next.issuedWithoutRepair'>> = {
   in_progress: 'next.in_progress',
   ready: 'next.ready',
   issued: 'next.issued',
@@ -78,8 +80,10 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
     );
   }
 
-  const next = nextOrderStep(order.status);
-  const at = (s: OrderStatus) => [...order.history].reverse().find((h) => h.status === s)?.at;
+  const next = nextOrderStep(order.status, order.estimate?.status);
+  const estimatePending = isEstimatePending(order);
+  const estimateDeclined = isEstimateDeclined(order);
+  const at = (s: OrderStatus) => [...order.history].reverse().find((h) => isStatusEntry(h) && h.status === s)?.at;
   const short = (v?: string | null) => (v ? `${fmt.relativeDay(v)}, ${fmt.time(v)}` : undefined);
   // Под шагами — коротко, чтобы на телефоне влезало в строку: сегодня — время, вчера — «Вчера», раньше — «1 окт.»
   const step = (v?: string | null) => {
@@ -115,8 +119,14 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
   );
 
   const primary = next ? (
-    <Button data-f="orders-next" size="lg" fullWidth loading={actions.moving} onClick={() => void actions.move(next)}>
-      {t(NEXT_LABEL[next] ?? 'next.ready')}
+    <Button
+      data-f="orders-next"
+      size="lg"
+      fullWidth
+      loading={actions.moving}
+      onClick={() => void actions.move(next, estimateDeclined ? 'toast.issuedWithoutRepair' : undefined)}
+    >
+      {t(estimateDeclined ? 'next.issuedWithoutRepair' : (NEXT_LABEL[next] ?? 'next.ready'))}
     </Button>
   ) : null;
   const resend =
@@ -134,6 +144,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
         meta={
           <>
             <OrderStatusBadge status={order.status} size="md" />
+            {(estimatePending || estimateDeclined) && order.estimate && <EstimateBadge status={order.estimate.status} size="md" />}
             <span className="text-sm text-muted">{t('detail.receivedAt', { when: lowerFirst(short(order.createdAt) ?? '') })}</span>
             {/* Телефон: «⋯» в строке статуса, а не отдельной строкой под заголовком */}
             <span className="ml-auto sm:hidden">{moreMenu}</span>
@@ -143,12 +154,19 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
       />
 
       <section className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
-        <OrderProgress status={order.status} times={times} />
+        <OrderProgress status={order.status} times={times} skipped={skippedOrderSteps(order)} />
+        {estimatePending && <p className="mt-5 border-t border-border pt-4 text-sm text-muted">{t('estimate.pendingHint')}</p>}
         {(primary || resend) && (
           <div className="mt-6 hidden gap-3 border-t border-border pt-5 md:flex md:items-center">
             {order.status === 'ready' && <p className="mr-auto text-sm text-muted">{t('detail.readyHint')}</p>}
-            {order.status === 'in_progress' && <p className="mr-auto text-sm text-muted">{t('detail.readyWillNotify')}</p>}
-            {order.status === 'received' && <p className="mr-auto text-sm text-muted">{t('detail.receivedHint')}</p>}
+            {estimateDeclined ? (
+              <p className="mr-auto text-sm text-muted">{t('estimate.declinedHint')}</p>
+            ) : (
+              <>
+                {order.status === 'in_progress' && <p className="mr-auto text-sm text-muted">{t('detail.readyWillNotify')}</p>}
+                {order.status === 'received' && <p className="mr-auto text-sm text-muted">{t('detail.receivedHint')}</p>}
+              </>
+            )}
             {resend && <div className="w-auto">{resend}</div>}
             {primary && <div className="w-auto">{primary}</div>}
           </div>
@@ -158,6 +176,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
         <div className="flex min-w-0 flex-col gap-6">
           <ItemsCard order={order} />
+          <EstimateCard order={order} />
           {order.status !== 'cancelled' && <PublicLinkCard order={order} url={`${origin}/o/${order.code}`} businessName={businessName} />}
           <HistoryCard order={order} staffName={staffName} />
         </div>

@@ -15,10 +15,12 @@ export interface OrderProgressProps {
   status: OrderStatus;
   /** Подписи времени под шагами: { ready: 'сегодня, 14:30' } */
   times?: Partial<Record<OrderStatus, string>>;
+  /** Шаги, которых не было (выдали без ремонта после отказа от сметы) — серые, без галочки */
+  skipped?: readonly OrderStatus[];
   className?: string;
 }
 
-export function OrderProgress({ status, times, className }: OrderProgressProps) {
+export function OrderProgress({ status, times, skipped = [], className }: OrderProgressProps) {
   const t = useT('orders');
   if (status === 'cancelled') {
     const { icon: Icon } = ORDER_STATUS_META.cancelled;
@@ -33,7 +35,7 @@ export function OrderProgress({ status, times, className }: OrderProgressProps) 
   return (
     <ol aria-label={t('progress.label')} className={cn('grid grid-cols-4', className)}>
       {ORDER_STEPS.map((step, i) => {
-        const done = i < current || (i === current && step === 'issued');
+        const done = (i < current && !skipped.includes(step)) || (i === current && step === 'issued');
         const active = i === current && step !== 'issued';
         const Icon = ORDER_STATUS_META[step].icon;
         return (
@@ -41,7 +43,7 @@ export function OrderProgress({ status, times, className }: OrderProgressProps) 
             {i > 0 && (
               <span
                 aria-hidden
-                className={cn('absolute top-5 right-1/2 h-0.5 w-full -translate-y-1/2', i <= current ? 'bg-primary' : 'bg-border')}
+                className={cn('absolute top-5 right-1/2 h-0.5 w-full -translate-y-1/2', i <= current && !skipped.includes(step) && !skipped.includes(ORDER_STEPS[i - 1]) ? 'bg-primary' : 'bg-border')}
               />
             )}
             <span
@@ -56,7 +58,7 @@ export function OrderProgress({ status, times, className }: OrderProgressProps) 
             </span>
             <span className="flex w-full min-w-0 flex-col px-0.5">
               {/* На телефоне мельче и с переносом: армянские «Աշխատանքում» не помещались в четверть ширины */}
-              <span className={cn('text-xs leading-tight [overflow-wrap:anywhere] sm:text-sm', i <= current ? 'font-semibold text-fg' : 'text-muted')}>{t(`steps.${step}`)}</span>
+              <span className={cn('text-xs leading-tight [overflow-wrap:anywhere] sm:text-sm', i <= current && !skipped.includes(step) ? 'font-semibold text-fg' : 'text-muted')}>{t(`steps.${step}`)}</span>
               {times?.[step] && i <= current && <span className="mt-0.5 text-xs leading-tight text-muted">{times[step]}</span>}
             </span>
           </li>

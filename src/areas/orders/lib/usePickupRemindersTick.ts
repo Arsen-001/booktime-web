@@ -6,16 +6,19 @@
  * сам). В режиме api напоминает сервер (jobs/orders-pickup-reminders.ts), runPickupReminders ничего не делает.
  */
 import { useEffect, useEffectEvent } from 'react';
-import { runPickupReminders } from '@/api/orders';
+import { runEstimateReminders, runPickupReminders } from '@/api/orders';
 import { useApiMutation } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 
 export function usePickupRemindersTick() {
   const { ready, businessId } = useCurrent();
   const run = useApiMutation(runPickupReminders);
+  // ⭐ 05.10.2026: и «ждём ответа по смете» — сутки без ответа (сервер: jobs/orders-estimate-reminders.ts)
+  const runEstimate = useApiMutation(runEstimateReminders);
   const tick = useEffectEvent(async (forBusinessId: string) => {
     try {
       await run.mutate({ businessId: forBusinessId });
+      await runEstimate.mutate({ businessId: forBusinessId });
     } catch {
       // Фоновая задача: сбой не мешает работать с заказами, следующий заход повторит
     }

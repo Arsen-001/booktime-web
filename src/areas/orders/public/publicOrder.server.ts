@@ -2,7 +2,7 @@ import 'server-only';
 import { cookies } from 'next/headers';
 import { DATA_COOKIE, resolveDataMode } from '@/api/mode';
 import type { PublicOrder } from '@/domain/orders';
-import { toLocalDateTime } from '@/areas/orders/lib/serverTime';
+import { normalizeEstimate, toLocalDateTime } from '@/areas/orders/lib/serverTime';
 
 /**
  * Публичный статус заказа для первой отрисовки /o/<code> на сервере (только режим api: в моке данные живут в браузере).
@@ -26,7 +26,7 @@ export async function fetchPublicOrder(code: string): Promise<PublicOrder | unde
     });
     if (!res.ok) return undefined;
     const data = (await res.json()) as PublicOrder;
-    return { ...data, dueDate: data.dueDate ? data.dueDate.slice(0, 10) : null, readyAt: toLocalDateTime(data.readyAt) };
+    return { ...data, dueDate: data.dueDate ? data.dueDate.slice(0, 10) : null, readyAt: toLocalDateTime(data.readyAt), estimate: normalizeEstimate(data.estimate ?? null) };
   } catch {
     return undefined;
   }

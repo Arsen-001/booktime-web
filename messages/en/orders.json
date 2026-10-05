@@ -32,7 +32,10 @@
     "in_progress": "Work started",
     "ready": "Ready, client notified",
     "issued": "Picked up by the client",
-    "cancelled": "Order cancelled"
+    "cancelled": "Order cancelled",
+    "estimate_sent": "Estimate sent · {amount}",
+    "estimate_approved": "Client approved the estimate",
+    "estimate_declined": "Client declined the estimate"
   },
   "progress": {
     "label": "Order progress",
@@ -63,7 +66,9 @@
       "in_progress": "No orders in progress",
       "cancelled": "No cancelled orders"
     },
-    "emptyHint": "Take in an item or a device — the client gets a status link and a message when it's ready."
+    "emptyHint": "Take in an item or a device — the client gets a status link and a message when it's ready.",
+    "estimatePending": "awaiting approval",
+    "estimateDeclined": "repair declined"
   },
   "form": {
     "createTitle": "New order",
@@ -122,7 +127,8 @@
   "next": {
     "in_progress": "Start work",
     "ready": "Ready — notify the client",
-    "issued": "Hand over"
+    "issued": "Hand over",
+    "issuedWithoutRepair": "Return without repair"
   },
   "toast": {
     "received": "Order #{number} received",
@@ -131,7 +137,8 @@
     "issued": "Order #{number} picked up",
     "cancelled": "Order #{number} cancelled",
     "notified": "Sent to the client again",
-    "failed": "That didn't work. Please try again."
+    "failed": "That didn't work. Please try again.",
+    "issuedWithoutRepair": "Order #{number} returned without repair"
   },
   "cancel": {
     "title": "Cancel order #{number}?",
@@ -196,7 +203,37 @@
     "prepaidLine": "Price {price}, prepaid {prepaid}",
     "call": "Call",
     "notFound": "Order not found",
-    "notFoundHint": "Check the link or call the workshop."
+    "notFoundHint": "Check the link or call the workshop.",
+    "estimate": {
+      "title": "Estimate",
+      "intro": "We've checked your item. Approve the price and we'll get to work right away.",
+      "introChanged": "We've updated the estimate — please take another look.",
+      "total": "Total",
+      "prepaid": "{amount} prepayment already made",
+      "ourComment": "Note from the technician",
+      "addComment": "Add a comment",
+      "commentLabel": "Your comment",
+      "commentPlaceholder": "For example, call me before you start",
+      "approve": "Approve",
+      "decline": "Decline",
+      "declineConfirm": {
+        "title": "Decline the repair?",
+        "text": "We won't do the work — you can pick up your item. Changed your mind? Give us a call.",
+        "confirm": "Decline",
+        "keep": "I'll think about it"
+      },
+      "approved": "You approved {when}",
+      "approvedHint": "The technician is on it. We'll let you know when it's ready.",
+      "declined": "You declined {when}",
+      "declinedHint": "Pick up your item whenever convenient. Changed your mind? Give us a call.",
+      "yourComment": "Your comment: “{text}”",
+      "waiting": "Waiting for your reply on the estimate",
+      "thanksApproved": "Thanks! We've passed it on to the technician",
+      "thanksDeclined": "We've passed your reply on",
+      "changed": "We've updated the estimate — please check the new one",
+      "alreadyDecided": "This estimate has already been answered",
+      "failed": "Couldn't send your reply. Please try again."
+    }
   },
   "settings": {
     "title": "Orders",
@@ -224,6 +261,10 @@
       "remind": {
         "title": "Not picked up? We remind",
         "text": "After 3 and 7 days the client automatically gets “Your order is ready and waiting”. You can change the timing above."
+      },
+      "estimate": {
+        "title": "Estimates — one tap",
+        "text": "After diagnostics, send an estimate: the client taps “Approve” or “Decline” via the link. No reply in a day — we'll remind them."
       }
     },
     "reminders": {
@@ -259,5 +300,68 @@
     "share": "Send to the client",
     "fileName": "receipt-{number}",
     "cancelled": "Order cancelled — this receipt is no longer valid"
+  },
+  "estimate": {
+    "title": "Estimate",
+    "hintNone": "Checked the item? Send the client an estimate. They'll reply with one tap via the link — no calls needed.",
+    "create": "Create estimate",
+    "badge": {
+      "pending": "Awaiting client approval",
+      "approved": "Client approved",
+      "declined": "Client declined"
+    },
+    "total": "Total",
+    "sentAt": "Sent {when}",
+    "remindedAt": "Reminded the client {when}",
+    "remindNext": "No reply — we'll remind them: {when}",
+    "decidedClient": "Client replied via the link {when}",
+    "decidedStaff": "Reply recorded {when}",
+    "clientComment": "Client: “{text}”",
+    "resend": "Send again",
+    "edit": "Edit estimate",
+    "newEstimate": "New estimate",
+    "more": "Estimate actions",
+    "phoneApprove": "Client approved by phone",
+    "phoneDecline": "Client declined by phone",
+    "pendingHint": "The client has the estimate — waiting for a reply. They'll tap “Approve” or “Decline” via the link.",
+    "approvedHint": "The estimate total is now the order price.",
+    "declinedHint": "The client declined the repair — return the item unrepaired.",
+    "declineConfirm": {
+      "title": "Client declined the repair?",
+      "text": "The order won't go into work — you'll just return the item unrepaired.",
+      "confirm": "Yes, declined",
+      "keep": "No"
+    },
+    "sheet": {
+      "title": "Estimate · order #{number}",
+      "description": "The client gets a message with a link and replies with one tap",
+      "mode": "How to price",
+      "modeLines": "Itemized",
+      "modeTotal": "Single amount",
+      "lineTitle": "Work or part {n}",
+      "lineTitlePlaceholder": "For example, screen replacement",
+      "linePrice": "Price, line {n}",
+      "lineRemove": "Remove line",
+      "lineAdd": "Add line",
+      "total": "Amount",
+      "comment": "Note for the client",
+      "commentPlaceholder": "Timing, warranty, anything else to know",
+      "totalLine": "Total:",
+      "becomesPrice": "If the client approves, this becomes the order price.",
+      "prepaidNote": "A {amount} prepayment is already made — the estimate can't be lower.",
+      "send": "Send to client",
+      "cancel": "Cancel",
+      "errors": {
+        "lines": "Add at least one line with a name and price",
+        "total": "Enter the amount",
+        "belowPrepaid": "Less than the {amount} prepayment"
+      }
+    },
+    "toast": {
+      "sent": "Estimate sent to the client",
+      "resent": "Estimate sent again",
+      "approved": "Client approved — order is in progress",
+      "declined": "Recorded: client declined"
+    }
   }
 }

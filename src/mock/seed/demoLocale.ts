@@ -343,6 +343,15 @@ const PHRASES: [string, string, string][] = [
   ['Трещина по диагонали, Face ID работает', 'Անկյունագծով ճաք, Face ID-ն աշխատում է', 'Diagonal crack, Face ID works'],
   ['Samsung Galaxy Tab S7 — замена гнезда зарядки', 'Samsung Galaxy Tab S7 — լիցքավորման բնիկի փոխարինում', 'Samsung Galaxy Tab S7 — charging port replacement'],
   ['Гнездо ждали от поставщика две недели', 'Բնիկին մատակարարից սպասեցինք երկու շաբաթ', 'The port took two weeks to arrive from the supplier'],
+  // смета (05.10.2026)
+  ['Замена материнской платы', 'Մայրական սալիկի փոխարինում', 'Motherboard replacement'],
+  ['Чистка после залития', 'Մաքրում հեղուկից հետո', 'Cleaning after the spill'],
+  ['Работа мастера', 'Վարպետի աշխատանք', 'Labour'],
+  ['Дорого, куплю новый', 'Թանկ է, նորը կգնեմ', "Too expensive, I'll buy a new one"],
+  ['Модуль камеры iPhone 13 Pro', 'iPhone 13 Pro-ի տեսախցիկի մոդուլ', 'iPhone 13 Pro camera module'],
+  ['Делайте, жду', 'Արեք, սպասում եմ', "Go ahead, I'll wait"],
+  ['Замена модуля Wi-Fi', 'Wi-Fi մոդուլի փոխարինում', 'Wi-Fi module replacement'],
+  ['Модуль есть в наличии — сделаем за день', 'Մոդուլը առկա է — կանենք մեկ օրում', "The module is in stock — we'll fix it in a day"],
 ];
 
 // ─────────────────────────── Индексы ───────────────────────────

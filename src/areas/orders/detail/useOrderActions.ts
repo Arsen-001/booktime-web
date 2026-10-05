@@ -20,11 +20,11 @@ export function useOrderActions(businessId: Id, order: Order | undefined) {
   });
   const notifyM = useApiMutation(notifyOrderReady);
 
-  async function move(status: OrderStatus) {
+  async function move(status: OrderStatus, toastKey?: 'toast.issuedWithoutRepair') {
     if (!order) return;
     try {
       await statusM.mutate({ businessId, orderId: order.id, status });
-      toast.success(t(`toast.${status}`, { number: order.number }));
+      toast.success(toastKey ? t(toastKey, { number: order.number }) : t(`toast.${status}`, { number: order.number }));
     } catch {
       toast.error(t('toast.failed'));
     }

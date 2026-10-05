@@ -1,6 +1,7 @@
 'use client';
 
-import { nextPickupReminderAt, type Order } from '@/domain/orders';
+import { FileText, ThumbsDown, ThumbsUp, type LucideIcon } from 'lucide-react';
+import { nextPickupReminderAt, type Order, type OrderHistoryEvent } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
 import { diffMinutes, today } from '@/lib/date';
 import { useT } from '@/i18n/useT';
@@ -8,6 +9,14 @@ import { usePickupReminders } from '@/areas/orders/lib/useOrdersData';
 import { ORDER_STATUS_META } from '@/areas/orders/ui/orderStatusMeta';
 import { SectionCard } from '@/ui/SectionCard';
 import { Timeline } from '@/ui/Timeline';
+import type { BadgeTone } from '@/ui/Badge';
+
+/** События сметы в истории: значок и тон */
+const ESTIMATE_EVENT_META: Record<OrderHistoryEvent, { icon: LucideIcon; tone: BadgeTone }> = {
+  estimate_sent: { icon: FileText, tone: 'info' },
+  estimate_approved: { icon: ThumbsUp, tone: 'success' },
+  estimate_declined: { icon: ThumbsDown, tone: 'danger' },
+};
 
 export function HistoryCard({ order, staffName }: { order: Order; staffName: (id: string | null) => string | undefined }) {
   const t = useT('orders');
@@ -22,13 +31,14 @@ export function HistoryCard({ order, staffName }: { order: Order; staffName: (id
   };
   const nextAt = modeQ.data ? nextPickupReminderAt(order, modeQ.data) : null;
   const items = [...order.history].reverse().map((h, i) => {
-    const { icon: Icon, tone } = ORDER_STATUS_META[h.status];
+    const { icon: Icon, tone } = h.event ? ESTIMATE_EVENT_META[h.event] : ORDER_STATUS_META[h.status];
     const who = staffName(h.by);
+    const note = h.note ? t('estimate.clientComment', { text: h.note }) : undefined;
     return {
       id: `${h.at}-${i}`,
-      title: t(`history.${h.status}`),
+      title: h.event === 'estimate_sent' ? t('history.estimate_sent', { amount: fmt.money(h.amount ?? 0) }) : h.event ? t(`history.${h.event}`) : t(`history.${h.status}`),
       time: `${fmt.relativeDay(h.at)}, ${fmt.time(h.at)}`,
-      description: who,
+      description: [who, note].filter(Boolean).join(' · ') || undefined,
       icon: <Icon aria-hidden />,
       tone,
     };

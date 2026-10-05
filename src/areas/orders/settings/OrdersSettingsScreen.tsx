@@ -1,7 +1,7 @@
 'use client';
 
 /** /biz/orders/settings — «Заказы» вкл/выкл, напоминание «заказ ждёт вас» (04.10.2026) и как это работает для клиента. */
-import { BellRing, Clock3, Link2, PackagePlus } from 'lucide-react';
+import { BellRing, Clock3, FileCheck2, Link2, PackagePlus } from 'lucide-react';
 import { useT } from '@/i18n/useT';
 import { OrdersToggleCard } from '@/areas/orders/settings/OrdersToggleCard';
 import { PickupRemindersCard } from '@/areas/orders/settings/PickupRemindersCard';
@@ -11,6 +11,7 @@ import { SectionCard } from '@/ui/SectionCard';
 
 const STEPS = [
   { key: 'accept', icon: PackagePlus },
+  { key: 'estimate', icon: FileCheck2 },
   { key: 'ready', icon: BellRing },
   { key: 'link', icon: Link2 },
   { key: 'remind', icon: Clock3 },

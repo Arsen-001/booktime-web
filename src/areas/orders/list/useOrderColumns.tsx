@@ -8,6 +8,7 @@ import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { today } from '@/lib/date';
+import { OrderEstimateNote } from '@/areas/orders/ui/OrderEstimateNote';
 import { OrderStatusBadge } from '@/areas/orders/ui/OrderStatusBadge';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import type { TableColumn } from '@/ui/Table';
@@ -100,9 +101,14 @@ export function useOrderColumns(): TableColumn<Order>[] {
     {
       id: 'status',
       header: t('columns.status'),
-      width: '9rem',
+      width: '11rem',
       skeleton: <Skeleton className="h-6 w-20 rounded-full" />,
-      cell: (o) => <OrderStatusBadge status={o.status} />,
+      cell: (o) => (
+        <span className="flex flex-col items-start gap-1">
+          <OrderStatusBadge status={o.status} />
+          <OrderEstimateNote order={o} />
+        </span>
+      ),
     },
     { id: 'money', header: t('columns.money'), width: '10rem', align: 'right', skeleton: MONEY_SKELETON, cell: (o) => <OrderMoney order={o} /> },
   ];
@@ -119,6 +125,7 @@ export function OrderMobileCard({ order }: { order: Order }) {
       </span>
       <span className="truncate font-medium text-fg">{order.clientName}</span>
       <span className="truncate text-sm text-muted">{orderItemsSummary(order.items)}</span>
+      <OrderEstimateNote order={order} />
       <span className="mt-1 flex items-end justify-between gap-3 text-sm">
         <OrderDue order={order} />
         <OrderMoney order={order} />

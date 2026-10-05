@@ -11,8 +11,20 @@
 import { http } from '@/api/http';
 import { trackRead } from '@/api/request';
 import type { Id } from '@/domain/core';
-import { pickupReminderModeOf, type Order, type OrderInput, type OrderPatch, type OrdersPage, type OrdersQuery, type OrderStatus, type PickupReminderMode, type PublicOrder } from '@/domain/orders';
-import { toLocalDateTime } from '@/areas/orders/lib/serverTime';
+import {
+  pickupReminderModeOf,
+  type EstimateDecision,
+  type EstimateInput,
+  type Order,
+  type OrderInput,
+  type OrderPatch,
+  type OrdersPage,
+  type OrdersQuery,
+  type OrderStatus,
+  type PickupReminderMode,
+  type PublicOrder,
+} from '@/domain/orders';
+import { normalizeEstimate, toLocalDateTime } from '@/areas/orders/lib/serverTime';
 import { notifyDbChange } from '@/mock/db';
 
 /** Путь заказов бизнеса — по контракту 03.10.2026 */
@@ -33,6 +45,7 @@ function normalizeOrder(o: Order): Order {
     issuedAt: localTime(o.issuedAt),
     pickupReminderCount: o.pickupReminderCount ?? 0,
     pickupRemindedAt: localTime(o.pickupRemindedAt ?? null),
+    estimate: normalizeEstimate(o.estimate ?? null),
     createdAt: localTime(o.createdAt) ?? o.createdAt,
     updatedAt: localTime(o.updatedAt) ?? o.updatedAt,
   };
@@ -72,7 +85,29 @@ export const notifyOrderReadyServer = (businessId: Id, orderId: Id) =>
 export async function getPublicOrderServer(code: string): Promise<PublicOrder> {
   trackRead('areas.orders');
   const res = await http<PublicOrder>('GET', `/v1/public/orders/${encodeURIComponent(code)}`);
-  return { ...res, dueDate: res.dueDate ? res.dueDate.slice(0, 10) : null, readyAt: localTime(res.readyAt) };
+  return normalizePublic(res);
+}
+
+function normalizePublic(res: PublicOrder): PublicOrder {
+  return { ...res, dueDate: res.dueDate ? res.dueDate.slice(0, 10) : null, readyAt: localTime(res.readyAt), estimate: normalizeEstimate(res.estimate ?? null) };
+}
+
+// ─────────── ⭐ смета (05.10.2026) ───────────
+
+export const sendOrderEstimateServer = (businessId: Id, orderId: Id, input: EstimateInput) =>
+  write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/estimate`, input));
+
+export const resendOrderEstimateServer = (businessId: Id, orderId: Id) =>
+  write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/estimate/notify`));
+
+export const decideOrderEstimateServer = (businessId: Id, orderId: Id, decision: EstimateDecision, comment: string | null) =>
+  write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/estimate/decision`, { decision, comment }));
+
+/** Клиент по ссылке, без входа: «Согласен» / «Отказаться» на смету версии version */
+export async function decidePublicEstimateServer(code: string, decision: EstimateDecision, version: number, comment: string | null): Promise<PublicOrder> {
+  const res = normalizePublic(await http<PublicOrder>('POST', `/v1/public/orders/${encodeURIComponent(code)}/estimate`, { decision, version, comment }));
+  notifyDbChange('areas.orders');
+  return res;
 }
 
 interface BusinessOut {
