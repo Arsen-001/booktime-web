@@ -109,7 +109,10 @@ BookTime Business — журнал записей, клиентская база
 ЗАКАЗЫ ДЛЯ МАСТЕРСКИХ
 • Ателье, ремонт техники, химчистка, детейлинг.
 • Статусы «принят → в работе → готов → выдан».
-• Нажали «Готово» — клиенту само ушло сообщение и ссылка «где мой заказ».
+• Нажали «Готово — сообщить клиенту» — клиенту само ушло сообщение со ссылкой на заказ. Звонков «мой заказ готов?» меньше.
+• Страница статуса заказа открывается без входа и без приложения — по ссылке или QR-коду с квитанции.
+• Смета после диагностики: клиент нажимает «Согласен» — заказ идёт в работу по этой цене. Отказался — «Выдать без ремонта».
+• Запись на сдачу: клиент сам выбирает время, когда принесёт вещь. «Сдают сегодня» — и «Принять заказ» в одно нажатие.
 • Квитанция с QR-кодом, напоминание забрать заказ через 3 и 7 дней.
 
 ДЕНЬГИ И КОМАНДА
@@ -128,7 +131,7 @@ BookTime Business — журнал записей, клиентская база
 
 **Что нового в 1.0.0**
 ```text
-Первый выпуск BookTime Business: журнал записей, клиенты, онлайн-запись, заказы мастерских и уведомления о новых записях.
+Первый выпуск BookTime Business: журнал записей, клиенты, онлайн-запись и уведомления о новых записях. Для мастерских — заказы со статусами, «Готово — сообщить клиенту», квитанция с QR, смета с согласием клиента и запись на сдачу.
 ```
 
 ---
@@ -190,7 +193,10 @@ CLIENTS
 ORDERS FOR WORKSHOPS
 • Tailors, electronics repair, dry cleaning, detailing.
 • Statuses “received → in progress → ready → handed over”.
-• Tap “Ready” and the client automatically gets a message with a “where is my order” link.
+• Tap “Ready — notify the client” and the client automatically gets a message with a link to the order. Fewer “is it ready yet?” calls.
+• The order status page opens without signing in or installing anything — via a link or the QR code on the receipt.
+• Quotes after diagnostics: the client taps “Approve” and the order goes into work at that price. Declined — hand it back without repair.
+• Drop-off booking: clients choose when they’ll bring the item. See who’s dropping off today and accept the order in one tap.
 • A receipt with a QR code and pick-up reminders after 3 and 7 days.
 
 MONEY AND TEAM
@@ -209,7 +215,7 @@ Register your business at booktime.am/business. If you are a client, you need th
 
 **What’s new in 1.0.0**
 ```text
-The first release of BookTime Business: booking calendar, clients, online booking, workshop orders and new booking notifications.
+The first release of BookTime Business: booking calendar, clients, online booking and new booking notifications. For workshops: orders with statuses, “Ready — notify the client”, QR receipts, quotes the client approves and drop-off booking.
 ```
 
 ---
@@ -256,7 +262,10 @@ BookTime Business-ը գրանցումների մատյան է, հաճախորդ�
 ՊԱՏՎԵՐՆԵՐ ԱՐՀԵՍՏԱՆՈՑՆԵՐԻ ՀԱՄԱՐ
 • Կարի արհեստանոց, տեխնիկայի նորոգում, քիմմաքրում, դիթեյլինգ։
 • Կարգավիճակներ «ընդունված → աշխատանքի մեջ → պատրաստ → հանձնված»։
-• Սեղմեցիք «Պատրաստ է», և հաճախորդն ինքնաբերաբար ստանում է հաղորդագրություն և «որտեղ է իմ պատվերը» հղումը։
+• Սեղմեցիք «Պատրաստ է՝ տեղեկացնել հաճախորդին», և հաճախորդն ինքնաբերաբար ստանում է հաղորդագրություն՝ պատվերի հղումով։ «Պատվերս պատրա՞ստ է» զանգերը քիչ են։
+• Պատվերի կարգավիճակի էջը բացվում է առանց մուտքի և առանց հավելվածի՝ հղումով կամ անդորրագրի QR կոդով։
+• Նախահաշիվ ախտորոշումից հետո. հաճախորդը սեղմում է «Համաձայն եմ», և պատվերն այդ գնով անցնում է աշխատանքի։ Հրաժարվե՞ց՝ իրը վերադարձնում եք առանց նորոգման։
+• Գրանցում հանձնման. հաճախորդն ինքն է ընտրում, թե երբ կբերի իրը։ Տեսնում եք, թե ով է այսօր բերում, և «Ընդունել պատվեր»՝ մեկ սեղմումով։
 • QR կոդով անդորրագիր, պատվերը վերցնելու հիշեցում 3 և 7 օր անց։
 
 ՓՈՂ ԵՎ ԹԻՄ
@@ -275,5 +284,5 @@ BookTime Business-ը գրանցումների մատյան է, հաճախորդ�
 
 **Ինչ նոր կա 1.0.0-ում**
 ```text
-BookTime Business-ի առաջին թողարկումը՝ գրանցումների մատյան, հաճախորդներ, առցանց գրանցում, արհեստանոցների պատվերներ և ծանուցումներ նոր գրանցումների մասին։
+BookTime Business-ի առաջին թողարկումը՝ գրանցումների մատյան, հաճախորդներ, առցանց գրանցում և ծանուցումներ նոր գրանցումների մասին։ Արհեստանոցների համար՝ պատվերներ կարգավիճակներով, QR կոդով անդորրագիր, նախահաշիվ հաճախորդի համաձայնությամբ և գրանցում հանձնման։
 ```

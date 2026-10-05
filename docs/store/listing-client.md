@@ -82,7 +82,7 @@ BookTime: запись к мастерам
 
 **Ключевые слова iOS** (≤ 100, через запятую без пробелов; слов из названия и подзаголовка не повторяем)
 ```text
-маникюр,барбершоп,стрижка,парикмахер,массаж,косметолог,стоматолог,педикюр,ногти,брови,салон,Ереван
+маникюр,барбершоп,стрижка,парикмахер,массаж,косметолог,стоматолог,педикюр,ремонт,брови,салон,Ереван
 ```
 
 **Promotional text iOS** (≤ 170, меняется без новой версии)
@@ -104,7 +104,7 @@ BookTime показывает, у каких мастеров и салонов 
 
 ЗАПИСЬ ЗА МИНУТУ
 • Выберите услугу, мастера или «Любой мастер», день и время.
-• Вход по номеру телефона: код приходит в Telegram или WhatsApp. Можно войти через Apple или Google.
+• Вход по номеру телефона: код приходит в Telegram, ждать SMS не нужно. Можно войти через Apple или Google.
 • Можно записать не себя, а ребёнка или питомца.
 • Выбирайте оттенок или вариант услуги прямо при записи.
 • Если мастер просит предоплату, переведите её по реквизитам мастера и нажмите «Я оплатил».
@@ -120,8 +120,13 @@ BookTime показывает, у каких мастеров и салонов 
 • Предстоящие, прошедшие и отменённые записи.
 • «Повторить» — снова к тому же мастеру в одно нажатие.
 • Сертификаты, абонементы и карты лояльности салонов.
-• Статус заказа в мастерской: принят, в работе, готов. Когда заказ готов, придёт уведомление.
 • Дневник: сколько вы потратили на услуги.
+
+РЕМОНТ, АТЕЛЬЕ, ХИМЧИСТКА
+• «Записаться на сдачу»: выберите время, когда принесёте вещь, — примут без очереди.
+• Статус заказа по ссылке или QR-коду с квитанции: принят, в работе, готов. Без входа и без звонков «мой заказ готов?».
+• Когда заказ готов, придёт сообщение.
+• Мастерская прислала смету — нажмите «Согласен» или «Отказаться», можно с комментарием.
 
 ЧЕСТНО И УДОБНО
 • Для клиентов бесплатно.
@@ -129,14 +134,15 @@ BookTime показывает, у каких мастеров и салонов 
 • Материалы, стерилизация и дипломы на карточке мастера.
 • Армянский, русский и английский. Крупный шрифт для тех, кому так удобнее.
 • Номер телефона получает только салон, к которому вы записались.
-• Удалить аккаунт можно в профиле.
+• «Скачать мои данные» в профиле — файл со всеми вашими данными за пару секунд. Удалить аккаунт тоже можно в профиле.
+• Вопросы и связь с нами — booktime.am/support.
 
 Вы мастер или владелец салона? Скачайте BookTime Business — журнал записей, клиенты и онлайн-запись.
 ```
 
 **Что нового в 1.0.0** (≤ 4000 iOS, ≤ 500 Play)
 ```text
-Первый выпуск BookTime: поиск мастеров со свободным временем, запись за минуту, напоминания в приложении и в Telegram.
+Первый выпуск BookTime: мастера со свободным временем сегодня и завтра, запись за минуту, напоминания в приложении и в Telegram. Для мастерских — запись на сдачу, статус заказа и согласие на смету в одно нажатие.
 ```
 
 ---
@@ -161,7 +167,7 @@ See who has free time today in Yerevan salons and book online in a minute
 
 **Keywords iOS** (≤ 100)
 ```text
-manicure,barber,haircut,hairdresser,massage,beauty,dentist,nails,pedicure,brows,appointment,Armenia
+manicure,barber,haircut,hairdresser,massage,beauty,dentist,repair,pedicure,brows,appointment,Armenia
 ```
 
 **Promotional text iOS** (≤ 170)
@@ -183,7 +189,7 @@ WHO IS FREE AND WHEN
 
 BOOK IN A MINUTE
 • Pick a service, a professional or “Any master”, a day and a time.
-• Sign in with your phone number: the code arrives via Telegram or WhatsApp. Sign in with Apple or Google also works.
+• Sign in with your phone number: the code arrives in Telegram, no waiting for SMS. Sign in with Apple or Google also works.
 • Book for someone else, such as your child or your pet.
 • Choose a shade or a service option while booking.
 • If the professional asks for a prepayment, transfer it to their details and tap “I’ve paid”.
@@ -199,8 +205,13 @@ EVERYTHING IN ONE PLACE
 • Upcoming, past and cancelled bookings.
 • “Repeat” books the same professional again in one tap.
 • Gift certificates, memberships and loyalty cards from salons.
-• Workshop order status: received, in progress, ready. You get a notification when the order is ready.
 • A diary of how much you spend on services.
+
+REPAIRS, TAILORS, DRY CLEANING
+• “Book a drop-off”: choose when you’ll bring your item and skip the queue.
+• Order status via a link or the QR code on your receipt: received, in progress, ready. No sign-in, no “is it ready yet?” calls.
+• You get a message when your order is ready.
+• Got a quote from the workshop? Tap “Approve” or “Decline”, with a comment if you like.
 
 HONEST AND SIMPLE
 • Free for clients.
@@ -208,14 +219,15 @@ HONEST AND SIMPLE
 • Materials, sterilisation and diplomas on each professional’s card.
 • Armenian, Russian and English. Large text for those who prefer it.
 • Only the salon you book with receives your phone number.
-• Delete your account any time in your profile.
+• “Download my data” in your profile gives you a file with all your data in seconds. You can delete your account there too.
+• Questions and contact — booktime.am/support.
 
 Are you a professional or a salon owner? Get BookTime Business — booking calendar, clients and online booking.
 ```
 
 **What’s new in 1.0.0**
 ```text
-The first release of BookTime: find professionals with free time, book in a minute, get reminders in the app and in Telegram.
+The first release of BookTime: professionals with free time today and tomorrow, booking in a minute, reminders in the app and in Telegram. For workshops: book a drop-off, track your order and approve a quote in one tap.
 ```
 
 ---
@@ -246,7 +258,7 @@ BookTime-ը ցույց է տալիս, թե Երևանի որ վարպետներ�
 
 ԳՐԱՆՑՈՒՄ ՄԵԿ ՐՈՊԵՈՒՄ
 • Ընտրեք ծառայությունը, վարպետին կամ «Ցանկացած վարպետ», օրն ու ժամը։
-• Մուտք հեռախոսահամարով. կոդը գալիս է Telegram-ով կամ WhatsApp-ով։ Կարելի է մուտք գործել Apple-ով կամ Google-ով։
+• Մուտք հեռախոսահամարով. կոդը գալիս է Telegram-ով, SMS սպասել պետք չէ։ Կարելի է մուտք գործել նաև Apple-ով կամ Google-ով։
 • Կարող եք գրանցել ոչ թե ձեզ, այլ երեխային կամ ընտանի կենդանուն։
 • Ընտրեք երանգը կամ ծառայության տարբերակը հենց գրանցման ժամանակ։
 • Եթե վարպետը կանխավճար է խնդրում, փոխանցեք այն վարպետի վավերապայմաններով և սեղմեք «Ես վճարել եմ»։
@@ -262,8 +274,13 @@ BookTime-ը ցույց է տալիս, թե Երևանի որ վարպետներ�
 • Առաջիկա, անցած և չեղարկված գրանցումներ։
 • «Կրկնել»՝ նորից նույն վարպետի մոտ մեկ սեղմումով։
 • Սրահների նվեր-քարտեր, աբոնեմենտներ և հավատարմության քարտեր։
-• Պատվերի կարգավիճակը արհեստանոցում՝ ընդունված, աշխատանքի մեջ, պատրաստ։ Երբ պատվերը պատրաստ է, կգա ծանուցում։
 • Օրագիր՝ որքան եք ծախսել ծառայությունների վրա։
+
+ՆՈՐՈԳՈՒՄ, ԿԱՐԻ ԱՐՀԵՍՏԱՆՈՑ, ՔԻՄՄԱՔՐՈՒՄ
+• «Գրանցվել հանձնման»՝ ընտրեք, թե երբ կբերեք իրը, և այն կընդունեն առանց հերթի։
+• Պատվերի կարգավիճակը՝ հղումով կամ անդորրագրի QR կոդով. ընդունված, աշխատանքի մեջ, պատրաստ։ Առանց մուտքի և առանց «պատվերս պատրա՞ստ է» զանգերի։
+• Երբ պատվերը պատրաստ է, կստանաք հաղորդագրություն։
+• Արհեստանոցը նախահաշիվ է ուղարկել՝ սեղմեք «Համաձայն եմ» կամ «Հրաժարվել», կարող եք նաև մեկնաբանություն թողնել։
 
 ԱԶՆԻՎ ԵՎ ՀԱՐՄԱՐ
 • Հաճախորդների համար անվճար է։
@@ -271,12 +288,13 @@ BookTime-ը ցույց է տալիս, թե Երևանի որ վարպետներ�
 • Նյութերը, մանրէազերծումը և դիպլոմները՝ վարպետի քարտում։
 • Հայերեն, ռուսերեն և անգլերեն։ Խոշոր տառատեսակ նրանց համար, ում այդպես հարմար է։
 • Ձեր հեռախոսահամարը ստանում է միայն այն սրահը, որի մոտ գրանցվել եք։
-• Հաշիվը կարող եք ջնջել պրոֆիլում։
+• «Ներբեռնել իմ տվյալները» պրոֆիլում՝ ձեր բոլոր տվյալները մեկ ֆայլով, մի քանի վայրկյանում։ Այնտեղ էլ կարող եք ջնջել հաշիվը։
+• Հարցեր և կապ մեզ հետ՝ booktime.am/support։
 
 Վարպե՞տ եք կամ սրահի սեփականատեր։ Ներբեռնեք BookTime Business-ը՝ գրանցումների մատյան, հաճախորդներ և առցանց գրանցում։
 ```
 
 **Ինչ նոր կա 1.0.0-ում**
 ```text
-BookTime-ի առաջին թողարկումը՝ ազատ ժամերով վարպետների որոնում, գրանցում մեկ րոպեում, հիշեցումներ հավելվածում և Telegram-ում։
+BookTime-ի առաջին թողարկումը՝ այսօր և վաղը ազատ ժամ ունեցող վարպետներ, գրանցում մեկ րոպեում, հիշեցումներ հավելվածում և Telegram-ում։ Արհեստանոցների համար՝ գրանցում հանձնման, պատվերի կարգավիճակ և նախահաշվի հաստատում մեկ հպումով։
 ```

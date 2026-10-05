@@ -13,6 +13,19 @@ const nextConfig: NextConfig = {
   // React Compiler: сам запоминает компоненты и значения — перерисовывается только то, чьи данные
   // поменялись (замер и решение — docs/STATE.md). Выключить у одного компонента — 'use no memo'.
   reactCompiler: true,
+  // Sentry — только ошибки (tracesSampleRate: 0, без Replay). Флаги сборки SDK, как `bundleSizeOptimizations`
+  // у withSentryConfig (его webpack.treeshake с Turbopack не работает): вырезают из бандла трассировку
+  // (browserTracingIntegration, спаны, web-vitals), отладочные логи SDK и части Replay. Отчёты об ошибках остаются.
+  compiler: {
+    define: {
+      __SENTRY_DEBUG__: false,
+      __SENTRY_TRACING__: false,
+      __RRWEB_EXCLUDE_CANVAS__: true,
+      __RRWEB_EXCLUDE_IFRAME__: true,
+      __RRWEB_EXCLUDE_SHADOW_DOM__: true,
+      __SENTRY_EXCLUDE_REPLAY_WORKER__: true,
+    },
+  },
 };
 
 export default withNextIntl(nextConfig);

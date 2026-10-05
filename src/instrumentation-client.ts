@@ -14,5 +14,5 @@ if (SENTRY_DSN) {
     beforeSend: stripPersonalData,
   });
 }
-
-export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
+// onRouterTransitionStart не экспортируем: он нужен только трассировке переходов, а она вырезана из сборки
+// (compiler.define __SENTRY_TRACING__ в next.config.ts).
