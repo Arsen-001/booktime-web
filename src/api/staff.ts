@@ -44,6 +44,10 @@ import {
   applyStaffMove,
   isAssistantStaff,
   orderedStaffIds,
+  STAFF_LOGIN_RE,
+  isWeakStaffPassword,
+  normalizeStaffLogin,
+  type StaffPasswordLogin,
   type DeletedStaffSnapshot,
   type FutureBookingDecision,
   type StaffDismissal,
@@ -72,7 +76,7 @@ import { getScheduleEnd } from "@/api/schedule/table";
 import { txScheduleEnd } from "@/api/schedule/shared";
 import type { Booking, DayHours, ISODate, WeekTemplate } from "@/domain/core";
 import { newId } from "@/lib/id";
-import { addDays, today, weekdayIndex } from "@/lib/date";
+import { addDays, nowDateTime, today, weekdayIndex } from "@/lib/date";
 import { normalizePhone } from "@/lib/phone";
 
 // ─────────────────────────── Список (F-10-005…013) ───────────────────────────
@@ -866,6 +870,16 @@ export interface StaffAccessData {
   access: StaffAccessInfo;
   invite?: StaffInvite;
   staff: Staff;
+  /** Вход по логину администратора (F-00-034/038); нет — логин не выдан */
+  passwordLogin?: StaffPasswordLogin;
+}
+
+/** Что видит владелец о входе по логину в демо: выданный пароль или прежний логин из сида (давно работает) */
+function mockPasswordLogin(staff: Staff): StaffPasswordLogin | undefined {
+  if (!staff.login) return undefined;
+  const issued = readArea("staff").passwordLogins?.[staff.id];
+  if (!issued) return { login: staff.login, mustChangePassword: false, issuedAt: `${staff.hiredAt}T00:00` };
+  return { login: staff.login, mustChangePassword: issued.mustChangePassword, issuedAt: issued.issuedAt, changedAt: issued.changedAt };
 }
 
 export function getStaffAccess(staffId: Id): Promise<StaffAccessData> {
@@ -879,7 +893,82 @@ export function getStaffAccess(staffId: Id): Promise<StaffAccessData> {
     const invite = [...areaState.invites]
       .reverse()
       .find((i) => i.staffId === staffId && i.status !== "revoked");
-    return { access, invite, staff };
+    return { access, invite, staff, passwordLogin: mockPasswordLogin(staff) };
+  });
+}
+
+/** Ошибка выдачи логина: поле login (формат, занят) или password (слабый) — экран подсвечивает поле */
+export class StaffLoginError extends ApiError {
+  readonly field: "login" | "password";
+  constructor(code: "login_invalid" | "login_taken" | "weak_password", field: "login" | "password") {
+    super(code);
+    this.field = field;
+  }
+}
+
+/**
+ * Владелец выдаёт или меняет администратору логин и пароль (F-00-034, F-00-038): тот же вызов — «Сбросить пароль».
+ * Пароль временный: при первом входе администратор задаёт свой (mustChangePassword). Прежние сеансы входа по логину
+ * закрываются (сервер); вход по номеру телефона и коду работает как раньше.
+ */
+export async function setStaffLogin(staffId: Id, input: { login: string; password: string }): Promise<StaffAccessData> {
+  const login = normalizeStaffLogin(input.login);
+  if (!STAFF_LOGIN_RE.test(login)) throw new StaffLoginError("login_invalid", "login");
+  if (isWeakStaffPassword(input.password, login)) throw new StaffLoginError("weak_password", "password");
+  if (isApiMode()) {
+    try {
+      return await S.setLogin(staffId, { login, password: input.password });
+    } catch (e) {
+      const code = (e as { code?: string }).code;
+      if (code === "login_taken") throw new StaffLoginError("login_taken", "login");
+      if (code === "weak_password") throw new StaffLoginError("weak_password", "password");
+      if (code === "invalid_field" || code === "validation") throw new StaffLoginError("login_invalid", "login");
+      throw e;
+    }
+  }
+  return request(async () => {
+    assertCan("staff.manage");
+    const staff = readCore().staff.find((s) => s.id === staffId);
+    if (!staff) throw new ApiError("not_found");
+    if (staff.role !== "admin") throw new ApiError("forbidden");
+    if (readCore().staff.some((s) => s.id !== staffId && s.login && normalizeStaffLogin(s.login) === login)) {
+      throw new StaffLoginError("login_taken", "login");
+    }
+    await coreUpdate("staff", staffId, {
+      login,
+      status: (staff.status === "fired" ? "fired" : "active") as StaffStatus,
+    });
+    mutateArea("staff", (s) => {
+      s.passwordLogins ??= {};
+      s.passwordLogins[staffId] = { password: input.password, mustChangePassword: true, issuedAt: nowDateTime() };
+      const current = s.access[staffId] ?? emptyStaffAccess(staff.role);
+      current.enabled = true;
+      s.access[staffId] = current;
+    });
+    writeAudit({ businessId: staff.businessId, entity: "staff", entityId: staffId, action: "loginIssued", after: { login } });
+    const fresh = readCore().staff.find((s) => s.id === staffId) ?? staff;
+    const areaState = readArea("staff");
+    return { access: areaState.access[staffId]!, staff: fresh, passwordLogin: mockPasswordLogin(fresh) };
+  });
+}
+
+/**
+ * Демо-вход администратора (зовёт '@/api/client' — verifyAdminLoginMock / changeAdminPasswordMock): пароль, выданный
+ * владельцем в карточке сотрудника. undefined — такого выданного логина нет, действует прежнее демо-правило.
+ */
+export function issuedAdminLoginMock(login: string): { staffId: Id; password: string; mustChangePassword: boolean } | undefined {
+  const key = normalizeStaffLogin(login);
+  const staff = readCore().staff.find((s) => s.login && normalizeStaffLogin(s.login) === key && s.status !== "fired");
+  const issued = staff ? readArea("staff").passwordLogins?.[staff.id] : undefined;
+  return staff && issued ? { staffId: staff.id, password: issued.password, mustChangePassword: issued.mustChangePassword } : undefined;
+}
+
+/** Администратор сменил выданный пароль при первом входе — дальше входит своим (демо) */
+export function changeIssuedAdminPasswordMock(staffId: Id, password: string): void {
+  mutateArea("staff", (s) => {
+    const issued = s.passwordLogins?.[staffId];
+    if (!issued) return;
+    s.passwordLogins[staffId] = { ...issued, password, mustChangePassword: false, changedAt: nowDateTime() };
   });
 }
 

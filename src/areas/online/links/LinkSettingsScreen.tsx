@@ -25,7 +25,7 @@ import {
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
 import type { LocaleCode, LocalizedText, Service } from '@/domain/core';
 import type { BookingFlow, BookingLink, CategoryDisplay, GroupBookingRules, LinkBookingType, OnlinePackage, StaffDisplayField, StepKey, WidgetTheme } from '@/domain/online';
-import { SHORT_STEPWISE_ORDER, STEP_KEYS } from '@/domain/online';
+import { SHORT_STEPWISE_ORDER, STEP_KEYS, counterIdError } from '@/domain/online';
 import { CLIENT_LOCALES } from '@/i18n/config';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -742,6 +742,19 @@ function AnalyticsSection({ link, onSave }: { link: BookingLink; onSave: (patch:
   const t = useT('online');
   const [metaPixelId, setMetaPixelId] = useState(link.metaPixelId ?? '');
   const [ga4StreamId, setGa4StreamId] = useState(link.ga4StreamId ?? '');
+  // Неверный формат не сохраняем: ID уходит в адрес скрипта на странице салона (сервер проверяет так же)
+  const [idErrors, setIdErrors] = useState<{ metaPixel?: boolean; ga4?: boolean }>({});
+  // Пусто — '' (а не undefined): так сервер понимает «убрать счётчик»
+  const saveCounter = (kind: 'metaPixel' | 'ga4', value: string) => {
+    const bad = counterIdError(kind, value);
+    setIdErrors((p) => ({ ...p, [kind]: bad }));
+    if (bad) return;
+    const clean = kind === 'ga4' ? value.trim().toUpperCase() : value.trim();
+    const current = (kind === 'ga4' ? link.ga4StreamId : link.metaPixelId) ?? '';
+    if (clean === current) return;
+    if (kind === 'ga4') setGa4StreamId(clean);
+    void onSave(kind === 'ga4' ? { ga4StreamId: clean } : { metaPixelId: clean });
+  };
   const [passClientId, setPassClientId] = useState(Boolean(link.passClientId));
   const [gaParamIndex, setGaParamIndex] = useState(link.gaClientIdParamIndex ?? '');
   const eventsQ = useApiQuery(['online-widget-events', link.id], () => listWidgetEvents(link.id));
@@ -751,13 +764,35 @@ function AnalyticsSection({ link, onSave }: { link: BookingLink; onSave: (patch:
       <SectionCard title={t('linkSettings.sections.analytics')} description={t('linkSettings.sections.analyticsHint')}>
         <div className="flex flex-col gap-4">
           <div data-f="F-03-118 F-13-082">
-            <FormField label={t('linkSettings.analytics.metaPixel')} hint={t('linkSettings.analytics.metaPixelHint')}>
-              <Input value={metaPixelId} onChange={(e) => setMetaPixelId(e.target.value)} onBlur={() => onSave({ metaPixelId: metaPixelId.trim() || undefined })} placeholder="123456789012345" />
+            <FormField
+              label={t('linkSettings.analytics.metaPixel')}
+              hint={t('linkSettings.analytics.metaPixelHint')}
+              error={idErrors.metaPixel ? t('linkSettings.analytics.metaPixelInvalid') : undefined}
+            >
+              <Input
+                value={metaPixelId}
+                onChange={(e) => setMetaPixelId(e.target.value)}
+                onBlur={() => saveCounter('metaPixel', metaPixelId)}
+                inputMode="numeric"
+                invalid={Boolean(idErrors.metaPixel)}
+                placeholder="123456789012345"
+              />
             </FormField>
           </div>
           <div className="flex flex-col gap-2 border-t border-border pt-4" data-f="F-03-119">
-            <FormField label={t('linkSettings.analytics.ga4')} hint={t('linkSettings.analytics.ga4Hint')}>
-              <Input value={ga4StreamId} onChange={(e) => setGa4StreamId(e.target.value)} onBlur={() => onSave({ ga4StreamId: ga4StreamId.trim() || undefined })} placeholder="G-XXXXXXXXXX" />
+            <FormField
+              label={t('linkSettings.analytics.ga4')}
+              hint={t('linkSettings.analytics.ga4Hint')}
+              error={idErrors.ga4 ? t('linkSettings.analytics.ga4Invalid') : undefined}
+            >
+              <Input
+                value={ga4StreamId}
+                onChange={(e) => setGa4StreamId(e.target.value)}
+                onBlur={() => saveCounter('ga4', ga4StreamId)}
+                autoCapitalize="characters"
+                invalid={Boolean(idErrors.ga4)}
+                placeholder="G-XXXXXXXXXX"
+              />
             </FormField>
             <div data-f="F-03-120 F-13-081" className="flex items-center justify-between gap-3">
               <span className="text-sm text-fg">{t('linkSettings.analytics.passClientId')}</span>
@@ -768,7 +803,8 @@ function AnalyticsSection({ link, onSave }: { link: BookingLink; onSave: (patch:
                 <Input value={gaParamIndex} onChange={(e) => setGaParamIndex(e.target.value)} onBlur={() => onSave({ gaClientIdParamIndex: gaParamIndex.trim() || undefined })} />
               </FormField>
             )}
-            <p className="text-xs text-muted" data-f="F-03-122 F-13-084">{t('linkSettings.analytics.goalsHint')}</p>
+            <p className="text-sm text-muted" data-f="F-03-122 F-13-084">{t('linkSettings.analytics.goalsHint')}</p>
+            <p className="text-sm text-muted">{t('linkSettings.analytics.consentNote')}</p>
           </div>
           <div className="flex flex-col gap-2 border-t border-border pt-4" data-f="F-03-121 F-13-083">
             <p className="text-sm font-medium text-fg">{t('linkSettings.analytics.eventsLog')}</p>

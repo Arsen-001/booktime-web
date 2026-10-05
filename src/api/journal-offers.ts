@@ -19,7 +19,9 @@
  *
  * Режим api (06.10.2026): напоминания ставит воркер сервера (jobs/notify-staff-request-reminders.ts — то же правило:
  * 30 мин, до 3 раз; пуш мастеру и администраторам, строка в колокольчике); remindPendingRequests тут ничего не пишет,
- * «напомнили в HH:MM» читается с сервера (listRequestReminders). Предложение окна — пока на моке.
+ * «напомнили в HH:MM» читается с сервера (listRequestReminders). Предложение окна — на сервере (booktime-backend
+ * modules/journal/slot-offers.ts, `…/journal/slot-offers`): те же правила кому и без повторов; клиент без приложения
+ * получает Telegram-бот (SMS провайдера бизнеса пока нет, В-08), каждое сообщение — строка журнала с настоящим статусом.
  */
 import type { Id, ISODate, ISODateTime, LocalizedText, TimeHM } from '@/domain/core';
 import type { LogMessage } from '@/domain/notify';
@@ -121,8 +123,14 @@ function collectRecipients(targets: SlotOfferTarget[]): Recipient[] {
 
 const byTime = (a: SlotOfferTarget, b: SlotOfferTarget) => (a.date + a.time).localeCompare(b.date + b.time);
 
+/** Окна для сервера: без businessId (он в адресе) */
+const serverTargets = (targets: SlotOfferTarget[]) =>
+  targets.map((t) => ({ staffId: t.staffId, serviceId: t.serviceId, date: t.date, time: t.time, ...(t.freeMin !== undefined ? { freeMin: t.freeMin } : {}) }));
+const offersPath = (businessId: Id) => `/v1/biz/${businessId}/journal/slot-offers`;
+
 /** Кому уйдёт предложение окон — для подтверждения «отправим N людям» */
 export function previewSlotOffer(targets: SlotOfferTarget[]): Promise<SlotOfferPreview> {
+  if (isApiMode()) return http('POST', `${offersPath(targets[0]?.businessId ?? '')}/preview`, { targets: serverTargets(targets) });
   return request(() => {
     const sorted = targets.slice().sort(byTime);
     const counts: Record<SlotOfferChannel, number> = { waitlist: 0, hot: 0 };
@@ -141,6 +149,7 @@ export function previewSlotOffer(targets: SlotOfferTarget[]): Promise<SlotOfferP
 
 /** Когда предлагали окна дня: `${staffId}|${time}` → время последнего предложения (отметка «предложено» в «Найти окно») */
 export function listSlotOffers(businessId: Id, date: ISODate): Promise<Record<string, ISODateTime>> {
+  if (isApiMode()) return http('GET', offersPath(businessId), undefined, { query: { date } });
   return request(() => {
     const out: Record<string, ISODateTime> = {};
     for (const o of readArea('journal').slotOffers ?? []) {
@@ -163,6 +172,7 @@ export interface OfferSlotResult {
  * след каждого окна в slotOffers. Одно окно — массив из одного.
  */
 export function offerSlots(targets: SlotOfferTarget[], channels: SlotOfferChannel[]): Promise<OfferSlotResult> {
+  if (isApiMode()) return http('POST', offersPath(targets[0]?.businessId ?? ''), { targets: serverTargets(targets), channels });
   return request(() => {
     const sorted = targets.slice().sort(byTime);
     const businessId = sorted[0]?.businessId ?? '';

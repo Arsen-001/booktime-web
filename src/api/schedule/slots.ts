@@ -8,7 +8,7 @@ import { isApiMode } from '@/api/http';
 import * as S from '@/api/schedule/schedule.server';
 import { request } from '@/api/request';
 import { mutateArea, readArea, readCore } from '@/api/area';
-import { busyIntervals, mergeIntervals, occupiesTime, scheduleHours, staffWorkIntervals } from '@/domain/rules';
+import { busyIntervals, homeShiftConflict, mergeIntervals, occupiesTime, scheduleHours, staffWorkIntervals } from '@/domain/rules';
 import type { CoreData, DayHours, ISODate, ISODateTime, Id, Minutes, TimeRange, Workplace } from '@/domain/core';
 import type { HistoryDetails, ServiceSlotWindow, SlotRule, SlotScopeKind, UnavailableRange } from '@/domain/schedule';
 import { newSlotRule, scopeKey } from '@/domain/schedule';
@@ -304,6 +304,8 @@ export function computeFreeSlots(core: CoreData, q: SlotQuery, now?: Date | ISOD
       if (leadCutoff && start < leadCutoff) continue;
       if (!passesServiceWindow(serviceWindow, q.date, t)) continue;
       if (!resourcesAvailable(core, q.serviceId, g.locationId, q.date, t, t + need, overNoShow)) continue;
+      // F-00-047: домашнее окно на смене в салоне с галочкой не предлагаем — сохранение отклонило бы его (как сервер)
+      if (homeShiftConflict(core, { staffId: q.staffId, start, durationMin: explicitNeed, workplace: g.workplace })) continue;
       out.push({
         staffId: q.staffId,
         locationId: g.locationId,

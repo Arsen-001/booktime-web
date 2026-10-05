@@ -28,6 +28,7 @@ import type {
   StaffIpRestriction,
   StaffLegalInfo,
   StaffLoginEntry,
+  StaffPasswordLogin,
   StaffPosition,
   StaffRoleTemplateId,
 } from '@/domain/staff';
@@ -47,6 +48,7 @@ interface ServerAccess {
   access: StaffAccessInfo;
   invite?: StaffInvite;
   staff: Staff;
+  passwordLogin?: StaffPasswordLogin;
 }
 
 /** Бизнес сотрудника: из зеркала ядра, иначе — текущий бизнес вошедшего */
@@ -228,6 +230,13 @@ export async function setRoleTemplate(staffId: Id, roleTemplateId: StaffRoleTemp
 export async function setIpRestriction(staffId: Id, restriction: StaffIpRestriction): Promise<StaffIpRestriction> {
   const res = await http<StaffIpRestriction>('PUT', `${base(bizOf(staffId))}/staff/${staffId}/ip-restriction`, restriction);
   notifyDbChange('areas.staff');
+  return res;
+}
+
+/** Логин и пароль администратора (F-00-034/038): прежние сеансы входа по логину сервер закрывает сам */
+export async function setLogin(staffId: Id, input: { login: string; password: string }): Promise<ServerAccess> {
+  const res = await http<ServerAccess>('PUT', `${base(bizOf(staffId))}/staff/${staffId}/login`, input);
+  changed(res.staff);
   return res;
 }
 

@@ -57,8 +57,8 @@ function TypeRow({ type, onToggle }: { type: NotificationType; onToggle: (v: boo
     <li data-f="F-05-002 F-05-003 F-10-145" className="flex items-center gap-3 border-b border-border py-3 last:border-0">
       {type.code === 19 && <span data-f="F-02-040" className="hidden" aria-hidden />}
       <Switch
-        checked={type.enabled}
-        disabled={type.code === 7}
+        checked={type.enabled && !soon}
+        disabled={type.code === 7 || soon}
         onCheckedChange={onToggle}
         aria-label={type.enabled ? t('typesTab.toggleAriaOff', { name }) : t('typesTab.toggleAriaOn', { name })}
       />
@@ -68,7 +68,7 @@ function TypeRow({ type, onToggle }: { type: NotificationType; onToggle: (v: boo
         className="-my-1 flex min-h-11 min-w-0 flex-1 flex-col gap-1.5 rounded-lg py-1 text-left transition-colors hover:text-primary-text sm:flex-row sm:items-center sm:gap-3"
       >
         <span className="flex min-w-0 flex-1 items-center gap-2">
-          <span className={`min-w-0 truncate font-medium ${type.enabled ? 'text-fg' : 'text-muted'}`}>{name}</span>
+          <span className={`min-w-0 truncate font-medium ${type.enabled && !soon ? 'text-fg' : 'text-muted'}`}>{name}</span>
           {/* Сервер этот тип пока не отправляет (режим api) — честная метка вместо молчаливого «включено» */}
           {soon && (
             <Badge tone="warning" size="sm" className="shrink-0">
@@ -83,7 +83,7 @@ function TypeRow({ type, onToggle }: { type: NotificationType; onToggle: (v: boo
             </Badge>
           ) : (
             connectedChannels.map((c) => (
-              <Badge key={c.channel} tone={type.enabled ? 'primary' : 'neutral'} size="sm">
+              <Badge key={c.channel} tone={type.enabled && !soon ? 'primary' : 'neutral'} size="sm">
                 {channelLabel(c.channel, locale)}
               </Badge>
             ))

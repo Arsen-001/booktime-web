@@ -10,7 +10,7 @@
  */
 import type { CoreData, ISODate, ISODateTime, Id, Minutes, Service, Workplace } from '@/domain/core';
 import { addDays, datePart, toMinutes } from '@/lib/date';
-import { atMinutes, busyIntervals, overlaps, staffWorkIntervals, type Interval } from '@/domain/rules/busy';
+import { atMinutes, busyIntervals, homeShiftConflict, overlaps, staffWorkIntervals, type Interval } from '@/domain/rules/busy';
 import { bookedDuration } from '@/domain/rules/pricing';
 
 export interface SlotQuery {
@@ -65,6 +65,8 @@ export function freeSlots(core: CoreData, q: SlotQuery, now: ISODateTime): FreeS
       const key = `${t}|${w.locationId}|${w.workplace}`;
       if (seen.has(key)) continue;
       seen.add(key);
+      // F-00-047: домашнее окно на смене в салоне с галочкой — не окно (checkSlot отклонил бы его: home_during_shift)
+      if (homeShiftConflict(core, { staffId: q.staffId, start: atMinutes(q.date, t), durationMin: q.durationMin, workplace: w.workplace })) continue;
       out.push({
         staffId: q.staffId,
         locationId: w.locationId,

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import type { Id, ISODate, Staff } from '@/domain/core';
 import type { SlotOfferChannel } from '@/domain/journal';
 import { offerSlots, previewSlotOffer, type SlotOfferTarget } from '@/api/journal-offers';
+import { isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -62,7 +63,13 @@ export function SlotOfferConfirm({ businessId, date, serviceId, serviceName, slo
   const preview = previewQ.data;
   // Выключенные вручную каналы; остальное — всё, где есть кому отправить
   const [off, setOff] = useState<SlotOfferChannel[]>([]);
-  const send = useApiMutation((channels: SlotOfferChannel[]) => offerSlots(targets, channels));
+  // Режим api: отметки «уже предлагали» и превью перечитываем с сервера (в моке их будит запись в базу)
+  const send = useApiMutation((channels: SlotOfferChannel[]) => offerSlots(targets, channels), {
+    invalidates: [
+      ['journal', 'slot-offers'],
+      ['journal', 'slot-offer-preview'],
+    ],
+  });
 
   const countOf = (ch: SlotOfferChannel) => (ch === 'hot' && !preview?.hotAvailable ? 0 : (preview?.counts[ch] ?? 0));
   const chosen = CHANNELS.filter((ch) => countOf(ch) > 0 && !off.includes(ch));
@@ -79,7 +86,8 @@ export function SlotOfferConfirm({ businessId, date, serviceId, serviceName, slo
       return n > 0 && preview.hotDiscountPercent ? `${who} · ${t('board.findSlot.offer.discount', { percent: preview.hotDiscountPercent })}` : who;
     }
     const people = t('board.findSlot.offer.people', { n });
-    return n > 0 ? `${people} · ${t('board.findSlot.offer.viaSmsOrApp')}` : people;
+    // Сервер шлёт пуш или через Telegram-бот (SMS провайдера бизнеса пока нет, В-08); демо — SMS
+    return n > 0 ? `${people} · ${t(isApiMode() ? 'board.findSlot.offer.viaAppOrTelegram' : 'board.findSlot.offer.viaSmsOrApp')}` : people;
   };
 
   const onSend = async () => {

@@ -3,7 +3,7 @@ import type { LegalDocs } from '@/areas/client/legal/types';
 /**
  * /privacy — политика конфиденциальности (04.10.2026). Описывает то, что код делает на самом деле
  * (сверено с booktime-backend и src/: вход по коду, Google/Apple, сессии, пуши FCM, бот Telegram, файлы на диске
- * в ЕС, бэкапы 14 дней, Sentry без личных данных, аналитика без cookie, удаление через 25 дней).
+ * в ЕС, бэкапы 14 дней, Sentry без личных данных, аналитика без cookie, удаление через 25 дней; счётчики салона на /b — только после согласия, 06.10.2026).
  * Поменялась обработка данных в коде — поправьте текст здесь и ответы магазинам в docs/store/privacy-answers.md.
  */
 export const PRIVACY: LegalDocs = {
@@ -65,6 +65,7 @@ export const PRIVACY: LegalDocs = {
           'Хостинг: Railway (серверы и база данных в ЕС, Нидерланды) и Vercel (сайт и его доставка).',
           'Мониторинг ошибок: Sentry (хранение в ЕС). Перед отправкой из отчётов убираются данные пользователя, cookie, заголовки и тело запроса.',
           'Статистика посещений: Vercel Web Analytics и PostHog (хранение в ЕС). Имена, телефоны и тексты поиска туда не попадают, IP-адрес не сохраняется.',
+          'Счётчики салона (пиксель Meta, Google Analytics) — только на странице записи салона, который их подключил, и только после вашего согласия (подробнее — в разделе о cookie).',
           'Государственные органы — только по законному требованию.',
         ],
       },
@@ -88,7 +89,8 @@ export const PRIVACY: LegalDocs = {
           'Память браузера (localStorage): настройки экранов и случайный номер для обезличенной статистики. По этому номеру шаги одного визита складываются вместе, и он не связан с вашим именем или телефоном.',
         ],
         after: [
-          'Рекламных и сторонних отслеживающих cookie нет. Если в браузере включены «Не отслеживать» (Do Not Track) или Global Privacy Control, статистика не собирается совсем.',
+          'Наших рекламных и сторонних отслеживающих cookie нет. Если в браузере включены «Не отслеживать» (Do Not Track) или Global Privacy Control, статистика не собирается совсем.',
+          'Исключение — счётчики салона. Салон может подключить к своей странице записи (booktime.am/b/…) пиксель Meta и Google Analytics. Они загружаются, только если вы нажали «Разрешить» в окне на странице этого салона; без согласия, при «Не отслеживать» или Global Privacy Control, а также в приложениях BookTime ничего не загружается. Счётчикам уходят только шаги записи (страница открыта, выбрана услуга, выбрано время, запись создана) — без имени, телефона и названий услуг. Эти данные получают Meta и Google и обрабатывают их по своим правилам для салона. Ваш выбор хранится в памяти браузера отдельно для каждого салона; чтобы передумать, очистите данные сайта booktime.am в браузере.',
         ],
       },
       {
@@ -206,6 +208,7 @@ export const PRIVACY: LegalDocs = {
           'Hosting: Railway (servers and database in the EU, the Netherlands) and Vercel (website delivery).',
           'Error monitoring: Sentry (EU data storage). User data, cookies, headers and request bodies are removed before a report is sent.',
           'Visit statistics: Vercel Web Analytics and PostHog (EU data storage). Names, phone numbers and search text are never sent, and IP addresses are not stored.',
+          'Salon counters (Meta Pixel, Google Analytics): only on the booking page of a salon that added them, and only after your consent (see the cookies section).',
           'Public authorities, only on a lawful request.',
         ],
       },
@@ -229,7 +232,8 @@ export const PRIVACY: LegalDocs = {
           'Browser storage (localStorage): screen preferences and a random ID for anonymous statistics. The ID only groups the steps of one visit and is not linked to your name or phone.',
         ],
         after: [
-          'There are no advertising or third-party tracking cookies. If your browser sends Do Not Track or Global Privacy Control, no statistics are collected at all.',
+          'We set no advertising or third-party tracking cookies of our own. If your browser sends Do Not Track or Global Privacy Control, no statistics are collected at all.',
+          'The exception is a salon’s own counters. A salon can add Meta Pixel and Google Analytics to its booking page (booktime.am/b/…). They load only if you tap “Allow” in the prompt on that salon’s page; without your consent, with Do Not Track or Global Privacy Control on, or inside the BookTime apps, nothing is loaded. The counters receive only booking steps (page opened, service chosen, time chosen, booking created) — never your name, phone number or service names. Meta and Google receive this data and process it under their own terms for the salon. Your choice is kept in browser storage separately for each salon; to change your mind, clear the site data for booktime.am in your browser.',
         ],
       },
       {
@@ -347,6 +351,7 @@ export const PRIVACY: LegalDocs = {
           'Հոսթինգ՝ Railway (սերվերներ և տվյալների բազա ԵՄ-ում, Նիդեռլանդներ) և Vercel (կայքի առաքում)։',
           'Սխալների մոնիթորինգ՝ Sentry (պահպանում ԵՄ-ում)։ Ուղարկելուց առաջ հաշվետվություններից հեռացվում են օգտատիրոջ տվյալները, cookie-ները, գլխագրերը և հարցման մարմինը։',
           'Այցելությունների վիճակագրություն՝ Vercel Web Analytics և PostHog (պահպանում ԵՄ-ում)։ Անուններ, հեռախոսահամարներ և որոնման տեքստեր այնտեղ չեն ուղարկվում, IP հասցեն չի պահվում։',
+          'Սրահի հաշվիչներ (Meta պիքսել, Google Analytics)՝ միայն այն սրահի գրանցման էջում, որը դրանք միացրել է, և միայն ձեր համաձայնությունից հետո (մանրամասները՝ cookie-ների բաժնում)։',
           'Պետական մարմիններ՝ միայն օրինական պահանջով։',
         ],
       },
@@ -370,7 +375,8 @@ export const PRIVACY: LegalDocs = {
           'Դիտարկիչի հիշողություն (localStorage)՝ էկրանների կարգավորումներ և պատահական համար անանուն վիճակագրության համար։ Այդ համարով միայն մեկ այցի քայլերն են միավորվում, և այն կապված չէ ձեր անվան կամ հեռախոսի հետ։',
         ],
         after: [
-          'Գովազդային և երրորդ կողմի հետևող cookie-ներ չկան։ Եթե դիտարկիչում միացված է «Չհետևել» (Do Not Track) կամ Global Privacy Control, վիճակագրություն ընդհանրապես չի հավաքվում։',
+          'Մենք գովազդային և երրորդ կողմի հետևող cookie-ներ չենք տեղադրում։ Եթե դիտարկիչում միացված է «Չհետևել» (Do Not Track) կամ Global Privacy Control, վիճակագրություն ընդհանրապես չի հավաքվում։',
+          'Բացառություն են սրահի հաշվիչները։ Սրահը կարող է իր գրանցման էջին (booktime.am/b/…) միացնել Meta պիքսել և Google Analytics։ Դրանք բեռնվում են միայն այն դեպքում, եթե այդ սրահի էջի պատուհանում սեղմել եք «Թույլատրել»․ առանց համաձայնության, «Չհետևել»-ի կամ Global Privacy Control-ի դեպքում, ինչպես նաև BookTime հավելվածներում ոչինչ չի բեռնվում։ Հաշվիչներին ուղարկվում են միայն գրանցման քայլերը (էջը բացվել է, ծառայությունն ընտրվել է, ժամն ընտրվել է, գրանցումը ստեղծվել է)՝ առանց անվան, հեռախոսի և ծառայությունների անվանումների։ Այդ տվյալները ստանում են Meta-ն և Google-ը և մշակում իրենց կանոններով՝ սրահի համար։ Ձեր ընտրությունը պահվում է դիտարկիչի հիշողությունում՝ յուրաքանչյուր սրահի համար առանձին․ կարծիքը փոխելու համար դիտարկիչում մաքրեք booktime.am կայքի տվյալները։',
         ],
       },
       {

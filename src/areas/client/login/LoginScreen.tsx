@@ -172,7 +172,7 @@ function BusinessLogin() {
         ]}
       />
 
-      {mode === 'phone' ? <BusinessPhoneLoginForm /> : <AdminLoginForm />}
+      {mode === 'phone' ? <BusinessPhoneLoginForm /> : <AdminLoginForm onUsePhone={() => setMode('phone')} />}
 
       <p className="text-center text-sm text-muted">
         {t('login.noBusinessYet')}{' '}
@@ -327,7 +327,7 @@ function BusinessPhoneLoginForm() {
 }
 
 /** Администратор входит логином и паролем, которые выдал владелец; при первом входе просит сменить пароль (F-00-034) */
-function AdminLoginForm() {
+function AdminLoginForm({ onUsePhone }: { onUsePhone: () => void }) {
   const t = useT('client');
   const router = useRouter();
   const toast = useToast();
@@ -426,6 +426,16 @@ function AdminLoginForm() {
       <Button type="submit" loading={submit.isPending} disabled={!login.trim() || password.length < 4} fullWidth>
         {t('login.verify')}
       </Button>
+      {/* Забытый пароль: восстановления кодом нет (код владельцу не диктуют) — вход по номеру или новый пароль от владельца */}
+      <p className="text-sm text-muted" data-f="F-00-034">
+        {t.rich('login.forgotPasswordHint', {
+          phone: (chunks) => (
+            <button type="button" onClick={onUsePhone} className="-my-2.5 inline-block py-2.5 text-left font-medium text-primary-text hover:underline">
+              {chunks}
+            </button>
+          ),
+        })}
+      </p>
       </form>
 
       <Modal open={changeOpen} onOpenChange={setChangeOpen} title={t('login.changePasswordTitle')} size="sm">

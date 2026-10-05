@@ -303,6 +303,32 @@ export interface StaffAccessInfo {
   ipRestriction?: StaffIpRestriction;
 }
 
+/**
+ * Вход администратора по логину (F-00-034/038): что видит владелец. Пароль не показывается никогда — владелец видит
+ * его один раз, когда выдаёт; mustChangePassword — администратор ещё не сменил выданный пароль при первом входе.
+ */
+export interface StaffPasswordLogin {
+  login: string;
+  mustChangePassword: boolean;
+  /** Когда администратор сам сменил пароль */
+  changedAt?: string;
+  /** Когда владелец выдал (или сбросил) пароль */
+  issuedAt: string;
+}
+
+/** Логин: латиница, цифры, точка, дефис, подчёркивание; 3–64 знака (как на сервере, staff.service setLogin) */
+export const STAFF_LOGIN_RE = /^[a-z0-9._-]{3,64}$/;
+export const STAFF_PASSWORD_MIN = 6;
+
+export function normalizeStaffLogin(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+/** Слабый пароль — короче 6 знаков или совпадает с логином (как isWeakPassword сервера) */
+export function isWeakStaffPassword(password: string, login: string): boolean {
+  return password.length < STAFF_PASSWORD_MIN || password.length > 128 || password.trim().toLowerCase() === normalizeStaffLogin(login);
+}
+
 export function emptyStaffAccess(role: StaffRole): StaffAccessInfo {
   return {
     enabled: role !== "master",

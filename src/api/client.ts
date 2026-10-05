@@ -24,6 +24,7 @@ import * as CLX from '@/api/clientLoyalty.server';
 import { http, isApiMode } from '@/api/http';
 import * as J from '@/api/journal.server';
 import * as ST from '@/api/staff.server';
+import { changeIssuedAdminPasswordMock, issuedAdminLoginMock } from '@/api/staff';
 import * as SV from '@/api/services.server';
 import * as SETS from '@/api/settings.server';
 import { mirrorSnapshot, type CoreSnapshot as ServerCoreSnapshot } from '@/api/mirror';
@@ -1076,6 +1077,12 @@ export async function verifyAdminLoginMock(input: AdminLoginInput): Promise<Admi
     const key = loginKey(input.login);
     if (!key) throw new ApiError('bad_login');
     if (input.password.length < 4) throw new ApiError('wrong_password');
+    // Пароль, выданный владельцем в карточке сотрудника (F-00-038): первый вход — просим сменить
+    const issued = issuedAdminLoginMock(key);
+    if (issued) {
+      if (issued.password !== input.password) throw new ApiError('wrong_password');
+      return { requirePasswordChange: issued.mustChangePassword };
+    }
     const saved = readArea('client').adminPasswords[key];
     if (saved !== undefined) {
       if (saved !== input.password) throw new ApiError('wrong_password');
@@ -1091,6 +1098,12 @@ export async function changeAdminPasswordMock(login: string, newPassword: string
     const key = loginKey(login);
     if (!key) throw new ApiError('bad_login');
     if (newPassword.length < 6 || newPassword.toLowerCase() === key) throw new ApiError('weak_password');
+    const issued = issuedAdminLoginMock(key);
+    if (issued) {
+      if (newPassword === issued.password) throw new ApiError('weak_password');
+      changeIssuedAdminPasswordMock(issued.staffId, newPassword);
+      return;
+    }
     mutateArea('client', (s) => {
       s.adminPasswords[key] = newPassword;
     });

@@ -64,7 +64,9 @@ export function StickyActionBar({
       ro.disconnect();
       root.style.removeProperty('--sticky-bar-h');
     };
-  }, [isMobile]);
+    // isClient: после гидрации панель переезжает в Portal — это новый элемент, наблюдать надо его (иначе высота 0,
+    // и тосты/окна над панелью встают поверх неё)
+  }, [isMobile, isClient]);
 
   const body = (
     <>

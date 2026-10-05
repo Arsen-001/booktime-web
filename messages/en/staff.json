@@ -383,7 +383,7 @@
   },
   "accessTab": {
     "title": "System access",
-    "hint": "Turns on sign-in and assigns a role; only the staff member can change their own login",
+    "hint": "Turns on sign-in and assigns a role; only the staff member can change their sign-in phone number",
     "enable": "Grant system access",
     "enableHint": "Turning it off closes access to this salon right away; the person's account isn't deleted",
     "email": "Email",
@@ -754,6 +754,44 @@
       "integrations": "Integrations",
       "settings": "Settings",
       "billing": "Subscription"
+    }
+  },
+  "passwordLogin": {
+    "title": "Sign-in with a login",
+    "hint": "The administrator signs in with the login and password you issued. They can also sign in with their phone number and a code.",
+    "emptyText": "No login issued yet. Issue one if the administrator will sign in without a phone — for example, from a shared front-desk computer.",
+    "issue": "Issue login and password",
+    "login": "Login",
+    "loginHint": "Latin letters, digits, dot, hyphen; at least 3 characters",
+    "password": "Password",
+    "passwordHint": "At least 6 characters. The administrator will set their own password at first sign-in",
+    "generate": "Generate password",
+    "statusMustChange": "Awaiting first sign-in",
+    "statusMustChangeHint": "Issued {date}. At first sign-in the administrator will replace it with their own",
+    "statusOwn": "Own password",
+    "statusOwnHint": "The administrator changed the password on {date}",
+    "statusOwnNoDate": "The administrator signs in with their own password",
+    "reset": "Reset password",
+    "changeLogin": "Change login",
+    "issueTitle": "Login and password for {name}",
+    "resetTitle": "New password for {name}",
+    "resetHint": "The old password will stop working and all login sign-ins will be closed. The administrator can still sign in with their phone number.",
+    "submitIssue": "Issue",
+    "submitReset": "Reset and issue new",
+    "doneTitle": "Give these to the administrator",
+    "doneHint": "The password is shown only now — once you close this window nobody can see it, not even you. If it's forgotten, reset it again.",
+    "copyAll": "Copy login and password",
+    "copyText": "Sign in to BookTime Business: {url}\nLogin: {login}\nPassword: {password}",
+    "copied": "Copied",
+    "copyLogin": "Copy login",
+    "copyPassword": "Copy password",
+    "done": "Done",
+    "issued": "Login and password issued",
+    "resetDone": "Password reset",
+    "errors": {
+      "login_invalid": "Only Latin letters, digits, dot, hyphen and underscore, at least 3 characters",
+      "login_taken": "This login is taken — choose another",
+      "weak_password": "The password is too simple: use at least 6 characters, different from the login"
     }
   }
 }

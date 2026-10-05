@@ -75,6 +75,8 @@ export interface LeftZoneProps {
    * false — вариант "home" скрыт из выбора места.
    */
   canPickHomeWorkplace?: boolean;
+  /** Предупреждение под временем: домашняя запись попадает на смену в салоне с запретом (F-00-047) */
+  scheduleWarning?: string;
 }
 
 const DURATION_STEPS: number[] = (() => {
@@ -117,6 +119,7 @@ export function LeftZone({
   onResourceIdsChange,
   occupiedResourceInstanceIds,
   canPickHomeWorkplace = true,
+  scheduleWarning,
 }: LeftZoneProps) {
   const t = useT("journal");
   const tc = useT("common");
@@ -182,7 +185,7 @@ export function LeftZone({
           резали «45 мин» до «4…» и «11:00» — там начало и конец в ряд, длительность ниже во всю ширину */}
       <div className="@container">
         <div className="grid grid-cols-2 gap-2 @min-[25rem]:grid-cols-3">
-          <FormField label={t("window.time")}>
+          <FormField label={t("window.time")} error={scheduleWarning}>
             <TimePicker
               value={time}
               onValueChange={onTimeChange}

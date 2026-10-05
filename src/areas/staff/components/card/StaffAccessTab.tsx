@@ -21,6 +21,7 @@ import {
 } from "@/api/staff";
 import { useApiMutation, useApiQuery } from "@/api/request";
 import { IpRestrictionSection } from "@/areas/staff/components/IpRestrictionSection";
+import { PasswordLoginSection } from "@/areas/staff/components/PasswordLoginSection";
 import { TransferOwnerModal } from "@/areas/staff/components/TransferOwnerModal";
 import { PermissionsEditor } from "@/areas/staff/permissions/PermissionsEditor";
 import {
@@ -311,6 +312,11 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
           )}
         </div>
       </SectionCard>
+
+      {/* F-00-034/038: логин и пароль администратору выдаёт владелец (право staff.manage); себе — не здесь */}
+      {canManage && access.enabled && staff.role === "admin" && current.staffId !== staffId && (
+        <PasswordLoginSection data={accessQ.data} />
+      )}
 
       {access.enabled && (
         <IpRestrictionSection

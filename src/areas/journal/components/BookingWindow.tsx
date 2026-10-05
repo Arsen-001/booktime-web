@@ -38,6 +38,7 @@ import {
   listOccupiedResourceInstanceIds,
   deleteWholePackage,
   findClientOverlap,
+  findHomeShiftClash,
   hasOverlap,
   isWithinWorkingHours,
   loadDraft,
@@ -354,6 +355,15 @@ export function BookingWindow({
     () => listOccupiedResourceInstanceIds(locationId, combine(date, time), durationMin, booking?.id),
     { enabled: Boolean(locationId) },
   );
+
+  // F-00-047: домашняя / выездная запись на смене в салоне, где владелец это запретил, — предупреждаем до сохранения
+  // (сохранение такую запись отклонит: home_during_shift). Тот же расчёт, что у сервера (журнал → check).
+  const homeShiftQuery = useApiQuery(
+    ['journal', 'home-shift', staffId, date, time, durationMin, workplace],
+    () => findHomeShiftClash(staffId, combine(date, time), durationMin, workplace),
+    { enabled: Boolean(staffId && time) && (workplace === 'home' || workplace === 'visit') },
+  );
+  const homeShift = (workplace === 'home' || workplace === 'visit') && staffId && time ? homeShiftQuery.data : null;
 
   // F-01-080: списание с абонемента считается «в момент начала записи», не при открытии окна — но
   // нам нужно где-то это посчитать один раз; ensureAutoWriteoff идемпотентен (второй вызов на ту же
@@ -1071,6 +1081,14 @@ export function BookingWindow({
         const ok = await confirm({ title: t('window.outsideHoursTitle'), description: t('window.outsideHoursText'), tone: 'primary' });
         if (!ok) return;
       }
+      // F-00-047: домашняя запись на смене в салоне с запретом — не отправляем заведомо отклонённое сохранение
+      if (!closing && !(sameSlot && booking?.workplace === workplace)) {
+        const clash = await findHomeShiftClash(staffId, start, durationMin, workplace);
+        if (clash) {
+          toast.error(t('window.homeShiftWarning', { from: clash.from, to: clash.to }));
+          return;
+        }
+      }
 
       let clientId = matchedClient?.id ?? booking?.clientId;
       if (normalizedPhone && !matchedClient) {
@@ -1535,6 +1553,7 @@ export function BookingWindow({
       onStaffChange={handleStaffChange}
       workplace={workplace}
       onWorkplaceChange={withTouch(setWorkplace)}
+      scheduleWarning={homeShift ? t('window.homeShiftWarning', { from: homeShift.from, to: homeShift.to }) : undefined}
       canPickHomeWorkplace={canPickHomeWorkplace}
       date={date}
       onDateChange={withTouch(setDate)}

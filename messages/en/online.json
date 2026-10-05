@@ -257,15 +257,18 @@
       "toggle": "Show the online sales button"
     },
     "analytics": {
-      "metaPixel": "Facebook Pixel",
-      "metaPixelHint": "Your Meta Pixel ID",
+      "metaPixel": "Meta Pixel (Facebook, Instagram)",
+      "metaPixelHint": "Pixel ID from Meta Events Manager — digits only",
       "ga4": "Google Analytics 4",
       "ga4Hint": "Data stream ID like G-XXXXXXXXXX",
       "passClientId": "Pass the Client ID parameter",
       "paramIndex": "GA custom parameter index",
-      "goalsHint": "Good goal events to track: “booked” and “widget_loaded”.",
+      "goalsHint": "Events arrive automatically: page_view (page opened), service_selected, time_selected and booked (booking created). Mark booked as a key event or conversion.",
       "eventsLog": "Event log",
-      "eventsEmpty": "No events yet — open the link in the widget"
+      "eventsEmpty": "No events yet — open the link in the widget",
+      "metaPixelInvalid": "A Pixel ID is 8–20 digits, e.g. 123456789012345",
+      "ga4Invalid": "Use a stream ID like G-XXXXXXXXXX (not an old UA-… one)",
+      "consentNote": "Counters run only for visitors who allow them in the prompt on your page — personal data law requires it."
     },
     "group": {
       "extraSeats": "Allow extra seats in group services",
@@ -1315,5 +1318,11 @@
       "title": "Workplaces and on-site visits",
       "body": "Where the staff member sees clients: addresses, a Yandex Maps link, the “I'm here now” mark, visit districts and the on-site travel fee."
     }
+  },
+  "salonCounters": {
+    "title": "Salon statistics",
+    "text": "“{name}” uses Meta Pixel and Google Analytics to see where its clients come from. Only booking steps are shared — never your name or phone. More in the <privacy>privacy policy</privacy>.",
+    "allow": "Allow",
+    "deny": "No thanks"
   }
 }

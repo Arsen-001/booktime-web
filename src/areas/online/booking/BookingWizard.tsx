@@ -26,6 +26,7 @@ import { rememberClient, useRememberedClient } from '@/areas/online/booking/wiza
 import { useSpecialistTerms } from '@/areas/online/booking/wizard/specialistTerms';
 import { ANY_STAFF, useWizardUrl, type Step } from '@/areas/online/booking/wizard/useWizardUrl';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
+import { SalonCounters } from '@/areas/online/public/SalonCounters';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import type { Staff, Workplace } from '@/domain/core';
 import { intakeBookHref, isIntakeService } from '@/domain/ordersIntake';
@@ -59,7 +60,12 @@ export function BookingWizard({ slug, formId }: { slug: string; formId?: string 
     if (code === 'not_published') return <UnpublishedNotice slug={slug} />;
     return code === 'not_found' ? <EmptyState title={t('public.notFound')} description={t('public.notFoundHint')} /> : <ErrorState onRetry={dataQ.refetch} />;
   }
-  return <WizardBody slug={slug} data={dataQ.data} formId={formId} />;
+  return (
+    <>
+      <SalonCounters businessId={dataQ.data.business.id} businessName={dataQ.data.business.name} link={dataQ.data.link} />
+      <WizardBody slug={slug} data={dataQ.data} formId={formId} />
+    </>
+  );
 }
 
 /**

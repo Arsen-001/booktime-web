@@ -1,4 +1,4 @@
-import type { CoreData, Id } from "@/domain/core";
+import type { CoreData, Id, ISODateTime } from "@/domain/core";
 import type {
   DeletedStaffSnapshot,
   RightScope,
@@ -59,6 +59,18 @@ export interface StaffState {
   logins: StaffLoginEntry[];
   /** Настройки безопасности бизнеса (⭐ F-00-047) — ключ Business.id */
   businessSettings: Record<Id, StaffBusinessSecuritySettings>;
+  /**
+   * Пароли администраторов, выданные владельцем (F-00-034/038) — ключ Staff.id. Демо без сервера хранит пароль как
+   * есть (сервер — только хеш); нет записи — прежнее демо-правило входа (пароль = логин, просим сменить).
+   */
+  passwordLogins: Record<Id, StaffMockPasswordLogin>;
+}
+
+export interface StaffMockPasswordLogin {
+  password: string;
+  mustChangePassword: boolean;
+  issuedAt: ISODateTime;
+  changedAt?: ISODateTime;
 }
 
 /** Демо-данные строим только для первых 3 бизнесов с сотрудниками — остальные остаются пустыми (в т. ч. ?empty=1) */
@@ -211,10 +223,11 @@ function seed(core: CoreData, now: Date): StaffState {
     exports,
     logins,
     businessSettings,
+    passwordLogins: {},
   };
 }
 
 export const staffSlice = defineSlice<StaffState>({
-  version: 5,
+  version: 6,
   seed,
 });

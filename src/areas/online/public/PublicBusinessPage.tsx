@@ -8,6 +8,7 @@ import type { PublicBusinessData } from '@/api/online';
 import { getPublicBusinessData, trackWidgetEvent } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
+import { SalonCounters } from '@/areas/online/public/SalonCounters';
 import { DropOffCard } from '@/areas/online/public/DropOffCard';
 import { OrdersPlaceInfo } from '@/areas/online/public/OrdersPlaceInfo';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
@@ -129,6 +130,8 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
     <>
     <div data-f="F-00-006" className="flex flex-col gap-4">
       <ApplyWidgetTheme theme={link?.theme} />
+      {/* F-03-118/119: пиксель Meta и GA4 салона — только после согласия посетителя */}
+      <SalonCounters businessId={business.id} businessName={business.name} link={link} />
 
       {linkStaffGone && (
         <div className="rounded-xl border border-warning/40 bg-warning-soft p-3 text-sm text-fg" data-f="F-03-143">

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
-import { checkSlot, homeShiftConflict, planBooking } from '@/domain/rules';
+import { checkSlot, freeSlots, homeShiftConflict, planBooking } from '@/domain/rules';
 import type { CoreData } from '@/domain/core';
 import { DAY, NOW, makeCore, makeSchedule, makeStaff } from '@/domain/rules/tests/fixture';
 
@@ -66,5 +66,14 @@ describe('домашняя запись в часы смены (F-00-047)', () =
       { now: NOW },
     );
     assert.deepEqual(res, { ok: false, code: 'home_during_shift' });
+  });
+
+  test('окна онлайн-записи: домашние на смене не предлагаются, в перерыве и после смены — есть', () => {
+    const starts = (forbid: boolean) =>
+      freeSlots(dualCore(forbid), { staffId: 'st_anna_own', date: DAY, durationMin: 60, stepMin: 60 }, NOW).map((x) => x.start.slice(11, 16));
+    const strict = starts(true);
+    assert.ok(!strict.includes('11:00') && !strict.includes('13:00') && !strict.includes('16:00'));
+    assert.ok(strict.includes('14:00') && strict.includes('19:00'));
+    assert.ok(starts(false).includes('11:00'));
   });
 });

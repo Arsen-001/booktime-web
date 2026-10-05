@@ -580,9 +580,11 @@ export interface CheckResult {
   occupiedInstanceIds: Id[];
   /** Другая запись этого клиента в это время (передан clientId) */
   clientOverlap?: { start: ISODateTime; staffId: Id; serviceId?: Id };
+  /** F-00-047: домашняя / выездная запись (передан workplace) попадает на смену в салоне с запретом — часы смены */
+  homeShift?: { businessId: Id; date: string; from: string; to: string };
 }
 
-export function check(input: { staffId?: Id; start: ISODateTime; durationMin: number; excludeBookingId?: Id; resourceId?: Id; instanceId?: Id; locationId?: Id; clientId?: Id }): Promise<CheckResult> {
+export function check(input: { staffId?: Id; start: ISODateTime; durationMin: number; excludeBookingId?: Id; resourceId?: Id; instanceId?: Id; locationId?: Id; clientId?: Id; workplace?: string }): Promise<CheckResult> {
   reads();
   const businessId = input.staffId ? bizOfStaff(input.staffId) : input.locationId ? (useDb.getState().core.locations.find((l) => l.id === input.locationId)?.businessId ?? sessionBiz()) : input.clientId ? bizOfClient(input.clientId) : sessionBiz();
   return http<CheckResult>('POST', `${b(businessId)}/journal/check`, input);

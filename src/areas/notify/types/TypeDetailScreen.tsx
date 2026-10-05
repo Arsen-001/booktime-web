@@ -236,6 +236,8 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
     }
   };
 
+  // Тип, который сервер пока не отправляет (режим api, serverSoon.ts): всё на странице только для чтения
+  const soon = Number.isFinite(code) && isServerSoonType(code);
   const toggleEnabled = async (enabled: boolean) => {
     try {
       await save.mutate({ businessId: businessId!, code, patch: { enabled } });
@@ -375,7 +377,8 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
         }
         actions={
           !type.alwaysOn ? (
-            <Switch checked={type.enabled} onCheckedChange={toggleEnabled} label={t('typeDetail.enableToggle')} />
+            // Сервер тип пока не шлёт (режим api) — выключатель выключен и недоступен: «включено» было бы неправдой
+            <Switch checked={type.enabled && !soon} disabled={soon} onCheckedChange={toggleEnabled} label={t('typeDetail.enableToggle')} />
           ) : undefined
         }
       />
@@ -400,7 +403,7 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
               {t('typeDetail.systemLockedBanner')}
             </p>
           )}
-          {isServerSoonType(type.code) && (
+          {soon && (
             <p role="status" className="rounded-lg bg-surface-2 px-4 py-3 text-sm text-muted">
               {t('typeDetail.soonBanner')}
             </p>
@@ -422,7 +425,7 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
                         aria-label={channelLabel(channel, uiLocale)}
                         options={options}
                         value={scenario}
-                        disabled={type.systemLocked || (type.alwaysOn && channel === 'sms')}
+                        disabled={soon || type.systemLocked || (type.alwaysOn && channel === 'sms')}
                         onValueChange={(v) => setScenario(channel, v as NotifyScenario)}
                       />
                     ) : (
@@ -445,7 +448,7 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
               title={t('conditions.sectionTitle')}
               description={HINT_FUTURE_ONLY_TYPES.has(code) ? t('typeDetail.hintFutureOnly') : undefined}
             >
-              <TypeConditionsFields code={code} conditions={conditions} onChange={saveConditionsPatch} disabled={false} />
+              <TypeConditionsFields code={code} conditions={conditions} onChange={saveConditionsPatch} disabled={soon} />
             </SectionCard>
           )}
 

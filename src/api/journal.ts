@@ -56,6 +56,7 @@ import type {
   Money,
   Service,
   TimeHM,
+  Workplace,
 } from "@/domain/core";
 import type {
   AutoWriteoffInfo,
@@ -94,7 +95,7 @@ import type {
   WindowRights,
 } from "@/domain/journal";
 import { EMPTY_BOOKING_EXTRAS, VISIT_GAP_OPTIONS } from "@/domain/journal";
-import { hasBookingOverlap } from "@/domain/rules";
+import { hasBookingOverlap, homeShiftConflict } from "@/domain/rules";
 import { generateOccurrenceDates } from "@/areas/journal/lib/recurrence";
 import { newId } from "@/lib/id";
 import {
@@ -720,6 +721,25 @@ export function listOccupiedResourceInstanceIds(
       }
     }
     return occupied;
+  });
+}
+
+/**
+ * F-00-047: домашняя / выездная запись попадает на смену мастера в салоне, где владелец запретил домашние записи в
+ * часы смены, — часы этой смены ('HH:mm'), иначе null. То же правило, что отклоняет сохранение (home_during_shift):
+ * окно записи предупреждает заранее.
+ */
+export function findHomeShiftClash(
+  staffId: Id,
+  start: ISODateTime,
+  durationMin: number,
+  workplace: Workplace,
+): Promise<{ from: string; to: string } | null> {
+  if (workplace !== "home" && workplace !== "visit") return Promise.resolve(null);
+  if (isApiMode()) return S.check({ staffId, start, durationMin, workplace }).then((r) => (r.homeShift ? { from: r.homeShift.from, to: r.homeShift.to } : null));
+  return request(() => {
+    const hit = homeShiftConflict(readCore(), { staffId, start, durationMin, workplace });
+    return hit ? { from: hit.from, to: hit.to } : null;
   });
 }
 

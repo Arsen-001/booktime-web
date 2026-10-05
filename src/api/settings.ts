@@ -1289,37 +1289,6 @@ export function markTourSeen(businessId: Id): Promise<void> {
   });
 }
 
-// ─────────────────────────── Восстановление пароля администратора (F-15-012, F-15-013) ───────────────────────────
-// ⭐ у мастера пароля нет — вход кодом (F-00-033); восстановление — только у администратора (F-00-034), веб и
-// приложение — один и тот же мок (F-15-013 «как F-15-012»). Демо: код всегда «0000», как во входе клиента.
-
-const RESTORE_DEMO_CODE = '0000';
-
-/** Отправить код восстановления на email/телефон администратора — «Забыли пароль?» (F-15-012) */
-export function requestPasswordReset(
-  login: string,
-): Promise<{ sentTo: string }> {
-  return request(() => {
-    const trimmed = login.trim();
-    if (!trimmed) throw new ApiError('bad_login', 'Укажите email или телефон');
-    return { sentTo: trimmed };
-  });
-}
-
-/** Проверить код и задать новый пароль (F-15-012, F-15-013) — неверный код не пропускает дальше */
-export function confirmPasswordReset(input: {
-  login: string;
-  code: string;
-  newPassword: string;
-}): Promise<void> {
-  return request(() => {
-    if (input.code !== RESTORE_DEMO_CODE)
-      throw new ApiError('bad_code', 'Код не подошёл');
-    if (input.newPassword.length < 4)
-      throw new ApiError('weak_password', 'Пароль слишком короткий');
-  });
-}
-
 // ─────────────────────────── Приглашение по ссылке (F-15-146) ───────────────────────────
 // Упрощённый мок: ищет приглашение по токену из адреса. Настоящая связь с приглашениями сотрудников
 // (`StaffInvite`, src/api/staff.ts) не сделана — см. qa/requests/settings.md.

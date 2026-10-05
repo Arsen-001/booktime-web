@@ -553,6 +553,18 @@ export interface Review {
 }
 
 /** Событие пути записи для аналитики (F-03-121) — последние ~200 на ссылку, для журнала в настройке ссылки */
+/** ID пикселя Meta (F-03-118) — только цифры; Events Manager выдаёт 15–16, берём с запасом. Как META_PIXEL_ID_RE сервера */
+export const META_PIXEL_ID_RE = /^\d{8,20}$/;
+/** ID потока GA4 (F-03-119) — «G-» и 6–12 латинских букв/цифр. Как GA4_STREAM_ID_RE сервера */
+export const GA4_STREAM_ID_RE = /^G-[A-Z0-9]{6,12}$/;
+
+/** Проверка поля счётчика в настройке ссылки: пусто — можно (убрать), иначе — по формату */
+export function counterIdError(kind: 'metaPixel' | 'ga4', value: string): boolean {
+  const v = value.trim();
+  if (!v) return false;
+  return kind === 'metaPixel' ? !META_PIXEL_ID_RE.test(v) : !GA4_STREAM_ID_RE.test(v.toUpperCase());
+}
+
 export type WidgetEventType =
   | 'widget_loaded'
   | 'service_selected'

@@ -35,6 +35,7 @@ import type {
   WidgetEventType,
 } from '@/domain/online';
 import { addDays, addMinutes } from '@/lib/date';
+import { salonCounterEvent } from '@/lib/salonCounters';
 
 const online = () => import('@/api/online');
 
@@ -44,8 +45,12 @@ export function getPublicBusinessData(slug: string, formId?: string): Promise<Pu
   return viaMock(online, (m) => m.getPublicBusinessDataMock(slug, formId));
 }
 
-/** Отправляет событие в подключённые счётчики (F-03-118…120: демо, реальных сетевых вызовов нет) и в журнал ссылки */
+/**
+ * Событие шага записи (F-03-121): в счётчики салона — Meta Pixel / GA4, если посетитель их разрешил
+ * (src/lib/salonCounters.ts, F-03-118/119), — и в журнал событий ссылки
+ */
 export function trackWidgetEvent(linkId: Id | undefined, businessId: Id, type: WidgetEventType): Promise<void> {
+  salonCounterEvent(type);
   if (isApiMode()) return OnlineServer.trackWidgetEventServer(linkId, businessId, type);
   return viaMock(online, (m) => m.trackWidgetEventMock(linkId, businessId, type));
 }
