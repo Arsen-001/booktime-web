@@ -7,6 +7,7 @@
  * На телефоне «Позвонить» — липкая панель внизу (PublicBusinessPage), здесь кнопка только с md.
  * ⭐ Запись на сдачу (05.10.2026): есть окно приёма — главная кнопка «Записаться на сдачу» (на телефоне — в липкой панели),
  * «Позвонить» становится второй.
+ * Тот же блок — на карточке места в приложении клиента (/places/<id>, PlaceCardScreen).
  */
 import { BellRing, CalendarClock, MessageCircle, PackagePlus, Phone, ReceiptText } from 'lucide-react';
 import type { Business, Location } from '@/domain/core';
@@ -22,7 +23,16 @@ const STEPS = [
   { key: 'ready', Icon: BellRing },
 ] as const;
 
-export function OrdersPlaceInfo({ business, location, dropOffHref }: { business: Business; location: Location | undefined; dropOffHref?: string }) {
+export function OrdersPlaceInfo({
+  business,
+  location,
+  dropOffHref,
+}: {
+  // Публичная страница передаёт Business/Location, карточка места в приложении клиента — PublicBusiness/PublicLocation
+  business: { phone?: string; socials?: Business['socials'] };
+  location: Pick<Location, 'phone'> | undefined;
+  dropOffHref?: string;
+}) {
   const t = useT('online');
   const phone = location?.phone || business.phone;
   const whatsapp = business.socials?.whatsappNumber;

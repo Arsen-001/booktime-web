@@ -27,6 +27,11 @@ export interface ImageUploadProps {
   minHeight?: number;
   disabled?: boolean;
   className?: string;
+  /**
+   * Не показывать подсказку «JPG или PNG, до N МБ» под плиткой — экран пишет её сам рядом (узкая плитка аватара в
+   * профиле: в колонке 80px подсказка ломалась в три строки). Ошибки показываются всё равно.
+   */
+  hideHint?: boolean;
   /** Куда грузить в режиме api; по умолчанию — по разделу (кабинет → бизнес, панель → панель, иначе — профиль) */
   uploadTarget?: UploadTarget;
 }
@@ -64,6 +69,7 @@ export function ImageUpload({
   minHeight,
   disabled = false,
   className,
+  hideHint = false,
   uploadTarget,
 }: ImageUploadProps) {
   const t = useT('ui');
@@ -289,7 +295,7 @@ export function ImageUpload({
         <p className="mt-2 text-sm text-danger" role="alert">
           {failed.error} <span className="text-muted">· {t('upload.retryHint')}</span>
         </p>
-      ) : (
+      ) : hideHint && !error ? null : (
         <p className={cn('mt-2 text-sm', error ? 'text-danger' : 'text-muted')} role={error ? 'alert' : undefined}>
           {error ?? t('upload.hint', { mb: limitMb })}
         </p>

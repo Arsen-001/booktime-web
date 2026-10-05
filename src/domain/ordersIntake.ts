@@ -85,3 +85,21 @@ export const INTAKE_CLOSED_STATUSES: readonly BookingStatus[] = ['cancelled_by_c
 export function intakeBookHref(slug: string, serviceId: Id): string {
   return `/b/${slug}/book?s=${encodeURIComponent(serviceId)}&m=any&step=time`;
 }
+
+/**
+ * Запись на сдачу на странице мастерской (публичная /b/<slug> и карточка места в приложении): услуга «Приём заказа»
+ * включена, «Заказы» включены и её принимает хотя бы один видимый онлайн сотрудник. Иначе — undefined.
+ */
+export function dropOffOf(
+  slug: string,
+  data: {
+    ordersEnabled?: boolean;
+    services: readonly Pick<Service, 'id' | 'kind' | 'staffIds' | 'durationMin'>[];
+    staff: readonly { id: Id; serviceIds: readonly Id[] }[];
+  },
+): { href: string; slotMin: number } | undefined {
+  if (!data.ordersEnabled) return undefined;
+  const svc = data.services.find(isIntakeService);
+  if (!svc || !data.staff.some((m) => svc.staffIds.includes(m.id) || m.serviceIds.includes(svc.id))) return undefined;
+  return { href: intakeBookHref(slug, svc.id), slotMin: svc.durationMin || DEFAULT_INTAKE_SLOT_MIN };
+}

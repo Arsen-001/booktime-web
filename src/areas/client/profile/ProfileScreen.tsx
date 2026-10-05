@@ -76,6 +76,7 @@ export function ProfileScreen() {
 
 function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLogout: () => void }) {
   const t = useT('client');
+  const tu = useT('ui');
   const fmt = useClientFormat();
   const toast = useToast();
   const settings = useDemo();
@@ -210,11 +211,13 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
             max={1}
             aspect="square"
             label={t('profile.photoCta')}
+            hideHint
           />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <p className="truncate text-lg font-semibold text-fg">{appUser ? appUser.name : <SkeletonText width="12ch" />}</p>
+            {/* Длинное имя переносится на вторую строку, а не обрезается (360px, hy) */}
+            <p className="line-clamp-2 min-w-0 break-words text-lg font-semibold text-fg">{appUser ? appUser.name : <SkeletonText width="12ch" />}</p>
             <IconButton
               disabled={loading}
               icon={<Pencil aria-hidden className="size-4" />}
@@ -225,6 +228,8 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
             />
           </div>
           <p className="text-sm text-muted">{appUser ? fmt.phone(appUser.phone) : <SkeletonText width="16ch" />}</p>
+          {/* Подсказка к фото — здесь, во всю ширину колонки: под плиткой 80px она ломалась в три строки (hy, 360px) */}
+          {!photoUrl && <p className="mt-1 text-sm text-muted">{tu('upload.hint', { mb: 10 })}</p>}
           {noShowCount > 0 && (
             <Badge tone="warning" className="mt-1.5">
               {t('profile.noShowCount', { count: noShowCount })}

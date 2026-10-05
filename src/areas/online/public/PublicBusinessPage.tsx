@@ -26,7 +26,7 @@ import { Sheet } from '@/ui/Sheet';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import type { PromoBlock } from '@/domain/online';
-import { intakeBookHref, isIntakeService } from '@/domain/ordersIntake';
+import { dropOffOf, isIntakeService } from '@/domain/ordersIntake';
 import { useTrackOnce } from '@/lib/analytics';
 
 /**
@@ -86,10 +86,10 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
   const { business, location, categories, services, staff, link, linkStaffGone, promoBlocks, businessStars, networkBranches, addressHidden, todayHours } = data;
   const displayName = business.name.trim() || t('public.unnamedBusiness');
   // ⭐ «Приём заказа» (запись на сдачу, 05.10.2026) — не услуга каталога: своя кнопка «Записаться на сдачу»
-  const intakeService = data.ordersEnabled ? services.find(isIntakeService) : undefined;
+  const dropOff = dropOffOf(slug, data);
+  const dropOffHref = dropOff?.href;
   const catalogServices = services.filter((s) => !isIntakeService(s));
   const catalogStaff = staff.filter((m) => catalogServices.some((s) => m.serviceIds.includes(s.id) || s.staffIds.includes(m.id)));
-  const dropOffHref = intakeService && staff.some((m) => intakeService.staffIds.includes(m.id) || m.serviceIds.includes(intakeService.id)) ? intakeBookHref(slug, intakeService.id) : undefined;
   const canBook = catalogServices.length > 0 && catalogStaff.length > 0;
   // Мастерская «заказов» без онлайн-услуг (05.10.2026): вместо пустой записи — «как сдать вещь» и звонок
   const ordersOnly = !canBook && data.ordersEnabled === true;
@@ -356,7 +356,7 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
       </Card>
 
       {/* ⭐ Запись на сдачу (05.10.2026): у мастерской с обычными услугами — сразу под главной карточкой */}
-      {canBook && dropOffHref && <DropOffCard href={dropOffHref} slotMin={intakeService?.durationMin ?? 15} />}
+      {canBook && dropOff && <DropOffCard href={dropOff.href} slotMin={dropOff.slotMin} />}
 
       {/* О22: фото — ниже главной карточки с кнопкой «Записаться», первый экран не занят картинкой */}
       {business.photos.length > 0 && (

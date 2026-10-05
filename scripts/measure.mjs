@@ -26,7 +26,8 @@
 //
 // Что меряется на каждой странице: ошибки и предупреждения консоли, ошибки страницы (pageerror),
 // ответы ≥ 400, сообщения i18n ([i18n:missing], [i18n:no-en], число [i18n:fallback-ru]), «сырые ключи»
-// на экране (namespace.key и «⋯»), горизонтальный вылет, зоны нажатия < 40 px, найденные data-f,
+// на экране (namespace.key и «⋯»), горизонтальный вылет, мелкие зоны нажатия (телефон, touch — < 40 px; десктоп,
+// мышь — < 36 px: кнопки src/ui с md по 36 px, см. CONVENTIONS §10), найденные data-f,
 // для hy — чем нарисованы армянские буквы (должен быть веб-шрифт Noto Sans Armenian), «висит загрузка»
 // (скелетоны/aria-busy дольше 8 с; внутри [data-showcase] не считаются).
 //
@@ -122,7 +123,10 @@ function buildUrl(route, combo) {
 
 // ─────────────────────────── Что меряем в странице ───────────────────────────
 // Код двух функций ниже выполняется в браузере (page.evaluate)
-function inPageMeasure() {
+/** Порог зоны нажатия: палец (touch) — 40 px, мышь — 36 px (CONVENTIONS §10 «Зоны нажатия») */
+const minTapFor = (device) => (device.hasTouch ? 40 : 36);
+
+function inPageMeasure(minTap = 40) {
   const visible = (el) => {
     if (!el || !el.getClientRects().length) return false;
     const s = getComputedStyle(el);
@@ -183,7 +187,7 @@ function inPageMeasure() {
     }
   }
 
-  // Зоны нажатия < 40 px
+  // Зоны нажатия меньше порога (40 px на телефоне, 36 px на десктопе)
   const smallTargets = [];
   const sel = 'a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button], [role=tab], [role=menuitem], [role=switch], [role=checkbox], [role=radio], [role=option]';
   const seen = new Set();
@@ -197,7 +201,7 @@ function inPageMeasure() {
     if (seen.has(target) || !visible(target)) continue;
     seen.add(target);
     const r = target.getBoundingClientRect();
-    if (r.width < 40 || r.height < 40) {
+    if (r.width < minTap || r.height < minTap) {
       const inline = getComputedStyle(target).display === 'inline';
       smallTargets.push({ el: hint(target), text: textOf(target), w: Math.round(r.width), h: Math.round(r.height), inline });
     }
@@ -356,7 +360,7 @@ async function measure(browser, job, outDir) {
     result.loadMs = Date.now() - t0;
     await page.waitForTimeout(250);
 
-    const m = await page.evaluate(inPageMeasure);
+    const m = await page.evaluate(inPageMeasure, minTapFor(device));
     Object.assign(result, {
       title: m.title,
       rawKeys: m.rawKeys,
@@ -384,7 +388,7 @@ async function measure(browser, job, outDir) {
         }
       }
       // Что появилось на экране после сценария
-      const after = await page.evaluate(inPageMeasure);
+      const after = await page.evaluate(inPageMeasure, minTapFor(device));
       result.dataF = [...new Set([...result.dataF, ...after.dataF])].sort();
     }
   } catch (e) {
@@ -525,7 +529,7 @@ function sum(items, fn) {
 }
 
 function printTable(results) {
-  const head = ['страница', 'кто', 'яз', 'уст', 'конс', '4xx', 'ключи', 'вылет', '<40', 'data-f', 'hy-шрифт', 'загр'];
+  const head = ['страница', 'кто', 'яз', 'уст', 'конс', '4xx', 'ключи', 'вылет', '<цели', 'data-f', 'hy-шрифт', 'загр'];
   const rows = results.map((r) => [
     r.route.length > 30 ? `${r.route.slice(0, 29)}…` : r.route,
     r.persona,

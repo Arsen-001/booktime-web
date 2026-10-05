@@ -16,10 +16,14 @@ import {
   purchaseMembership,
   setDefaultNetworkLocation,
 } from '@/api/client';
+import { getPublicBusinessData } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id, WeekTemplate } from '@/domain/core';
 import type { CertificateTemplate, MembershipTemplate, NetworkLocationsInfo } from '@/domain/client';
+import { defaultOrdersEnabled, dropOffOf, isIntakeService } from '@/domain/orders';
+import { DropOffCard } from '@/areas/online/public/DropOffCard';
+import { OrdersPlaceInfo } from '@/areas/online/public/OrdersPlaceInfo';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useT } from '@/i18n/useT';
@@ -41,6 +45,7 @@ import { PageHeader } from '@/ui/PageHeader';
 import { usePagedList } from '@/ui/Pagination';
 import { SectionCard } from '@/ui/SectionCard';
 import { Skeleton } from '@/ui/Skeleton';
+import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { useTrackOnce } from '@/lib/analytics';
 
@@ -70,7 +75,9 @@ export function PlaceCardScreen({ businessId }: { businessId: Id }) {
 }
 
 function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof getPlaceCard>>> }) {
-  const { business, locations, categories, services, staff, regularsCount } = card;
+  const { business, locations, categories, staff, regularsCount } = card;
+  // «Приём заказа» (запись на сдачу) — не услуга каталога, у него своя кнопка
+  const services = card.services.filter((s) => !isIntakeService(s));
   const t = useT('client');
   const nameOf = useDisplayName();
   const tc = useT('common');
@@ -85,6 +92,17 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
   const socials = business.socials ?? {};
   // У индивидуала публичный номер уходит только через карточку мастера (PublicBusiness.phone) — здесь подстраховка от пустого
   const phone = business.phone ?? '';
+  // Мастерская «заказов» (ремонт, ателье, химчистка, детейлинг; 06.10.2026) — как на публичной странице /b/<slug>:
+  // без онлайн-услуг вместо пустых «Услуг» — «Как сдать вещь» и звонок, с «Записью на сдачу» — кнопка записи на сдачу.
+  // «Заказы» включены и окно приёма — из данных публичной страницы (их же считает сервер), карточка места их не несёт.
+  const ordersPlaceQ = useApiQuery(['public-business', business.slug, undefined], () => getPublicBusinessData(business.slug), {
+    enabled: Boolean(business.slug) && (services.length === 0 || defaultOrdersEnabled(business.sphereIds)),
+  });
+  const ordersEnabled = ordersPlaceQ.data?.ordersEnabled ?? (ordersPlaceQ.isError && defaultOrdersEnabled(business.sphereIds));
+  const dropOff = ordersPlaceQ.data ? dropOffOf(business.slug, ordersPlaceQ.data) : undefined;
+  const ordersOnly = services.length === 0 && ordersEnabled === true;
+  const orderPhone = location?.phone || phone;
+  const tOnline = useT('online');
 
   const myBookingsQ = useApiQuery(
     ['my-bookings-in-business', appUserId ?? '', business.id],
@@ -148,6 +166,10 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
           </div>
         }
       />
+
+      {/* Как на /b/<slug>: «Как сдать вещь» / «Записаться на сдачу» — сразу под шапкой места */}
+      {ordersOnly && <OrdersPlaceInfo business={business} location={location} dropOffHref={dropOff?.href} />}
+      {!ordersOnly && dropOff && <DropOffCard href={dropOff.href} slotMin={dropOff.slotMin} />}
 
       {ready && appUserId && cashbackQ.data && (
         <Link href={`/places/${business.id}/cashback`} data-f="F-14-049" className="w-fit">
@@ -263,6 +285,7 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
         </SectionCard>
       )}
 
+      {!ordersOnly && (
       <SectionCard title={t('place.servicesTitle')}>
         {services.length === 0 ? (
           <EmptyState compact title={t('master.noSlots')} />
@@ -301,6 +324,7 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
           </div>
         )}
       </SectionCard>
+      )}
 
       {staff.length > 0 && (
         <SectionCard title={t('place.mastersTitle')}>
@@ -379,6 +403,21 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
             )}
           </div>
         </SectionCard>
+      )}
+      {/* Мастерская «заказов» на телефоне: главное действие у большого пальца, как на /b/<slug> (в OrdersPlaceInfo кнопки — с md) */}
+      {ordersOnly && (dropOff || orderPhone) && (
+        <StickyActionBar desktop="hidden">
+          {dropOff ? (
+            <LinkButton href={dropOff.href} data-f="orders-dropoff-cta">
+              {tOnline('public.dropOff.button')}
+            </LinkButton>
+          ) : (
+            <a href={telLink(orderPhone)} className={buttonClasses({ variant: 'primary' })}>
+              <Phone aria-hidden className="size-4" />
+              {t('place.call')}
+            </a>
+          )}
+        </StickyActionBar>
       )}
     </div>
   );
