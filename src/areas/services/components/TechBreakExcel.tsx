@@ -9,7 +9,7 @@
 import { useRef, useState } from 'react';
 import { FileSpreadsheet, Upload } from 'lucide-react';
 import { importTechBreaks, parseTechBreakSeconds, type TechBreakExportRow, type TechBreakImportRow } from '@/api/services';
-import { logDataOperation } from '@/api/core';
+import { logDataOp } from '@/api/data-ops';
 import { useApiMutation } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
@@ -33,7 +33,7 @@ export function useTechBreakExport(exportRows: TechBreakExportRow[]) {
       HEADER,
     );
     downloadCsv('services-tech-break.csv', csv);
-    await logDataOperation({
+    await logDataOp({
       businessId: businessId ?? '',
       kind: 'export',
       area: 'services',

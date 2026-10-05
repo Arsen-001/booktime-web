@@ -160,7 +160,9 @@ export function useMoveBooking({ date, clientsById, resources }: UseMoveBookingI
         return true;
       } catch (e) {
         // Ядро само подбирает свободный экземпляр ресурса; не нашло — понятная причина, а не «что-то пошло не так»
-        toast.error(e instanceof ApiError && e.code === 'resource_unavailable' ? tc('bookingErrors.resource_unavailable') : tc('states.actionFailed'));
+        // F-00-047: домашнюю запись нельзя перенести на часы смены в салоне, где владелец это запретил
+        const code = e instanceof ApiError ? e.code : undefined;
+        toast.error(code === 'resource_unavailable' || code === 'home_during_shift' ? tc(`bookingErrors.${code}`) : tc('states.actionFailed'));
         return false;
       }
     };

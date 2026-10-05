@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { joinOnlineWaitlist } from '@/api/online';
+import { joinOnlineWaitlist } from '@/api/online-public';
 import { useApiMutation } from '@/api/request';
 import { useT } from '@/i18n/useT';
 import { normalizePhone } from '@/lib/phone';

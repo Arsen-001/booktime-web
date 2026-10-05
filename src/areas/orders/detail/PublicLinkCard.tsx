@@ -13,6 +13,8 @@ export function PublicLinkCard({ order, url, businessName }: { order: Order; url
     <SectionCard
       title={t('detail.link')}
       description={t('detail.linkHint')}
+      // Узкая колонка (iPad): с переносом «Квитанция» уходит под описание, а не сжимает его до слова в строке
+      classNames={{ header: 'sm:flex-wrap' }}
       actions={
         <LinkButton data-f="orders-receipt-open" href={`/biz/orders/${order.id}/receipt`} variant="outline" size="sm" leftIcon={<ReceiptText aria-hidden />}>
           {t('detail.receipt')}

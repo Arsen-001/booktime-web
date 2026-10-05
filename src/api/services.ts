@@ -41,6 +41,10 @@ import { getStaff as serverGetStaff, listStaff as serverListStaff } from '@/api/
 import { newId } from '@/lib/id';
 import { nowDateTime } from '@/lib/date';
 import { isOrderService } from '@/domain/ordersPickup';
+// Публичные функции (карточка мастера в приложении клиента) живут в лёгком '@/api/services-public' — здесь их
+// демо-реализации (*Mock), а сами функции реэкспортируются: экраны кабинета импортируют их отсюда, как раньше
+import { getSterilization, hasVerifiedDocuments, reportContent } from '@/api/services-public';
+export { getSterilization, hasVerifiedDocuments, reportContent };
 
 /** Бизнес текущей сессии — для функций раздела, у которых нет businessId в подписи (стадия 21, лейн services+rest) */
 function currentBusinessId(): Id {
@@ -807,15 +811,8 @@ export function restoreStaffDocument(doc: StaffDocument): Promise<void> {
   }, { permission: 'services.edit' });
 }
 
-/** «Документы проверены» — хотя бы один диплом прошёл проверку (читают staff card, client, online) */
-export function hasVerifiedDocuments(staffId: Id): Promise<boolean> {
-  if (isApiMode()) {
-    return (async () => {
-      const docs = await S.listStaffDocuments(staffId);
-      const statuses = await Promise.all(docs.map((d) => getModerationStatus(d.imageUrl)));
-      return statuses.some((m) => m?.status === 'approved' || m?.status === 'auto');
-    })();
-  }
+/** Демо-реализация hasVerifiedDocuments (сервер и обёртка — '@/api/services-public') */
+export function hasVerifiedDocumentsMock(staffId: Id): Promise<boolean> {
   return request(() => {
     const docs = readArea('services').documents.filter((d) => d.staffId === staffId);
     const moderation = readModerationSnapshot();
@@ -917,8 +914,8 @@ export function saveMaterialsProfile(
   }, { permission: 'services.edit' });
 }
 
-export function getSterilization(staffId: Id): Promise<SterilizationInfo | undefined> {
-  if (isApiMode()) return S.getSterilization(staffId) as Promise<SterilizationInfo | undefined>;
+/** Демо-реализация getSterilization (сервер и обёртка — '@/api/services-public') */
+export function getSterilizationMock(staffId: Id): Promise<SterilizationInfo | undefined> {
   return request(() => readArea('services').sterilization[staffId]);
 }
 
@@ -964,8 +961,9 @@ export function getServiceMaterials(serviceId: Id, locationIds: Id[]): Promise<S
 /**
  * Клиент жалуется на чужое фото/сторис/карточку мастера — попадает в общую очередь проверки платформы.
  * Кнопку «Пожаловаться» ставят экраны client и online (см. qa/requests/services.md); здесь — сам механизм.
+ * Экраны зовут reportContent (лёгкий '@/api/services-public' догружает этот модуль по нажатию).
  */
-export function reportContent(input: ReportContentInput): Promise<void> {
+export function reportContentNow(input: ReportContentInput): Promise<void> {
   return request(async () => {
     await submitForModeration({
       kind: 'complaint',

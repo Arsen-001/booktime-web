@@ -7,8 +7,7 @@
  */
 import { useState } from 'react';
 import { CalendarCheck, CalendarClock, CalendarX } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { cancelPublicPickup } from '@/api/orders';
+import { cancelPublicPickup } from '@/api/orders-public';
 import { useApiMutation } from '@/api/request';
 import type { PublicOrderPickup } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
@@ -30,12 +29,10 @@ export function PublicPickupCard({ code, pickup, onStale }: PublicPickupCardProp
   const fmt = useFormat();
   const toast = useToast();
   const confirm = useConfirm();
-  const locale = useLocale();
   const [changing, setChanging] = useState(false);
   const booking = pickup.booking;
   const picking = pickup.enabled && (!booking || changing);
   const cancelM = useApiMutation(cancelPublicPickup);
-  const dayText = (v: string) => fmt.relativeDay(v.slice(0, 10)).toLocaleLowerCase(locale);
 
   async function cancel() {
     const ok = await confirm({
@@ -67,7 +64,7 @@ export function PublicPickupCard({ code, pickup, onStale }: PublicPickupCardProp
           </span>
           <div className="min-w-0">
             <h2 id="pickup-title" className="text-[1.0625rem] font-bold text-fg">
-              {t('public.pickup.booked', { day: dayText(booking.start), time: fmt.time(booking.start) })}
+              {t('public.pickup.booked', { day: fmt.relativeDayInline(booking.start), time: fmt.time(booking.start) })}
             </h2>
             <p className="mt-0.5 text-base text-muted">{t(pickup.enabled ? 'public.pickup.bookedHint' : 'public.pickup.bookedPhoneHint')}</p>
           </div>
@@ -82,7 +79,7 @@ export function PublicPickupCard({ code, pickup, onStale }: PublicPickupCardProp
         </>
       )}
 
-      {picking && <PickupPicker code={code} current={booking?.start ?? null} onDone={() => setChanging(false)} onStale={onStale} dayText={dayText} />}
+      {picking && <PickupPicker code={code} current={booking?.start ?? null} onDone={() => setChanging(false)} onStale={onStale} dayText={fmt.relativeDayInline} />}
 
       {booking && !changing && (
         <div className="mt-4 grid gap-3 sm:grid-cols-2">

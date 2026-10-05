@@ -8,7 +8,7 @@
  */
 import { useState } from 'react';
 import { MessageSquarePlus, ThumbsDown, ThumbsUp } from 'lucide-react';
-import { decidePublicEstimate } from '@/api/orders';
+import { decidePublicEstimate } from '@/api/orders-public';
 import { ApiError, useApiMutation } from '@/api/request';
 import type { EstimateDecision, PublicOrder, PublicOrderEstimate } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
@@ -37,7 +37,7 @@ export function PublicEstimateCard({ code, order, onStale }: PublicEstimateCardP
   const [choice, setChoice] = useState<EstimateDecision | null>(null);
   // Ответ возможен, пока вещь у мастера и не готова (как у сервера)
   const pending = est.status === 'pending' && (order.status === 'received' || order.status === 'in_progress');
-  const when = (v: string) => `${fmt.relativeDay(v).toLocaleLowerCase()}, ${fmt.time(v)}`;
+  const when = (v: string) => `${fmt.relativeDayInline(v)}, ${fmt.time(v)}`;
 
   async function answer(decision: EstimateDecision) {
     if (decide.isPending) return;

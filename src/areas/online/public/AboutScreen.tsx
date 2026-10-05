@@ -2,7 +2,7 @@
 
 import { ExternalLink, MapPin, Phone, Users } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { getClientFieldsConfig, getPublicBusinessData } from '@/api/online';
+import { getClientFieldsConfig, getPublicBusinessData } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { useFormat } from '@/i18n/useFormat';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';

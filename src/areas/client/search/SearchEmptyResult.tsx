@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { BellPlus, CircleCheck } from 'lucide-react';
-import { submitDemandLead } from '@/api/client';
+import { submitDemandLead } from '@/api/client-public';
 import { useApiMutation } from '@/api/request';
 import type { DistrictId, Id, SphereId } from '@/domain/core';
 import { useT } from '@/i18n/useT';

@@ -25,6 +25,9 @@ import {
   type ReferralInviteeStatus,
 } from '@/domain/rules/referral';
 import { nowDateTime } from '@/lib/date';
+// resolveReferralCode живёт в лёгком '@/api/referral-public' (страница бизнеса) — здесь демо-реализация
+import { resolveReferralCode } from '@/api/referral-public';
+export { resolveReferralCode };
 
 /** Награда по акции рефералки: процент или фиксированная сумма */
 export interface ReferralReward {
@@ -215,9 +218,8 @@ export function getBookingReferralInvite(bookingId: Id, hash: string): Promise<R
   });
 }
 
-/** Подруга открыла ссылку: кто пригласил и что ей положено. Код неизвестен или программа выключена — null */
-export function resolveReferralCode(slug: string, rawCode: string): Promise<ReferralLanding | null> {
-  if (isApiMode()) return RS.resolveReferralCode(slug, rawCode);
+/** Демо-реализация resolveReferralCode (сервер и обёртка — '@/api/referral-public') */
+export function resolveReferralCodeMock(slug: string, rawCode: string): Promise<ReferralLanding | null> {
   return request(() => {
     const code = normalizeReferralCode(rawCode);
     const core = readCore();

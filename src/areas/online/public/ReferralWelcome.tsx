@@ -8,7 +8,7 @@
 import { Gift } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useSyncExternalStore } from 'react';
-import { resolveReferralCode } from '@/api/referral';
+import { resolveReferralCode } from '@/api/referral-public';
 import { useApiQuery } from '@/api/request';
 import { normalizeReferralCode, REFERRAL_QUERY_PARAM } from '@/domain/rules/referral';
 import { useFormat } from '@/i18n/useFormat';

@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { createGroupOnlineBooking, getGroupBookingRules, listPublicGroupEvents, trackWidgetEvent, type PublicGroupEvent } from '@/api/online';
+import type { PublicGroupEvent } from '@/api/online';
+import { createGroupOnlineBooking, getGroupBookingRules, listPublicGroupEvents, trackWidgetEvent } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import type { BookingLink } from '@/domain/online';
 import { useFormat } from '@/i18n/useFormat';

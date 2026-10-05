@@ -102,6 +102,55 @@ import {
 import { newId } from '@/lib/id';
 import { normalizePhone } from '@/lib/phone';
 import { computeFreeSlots, effectiveBufferMin, type FreeSlot } from '@/api/schedule';
+// Публичные функции (страница бизнеса, окно записи) живут в лёгком '@/api/online-public' — здесь их демо-реализации
+// (*Mock), а сами функции реэкспортируются: экраны кабинета импортируют их отсюда, как раньше
+import {
+  bookedLegDuration,
+  computePackageDurationRange,
+  computePackagePriceRange,
+  createGroupOnlineBooking,
+  createOnlineBooking,
+  createPlanBookings,
+  getBusinessRules,
+  getClientFieldsConfig,
+  getGroupBookingRules,
+  getPlanMonthAvailability,
+  getPlanNearestDate,
+  getPlanSlots,
+  getPublicBusinessData,
+  getStaffRules,
+  getUnpublishedContact,
+  getWidgetExtraFields,
+  joinOnlineWaitlist,
+  listPublicGroupEvents,
+  listStaffRules,
+  rememberedPhoneSkipsCode,
+  sendOnlineBookingCode,
+  trackWidgetEvent,
+} from '@/api/online-public';
+export {
+  computePackageDurationRange,
+  computePackagePriceRange,
+  createGroupOnlineBooking,
+  createOnlineBooking,
+  createPlanBookings,
+  getBusinessRules,
+  getClientFieldsConfig,
+  getGroupBookingRules,
+  getPlanMonthAvailability,
+  getPlanNearestDate,
+  getPlanSlots,
+  getPublicBusinessData,
+  getStaffRules,
+  getUnpublishedContact,
+  getWidgetExtraFields,
+  joinOnlineWaitlist,
+  listPublicGroupEvents,
+  listStaffRules,
+  rememberedPhoneSkipsCode,
+  sendOnlineBookingCode,
+  trackWidgetEvent,
+};
 
 // ─────────────────────────── Ссылки (F-03-003…F-03-014) ───────────────────────────
 
@@ -410,9 +459,8 @@ function sanitizePublicStaff(s: Staff): Staff {
   return rest as Staff;
 }
 
-/** Всё для публичной страницы /b/<slug>[/f/<formId>] — только видимое онлайн (F-03-134, F-03-140) */
-export function getPublicBusinessData(slug: string, formId?: string): Promise<PublicBusinessData> {
-  if (isApiMode()) return OnlineServer.getPublicBusinessDataServer(slug, formId);
+/** Демо-реализация getPublicBusinessData (сервер и обёртка — '@/api/online-public') */
+export function getPublicBusinessDataMock(slug: string, formId?: string): Promise<PublicBusinessData> {
   return request(() => {
     const core = readCore();
     const business = core.businesses.find((b) => b.slug === slug);
@@ -530,9 +578,8 @@ function todayOpenHours(core: CoreData, location: Location | undefined, staff: S
   return { from, to };
 }
 
-/** О24: имя и телефон неопубликованного бизнеса — для экрана «Онлайн-запись скоро откроется» */
-export function getUnpublishedContact(slug: string): Promise<{ name: string; phone: string } | undefined> {
-  if (isApiMode()) return Promise.resolve(undefined);
+/** Демо-реализация getUnpublishedContact (сервер и обёртка — '@/api/online-public') */
+export function getUnpublishedContactMock(slug: string): Promise<{ name: string; phone: string } | undefined> {
   return request(() => {
     const business = readCore().businesses.find((b) => b.slug === slug);
     if (!business || business.status === 'active') return undefined;
@@ -728,13 +775,8 @@ function widgetWaitlistView(e: BusinessWaitlistEntry, input: Pick<JoinWaitlistIn
   };
 }
 
-/**
- * Клиент сам встаёт в лист ожидания на пустой день или у занятого мастера (F-03-086, ⭐ F-00-101/102) — в ОДИН лист
- * ожидания бизнеса (resources.waitlist, владелец 30.09.2026): его видят /biz/waitlist и панель журнала, ему уходит
- * «Освободилось время». Тот же номер на тот же день и услугу второй раз не встаёт — вернём уже стоящую заявку.
- */
-export function joinOnlineWaitlist(input: JoinWaitlistInput): Promise<WaitlistRequest> {
-  if (isApiMode()) return OnlineServer.joinOnlineWaitlistServer(input);
+/** Демо-реализация joinOnlineWaitlist (сервер и обёртка — '@/api/online-public') */
+export function joinOnlineWaitlistMock(input: JoinWaitlistInput): Promise<WaitlistRequest> {
   return request(() => {
     const normalizedPhone = normalizePhone(input.clientPhone);
     if (!normalizedPhone) throw new ApiError('invalid_phone', 'Проверьте номер телефона');
@@ -851,12 +893,8 @@ export interface SendOnlineCodeInput {
 
 export type { OnlineCodeChannel, OnlineCodeSent } from '@/api/online.server';
 
-/**
- * F-00-007, B2: код перед записью без входа — в `api` доставляет сервер в выбранный канал (Telegram / WhatsApp / SMS);
- * не доставил — сам шлёт в следующий включённый, ответ говорит куда.
- */
-export function sendOnlineBookingCode(input: SendOnlineCodeInput): Promise<OnlineCodeSent> {
-  if (isApiMode()) return OnlineServer.sendOnlineBookingCodeServer(input);
+/** Демо-реализация sendOnlineBookingCode (сервер и обёртка — '@/api/online-public') */
+export function sendOnlineBookingCodeMock(input: SendOnlineCodeInput): Promise<OnlineCodeSent> {
   return request(() => {
     const code = String(1000 + Math.floor(Math.random() * 9000));
     // О9: код привязан к номеру, на который ушёл; запись сверяет пару «номер + код»
@@ -869,20 +907,8 @@ export function sendOnlineBookingCode(input: SendOnlineCodeInput): Promise<Onlin
 /** О9 (мок): последний код, отправленный на номер. Сервер в режиме api хранит пару сам. */
 const sentDemoCodes = new Map<string, string>();
 
-/**
- * О14: вошедший в этом браузере клиент (или уже подтверждавший номер) не вводит код заново — только в моке;
- * в режиме api сервер требует код на каждую запись без входа (B2), поэтому поле кода остаётся.
- */
-export function rememberedPhoneSkipsCode(): boolean {
-  return !isApiMode();
-}
-
-/** «Записаться»: проверки, клиент по номеру, создание записи (F-03-093, F-03-125) */
-export function createOnlineBooking(input: CreateOnlineBookingInput): Promise<OnlineBookingResult> {
-  if (isApiMode() && input.slug) {
-    if (!input.code) throw new ApiError('code_required', 'Подтвердите номер телефона кодом');
-    return OnlineServer.createOnlineBookingServer(input.slug, input as CreateOnlineBookingInput & { code: string });
-  }
+/** Демо-реализация createOnlineBooking (сервер и обёртка — '@/api/online-public') */
+export function createOnlineBookingMock(input: CreateOnlineBookingInput): Promise<OnlineBookingResult> {
   return request(async () => {
     const core = readCore();
     const staff = core.staff.find((s) => s.id === input.staffId);
@@ -1281,20 +1307,13 @@ export function updateLocationPlace(
 
 // ─────────────────────────── Правила мастера и локации (F-00-066/067, F-03-066/067, F-03-079/142) ───────────────────────────
 
-/** Правила мастера — есть всегда: если записи в срезе нет, отдаём дефолты (F-00-066) */
-export function getStaffRules(staffId: Id): Promise<StaffOnlineRules> {
-  if (isApiMode()) return OnlineServer.getStaffRulesServer(staffId);
+/** Демо-реализация getStaffRules (сервер и обёртка — '@/api/online-public') */
+export function getStaffRulesMock(staffId: Id): Promise<StaffOnlineRules> {
   return request(() => readArea('online').staffRules[staffId] ?? { staffId, ...DEFAULT_STAFF_ONLINE_RULES });
 }
 
-export function listStaffRules(staffIds: Id[]): Promise<Record<Id, StaffOnlineRules>> {
-  if (isApiMode()) {
-    return Promise.all(staffIds.map((id) => OnlineServer.getStaffRulesServer(id))).then((rows) => {
-      const out: Record<Id, StaffOnlineRules> = {};
-      staffIds.forEach((id, i) => (out[id] = rows[i]!));
-      return out;
-    });
-  }
+/** Демо-реализация listStaffRules (сервер и обёртка — '@/api/online-public') */
+export function listStaffRulesMock(staffIds: Id[]): Promise<Record<Id, StaffOnlineRules>> {
   return request(() => {
     const stored = readArea('online').staffRules;
     const out: Record<Id, StaffOnlineRules> = {};
@@ -1340,8 +1359,8 @@ export function updateStaffRules(staffId: Id, patch: Partial<Omit<StaffOnlineRul
   });
 }
 
-export function getBusinessRules(businessId: Id): Promise<BusinessOnlineRules> {
-  if (isApiMode()) return OnlineServer.getBusinessRulesServer();
+/** Демо-реализация getBusinessRules (сервер и обёртка — '@/api/online-public') */
+export function getBusinessRulesMock(businessId: Id): Promise<BusinessOnlineRules> {
   return request(() => readArea('online').businessRules[businessId] ?? { businessId, consentText: DEFAULT_CONSENT_TEXT });
 }
 
@@ -1363,11 +1382,8 @@ export function updateBusinessRules(businessId: Id, patch: Partial<Omit<Business
  * (F-03-071…073), затем — сетевые, отмеченные «в виджете» и включающие эту локацию в свой список.
  * Кабинет сети пока не даёт их создавать (см. qa/requests/online.md) — читаем демо-набор из среза.
  */
-export function getWidgetExtraFields(locationId: Id | undefined): Promise<CustomClientField[]> {
-  // Стадия 21 (лейн client+online): кабинет сети пока не даёт создавать сетевые поля НИГДЕ, даже в моке (см.
-  // докстринг NetworkExtraField) — на сервере их взять неоткуда, поэтому api-режим честно отдаёт пусто вместо
-  // выдуманного стенд-ина; когда раздел network заведёт создание — здесь появится настоящий запрос.
-  if (isApiMode()) return Promise.resolve([]);
+/** Демо-реализация getWidgetExtraFields (сервер и обёртка — '@/api/online-public') */
+export function getWidgetExtraFieldsMock(locationId: Id | undefined): Promise<CustomClientField[]> {
   return request(() => {
     if (!locationId) return [];
     const core = readCore();
@@ -1382,8 +1398,8 @@ export function getWidgetExtraFields(locationId: Id | undefined): Promise<Custom
 
 // ─────────────────────────── Экран данных клиента (F-03-071…075, F-03-104) ───────────────────────────
 
-export function getClientFieldsConfig(businessId: Id): Promise<ClientFieldsConfig> {
-  if (isApiMode()) return OnlineServer.getClientFieldsConfigServer();
+/** Демо-реализация getClientFieldsConfig (сервер и обёртка — '@/api/online-public') */
+export function getClientFieldsConfigMock(businessId: Id): Promise<ClientFieldsConfig> {
   return request(() => readArea('online').clientFields[businessId] ?? { businessId, ...DEFAULT_CLIENT_FIELDS });
 }
 
@@ -2017,29 +2033,6 @@ export function deleteOnlinePackage(packageId: Id): Promise<void> {
   });
 }
 
-/** Диапазон цены пакета (F-03-130): сумма минимумов – сумма максимумов включённых услуг */
-export function computePackagePriceRange(services: Service[]): { min: number; max?: number } {
-  const min = services.reduce((sum, s) => sum + s.priceMin, 0);
-  const hasRange = services.some((s) => s.priceMax && s.priceMax > s.priceMin);
-  const max = hasRange ? services.reduce((sum, s) => sum + (s.priceMax ?? s.priceMin), 0) : undefined;
-  return { min, max };
-}
-
-/** Диапазон длительности пакета (F-03-130): одновременно — от max(min) до max(max); последовательно — суммы */
-export function computePackageDurationRange(services: Service[], mode: OnlinePackage['mode']): { min: number; max?: number } {
-  const withDur = services.filter((s) => s.durationMin > 0);
-  if (mode === 'simultaneous') {
-    const min = Math.max(0, ...withDur.map((s) => s.durationMin));
-    const maxCandidates = withDur.map((s) => s.durationMax ?? s.durationMin);
-    const max = Math.max(0, ...maxCandidates);
-    return { min, max: max > min ? max : undefined };
-  }
-  const min = withDur.reduce((sum, s) => sum + s.durationMin, 0);
-  const hasRange = withDur.some((s) => s.durationMax && s.durationMax > s.durationMin);
-  const max = hasRange ? withDur.reduce((sum, s) => sum + (s.durationMax ?? s.durationMin), 0) : undefined;
-  return { min, max };
-}
-
 // ─────────────────────────── Пара «мастер × услуга» (F-03-133) ───────────────────────────
 
 export function getStaffServiceOnlineFlags(businessId: Id): Promise<StaffServiceOnlineFlags> {
@@ -2169,9 +2162,8 @@ export function hasReviewed(bookingId: Id, target: ReviewTarget, hash: string): 
 
 const MAX_WIDGET_EVENTS = 200;
 
-/** Отправляет событие в подключённые счётчики (F-03-118…120: демо, реальных сетевых вызовов нет) и в журнал ссылки */
-export function trackWidgetEvent(linkId: Id | undefined, businessId: Id, type: WidgetEventType): Promise<void> {
-  if (isApiMode()) return OnlineServer.trackWidgetEventServer(linkId, businessId, type);
+/** Демо-реализация trackWidgetEvent (сервер и обёртка — '@/api/online-public') */
+export function trackWidgetEventMock(linkId: Id | undefined, businessId: Id, type: WidgetEventType): Promise<void> {
   return request(() => {
     if (!linkId) return;
     mutateArea('online', (s) => {
@@ -2213,8 +2205,8 @@ export function getNetworkBranches(networkId: Id): Promise<NetworkBranch[]> {
 
 // ─────────────────────────── Групповая запись: несколько мест и несколько событий (F-03-076, F-03-101, F-03-102) ───────────────────────────
 
-export function getGroupBookingRules(linkId: Id): Promise<GroupBookingRules> {
-  if (isApiMode()) return OnlineServer.getGroupBookingRulesServer(linkId);
+/** Демо-реализация getGroupBookingRules (сервер и обёртка — '@/api/online-public') */
+export function getGroupBookingRulesMock(linkId: Id): Promise<GroupBookingRules> {
   return request(() => readArea('online').groupBookingRules[linkId] ?? { linkId, ...DEFAULT_GROUP_BOOKING_RULES });
 }
 
@@ -2239,14 +2231,8 @@ export interface PublicGroupEvent {
   seatsLeft: number;
 }
 
-/**
- * Групповые события, доступные клиенту в виджете (F-03-101): только будущие, услуга открыта онлайн.
- * data-f="F-16-029" — у групповой услуги нет тумблера онлайн-записи по сотруднику (StaffCard хранит только
- * общий Staff.onlineBookingEnabled), включение/выключение — только на уровне Service.onlineBookable целиком;
- * выключение сразу прячет все её события отсюда. Значение по умолчанию у новой услуги — true (mock/seed/services.ts).
- */
-export function listPublicGroupEvents(businessId: Id, serviceId?: Id): Promise<PublicGroupEvent[]> {
-  if (isApiMode()) return OnlineServer.listPublicGroupEventsServer(businessId, serviceId);
+/** Демо-реализация listPublicGroupEvents (сервер и обёртка — '@/api/online-public') */
+export function listPublicGroupEventsMock(businessId: Id, serviceId?: Id): Promise<PublicGroupEvent[]> {
   return request(async () => {
     const core = readCore();
     const events = await listGroupEvents({ businessId, statuses: ['scheduled'] });
@@ -2288,9 +2274,8 @@ export interface CreateGroupOnlineBookingInput {
   payByMembership?: boolean;
 }
 
-/** Запись на групповое событие с местами (F-03-076, F-03-101) — все места на телефон одного клиента (147353) */
-export function createGroupOnlineBooking(input: CreateGroupOnlineBookingInput): Promise<OnlineBookingResult> {
-  if (isApiMode()) return OnlineServer.createGroupOnlineBookingServer(input);
+/** Демо-реализация createGroupOnlineBooking (сервер и обёртка — '@/api/online-public') */
+export function createGroupOnlineBookingMock(input: CreateGroupOnlineBookingInput): Promise<OnlineBookingResult> {
   return request(async () => {
     const core = readCore();
     const event = core.groupEvents.find((e) => e.id === input.groupEventId);
@@ -2756,8 +2741,6 @@ export interface PlanSlot {
   legs: PlanLegSlot[];
 }
 
-const bookedLegDuration = (leg: PlanLeg) => Math.max(leg.durationMin, leg.durationMax ?? leg.durationMin);
-
 /** Сколько записей у мастера в этот день — при равенстве «любого» назначаем менее загруженного (О8) */
 function staffDayLoad(core: CoreData, staffId: Id, date: ISODate): number {
   return core.bookings.filter(
@@ -2840,87 +2823,16 @@ function planSlotsForDay(core: CoreData, q: PlanQuery, date: ISODate, firstOnly:
   return out;
 }
 
-/** То же для режима api: окна мастеров берём у сервера, следующие части — по его сетке (приближённо) */
-async function planSlotsForDayApi(q: PlanQuery, date: ISODate, firstOnly: boolean): Promise<PlanSlot[]> {
-  if (!q.slug || q.legs.length === 0 || (q.maxDate && date > q.maxDate)) return [];
-  const slug = q.slug;
-  const perLeg = await Promise.all(
-    q.legs.map((leg) =>
-      Promise.all(
-        leg.staffIds.map((staffId) =>
-          OnlineServer.getWidgetFreeSlotsServer(slug, {
-            staffId,
-            date,
-            durationMin: leg.durationMin,
-            durationMax: leg.durationMax,
-            serviceId: leg.serviceIds[0],
-            locationId: q.locationId,
-            workplace: q.workplace,
-          }).then((slots) => ({ staffId, starts: new Set(slots.map((x) => x.start)) })),
-        ),
-      ),
-    ),
-  );
-  const starts = [...new Set(perLeg[0].flatMap((x) => [...x.starts]))].sort();
-  const out: PlanSlot[] = [];
-  for (const start of starts) {
-    for (const c0 of perLeg[0].filter((x) => x.starts.has(start))) {
-      const legs: PlanLegSlot[] = [{ staffId: c0.staffId, serviceIds: q.legs[0].serviceIds, start, durationMin: bookedLegDuration(q.legs[0]) }];
-      let t = addMinutes(start, bookedLegDuration(q.legs[0]));
-      let ok = true;
-      for (let k = 1; k < q.legs.length; k++) {
-        const prev = legs[legs.length - 1].staffId;
-        const cand = [...perLeg[k]].sort((a, b) => (a.staffId === prev ? -1 : b.staffId === prev ? 1 : 0)).find((x) => x.starts.has(t));
-        if (!cand) {
-          ok = false;
-          break;
-        }
-        legs.push({ staffId: cand.staffId, serviceIds: q.legs[k].serviceIds, start: t, durationMin: bookedLegDuration(q.legs[k]) });
-        t = addMinutes(t, bookedLegDuration(q.legs[k]));
-      }
-      if (!ok) continue;
-      out.push({ date, start, end: t, legs });
-      break;
-    }
-    if (firstOnly && out.length > 0) break;
-  }
-  return out;
-}
-
-/** Окна визита на день — одиночный мастер, «любой» (объединение окон всех подходящих, О8) и цепочка мастеров (О4) */
-export function getPlanSlots(q: PlanQuery, date: ISODate): Promise<PlanSlot[]> {
-  if (isApiMode() && q.slug) return planSlotsForDayApi(q, date, false);
+/** Демо-реализация getPlanSlots (сервер и обёртка — '@/api/online-public') */
+export function getPlanSlotsMock(q: PlanQuery, date: ISODate): Promise<PlanSlot[]> {
   return request(async () => {
     await releaseExpiredPrepayments(q.businessId);
     return planSlotsForDay(readCore(), q, date, false);
   });
 }
 
-/** Отметки «есть время» на каждый день месяца для плана (О11: считаются по ПОКАЗАННОМУ месяцу) */
-export function getPlanMonthAvailability(q: PlanQuery, monthStart: ISODate): Promise<Record<ISODate, boolean>> {
-  const first = monthStart.slice(0, 8) + '01';
-  const days: ISODate[] = [];
-  for (let d = first; d.slice(0, 7) === first.slice(0, 7); d = addDays(d, 1)) days.push(d);
-  if (isApiMode() && q.slug) {
-    const slug = q.slug;
-    const leg = q.legs[0];
-    if (!leg) return Promise.resolve({});
-    // Один кандидат/несколько — объединение месячных карт мастеров первой части (для цепочки — приближённо)
-    return Promise.all(
-      leg.staffIds.map((staffId) =>
-        OnlineServer.getMonthAvailabilityServer(slug, staffId, leg.durationMin, first, {
-          durationMax: leg.durationMax,
-          serviceId: leg.serviceIds[0],
-          locationId: q.locationId,
-          workplace: q.workplace,
-        }),
-      ),
-    ).then((maps) => {
-      const out: Record<ISODate, boolean> = {};
-      for (const d of days) out[d] = (!q.maxDate || d <= q.maxDate) && maps.some((m) => m[d]);
-      return out;
-    });
-  }
+/** Демо-реализация getPlanMonthAvailability (сервер и обёртка — '@/api/online-public'); days — дни показанного месяца */
+export function getPlanMonthAvailabilityMock(q: PlanQuery, days: ISODate[]): Promise<Record<ISODate, boolean>> {
   return request(() => {
     const core = readCore();
     const from = today();
@@ -2930,17 +2842,8 @@ export function getPlanMonthAvailability(q: PlanQuery, monthStart: ISODate): Pro
   });
 }
 
-/** Ближайший день с окнами для плана (О8, О12): «любой» — самый ранний у всех подходящих мастеров */
-export function getPlanNearestDate(q: PlanQuery, from: ISODate, maxDays = 60): Promise<ISODate | undefined> {
-  const limit = q.maxDate && q.maxDate < addDays(from, maxDays) ? q.maxDate : addDays(from, maxDays);
-  if (isApiMode() && q.slug) {
-    return (async () => {
-      for (let d = from; d <= limit; d = addDays(d, 1)) {
-        if ((await planSlotsForDayApi(q, d, true)).length > 0) return d;
-      }
-      return undefined;
-    })();
-  }
+/** Демо-реализация getPlanNearestDate (сервер и обёртка — '@/api/online-public'); limit — последний день поиска */
+export function getPlanNearestDateMock(q: PlanQuery, from: ISODate, limit: ISODate): Promise<ISODate | undefined> {
   return request(() => {
     const core = readCore();
     for (let d = from; d <= limit; d = addDays(d, 1)) {
@@ -2950,39 +2853,11 @@ export function getPlanNearestDate(q: PlanQuery, from: ISODate, maxDays = 60): P
   });
 }
 
-/**
- * О4: визит из нескольких частей — по записи на каждую часть, подряд, общим id группы (как пакет F-03-130), чтобы
- * «Вы записаны» показала их вместе. Одна часть — обычная запись. Все проверки — в createOnlineBooking.
- */
-export function createPlanBookings(
+/** Демо-реализация createPlanBookings для нескольких частей (сервер и обёртка — '@/api/online-public'); legs — уже склеенные */
+export function createPlanBookingsMock(
   base: Omit<CreateOnlineBookingInput, 'services' | 'staffId' | 'start' | 'exactTime' | 'chainGroupId'>,
-  planLegs: PlanLegSlot[],
+  legs: PlanLegSlot[],
 ): Promise<OnlineBookingResult[]> {
-  // Подряд у одного и того же мастера — одна запись с несколькими услугами (иначе вторая часть «наезжает» на
-  // запас после первой и не проходит проверку «свободно ли»)
-  const legs: PlanLegSlot[] = [];
-  for (const leg of planLegs) {
-    const last = legs[legs.length - 1];
-    if (last && last.staffId === leg.staffId && addMinutes(last.start, last.durationMin) === leg.start) {
-      legs[legs.length - 1] = { ...last, serviceIds: [...last.serviceIds, ...leg.serviceIds], durationMin: last.durationMin + leg.durationMin };
-    } else legs.push(leg);
-  }
-  if (legs.length === 1) {
-    const [leg] = legs;
-    return createOnlineBooking({ ...base, staffId: leg.staffId, start: leg.start, services: leg.serviceIds.map((serviceId) => ({ serviceId })) }).then((r) => [r]);
-  }
-  if (isApiMode()) {
-    // ⭐ На сервере нет команды «цепочка записей»: создаём по одной (код проверяется на первой — дальше как повезёт)
-    return (async () => {
-      const out: OnlineBookingResult[] = [];
-      for (const [i, leg] of legs.entries()) {
-        // ⭐ Допродажа — к последней части визита (продление в конце не сдвигает следующие части)
-        const addOns = i === legs.length - 1 ? base.addOns : undefined;
-        out.push(await createOnlineBooking({ ...base, addOns, staffId: leg.staffId, start: leg.start, services: leg.serviceIds.map((serviceId) => ({ serviceId })) }));
-      }
-      return out;
-    })();
-  }
   return request(async () => {
     const groupId = newId('chain');
     const out: OnlineBookingResult[] = [];

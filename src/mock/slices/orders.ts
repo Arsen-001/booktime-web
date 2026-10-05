@@ -110,7 +110,7 @@ const PLANS: Plan[] = [
     n: 1017, code: 'c6ev9pz4xm', client: ['cl_fix_06', 'Гор Хачатрян', '+37400170006'],
     items: [{ title: 'iPhone 13 Pro — замена камеры', qty: 1, note: 'Царапина на корпусе была при приёме' }],
     staff: ST.fixNarek, path: [['received', 5, '15:40'], ['in_progress', 4, '11:10']],
-    due: -1, price: 42000, prepaid: 15000, comment: 'Ждём модуль камеры от поставщика',
+    due: 1, price: 42000, prepaid: 15000, comment: 'Ждём модуль камеры от поставщика',
     estimate: {
       lines: [['Модуль камеры iPhone 13 Pro', 34000], ['Работа мастера', 8000]],
       sent: [4, '10:20'],
@@ -243,7 +243,8 @@ function seedEstimate(p: Plan, statuses: OrderHistoryEntry[], at: (d: number, ti
 export const ordersSlice = defineSlice<OrdersState>({
   // 4 — запись на сдачу (05.10.2026): заказ №1022 принят по записи (bookingId)
   // 5 — выдача по времени (06.10.2026): №1019 с записью на выдачу (pickupBookingId); заказы детейлинга GlossLab
-  version: 5,
+  // 6 — №1017 готов завтра, а не просрочен (06.10.2026): он на снимке для магазинов
+  version: 6,
   seed: (core: CoreData, now: Date) => {
     const present = new Set(core.businesses.map((b) => b.id));
     const at = (daysAgo: number, time: string) => `${toISODate(dayjs(now).subtract(daysAgo, 'day'))}T${time}`;

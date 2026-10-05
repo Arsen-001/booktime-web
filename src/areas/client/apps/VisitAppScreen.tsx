@@ -116,7 +116,7 @@ function VisitModal({ bookingId, onClose, onChanged }: { bookingId: Id; onClose:
 
   const detail = useApiQuery(['visit-detail', bookingId], () => getVisitDetail(bookingId));
 
-  const desks = useApiQuery(['cash-desks'], () => listCashDesks());
+  const desks = useApiQuery(['cash-desks', businessId, bookingId], () => listCashDesks(businessId ?? undefined, bookingId));
   const loyaltyCount = useApiQuery(
     ['visit-loyalty-count', bookingId],
     () => countVisitLoyaltyOptions(detail.data?.booking.appUserId, businessId!),
@@ -343,7 +343,9 @@ function PayTab({
   const toast = useToast();
   const [method, setMethod] = useState<VisitPaymentMethod>('cash');
   const [amount, setAmount] = useState(remaining);
-  const [deskId, setDeskId] = useState(desks[0]?.id ?? '');
+  const [pickedDeskId, setDeskId] = useState('');
+  // Кассы приходят с сервера позже окна: пока не выбрана — первая касса филиала («все кассы» — 'all')
+  const deskId = pickedDeskId === 'all' || desks.some((d) => d.id === pickedDeskId) ? pickedDeskId : (desks[0]?.id ?? '');
   const [brand, setBrand] = useState<'visa' | 'mastercard' | 'arca'>('visa');
 
   const pay = useApiMutation(addVisitPayment);
@@ -459,7 +461,7 @@ function PayTab({
               </FormField>
             )}
 
-            {method === 'cash' && desks.length > 2 && (
+            {method === 'cash' && desks.length > 1 && (
               <FormField label={t('apps.visit.cashDeskLabel')}>
                 <Select
                   options={[{ value: 'all', label: t('apps.visit.allCashDesks') }, ...desks.map((d) => ({ value: d.id, label: d.name }))]}
@@ -490,7 +492,7 @@ function PayTab({
                       bookingId,
                       method,
                       amount,
-                      cashDeskId: deskId === 'all' ? undefined : deskId,
+                      cashDeskId: deskId === 'all' || !deskId ? undefined : deskId,
                       cardBrand: method === 'card' ? brand : undefined,
                     })
                     .then(() => {

@@ -618,7 +618,31 @@
     "emptyLogins": "No sign-ins recorded yet",
     "changesHint": "Every area writes here: bookings, clients, prices, stock, access and roles — with author and time.",
     "exportsHint": "Excel exports go out as an email link valid for up to a month; you can see who received it and when.",
-    "loginsHint": "A sign-in from a new device is flagged separately — worth checking it's really your staff member."
+    "loginsHint": "A sign-in from a new device is flagged separately — worth checking it's really your staff member.",
+    "dataOps": {
+      "title": "Imports, exports and deletions by section",
+      "subtitle": "Clients, services, calendar, reports: who imported or exported Excel files and who deleted in bulk",
+      "what": "What",
+      "kind": "Operation",
+      "count": "Rows",
+      "rows": "{count, plural, one {# row} other {# rows}}",
+      "failed": "{count} failed",
+      "system": "System",
+      "empty": "No imports or exports in sections yet",
+      "kindLabel": {
+        "import": "Import",
+        "export": "Export",
+        "delete": "Deletion"
+      },
+      "whatLabel": {
+        "clients_clients": "Clients",
+        "services_services": "Services",
+        "journal_bookings": "Calendar bookings",
+        "reports_appointments": "Visits (report)",
+        "reports_appointmentsImport": "Visits (import)",
+        "resources_groupEvents": "Group events"
+      }
+    }
   },
   "settingsHub": {
     "homeVisitTitle": "Staff home visits",

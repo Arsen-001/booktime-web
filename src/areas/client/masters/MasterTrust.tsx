@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Award, Flag, ShieldCheck, Sparkles } from 'lucide-react';
 import { getFirstBadge } from '@/api/platform/demand';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { getSterilization, hasVerifiedDocuments, reportContent } from '@/api/services';
+import { getSterilization, hasVerifiedDocuments, reportContent } from '@/api/services-public';
 import type { Id } from '@/domain/core';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';

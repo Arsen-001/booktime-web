@@ -8,8 +8,6 @@ import {
   getIntakeSettings,
   getOrder,
   getPickupReminders,
-  getPublicOrder,
-  getPublicPickupSlots,
   listIntakeBookings,
   listOrders,
   listPickupBookings,
@@ -19,7 +17,10 @@ import {
 import { useApiQuery, type QueryOptions } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
-import { defaultOrdersEnabled, type Order, type OrdersQuery, type PublicOrder } from '@/domain/orders';
+import { defaultOrdersEnabled, type Order, type OrdersQuery } from '@/domain/orders';
+
+// Чтения страницы заказа без входа (/o/<код>) — в лёгком usePublicOrderData (не тянет api кабинета); реэкспорт для прежних импортов
+export { usePickupSlots, usePublicOrder } from '@/areas/orders/lib/usePublicOrderData';
 
 export function useOrdersList(query: OrdersQuery) {
   const { ready, businessId } = useCurrent();
@@ -32,10 +33,6 @@ export function useOrder(orderId: Id, options?: QueryOptions<Order>) {
     ...options,
     enabled: ready && Boolean(businessId) && Boolean(orderId),
   });
-}
-
-export function usePublicOrder(code: string, initialData?: PublicOrder) {
-  return useApiQuery(ordersKeys.public(code), () => getPublicOrder(code), { enabled: Boolean(code), initialData });
 }
 
 /** Счётчик готовых заказов у пункта меню (нет данных или 0 — без значка) */
@@ -85,9 +82,4 @@ export function usePickupBookings(date: string, options?: { enabled?: boolean })
   return useApiQuery(ordersKeys.pickupBookings(businessId ?? '', date), () => listPickupBookings(businessId ?? '', date), {
     enabled: ready && Boolean(businessId) && (options?.enabled ?? true),
   });
-}
-
-/** Свободное время выдачи готового заказа на неделю (страница /o/<код>, без входа) */
-export function usePickupSlots(code: string, enabled: boolean) {
-  return useApiQuery(ordersKeys.pickupSlots(code), () => getPublicPickupSlots(code), { enabled: Boolean(code) && enabled });
 }

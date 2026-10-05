@@ -9,7 +9,7 @@
 import { useLocale } from 'next-intl';
 import { Package, Sparkles } from 'lucide-react';
 import { useApiQuery } from '@/api/request';
-import { getUpsellOffers } from '@/api/services-upsell';
+import { getUpsellOffers } from '@/api/services-public';
 import type { Id, ISODateTime, LocaleCode } from '@/domain/core';
 import type { BookingAddOns, UpsellOffers } from '@/domain/services';
 import { useFormat } from '@/i18n/useFormat';

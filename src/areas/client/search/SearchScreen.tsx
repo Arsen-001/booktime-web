@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useFormat } from '@/i18n/useFormat';
 import { MapPin } from 'lucide-react';
 import type { CatalogQuery } from '@/api/client';
-import { listCatalog } from '@/api/client';
+import { listCatalog } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { track } from '@/lib/analytics';
 import { CatalogEntryCard, CatalogEntryCardSkeleton } from '@/areas/client/catalog/CatalogEntryCard';

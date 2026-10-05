@@ -2,7 +2,7 @@
 
 import { RotateCcw } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { getRepeatSuggestion } from '@/api/client';
+import { getRepeatSuggestion } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import type { Id } from '@/domain/core';

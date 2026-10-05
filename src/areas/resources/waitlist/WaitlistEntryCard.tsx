@@ -136,7 +136,7 @@ export function WaitlistEntryCard({
             )}
             {/* F-16-164/165, F-01-161: у закрытой заявки — только удаление; у остальных — правка и удаление через «⋯» */}
             {canManage && (
-              <span className="ml-auto">
+              <span data-f="F-01-161 F-16-164 F-16-165" className="ml-auto">
                 <DropdownMenu
                   label={t('waitlist.more')}
                   align="end"

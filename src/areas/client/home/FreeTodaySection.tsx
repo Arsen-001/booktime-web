@@ -1,7 +1,7 @@
 'use client';
 
 import { CalendarSearch } from 'lucide-react';
-import { listCatalog } from '@/api/client';
+import { listCatalog } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { CatalogEntryCard, CatalogEntryCardSkeleton } from '@/areas/client/catalog/CatalogEntryCard';
 import { clientKeys } from '@/areas/client/ui/clientKeys';

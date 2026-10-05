@@ -14,6 +14,7 @@ import { useLocale } from 'next-intl';
 import { listTypes, updateType } from '@/api/notify';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { typeOptimistic } from '@/areas/notify/lib/typeOptimistic';
+import { isServerSoonType } from '@/areas/notify/lib/serverSoon';
 import { NotifySettingsCard } from '@/areas/notify/types/NotifySettingsCard';
 import { channelLabel, groupLabel, recipientLabel, TYPE_REGISTRY } from '@/areas/notify/lib/registry';
 import type { NotificationType, NotifyClientGroup, NotifyRecipient } from '@/domain/notify';
@@ -50,6 +51,7 @@ function TypeRow({ type, onToggle }: { type: NotificationType; onToggle: (v: boo
   // SMS без выбора канала/сценария, показывать бейдж нечего.
   const connectedChannels = type.code === 19 ? [] : type.channels.filter((c) => c.scenario !== 'off');
   const name = type.name[locale] || type.name.ru;
+  const soon = isServerSoonType(type.code);
 
   return (
     <li data-f="F-05-002 F-05-003 F-10-145" className="flex items-center gap-3 border-b border-border py-3 last:border-0">
@@ -65,8 +67,14 @@ function TypeRow({ type, onToggle }: { type: NotificationType; onToggle: (v: boo
         onClick={() => router.push(`/biz/notifications/types/${type.code}`)}
         className="-my-1 flex min-h-11 min-w-0 flex-1 flex-col gap-1.5 rounded-lg py-1 text-left transition-colors hover:text-primary-text sm:flex-row sm:items-center sm:gap-3"
       >
-        <span className={`min-w-0 flex-1 truncate font-medium ${type.enabled ? 'text-fg' : 'text-muted'}`}>
-          {name}
+        <span className="flex min-w-0 flex-1 items-center gap-2">
+          <span className={`min-w-0 truncate font-medium ${type.enabled ? 'text-fg' : 'text-muted'}`}>{name}</span>
+          {/* Сервер этот тип пока не отправляет (режим api) — честная метка вместо молчаливого «включено» */}
+          {soon && (
+            <Badge tone="warning" size="sm" className="shrink-0">
+              {t('typesTab.soon')}
+            </Badge>
+          )}
         </span>
         <span className="flex flex-wrap gap-1.5 sm:justify-end">
           {type.code === 19 ? null : connectedChannels.length === 0 ? (

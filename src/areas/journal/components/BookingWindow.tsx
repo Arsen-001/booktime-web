@@ -1333,7 +1333,10 @@ export function BookingWindow({
       // F-01-033: второе одновременное сохранение той же записи — свой текст, а не общее «не получилось»
       const code = err instanceof ApiError ? err.code : undefined;
       // F-16-012: единственный аппарат/кабинет уже занят в это время — сказать это, а не «не получилось»
-      toast.error(code === 'conflict' ? tc('bookingErrors.conflict') : code === 'resource_unavailable' ? tc('bookingErrors.resource_unavailable') : tc('states.actionFailed'));
+      // F-00-047: домашняя запись на часах смены в салоне, где владелец это запретил
+      toast.error(
+        code === 'conflict' || code === 'resource_unavailable' || code === 'home_during_shift' ? tc(`bookingErrors.${code}`) : tc('states.actionFailed'),
+      );
     });
   };
 

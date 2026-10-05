@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { getCashbackForBusiness, getPlaceCard } from '@/api/client';
+import { getCashbackForBusiness, getPlaceCard } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';

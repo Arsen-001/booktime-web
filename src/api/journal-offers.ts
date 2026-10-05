@@ -17,15 +17,16 @@
  * опрашивает remindPendingRequests раз в 20 с (как снятие неоплаченных, F-01-205); запись идемпотентна — шаг
  * напоминания по заявке считается от предыдущего, повтор опроса ничего не пишет.
  *
- * Режим api: сервера для этого пока нет — напоминания должен ставить воркер (как снятие неоплаченных), предложение —
- * отдельный эндпоинт; до них напоминания молчат, а предложение работает на моке.
+ * Режим api (06.10.2026): напоминания ставит воркер сервера (jobs/notify-staff-request-reminders.ts — то же правило:
+ * 30 мин, до 3 раз; пуш мастеру и администраторам, строка в колокольчике); remindPendingRequests тут ничего не пишет,
+ * «напомнили в HH:MM» читается с сервера (listRequestReminders). Предложение окна — пока на моке.
  */
 import type { Id, ISODate, ISODateTime, LocalizedText, TimeHM } from '@/domain/core';
 import type { LogMessage } from '@/domain/notify';
 import type { RequestReminder, SlotOffer, SlotOfferChannel } from '@/domain/journal';
 import { waitlistWantsSlot } from '@/domain/resources';
 import { mutateArea, readArea, readCore } from '@/api/area';
-import { isApiMode } from '@/api/http';
+import { http, isApiMode } from '@/api/http';
 import { pushWaitlistSlotTx } from '@/api/client';
 import { waitlistTx } from '@/api/resources';
 import { request } from '@/api/request';
@@ -295,6 +296,8 @@ export function remindPendingRequests(businessId: Id): Promise<RequestReminder[]
 
 /** Когда последний раз напомнили о каждой заявке бизнеса: bookingId → время (строка панели «напомнили в HH:MM») */
 export function listRequestReminders(businessId: Id): Promise<Record<Id, ISODateTime>> {
+  // Режим api: напоминания ставит воркер сервера (jobs/notify-staff-request-reminders.ts) — читаем его отметки
+  if (isApiMode()) return http('GET', `/v1/biz/${businessId}/notify/request-reminders`);
   return request(() => {
     const out: Record<Id, ISODateTime> = {};
     for (const r of readArea('journal').requestReminders ?? []) {

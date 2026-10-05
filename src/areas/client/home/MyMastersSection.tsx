@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { getCashbackForBusiness, listBookedMasters } from '@/api/client';
+import { getCashbackForBusiness, listBookedMasters } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { clientKeys } from '@/areas/client/ui/clientKeys';
 import { InlineError } from '@/areas/client/ui/InlineError';

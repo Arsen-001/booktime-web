@@ -1269,9 +1269,12 @@ export function getBusinessSecuritySettings(
   businessId: Id,
 ): Promise<StaffBusinessSecuritySettings> {
   if (isApiMode()) return S.getSecurity(businessId);
-  return request(
-    () => readArea("staff").businessSettings[businessId] ?? emptyBusinessSecuritySettings(),
-  );
+  return request(() => {
+    // Правило читается из бизнеса ядра (F-00-047, как сервер: Business.forbidHomeBookingsDuringShift)
+    const forbid = readCore().businesses.find((b) => b.id === businessId)?.forbidHomeBookingsDuringShift;
+    const saved = readArea("staff").businessSettings[businessId] ?? emptyBusinessSecuritySettings();
+    return forbid === undefined ? saved : { ...saved, blockHomeVisitDuringShift: forbid };
+  });
 }
 
 export function setBlockHomeVisitDuringShift(
@@ -1289,6 +1292,8 @@ export function setBlockHomeVisitDuringShift(
       };
       s.businessSettings[businessId] = result;
     });
+    // Источник правды — бизнес ядра: его читает проверка записи (rules/busy homeShiftConflict)
+    coreTx.update("businesses", businessId, { forbidHomeBookingsDuringShift: value });
     writeAudit({
       businessId,
       entity: "business",

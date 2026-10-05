@@ -6,7 +6,7 @@
  */
 import Image from 'next/image';
 import Link from 'next/link';
-import { listBusinessPromoStories } from '@/api/client';
+import { listBusinessPromoStories } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import type { Id } from '@/domain/core';
 import { useT } from '@/i18n/useT';

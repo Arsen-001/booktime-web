@@ -29,6 +29,9 @@ import type {
 } from '@/domain/services';
 import { addDays, nowDateTime, today } from '@/lib/date';
 import { newId } from '@/lib/id';
+// getUpsellOffers живёт в лёгком '@/api/services-public' (окно записи на публичной странице) — здесь демо-реализация
+import { getUpsellOffers } from '@/api/services-public';
+export { getUpsellOffers };
 
 const CANCELLED = new Set(['cancelled_by_client', 'cancelled_by_master', 'no_show']);
 const upper = (s: Pick<Service, 'durationMin' | 'durationMax'>) => (s.durationMax && s.durationMax > s.durationMin ? s.durationMax : s.durationMin);
@@ -133,9 +136,8 @@ export function upsellOffersTx(q: UpsellOffersQuery): UpsellOffers {
   return { services, products };
 }
 
-/** Публично: сопутствующие к записи (виджет, ссылка, приложение, каталог) */
-export function getUpsellOffers(q: UpsellOffersQuery): Promise<UpsellOffers> {
-  if (isApiMode()) return U.getUpsellOffersServer(q);
+/** Демо-реализация getUpsellOffers (сервер и обёртка — '@/api/services-public') */
+export function getUpsellOffersMock(q: UpsellOffersQuery): Promise<UpsellOffers> {
   return request(() => upsellOffersTx(q));
 }
 

@@ -47,7 +47,7 @@ import {
   confirmDeadlineOf,
   rescheduledStatus,
 } from '@/domain/rules/booking-policy';
-import { bookingBufferAfter, checkSlot } from '@/domain/rules/busy';
+import { bookingBufferAfter, checkSlot, homeShiftConflict } from '@/domain/rules/busy';
 import { prepaidAmount } from '@/domain/rules/pricing';
 import { nearestFreeStarts } from '@/domain/rules/slots';
 import { resolveBookingResources, type ResourceBusyBooking } from '@/domain/resources';
@@ -480,7 +480,7 @@ function txRescheduleByClient(bookingId: Id, newStart: ISODateTime): Booking {
     },
     now,
   );
-  if (!slot.ok) throw new ApiError('slot_taken');
+  if (!slot.ok) throw new ApiError(slot.reason === 'home_during_shift' ? 'home_during_shift' : 'slot_taken');
   return txUpdateBooking(b.id, { start: newStart, status: rescheduledStatus(b, staff) });
 }
 
@@ -854,9 +854,19 @@ export function createBooking(input: BookingInput): Promise<Booking> {
   if (isApiMode()) return J.createBooking(input);
   return request(() => {
     const durationMin = input.durationMin ?? input.services.reduce((sum, s) => sum + s.durationMin * s.qty, 0);
+    assertNoHomeShiftConflict({ ...input, durationMin });
     const resourceIds = txResolveResources({ ...input, durationMin }, { requiredServiceIds: input.services.map((l) => l.serviceId) });
     return txCreateBooking({ ...input, resourceIds });
   });
+}
+
+/**
+ * F-00-047: домашняя/выездная запись на часах смены в салоне с галочкой владельца — ApiError('home_during_shift'),
+ * как сервер (BookingsService.occupyBooking). Прошлое не проверяется (как и пересечения у сервера).
+ */
+function assertNoHomeShiftConflict(b: Pick<Booking, 'staffId' | 'start' | 'durationMin' | 'workplace'>): void {
+  if (b.start < nowDateTime()) return;
+  if (homeShiftConflict(core(), b)) throw new ApiError('home_during_shift');
 }
 
 /**
@@ -882,6 +892,9 @@ export function updateBooking(id: Id, patch: Partial<Omit<Booking, 'id'>>, expec
     // Перенос, смена длительности, услуг или ресурсов — ресурсы на новое время проверяются (F-16-012); смена статуса — нет.
     // Сами берутся только ресурсы НОВЫХ услуг: старая запись не получает задним числом ресурс, привязанный позже (F-16-014).
     const current = core().bookings.find((b) => b.id === id);
+    if (current && (patch.start !== undefined || patch.durationMin !== undefined || patch.staffId !== undefined || patch.workplace !== undefined)) {
+      assertNoHomeShiftConflict({ ...current, ...patch });
+    }
     if (current && (patch.start !== undefined || patch.durationMin !== undefined || patch.services !== undefined || patch.resourceIds !== undefined)) {
       const next = { ...current, ...patch };
       const had = new Set(current.services.map((l) => l.serviceId));

@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl';
 import { CalendarClock, CalendarPlus, Check, ChevronRight, Info, MapPin, Navigation, RotateCcw, TriangleAlert } from 'lucide-react';
 import Link from 'next/link';
 import { cancelBookingByClient, confirmBookingByClient, type BookingDetail } from '@/api/client';
-import { getBusinessRules } from '@/api/online';
+import { getBusinessRules } from '@/api/online-public';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { LocationReviewForm } from '@/areas/client/bookings/LocationReviewForm';
 import { PrepaymentCard } from '@/areas/client/bookings/PrepaymentCard';

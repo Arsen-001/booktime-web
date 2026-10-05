@@ -2,7 +2,8 @@
 
 import { useLocale } from 'next-intl';
 import { ChevronRight, CreditCard, User } from 'lucide-react';
-import { getPlanNearestDate, getPlanSlots, type PlanQuery } from '@/api/online';
+import type { PlanQuery } from '@/api/online';
+import { getPlanNearestDate, getPlanSlots } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { planKey } from '@/areas/online/booking/wizard/plan';
 import { useSpecialistTerms } from '@/areas/online/booking/wizard/specialistTerms';

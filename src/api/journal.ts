@@ -2821,6 +2821,8 @@ export async function importBookingRows(
     }
   }
   await logExportOrImport("import", createdCount);
+  // Общий журнал «Операции с данными» (в режиме api пишет сервер — JournalService.logDataOp)
+  if (!isApiMode()) await request(() => coreTx.logDataOperation({ businessId, kind: "import", area: "journal", entity: "bookings", count: createdCount, failed: errors.length || undefined }));
   return { createdCount, errorCount: errors.length, errors };
 }
 
@@ -2880,6 +2882,7 @@ export async function exportBookingsToEmail(
   // F-01-183: выгрузка клиентских данных — право clients.export (CONVENTIONS §16.5)
   assertCan("clients.export");
   await logExportOrImport("export", count, authorStaffId);
+  if (!isApiMode()) await request(() => coreTx.logDataOperation({ businessId, kind: "export", area: "journal", entity: "bookings", count, by: authorStaffId || undefined }));
   return { ok: true, email };
 }
 

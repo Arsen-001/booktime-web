@@ -408,8 +408,12 @@ const NAME_INDEX = indexOf(
   NAME_WORDS.map(([ru, hy, en]) => ({ ru, hy, en: en ?? translit(hy) })),
   true,
 );
-/** Английская форма — с заглавной («Massage», «Wax»): строчное слово выглядит как id и обратно не переводилось бы */
-const STATIC_PHRASES: Entry[] = PHRASES.map(([ru, hy, en]) => ({ ru, hy, en: en.charAt(0).toUpperCase() + en.slice(1) }));
+/**
+ * Английская форма — с заглавной («Massage», «Wax»): строчное слово выглядит как id и обратно не переводилось бы.
+ * Имена вида iPhone, iPad, eSIM (строчная, за ней заглавная) не трогаем — «IPhone» неправильно.
+ */
+const capitalizeEn = (en: string) => (/^[a-z][A-Z]/.test(en) ? en : en.charAt(0).toUpperCase() + en.slice(1));
+const STATIC_PHRASES: Entry[] = PHRASES.map(([ru, hy, en]) => ({ ru, hy, en: capitalizeEn(en) }));
 
 interface CompiledTemplate {
   entry: Entry;

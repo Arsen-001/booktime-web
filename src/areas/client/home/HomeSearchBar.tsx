@@ -2,7 +2,7 @@
 
 import { Bell, Search } from 'lucide-react';
 import Link from 'next/link';
-import { listNotifications } from '@/api/client';
+import { listNotifications } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { clientKeys } from '@/areas/client/ui/clientKeys';
 import { useClientSession } from '@/areas/client/ui/useClientSession';

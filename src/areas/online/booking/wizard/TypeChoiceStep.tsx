@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { User, Users } from 'lucide-react';
-import { trackWidgetEvent } from '@/api/online';
+import { trackWidgetEvent } from '@/api/online-public';
 import { WizardHeader } from '@/areas/online/booking/wizard/WizardHeader';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
 import type { BookingLink } from '@/domain/online';

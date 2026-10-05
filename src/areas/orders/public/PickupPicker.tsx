@@ -6,12 +6,12 @@
  */
 import { useState } from 'react';
 import { CalendarX } from 'lucide-react';
-import { bookPublicPickup } from '@/api/orders';
+import { bookPublicPickup } from '@/api/orders-public';
 import { ApiError, useApiMutation } from '@/api/request';
 import type { ISODateTime } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
-import { usePickupSlots } from '@/areas/orders/lib/useOrdersData';
+import { usePickupSlots } from '@/areas/orders/lib/usePublicOrderData';
 import { Button } from '@/ui/Button';
 import { Chip } from '@/ui/Chip';
 import { EmptyState } from '@/ui/EmptyState';

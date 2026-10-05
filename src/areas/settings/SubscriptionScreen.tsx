@@ -5,6 +5,8 @@
  * Карточки: «Срок действия» (F-15-070/091/058), «Тариф» (F-15-071/033/034/045/047, F-00-011…016),
  * «Что входит» / «Что за монеты» (F-00-018, F-15-041), «История лицензии» (F-15-072).
  * Сеть (F-15-044): своя подписка у каждого филиала — переключатель бизнеса сети сверху.
+ * Сервер без платёжного провайдера (06.10.2026, `paymentsAvailable: false`) — вместо «Продлить на месяц сейчас»
+ * плашка «Оплата картой скоро — напишите нам», «Купить лицензию» ведёт к счёту для фирмы.
  */
 import { AlertTriangle, Building2, Check, ChevronRight, Coins, CreditCard, Gift, ShieldCheck } from 'lucide-react';
 import {
@@ -14,7 +16,10 @@ import {
   listPayments,
   payNow,
   INTRO_TRIAL_DAYS,
+  cardPaymentsAvailable,
+  isPaymentsUnavailable,
 } from '@/api/settings';
+import { PaymentsSoonNotice } from '@/areas/settings/PaymentsSoonNotice';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useAutoRenewToggle } from '@/areas/settings/useAutoRenewToggle';
 import { useCurrent } from '@/demo/hooks';
@@ -90,8 +95,11 @@ export function SubscriptionScreen() {
     try {
       await pay.mutate({ businessId, months: 1 });
       toast.success(t('billing.paySuccess'));
-    } catch {
-      toast.error(t('billing.payFailed'));
+    } catch (e) {
+      if (isPaymentsUnavailable(e)) {
+        toast.error(t('paymentsSoon.unavailableError'));
+        void subQ.refetch();
+      } else toast.error(t('billing.payFailed'));
     }
   };
 
@@ -99,6 +107,7 @@ export function SubscriptionScreen() {
 
   const sub = subQ.data;
   const isLoading = subQ.isLoading || !ready;
+  const canPay = cardPaymentsAvailable(sub);
 
   // Н3: выключение — тот же вопрос с последствиями, что на «Правилах подписки»
   const onToggleAutoRenew = (value: boolean) => void autoRenew.setAutoRenew(value);
@@ -214,16 +223,24 @@ export function SubscriptionScreen() {
                 {savedMethodQ.data.unavailable && <span className="ml-1 text-warning">{t('billing.savedMethodUnavailable')}</span>}
               </p>
             )}
-            {(sub.status === 'endingSoon' || sub.status === 'frozen' || sub.status === 'active') && (
-              <div className="flex flex-wrap gap-3">
-                <LinkButton href="/biz/billing/manage" variant="primary" leftIcon={<CreditCard aria-hidden />}>
-                  {t('billing.payNow')}
-                </LinkButton>
-                <Button variant="ghost" loading={pay.isPending} onClick={onPayNow}>
-                  {t('billing.payNowQuick')}
-                </Button>
-              </div>
-            )}
+            {(sub.status === 'endingSoon' || sub.status === 'frozen' || sub.status === 'active') &&
+              (canPay ? (
+                <div className="flex flex-wrap gap-3">
+                  <LinkButton href="/biz/billing/manage" variant="primary" leftIcon={<CreditCard aria-hidden />}>
+                    {t('billing.payNow')}
+                  </LinkButton>
+                  <Button variant="ghost" loading={pay.isPending} onClick={onPayNow}>
+                    {t('billing.payNowQuick')}
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <PaymentsSoonNotice />
+                  <LinkButton href="/biz/billing/manage" variant="ghost" className="self-start" leftIcon={<Building2 aria-hidden />}>
+                    {t('checkout.method.invoice')}
+                  </LinkButton>
+                </div>
+              ))}
           </div>
         ) : null}
       </SectionCard>

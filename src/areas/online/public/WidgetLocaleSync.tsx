@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { getPublicBusinessData } from '@/api/online';
+import { getPublicBusinessData } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { DEMO_COOKIES } from '@/demo/settings';
 import { isLocale } from '@/i18n/config';

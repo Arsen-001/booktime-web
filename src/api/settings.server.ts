@@ -64,6 +64,11 @@ export interface ServerSubscriptionView extends Subscription {
   serverStatus: 'unpaid' | 'trial_free' | 'active' | 'grace' | 'frozen' | 'cancelled' | 'left';
   graceUntil?: string;
   readOnly: boolean;
+  /**
+   * Принимает ли сервер оплату картой / Idram / Telcell (06.10.2026). false — провайдер не подключён: оплата подписки
+   * картой и покупка монет отвечают 503 `payments_unavailable`, экран показывает «Оплата картой скоро — напишите нам».
+   */
+  paymentsAvailable?: boolean;
 }
 
 export const getSubscription = (businessId: Id) => read(() => http<ServerSubscriptionView>('GET', `${biz(businessId)}/billing`));

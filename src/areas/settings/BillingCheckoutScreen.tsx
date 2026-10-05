@@ -5,11 +5,14 @@
  * Только онлайн, без наличных (F-00-022): карта ArCa/Visa/Mastercard, Idram, Telcell, счёт для фирмы
  * (F-15-084 — переводит на печатную форму счёта вместо мок-оплаты). Если сохранённый способ недоступен —
  * предупреждение до оплаты (F-15-090). Итог — /biz/billing/checkout/result.
+ * Сервер без платёжного провайдера (06.10.2026, `paymentsAvailable: false`): карта, Idram и Telcell выключены с
+ * плашкой «Оплата картой скоро — напишите нам», выбран «счёт для фирмы» — он работает без провайдера.
  */
 import { useState, type ReactNode } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AlertTriangle, Building2, CreditCard, Pencil, Smartphone, Wallet } from 'lucide-react';
-import { checkoutPay, getSavedPaymentMethod, getSubscription, quotePrice, saveBillingAddress, useLegalInfo, type BillingPaymentMethod } from '@/api/settings';
+import { cardPaymentsAvailable, checkoutPay, getSavedPaymentMethod, getSubscription, isPaymentsUnavailable, quotePrice, saveBillingAddress, useLegalInfo, type BillingPaymentMethod } from '@/api/settings';
+import { PaymentsSoonNotice } from '@/areas/settings/PaymentsSoonNotice';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
@@ -23,6 +26,7 @@ import { Input } from '@/ui/Input';
 import { PageHeader } from '@/ui/PageHeader';
 import { SectionCard } from '@/ui/SectionCard';
 import { SkeletonText } from '@/ui/Skeleton';
+import { useToast } from '@/ui/Toast';
 
 const METHODS: { value: BillingPaymentMethod; icon: ReactNode }[] = [
   { value: 'card', icon: <CreditCard aria-hidden /> },
@@ -38,8 +42,9 @@ export function BillingCheckoutScreen() {
   const searchParams = useSearchParams();
   const months = Math.max(1, Number(searchParams.get('months') ?? '1'));
   const { businessId, ready } = useCurrent();
+  const toast = useToast();
 
-  const [method, setMethod] = useState<BillingPaymentMethod>('card');
+  const [pickedMethod, setMethod] = useState<BillingPaymentMethod>('card');
   const [agree, setAgree] = useState(false);
   const [billingAddress, setBillingAddress] = useState('');
   const [touchedAddress, setTouchedAddress] = useState(false);
@@ -55,6 +60,9 @@ export function BillingCheckoutScreen() {
   if (quoteQ.isError || subQ.isError) return <ErrorState onRetry={() => { quoteQ.refetch(); subQ.refetch(); }} />;
 
   const isLoading = !ready || quoteQ.isLoading || subQ.isLoading;
+  // Оплата картой / Idram / Telcell не подключена — остаётся только счёт для фирмы
+  const canPay = cardPaymentsAvailable(subQ.data);
+  const method: BillingPaymentMethod = canPay ? pickedMethod : 'invoice';
   const quote = quoteQ.data;
   const needsAddress = method === 'invoice';
   const addressInvalid = touchedAddress && needsAddress && billingAddress.trim().length < 5;
@@ -68,7 +76,12 @@ export function BillingCheckoutScreen() {
       if (needsAddress) await saveAddress.mutate({ businessId, billingAddress: billingAddress.trim() });
       const result = await pay.mutate({ businessId, months, method });
       router.push(`/biz/billing/checkout/result?status=${result.status}&invoiceId=${result.invoiceId}`);
-    } catch {
+    } catch (e) {
+      if (isPaymentsUnavailable(e)) {
+        toast.error(t('paymentsSoon.unavailableError'));
+        void subQ.refetch();
+        return;
+      }
       router.push('/biz/billing/checkout/result?status=failed');
     }
   };
@@ -109,11 +122,12 @@ export function BillingCheckoutScreen() {
         <div className="flex flex-col gap-3">
           <ChoiceGroup
             aria-label={t('checkout.methodTitle')}
-            options={METHODS.map((m) => ({ value: m.value, title: t(`checkout.method.${m.value}`), icon: m.icon }))}
+            options={METHODS.map((m) => ({ value: m.value, title: t(`checkout.method.${m.value}`), icon: m.icon, disabled: !canPay && m.value !== 'invoice' }))}
             value={method}
             onValueChange={(v) => setMethod(v as BillingPaymentMethod)}
             columns={2}
           />
+          {!canPay && <PaymentsSoonNotice />}
           {unavailable && (
             <div data-f="F-15-090" className="flex items-center gap-2 rounded-lg bg-warning-soft px-3 py-2.5 text-sm text-warning">
               <AlertTriangle aria-hidden className="size-4 shrink-0" />

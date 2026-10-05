@@ -22,6 +22,7 @@ import {
   type ServicePatch,
   type ServiceRow,
 } from '@/api/services';
+import { noteDataOpOnServer } from '@/api/data-ops';
 import { optimistic, useApiMutation } from '@/api/request';
 import type { LocalizedText, ServiceCategory } from '@/domain/core';
 import { useT } from '@/i18n/useT';
@@ -136,6 +137,8 @@ export function useCatalogActions(businessId: string) {
       if (!ok) return false;
       try {
         const snapshots = await deleteM.mutate(rows.map((r) => r.service.id));
+        // «Операции с данными» (F-02-063): в api — строка на сервер (удаление шло отдельными запросами), в демо её пишет мок
+        if (rows.length > 1) void noteDataOpOnServer({ businessId, kind: 'delete', area: 'services', entity: 'services', count: snapshots.length });
         toast.success(
           rows.length === 1
             ? t('delete.done', { name: pickText(rows[0].service.name, locale) })

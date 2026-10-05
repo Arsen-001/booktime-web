@@ -41,15 +41,14 @@ import { IconButton } from '@/ui/IconButton';
 import { PageHeader } from '@/ui/PageHeader';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 
-/** «Сегодня, 12:10» → «сегодня, 12:10» внутри фразы «принят …» */
-const lowerFirst = (text: string) => (text ? text.charAt(0).toLocaleLowerCase() + text.slice(1) : text);
-
 /** Подпись главной кнопки следующего шага */
 const NEXT_LABEL: Partial<Record<OrderStatus, 'next.in_progress' | 'next.ready' | 'next.issued' | 'next.issuedWithoutRepair'>> = {
   in_progress: 'next.in_progress',
   ready: 'next.ready',
   issued: 'next.issued',
 };
+/** В нижней панели телефона — короче, чтобы влезало в одну строку на 360 px (hy) */
+const NEXT_LABEL_SHORT: Partial<Record<OrderStatus, 'next.readyShort'>> = { ready: 'next.readyShort' };
 
 export function OrderDetailScreen({ orderId }: { orderId: string }) {
   const t = useT('orders');
@@ -84,7 +83,8 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
   const estimatePending = isEstimatePending(order);
   const estimateDeclined = isEstimateDeclined(order);
   const at = (s: OrderStatus) => [...order.history].reverse().find((h) => isStatusEntry(h) && h.status === s)?.at;
-  const short = (v?: string | null) => (v ? `${fmt.relativeDay(v)}, ${fmt.time(v)}` : undefined);
+  // «принят сегодня, 12:10» / «Received Fri, Oct 2, 10:20» — внутри фразы
+  const short = (v: string) => `${fmt.relativeDayInline(v)}, ${fmt.time(v)}`;
   // Под шагами — коротко, чтобы на телефоне влезало в строку: сегодня — время, вчера — «Вчера», раньше — «1 окт.»
   const step = (v?: string | null) => {
     if (!v) return undefined;
@@ -118,17 +118,19 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
     />
   );
 
-  const primary = next ? (
-    <Button
-      data-f="orders-next"
-      size="lg"
-      fullWidth
-      loading={actions.moving}
-      onClick={() => void actions.move(next, estimateDeclined ? 'toast.issuedWithoutRepair' : undefined)}
-    >
-      {t(estimateDeclined ? 'next.issuedWithoutRepair' : (NEXT_LABEL[next] ?? 'next.ready'))}
-    </Button>
-  ) : null;
+  const nextButton = (compact: boolean) =>
+    next ? (
+      <Button
+        data-f="orders-next"
+        size="lg"
+        fullWidth
+        loading={actions.moving}
+        onClick={() => void actions.move(next, estimateDeclined ? 'toast.issuedWithoutRepair' : undefined)}
+      >
+        {t(estimateDeclined ? 'next.issuedWithoutRepair' : ((compact && NEXT_LABEL_SHORT[next]) || NEXT_LABEL[next] || 'next.ready'))}
+      </Button>
+    ) : null;
+  const primary = nextButton(false);
   const resend =
     order.status === 'ready' ? (
       <Button variant="outline" size="lg" fullWidth leftIcon={<Send aria-hidden />} loading={actions.notifying} onClick={() => void actions.notifyAgain()}>
@@ -145,7 +147,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
           <>
             <OrderStatusBadge status={order.status} size="md" />
             {(estimatePending || estimateDeclined) && order.estimate && <EstimateBadge status={order.estimate.status} size="md" />}
-            <span className="text-sm text-muted">{t('detail.receivedAt', { when: lowerFirst(short(order.createdAt) ?? '') })}</span>
+            <span className="text-sm text-muted">{t('detail.receivedAt', { when: short(order.createdAt) })}</span>
             {/* Телефон: «⋯» в строке статуса, а не отдельной строкой под заголовком */}
             <span className="ml-auto sm:hidden">{moreMenu}</span>
           </>
@@ -193,10 +195,10 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
               <Button variant="outline" size="lg" className="flex-none! whitespace-nowrap!" leftIcon={<Send aria-hidden />} loading={actions.notifying} onClick={() => void actions.notifyAgain()}>
                 {t('detail.notifyAgainShort')}
               </Button>
-              {primary}
+              {nextButton(true)}
             </>
           ) : (
-            primary
+            nextButton(true)
           )}
         </StickyActionBar>
       )}

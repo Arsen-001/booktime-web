@@ -3,7 +3,8 @@
 import { useState, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
 import { Users } from 'lucide-react';
-import { computePackageDurationRange, computePackagePriceRange, type PublicBusinessData } from '@/api/online';
+import type { PublicBusinessData } from '@/api/online';
+import { computePackageDurationRange, computePackagePriceRange } from '@/api/online-public';
 import type { Service } from '@/domain/core';
 import type { OnlinePackage } from '@/domain/online';
 import { useFormat } from '@/i18n/useFormat';

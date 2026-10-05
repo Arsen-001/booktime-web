@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { GoogleSignInResult, LoginChannel, PendingGoogle } from '@/api/client';
-import { changeAdminPassword, pendingLinkTokens, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client';
+import { changeAdminPassword, pendingLinkTokens, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client-auth';
 import type { SecondFactorChallenge } from '@/api/session';
 import { SESSION_KEY, verifySecondFactor } from '@/api/session';
 import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';

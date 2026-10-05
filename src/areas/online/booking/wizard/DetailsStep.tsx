@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { getStaffRules, type OnlineCodeChannel, type PlanLegSlot } from '@/api/online';
+import type { OnlineCodeChannel, PlanLegSlot } from '@/api/online';
+import { getStaffRules } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { CustomFieldInput } from '@/areas/online/booking/wizard/CustomFieldInput';
 import { PhoneCodeBlock, type CodeState } from '@/areas/online/booking/wizard/PhoneCodeBlock';

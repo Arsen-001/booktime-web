@@ -8,7 +8,8 @@
  * clients.export, F-10-104): без него страница не открывается вовсе (гейт в page.tsx).
  */
 import { useMemo, useState } from 'react';
-import { ShieldCheck, KeyRound, History as HistoryIcon, Download, Monitor } from 'lucide-react';
+import { ShieldCheck, KeyRound, History as HistoryIcon, Download, Monitor, FileSpreadsheet } from 'lucide-react';
+import { listDataOps } from '@/api/data-ops';
 import { listChanges, listExports, listLogins, listStaffForRightsCopy } from '@/api/staff';
 import { useApiQuery } from '@/api/request';
 import { NoAccessState } from '@/areas/staff/components/NoAccessState';
@@ -33,6 +34,11 @@ const ENTITY_KEYS = ['staff', 'business', 'client', 'booking', 'service', 'stock
 const ACTION_KEYS = ['created', 'updated', 'deleted', 'fired', 'restored'] as const;
 const REPORT_KEYS = ['clients', 'bookings', 'loyaltyCards', 'memberships', 'deposits', 'certificates', 'staffReport', 'customReport'] as const;
 const OPERATION_KEYS = ['fileUpload', 'excelCopy', 'emailLink', 'browserDownload'] as const;
+/** Подписи «что» общего журнала операций: раздел_сущность (неизвестная пара — как есть) */
+const DATA_OP_WHAT = ['clients_clients', 'services_services', 'journal_bookings', 'reports_appointments', 'reports_appointmentsImport', 'resources_groupEvents'] as const;
+
+/** Демо пишет только дату ('YYYY-MM-DD'), сервер — местные дату и время ('YYYY-MM-DDTHH:mm') */
+const atOf = (at: string) => (at.length === 10 ? `${at}T00:00` : at);
 
 export function AuditLogScreen() {
   const t = useT('staff');
@@ -75,6 +81,11 @@ export function AuditLogScreen() {
     { enabled: ready && Boolean(businessId) && tab === 'exports' && canSeeExports },
   );
 
+  // Общий журнал «Операции с данными» разделов (F-02-063, F-14-114): загрузки и выгрузки Excel, массовое удаление
+  const dataOpsQ = useApiQuery(['staff', 'data-ops', businessId], () => listDataOps({ businessId: businessId! }), {
+    enabled: ready && Boolean(businessId) && tab === 'exports' && canSeeExports,
+  });
+
   const loginsQ = useApiQuery(['staff', 'logins', businessId], () => listLogins(businessId!), {
     enabled: ready && Boolean(businessId) && tab === 'logins' && canSeeChanges,
   });
@@ -85,14 +96,14 @@ export function AuditLogScreen() {
   );
 
   const changeColumns: TableColumn<NonNullable<typeof changesQ.data>[number]>[] = [
-    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(`${r.at}T00:00:00`), width: '10rem' },
+    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(atOf(r.at)), width: '10rem' },
     { id: 'entity', header: t('log.columns.entity'), cell: (r) => <Badge tone="neutral">{r.entity}</Badge> },
     { id: 'action', header: t('log.columns.action'), cell: (r) => r.action },
     { id: 'actor', header: t('log.columns.actor'), cell: (r) => r.actorLabel, mobile: 'meta' },
   ];
 
   const exportColumns: TableColumn<NonNullable<typeof exportsQ.data>[number]>[] = [
-    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(`${r.at}T00:00:00`), width: '10rem' },
+    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(atOf(r.at)), width: '10rem' },
     {
       id: 'reportType',
       header: t('log.columns.reportType'),
@@ -111,8 +122,44 @@ export function AuditLogScreen() {
     { id: 'actor', header: t('log.columns.actor'), cell: (r) => r.actorLabel, mobile: 'meta' },
   ];
 
+  const dataOpColumns: TableColumn<NonNullable<typeof dataOpsQ.data>[number]>[] = [
+    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(atOf(r.at)), width: '10rem' },
+    {
+      id: 'what',
+      header: t('log.dataOps.what'),
+      cell: (r) => {
+        const key = `${r.area}_${r.entity}`;
+        return (DATA_OP_WHAT as readonly string[]).includes(key) ? t(`log.dataOps.whatLabel.${key}` as never) : r.entity;
+      },
+    },
+    {
+      id: 'kind',
+      header: t('log.dataOps.kind'),
+      cell: (r) => (
+        <Badge tone={r.kind === 'delete' ? 'warning' : 'neutral'}>{t(`log.dataOps.kindLabel.${r.kind}` as never)}</Badge>
+      ),
+    },
+    {
+      id: 'count',
+      header: t('log.dataOps.count'),
+      cell: (r) => (
+        <span>
+          {t('log.dataOps.rows', { count: r.count })}
+          {r.failed ? <span className="text-muted"> · {t('log.dataOps.failed', { count: r.failed })}</span> : null}
+        </span>
+      ),
+      mobile: 'meta',
+    },
+    {
+      id: 'actor',
+      header: t('log.columns.actor'),
+      cell: (r) => r.byName || (r.by === 'system' ? t('log.dataOps.system') : '—'),
+      mobile: 'meta',
+    },
+  ];
+
   const loginColumns: TableColumn<NonNullable<typeof loginsQ.data>[number]>[] = [
-    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(`${r.at}T00:00:00`), width: '10rem' },
+    { id: 'at', header: t('log.columns.at'), cell: (r) => fmt.dateTime(atOf(r.at)), width: '10rem' },
     { id: 'staffLabel', header: t('log.columns.staff'), cell: (r) => r.staffLabel },
     { id: 'device', header: t('log.columns.device'), cell: (r) => r.device, mobile: 'meta' },
     { id: 'ip', header: t('log.columns.ip'), cell: (r) => r.ip, mobile: 'meta' },
@@ -308,6 +355,22 @@ export function AuditLogScreen() {
               />
             </SectionCard>
           )}
+          {/* Общий журнал разделов: что загружали, выгружали и удаляли массово — с сервера в режиме api */}
+          <div data-f="F-02-063 F-14-114">
+            {dataOpsQ.isError ? (
+              <ErrorState onRetry={dataOpsQ.refetch} />
+            ) : (
+              <SectionCard title={t('log.dataOps.title')} description={t('log.dataOps.subtitle')} padding="none">
+                <Table
+                  columns={dataOpColumns}
+                  rows={dataOpsQ.data ?? []}
+                  rowKey={(r) => r.id}
+                  loading={dataOpsQ.isLoading}
+                  empty={<EmptyState variant="section" icon={<FileSpreadsheet aria-hidden />} title={t('log.dataOps.empty')} />}
+                />
+              </SectionCard>
+            )}
+          </div>
           <p className="text-xs text-muted">{t('log.exportsHint')}</p>
         </div>
       )}

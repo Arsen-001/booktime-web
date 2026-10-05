@@ -2,7 +2,7 @@
 
 import { Heart } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { isFavorited, toggleFavorite } from '@/api/client';
+import { isFavorited, toggleFavorite } from '@/api/client-public';
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
 import type { FavoriteTargetType } from '@/domain/client';
 import type { Id } from '@/domain/core';

@@ -30,7 +30,7 @@ export function EstimateCard({ order }: { order: Order }) {
   const open = canSendEstimate(order.status);
   if (!est && !open) return null;
 
-  const when = (v: string) => `${fmt.relativeDay(v).toLocaleLowerCase()}, ${fmt.time(v)}`;
+  const when = (v: string) => `${fmt.relativeDayInline(v)}, ${fmt.time(v)}`;
   const pending = est?.status === 'pending' && open;
   const remindAt = pending && est.sentAt && !est.remindedAt ? `${addDays(est.sentAt.slice(0, 10), 1)}T${est.sentAt.slice(11, 16)}` : null;
 

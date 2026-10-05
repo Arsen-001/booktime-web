@@ -103,7 +103,7 @@ function RescheduleBody({ detail, appUserId }: { detail: NonNullable<Awaited<Ret
         <div className="min-w-0">
           <p className="font-medium text-fg">{service ? pickText(service.name, locale) : t('bookings.serviceRemoved')}</p>
           <p className="text-sm text-muted">
-            {t('reschedule.currentLine', { name: staff.name, when: `${fmt.relativeDay(booking.start).toLocaleLowerCase(locale)}, ${fmt.time(booking.start)}` })}
+            {t('reschedule.currentLine', { name: staff.name, when: `${fmt.relativeDayInline(booking.start)}, ${fmt.time(booking.start)}` })}
           </p>
         </div>
       </Card>

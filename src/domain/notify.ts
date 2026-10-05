@@ -670,15 +670,21 @@ export interface StaffNotifyPrefs {
   sendClientContacts: boolean;
 }
 
+/**
+ * 06.10.2026: пуш о записях мастера включён по умолчанию (SMS и Email платные — выключены). У Altegio все галочки
+ * выключены (F-05-056), и мастер не узнаёт о записях, пока владелец не настроит карточку; у нас — сразу. Тот же список
+ * на сервере (modules/notify/notify-more.service.ts::defaultStaffPushOn) — по нему же уходят пуши персоналу.
+ */
+export const STAFF_PUSH_DEFAULT_ON: readonly StaffNotifyEvent[] = ['createdByClient', 'createdByAdmin', 'deleted', 'moved', 'cancelledByAdmin'];
+
 function emptyStaffNotifyMatrix(): StaffNotifyMatrix {
-  const row = { sms: false, email: false, push: false };
   return STAFF_NOTIFY_EVENTS.reduce((acc, code) => {
-    acc[code] = { ...row };
+    acc[code] = { sms: false, email: false, push: STAFF_PUSH_DEFAULT_ON.includes(code) };
     return acc;
   }, {} as StaffNotifyMatrix);
 }
 
-/** В кабинете у владельца все галочки по умолчанию выключены (F-05-056 «Поля и варианты») */
+/** Галочки по умолчанию: SMS/Email выключены (F-05-056), пуш о записях — включён (см. STAFF_PUSH_DEFAULT_ON) */
 export function defaultStaffNotifyPrefs(staffId: Id): StaffNotifyPrefs {
   return { staffId, view: 'byAccess', matrix: emptyStaffNotifyMatrix(), sendClientContacts: false };
 }

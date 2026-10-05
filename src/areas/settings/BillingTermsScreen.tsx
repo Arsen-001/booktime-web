@@ -12,8 +12,10 @@
  */
 import { AlertTriangle, Building2, CreditCard, MessageCircle, ShieldCheck, Smartphone } from 'lucide-react';
 import {
+  cardPaymentsAvailable,
   createHelpRequest,
   getSubscription,
+  isPaymentsUnavailable,
   lockInOldPrice,
   listPriceRuleChanges,
 } from '@/api/settings';
@@ -86,8 +88,11 @@ export function BillingTermsScreen() {
     try {
       await lockPrice.mutate({ businessId, months });
       toast.success(t('terms.lockedIn'));
-    } catch {
-      toast.error(t('terms.lockFailed'));
+    } catch (e) {
+      if (isPaymentsUnavailable(e)) {
+        toast.error(t('paymentsSoon.unavailableError'));
+        void subQ.refetch();
+      } else toast.error(t('terms.lockFailed'));
     }
   };
 
@@ -160,9 +165,12 @@ export function BillingTermsScreen() {
                       next: format.money(upcoming.newPrice),
                     })}
                   </span>
-                  <Button variant="secondary" size="sm" className="self-start" loading={lockPrice.isPending} onClick={() => void onLockOldPrice()}>
-                    {t('terms.lockOldPrice')}
-                  </Button>
+                  {/* Без платёжного провайдера (06.10.2026) списать год нечем — продлить по старой цене поможет поддержка (ниже) */}
+                  {cardPaymentsAvailable(sub) && (
+                    <Button variant="secondary" size="sm" className="self-start" loading={lockPrice.isPending} onClick={() => void onLockOldPrice()}>
+                      {t('terms.lockOldPrice')}
+                    </Button>
+                  )}
                 </div>
               )}
               {isLoading ? null : history.length === 0 ? (

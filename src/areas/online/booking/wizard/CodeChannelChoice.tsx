@@ -5,7 +5,7 @@
  * сервера, остальные видны неактивными («скоро»).
  * После отправки: «Код отправлен в WhatsApp» по факту (сервер мог переслать в запасной канал) и «Прислать в …».
  */
-import { getLoginChannels } from '@/api/client';
+import { getLoginChannels } from '@/api/client-auth';
 import type { OnlineCodeChannel, OnlineCodeSent } from '@/api/online';
 import { useApiQuery } from '@/api/request';
 import { useT } from '@/i18n/useT';

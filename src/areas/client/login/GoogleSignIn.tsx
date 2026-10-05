@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
-import { GOOGLE_CLIENT_ID, googleSignInAvailable, signInWithApple, signInWithGoogle, type GoogleSignInResult, type PendingGoogle } from '@/api/client';
+import type { GoogleSignInResult, PendingGoogle } from '@/api/client';
+import { GOOGLE_CLIENT_ID, googleSignInAvailable, signInWithApple, signInWithGoogle } from '@/api/client-auth';
 import { isApiMode } from '@/api/http';
 import { useApiMutation } from '@/api/request';
 import { SESSION_KEY } from '@/api/session';

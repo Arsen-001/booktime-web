@@ -409,6 +409,11 @@ export function listNoAppRemindersTomorrowServer(businessId: Id): Promise<import
   return http('GET', `/v1/biz/${businessId}/visit-cash/no-app-reminders-tomorrow`);
 }
 
+/** Кассы визита — настоящие кассы «Финансов» (наличные), с bookingId — его филиала */
+export function listVisitCashDesksServer(businessId: Id, bookingId?: Id): Promise<import('@/domain/client').VisitCashDesk[]> {
+  return http('GET', `/v1/biz/${businessId}/visit-cash/cash-desks`, undefined, { query: { bookingId } });
+}
+
 export function listVisitCandidatesServer(businessId: Id, viewerStaffId?: Id): Promise<import('@/api/client').VisitCandidate[]> {
   return http('GET', `/v1/biz/${businessId}/visit-cash/candidates`, undefined, { query: { staffId: viewerStaffId } });
 }

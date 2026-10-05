@@ -9,7 +9,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { listHomeStories } from '@/api/client';
+import { listHomeStories } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { clientKeys } from '@/areas/client/ui/clientKeys';
 import { useCurrent } from '@/demo/hooks';

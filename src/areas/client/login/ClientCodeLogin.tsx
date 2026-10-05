@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { pendingLinkTokens, sendLoginCode, verifyLoginCode, type LoginChannel, type PendingGoogle, type VerifiedAppUser } from '@/api/client';
+import type { LoginChannel, PendingGoogle, VerifiedAppUser } from '@/api/client';
+import { pendingLinkTokens, sendLoginCode, verifyLoginCode } from '@/api/client-auth';
 import { useApiMutation } from '@/api/request';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';

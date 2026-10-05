@@ -140,6 +140,8 @@ export type PlaceBookingError =
   | 'outside_hours'
   | 'group_full'
   | 'resource_unavailable'
+  /** F-00-047: домашняя запись на часах смены в салоне, где владелец это запретил */
+  | 'home_during_shift'
   | OnlineBookingDenied;
 
 /** Как привязать клиента при записи в базу */
@@ -301,7 +303,7 @@ export function planBooking(core: CoreData, input: PlaceBookingInput, ctx: Place
       { staffId: staff.id, start, durationMin, bufferAfterMin, locationId, workplace, checkHours: online, checkPast: online },
       ctx.now,
     );
-    if (!slot.ok) return fail(slot.reason === 'outside_hours' && !online ? 'outside_hours' : 'slot_taken');
+    if (!slot.ok) return fail(slot.reason === 'home_during_shift' ? 'home_during_shift' : slot.reason === 'outside_hours' && !online ? 'outside_hours' : 'slot_taken');
     locationId = locationId ?? slot.locationId;
     workplace = workplace ?? slot.workplace;
     const offered =
@@ -439,4 +441,5 @@ export const PLACE_BOOKING_ERRORS: readonly PlaceBookingError[] = [
   'staff_on_vacation',
   'client_blocked',
   'accepts_mismatch',
+  'home_during_shift',
 ];

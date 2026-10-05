@@ -35,6 +35,17 @@ const DATE_PATTERNS: Record<DateStyle, string> = {
   monthYearGenitive: 'D MMMM YYYY',
 };
 
+// Английский порядок и сокращения (06.10.2026): «Fri, Oct 2», «October 2», «October 2, 2026» — dayjs 'dd' в en
+// давал «Fr», а «D MMMM» — неанглийский порядок. ru/hy — как в DATE_PATTERNS.
+const EN_PATTERNS: Partial<Record<DateStyle, string>> = {
+  long: 'MMMM D, YYYY',
+  dayMonth: 'MMMM D',
+  weekday: 'ddd, MMM D',
+  weekdayLong: 'dddd, MMMM D',
+  weekdayShort: 'ddd, MMM D',
+  dayMonthShort: 'MMM D',
+};
+
 /** Формат часов: '24' — «14:30» (по умолчанию), '12' — «2:30 PM» (выбор клиента в профиле, F-14-061) */
 export type HourCycle = '24' | '12';
 
@@ -67,7 +78,7 @@ export function useFormat(options?: FormatOptions) {
     if (style === 'monthYearGenitive') {
       return locale === 'ru' ? d.locale(dl).format(DATE_PATTERNS[style]).replace(/^\d+\s+/, '') : d.locale(dl).format(DATE_PATTERNS.monthYear);
     }
-    return d.locale(dl).format(DATE_PATTERNS[style]);
+    return d.locale(dl).format((locale === 'en' && EN_PATTERNS[style]) || DATE_PATTERNS[style]);
   };
 
   // 12 ч — AM/PM на любом языке (владелец, 01.10.2026): меридием dayjs в ru/hy давал «5:00 вечера», поэтому
@@ -81,6 +92,14 @@ export function useFormat(options?: FormatOptions) {
     if (d === addDays(now, 1)) return tDates('tomorrow');
     if (d === addDays(now, -1)) return tDates('yesterday');
     return date(d, 'weekday');
+  };
+
+  // Внутри фразы: строчными только «сегодня/завтра/вчера», дата остаётся как есть («Sent Fri, Oct 2», а не «fri, oct 2»)
+  const relativeDayInline = (value: ISODate | ISODateTime) => {
+    const d = value.slice(0, 10);
+    const now = today();
+    const word = d === now ? 'today' : d === addDays(now, 1) ? 'tomorrow' : d === addDays(now, -1) ? 'yesterday' : null;
+    return word ? tDates(word).toLocaleLowerCase(locale) : date(d, 'weekday');
   };
 
   return {
@@ -100,6 +119,8 @@ export function useFormat(options?: FormatOptions) {
       max && max > min ? `${durationText(min)} – ${durationText(max)}` : durationText(min),
     /** «Сегодня», «Завтра», «Вчера» или дата с днём недели («сегодня» — по Еревану) */
     relativeDay,
+    /** Как relativeDay, но для середины фразы: «сегодня», «завтра», «пт, 2 октября» / «Fri, Oct 2» */
+    relativeDayInline,
     /**
      * Сколько прошло: «Сегодня», «Вчера», «3 дня назад», «2 недели назад», «5 месяцев назад», «Больше года назад».
      * Для «последний визит», «отправлено», журналов. Будущая дата — как relativeDay.

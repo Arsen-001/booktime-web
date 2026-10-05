@@ -3,7 +3,7 @@
 import { Ticket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { listPendingMembershipReminders, markMembershipReminderSeen } from '@/api/client';
+import { listPendingMembershipReminders, markMembershipReminderSeen } from '@/api/client-public';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { clientKeys } from '@/areas/client/ui/clientKeys';
 import type { Id } from '@/domain/core';

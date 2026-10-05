@@ -1,7 +1,7 @@
 'use client';
 
 import { MapPin } from 'lucide-react';
-import { getStaffRules } from '@/api/online';
+import { getStaffRules } from '@/api/online-public';
 import { useApiQuery } from '@/api/request';
 import { useSpecialistTerms } from '@/areas/online/booking/wizard/specialistTerms';
 import { DISTRICT_IDS } from '@/config/districts';

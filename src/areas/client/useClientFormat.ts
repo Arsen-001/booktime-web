@@ -8,7 +8,7 @@
  * линтер запрещает прямой доступ к mock/db в компонентах), тем же ключом запроса, что /profile —
  * правка формата видна сразу везде.
  */
-import { getClientProfile } from '@/api/client';
+import { getClientProfile } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { ISODateTime } from '@/domain/core';

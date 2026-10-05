@@ -56,9 +56,10 @@ export function OrderProgress({ status, times, skipped = [], className }: OrderP
             >
               {done ? <Check aria-hidden strokeWidth={3} /> : <Icon aria-hidden />}
             </span>
-            <span className="flex w-full min-w-0 flex-col px-0.5">
+            {/* Без боковых полей и чуть плотнее на телефоне: «Ընթացքում» (hy) целиком влезает в колонку на 360 px, уже 360 px — 11 px */}
+            <span className="flex w-full min-w-0 flex-col">
               {/* На телефоне мельче и с переносом: армянские «Աշխատանքում» не помещались в четверть ширины */}
-              <span className={cn('text-xs leading-tight [overflow-wrap:anywhere] sm:text-sm', i <= current && !skipped.includes(step) ? 'font-semibold text-fg' : 'text-muted')}>{t(`steps.${step}`)}</span>
+              <span className={cn('text-xs leading-tight tracking-tight break-words max-[359px]:text-[0.6875rem] sm:text-sm sm:tracking-normal', i <= current && !skipped.includes(step) ? 'font-semibold text-fg' : 'text-muted')}>{t(`steps.${step}`)}</span>
               {times?.[step] && i <= current && <span className="mt-0.5 text-xs leading-tight text-muted">{times[step]}</span>}
             </span>
           </li>

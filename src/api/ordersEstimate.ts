@@ -167,13 +167,9 @@ export function decideOrderEstimate(args: { businessId: Id; orderId: Id; decisio
   return request(() => decideTx(findOrderTx(businessId, orderId), decision, null, comment, { staffId: currentActor().staffId ?? null, decidedBy: 'staff' }));
 }
 
-/**
- * Клиент по ссылке /o/<code>, без входа: «Согласен» / «Отказаться» на смету версии version. Повтор того же ответа —
- * успех без изменений; смету обновили — ApiError('estimate_changed'); уже ответили иначе — 'estimate_already_decided'.
- */
-export function decidePublicEstimate(args: { code: string; decision: EstimateDecision; version: number; comment?: string | null }): Promise<PublicOrder> {
+/** Демо-реализация decidePublicEstimate (сервер и обёртка — '@/api/orders-public') */
+export function decidePublicEstimateMock(args: { code: string; decision: EstimateDecision; version: number; comment?: string | null }): Promise<PublicOrder> {
   const { code, decision, version, comment = null } = args;
-  if (isApiMode()) return S.decidePublicEstimateServer(code, decision, version, comment);
   return request(() => {
     const order = readArea('orders').orders.find((o) => o.code === code);
     if (!order) throw new ApiError('not_found', 'Заказ не найден');

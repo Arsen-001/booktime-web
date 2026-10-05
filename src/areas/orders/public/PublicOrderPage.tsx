@@ -10,14 +10,14 @@ import { MapPin, PackageSearch, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { HttpApiError } from '@/api/http';
-import { publicAddressText } from '@/api/orders';
+import { publicAddressText } from '@/api/orders-public';
 import { ApiError } from '@/api/request';
 import { orderRemaining, skippedOrderSteps, type PublicOrder } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { today } from '@/lib/date';
-import { usePublicOrder } from '@/areas/orders/lib/useOrdersData';
+import { usePublicOrder } from '@/areas/orders/lib/usePublicOrderData';
 import { PublicEstimateCard } from '@/areas/orders/public/PublicEstimateCard';
 import { PublicPickupCard } from '@/areas/orders/public/PublicPickupCard';
 import { PublicOrderSkeleton } from '@/areas/orders/public/PublicOrderSkeleton';
@@ -76,7 +76,7 @@ function PublicOrderView({ code, order, onStale }: { code: string; order: Public
         : order.status === 'cancelled'
           ? t('public.cancelledHint')
           : order.dueDate
-            ? t('public.due', { when: fmt.relativeDay(order.dueDate).toLocaleLowerCase(locale) })
+            ? t('public.due', { when: fmt.relativeDayInline(order.dueDate) })
             : t('public.noDue');
 
   return (

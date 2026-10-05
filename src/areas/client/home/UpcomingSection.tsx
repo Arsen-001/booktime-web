@@ -1,7 +1,7 @@
 'use client';
 
 import { CalendarCheck, Search } from 'lucide-react';
-import { listUpcomingBookings } from '@/api/client';
+import { listUpcomingBookings } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import { BookingCard, BookingCardSkeleton } from '@/areas/client/bookings/BookingCard';
 import { clientKeys } from '@/areas/client/ui/clientKeys';

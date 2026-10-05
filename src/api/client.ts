@@ -31,8 +31,8 @@ import { ApiError, request } from '@/api/request';
 import { attachReferralTx } from '@/api/referral';
 import { fetchMyDataExport, getAccount, patchAccount, requestMyAccountDeletion } from '@/api/session';
 import { myDataFilename } from '@/lib/saveJsonFile';
-import type { AccountView, SecondFactorChallenge, SessionView } from '@/api/session';
-import { computeFreeSlots, getNearestSlots, type FreeSlot } from '@/api/schedule';
+import type { AccountView, SecondFactorChallenge } from '@/api/session';
+import { computeFreeSlots, type FreeSlot } from '@/api/schedule';
 import { upsellGoodsLinesTx, upsellServiceLinesTx } from '@/api/services-upsell';
 import { attachUpsellGoodsTx } from '@/api/journal';
 import { waitlistTx } from '@/api/resources';
@@ -122,6 +122,86 @@ import type {
 } from '@/domain/client';
 import { BRANDED_APP_DOCS_EMPTY, BRANDED_APP_MATERIALS_EMPTY, checkBrandedAppText, generateStoryImage } from '@/domain/client';
 import { createSupportTicket } from '@/api/platform/support';
+// Публичные функции (главная, поиск, место, вход) живут в лёгких '@/api/client-public' и '@/api/client-auth' — здесь их
+// демо-реализации (*Mock), а сами функции реэкспортируются: экраны импортируют их отсюда, как раньше
+import {
+  getCashbackForBusiness,
+  getClientProfile,
+  getDefaultNetworkLocation,
+  getPlaceCard,
+  getRepeatSuggestion,
+  getTranslationOverride,
+  isFavorited,
+  listBookedMasters,
+  listBusinessPromoStories,
+  listCatalog,
+  listHomeStories,
+  listLocationReviews,
+  listMyBookings,
+  listMyBookingsInBusiness,
+  listNotifications,
+  listPendingMembershipReminders,
+  listPurchasableCertificates,
+  listPurchasableMemberships,
+  listUpcomingBookings,
+  markMembershipReminderSeen,
+  purchaseCertificate,
+  purchaseMembership,
+  setDefaultNetworkLocation,
+  submitDemandLead,
+  toggleFavorite,
+} from '@/api/client-public';
+import {
+  changeAdminPassword,
+  getLoginChannels,
+  GOOGLE_CLIENT_ID,
+  googleSignInAvailable,
+  pendingLinkTokens,
+  sendLoginCode,
+  signInWithApple,
+  signInWithGoogle,
+  verifyAdminLogin,
+  verifyBusinessPhoneLogin,
+  verifyLoginCode,
+} from '@/api/client-auth';
+export {
+  getCashbackForBusiness,
+  getClientProfile,
+  getDefaultNetworkLocation,
+  getPlaceCard,
+  getRepeatSuggestion,
+  getTranslationOverride,
+  isFavorited,
+  listBookedMasters,
+  listBusinessPromoStories,
+  listCatalog,
+  listHomeStories,
+  listLocationReviews,
+  listMyBookings,
+  listMyBookingsInBusiness,
+  listNotifications,
+  listPendingMembershipReminders,
+  listPurchasableCertificates,
+  listPurchasableMemberships,
+  listUpcomingBookings,
+  markMembershipReminderSeen,
+  purchaseCertificate,
+  purchaseMembership,
+  setDefaultNetworkLocation,
+  submitDemandLead,
+  toggleFavorite,
+  changeAdminPassword,
+  getLoginChannels,
+  GOOGLE_CLIENT_ID,
+  googleSignInAvailable,
+  pendingLinkTokens,
+  sendLoginCode,
+  signInWithApple,
+  signInWithGoogle,
+  verifyAdminLogin,
+  verifyBusinessPhoneLogin,
+  verifyLoginCode,
+};
 import type {
   AcceptsWhom,
   AppUser,
@@ -134,7 +214,6 @@ import type {
   ISODate,
   Id,
   ISODateTime,
-  Location,
   LocalizedText,
   Minutes,
   Money,
@@ -268,9 +347,8 @@ function shortestService(services: Service[]): Service | undefined {
   return services.reduce<Service | undefined>((best, s) => (!best || s.durationMin < best.durationMin ? s : best), undefined);
 }
 
-/** «Кто когда свободен»: каталог мастеров с ближайшими окнами (F-00-001, F-00-108…F-00-112) */
-export function listCatalog(q: CatalogQuery = {}): Promise<CatalogEntry[]> {
-  if (isApiMode()) return CS.listCatalogServer(q);
+/** Демо-реализация listCatalog (сервер и обёртка — '@/api/client-public') */
+export function listCatalogMock(q: CatalogQuery = {}): Promise<CatalogEntry[]> {
   return request(() => {
     const core = readCore();
     const now = nowDateTime();
@@ -556,12 +634,8 @@ export interface PlaceCard {
   network?: NetworkLocationsInfo;
 }
 
-/**
- * Карточка места/компании (F-14-028, F-14-030, F-00-024/108: заморожен → 404). В «Мастерах» — те же, что в каталоге
- * (decision-c3 №16: «Только мои» и администраторы не наполняют карточку), у каждого ближайшее окно.
- */
-export function getPlaceCard(businessId: Id): Promise<PlaceCard | undefined> {
-  if (isApiMode()) return CS.getPlaceCardServer(businessId).catch((e) => (e instanceof ApiError && e.code === 'not_found' ? undefined : Promise.reject(e)));
+/** Демо-реализация getPlaceCard (сервер и обёртка — '@/api/client-public') */
+export function getPlaceCardMock(businessId: Id): Promise<PlaceCard | undefined> {
   return request(() => {
     const core = readCore();
     const business = core.businesses.find((b) => b.id === businessId);
@@ -597,15 +671,13 @@ function defaultNetworkLocationKey(appUserId: Id, networkId: Id): string {
   return `${appUserId}:${networkId}`;
 }
 
-/** Филиал сети, выбранный клиентом по умолчанию — undefined, если ещё не выбирал (тогда берётся основная локация) */
-export function getDefaultNetworkLocation(appUserId: Id | undefined, networkId: Id): Promise<Id | undefined> {
-  if (isApiMode()) return appUserId ? CS.getDefaultNetworkLocationServer(networkId) : Promise.resolve(undefined);
+/** Демо-реализация getDefaultNetworkLocation (сервер и обёртка — '@/api/client-public') */
+export function getDefaultNetworkLocationMock(appUserId: Id | undefined, networkId: Id): Promise<Id | undefined> {
   return request(() => (appUserId ? readArea('client').defaultNetworkLocation[defaultNetworkLocationKey(appUserId, networkId)] : undefined));
 }
 
-/** Клиент сети выбирает филиал по умолчанию (F-14-163); переживает перезагрузку */
-export function setDefaultNetworkLocation(appUserId: Id, networkId: Id, businessId: Id): Promise<void> {
-  if (isApiMode()) return CS.setDefaultNetworkLocationServer(networkId, businessId);
+/** Демо-реализация setDefaultNetworkLocation (сервер и обёртка — '@/api/client-public') */
+export function setDefaultNetworkLocationMock(appUserId: Id, networkId: Id, businessId: Id): Promise<void> {
   return request(() => {
     mutateArea('client', (s) => {
       s.defaultNetworkLocation[defaultNetworkLocationKey(appUserId, networkId)] = businessId;
@@ -616,14 +688,8 @@ export function setDefaultNetworkLocation(appUserId: Id, networkId: Id, business
 /** Источники записи, которые считаются «клиент записался сам через приложение или веб» (F-14-009, F-00-118) */
 const SELF_BOOKED_SOURCES: BookingSource[] = ['app', 'link', 'widget'];
 
-/**
- * Мастера клиента: «Мои мастера» — только те, к кому клиент сам записался через приложение или веб
- * (F-14-009, F-00-118, черновик до F-00-113 в b03). Мастера, у которых клиент есть только в CRM бизнеса
- * (записан администратором в журнале, по телефону и т. п.), сюда не попадают — иначе клиенту стало бы
- * видно, что его завели в чужой CRM (F-00-010, F-00-130).
- */
-export function listBookedMasters(appUserId: Id, limit = 6): Promise<Staff[]> {
-  if (isApiMode()) return CS.listBookedMastersServer(limit);
+/** Демо-реализация listBookedMasters (сервер и обёртка — '@/api/client-public') */
+export function listBookedMastersMock(appUserId: Id, limit = 6): Promise<Staff[]> {
   return request(() => {
     const core = readCore();
     const staffIds = new Set(
@@ -798,12 +864,8 @@ export interface DemandLeadInput {
   appUserId?: Id;
 }
 
-/**
- * «Сообщить, когда появится» (F-00-112): своя заявка (чтобы клиенту написать, когда мастер появится) и — у вошедшего
- * с выбранным районом — строка в отчёте спроса нашей панели (decision-c1 №14: раньше до панели не доходило).
- */
-export async function submitDemandLead(input: DemandLeadInput): Promise<void> {
-  if (isApiMode()) return CS.submitDemandLeadServer(input);
+/** Демо-реализация submitDemandLead (сервер и обёртка — '@/api/client-public') */
+export async function submitDemandLeadMock(input: DemandLeadInput): Promise<void> {
   await request(() => {
     mutateArea('client', (s) => {
       s.demandLeads.push({ id: newId('lead'), createdAt: nowDateTime(), query: input.query, sphereId: input.sphereId, district: input.district, phone: input.phone });
@@ -832,20 +894,13 @@ export interface LoginCodeSent {
 /** Демо: повтор через 30 с (сервер — 60 с, он сам присылает resendAfter) */
 const DEMO_RESEND_AFTER_SEC = 30;
 
-/** Куда можно прислать код — экран входа показывает выбор только из включённых каналов. В демо — все. */
-export async function getLoginChannels(): Promise<LoginChannel[]> {
-  if (isApiMode()) return (await http<{ channels: LoginChannel[] }>('GET', '/v1/auth/channels')).channels;
+/** Демо-реализация getLoginChannels (сервер и обёртка — '@/api/client-auth') */
+export async function getLoginChannelsMock(): Promise<LoginChannel[]> {
   return request(() => [...LOGIN_CHANNELS]);
 }
 
-/** Отправить код входа. В демо код всегда '0000' — показывается подсказкой на экране. */
-export async function sendLoginCode(phone: string, channel: LoginChannel): Promise<LoginCodeSent> {
-  if (isApiMode()) {
-    // Сервер: 4 цифры, 5 минут, повтор через 60 с (ApiError code_resend_wait с retryAfter), только +374.
-    // Канал не доставил (у номера нет Telegram) — сервер сам шлёт тот же код в следующий включённый канал.
-    const sent = await http<LoginCodeSent>('POST', '/v1/auth/code', { phone, channel });
-    return { channel: sent.channel, channels: sent.channels ?? [sent.channel], resendAfter: sent.resendAfter };
-  }
+/** Демо-реализация sendLoginCode (сервер и обёртка — '@/api/client-auth') */
+export async function sendLoginCodeMock(phone: string, channel: LoginChannel): Promise<LoginCodeSent> {
   return request(() => {
     if (!normalizePhone(phone)) throw new ApiError('invalid_phone');
     // Демо не отправляет настоящих сообщений — канал только определяет подсказку на экране
@@ -874,31 +929,8 @@ const DEMO_CODE = '0000';
  * Проверить код и войти: найти клиента приложения по номеру или завести нового (F-14-007, F-14-008) — одна операция,
  * вместе с отметкой согласия. Экран после успеха зовёт apply({ persona: 'client', appUser: user.id }).
  */
-/** Сессия сервера → AppUser экранов (у человека на сервере нет пола/района — их знает профиль, этап 9) */
-function appUserOfSession(session: SessionView): AppUser {
-  return {
-    id: session.user.id,
-    phone: session.user.phone ?? '',
-    name: session.user.name,
-    gender: 'unknown',
-    locale: session.user.locale,
-    createdAt: nowDateTime(),
-  };
-}
-
-export async function verifyLoginCode(input: VerifyLoginInput): Promise<VerifiedAppUser> {
-  if (isApiMode()) {
-    const session = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean }>('POST', '/v1/auth/verify', {
-      phone: input.phone,
-      code: input.code,
-      app: 'client',
-      name: input.name,
-      consent: input.consent,
-      pendingGoogle: input.pendingGoogle,
-      pendingApple: input.pendingApple,
-    });
-    return { ...appUserOfSession(session), googleLinked: session.googleLinked ?? session.appleLinked };
-  }
+/** Демо-реализация verifyLoginCode (сервер и обёртка — '@/api/client-auth') */
+export async function verifyLoginCodeMock(input: VerifyLoginInput): Promise<VerifiedAppUser> {
   return request(() => {
     if (!input.consent) throw new ApiError('consent_required');
     if (input.code !== DEMO_CODE) throw new ApiError('wrong_code');
@@ -938,23 +970,13 @@ export async function hasLoginConsent(appUserId: Id | undefined): Promise<boolea
 // ─────────────────────────── Вход бизнеса и регистрация (F-00-033…F-00-035) ───────────────────────────
 
 /** Вход мастера/индивидуала/владельца по номеру телефона и коду — тем же демо-кодом, что у клиента (F-00-033) */
-/** hasBusiness: false — номер вошёл, но бизнеса у человека ещё нет (экран ведёт на регистрацию бизнеса) */
-export async function verifyBusinessPhoneLogin(input: {
+/** Демо-реализация verifyBusinessPhoneLogin (сервер и обёртка — '@/api/client-auth') */
+export async function verifyBusinessPhoneLoginMock(input: {
   phone: string;
   code: string;
   pendingGoogle?: string;
   pendingApple?: string;
 }): Promise<{ hasBusiness: boolean; googleLinked?: boolean }> {
-  if (isApiMode()) {
-    const view = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean }>('POST', '/v1/auth/verify', {
-      phone: input.phone,
-      code: input.code,
-      app: 'business',
-      pendingGoogle: input.pendingGoogle,
-      pendingApple: input.pendingApple,
-    });
-    return { hasBusiness: view.memberships.length > 0, googleLinked: view.googleLinked ?? view.appleLinked };
-  }
   return request(() => {
     if (input.code !== DEMO_CODE) throw new ApiError('wrong_code');
     if (!normalizePhone(input.phone)) throw new ApiError('invalid_phone');
@@ -974,73 +996,26 @@ export interface PendingGoogle {
   provider?: 'google' | 'apple';
 }
 
-/** Токен ожидающей привязки — в нужное поле verify: pendingGoogle или pendingApple */
-export function pendingLinkTokens(pending: PendingGoogle | undefined): { pendingGoogle?: string; pendingApple?: string } {
-  if (!pending) return {};
-  return pending.provider === 'apple' ? { pendingApple: pending.token } : { pendingGoogle: pending.token };
-}
-
 export type GoogleSignInResult =
   /** Google привязан к номеру — вошли. user — клиент приложения (null в демо: демо-клиент по умолчанию) */
   | { kind: 'signedIn'; user: AppUser | null; hasBusiness: boolean }
   /** Не привязан — экран просит номер и код, «привяжем Google к номеру» */
   | { kind: 'linkRequired'; pending: PendingGoogle };
 
-/** Web Client ID из Google Cloud Console; без него на живом сайте кнопки «Войти через Google» нет */
-export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? '';
-
-/** Показывать ли «Войти через Google»: живой сайт — если задан Client ID; демо — всегда (вход имитируется) */
-export function googleSignInAvailable(): boolean {
-  return isApiMode() ? Boolean(GOOGLE_CLIENT_ID) : true;
-}
-
-/**
- * Войти через Google: idToken — от Google Identity Services. Сервер проверяет токен; привязан — сессия, нет — pending.
- * Демо (без настоящего Google): сразу вход демо-персоной — клиент по умолчанию или владелец салона.
- */
-export async function signInWithGoogle(input: { idToken?: string; app: 'client' | 'business'; consent?: boolean }): Promise<GoogleSignInResult> {
-  if (isApiMode()) {
-    const r = await http<{ session: SessionView | null; pendingGoogle: (PendingGoogle & { expiresIn: number }) | null }>('POST', '/v1/auth/google', {
-      idToken: input.idToken,
-      app: input.app,
-      consent: input.consent,
-    });
-    if (r.session) return { kind: 'signedIn', user: appUserOfSession(r.session), hasBusiness: r.session.memberships.length > 0 };
-    if (r.pendingGoogle) return { kind: 'linkRequired', pending: { token: r.pendingGoogle.token, email: r.pendingGoogle.email, name: r.pendingGoogle.name } };
-    throw new ApiError('google_invalid');
-  }
+/** Демо-реализация signInWithGoogle (сервер и обёртка — '@/api/client-auth') */
+export async function signInWithGoogleMock(input: { idToken?: string; app: 'client' | 'business'; consent?: boolean }): Promise<GoogleSignInResult> {
   // Демо: клиент — демо-клиент по умолчанию (как resolveDemoContext), бизнес — владелец салона
   return request(() => ({ kind: 'signedIn' as const, user: input.app === 'client' ? (readCore().appUsers[0] ?? null) : null, hasBusiness: true }));
 }
 
-/**
- * «Войти через Apple» — только внутри приложения BookTime на iOS (правило App Store 4.8; кнопка — GoogleSignIn.tsx,
- * токен — нативное окно Apple, src/lib/native). Сервер проверяет identity token; привязан — сессия, нет — pending.
- * name — имя из Apple (его дают только при первом входе). authorizationCode — одноразовый код из того же ответа Apple:
- * сервер меняет его на refresh token, чтобы отозвать вход через Apple при удалении аккаунта (App Store 5.1.1(v)).
- * Демо — как Google: сразу вход демо-персоной.
- */
-export async function signInWithApple(input: {
+/** Демо-реализация signInWithApple (сервер и обёртка — '@/api/client-auth') */
+export async function signInWithAppleMock(input: {
   identityToken?: string;
   authorizationCode?: string | null;
   name?: string | null;
   app: 'client' | 'business';
   consent?: boolean;
 }): Promise<GoogleSignInResult> {
-  if (isApiMode()) {
-    const r = await http<{ session: SessionView | null; pendingApple: (PendingGoogle & { expiresIn: number }) | null }>('POST', '/v1/auth/apple', {
-      identityToken: input.identityToken,
-      authorizationCode: input.authorizationCode ?? undefined,
-      app: input.app,
-      consent: input.consent,
-      name: input.name ?? undefined,
-    });
-    if (r.session) return { kind: 'signedIn', user: appUserOfSession(r.session), hasBusiness: r.session.memberships.length > 0 };
-    if (r.pendingApple) {
-      return { kind: 'linkRequired', pending: { token: r.pendingApple.token, email: r.pendingApple.email, name: r.pendingApple.name, provider: 'apple' } };
-    }
-    throw new ApiError('apple_invalid');
-  }
   return request(() => ({ kind: 'signedIn' as const, user: input.app === 'client' ? (readCore().appUsers[0] ?? null) : null, hasBusiness: true }));
 }
 
@@ -1095,15 +1070,8 @@ export interface AdminLoginResult {
   secondFactor?: SecondFactorChallenge;
 }
 
-export async function verifyAdminLogin(input: AdminLoginInput): Promise<AdminLoginResult> {
-  if (isApiMode()) {
-    const r = await http<SessionView | { secondFactor: SecondFactorChallenge }>('POST', '/v1/auth/password', {
-      login: input.login,
-      password: input.password,
-    });
-    if ('secondFactor' in r) return { requirePasswordChange: false, secondFactor: r.secondFactor };
-    return { requirePasswordChange: r.mustChangePassword };
-  }
+/** Демо-реализация verifyAdminLogin (сервер и обёртка — '@/api/client-auth') */
+export async function verifyAdminLoginMock(input: AdminLoginInput): Promise<AdminLoginResult> {
   return request(() => {
     const key = loginKey(input.login);
     if (!key) throw new ApiError('bad_login');
@@ -1117,13 +1085,8 @@ export async function verifyAdminLogin(input: AdminLoginInput): Promise<AdminLog
   });
 }
 
-/** Новый пароль администратора после первого входа (F-00-034) */
-export async function changeAdminPassword(login: string, newPassword: string, oldPassword?: string): Promise<void> {
-  if (isApiMode()) {
-    // Сервер знает вход из сессии; при первом входе (пароль выдан владельцем) старый пароль не нужен
-    await http('POST', '/v1/auth/password/change', { newPassword, oldPassword: oldPassword || undefined });
-    return;
-  }
+/** Демо-реализация changeAdminPassword (сервер и обёртка — '@/api/client-auth') */
+export async function changeAdminPasswordMock(login: string, newPassword: string, _oldPassword?: string): Promise<void> {
   return request(() => {
     const key = loginKey(login);
     if (!key) throw new ApiError('bad_login');
@@ -1542,9 +1505,8 @@ function bookingEndsAfter(b: Booking, now: ISODateTime): boolean {
   return addMinutes(b.start, b.durationMin) > now;
 }
 
-/** Три списка записей клиента (F-14-011): предстоящие / прошедшие / отменённые. Просроченные предоплаты снимает ядро */
-export function listMyBookings(appUserId: Id): Promise<ClientBookingsResult> {
-  if (isApiMode()) return CS.listMyBookingsServer();
+/** Демо-реализация listMyBookings (сервер и обёртка — '@/api/client-public') */
+export function listMyBookingsMock(appUserId: Id): Promise<ClientBookingsResult> {
   return request(() => {
     coreTx.releaseExpiredPrepayments({ appUserId });
     returnMembershipVisitsOfCancelled(appUserId);
@@ -1560,11 +1522,8 @@ export function listMyBookings(appUserId: Id): Promise<ClientBookingsResult> {
   });
 }
 
-/** Ближайшие активные записи клиента для главной — та же строка, что в «Моих записях» (ux-r2 №47) */
-export function listUpcomingBookings(appUserId: Id, limit = 3): Promise<EnrichedBooking[]> {
-  if (isApiMode()) {
-    return listMyBookings(appUserId).then((r) => r.upcoming.filter((b) => ACTIVE_STATUSES.includes(b.status)).slice(0, limit));
-  }
+/** Демо-реализация listUpcomingBookings (сервер и обёртка — '@/api/client-public') */
+export function listUpcomingBookingsMock(appUserId: Id, limit = 3): Promise<EnrichedBooking[]> {
   return request(() => {
     const core = readCore();
     const now = nowDateTime();
@@ -1583,29 +1542,8 @@ export interface RepeatSuggestion {
   nextSlot?: FreeSlot;
 }
 
-/**
- * «Снова к Ани?» на главной (ux-best-c2 №3, speed-k2 №2): последний состоявшийся визит, если к этому мастеру нет
- * предстоящей записи, и его ближайшее окно на ту же услугу — повтор в 2 нажатия.
- */
-export function getRepeatSuggestion(appUserId: Id): Promise<RepeatSuggestion | undefined> {
-  if (isApiMode()) {
-    return (async () => {
-      const r = await listMyBookings(appUserId);
-      // Последний визит, к чьему мастеру нет предстоящей записи: самый свежий визит мог уже иметь «следующий раз»
-      const last = [...r.past, ...r.upcoming]
-        .filter((b) => b.status === 'arrived')
-        .sort((a, b) => b.start.localeCompare(a.start))
-        .find((b) => !r.upcoming.some((u) => u.staffId === b.staffId && ACTIVE_STATUSES.includes(u.status)));
-      if (!last) return undefined;
-      const nextSlots = await getNearestSlots({
-        staffId: last.staffId,
-        durationMin: last.durationMin,
-        serviceId: last.services[0]?.serviceId,
-        limit: 1,
-      }).catch(() => [] as FreeSlot[]);
-      return { booking: last, nextSlot: nextSlots[0] };
-    })();
-  }
+/** Демо-реализация getRepeatSuggestion (сервер и обёртка — '@/api/client-public') */
+export function getRepeatSuggestionMock(appUserId: Id): Promise<RepeatSuggestion | undefined> {
   return request(() => {
     const core = readCore();
     const now = nowDateTime();
@@ -1635,9 +1573,8 @@ export function getRepeatSuggestion(appUserId: Id): Promise<RepeatSuggestion | u
   });
 }
 
-/** Записи клиента в одной компании (F-14-026) — ближайшая предстоящая первой, потом прошедшие по убыванию */
-export function listMyBookingsInBusiness(appUserId: Id, businessId: Id): Promise<EnrichedBooking[]> {
-  if (isApiMode()) return CS.listMyBookingsInBusinessServer(businessId);
+/** Демо-реализация listMyBookingsInBusiness (сервер и обёртка — '@/api/client-public') */
+export function listMyBookingsInBusinessMock(appUserId: Id, businessId: Id): Promise<EnrichedBooking[]> {
   return request(() => {
     const core = readCore();
     const now = nowDateTime();
@@ -1930,17 +1867,15 @@ export function removeFromWaitlist(id: Id, appUserId: Id): Promise<void> {
 
 // ─────────────────────────── ❤ Избранное (F-00-113, F-00-115, F-14-027, F-14-031) — b03 ───────────────────────────
 
-/** Подписан ли клиент на мастера/место — для кнопки ❤ на карточке (F-00-113) */
-export function isFavorited(appUserId: Id, targetType: FavoriteTargetType, targetId: Id): Promise<boolean> {
-  if (isApiMode()) return CS.isFavoritedServer(targetType, targetId);
+/** Демо-реализация isFavorited (сервер и обёртка — '@/api/client-public') */
+export function isFavoritedMock(appUserId: Id, targetType: FavoriteTargetType, targetId: Id): Promise<boolean> {
   return request(() =>
     readArea('client').favorites.some((f) => f.appUserId === appUserId && f.targetType === targetType && f.targetId === targetId),
   );
 }
 
-/** ❤ — подписаться/отписаться одной кнопкой (F-00-113); возвращает новое состояние */
-export function toggleFavorite(input: { appUserId: Id; targetType: FavoriteTargetType; targetId: Id }): Promise<boolean> {
-  if (isApiMode()) return CS.toggleFavoriteServer(input.targetType, input.targetId);
+/** Демо-реализация toggleFavorite (сервер и обёртка — '@/api/client-public') */
+export function toggleFavoriteMock(input: { appUserId: Id; targetType: FavoriteTargetType; targetId: Id }): Promise<boolean> {
   return request(() => {
     let subscribed = false;
     mutateArea('client', (s) => {
@@ -2121,9 +2056,8 @@ export function getMyLocationReview(appUserId: Id, bookingId: Id): Promise<Locat
   return request(() => readArea('client').locationReviews.find((r) => r.appUserId === appUserId && r.bookingId === bookingId));
 }
 
-/** Отзывы о месте для карточки бизнеса (F-14-028) — новые сверху */
-export function listLocationReviews(businessId: Id): Promise<LocationReview[]> {
-  if (isApiMode()) return CS.listLocationReviewsServer(businessId);
+/** Демо-реализация listLocationReviews (сервер и обёртка — '@/api/client-public') */
+export function listLocationReviewsMock(businessId: Id): Promise<LocationReview[]> {
   return request(() =>
     readArea('client')
       .locationReviews.filter((r) => r.businessId === businessId)
@@ -2166,13 +2100,8 @@ export interface NotificationEntry extends NotificationItem {
   service?: Service;
 }
 
-/**
- * Лента уведомлений клиента (F-14-055): «новости» (broadcast) от бизнеса, у которого приглушены —
- * не показываем (F-00-115/F-14-058 — тот же переключатель, что в избранном); напоминания и статусы
- * записи этим не глушатся.
- */
-export function listNotifications(appUserId: Id): Promise<NotificationEntry[]> {
-  if (isApiMode()) return CS.listNotificationsServer();
+/** Демо-реализация listNotifications (сервер и обёртка — '@/api/client-public') */
+export function listNotificationsMock(appUserId: Id): Promise<NotificationEntry[]> {
   return request(() => {
     deliverApprovedNews();
     materializeBookingReminders(appUserId);
@@ -2458,8 +2387,8 @@ export interface ClientProfile {
   noShowCount: number;
 }
 
-export function getClientProfile(appUserId: Id): Promise<ClientProfile | undefined> {
-  if (isApiMode()) return CS.getClientProfileServer();
+/** Демо-реализация getClientProfile (сервер и обёртка — '@/api/client-public') */
+export function getClientProfileMock(appUserId: Id): Promise<ClientProfile | undefined> {
   return request(() => {
     const core = readCore();
     const appUser = core.appUsers.find((u) => u.id === appUserId);
@@ -2533,9 +2462,8 @@ export function translationKey(owner: 'staff' | 'business' | 'service', ownerId:
   return `${owner}:${ownerId}:${field}`;
 }
 
-/** Правка мастера к автопереводу его текста на en, если есть (F-00-174) */
-export function getTranslationOverride(owner: 'staff' | 'business' | 'service', ownerId: Id, field: string): Promise<string | undefined> {
-  if (isApiMode()) return CS.getTranslationOverrideServer(owner, ownerId, field);
+/** Демо-реализация getTranslationOverride (сервер и обёртка — '@/api/client-public') */
+export function getTranslationOverrideMock(owner: 'staff' | 'business' | 'service', ownerId: Id, field: string): Promise<string | undefined> {
   return request(() => readArea('client').translationOverrides[translationKey(owner, ownerId, field)]);
 }
 
@@ -2754,13 +2682,8 @@ function pickCashbackCard(cards: CashbackCard[]): CashbackCard | undefined {
   return cards.reduce((best, c) => (c.balance >= best.balance ? c : best));
 }
 
-/**
- * Кэшбэк-карта клиента для одной компании (F-14-048…053) — правило выбора: видимая карта с наибольшим
- * балансом, при равенстве — последняя выданная (последняя в списке); карты без бонусной программы (нет
- * earnRules) и невидимые (`visible: false`) не участвуют.
- */
-export function getCashbackForBusiness(appUserId: Id | undefined, businessId: Id): Promise<CashbackCard | undefined> {
-  if (isApiMode()) return appUserId ? CLX.orUndefined(CLX.me<CashbackCard | null>('getCashbackForBusiness', [businessId])) : Promise.resolve(undefined);
+/** Демо-реализация getCashbackForBusiness (сервер и обёртка — '@/api/client-public') */
+export function getCashbackForBusinessMock(appUserId: Id | undefined, businessId: Id): Promise<CashbackCard | undefined> {
   return request(() => {
     if (!appUserId) return undefined;
     const cards = readArea('client').cashbackCards.filter(
@@ -2790,9 +2713,8 @@ function resolveSalesSourceBusinessId(core: ReturnType<typeof readCore>, busines
   return net.businessIds.find(hasOnSale) ?? net.businessIds[0] ?? businessId;
 }
 
-/** Абонементы этого места, доступные к покупке — пусто, если продавать нечего (F-14-044) */
-export function listPurchasableMemberships(businessId: Id): Promise<MembershipTemplate[]> {
-  if (isApiMode()) return CLX.pub(businessId, 'listPurchasableMemberships');
+/** Демо-реализация listPurchasableMemberships (сервер и обёртка — '@/api/client-public') */
+export function listPurchasableMembershipsMock(businessId: Id): Promise<MembershipTemplate[]> {
   return request(() => {
     const core = readCore();
     const sourceId = resolveSalesSourceBusinessId(core, businessId);
@@ -2800,9 +2722,8 @@ export function listPurchasableMemberships(businessId: Id): Promise<MembershipTe
   });
 }
 
-/** Сертификаты этого места, доступные к покупке — пусто, если продавать нечего (F-14-044) */
-export function listPurchasableCertificates(businessId: Id): Promise<CertificateTemplate[]> {
-  if (isApiMode()) return CLX.pub(businessId, 'listPurchasableCertificates');
+/** Демо-реализация listPurchasableCertificates (сервер и обёртка — '@/api/client-public') */
+export function listPurchasableCertificatesMock(businessId: Id): Promise<CertificateTemplate[]> {
   return request(() => {
     const core = readCore();
     const sourceId = resolveSalesSourceBusinessId(core, businessId);
@@ -2810,13 +2731,8 @@ export function listPurchasableCertificates(businessId: Id): Promise<Certificate
   });
 }
 
-/**
- * Купить абонемент (F-14-043, F-14-045): оплата — по нашему решению отложена (F-00-028), сейчас
- * альтернативным способом — по реквизитам бизнеса, как ручная предоплата записи (F-00-097). «Купить»
- * создаёт заявку 'pendingConfirmation' — визиты недоступны, пока бизнес не подтвердит оплату (В-17).
- */
-export function purchaseMembership(appUserId: Id, templateId: Id): Promise<Membership> {
-  if (isApiMode()) return CLX.me('purchaseMembership', [templateId]);
+/** Демо-реализация purchaseMembership (сервер и обёртка — '@/api/client-public') */
+export function purchaseMembershipMock(appUserId: Id, templateId: Id): Promise<Membership> {
   return request(() => {
     const tpl = readArea('client').membershipTemplates.find((t) => t.id === templateId);
     if (!tpl) throw new Error('template_not_found');
@@ -2847,9 +2763,8 @@ export function purchaseMembership(appUserId: Id, templateId: Id): Promise<Membe
   });
 }
 
-/** Купить сертификат (F-14-043) — та же схема оплаты и заявки, что покупка абонемента (В-17) */
-export function purchaseCertificate(appUserId: Id, templateId: Id): Promise<GiftCertificate> {
-  if (isApiMode()) return CLX.me('purchaseCertificate', [templateId]);
+/** Демо-реализация purchaseCertificate (сервер и обёртка — '@/api/client-public') */
+export function purchaseCertificateMock(appUserId: Id, templateId: Id): Promise<GiftCertificate> {
   return request(() => {
     const tpl = readArea('client').certificateTemplates.find((t) => t.id === templateId);
     if (!tpl) throw new Error('template_not_found');
@@ -3068,12 +2983,8 @@ export function findRenewTemplate(businessId: Id, title: LocalizedText): Promise
   );
 }
 
-/**
- * Абонементы клиента, которые скоро заканчиваются и напоминание о которых он ещё не видел (F-14-046):
- * ≤5 дней до конца или последний визит. Одно напоминание за раз — экран показывает первое из списка.
- */
-export function listPendingMembershipReminders(appUserId: Id): Promise<Array<MembershipWithBusiness & { renewTemplateId?: Id }>> {
-  if (isApiMode()) return CLX.me('listPendingMembershipReminders');
+/** Демо-реализация listPendingMembershipReminders (сервер и обёртка — '@/api/client-public') */
+export function listPendingMembershipRemindersMock(appUserId: Id): Promise<Array<MembershipWithBusiness & { renewTemplateId?: Id }>> {
   return request(() => {
     const core = readCore();
     const area = readArea('client');
@@ -3089,9 +3000,8 @@ export function listPendingMembershipReminders(appUserId: Id): Promise<Array<Mem
   });
 }
 
-/** Клиент увидел напоминание — не показывать снова, следующее (если есть) покажется позже (F-14-046) */
-export function markMembershipReminderSeen(membershipId: Id): Promise<void> {
-  if (isApiMode()) return CLX.me<null>('markMembershipReminderSeen', [membershipId]).then(() => undefined);
+/** Демо-реализация markMembershipReminderSeen (сервер и обёртка — '@/api/client-public') */
+export function markMembershipReminderSeenMock(membershipId: Id): Promise<void> {
   return request(() => {
     mutateArea('client', (s) => {
       if (!s.membershipRemindersSeen.includes(membershipId)) s.membershipRemindersSeen.push(membershipId);
@@ -3166,9 +3076,8 @@ export function getCoinBalance(businessId: Id): Promise<number> {
   return request(() => coreTx.coinBalance(businessId) + (readArea('client').coinBalances[businessId] ?? 0));
 }
 
-/** Сторис вверху главной приложения клиента, видят ВСЕ (F-00-159): сначала подписки клиента, потом остальные (F-00-161, порядок — предл.) */
-export function listHomeStories(appUserId: Id | undefined): Promise<Array<Story & { business: PublicBusiness }>> {
-  if (isApiMode()) return CS.listHomeStoriesServer().then((rows) => rows.map((r) => ({ ...r, business: toPublicBusiness(r.business) })));
+/** Демо-реализация listHomeStories (сервер и обёртка — '@/api/client-public') */
+export function listHomeStoriesMock(appUserId: Id | undefined): Promise<Array<Story & { business: PublicBusiness }>> {
   return request(() => {
     const core = readCore();
     const area = readArea('client');
@@ -3228,9 +3137,8 @@ export function recordStoryClick(storyId: Id): Promise<void> {
   });
 }
 
-/** Показ акций на карточке места и мастера (F-14-032, F-14-033) — только активные сторис этого бизнеса, новая первой */
-export function listBusinessPromoStories(businessId: Id): Promise<Story[]> {
-  if (isApiMode()) return CS.listBusinessPromoStoriesServer(businessId);
+/** Демо-реализация listBusinessPromoStories (сервер и обёртка — '@/api/client-public') */
+export function listBusinessPromoStoriesMock(businessId: Id): Promise<Story[]> {
   return request(() => {
     const now = nowDateTime();
     return readArea('client')
@@ -3903,8 +3811,20 @@ export const DEMO_CASH_DESKS: VisitCashDesk[] = [
   { id: 'desk-3', name: 'Касса 3' },
 ];
 
-export function listCashDesks(): Promise<VisitCashDesk[]> {
-  return request(() => DEMO_CASH_DESKS);
+/**
+ * Кассы для оплаты наличными в визите — настоящие кассы «Финансов» (вид «наличные»), с bookingId — кассы филиала визита
+ * (у филиала своих нет — все кассы бизнеса). Как сервер (GET …/visit-cash/cash-desks). В моке у бизнеса без касс — демо.
+ */
+export function listCashDesks(businessId?: Id, bookingId?: Id): Promise<VisitCashDesk[]> {
+  if (isApiMode() && businessId) return CS.listVisitCashDesksServer(businessId, bookingId);
+  return request(() => {
+    if (!businessId) return DEMO_CASH_DESKS;
+    const cash = [...(readArea('finance').accounts ?? [])].filter((a) => a.businessId === businessId && a.kind === 'cash').sort((a, b) => a.order - b.order);
+    const locationId = bookingId ? readCore().bookings.find((b) => b.id === bookingId)?.locationId : undefined;
+    const here = locationId ? cash.filter((a) => a.locationId === locationId) : [];
+    const desks = (here.length ? here : cash).map((a) => ({ id: a.id, name: a.name }));
+    return desks.length ? desks : DEMO_CASH_DESKS;
+  });
 }
 
 export function generateSaleCode(): Promise<string> {

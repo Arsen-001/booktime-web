@@ -309,7 +309,50 @@ export interface SlotCheckQuery {
 
 export type SlotCheck =
   | { ok: true; locationId?: Id; workplace?: Workplace }
-  | { ok: false; reason: 'past' | 'outside_hours' | 'busy'; conflictBookingId?: Id };
+  | { ok: false; reason: 'past' | 'outside_hours' | 'busy' | 'home_during_shift'; conflictBookingId?: Id };
+
+// ─────────────────────────── Домашняя запись в часы смены (F-00-047) ───────────────────────────
+
+/** Места «не в салоне»: домашняя запись и выезд к клиенту */
+const HOME_WORKPLACES: ReadonlySet<Workplace> = new Set<Workplace>(['home', 'visit']);
+/** Графики, которые сменой в салоне не считаются */
+const NOT_SHIFT_WORKPLACES: ReadonlySet<Workplace> = new Set<Workplace>(['home', 'visit', 'online']);
+
+export interface HomeShiftConflict {
+  /** Салон, в чьей смене стоит домашняя запись */
+  businessId: Id;
+  staffId: Id;
+  /** Часы смены 'HH:mm' */
+  from: string;
+  to: string;
+}
+
+/**
+ * Галочка владельца «Запретить мастерам домашние записи в часы смены» (Business.forbidHomeBookingsDuringShift, F-00-047):
+ * домашняя или выездная запись мастера не может стоять на часах его смены в таком салоне — ни в салоне, ни в его
+ * собственном бизнесе (тот же человек, samePersonStaffIds). Смена — часы графиков салона, кроме домашних, выездных
+ * и онлайн. Касание концами — не пересечение. Как сервер (availability/home-shift.ts, BookingsService.occupyBooking).
+ */
+export function homeShiftConflict(
+  core: Pick<CoreData, 'staff' | 'businesses' | 'schedules'>,
+  q: { staffId: Id; start: ISODateTime; durationMin: Minutes; workplace?: Workplace },
+): HomeShiftConflict | null {
+  if (!q.workplace || !HOME_WORKPLACES.has(q.workplace)) return null;
+  const date = datePart(q.start);
+  const from = toMinutes(q.start.slice(11, 16));
+  const need: Interval = [from, Math.min(from + q.durationMin, 24 * 60)];
+  for (const id of samePersonStaffIds(core, q.staffId)) {
+    const card = core.staff.find((s) => s.id === id);
+    if (!card || card.status !== 'active') continue;
+    if (!core.businesses.find((b) => b.id === card.businessId)?.forbidHomeBookingsDuringShift) continue;
+    for (const sch of core.schedules) {
+      if (sch.staffId !== id || NOT_SHIFT_WORKPLACES.has(sch.workplace) || (sch.openUntil && date > sch.openUntil)) continue;
+      const hit = rangesToIntervals(scheduleHours(sch, date)).find((r) => overlaps(need, r));
+      if (hit) return { businessId: card.businessId, staffId: id, from: fromMinutes(hit[0]), to: fromMinutes(hit[1]) };
+    }
+  }
+  return null;
+}
 
 /**
  * Свободно ли [start, start + длительность + запас) у мастера — ОДНО правило для журнала, приложения и виджета.
@@ -333,7 +376,9 @@ export function checkSlot(core: CoreData, q: SlotCheckQuery, now: ISODateTime): 
     overlaps(need, [b.from, b.to]),
   );
   if (conflict) return { ok: false, reason: 'busy', conflictBookingId: conflict.bookingId };
-  return { ok: true, locationId: place?.locationId ?? q.locationId, workplace: place?.workplace ?? q.workplace };
+  const workplace = place?.workplace ?? q.workplace;
+  if (homeShiftConflict(core, { staffId: q.staffId, start: q.start, durationMin: q.durationMin, workplace })) return { ok: false, reason: 'home_during_shift' };
+  return { ok: true, locationId: place?.locationId ?? q.locationId, workplace };
 }
 
 /** Короткая форма: true — время свободно по всем правилам */

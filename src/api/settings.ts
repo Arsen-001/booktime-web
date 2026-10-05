@@ -405,6 +405,22 @@ export interface SubscriptionView extends Subscription {
   status: SubscriptionStatus;
   daysLeft: number;
   quote: PriceQuote;
+  /** Сервер: принимает ли оплату картой / Idram / Telcell (нет — `false`); демо — всегда можно (поля нет) */
+  paymentsAvailable?: boolean;
+}
+
+/**
+ * Можно ли платить картой / Idram / Telcell (06.10.2026, F-00-022/026). Платёжный провайдер ещё не подключён —
+ * на сервере оплата выключена (`paymentsAvailable: false`, 503 `payments_unavailable`); экраны вместо оплаты
+ * показывают «Оплата картой скоро — напишите нам». Демо — оплата работает как раньше.
+ */
+export function cardPaymentsAvailable(sub: Pick<SubscriptionView, 'paymentsAvailable'> | undefined): boolean {
+  return sub?.paymentsAvailable !== false;
+}
+
+/** Ошибка «оплата картой пока недоступна» от сервера */
+export function isPaymentsUnavailable(e: unknown): boolean {
+  return e instanceof ApiError && e.code === 'payments_unavailable';
 }
 
 /** Подписка бизнеса + срок + тариф — карточки «Срок действия»/«Тариф» (F-15-070/071/091, F-15-058) */

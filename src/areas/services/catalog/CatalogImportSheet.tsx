@@ -7,6 +7,7 @@
  */
 import { useRef, useState } from 'react';
 import { FileSpreadsheet, Upload } from 'lucide-react';
+import { noteDataOpOnServer } from '@/api/data-ops';
 import { CATALOG_IMPORT_LIMIT, importCatalog, type ServiceRow } from '@/api/services';
 import { useApiMutation } from '@/api/request';
 import { useCurrent, useSphere } from '@/demo/hooks';
@@ -108,6 +109,8 @@ export function CatalogImportSheet({ open, onOpenChange, existing }: CatalogImpo
           durationMin,
         })),
       );
+      // «Операции с данными» (F-02-063): в api — строка на сервер (импорт шёл отдельными запросами), в демо её пишет мок
+      void noteDataOpOnServer({ businessId: businessId ?? '', kind: 'import', area: 'services', entity: 'services', count: res.created, fileName: fileName || undefined });
       toast.success(
         t('catalogExcel.imported', {
           count: res.created,

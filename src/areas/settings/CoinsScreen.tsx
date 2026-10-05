@@ -4,11 +4,14 @@
  * /biz/coins — «Монеты» (F-00-026/027, F-15-094): баланс, покупка пакета (Sheet, мок-оплата), на что тратятся,
  * история движений. Баланс и журнал считает ЯДРО (getCoinBalance/listCoinMoves, '@/api/core') — не наш срез.
  * SMS/WhatsApp баланса нет (⭐ Снято 11) — этот экран его полностью заменяет.
+ * Сервер без платёжного провайдера (06.10.2026) — в окне покупки вместо «Оплатить» плашка «Оплата картой скоро —
+ * напишите нам» (PaymentsSoonNotice), пакеты видны для справки.
  */
 import { useState } from 'react';
 import { Camera, Coins, Sparkles } from 'lucide-react';
 import { getCoinBalance, listCoinMoves } from '@/api/core';
-import { listCoinPackages, purchaseCoinPackage } from '@/api/settings';
+import { cardPaymentsAvailable, getSubscription, isPaymentsUnavailable, listCoinPackages, purchaseCoinPackage } from '@/api/settings';
+import { PaymentsSoonNotice } from '@/areas/settings/PaymentsSoonNotice';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
@@ -42,6 +45,9 @@ export function CoinsScreen() {
   const balanceQ = useApiQuery(['coins', 'balance', businessId], () => getCoinBalance(businessId ?? ''), { enabled: ready && Boolean(businessId) });
   const movesQ = useApiQuery(['coins', 'moves', businessId], () => listCoinMoves({ businessId: businessId ?? '' }), { enabled: ready && Boolean(businessId) });
   const packagesQ = useApiQuery(['settings', 'coinPackages'], () => listCoinPackages());
+  // Принимает ли сервер оплату картой — поле подписки (демо: всегда да)
+  const subQ = useApiQuery(['settings', 'subscription', businessId], () => getSubscription(businessId ?? ''), { enabled: ready && Boolean(businessId) });
+  const canPay = cardPaymentsAvailable(subQ.data);
   // Постранично, как во всех списках (DESIGN.md → Long lists)
   const { pageItems: movesPage, pager: movesPager, pageSize: movesPageSize } = usePagedList(movesQ.data ?? []);
   const movesLoading = movesQ.isLoading || !ready;
@@ -57,8 +63,11 @@ export function CoinsScreen() {
       toast.success(t('coins.purchaseSuccess'));
       setOpen(false);
       setPicked(null);
-    } catch {
-      toast.error(t('coins.purchaseFailed'));
+    } catch (e) {
+      if (isPaymentsUnavailable(e)) {
+        toast.error(t('paymentsSoon.unavailableError'));
+        void subQ.refetch();
+      } else toast.error(t('coins.purchaseFailed'));
     }
   };
 
@@ -140,15 +149,19 @@ export function CoinsScreen() {
       </SectionCard>
 
       <Sheet open={open} onOpenChange={setOpen} title={t('coins.buyTitle')} description={t('coins.buyDescription')} footer={
-        <Button fullWidth onClick={buy} loading={purchase.isPending} disabled={!picked}>
-          {t('coins.confirmPurchase')}
-        </Button>
+        canPay ? (
+          <Button fullWidth onClick={buy} loading={purchase.isPending} disabled={!picked}>
+            {t('coins.confirmPurchase')}
+          </Button>
+        ) : undefined
       }>
         <div className="flex flex-col gap-3">
+          {!canPay && <PaymentsSoonNotice what="coins" />}
           {packagesQ.data?.map((pkg) => (
             <ChoiceCard
               key={pkg.id}
               kind="radio"
+              disabled={!canPay}
               selected={picked === pkg.id}
               onClick={() => setPicked(pkg.id)}
               icon={<Coins aria-hidden className="size-5" />}

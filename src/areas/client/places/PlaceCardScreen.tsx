@@ -4,19 +4,8 @@ import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AtSign, Check, ChevronRight, Copy, Gift, Globe, MapPin, MessageCircle, Phone, Store, Wallet } from 'lucide-react';
-import {
-  getCashbackForBusiness,
-  getDefaultNetworkLocation,
-  getPlaceCard,
-  listLocationReviews,
-  listMyBookingsInBusiness,
-  listPurchasableCertificates,
-  listPurchasableMemberships,
-  purchaseCertificate,
-  purchaseMembership,
-  setDefaultNetworkLocation,
-} from '@/api/client';
-import { getPublicBusinessData } from '@/api/online';
+import { getCashbackForBusiness, getDefaultNetworkLocation, getPlaceCard, listLocationReviews, listMyBookingsInBusiness, listPurchasableCertificates, listPurchasableMemberships, purchaseCertificate, purchaseMembership, setDefaultNetworkLocation } from '@/api/client-public';
+import { getPublicBusinessData } from '@/api/online-public';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id, WeekTemplate } from '@/domain/core';

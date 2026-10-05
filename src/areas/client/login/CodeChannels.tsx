@@ -1,7 +1,8 @@
 'use client';
 
 import { MessageCircle, MessageSquare, Send } from 'lucide-react';
-import { getLoginChannels, type LoginChannel } from '@/api/client';
+import type { LoginChannel } from '@/api/client';
+import { getLoginChannels } from '@/api/client-auth';
 import { useApiQuery } from '@/api/request';
 import type { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';

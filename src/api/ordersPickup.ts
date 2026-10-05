@@ -128,9 +128,8 @@ function freeStartsTx(order: Order, setup: PickupSetup, staffId: Id, date: ISODa
   return computeFreeSlots(readCore(), { staffId, date, durationMin: setup.slotMin, locationId: order.locationId ?? undefined, serviceId: setup.service?.id }).map((s) => s.start);
 }
 
-/** Окна выдачи на неделю вперёд: начало подходит, если свободен хоть один из тех, кто выдаёт */
-export function getPublicPickupSlots(code: string): Promise<PickupSlots> {
-  if (isApiMode()) return S.getPublicPickupSlotsServer(code);
+/** Демо-реализация getPublicPickupSlots (сервер и обёртка — '@/api/orders-public') */
+export function getPublicPickupSlotsMock(code: string): Promise<PickupSlots> {
   return request(() => {
     const order = orderByCodeTx(code);
     const setup = readySetupTx(order);
@@ -142,13 +141,9 @@ export function getPublicPickupSlots(code: string): Promise<PickupSlots> {
   });
 }
 
-/**
- * Выбрать или поменять время выдачи. Тот же выбор — без изменений; другое время — новая запись, прежняя снимается
- * («Отменил клиент», без правил поздней отмены — это не визит). Ответ — публичный вид заказа.
- */
-export function bookPublicPickup(args: { code: string; start: ISODateTime }): Promise<PublicOrder> {
+/** Демо-реализация bookPublicPickup (сервер и обёртка — '@/api/orders-public') */
+export function bookPublicPickupMock(args: { code: string; start: ISODateTime }): Promise<PublicOrder> {
   const { code, start } = args;
-  if (isApiMode()) return S.bookPublicPickupServer(code, start);
   return request(() => {
     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(start)) throw new ApiError('validation', 'start');
     const order = orderByCodeTx(code);
@@ -187,9 +182,8 @@ export function bookPublicPickup(args: { code: string; start: ISODateTime }): Pr
   });
 }
 
-/** «Не смогу в это время»: снять запись на выдачу (её нет — без изменений) */
-export function cancelPublicPickup(code: string): Promise<PublicOrder> {
-  if (isApiMode()) return S.cancelPublicPickupServer(code);
+/** Демо-реализация cancelPublicPickup (сервер и обёртка — '@/api/orders-public') */
+export function cancelPublicPickupMock(code: string): Promise<PublicOrder> {
   return request(() => {
     const order = orderByCodeTx(code);
     const current = activePickupBookingTx(order);

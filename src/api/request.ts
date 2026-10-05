@@ -201,6 +201,20 @@ export function requestSync<T>(fn: () => T): T {
   }
 }
 
+/**
+ * Моковая реализация из отдельного куска (ленивый import): публичные страницы в режиме api не тянут код мока и
+ * кабинета — лёгкий модуль (`src/api/*-public.ts`) зовёт сервер сам, а в демо догружает полный модуль раздела.
+ * Контекст вызова (чьё это чтение) сохраняется — request() внутри мока видит его, как при прямом вызове.
+ *   export function getX(id: Id) {
+ *     if (isApiMode()) return S.getXServer(id);
+ *     return viaMock(() => import('@/api/area'), (m) => m.getXMock(id));
+ *   }
+ */
+export function viaMock<M, T>(load: () => Promise<M>, call: (mod: M) => Promise<T>): Promise<T> {
+  const ctx = currentCtx;
+  return load().then((mod) => withCtx(ctx, () => call(mod)));
+}
+
 // ─────────────────────────── Кэш и точечное перечитывание ───────────────────────────
 
 /** Зависимости по хэшу ключа: последнее удачное чтение ∪ идущее сейчас */

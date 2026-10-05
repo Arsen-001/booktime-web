@@ -7,8 +7,10 @@
 import { useState } from 'react';
 import { FileDown, FileSpreadsheet, FileUp, Timer } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import { logDataOp } from '@/api/data-ops';
 import type { ServiceRow } from '@/api/services';
 import type { ServiceCategory } from '@/domain/core';
+import { useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { downloadCsv, toCsv } from '@/lib/csv';
 import { pickText } from '@/lib/text';
@@ -22,6 +24,7 @@ export function CatalogExcelMenu({ rows, categories }: { rows: ServiceRow[]; cat
   const t = useT('services');
   const toast = useToast();
   const locale = useLocale() as 'ru' | 'en';
+  const { businessId } = useCurrent();
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [breakOpen, setBreakOpen] = useState(false);
   const exportBreaks = useTechBreakExport(
@@ -44,6 +47,8 @@ export function CatalogExcelMenu({ rows, categories }: { rows: ServiceRow[]; cat
       CATALOG_HEADER,
     );
     downloadCsv('services-price-list.csv', csv);
+    // «Операции с данными» (F-02-063): кто и когда выгрузил прайс; журнал не мешает самой выгрузке
+    if (businessId) void logDataOp({ businessId, kind: 'export', area: 'services', entity: 'services', count: rows.length, fileName: 'services-price-list.csv' }).catch(() => undefined);
     toast.success(t('catalogExcel.exported'));
   };
 

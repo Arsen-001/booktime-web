@@ -175,7 +175,7 @@ export function QuickBookingModal({ open, onOpenChange, businessId, locationId, 
         if (!v) reset();
         onOpenChange(v);
       }}
-      title={t('quickBooking.titleFor', { day: format.relativeDay(date).toLowerCase() })}
+      title={t('quickBooking.titleFor', { day: format.relativeDayInline(date) })}
       size="md"
       footer={
         <div className="flex justify-end gap-2">

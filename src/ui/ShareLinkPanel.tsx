@@ -60,28 +60,31 @@ export function ShareLinkPanel({ url, message, telegramText, code, className }: 
           </span>
         )}
       </div>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-[1fr_auto_auto]">
-        <Button className="col-span-2 sm:col-span-1" leftIcon={copied ? <Check /> : <Copy />} onClick={copy}>
-          {copied ? t('share.copiedShort') : t('share.copy')}
-        </Button>
-        <a
-          href={whatsAppShareUrl(message)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonClasses({ variant: 'secondary' })}
-        >
-          <WhatsAppIcon />
-          WhatsApp
-        </a>
-        <a
-          href={telegramShareUrl(url, telegramText)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonClasses({ variant: 'secondary' })}
-        >
-          <Send aria-hidden />
-          Telegram
-        </a>
+      {/* По ширине самой панели, а не экрана: в узкой колонке (iPad) три кнопки в ряд вылезали за карточку */}
+      <div className="@container">
+        <div className="grid grid-cols-2 gap-2 @md:grid-cols-[1fr_auto_auto]">
+          <Button className="col-span-2 @md:col-span-1" leftIcon={copied ? <Check /> : <Copy />} onClick={copy}>
+            {copied ? t('share.copiedShort') : t('share.copy')}
+          </Button>
+          <a
+            href={whatsAppShareUrl(message)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses({ variant: 'secondary' })}
+          >
+            <WhatsAppIcon />
+            WhatsApp
+          </a>
+          <a
+            href={telegramShareUrl(url, telegramText)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses({ variant: 'secondary' })}
+          >
+            <Send aria-hidden />
+            Telegram
+          </a>
+        </div>
       </div>
     </div>
   );

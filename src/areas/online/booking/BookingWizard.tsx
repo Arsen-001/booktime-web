@@ -4,23 +4,8 @@ import { useState, type CSSProperties } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { ChevronLeft, PackagePlus } from 'lucide-react';
-import {
-  createPlanBookings,
-  getBusinessRules,
-  getClientFieldsConfig,
-  getPublicBusinessData,
-  getWidgetExtraFields,
-  listPublicGroupEvents,
-  listStaffRules,
-  rememberedPhoneSkipsCode,
-  sendOnlineBookingCode,
-  type OnlineCodeChannel,
-  trackWidgetEvent,
-  type CreateOnlineBookingInput,
-  type PlanLegSlot,
-  type PlanQuery,
-  type PublicBusinessData,
-} from '@/api/online';
+import type { OnlineCodeChannel, CreateOnlineBookingInput, PlanLegSlot, PlanQuery, PublicBusinessData } from '@/api/online';
+import { createPlanBookings, getBusinessRules, getClientFieldsConfig, getPublicBusinessData, getWidgetExtraFields, listPublicGroupEvents, listStaffRules, rememberedPhoneSkipsCode, sendOnlineBookingCode, trackWidgetEvent } from '@/api/online-public';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { SlotPicker } from '@/areas/online/booking/SlotPicker';
 import { ChainStaffStep } from '@/areas/online/booking/wizard/ChainStaffStep';

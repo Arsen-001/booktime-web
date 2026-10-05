@@ -32,6 +32,7 @@ import {
   variableLabel,
 } from '@/areas/notify/lib/registry';
 import { typeOptimistic } from '@/areas/notify/lib/typeOptimistic';
+import { isServerSoonType } from '@/areas/notify/lib/serverSoon';
 import { NOTIFY_LANGUAGE_OPTIONS } from '@/areas/notify/types/NotifySettingsCard';
 import { HINT_FUTURE_ONLY_TYPES, TYPES_WITH_CONDITIONS, TypeConditionsFields } from '@/areas/notify/types/TypeConditionsFields';
 import type {
@@ -397,6 +398,11 @@ export function TypeDetailScreen({ tab }: { tab: 'basic' | 'templates' }) {
           {type.systemLocked && (
             <p data-f="F-05-020" className="rounded-lg bg-surface-2 px-4 py-3 text-sm text-muted">
               {t('typeDetail.systemLockedBanner')}
+            </p>
+          )}
+          {isServerSoonType(type.code) && (
+            <p role="status" className="rounded-lg bg-surface-2 px-4 py-3 text-sm text-muted">
+              {t('typeDetail.soonBanner')}
             </p>
           )}
           <SectionCard title={t('typeDetail.channelsTitle')} description={t('typeDetail.channelsHint')}>

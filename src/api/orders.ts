@@ -16,6 +16,7 @@ import * as S from '@/api/orders.server';
 import { intakeBookingForOrderTx, markIntakeArrivedTx } from '@/api/ordersIntake';
 import { activePickupBookingTx, pickupEnabledTx } from '@/api/ordersPickup';
 import { publicOrderTx } from '@/api/ordersPublic';
+import { ordersKeys } from '@/api/orders-public';
 import { ApiError, request, useApiQuery, type QueryOptions } from '@/api/request';
 import type { Client, Id, LocalizedText, SphereId } from '@/domain/core';
 import type { LogChannel } from '@/domain/notify';
@@ -38,22 +39,8 @@ import {
 import { nowDateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { localDigits, normalizePhone } from '@/lib/phone';
-import { normalizeSearch, pickText } from '@/lib/text';
+import { normalizeSearch } from '@/lib/text';
 
-/** Ключи запросов раздела: ['orders', <ресурс>, …] */
-export const ordersKeys = {
-  all: ['orders'] as const,
-  list: (businessId: Id, query: OrdersQuery) => ['orders', 'list', businessId, query] as const,
-  count: (businessId: Id, status: OrderStatus) => ['orders', 'count', businessId, status] as const,
-  order: (businessId: Id, orderId: Id) => ['orders', 'order', businessId, orderId] as const,
-  public: (code: string) => ['orders', 'public', code] as const,
-  enabled: (businessId: Id) => ['orders', 'enabled', businessId] as const,
-  pickupReminders: (businessId: Id) => ['orders', 'pickup-reminders', businessId] as const,
-  intake: (businessId: Id) => ['orders', 'intake', businessId] as const,
-  intakeBookings: (businessId: Id, date: string) => ['orders', 'intake-bookings', businessId, date] as const,
-  pickupBookings: (businessId: Id, date: string) => ['orders', 'pickup-bookings', businessId, date] as const,
-  pickupSlots: (code: string) => ['orders', 'pickup-slots', code] as const,
-};
 
 // ─────────────────────────── мок: помощники ───────────────────────────
 
@@ -185,9 +172,8 @@ export function getOrder(businessId: Id, orderId: Id): Promise<Order> {
   return request(() => findOrderTx(businessId, orderId));
 }
 
-/** Публичный статус по коду ссылки — без входа (страница /o/<code>) */
-export function getPublicOrder(code: string): Promise<PublicOrder> {
-  if (isApiMode()) return S.getPublicOrderServer(code);
+/** Демо-реализация getPublicOrder (сервер и обёртка — '@/api/orders-public') */
+export function getPublicOrderMock(code: string): Promise<PublicOrder> {
   return request(() => publicOrderTx(code));
 }
 
@@ -339,13 +325,10 @@ export function setOrdersEnabled(args: { businessId: Id; enabled: boolean }): Pr
   );
 }
 
-/** Адрес бизнеса для публичной страницы: строка сервера или текст мока на языке страницы */
-export function publicAddressText(address: PublicOrder['business']['address'], locale: 'ru' | 'en' | 'hy'): string {
-  if (!address) return '';
-  return typeof address === 'string' ? address : pickText(address, locale);
-}
 
 export { getPickupReminders, runPickupReminders, setPickupReminders } from '@/api/ordersReminders';
-export { decideOrderEstimate, decidePublicEstimate, resendOrderEstimate, runEstimateReminders, sendOrderEstimate } from '@/api/ordersEstimate';
+export { decideOrderEstimate, resendOrderEstimate, runEstimateReminders, sendOrderEstimate } from '@/api/ordersEstimate';
 export { getIntakeSettings, listIntakeBookings, setIntakeSettings } from '@/api/ordersIntake';
-export { bookPublicPickup, cancelPublicPickup, getPublicPickupSlots, listPickupBookings } from '@/api/ordersPickup';
+export { listPickupBookings } from '@/api/ordersPickup';
+// Страница заказа без входа (/o/<код>) — лёгкий '@/api/orders-public'; здесь и в ordersPickup/ordersEstimate — демо-реализации (*Mock)
+export { bookPublicPickup, cancelPublicPickup, decidePublicEstimate, getPublicOrder, getPublicPickupSlots, ordersKeys, publicAddressText } from '@/api/orders-public';

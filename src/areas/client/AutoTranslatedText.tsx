@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import { Languages } from 'lucide-react';
-import { getTranslationOverride } from '@/api/client';
+import { getTranslationOverride } from '@/api/client-public';
 import { useApiQuery } from '@/api/request';
 import type { Id, LocalizedText } from '@/domain/core';
 import { useT } from '@/i18n/useT';

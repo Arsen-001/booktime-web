@@ -2,7 +2,8 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 import { CalendarClock } from 'lucide-react';
-import { getPlanMonthAvailability, getPlanNearestDate, getPlanSlots, type PlanQuery, type PlanSlot } from '@/api/online';
+import type { PlanQuery, PlanSlot } from '@/api/online';
+import { getPlanMonthAvailability, getPlanNearestDate, getPlanSlots } from '@/api/online-public';
 import { prefetchApiQuery, useApiQuery } from '@/api/request';
 import { planKey } from '@/areas/online/booking/wizard/plan';
 import type { ISODate } from '@/domain/core';
