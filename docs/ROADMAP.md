@@ -59,12 +59,15 @@
   - тексты карточек, ответы App Privacy и Data safety, заметки проверяющим;
   - иконки и баннеры, скриншоты (`docs/store/make-screenshots.mjs`);
   - версия 1.0.0 (1), подписи разрешений камеры, фото и места в приложениях.
+- Сделано 05.10.2026: реквизиты AI Switch LLC и info@booktime.am (Google Workspace) в `operator.ts`; Firebase `booktime-47539`
+  (4 приложения, файлы в booktime-mobile/config, ключ FCM на staging и production); вход проверяющих на staging и
+  production (`scripts/set-review-env.mjs`, коды в ~/.booktime-secrets/review-login.env); салон «BookTime Demo» на
+  production (`scripts/seed-review-demo.mjs`); заявка D-U-N-S (AI Switch LLC) отправлена.
 - Дальше:
-  - от владельца: аккаунты, Firebase, env, реквизиты в `src/areas/client/legal/operator.ts`;
-  - владелец: env входа проверяющих `REVIEW_LOGIN_PHONES` + `REVIEW_LOGIN_CODE` (код готов 04.10.2026, сначала staging) и салон
-    «BookTime Demo» на production (docs/store/review-notes.md);
-  - Apple в профиле;
-  - проверка на телефонах.
+  - D-U-N-S → аккаунты Apple Developer и Google Play на компанию (оплачивает владелец);
+  - бесплатные дни «BookTime Demo» в панели платформы до ~15.10.2026 (иначе салон замёрзнет после пробного периода);
+  - ключ APNs (.p8) в Firebase, Apple в профиле, вход через Google (Client ID);
+  - проверка на телефонах (iPhone — симулятор или устройство).
 
 ## Новые сферы: заказы «принял — готово — выдал»
 

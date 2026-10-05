@@ -201,7 +201,11 @@ function inPageMeasure(minTap = 40) {
     if (seen.has(target) || !visible(target)) continue;
     seen.add(target);
     const r = target.getBoundingClientRect();
-    if (r.width < minTap || r.height < minTap) {
+    // Зону нажатия может расширять невидимый ::before (полоса перерыва в журнале: before:h-10 при 16 px самой полосы)
+    const before = getComputedStyle(target, '::before');
+    const hitW = before.content !== 'none' && before.position === 'absolute' ? Math.max(r.width, parseFloat(before.width) || 0) : r.width;
+    const hitH = before.content !== 'none' && before.position === 'absolute' ? Math.max(r.height, parseFloat(before.height) || 0) : r.height;
+    if (hitW < minTap || hitH < minTap) {
       const inline = getComputedStyle(target).display === 'inline';
       smallTargets.push({ el: hint(target), text: textOf(target), w: Math.round(r.width), h: Math.round(r.height), inline });
     }
