@@ -26,7 +26,7 @@
   и каждый запрос к базе шёл через океан (карточка салона — 40 с вместо 0,8 с).
 - DNS booktime.am — у Vercel (серверы имён `ns1/ns2.vercel-dns.com` выставлены у регистратора name.am).
   Записи: `vercel dns ls booktime.am`; `api` и `api-staging` — CNAME на Railway + TXT `_railway-verify.*`.
-- Почта info@booktime.am — Google Workspace Business Starter (05.10.2026, аккаунт администратора — info@booktime.am).
+- Почта info@booktime.am — Google Workspace Business Starter (05.10.2026): один платный ящик info@booktime.am (администратор), arsen@booktime.am — его псевдоним.
   Записи: MX `smtp.google.com` (1), TXT `google-site-verification=VSPt…` (Workspace) и `WagG…` (Search Console),
   SPF `v=spf1 include:_spf.google.com ~all`, DKIM `google._domainkey`, DMARC `_dmarc` (p=none, отчёты на info@).
   Почта с другого сервиса (рассылки, Resend и т. п.) — дописать его в SPF, а не заводить вторую SPF-запись.
