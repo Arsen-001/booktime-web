@@ -26,7 +26,7 @@ Bundle ID / applicationId: `am.booktime.app`. Открывает https://booktim
 | Support URL | https://booktime.am/support (en: https://booktime.am/en/support, hy: https://booktime.am/hy/support) |
 | Privacy Policy URL | https://booktime.am/privacy (en: https://booktime.am/en/privacy, hy: https://booktime.am/hy/privacy) |
 | Удаление аккаунта (Google Play, Data safety) | https://booktime.am/account-deletion |
-| Copyright (App Store) | © 2026 [Юридическое лицо] |
+| Copyright (App Store) | © 2026 AI Switch LLC |
 | Цена | Бесплатно, без встроенных покупок |
 | Версия / сборка | 1.0.0 (1) |
 

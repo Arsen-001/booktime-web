@@ -24,7 +24,7 @@ English (U.S.) и Russian. В Google Play — hy-AM, ru-RU, en-US.
 | Support URL | https://booktime.am/support (en: https://booktime.am/en/support, hy: https://booktime.am/hy/support) |
 | Privacy Policy URL | https://booktime.am/privacy |
 | Удаление аккаунта (Google Play) | https://booktime.am/account-deletion |
-| Copyright | © 2026 [Юридическое лицо] |
+| Copyright | © 2026 AI Switch LLC |
 | Цена | Бесплатно. В приложении ничего не продаётся: In-App Purchases — нет. |
 | Версия / сборка | 1.0.0 (1) |
 
