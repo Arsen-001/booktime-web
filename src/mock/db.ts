@@ -28,8 +28,10 @@ import { persist, type PersistStorage, type StorageValue } from 'zustand/middlew
 import type { AreaId } from '@/config/areas';
 import { AREA_IDS } from '@/config/areas';
 import type { Permission } from '@/config/permissions';
-import type { CoreCollection, CoreData, Id } from '@/domain/core';
+import { dataMode } from '@/api/mode';
+import type { CoreCollection, CoreData, Id, LocaleCode } from '@/domain/core';
 import { SEED_VERSION, seedCore } from '@/mock/seed';
+import { localizeDemo } from '@/mock/seed/demoLocale';
 import { SLICES, type AreaStates } from '@/mock/slices';
 
 export interface DbMeta {
@@ -231,9 +233,14 @@ let nextFlushIsDerived = false;
  * ключи надо стереть: иначе при следующем подъёме readSplitState положит их поверх нового сида (так версия сида 12
  * не показывала записи новых мастеров — старый bp-mock-db:core:bookings перекрывал свежие записи). */
 let nextFlushClears: 'all' | AreaId[] = [];
+/** Следующая запись — новый «выводимый» снимок (перевод демо-данных сразу после сида — тоже выводим) */
+let refreshDerived = false;
 function markNextFlushAsDerived(clears: 'all' | AreaId[] = []): void {
+  // Две выводимые записи до сброса (сид, затем перевод демо-данных): ключи, которые стирает первая, не теряем
+  const prev = nextFlushIsDerived ? nextFlushClears : [];
+  nextFlushClears = prev === 'all' || clears === 'all' ? 'all' : [...new Set([...prev, ...clears])];
   nextFlushIsDerived = true;
-  nextFlushClears = clears;
+  refreshDerived = true;
 }
 
 function removeKey(key: string): void {
@@ -374,7 +381,10 @@ function debouncedLocalStorage(): PersistStorage<DbData> {
       return readSplitState();
     },
     setItem: (_name, value) => {
-      if (nextFlushIsDerived && !derived) derived = value.state;
+      if (nextFlushIsDerived && (!derived || refreshDerived)) {
+        derived = value.state;
+        refreshDerived = false;
+      }
       pending = value.state;
       clearTimeout(timer);
       timer = setTimeout(flush, 400);
@@ -708,10 +718,27 @@ export function dbReady(): Promise<void> {
 let booting = false;
 
 /**
- * Поднять базу: прочитать localStorage, при необходимости засеять ядро или отдельные срезы.
- * Вызывается один раз из DbBootstrap (src/demo/DemoProvider.tsx).
+ * Демо-данные на языке интерфейса (05.10.2026, src/mock/seed/demoLocale.ts): имена, заметки, заказы, промоблоки
+ * сида — по-армянски/по-английски. Только режим mock: в режиме api в ядре зеркало настоящих салонов, их не трогаем.
+ * Перевод выводим из сида и языка — на диск не пишется (как сам сид); правки пользователя словарь не знает и не меняет.
  */
-export async function bootDb(): Promise<void> {
+export function localizeDemoData(locale: LocaleCode): void {
+  if (dataMode() === 'api') return;
+  const s = rawGetState();
+  if (!s.meta.seedVersion) return;
+  const sources = [s.core.services, s.core.serviceCategories];
+  const core = localizeDemo(s.core, locale, sources);
+  const areas = localizeDemo(s.areas, locale, sources);
+  if (core === s.core && areas === s.areas) return;
+  markNextFlushAsDerived();
+  useDb.setState({ core, areas, meta: { ...s.meta, rev: s.meta.rev + 1 } });
+}
+
+/**
+ * Поднять базу: прочитать localStorage, при необходимости засеять ядро или отдельные срезы; демо-данные — на языке
+ * locale. Вызывается один раз из DbBootstrap (src/demo/DemoProvider.tsx).
+ */
+export async function bootDb(locale?: LocaleCode): Promise<void> {
   if (booting) return readyPromise;
   booting = true;
   try {
@@ -758,12 +785,14 @@ export async function bootDb(): Promise<void> {
       }
     });
   }
+  if (locale) localizeDemoData(locale);
   useDbStatus.setState({ ready: true });
   resolveReady();
 }
 
 /** «Сбросить демо-данные»: всё заново от текущего момента */
-export function resetDemoData(): void {
+export function resetDemoData(locale?: LocaleCode): void {
   markNextFlushAsDerived('all'); // новый сид тоже выводим из seed()/meta.seededAt — не персистим целиком
   rawGetState().replaceAll(createSeedData(new Date()));
+  if (locale) localizeDemoData(locale);
 }

@@ -83,20 +83,21 @@ export function UserMenu({ kind }: { kind: 'biz' | 'platform' }) {
         <button
           {...props}
           type="button"
-          aria-label={t('shell.userMenu')}
-          className="flex min-h-11 items-center gap-2 rounded-xl px-1.5 hover:bg-surface-2 md:pr-3"
+          aria-label={staffLoading ? t('shell.userMenu') : `${t('shell.userMenu')}: ${name}`}
+          className="flex min-h-11 items-center gap-2 rounded-xl px-1.5 hover:bg-surface-2 lg:pr-3"
         >
           {/* Пока сотрудник читается — серый кружок и полоса вместо «Владелец салона», который потом сменился бы
-              именем: имя в полосе постоянной ширины, колокольчик и поиск слева не сдвигаются */}
+              именем: имя в полосе постоянной ширины, колокольчик и поиск слева не сдвигаются.
+              Уже 1024px (планшет) — только аватар: место отдаём поиску; имя — в подписи кнопки и в шапке меню */}
           {staffLoading ? (
             <Skeleton variant="circle" className="size-8" />
           ) : (
             <Avatar name={name} size="sm" colorIndex={staff?.colorIndex} />
           )}
-          <span className="hidden w-36 truncate text-left text-sm font-medium text-fg md:inline">
+          <span className="hidden w-36 truncate text-left text-sm font-medium text-fg lg:inline">
             {staffLoading ? <SkeletonText width="80%" /> : name}
           </span>
-          <DropdownChevron open={props['aria-expanded']} className="hidden md:block" />
+          <DropdownChevron open={props['aria-expanded']} className="hidden lg:block" />
         </button>
       )}
     />

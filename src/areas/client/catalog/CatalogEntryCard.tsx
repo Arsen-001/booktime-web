@@ -69,10 +69,9 @@ function MasterEntryCard({ entry }: { entry: CatalogEntry }) {
             {placeLine(business, location)}
             {staff.accepts !== 'all' ? ` · ${tc(`accepts.${staff.accepts}`).toLowerCase()}` : ''}
           </p>
-          {/* Ряд меток всегда на месте (min-h-6): карточка без меток той же высоты — скелетон и соседи не прыгают */}
-          <div className="mt-1.5 flex min-h-6 flex-wrap gap-1.5">
-            {(entry.boosted || entry.hotToday) && (
-              <>
+          {/* Ряд меток — только когда есть метка: без неё над окнами времени не остаётся пустой полосы */}
+          {(entry.boosted || entry.hotToday) && (
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
               {entry.hotToday && (
                 <Badge data-f="F-00-103 F-02-092" tone="warning" variant="soft" size="sm" icon={<Flame aria-hidden />}>
                   {entry.hotDiscountPercent ? t('search.hotSlotDiscount', { percent: entry.hotDiscountPercent }) : t('search.hotSlot')}
@@ -83,9 +82,8 @@ function MasterEntryCard({ entry }: { entry: CatalogEntry }) {
                   {t('search.boostedBadge')}
                 </Badge>
               )}
-              </>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
       <SlotsByDay singleRow slots={entry.nearestSlots} hrefFor={(s) => bookHref(s.start)} showWorkplace={staff.workplaces.length > 1} />
@@ -95,7 +93,7 @@ function MasterEntryCard({ entry }: { entry: CatalogEntry }) {
 
 /**
  * Скелетон карточки каталога — та же разметка, что CatalogEntryCard (DESIGN.md «The skeleton IS the page»): фото 48,
- * имя, услуга с ценой, место, ряд меток, ряд окон «Сегодня 10:00 10:30 11:30».
+ * имя, услуга с ценой, место, ряд окон (меток у большинства карточек нет — их ряд в скелетоне не рисуем) «Сегодня 10:00 10:30 11:30».
  */
 export function CatalogEntryCardSkeleton() {
   return (
@@ -118,9 +116,6 @@ export function CatalogEntryCardSkeleton() {
           <p className="line-clamp-1 text-sm text-muted">
             <SkeletonText width="26ch" />
           </p>
-          <div className="mt-1.5 flex min-h-6 flex-wrap gap-1.5">
-            <Skeleton variant="rect" className="h-6 w-28 rounded-full" />
-          </div>
         </div>
       </div>
       <SlotsRowSkeleton />

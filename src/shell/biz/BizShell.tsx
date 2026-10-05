@@ -59,7 +59,7 @@ export function BizShell({ children }: { children: ReactNode }) {
       logoHref="/biz"
       topBarStart={
         <>
-          <LocationSwitcher className="hidden sm:flex" />
+          <LocationSwitcher inTopBar className="hidden sm:flex" />
           <TopSearch />
         </>
       }

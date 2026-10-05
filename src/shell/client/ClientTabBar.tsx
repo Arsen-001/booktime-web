@@ -45,7 +45,8 @@ function ClientTabs() {
                 prefetch
                 aria-current={item.active ? 'page' : undefined}
                 className={cn(
-                  // Подпись — фиксированный компактный размер (не растёт с «крупным шрифтом»), длинная (hy) — в две строки
+                  // Подпись — фиксированный компактный размер (не растёт с «крупным шрифтом») и в одну строку: короткие подписи
+                  // (navShort, hy «Այցեր») влезают в 1/5 экрана 360px; две строки — только запас на случай нового длинного языка
                   'group flex min-h-16 flex-col items-center justify-center gap-1 px-0.5 text-[11px] leading-[1.15] font-medium text-muted transition-colors',
                   item.active && 'font-semibold text-primary-text',
                 )}

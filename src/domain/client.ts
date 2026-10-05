@@ -606,29 +606,124 @@ export type CoinBalances = Record<Id, number>;
 /**
  * Готовая картинка сторис 1080×1920 (F-00-155, F-00-156) — SVG инлайн, без внешней сети. Чистая функция
  * (без React/api/mock) — зовётся и из seed (mock/slices/client.ts), и из api/client.ts при генерации.
+ * 05.10.2026 (скриншоты для магазинов): на главной клиента сторис — карточка шириной ~110 px, текст 44 px из
+ * 1080 там был не виден. Теперь крупно: заголовок («Свободно сегодня») до 170 px, время — белыми «таблетками»,
+ * имя мастера над ними; главное — в верхних 60 % (низ карточки закрыт подписью «Реклама» и именем салона).
+ * Строки ещё лежат в <desc> — по ним картинку пересобирает relocalizeStoryImage (демо-данные на языке интерфейса).
  */
 export function generateStoryImage(input: { businessName: string; lines: string[]; lang: string }): string {
-  const safeTop = 220;
-  const lineHeight = 64;
+  const W = 1080;
+  const PAD = 80;
+  const INNER = W - PAD * 2;
+  /** Средняя ширина знака в долях кегля — с запасом для армянского */
+  const CHAR = 0.6;
+  const FONT = `font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Armenian', sans-serif"`;
   const escapeXml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const rows = input.lines
-    .map(
-      (line, i) =>
-        `<text x="80" y="${safeTop + 160 + i * lineHeight}" font-family="sans-serif" font-size="44" fill="#fff">${escapeXml(line)}</text>`, // tokens-ok
-    )
-    .join('');
+  const fit = (text: string, max: number) => Math.max(28, Math.min(max, Math.floor(INNER / (Math.max(1, Array.from(text).length) * CHAR))));
+  const TIMES = /^\d{1,2}:\d{2}(?:,\s*\d{1,2}:\d{2})*$/;
+  const out: string[] = [];
+
+  // Название салона
+  const nameSize = fit(input.businessName, 76);
+  out.push(`<text x="${PAD}" y="230" ${FONT} font-size="${nameSize}" font-weight="700" fill="#fff" fill-opacity="0.92">${escapeXml(input.businessName)}</text>`); // tokens-ok
+  out.push(`<rect x="${PAD}" y="290" width="120" height="12" rx="6" fill="#fff" fill-opacity="0.55"/>`); // tokens-ok
+
+  // Заголовок — по словам в строки, кегль до 170 так, чтобы самое длинное слово влезло
+  const [head = '', ...rest] = input.lines;
+  const words = head.split(/\s+/).filter(Boolean);
+  const longest = words.reduce((m, w) => Math.max(m, Array.from(w).length), 1);
+  const headSize = Math.min(170, Math.floor(INNER / (longest * CHAR)));
+  const perLine = Math.max(1, Math.floor(INNER / (headSize * CHAR)));
+  const headLines: string[] = [];
+  for (const w of words) {
+    const last = headLines[headLines.length - 1];
+    if (last !== undefined && Array.from(`${last} ${w}`).length <= perLine) headLines[headLines.length - 1] = `${last} ${w}`;
+    else headLines.push(w);
+  }
+  let y = 380;
+  headLines.slice(0, 3).forEach((line) => {
+    y += Math.round(headSize * 1.02);
+    out.push(`<text x="${PAD}" y="${y}" ${FONT} font-size="${headSize}" font-weight="800" fill="#fff">${escapeXml(line)}</text>`); // tokens-ok
+  });
+  y += 70;
+
+  // Окна: «Мастер · 10:00, 10:30» → имя и время «таблетками»; прочие строки — просто текстом
+  const PILL_H = 116;
+  const PILL_FONT = 76;
+  for (const line of rest) {
+    if (y > 1500) break;
+    const sep = line.lastIndexOf(' · ');
+    const tail = sep >= 0 ? line.slice(sep + 3) : line;
+    const label = sep >= 0 ? line.slice(0, sep) : '';
+    if (!TIMES.test(tail)) {
+      const size = fit(line, 72);
+      y += size;
+      out.push(`<text x="${PAD}" y="${y}" ${FONT} font-size="${size}" font-weight="600" fill="#fff">${escapeXml(line)}</text>`); // tokens-ok
+      y += 40;
+      continue;
+    }
+    if (label) {
+      const size = fit(label, 62);
+      y += size;
+      out.push(`<text x="${PAD}" y="${y}" ${FONT} font-size="${size}" font-weight="600" fill="#fff" fill-opacity="0.92">${escapeXml(label)}</text>`); // tokens-ok
+      y += 28;
+    }
+    let x = PAD;
+    for (const time of tail.split(/,\s*/)) {
+      const w = Math.round(time.length * PILL_FONT * CHAR + 72);
+      if (x > PAD && x + w > W - PAD) {
+        x = PAD;
+        y += PILL_H + 20;
+      }
+      out.push(`<rect x="${x}" y="${y}" width="${w}" height="${PILL_H}" rx="${PILL_H / 2}" fill="#fff"/>`); // tokens-ok
+      out.push(`<text x="${x + w / 2}" y="${y + 84}" text-anchor="middle" ${FONT} font-size="${PILL_FONT}" font-weight="800" fill="#3B32C9">${escapeXml(time)}</text>`); // tokens-ok
+      x += w + 20;
+    }
+    y += PILL_H + 48;
+  }
+
+  const desc = escapeXml(JSON.stringify({ businessName: input.businessName, lines: input.lines, lang: input.lang }));
   const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">` +
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">` +
+    `<desc>bt-story:${desc}</desc>` +
     `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
-    `<stop offset="0" stop-color="#6D5EF5"/><stop offset="1" stop-color="#2F2A6B"/></linearGradient></defs>` + // tokens-ok
+    `<stop offset="0" stop-color="#7B6CFF"/><stop offset="0.55" stop-color="#5546E0"/><stop offset="1" stop-color="#2F2A6B"/></linearGradient></defs>` + // tokens-ok
     `<rect width="1080" height="1920" fill="url(#g)"/>` +
-    `<text x="80" y="${safeTop}" font-family="sans-serif" font-size="56" font-weight="700" fill="#fff">${escapeXml(input.businessName)}</text>` + // tokens-ok
-    rows +
-    // Instagram safe-zone для сторис — ≥250px от нижнего края (1920), иначе подпись рискует уйти под
-    // реальный UI Instagram; было y=1840 (80px от края), теперь y=1650 (270px) (F-00-156).
-    `<text x="80" y="1650" font-family="sans-serif" font-size="28" fill="#ffffffaa">Booking · ${escapeXml(input.lang)}</text>` + // tokens-ok
+    `<circle cx="960" cy="180" r="340" fill="#fff" fill-opacity="0.08"/>` + // tokens-ok
+    `<circle cx="80" cy="1560" r="420" fill="#fff" fill-opacity="0.06"/>` + // tokens-ok
+    out.join('') +
+    // Instagram safe-zone для сторис — ≥250px от нижнего края (1920) (F-00-156)
+    `<text x="${PAD}" y="1650" ${FONT} font-size="40" font-weight="700" fill="#fff" fill-opacity="0.6">BookTime</text>` + // tokens-ok
     `</svg>`;
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+const STORY_DATA_PREFIX = 'data:image/svg+xml;utf8,';
+
+/**
+ * Та же сгенерированная сторис с переведёнными строками (демо-данные на языке интерфейса, mock/seed/demoLocale.ts):
+ * строки берутся из <desc>, каждая проходит через translate. Не сторис или переводить нечего — та же строка.
+ */
+export function relocalizeStoryImage(url: string, translate: (line: string) => string): string {
+  if (!url.startsWith(STORY_DATA_PREFIX)) return url;
+  let svg: string;
+  try {
+    svg = decodeURIComponent(url.slice(STORY_DATA_PREFIX.length));
+  } catch {
+    return url;
+  }
+  const m = /<desc>bt-story:([^<]*)<\/desc>/.exec(svg);
+  if (!m) return url;
+  let input: { businessName: string; lines: string[]; lang: string };
+  try {
+    input = JSON.parse(m[1].replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
+  } catch {
+    return url;
+  }
+  const businessName = translate(input.businessName);
+  const lines = input.lines.map((l) => translate(l));
+  if (businessName === input.businessName && lines.every((l, i) => l === input.lines[i])) return url;
+  return generateStoryImage({ businessName, lines, lang: input.lang });
 }
 
 // ─────────────────────────── b06: своё приложение салона (F-14-142…170) ───────────────────────────

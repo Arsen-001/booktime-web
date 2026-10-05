@@ -37,10 +37,11 @@ export function ClientMobileRow({ row, canSeeContacts, canViewFullName = true, c
           <span className="shrink-0 text-sm text-muted">{row.lastVisit ? fmt.ago(row.lastVisit) : t('table.noVisits')}</span>
         </div>
         {/* Высота строки — под значок (min-h-7): карточки со значком и без одной высоты, скелетон совпадает.
-            Не влезают телефон + «Не пришёл: N» + долг — значки уходят на вторую строку, а не за край */}
+            Не влезают телефон + «Не пришёл: N» + долг — значки уходят на вторую строку, а не за край; не влезают и там (hy) —
+            переносятся по одному */}
         <div className="flex min-h-7 min-w-0 flex-wrap items-center justify-between gap-x-2 gap-y-1">
           <span className="whitespace-nowrap text-sm text-muted tabular-nums">{canSeeContacts ? fmt.phone(row.phone) : fmt.maskedPhone(row.phone)}</span>
-          <span className="ml-auto flex shrink-0 items-center gap-1.5">
+          <span className="ml-auto flex max-w-full min-w-0 flex-wrap items-center justify-end gap-1.5">
             {highlighted && <Badge tone="primary">{t('table.newBadge')}</Badge>}
             {row.noShowCount > 0 && <Badge tone="warning">{t('list.noShowsShort', { count: row.noShowCount })}</Badge>}
             {canViewAccounts && <BalanceText balance={row.balance} hideZero className="text-sm font-medium" />}

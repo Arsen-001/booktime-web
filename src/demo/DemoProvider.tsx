@@ -1,13 +1,14 @@
 'use client';
 
+import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { COOKIE_MAX_AGE, DEMO_COOKIES, type DemoSettings } from '@/demo/settings';
 import { loadLocalUi, setLocationId, useDemoStore } from '@/demo/store';
-import type { Id } from '@/domain/core';
+import type { Id, LocaleCode } from '@/domain/core';
 import { refreshInLocale } from '@/i18n/switchLocale';
 import { addMinutes, nowDateTime } from '@/lib/date';
-import { bootDb, useDb } from '@/mock/db';
+import { bootDb, dbReady, localizeDemoData, useDb } from '@/mock/db';
 import type { AreaStates } from '@/mock/slices';
 
 interface DemoContextValue {
@@ -54,13 +55,30 @@ export function DemoProvider({ initial, children }: { initial: DemoSettings; chi
   // Свежие согласия при входе — через подписку, а не рендер: apply зовут сразу после входа, до перерисовки
   const consents = useRef<Record<Id, string> | undefined>(undefined);
 
+  // Язык интерфейса (на публичных страницах — из адреса /hy/…, /en/…): демо-данные переводятся на него (mock/seed/demoLocale.ts)
+  const locale = useLocale() as LocaleCode;
+  const bootLocale = useRef(locale);
+
   useEffect(() => {
     loadLocalUi();
-    void bootDb();
+    void bootDb(bootLocale.current);
     return useDb.subscribe((s) => {
       consents.current = (s.areas as Partial<AreaStates>).client?.consents;
     });
   }, []);
+
+  useEffect(() => {
+    // Первый язык переводит сам bootDb; дальше — каждая смена языка (после подъёма базы)
+    if (bootLocale.current === locale) return;
+    bootLocale.current = locale;
+    let alive = true;
+    void dbReady().then(() => {
+      if (alive) localizeDemoData(locale);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [locale]);
 
   useEffect(() => {
     useDemoStore.setState({ api: settings.api });

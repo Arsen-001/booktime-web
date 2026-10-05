@@ -35,10 +35,8 @@ export default async function PublicLayout({ children, params }: LayoutProps<'/b
     <PublicShell>
       {/* F-03-114: язык ссылки — для новых/неавторизованных визитов, один раз, без цикла обновлений */}
       <WidgetLocaleSync slug={slug} />
-      {/* О3: язык — в шапке каждой клиентской страницы (салон, запись, «моя запись», кабинет) */}
-      <div className="-mt-1 mb-3 flex justify-end">
-        <ClientLanguageSwitch />
-      </div>
+      {/* О3: язык — в шапке каждой клиентской страницы (салон, запись, «моя запись», кабинет); в приложении клиента — нет */}
+      <ClientLanguageSwitch className="-mt-1 mb-3 flex justify-end" />
       {/* ⭐ «Пригласи подругу»: код из личной ссылки запоминается до записи, сверху — кто пригласил */}
       <Suspense fallback={null}>
         <ReferralWelcome slug={slug} />

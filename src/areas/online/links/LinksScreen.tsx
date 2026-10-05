@@ -8,6 +8,7 @@ import { deleteLink, listLinks, setPrimaryLink } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
+import { useNativeAppKind } from '@/lib/native/NativeAppKind';
 import { useOnlineAccess } from '@/areas/online/access';
 import { NewLinkSheet } from '@/areas/online/links/NewLinkSheet';
 import { LinkCard, LinkCardSkeleton } from '@/areas/online/links/LinkCard';
@@ -45,6 +46,8 @@ function HubTile({
 export function LinksScreen() {
   const t = useT('online');
   const toast = useToast();
+  // Подсказка «раздел работает и в приложении» — для браузера; в самом приложении она лишняя
+  const inNativeApp = useNativeAppKind() !== null;
   const { businessId, locationId, ready } = useCurrent();
   const { full: hasAccess } = useOnlineAccess();
   const [newOpen, setNewOpen] = useState(false);
@@ -112,10 +115,12 @@ export function LinksScreen() {
         {/* Черновик нового бизнеса — «Опубликовать»; приглашённые, но не принявшие — почему их нет в записи */}
         {businessId && !loading && <PublishCard businessId={businessId} onPublished={() => businessQ.refetch()} />}
 
-        <div className="flex items-start gap-2 rounded-lg bg-surface-2 px-3 py-2.5" data-f="F-03-047 F-14-121">
-          <Smartphone aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
-          <p className="text-sm text-muted">{t('hub.mobileNote')}</p>
-        </div>
+        {!inNativeApp && (
+          <div className="flex items-start gap-2 rounded-lg bg-surface-2 px-3 py-2.5" data-f="F-03-047 F-14-121">
+            <Smartphone aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
+            <p className="text-sm text-muted">{t('hub.mobileNote')}</p>
+          </div>
+        )}
 
         <div data-f="F-03-002">
           <SectionCard title={t('hub.title')} description={t('hub.description')}>

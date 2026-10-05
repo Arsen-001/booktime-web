@@ -1,10 +1,11 @@
 'use client';
 
 import { Briefcase, RotateCcw, ShieldCheck, Smartphone } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { SPHERE_IDS } from '@/config/spheres';
 import { EMPTY_PERSONAS, PERSONA_IDS, type ApiMode, type FontScale, type PersonaId, type Theme } from '@/demo/settings';
 import { useApplyDemo, useDemo } from '@/demo/hooks';
-import type { SphereId } from '@/domain/core';
+import type { LocaleCode, SphereId } from '@/domain/core';
 import { LOCALES, type Locale } from '@/i18n/config';
 import { useFormat } from '@/i18n/useFormat';
 import { toISODateTime } from '@/lib/date';
@@ -30,6 +31,7 @@ export function DemoPanel({ onNavigate }: { onNavigate: () => void }) {
   const t = useT('common');
   const fmt = useFormat();
   const settings = useDemo();
+  const locale = useLocale() as LocaleCode;
   const apply = useApplyDemo();
   const toast = useToast();
   const confirm = useConfirm();
@@ -56,7 +58,7 @@ export function DemoPanel({ onNavigate }: { onNavigate: () => void }) {
       tone: 'danger',
     });
     if (!ok) return;
-    resetDemoData();
+    resetDemoData(locale);
     toast.success(t('demo.resetDone'));
   };
 

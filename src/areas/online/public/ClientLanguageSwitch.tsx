@@ -6,6 +6,7 @@ import { DEMO_COOKIES } from '@/demo/settings';
 import { CLIENT_LOCALES, type Locale } from '@/i18n/config';
 import { refreshInLocale } from '@/i18n/switchLocale';
 import { useT } from '@/i18n/useT';
+import { useNativeAppKind } from '@/lib/native/NativeAppKind';
 import { SegmentedControl } from '@/ui/SegmentedControl';
 
 /** Ключ синхронизирован с WidgetLocaleSync.tsx (F-03-114): явный выбор клиента язык ссылки больше не перебивает */
@@ -17,13 +18,18 @@ const NATIVE: Record<Locale, string> = { hy: 'Հայ', ru: 'Рус', en: 'Eng' }
 /**
  * О3: «Հայ / Рус / Eng» в шапке страницы салона, записи и кабинета (F-03-113, F-03-114). Армянский у клиента
  * включён раньше кабинета — главное отличие от DIKIDI и Fresha для Еревана.
+ * В приложении клиента переключателя нет: язык там выбирают один раз для всего приложения (значок языка в верхней
+ * полосе, «Профиль → Язык»), а второй выбор на странице салона спорил бы с ним. className — у обёртки, чтобы в
+ * приложении не оставалось пустого отступа.
  */
-export function ClientLanguageSwitch() {
+export function ClientLanguageSwitch({ className }: { className?: string }) {
   const t = useT('online');
   const locale = useLocale() as Locale;
   const router = useRouter();
+  const inClientApp = useNativeAppKind() === 'client';
+  if (inClientApp) return null;
   return (
-    <span data-f="F-03-113 F-03-114 F-15-138 F-15-140">
+    <div className={className} data-f="F-03-113 F-03-114 F-15-138 F-15-140">
       <SegmentedControl
         size="sm"
         aria-label={t('public.language')}
@@ -40,6 +46,6 @@ export function ClientLanguageSwitch() {
         }}
         options={CLIENT_LOCALES.map((l) => ({ value: l, label: NATIVE[l] }))}
       />
-    </span>
+    </div>
   );
 }
