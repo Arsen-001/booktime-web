@@ -4,7 +4,7 @@ import type { Locale } from '@/i18n/config';
  * Реквизиты оператора персональных данных для /privacy, /terms, /account-deletion, /support.
  * Компания (свидетельство о регистрации, 05.10.2026): ООО «АИ Свитч» / ԱԻ ՍՎԻՏՉ ՍՊԸ / AI Switch LLC,
  * регистрационный номер 999.110.1592631, ИНН (ՀՎՀՀ) 01098805, зарегистрировано 29.06.2026.
- * 🔴 ЗАПОЛНИТ ВЛАДЕЛЕЦ: почта для обращений — пока заглушка в квадратных скобках.
+ * Почта для обращений — info@booktime.am (Google Workspace, владелец 05.10.2026).
  */
 export const OPERATOR: {
   company: Record<Locale, string>;
@@ -21,7 +21,7 @@ export const OPERATOR: {
     hy: 'Հայաստան, 0056, Երևան, Քոչարյան փ., 10, բն. 4',
     en: '10 Kocharyan St, Apt 4, Yerevan 0056, Armenia',
   },
-  email: '[Email для обращений]',
+  email: 'info@booktime.am',
 };
 
 /** Подставить реквизиты в текст: {company}, {address}, {email} */

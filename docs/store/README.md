@@ -46,8 +46,8 @@
 
 ## 🔴 Блокеры — закрыть до отправки на проверку
 
-1. **Почта для обращений** в `src/areas/client/legal/operator.ts` (`[Email для обращений]`) — видна на /privacy, /terms,
-   /account-deletion и /support. Компания и адрес вписаны 05.10.2026: AI Switch LLC (ООО «АИ Свитч»), ИНН 01098805.
+1. **Почта info@booktime.am** (Google Workspace) должна принимать письма — она на /privacy, /terms, /account-deletion
+   и /support (`src/areas/client/legal/operator.ts`). Компания и адрес вписаны 05.10.2026: AI Switch LLC (ООО «АИ Свитч»), ИНН 01098805.
 2. **Демо-вход для проверяющих** — код на сервере готов и выключен (04.10.2026). Владелец задаёт env `REVIEW_LOGIN_PHONES`
    и `REVIEW_LOGIN_CODE` (сначала staging) и заводит салон «BookTime Demo» ([review-notes.md](review-notes.md)).
    Без этого Apple отклонит по 2.1.
