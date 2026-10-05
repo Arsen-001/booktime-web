@@ -1,11 +1,12 @@
 import 'server-only';
-import { FileText, ShieldCheck, UserX } from 'lucide-react';
+import { FileText, LifeBuoy, ShieldCheck, UserX } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getLocale } from 'next-intl/server';
 import { ACCOUNT_DELETION } from '@/areas/client/legal/accountDeletion';
 import { fillOperator } from '@/areas/client/legal/operator';
 import { PRIVACY } from '@/areas/client/legal/privacy';
+import { SUPPORT } from '@/areas/client/legal/support';
 import { TERMS } from '@/areas/client/legal/terms';
 import type { LegalDocs, LegalKind } from '@/areas/client/legal/types';
 import { isLocale, type Locale } from '@/i18n/config';
@@ -23,17 +24,20 @@ const ICONS = {
   privacy: ShieldCheck,
   terms: FileText,
   'account-deletion': UserX,
+  support: LifeBuoy,
 } as const;
-const ORDER: LegalKind[] = ['privacy', 'terms', 'account-deletion'];
+/** Страницы внизу документа и страницы помощи: три документа + «Помощь и поддержка» (/support) */
+type LinkKind = LegalKind | 'support';
+const ORDER: LinkKind[] = ['privacy', 'terms', 'account-deletion', 'support'];
 
 /** Подписи вокруг документа (сам текст — в privacy.ts / terms.ts / accountDeletion.ts) */
 const UI: Record<Locale, { contents: string; other: string }> = {
-  ru: { contents: 'Содержание', other: 'Другие документы' },
-  hy: { contents: 'Բովանդակություն', other: 'Այլ փաստաթղթեր' },
-  en: { contents: 'Contents', other: 'Other documents' },
+  ru: { contents: 'Содержание', other: 'Ещё по теме' },
+  hy: { contents: 'Բովանդակություն', other: 'Նաև կարդացեք' },
+  en: { contents: 'Contents', other: 'See also' },
 };
 
-async function pageLocale(): Promise<Locale> {
+export async function pageLocale(): Promise<Locale> {
   const raw = await getLocale();
   return isLocale(raw) ? raw : 'ru';
 }
@@ -50,7 +54,7 @@ export async function legalMetadata(kind: LegalKind): Promise<Metadata> {
   });
 }
 
-/** Страница документа: заголовок → дата → вступление → содержание → разделы → ссылки на два других документа */
+/** Страница документа: заголовок → дата → вступление → содержание → разделы → ссылки на другие документы и помощь */
 export async function LegalPage({ kind }: { kind: LegalKind }) {
   const locale = await pageLocale();
   const doc = DOCS[kind][locale];
@@ -118,24 +122,31 @@ export async function LegalPage({ kind }: { kind: LegalKind }) {
         </section>
       ))}
 
-      <nav aria-label={ui.other} className="flex flex-col gap-3 border-t border-border pt-6">
-        <h2 className="text-sm font-semibold text-muted">{ui.other}</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {ORDER.filter((k) => k !== kind).map((k) => {
-            const Icon = ICONS[k];
-            return (
-              <Link
-                key={k}
-                href={localizedPath(`/${k}`, locale)}
-                className="flex min-h-11 items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-fg transition-colors hover:border-border-strong"
-              >
-                <Icon aria-hidden className="size-5 shrink-0 text-primary" />
-                <span className="font-medium">{DOCS[k][locale].title}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
+      <LegalLinks locale={locale} exclude={kind} heading={ui.other} />
     </article>
+  );
+}
+
+/** Карточки-ссылки на другие страницы (документы и помощь), кроме текущей */
+export function LegalLinks({ locale, exclude, heading }: { locale: Locale; exclude: LinkKind; heading: string }) {
+  return (
+    <nav aria-label={heading} className="flex flex-col gap-3 border-t border-border pt-6">
+      <h2 className="text-sm font-semibold text-muted">{heading}</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {ORDER.filter((k) => k !== exclude).map((k) => {
+          const Icon = ICONS[k];
+          return (
+            <Link
+              key={k}
+              href={localizedPath(`/${k}`, locale)}
+              className="flex min-h-11 items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-fg transition-colors hover:border-border-strong"
+            >
+              <Icon aria-hidden className="size-5 shrink-0 text-primary" />
+              <span className="font-medium">{k === 'support' ? SUPPORT[locale].title : DOCS[k][locale].title}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }

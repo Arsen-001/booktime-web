@@ -37,21 +37,23 @@
 Публичные страницы, которые требуют магазины (работают без входа, на трёх языках):
 - политика конфиденциальности — https://booktime.am/privacy (`/hy/privacy`, `/en/privacy`);
 - пользовательское соглашение — https://booktime.am/terms;
-- удаление аккаунта — https://booktime.am/account-deletion.
+- удаление аккаунта — https://booktime.am/account-deletion;
+- помощь и поддержка (Support URL обоих приложений) — https://booktime.am/support (`/hy/support`, `/en/support`).
 
-Тексты лежат в `src/areas/client/legal/`, реквизиты — в `src/areas/client/legal/operator.ts`.
+Тексты лежат в `src/areas/client/legal/` (помощь — `support.ts`), реквизиты — в `src/areas/client/legal/operator.ts`.
 
 ---
 
 ## 🔴 Блокеры — закрыть до отправки на проверку
 
 1. **Реквизиты оператора** в `src/areas/client/legal/operator.ts`: `[Юридическое лицо]`, `[Адрес]`,
-   `[Email для обращений]` (на ru/hy/en). Сейчас на /privacy, /terms и /account-deletion — заглушки.
+   `[Email для обращений]` (на ru/hy/en). Сейчас на /privacy, /terms, /account-deletion и /support — заглушки.
 2. **Демо-вход для проверяющих** — код на сервере готов и выключен (04.10.2026). Владелец задаёт env `REVIEW_LOGIN_PHONES`
    и `REVIEW_LOGIN_CODE` (сначала staging) и заводит салон «BookTime Demo» ([review-notes.md](review-notes.md)).
    Без этого Apple отклонит по 2.1.
-3. **Почта поддержки и страница помощи.** Apple требует Support URL с контактами. Пока это `https://booktime.am/terms#contacts`
-   (там появится почта из пункта 1), лучше отдельная страница.
+3. **Почта поддержки.** Страница помощи готова (05.10.2026) — https://booktime.am/support: как связаться, частые вопросы
+   клиентов и салонов, ссылки на документы. Осталась только почта из пункта 1: она подставляется на /support сама,
+   и тогда появляется кнопка «Написать на почту».
 
 **Закрыто 04.10.2026:**
 - **3.1.1, оплата в приложении.** В приложениях iOS и Android нет «Подписки», «Монет», продвижения и сторис за монеты:
@@ -121,7 +123,7 @@
 8. **Страница версии 1.0.0:**
    - English (U.S.) и Russian (Add Language): тексты из listing-*.md;
    - скриншоты `iphone69` (и `ipad13`, если оставляете iPad);
-   - Support/Marketing URL, Copyright;
+   - Support URL — https://booktime.am/support, Marketing URL — из listing-*.md, Copyright;
    - App Review Information — из review-notes.md.
 9. Pricing and Availability: Free. Страны — все или начать с Армении.
 10. Add for Review → Submit.

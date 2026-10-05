@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useNativeApp } from '@/lib/native/useNativeApp';
 
-type DocKind = 'terms' | 'privacy';
+type DocKind = 'terms' | 'privacy' | 'support';
 
 /**
- * Ссылка на пользовательское соглашение (/terms) или политику конфиденциальности (/privacy) из строки согласия.
+ * Ссылка на пользовательское соглашение (/terms), политику конфиденциальности (/privacy) или «Помощь и поддержка»
+ * (/support) — из строки согласия и из списков документов.
  * В браузере — в новой вкладке, чтобы не потерять заполненную форму; в нашем приложении — в том же окне
  * (новая вкладка WebView там не открывается), назад — кнопкой «Назад».
  */

@@ -290,6 +290,16 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
             <ChevronRight aria-hidden className="size-4 text-muted" />
           </Link>
 
+          {/* Помощь: частые вопросы, связь с нами, документы (/support — Support URL приложений, 05.10.2026) */}
+          <Link
+            href="/support"
+            data-f="F-00-182"
+            className="flex min-h-11 items-center justify-between rounded-lg px-1 text-sm font-medium text-fg hover:bg-surface-2"
+          >
+            {t('profile.supportLink')}
+            <ChevronRight aria-hidden className="size-4 text-muted" />
+          </Link>
+
           <ReplayHintsButton variant="ghost" size="sm" className="w-fit" doneMessage={t('profile.hintsReset')}>
             {t('profile.replayHints')}
           </ReplayHintsButton>

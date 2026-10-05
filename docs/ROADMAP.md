@@ -49,6 +49,7 @@
     (`ANDROID_BUSINESS_SHA256_CERT`); без env — 404.
 - **Сделано 04.10.2026 — всё для магазинов** (`docs/store/`, чек-лист — его README):
   - публичные /privacy, /terms, /account-deletion на hy/ru/en (`src/areas/client/legal/`);
+  - 05.10.2026: /support «Помощь и поддержка» (Support URL обоих приложений) на hy/ru/en — связь, частые вопросы, документы;
   - тексты карточек, ответы App Privacy и Data safety, заметки проверяющим;
   - иконки и баннеры, скриншоты (`docs/store/make-screenshots.mjs`);
   - версия 1.0.0 (1), подписи разрешений камеры, фото и места в приложениях.

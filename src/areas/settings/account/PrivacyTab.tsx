@@ -4,7 +4,7 @@
  * Личный кабинет → «Конфиденциальность» (F-15-154 выгрузка данных, F-15-155 блокировка, F-15-156 документы,
  * F-15-161 советы по защите — статические, у нас: чужие данные не видны никому, права галочками F-00-039).
  */
-import { FileDown, FileText, Lock, ShieldCheck } from 'lucide-react';
+import { FileDown, FileText, LifeBuoy, Lock, ShieldCheck } from 'lucide-react';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { downloadMyData, getPersonalAccount, requestDataBlock } from '@/api/settings';
 import { LegalDocLink } from '@/areas/client/legal/LegalDocLink';
@@ -112,6 +112,10 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
           <li className="flex items-center gap-2">
             <ShieldCheck aria-hidden className="size-4 shrink-0 text-muted" />
             <LegalDocLink kind="privacy">{t('account.privacy.privacyPolicy')}</LegalDocLink>
+          </li>
+          <li className="flex items-center gap-2">
+            <LifeBuoy aria-hidden className="size-4 shrink-0 text-muted" />
+            <LegalDocLink kind="support">{t('account.privacy.support')}</LegalDocLink>
           </li>
         </ul>
       </SectionCard>

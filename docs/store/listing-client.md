@@ -23,7 +23,7 @@ Bundle ID / applicationId: `am.booktime.app`. Открывает https://booktim
 | Категория App Store | Основная **Lifestyle**, дополнительная **Health & Fitness** |
 | Категория Google Play | **Lifestyle** (Приложения → Образ жизни). Тег: «Салоны красоты». |
 | Marketing URL (App Store) | https://booktime.am/ (hy: https://booktime.am/hy, en: https://booktime.am/en) |
-| Support URL | https://booktime.am/terms#contacts (там почта, когда владелец её заполнит; нужна отдельная страница помощи — см. README) |
+| Support URL | https://booktime.am/support (en: https://booktime.am/en/support, hy: https://booktime.am/hy/support) |
 | Privacy Policy URL | https://booktime.am/privacy (en: https://booktime.am/en/privacy, hy: https://booktime.am/hy/privacy) |
 | Удаление аккаунта (Google Play, Data safety) | https://booktime.am/account-deletion |
 | Copyright (App Store) | © 2026 [Юридическое лицо] |

@@ -9,7 +9,7 @@ import { absoluteUrl, siteUrl } from '@/lib/seo/site';
 
 /**
  * sitemap.xml (SEO, 03.10.2026): главная, «Для бизнеса» (/business, 04.10.2026), юридические страницы (/privacy, /terms,
- * /account-deletion, 04.10.2026), поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
+ * /account-deletion, 04.10.2026), «Помощь и поддержка» (/support, 05.10.2026), поиск, поиск по сфере и «сфера × район» (только где есть кого показать),
  * страница каждого опубликованного салона/мастера-одиночки /b/<slug> и карточки мастеров салонов /masters/<id>.
  * Источник — лёгкий список сервера `GET /v1/public/sitemap` (04.10.2026: slug, сферы, районы, фото, дата изменения —
  * без расчёта окон, как было через каталог), кэш 10 минут. Сервер недоступен — только статические страницы.
@@ -40,6 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl('/privacy'), changeFrequency: 'yearly', priority: 0.2 },
     { url: absoluteUrl('/terms'), changeFrequency: 'yearly', priority: 0.2 },
     { url: absoluteUrl('/account-deletion'), changeFrequency: 'yearly', priority: 0.2 },
+    // «Помощь и поддержка» (05.10.2026)
+    { url: absoluteUrl('/support'), changeFrequency: 'monthly', priority: 0.3 },
   ];
   const { businesses, masters } = await listSitemapData();
   const spheres = new Set<SphereId>();

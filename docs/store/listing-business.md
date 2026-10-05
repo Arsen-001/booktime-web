@@ -21,7 +21,7 @@ English (U.S.) и Russian. В Google Play — hy-AM, ru-RU, en-US.
 | Категория App Store | Основная **Business**, дополнительная **Productivity** |
 | Категория Google Play | **Business** (Бизнес) |
 | Marketing URL | https://booktime.am/business (hy: https://booktime.am/hy/business, en: https://booktime.am/en/business) |
-| Support URL | https://booktime.am/terms#contacts (до отдельной страницы помощи) |
+| Support URL | https://booktime.am/support (en: https://booktime.am/en/support, hy: https://booktime.am/hy/support) |
 | Privacy Policy URL | https://booktime.am/privacy |
 | Удаление аккаунта (Google Play) | https://booktime.am/account-deletion |
 | Copyright | © 2026 [Юридическое лицо] |
