@@ -19,8 +19,11 @@ async function requestIsApi(): Promise<boolean> {
 export async function fetchPublicOrder(code: string): Promise<PublicOrder | undefined> {
   if (!(await requestIsApi())) return undefined;
   try {
+    // X-BT-SSR (как src/lib/seo/publicData.ts): все посетители приходят к API с адресов Vercel — без него первая
+    // отрисовка /o/<code> у всех делила бы один лимит по IP (60 в минуту)
+    const secret = process.env.SSR_SHARED_SECRET?.trim();
     const res = await fetch(`${API_URL}/v1/public/orders/${encodeURIComponent(code)}`, {
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/json', ...(secret && { 'X-BT-SSR': secret }) },
       cache: 'no-store',
       signal: AbortSignal.timeout(5000),
     });
