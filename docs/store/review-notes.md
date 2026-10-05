@@ -26,7 +26,7 @@ env на Railway — сначала на staging, потом на production.
   - Чтобы проверяющий мог записаться, нужен салон, который не путает настоящих клиентов. Заведите «BookTime Demo»
     (сфера «Маникюр», 2 мастера, 5 услуг, окна на 2 недели вперёд), владелец — `+37400000102`.
   - **Не публикуйте его в каталоге.** Ссылка для проверяющего — `https://booktime.am/b/booktime-demo`. В приложении:
-    Search / Поиск, или откройте ссылку (диплинк).
+    только по ссылке (диплинк): мастера «По ссылке», в поиске салона нет.
   - Если поиск без опубликованных салонов пустой, на время проверки опубликуйте «BookTime Demo» с районом
     «Кентрон» и снимите после одобрения.
 - **Business** `+37400000102` — владелец «BookTime Demo». Чтобы журнал не был пустым, нужны 20–30 клиентов и
@@ -46,6 +46,37 @@ env на Railway — сначала на staging, потом на production.
 После одобрения обеих версий код можно оставить: проверяющие возвращаются при каждом обновлении. Держите код вне
 публичных мест и меняйте его, если он утёк.
 
+## Скрипт демо-данных — `booktime-backend/scripts/seed-review-demo.mjs` (05.10.2026)
+
+Заводит всё из «Данных на production» **только через HTTP API** (вход проверяющих по постоянному коду, без доступа к
+базе). Повторный запуск ничего не дублирует: бизнес, услуги, мастера и клиенты ищутся по названию и номеру, график
+продлевается на 8 недель вперёд, записи добавляются, только если на ближайшие 7 дней их меньше 14.
+
+Что получается: «BookTime Demo» (салон, сфера `nails`, slug `booktime-demo`, описание «демо, всё вымышленное»),
+1 категория и 5 услуг, 2 мастера — владелец «Ани» (`+37400000102`) и «Лилит» без входа в кабинет, график Пн–Сб
+10:00–19:00, 25 клиентов (только имена, номера `+374 00 1XX XXX`), ~14 записей на неделю, клиент `+37400000101`
+«App Review» с одной предстоящей записью. Мастера «По ссылке» (`calendarVisibility: link`): салона **нет в каталоге,
+поиске и sitemap**, но `/b/booktime-demo` и запись по ней работают. Заказы не заводятся — у сферы «Маникюр» раздела
+«Заказы» нет.
+
+Запуск (код берётся из `~/.booktime-secrets/review-login.env` или из переменной с тем же именем; не печатается):
+```bash
+cd booktime-backend
+node scripts/seed-review-demo.mjs --api https://api-staging.booktime.am --code-env STAGING_REVIEW_LOGIN_CODE
+node scripts/seed-review-demo.mjs --api https://api.booktime.am --code-env PRODUCTION_REVIEW_LOGIN_CODE --production
+```
+Нужны env `REVIEW_LOGIN_PHONES`/`REVIEW_LOGIN_CODE` на api этого окружения. Между кодами на номер 60 с — скрипт ждёт
+сам; лимит кодов на номер в час — не запускайте подряд много раз.
+
+**Важно: салон виден клиентам, пока жива подписка.** Новый бизнес получает 7 дней знакомства, потом 3 дня отсрочки,
+затем «заморожен» — и `/b/booktime-demo` отвечает 404. Перед отправкой на проверку дайте бизнесу бесплатные дни в
+панели платформы (`POST /v1/platform/free-months`, до 366 дней) или запустите скрипт впервые с `--promo <код
+«бесплатный месяц»>`.
+
+Второй мастер без аккаунта в API остаётся «приглашён» (`invited`), а онлайн записывают только к активным. Скрипт
+делает его активным единственным доступным путём: «Уволить» и сразу «Восстановить» (первые 24 часа) — в истории
+сотрудника это видно.
+
 ---
 
 ## Текст для App Store Connect → App Review Information
@@ -58,7 +89,7 @@ BookTime is an online booking service for salons and professionals in Armenia (b
 
 Sign in: tap "Profile" → enter phone +374 00 000 101 → the app asks for a 4-digit code → enter <CODE>. This review number does not receive real messages; the code is fixed for review.
 
-To make a test booking: open https://booktime.am/b/booktime-demo (or Search → "BookTime Demo") → pick a service → "Any master" → a time → confirm.
+To make a test booking: open https://booktime.am/b/booktime-demo (the demo salon is hidden from search on purpose) → pick a service → "Any master" → a time → confirm.
 
 Native features: push notifications (booking reminders and status changes), universal links to booktime.am/b/* and /bookings, native share sheet, Sign in with Apple and Sign in with Google.
 

@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, Clock, LogOut, Pencil, Trash2, User } from 'lucide-react';
-import { deleteMyClientAccount, getClientProfile, setProfilePhoto, setTimeFormat, updateProfileName } from '@/api/client';
+import { ChevronRight, Clock, FileDown, LogOut, Pencil, Trash2, User } from 'lucide-react';
+import { deleteMyClientAccount, downloadMyClientData, getClientProfile, setProfilePhoto, setTimeFormat, updateProfileName } from '@/api/client';
 import { HttpApiError, isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { SESSION_KEY, cancelMyAccountDeletion, getAccount, logout, setSessionMode } from '@/api/session';
@@ -17,6 +17,7 @@ import type { Id } from '@/domain/core';
 import type { TimeFormat } from '@/domain/client';
 import { CLIENT_LOCALES, type Locale } from '@/i18n/config';
 import { useClientFormat } from '@/areas/client/useClientFormat';
+import { saveJsonFile } from '@/lib/saveJsonFile';
 import { useT } from '@/i18n/useT';
 import { useExtensions } from '@/extensions/useExtensions';
 import { ExtensionSlot } from '@/extensions/ExtensionSlot';
@@ -83,6 +84,7 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
   const [nameOpen, setNameOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const removeAccount = useApiMutation((id: Id) => deleteMyClientAccount(id));
+  const exportData = useApiMutation((id: Id) => downloadMyClientData(id));
   const uid = appUserId ?? '';
   // Живой сайт: сервер удаляет аккаунт через 25 дней после запроса, до того — «Отменить удаление» (POST /v1/me/account/delete/cancel)
   const accountQ = useApiQuery(['me', 'account'], getAccount, { enabled: isApiMode() });
@@ -148,6 +150,18 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
       onLogout();
     } catch {
       toast.error(t('profile.actionFailed'));
+    }
+  };
+
+  // «Скачать мои данные» (05.10.2026): файл собирается сразу (GET /v1/me/data-export) и скачивается;
+  // в приложении — меню «Поделиться» → «Сохранить в Файлы» (saveJsonFile — одно место с кабинетом сотрудника)
+  const handleDownload = async () => {
+    try {
+      const file = await exportData.mutate(uid);
+      await saveJsonFile(file.filename, file.content);
+      toast.success(t('profile.downloadDataDone'));
+    } catch {
+      toast.error(t('profile.downloadDataFailed'));
     }
   };
 
@@ -327,13 +341,19 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
         {t('profile.logout')}
       </Button>
 
-      {!deletionAt && (
-        <div data-f="F-14-062" className="flex flex-col items-center gap-1 pt-2">
-          <Button variant="ghost" className="text-danger hover:bg-danger-soft" leftIcon={<Trash2 aria-hidden />} onClick={() => setDeleteOpen(true)}>
+      <div className="flex flex-col items-center gap-1 pt-2">
+        <div data-f="F-15-154" className="flex flex-col items-center">
+          <Button variant="ghost" leftIcon={<FileDown aria-hidden />} loading={exportData.isPending} disabled={!appUserId} onClick={() => void handleDownload()}>
+            {t('profile.downloadData')}
+          </Button>
+          <p className="max-w-xs text-center text-xs text-muted">{t('profile.downloadDataHint')}</p>
+        </div>
+        {!deletionAt && (
+          <Button data-f="F-14-062" variant="ghost" className="mt-2 text-danger hover:bg-danger-soft" leftIcon={<Trash2 aria-hidden />} onClick={() => setDeleteOpen(true)}>
             {t('profile.deleteAccount')}
           </Button>
-        </div>
-      )}
+        )}
+      </div>
 
       <ConfirmDialog
         open={deleteOpen}

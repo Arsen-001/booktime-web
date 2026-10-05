@@ -82,6 +82,7 @@ import type { TelegramLinkInfo } from '@/domain/client';
 import { attachUpsellGoodsTx, recordPrepaymentLineSync } from '@/api/journal';
 import { upsellGoodsLinesTx, upsellServiceLinesTx } from '@/api/services-upsell';
 import type { BookingAddOns } from '@/domain/services';
+import { ordersEnabledTx } from '@/api/orders';
 import { recordPrepaymentReceivedSync } from '@/api/finance';
 import * as JournalServer from '@/api/journal.server';
 import {
@@ -354,6 +355,12 @@ export interface PublicBusinessData {
    * null — сегодня закрыто; нет поля — не знаем (api), блок не показываем.
    */
   todayHours?: { from: string; to: string } | null;
+  /**
+   * Мастерская «заказов» (ателье, ремонт техники, химчистка, детейлинг; 05.10.2026): раздел «Заказы» включён. Без онлайн-услуг
+   * страница вместо пустой записи объясняет «принесите в часы работы, о готовности сообщат» и даёт позвонить.
+   * Нет поля (старый сервер) — нет.
+   */
+  ordersEnabled?: boolean;
 }
 
 /**
@@ -492,6 +499,7 @@ export function getPublicBusinessData(slug: string, formId?: string): Promise<Pu
       anyStaffAllowed: online.businessRules[business.id]?.allowAnyStaffForAllLinks ?? true,
       maxDaysAhead: online.businessRules[business.id]?.maxDaysAhead ?? DEFAULT_MAX_DAYS_AHEAD,
       todayHours: todayOpenHours(core, location, staff, today0),
+      ordersEnabled: ordersEnabledTx(business.id, business.sphereIds),
     };
   });
 }

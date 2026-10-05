@@ -85,7 +85,7 @@ export const SUPPORT: Record<Locale, SupportDoc> = {
           {
             id: 'data',
             q: 'Как получить копию своих данных?',
-            a: 'Напишите на {email} с темой «Мои данные» и номером телефона аккаунта. Пришлём ваши данные в течение 30 дней. Сотрудники салонов скачивают свои данные сами: «Личный кабинет» → «Конфиденциальность» → «Скачать мои данные».',
+            a: 'Скачайте сами за пару секунд: «Профиль» → «Скачать мои данные» — придёт файл JSON с профилем, записями во всех салонах, избранным, отзывами и согласиями. Сотрудники салонов — «Личный кабинет» → «Конфиденциальность» → «Скачать мои данные». Не получается войти в аккаунт — напишите на {email} с темой «Мои данные» и номером телефона аккаунта, пришлём данные в течение 30 дней.',
           },
           {
             id: 'delete',
@@ -167,7 +167,7 @@ export const SUPPORT: Record<Locale, SupportDoc> = {
           {
             id: 'data',
             q: 'How do I get a copy of my data?',
-            a: 'Email {email} with the subject “My data” and the phone number of your account. We send your data within 30 days. Salon staff download their data themselves: “Personal account” → “Privacy” → “Download my data”.',
+            a: 'Download it yourself in seconds: “Profile” → “Download my data” — you get a JSON file with your profile, bookings at every salon, favorites, reviews and consents. Salon staff: “Personal account” → “Privacy” → “Download my data”. Can’t sign in? Email {email} with the subject “My data” and the phone number of your account — we send your data within 30 days.',
           },
           {
             id: 'delete',
@@ -249,7 +249,7 @@ export const SUPPORT: Record<Locale, SupportDoc> = {
           {
             id: 'data',
             q: 'Ինչպե՞ս ստանալ իմ տվյալների պատճենը։',
-            a: 'Գրեք {email} հասցեին «Իմ տվյալները» թեմայով և նշեք հաշվի հեռախոսահամարը։ Ձեր տվյալները կուղարկենք 30 օրվա ընթացքում։ Սրահների աշխատակիցներն իրենց տվյալները ներբեռնում են ինքնուրույն՝ «Անձնական էջ» → «Գաղտնիություն» → «Ներբեռնել իմ տվյալները»։',
+            a: 'Ներբեռնեք ինքներդ մի քանի վայրկյանում՝ «Պրոֆիլ» → «Ներբեռնել իմ տվյալները». կստանաք JSON ֆայլ՝ պրոֆիլով, բոլոր սրահների ամրագրումներով, ընտրյալներով, կարծիքներով և համաձայնություններով։ Սրահների աշխատակիցները՝ «Անձնական էջ» → «Գաղտնիություն» → «Ներբեռնել իմ տվյալները»։ Եթե չեք կարողանում մուտք գործել հաշիվ, գրեք {email} հասցեին «Իմ տվյալները» թեմայով և նշեք հաշվի հեռախոսահամարը, տվյալները կուղարկենք 30 օրվա ընթացքում։',
           },
           {
             id: 'delete',

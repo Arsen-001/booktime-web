@@ -10,7 +10,7 @@ import { downloadMyData, getPersonalAccount, requestDataBlock } from '@/api/sett
 import { LegalDocLink } from '@/areas/client/legal/LegalDocLink';
 import type { Id } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
-import { nativeApp } from '@/lib/native/bridge';
+import { saveJsonFile } from '@/lib/saveJsonFile';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -132,26 +132,4 @@ export function PrivacyTab({ staffId }: { staffId: Id }) {
       </SectionCard>
     </div>
   );
-}
-
-/** Сохранить JSON-файл: в приложении — системное «Поделиться» (там нет загрузок браузера), иначе — скачивание */
-async function saveJsonFile(filename: string, content: string): Promise<void> {
-  const blob = new Blob([content], { type: 'application/json' });
-  const file = typeof File === 'function' ? new File([blob], filename, { type: 'application/json' }) : null;
-  if (nativeApp() && file && typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({ files: [file], title: filename });
-      return;
-    } catch (e) {
-      if (e instanceof DOMException && e.name === 'AbortError') return;
-    }
-  }
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

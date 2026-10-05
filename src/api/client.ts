@@ -29,7 +29,8 @@ import * as SETS from '@/api/settings.server';
 import { mirrorSnapshot, type CoreSnapshot as ServerCoreSnapshot } from '@/api/mirror';
 import { ApiError, request } from '@/api/request';
 import { attachReferralTx } from '@/api/referral';
-import { getAccount, patchAccount, requestMyAccountDeletion } from '@/api/session';
+import { fetchMyDataExport, getAccount, patchAccount, requestMyAccountDeletion } from '@/api/session';
+import { myDataFilename } from '@/lib/saveJsonFile';
 import type { AccountView, SecondFactorChallenge, SessionView } from '@/api/session';
 import { computeFreeSlots, getNearestSlots, type FreeSlot } from '@/api/schedule';
 import { upsellGoodsLinesTx, upsellServiceLinesTx } from '@/api/services-upsell';
@@ -5008,6 +5009,63 @@ export async function deleteMyClientAccount(appUserId: Id): Promise<void> {
     for (const c of core.clients) if (c.appUserId === appUserId) coreTx.update('clients', c.id, { appUserId: undefined });
     for (const b of core.bookings) if (b.appUserId === appUserId) coreTx.update('bookings', b.id, { appUserId: undefined });
     coreTx.remove('appUsers', appUserId);
+  });
+}
+
+/**
+ * «Скачать мои данные» клиента (05.10.2026; App Store / GDPR-подобная копия): живой сайт — тот же GET /v1/me/data-export,
+ * что у кабинета сотрудника (профиль, записи во всех салонах, избранное, отзывы, согласия, карты, сертификаты, абонементы,
+ * лист ожидания, обращения); демо — похожий файл из данных браузера.
+ */
+export async function downloadMyClientData(appUserId: Id): Promise<{ filename: string; content: string }> {
+  const filename = myDataFilename();
+  if (isApiMode()) return { filename, content: JSON.stringify(await fetchMyDataExport(), null, 2) };
+  return request(() => {
+    const core = readCore();
+    const user = core.appUsers.find((u) => u.id === appUserId);
+    if (!user) throw new ApiError('not_found');
+    const s = readArea('client');
+    const bizName = (id: Id) => core.businesses.find((b) => b.id === id)?.name ?? null;
+    const staffName = (id: Id) => core.staff.find((x) => x.id === id)?.name ?? null;
+    const serviceName = (id: Id) => core.services.find((x) => x.id === id)?.name ?? null;
+    const consentAt = s.consents[appUserId];
+    const data = {
+      format: 'booktime-my-data/1',
+      exportedAt: new Date().toISOString(),
+      demo: true,
+      profile: { id: user.id, name: user.name, phone: user.phone, locale: user.locale, createdAt: user.createdAt },
+      appProfile: { gender: user.gender, birthday: user.birthday ?? null, district: user.district ?? null, photoUrl: user.photoUrl ? '(photo)' : null, timeFormat: s.timeFormat[appUserId] ?? '24' },
+      consents: consentAt ? [{ document: 'terms', acceptedAt: consentAt }] : [],
+      bookings: core.bookings
+        .filter((b) => b.appUserId === appUserId)
+        .map((b) => ({
+          id: b.id,
+          business: bizName(b.businessId),
+          master: staffName(b.staffId),
+          startAt: b.start,
+          durationMin: b.durationMin,
+          status: b.status,
+          services: b.services.map((l) => ({ name: serviceName(l.serviceId), qty: l.qty })),
+          total: b.total,
+          currency: 'AMD',
+          forWhom: b.forWhom,
+          visitorName: b.visitorName ?? null,
+          comment: b.comment ?? null,
+        })),
+      favorites: s.favorites.filter((f) => f.appUserId === appUserId).map((f) => ({ type: f.targetType, id: f.targetId, newsMuted: f.newsMuted, addedAt: f.createdAt })),
+      reviews: {
+        stars: s.starRatings.filter((r) => r.appUserId === appUserId).map((r) => ({ master: staffName(r.staffId), bookingId: r.bookingId, at: r.createdAt })),
+        masters: s.staffReviews
+          .filter((r) => r.appUserId === appUserId)
+          .map((r) => ({ master: staffName(r.staffId), business: bizName(r.businessId), bookingId: r.bookingId, rating: r.rating, text: r.text ?? null, at: r.createdAt })),
+        places: s.locationReviews.filter((r) => r.appUserId === appUserId).map((r) => ({ business: bizName(r.businessId), bookingId: r.bookingId, text: r.text, at: r.createdAt })),
+      },
+      salonCards: core.clients
+        .filter((c) => c.appUserId === appUserId || c.phone === user.phone)
+        .map((c) => ({ business: bizName(c.businessId), name: c.name, phone: c.phone, email: c.email ?? null, birthday: c.birthday ?? null })),
+      diary: s.diaryEntries.filter((d) => d.appUserId === appUserId).map((d) => ({ service: d.serviceName, master: d.masterName, date: d.date, amount: d.amount, addedAt: d.createdAt })),
+    };
+    return { filename, content: JSON.stringify(data, null, 2) };
   });
 }
 

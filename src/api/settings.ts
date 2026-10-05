@@ -15,6 +15,7 @@ import { apiIdentity } from '@/api/identity';
 import * as S from '@/api/settings.server';
 import { syncCore } from '@/api/mirror';
 import { setSessionMode } from '@/api/session';
+import { myDataFilename } from '@/lib/saveJsonFile';
 import {
   cancelMyAccountDeletion,
   confirmPhoneChangeApi,
@@ -2357,7 +2358,7 @@ export function requestDataExport(staffId: Id): Promise<DataExportRequest> {
  * из данных браузера. Базу клиентов салона выгружают отдельно (Клиенты → Выгрузить).
  */
 export async function downloadMyData(staffId: Id): Promise<{ filename: string; content: string }> {
-  const filename = `booktime-my-data-${dayjs().format('YYYY-MM-DD')}.json`;
+  const filename = myDataFilename();
   if (isApiMode()) return { filename, content: JSON.stringify(await fetchMyDataExport(), null, 2) };
   return request(() => {
     const core = readCore();

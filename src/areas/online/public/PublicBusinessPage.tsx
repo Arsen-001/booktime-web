@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getPublicBusinessData, trackWidgetEvent, type PublicBusinessData } from '@/api/online';
 import { useApiQuery } from '@/api/request';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
+import { OrdersPlaceInfo } from '@/areas/online/public/OrdersPlaceInfo';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -82,6 +83,10 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
 
   const { business, location, categories, services, staff, link, linkStaffGone, promoBlocks, businessStars, networkBranches, addressHidden, todayHours } = data;
   const displayName = business.name.trim() || t('public.unnamedBusiness');
+  const canBook = services.length > 0 && staff.length > 0;
+  // Мастерская «заказов» без онлайн-услуг (05.10.2026): вместо пустой записи — «как сдать вещь» и звонок
+  const ordersOnly = !canBook && data.ordersEnabled === true;
+  const orderPhone = location?.phone || business.phone;
 
   // F-03-008/083: сетевая ссылка без выбранного филиала — сначала выбор локации, дальше — обычная страница.
   if (networkBranches) {
@@ -329,9 +334,11 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
           </div>
         )}
         {/* На телефоне «Записаться» — в липкой панели внизу (О22), вторая такая же кнопка в карточке не нужна */}
-        <LinkButton href={bookHref()} data-f="F-03-012" className="max-md:hidden">
-          {t('public.book')}
-        </LinkButton>
+        {!ordersOnly && (
+          <LinkButton href={bookHref()} data-f="F-03-012" className="max-md:hidden">
+            {t('public.book')}
+          </LinkButton>
+        )}
         {link?.onlineSalesNetworkId && (
           <div data-f="F-03-107">
             <Button variant="secondary" fullWidth leftIcon={<Ticket aria-hidden className="size-4" />} onClick={() => setSalesOpen(true)}>
@@ -357,7 +364,9 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
         </div>
       )}
 
-      {services.length === 0 || staff.length === 0 ? (
+      {ordersOnly ? (
+        <OrdersPlaceInfo business={business} location={location} />
+      ) : !canBook ? (
         <div data-f="F-03-134">
           <EmptyState title={t('public.noneOnline.title')} description={t('public.noneOnline.description')} />
         </div>
@@ -439,7 +448,16 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
       )}
     </div>
     {/* О22: «Записаться» всегда у большого пальца — липкая панель внизу на всей странице */}
-    {services.length > 0 && staff.length > 0 ? bookBar : null}
+    {canBook ? (
+      bookBar
+    ) : ordersOnly && orderPhone ? (
+      <StickyActionBar desktop="hidden">
+        <a href={telLink(orderPhone)} className={buttonClasses({ variant: 'primary' })}>
+          <Phone aria-hidden className="size-4" />
+          {t('public.ordersPlace.call')}
+        </a>
+      </StickyActionBar>
+    ) : null}
     </>
   );
 }

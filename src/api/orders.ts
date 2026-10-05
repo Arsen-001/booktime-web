@@ -199,10 +199,15 @@ export function getPublicOrder(code: string): Promise<PublicOrder> {
   });
 }
 
+/** «Заказы» включены у бизнеса (мок, внутри чужого request — публичная страница /b/<slug>): выбор владельца, иначе — по сфере */
+export function ordersEnabledTx(businessId: Id, sphereIds: readonly SphereId[]): boolean {
+  return readArea('orders').settings[businessId]?.ordersEnabled ?? defaultOrdersEnabled(sphereIds);
+}
+
 /** «Заказы» включены у бизнеса: выбор владельца, иначе — по сфере бизнеса */
 export function getOrdersEnabled(businessId: Id, sphereIds: readonly SphereId[]): Promise<boolean> {
   if (isApiMode()) return S.getOrdersEnabledServer(businessId).then((v) => v ?? defaultOrdersEnabled(sphereIds));
-  return request(() => readArea('orders').settings[businessId]?.ordersEnabled ?? defaultOrdersEnabled(sphereIds));
+  return request(() => ordersEnabledTx(businessId, sphereIds));
 }
 
 /** Хук: включены ли «Заказы» (меню кабинета, экран настроек). Пока бизнес не известен — по сфере */
