@@ -59,12 +59,15 @@ const SHOTS = {
     { name: 'salon', route: '/b/nuri-nail-studio', persona: 'client' },
     { name: 'booking-time', route: '/b/nuri-nail-studio/book', persona: 'client', steps: 'pickServiceAndTime' },
     { name: 'my-bookings', route: '/bookings', persona: 'client' },
+    { name: 'order-pickup', route: '/o/dtk7m3wq2h', persona: 'client', sphere: 'detailing', steps: 'pickPickupTime' },
+    { name: 'order-estimate', route: '/o/v3xd7nh9ga', persona: 'client', sphere: 'repair', steps: 'estimateOnShortScreen' },
   ],
   business: [
     { name: 'journal', route: '/biz/journal', persona: 'owner', sphere: 'nails', steps: 'scrollToBookings' },
     { name: 'clients', route: '/biz/clients', persona: 'owner', sphere: 'nails' },
     { name: 'booking-window', route: '/biz/journal', persona: 'owner', sphere: 'nails', steps: 'openBooking' },
     { name: 'orders', route: '/biz/orders', persona: 'owner', sphere: 'repair' },
+    { name: 'order-estimate', route: '/biz/orders/ord_fix_1017', persona: 'owner', sphere: 'repair', steps: 'scrollToEstimate' },
     { name: 'online-booking', route: '/biz/online', persona: 'owner', sphere: 'nails' },
   ],
 };
@@ -119,6 +122,43 @@ const STEPS = {
       (el ?? document.scrollingElement)?.scrollBy(0, -48);
     });
     await page.waitForTimeout(400);
+  },
+  /** Заказ в кабинете: смета (клиент согласовал по ссылке) — на телефоне к верху экрана, под шапку кабинета */
+  async scrollToEstimate(page) {
+    const card = page.locator('[data-f="orders-estimate"]').first();
+    await card.waitFor({ timeout: 8000 });
+    await page.evaluate(() => {
+      // iPad: две колонки, заказ виден целиком — с начала страницы
+      if (window.innerWidth >= 768) return;
+      const el = document.querySelector('[data-f="orders-estimate"]');
+      const box = el.closest('section, [class*="card"], [class*="rounded"]') ?? el;
+      window.scrollBy(0, box.getBoundingClientRect().top - 96);
+    });
+    await page.waitForTimeout(400);
+  },
+  /** Страница заказа у клиента: «Когда заберёте?» — отметить вечернее время, кнопка становится активной */
+  async pickPickupTime(page) {
+    const slots = page.getByRole('button', { name: /^\d{1,2}:\d{2}$/ });
+    await slots.first().waitFor({ timeout: 8000 });
+    const evening = page.getByRole('button', { name: /^18:00$/ });
+    await ((await evening.count()) ? evening.first() : slots.last()).click({ timeout: 3000 });
+    await page.waitForTimeout(500);
+    // Высокий экран — с начала (номер, статус и время видно вместе); низкий (Android) — карточка «Когда заберёте?» сверху
+    await page.evaluate(() => {
+      window.scrollTo(0, 0);
+      const card = document.querySelector('[data-f="orders-pickup-public"]');
+      if (window.innerHeight < 800 && card) window.scrollBy(0, card.getBoundingClientRect().top - 16);
+    });
+    await page.waitForTimeout(300);
+  },
+  /** Смета у клиента: на низком экране (Android) карточку «Смета» — к верху, чтобы «Согласен» и «Отказаться» были видны */
+  async estimateOnShortScreen(page) {
+    await page.locator('[data-f="orders-estimate-public"]').first().waitFor({ timeout: 8000 });
+    await page.evaluate(() => {
+      const card = document.querySelector('[data-f="orders-estimate-public"]');
+      if (window.innerHeight < 800 && card) window.scrollBy(0, card.getBoundingClientRect().top - 16);
+    });
+    await page.waitForTimeout(300);
   },
   /** Окно записи: открыть первую запись в журнале */
   async openBooking(page) {
@@ -182,9 +222,11 @@ try {
           // Ссылки в кабинете строятся от адреса сервера («localhost:3710/b/…») — в магазине показываем боевой адрес
           await page.evaluate((host) => {
             const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-            for (let n = walker.nextNode(); n; n = walker.nextNode()) if (n.nodeValue.includes(host)) n.nodeValue = n.nodeValue.replaceAll(host, 'booktime.am');
+            // http://localhost:3710 → https://booktime.am (сначала с протоколом, иначе в ссылке заказа оставалось «http://»)
+            const fix = (t) => t.replaceAll(`http://${host}`, 'https://booktime.am').replaceAll(host, 'booktime.am');
+            for (let n = walker.nextNode(); n; n = walker.nextNode()) if (n.nodeValue.includes(host)) n.nodeValue = fix(n.nodeValue);
             document.querySelectorAll('input, textarea').forEach((i) => {
-              if (i.value.includes(host)) i.value = i.value.replaceAll(host, 'booktime.am');
+              if (i.value.includes(host)) i.value = fix(i.value);
             });
           }, new URL(BASE).host);
           await page.waitForTimeout(500);
