@@ -40,6 +40,11 @@ export function emptyDraft(): OrderDraft {
   return { clientId: null, clientName: '', clientPhone: '', items: [newItem()], photos: [], staffId: '', dueDate: null, price: undefined, prepaid: undefined, comment: '' };
 }
 
+/** ⭐ По записи на сдачу (05.10.2026): клиент и мастер — из записи, первая вещь — то, что клиент написал о ней */
+export function draftFromBooking(b: { clientId: Id | null; clientName: string; clientPhone: string; description: string | null; staffId: Id | null }): OrderDraft {
+  return { ...emptyDraft(), clientId: b.clientId, clientName: b.clientName, clientPhone: b.clientPhone, items: [newItem({ title: (b.description ?? '').trim().slice(0, 200) })], staffId: b.staffId ?? '' };
+}
+
 export function draftFromOrder(o: Order): OrderDraft {
   return {
     clientId: o.clientId,

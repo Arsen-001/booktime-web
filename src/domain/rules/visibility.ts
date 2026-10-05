@@ -59,7 +59,11 @@ export function isServiceBookableOnline(service: Pick<Service, 'id' | 'active' |
   return service.active && service.onlineBookable && !opts.hiddenIds?.has(service.id);
 }
 
-/** Онлайн-услуги мастера (услуга назначена мастеру: Staff.serviceIds или Service.staffIds) */
+/**
+ * Онлайн-услуги мастера (услуга назначена мастеру: Staff.serviceIds или Service.staffIds) — для каталога и приложения.
+ * ⭐ «Приём заказа» мастерской (kind 'intake', запись на сдачу 05.10.2026) — не услуга каталога: записываются на него только
+ * кнопкой «Записаться на сдачу» на странице мастерской.
+ */
 export function visibleServices(
   core: Pick<CoreData, 'services'>,
   staff: Pick<Staff, 'id' | 'businessId' | 'serviceIds'>,
@@ -69,13 +73,14 @@ export function visibleServices(
     (s) =>
       s.businessId === staff.businessId &&
       (staff.serviceIds.includes(s.id) || s.staffIds.includes(staff.id)) &&
+      s.kind !== 'intake' &&
       isServiceBookableOnline(s, opts),
   );
 }
 
 /** Онлайн-услуги бизнеса (публичная страница). Услуга без мастеров клиенту не видна: записаться не к кому (services У8) */
 export function visibleBusinessServices(core: Pick<CoreData, 'services'>, businessId: Id, opts: VisibilityOptions = {}): Service[] {
-  return core.services.filter((s) => s.businessId === businessId && s.staffIds.length > 0 && isServiceBookableOnline(s, opts));
+  return core.services.filter((s) => s.businessId === businessId && s.staffIds.length > 0 && s.kind !== 'intake' && isServiceBookableOnline(s, opts));
 }
 
 /** Видимость мастера клиентам — одна функция для каталога, публичной страницы, виджета и записи */

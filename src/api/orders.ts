@@ -13,6 +13,7 @@ import { coreTx, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import { appendNotifyLogTx } from '@/api/notify';
 import * as S from '@/api/orders.server';
+import { intakeBookingForOrderTx, markIntakeArrivedTx } from '@/api/ordersIntake';
 import { publicOrderTx } from '@/api/ordersPublic';
 import { ApiError, request, useApiQuery, type QueryOptions } from '@/api/request';
 import type { Client, Id, LocalizedText, SphereId } from '@/domain/core';
@@ -47,6 +48,8 @@ export const ordersKeys = {
   public: (code: string) => ['orders', 'public', code] as const,
   enabled: (businessId: Id) => ['orders', 'enabled', businessId] as const,
   pickupReminders: (businessId: Id) => ['orders', 'pickup-reminders', businessId] as const,
+  intake: (businessId: Id) => ['orders', 'intake', businessId] as const,
+  intakeBookings: (businessId: Id, date: string) => ['orders', 'intake-bookings', businessId, date] as const,
 };
 
 // ─────────────────────────── мок: помощники ───────────────────────────
@@ -213,6 +216,8 @@ export function createOrder(args: { businessId: Id; input: OrderInput }): Promis
       prepaid: Math.round(input.prepaid ?? 0),
     };
     validateTx(draft);
+    // ⭐ По записи на сдачу (05.10.2026): одна запись — один заказ; мастер и филиал — из записи, если не выбраны
+    const fromBooking = input.bookingId ? intakeBookingForOrderTx(businessId, input.bookingId) : null;
     const now = nowDateTime();
     const actor = currentActor();
     const mine = readArea('orders').orders.filter((o) => o.businessId === businessId);
@@ -220,23 +225,26 @@ export function createOrder(args: { businessId: Id; input: OrderInput }): Promis
     const order: Order = {
       id: newId('ord'),
       businessId,
-      locationId: input.locationId ?? business?.locationIds[0] ?? null,
+      locationId: input.locationId ?? fromBooking?.locationId ?? business?.locationIds[0] ?? null,
       number: mine.length ? Math.max(...mine.map((o) => o.number)) + 1 : FIRST_ORDER_NUMBER,
       code: newCodeTx(),
       clientId: ensureClientTx(businessId, input.clientId, draft.clientName, phone),
       ...draft,
       photos: input.photos ?? [],
-      staffId: input.staffId ?? null,
+      staffId: input.staffId === undefined ? (fromBooking?.staffId ?? null) : input.staffId,
       status: 'received',
       dueDate: input.dueDate ?? null,
       comment: input.comment?.trim() || null,
       history: [{ at: now, status: 'received', by: actor.staffId ?? null }],
       readyNotifiedAt: null,
       issuedAt: null,
+      ...(input.bookingId ? { bookingId: input.bookingId } : {}),
       createdAt: now,
       updatedAt: now,
     };
-    return saveOrderTx(order);
+    const saved = saveOrderTx(order);
+    if (input.bookingId) markIntakeArrivedTx(input.bookingId);
+    return saved;
   });
 }
 
@@ -325,3 +333,4 @@ export function publicAddressText(address: PublicOrder['business']['address'], l
 
 export { getPickupReminders, runPickupReminders, setPickupReminders } from '@/api/ordersReminders';
 export { decideOrderEstimate, decidePublicEstimate, resendOrderEstimate, runEstimateReminders, sendOrderEstimate } from '@/api/ordersEstimate';
+export { getIntakeSettings, listIntakeBookings, setIntakeSettings } from '@/api/ordersIntake';

@@ -22,6 +22,7 @@ const LOADERS: Record<string, Loader> = {
   'bookingWindow:resources': () => import('@/areas/resources/extensions/BookingWindow'),
   'bookingWindow:notify': () => import('@/areas/notify/extensions/BookingWindow'),
   'bookingWindow:online': () => import('@/areas/online/extensions/BookingWindow'),
+  'bookingWindow:orders': () => import('@/areas/orders/extensions/BookingWindow'),
   'clientCard:journal': () => import('@/areas/journal/extensions/ClientCard'),
   'clientCard:finance': () => import('@/areas/finance/extensions/ClientCard'),
   'clientCard:loyalty': () => import('@/areas/loyalty/extensions/ClientCard'),

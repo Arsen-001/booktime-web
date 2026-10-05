@@ -56,18 +56,24 @@ export interface ServiceRow {
   staffTerms: StaffServiceTerm[];
 }
 
+/**
+ * ⭐ «Приём заказа» (kind 'intake', запись на сдачу 05.10.2026) — услуга раздела «Заказы», её настраивают там: в каталоге
+ * услуг, выборе услуг мастера и шаблонах её нет (без явного kind).
+ */
+const notIntake = (s: Pick<Service, 'kind'>) => s.kind !== 'intake';
+
 export function listServices(businessId: Id, q: { kind?: ServiceKind } = {}): Promise<Service[]> {
-  if (isApiMode()) return S.listServices(businessId, q.kind);
+  if (isApiMode()) return S.listServices(businessId, q.kind).then((rows) => (q.kind ? rows : rows.filter(notIntake)));
   return request(() =>
-    coreTx.list('services', (s) => s.businessId === businessId && (!q.kind || s.kind === q.kind)).sort((a, b) => a.order - b.order),
+    coreTx.list('services', (s) => s.businessId === businessId && (q.kind ? s.kind === q.kind : notIntake(s))).sort((a, b) => a.order - b.order),
   );
 }
 
 export function listServiceRows(businessId: Id): Promise<ServiceRow[]> {
-  if (isApiMode()) return S.listServiceRows(businessId);
+  if (isApiMode()) return S.listServiceRows(businessId).then((rows) => rows.filter((r) => notIntake(r.service)));
   return request(() => {
     const list = coreTx
-      .list('services', (s) => s.businessId === businessId)
+      .list('services', (s) => s.businessId === businessId && notIntake(s))
       .sort((a, b) => a.order - b.order);
     const extra = readArea('services').serviceExtra;
     const terms = readArea('services').staffTerms;
@@ -581,10 +587,10 @@ export function listAssignableStaff(serviceId: Id, businessId: Id): Promise<Staf
 }
 
 export function listAssignableServices(staffId: Id, businessId: Id): Promise<Service[]> {
-  if (isApiMode()) return S.listAssignableServices(staffId, businessId);
+  if (isApiMode()) return S.listAssignableServices(staffId, businessId).then((rows) => rows.filter(notIntake));
   return request(() => {
     const staff = readCore().staff.find((s) => s.id === staffId);
-    return readCore().services.filter((s) => s.businessId === businessId && !(staff?.serviceIds.includes(s.id) ?? false));
+    return readCore().services.filter((s) => s.businessId === businessId && notIntake(s) && !(staff?.serviceIds.includes(s.id) ?? false));
   });
 }
 

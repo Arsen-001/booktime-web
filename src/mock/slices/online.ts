@@ -283,11 +283,11 @@ export const onlineSlice = defineSlice<OnlineState>({
         packages.push({
           id: newId('pkg'),
           businessId: firstBusiness.id,
-          name: { ru: `Комплекс: ${picked.map((s) => s.name.ru).join(' + ')}`, en: `Combo: ${picked.map((s) => s.name.en).join(' + ')}`, hy: picked.map((s) => s.name.ru).join(' + ') },
+          name: { ru: `Комплекс: ${picked.map((s) => s.name.ru).join(' + ')}`, en: `Combo: ${picked.map((s) => s.name.en).join(' + ')}`, hy: `Համալիր՝ ${picked.map((s) => s.name.hy || s.name.ru).join(' + ')}` },
           serviceIds: picked.map((s) => s.id),
           mode: 'sequentialMulti',
           online: true,
-          description: { ru: 'Две услуги одной записью — выберите мастера на каждую.', en: 'Two services in one booking — pick a specialist for each.', hy: '' },
+          description: { ru: 'Две услуги одной записью — выберите мастера на каждую.', en: 'Two services in one booking — pick a specialist for each.', hy: 'Երկու ծառայություն մեկ գրանցմամբ․ յուրաքանչյուրի համար ընտրեք վարպետ։' },
           createdAt: toISODateTime(now),
         });
       }

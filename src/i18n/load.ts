@@ -1,6 +1,6 @@
 import 'server-only';
 import type { AbstractIntlMessages } from 'next-intl';
-import { DEFAULT_LOCALE, NAMESPACES, type Locale } from '@/i18n/config';
+import { DEFAULT_LOCALE, NAMESPACES, type Locale, type Namespace } from '@/i18n/config';
 
 type Dict = Record<string, unknown>;
 
@@ -52,11 +52,12 @@ export interface LoadedMessages {
   fallbackKeys: string[];
 }
 
-export async function loadMessages(locale: Locale): Promise<LoadedMessages> {
+/** Словари языка с запасным ru. namespaces — только эти словари (публичные страницы, src/i18n/routeMessages.ts) */
+export async function loadMessages(locale: Locale, namespaces: readonly Namespace[] = NAMESPACES): Promise<LoadedMessages> {
   const messages: Record<string, Dict> = {};
   const fallbackKeys: string[] = [];
   await Promise.all(
-    NAMESPACES.map(async (ns) => {
+    namespaces.map(async (ns) => {
       const base = await loadNamespace(DEFAULT_LOCALE, ns);
       if (locale === DEFAULT_LOCALE) {
         messages[ns] = base;

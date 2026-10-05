@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, PackagePlus } from 'lucide-react';
 import {
   createPlanBookings,
   getBusinessRules,
@@ -43,6 +43,7 @@ import { ANY_STAFF, useWizardUrl, type Step } from '@/areas/online/booking/wizar
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import type { Staff, Workplace } from '@/domain/core';
+import { intakeBookHref, isIntakeService } from '@/domain/ordersIntake';
 import { hasExactPrice, hasPrepayment, normalizeNoShowRule, prepaymentAmount, prepaymentForEveryone } from '@/domain/rules';
 import { DEFAULT_CLIENT_FIELDS, DEFAULT_MAX_DAYS_AHEAD, SHORT_STEPWISE_ORDER, STEP_KEYS, type ClientFieldsConfig, type StepKey } from '@/domain/online';
 import { useFormat } from '@/i18n/useFormat';
@@ -51,7 +52,7 @@ import { addDays, addMinutes, diffMinutes, today } from '@/lib/date';
 import { normalizePhone } from '@/lib/phone';
 import { pickText } from '@/lib/text';
 import { useIsMobile } from '@/ui/hooks/useMediaQuery';
-import { Button } from '@/ui/Button';
+import { Button, LinkButton } from '@/ui/Button';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { IconButton } from '@/ui/IconButton';
@@ -129,7 +130,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
 
   const businessRulesQ = useApiQuery(['online-business-rules', business.id], () => getBusinessRules(business.id));
   const clientFieldsQ = useApiQuery(['online-client-fields-widget', business.id], () => getClientFieldsConfig(business.id));
-  const clientFields: ClientFieldsConfig = clientFieldsQ.data ?? { businessId: business.id, ...DEFAULT_CLIENT_FIELDS };
+  const baseClientFields: ClientFieldsConfig = clientFieldsQ.data ?? { businessId: business.id, ...DEFAULT_CLIENT_FIELDS };
   // F-03-074: поля сети — общие для всех локаций сети
   const networkFieldsQ = useApiQuery(['online-network-extra-fields', data.location?.id], () => getWidgetExtraFields(data.location?.id));
   const networkFields = networkFieldsQ.data ?? [];
@@ -163,6 +164,13 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
   // ── Выбор услуг и мастеров ─────────────────────────────────────────────
   const pkg = data.packages.find((p) => p.id === sel.pkg);
   const selectedServices = (pkg ? pkg.serviceIds : sel.services).map((id) => services.find((s) => s.id === id)).filter((s): s is (typeof services)[number] => Boolean(s));
+  // ⭐ Запись на сдачу (05.10.2026): «Приём заказа» мастерской — только время и детали, мастер — любой из принимающих,
+  // комментарий — «что сдаёте» (обязателен). В списке услуг «Приёма заказа» нет: на него ведёт кнопка на странице мастерской
+  const intakeOnly = selectedServices.length === 1 && isIntakeService(selectedServices[0]);
+  const catalogServices = services.filter((s) => !isIntakeService(s));
+  const clientFields: ClientFieldsConfig = intakeOnly
+    ? { ...baseClientFields, commentHidden: false, commentRequired: true, commentLabel: t('booking.dropOff.commentLabel') }
+    : baseClientFields;
   // «Сотрудник для онлайн-записи» (F-03-070) главнее одиночной ссылки на мастера (F-03-005)
   const forcedStaffId = link?.staffForAllBookings ?? link?.staffId;
   const linkedStaff = forcedStaffId ? staff.find((s) => s.id === forcedStaffId) : undefined;
@@ -175,9 +183,9 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
 
   // Порядок шагов из настроек ссылки (F-03-016); «Короткий пошаговый» — всегда фиксирован (F-03-015)
   const rawOrder = link?.bookingFlow === 'shortStepwise' ? SHORT_STEPWISE_ORDER : link?.stepOrder?.length ? link.stepOrder : STEP_KEYS;
-  const order: Step[] = [...rawOrder.map((k) => STEP_BY_KEY[k]).filter((id) => id !== 'staff' || !skipStaffStep), 'details'];
+  const order: Step[] = intakeOnly ? ['time', 'details'] : [...rawOrder.map((k) => STEP_BY_KEY[k]).filter((id) => id !== 'staff' || !skipStaffStep), 'details'];
   const timeBeforeStaff = order.indexOf('time') < order.indexOf('staff');
-  const staffParam = sel.staff ?? preselectedFromLink ?? (timeBeforeStaff ? ANY_STAFF : undefined);
+  const staffParam = intakeOnly ? ANY_STAFF : (sel.staff ?? preselectedFromLink ?? (timeBeforeStaff ? ANY_STAFF : undefined));
   const maxDate = addDays(today(), data.maxDaysAhead ?? DEFAULT_MAX_DAYS_AHEAD);
 
   const workplaceOf = (st: Staff | undefined): Workplace | undefined =>
@@ -193,7 +201,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
     slug: business.slug,
     locationId: data.location?.id,
     maxDate,
-    forcedStaffId: linkedStaff?.id ?? (stepHiddenByLink ? preselectedFromLink : undefined),
+    forcedStaffId: intakeOnly ? undefined : (linkedStaff?.id ?? (stepHiddenByLink ? preselectedFromLink : undefined)),
   };
   const probe = buildVisitPlan({ ...planArgs, workplace: undefined });
   const singleStaff = probe.staffId ? staff.find((s) => s.id === probe.staffId) : undefined;
@@ -267,10 +275,16 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
   };
   const goTo = (s: Step) => url.push({ step: s });
 
-  if (services.length === 0 || staff.length === 0) {
+  // Мастерская только с «Приёмом заказа» (адрес /book без услуги): вместо пустого списка услуг — запись на сдачу
+  const intakeService = services.find(isIntakeService);
+  if (services.length === 0 || staff.length === 0 || (catalogServices.length === 0 && !intakeOnly)) {
     return (
       <div data-f="F-03-134">
-        <EmptyState title={t('booking.noAvailability.title')} description={t('booking.noAvailability.description')} />
+        <EmptyState
+          title={t('booking.noAvailability.title')}
+          description={t('booking.noAvailability.description')}
+          action={intakeService && staff.length > 0 ? <LinkButton href={intakeBookHref(slug, intakeService.id)}>{t('public.dropOff.button')}</LinkButton> : undefined}
+        />
         <div className="mt-4 text-center text-sm text-muted">{format.phone(business.phone)}</div>
       </div>
     );
@@ -535,7 +549,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
       {step === 'services' && (
         <ServicesStep
           categories={categories}
-          services={services}
+          services={catalogServices}
           serviceConfigs={data.serviceConfigs}
           selectedIds={selectedServices.map((s) => s.id)}
           categoryDisplay={link?.categoryDisplay ?? 'tags'}
@@ -575,6 +589,12 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
 
       {step === 'time' && (
         <div className="flex flex-col gap-4">
+          {intakeOnly && (
+            <p className="flex items-start gap-2 rounded-xl bg-primary-soft px-3 py-2.5 text-sm text-fg" data-f="orders-dropoff-time">
+              <PackagePlus aria-hidden className="mt-0.5 size-4 shrink-0 text-primary-text" />
+              {t('booking.dropOff.timeHint', { min: selectedServices[0].durationMin })}
+            </p>
+          )}
           {singleStaff && singleStaff.workplaces.length > 1 && workplace && (
             <div data-f="F-00-078 F-00-081">
               <WorkplaceStep

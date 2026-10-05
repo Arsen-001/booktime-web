@@ -2,6 +2,7 @@ import type { Booking, Client, CoreData } from '@/domain/core';
 import { buildBookings } from '@/mock/seed/bookings';
 import { buildBusinesses } from '@/mock/seed/businesses';
 import { buildClients } from '@/mock/seed/clients';
+import { addFixpointDropOff } from '@/mock/seed/dropoff';
 import { makeClock } from '@/mock/seed/helpers';
 import { Rng } from '@/mock/seed/random';
 import { buildResources } from '@/mock/seed/resources';
@@ -27,7 +28,8 @@ export { BIZ, LOC, NET, ST } from '@/mock/seed/ids';
 // 01.10.2026 (network, F-11-040): один человек ходит в оба филиала сети Manana — linkNetworkClient.
 // 01.10.2026 (seed): noShowCount считается из записей, а не задаётся случайно.
 // 03.10.2026 (заказы): демо-мастерская FixPoint (сфера repair) — владелец, два мастера, филиал, восемь клиентов.
-export const SEED_VERSION = 17;
+// 05.10.2026 (запись на сдачу): у FixPoint услуга «Приём заказа», график мастеров и четыре записи на сдачу (dropoff.ts).
+export const SEED_VERSION = 18;
 
 /** Зерно ГПСЧ: одинаковое → одинаковые люди, услуги и расписание при каждом сиде */
 const SEED = 20260924;
@@ -83,6 +85,7 @@ export function seedCore(now: Date): CoreData {
   clients.forEach((c) => {
     c.noShowCount = noShows.get(c.id) ?? 0;
   });
+  addFixpointDropOff(clock, staff, services, schedules, bookings);
 
   return {
     networks,

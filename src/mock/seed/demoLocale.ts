@@ -323,6 +323,10 @@ const PHRASES: [string, string, string][] = [
   ['Защитное стекло', 'Պաշտպանիչ ապակի', 'Screen protector'],
   ['iPhone 11 — замена аккумулятора', 'iPhone 11 — մարտկոցի փոխարինում', 'iPhone 11 — battery replacement'],
   ['Наушники AirPods Pro — хрип в левом', 'AirPods Pro — ձախ ականջակալը խզխզում է', 'AirPods Pro — left earbud crackles'],
+  // запись на сдачу (05.10.2026) — комментарии клиентов к записям «Приём заказа»
+  ['MacBook Pro — не включается после обновления', 'MacBook Pro — թարմացումից հետո չի միանում', "MacBook Pro — won't turn on after an update"],
+  ['Samsung Galaxy S23 — разбит задний корпус', 'Samsung Galaxy S23 — հետևի կափարիչը կոտրված է', 'Samsung Galaxy S23 — cracked back cover'],
+  ['iPad Air — не реагирует сенсор', 'iPad Air — էկրանը չի արձագանքում հպմանը', 'iPad Air — touchscreen not responding'],
   ['Samsung S21 — замена разъёма', 'Samsung S21 — միակցիչի փոխարինում', 'Samsung S21 — port replacement'],
   ['Ноутбук Lenovo — не видит Wi-Fi', 'Lenovo նոութբուք — Wi-Fi-ը չի գտնում', 'Lenovo laptop — no Wi-Fi'],
   ['Сначала диагностика, цену уточним', 'Նախ՝ ախտորոշում, գինը կճշտենք', 'Diagnostics first, price to be confirmed'],

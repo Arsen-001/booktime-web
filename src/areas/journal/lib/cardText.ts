@@ -37,6 +37,8 @@ export interface CardText {
   /** Статус, который стоит показать значком на невысокой карточке (без пилюли) */
   statusIcon: boolean;
   isNew: boolean;
+  /** ⭐ Запись на сдачу (05.10.2026): «Приём заказа» мастерской — значок и «Сдача: что сдают» вместо услуги */
+  dropOff: boolean;
 }
 
 /** Постоянные подписи карточек (одинаковые для всех) */
@@ -89,9 +91,14 @@ export function cardText(
   const clientName = (client?.name ? shortClientName(client.name) : undefined) || booking.visitorName;
   const phone = client?.phone ? (showPhones ? format.phone(client.phone) : maskPhone(client.phone)) : undefined;
   const services = booking.services.map((line) => servicesById.get(line.serviceId));
-  const serviceNames = services.length
-    ? services.map((s) => (s ? pickText(s.name, locale as never) : t('block.service'))).join(' + ')
-    : t('block.noService');
+  const dropOff = services.some((s) => s?.kind === 'intake');
+  const serviceNames = dropOff
+    ? booking.comment
+      ? t('board.card.dropOffWhat', { what: booking.comment })
+      : t('board.card.dropOff')
+    : services.length
+      ? services.map((s) => (s ? pickText(s.name, locale as never) : t('block.service'))).join(' + ')
+      : t('block.noService');
   const end = format.time(addMinutes(booking.start, booking.durationMin));
   const until = t('board.card.until', { time: end });
   const noClient = t('block.noClient');
@@ -138,6 +145,7 @@ export function cardText(
     dimmed: booking.status === 'cancelled_by_client' || booking.status === 'cancelled_by_master' || booking.status === 'no_show',
     statusIcon: !['awaiting_confirmation', 'scheduled', 'client_confirmed'].includes(booking.status),
     isNew: opts.isNew,
+    dropOff,
   };
 }
 

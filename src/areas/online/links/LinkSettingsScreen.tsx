@@ -149,7 +149,7 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
   );
   const servicesQ = useApiQuery(
     ['online-link-services', linkBusinessId],
-    () => coreList('services', (s) => s.businessId === linkBusinessId && s.active),
+    () => coreList('services', (s) => s.businessId === linkBusinessId && s.active && s.kind !== 'intake'),
     { enabled: Boolean(linkBusinessId) },
   );
 
@@ -871,7 +871,7 @@ function PackagesSection({ businessId }: { businessId: string }) {
   const confirm = useConfirm();
   const [createOpen, setCreateOpen] = useState(false);
   const packagesQ = useApiQuery(['online-packages', businessId], () => listOnlinePackages(businessId));
-  const servicesQ = useApiQuery(['online-packages-services', businessId], () => coreList('services', (s) => s.businessId === businessId));
+  const servicesQ = useApiQuery(['online-packages-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'));
   const deleteMutation = useApiMutation((id: string) => deleteOnlinePackage(id));
 
   if (packagesQ.isLoading || servicesQ.isLoading) return <Skeleton variant="rect" className="h-32 rounded-xl" />;

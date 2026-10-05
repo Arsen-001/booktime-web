@@ -63,7 +63,7 @@
 - Журнал — `/biz/journal`
 - Записи — `/biz/records`
 
-**Хозяин хоста:** Окно записи (`bookingWindow`) ← clients, finance, loyalty, stock, resources, notify, online
+**Хозяин хоста:** Окно записи (`bookingWindow`) ← clients, finance, loyalty, stock, resources, notify, online, orders
 
 **Вклады в чужие хосты:** Карточка клиента → `src/areas/journal/extensions/ClientCard.tsx` (смотреть: `/dev/ext/clientCard/journal`), Настройки → `src/areas/journal/extensions/SettingsHub.tsx` (смотреть: `/dev/ext/settingsHub/journal`)
 
@@ -198,13 +198,13 @@
   - подпункты (файл `src/areas/orders/nav.ts`): Все заказы `/biz/orders` (счётчик готовых), Настройки заказов `/biz/orders/settings`
 - Публичная страница статуса — `/o/[code]` (без входа)
 
-**Вклады в чужие хосты:** Настройки → `src/areas/orders/extensions/SettingsHub.tsx` (смотреть: `/dev/ext/settingsHub/orders`)
+**Вклады в чужие хосты:** Настройки → `src/areas/orders/extensions/SettingsHub.tsx` (смотреть: `/dev/ext/settingsHub/orders`); Окно записи → `src/areas/orders/extensions/BookingWindow.tsx` — «Сдача заказа» у записи на «Приём заказа» (05.10.2026, хозяин показывает вкладку только у таких записей; смотреть: `/dev/ext/bookingWindow/orders`)
 
 ## Хосты расширений
 
 | Хост | Хозяин | Вкладчики (порядок) | Пропсы |
 |---|---|---|---|
-| Окно записи (`bookingWindow`) | journal | clients, finance, loyalty, stock, resources, notify, online | `BookingWindowExtProps` |
+| Окно записи (`bookingWindow`) | journal | clients, finance, loyalty, stock, resources, notify, online, orders | `BookingWindowExtProps` |
 | Карточка клиента (`clientCard`) | clients | journal, finance, loyalty, notify, online | `ClientCardExtProps` |
 | Карточка сотрудника (`staffCard`) | staff | schedule, services, online, payroll, resources | `StaffCardExtProps` |
 | Карточка услуги (`serviceCard`) | services | online, stock, payroll, resources, loyalty | `ServiceCardExtProps` |

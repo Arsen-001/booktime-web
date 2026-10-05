@@ -24,7 +24,7 @@ import { apiIdentity } from '@/api/identity';
 import type { Booking, Business, CalendarMark, Client, CoreData, GroupEvent, Id, Location, Network, Resource, Service, ServiceCategory, Staff, WorkSchedule } from '@/domain/core';
 import type { BookingExtras, PackageGroup } from '@/domain/journal';
 import type { DayRecord, PlanningPeriodYears, ServiceSlotWindow, SlotRule, UnavailableRange } from '@/domain/schedule';
-import { notifyDbChange, useDb } from '@/mock/db';
+import { dbReady, notifyDbChange, useDb } from '@/mock/db';
 
 export interface CoreSnapshot {
   businesses: Business[];
@@ -143,6 +143,8 @@ export async function fetchCoreSnapshot(businessId: Id): Promise<CoreSnapshot> {
 /** Перечитать с сервера свой бизнес (и филиалы сети) и положить в ядро */
 export async function syncCore(businessId: Id): Promise<CoreSnapshot> {
   const snap = await fetchCoreSnapshot(businessId);
+  // База браузера поднимается по частям (src/mock/db.ts, bootDb): кладём ответ сервера после неё, иначе сид перезапишет
+  await dbReady();
   mirrorSnapshot(snap);
   await syncSchedule(businessId).catch(() => undefined);
   // Записи своего бизнеса и (сеть) филиалов, доступных этому входу — «Все филиалы» журнала (F-01-006)

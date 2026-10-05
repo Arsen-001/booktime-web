@@ -10,13 +10,14 @@ import { useCoreList } from '@/api/core';
 import { createOrder, updateOrder } from '@/api/orders';
 import { useApiMutation } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
+import type { Id } from '@/domain/core';
 import { orderRemaining, type Order } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { today } from '@/lib/date';
 import { ClientField } from '@/areas/orders/form/ClientField';
 import { ItemsField } from '@/areas/orders/form/ItemsField';
-import { draftFromOrder, draftToInput, emptyDraft, sameDraft, validateDraft, type OrderDraft, type OrderFormErrors } from '@/areas/orders/form/orderForm';
+import { draftFromBooking, draftFromOrder, draftToInput, emptyDraft, sameDraft, validateDraft, type OrderDraft, type OrderFormErrors } from '@/areas/orders/form/orderForm';
 import { Button } from '@/ui/Button';
 import { DatePicker } from '@/ui/DatePicker';
 import { FormField } from '@/ui/FormField';
@@ -29,9 +30,22 @@ import { Sheet } from '@/ui/Sheet';
 import { Textarea } from '@/ui/Textarea';
 import { useToast } from '@/ui/Toast';
 
+/** ⭐ «Принять заказ» по записи на сдачу (05.10.2026): клиент и вещь — из записи, заказ ссылается на неё */
+export interface OrderFromBooking {
+  bookingId: Id;
+  clientId: Id | null;
+  clientName: string;
+  clientPhone: string;
+  /** Что сдают — комментарий клиента к записи */
+  description: string | null;
+  staffId: Id | null;
+}
+
 export interface OrderFormSheetProps {
   /** Нет — новый заказ */
   order?: Order;
+  /** Новый заказ по записи на сдачу */
+  fromBooking?: OrderFromBooking;
   onClose: () => void;
 }
 
@@ -46,14 +60,14 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-export function OrderFormSheet({ order, onClose }: OrderFormSheetProps) {
+export function OrderFormSheet({ order, fromBooking, onClose }: OrderFormSheetProps) {
   const t = useT('orders');
   const fmt = useFormat();
   const toast = useToast();
   const nav = useNavigate();
   const { businessId } = useCurrent();
   const staffQ = useCoreList('staff', { businessId: businessId ?? '' }, { enabled: Boolean(businessId) });
-  const [initial] = useState<OrderDraft>(() => (order ? draftFromOrder(order) : emptyDraft()));
+  const [initial] = useState<OrderDraft>(() => (order ? draftFromOrder(order) : fromBooking ? draftFromBooking(fromBooking) : emptyDraft()));
   const [draft, setDraft] = useState<OrderDraft>(initial);
   const [errors, setErrors] = useState<OrderFormErrors>({});
   const [tried, setTried] = useState(false);
@@ -80,7 +94,7 @@ export function OrderFormSheet({ order, onClose }: OrderFormSheetProps) {
     const found = validateDraft(draft);
     setErrors(found);
     if (Object.keys(found).length) return;
-    const input = draftToInput(draft);
+    const input = { ...draftToInput(draft), ...(fromBooking ? { bookingId: fromBooking.bookingId } : {}) };
     try {
       if (order) {
         await update.mutate({ businessId, orderId: order.id, patch: input });
@@ -92,8 +106,8 @@ export function OrderFormSheet({ order, onClose }: OrderFormSheetProps) {
         onClose();
         nav.go(`/biz/orders/${created.id}`);
       }
-    } catch {
-      toast.error(t('form.saveFailed'));
+    } catch (e) {
+      toast.error((e as { code?: string } | undefined)?.code === 'intake_already_accepted' ? t('form.alreadyAccepted') : t('form.saveFailed'));
     }
   }
 
@@ -104,8 +118,8 @@ export function OrderFormSheet({ order, onClose }: OrderFormSheetProps) {
     <Sheet
       open
       onOpenChange={(o) => (o ? undefined : void requestClose())}
-      title={order ? t('form.editTitle', { number: order.number }) : t('form.createTitle')}
-      description={order ? undefined : t('form.createHint')}
+      title={order ? t('form.editTitle', { number: order.number }) : fromBooking ? t('form.fromBookingTitle') : t('form.createTitle')}
+      description={order ? undefined : fromBooking ? t('form.fromBookingHint') : t('form.createHint')}
       size="lg"
       footer={
         <div className="grid w-full grid-cols-[1fr_2fr] gap-2 md:flex md:w-auto md:justify-end">

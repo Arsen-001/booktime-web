@@ -25,6 +25,9 @@ export const EXTENSION_PAIRS: ExtensionPair[] = [
   { host: 'bookingWindow', area: 'resources', order: 50, feature: 'resources' },
   { host: 'bookingWindow', area: 'notify', order: 60 },
   { host: 'bookingWindow', area: 'online', order: 70 },
+  // ⭐ Запись на сдачу (05.10.2026): «Сдача заказа» — что сдают и «Принять заказ»; хозяин показывает вкладку только у записи
+  // на услугу «Приём заказа» (kind 'intake')
+  { host: 'bookingWindow', area: 'orders', order: 5 },
   // Карточка клиента (хозяин clients)
   { host: 'clientCard', area: 'journal', order: 10 },
   { host: 'clientCard', area: 'finance', order: 20 },

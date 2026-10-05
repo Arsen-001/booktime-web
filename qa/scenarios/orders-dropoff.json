@@ -1,0 +1,113 @@
+[
+  {
+    "route": "/biz/orders",
+    "persona": "owner",
+    "sphere": "repair",
+    "lang": "ru",
+    "device": "desktop",
+    "steps": [
+      {
+        "expectText": "Сдают сегодня"
+      },
+      {
+        "click": "[data-f=orders-intake-today] >> role=button[name=\"Принять заказ\"] >> nth=0"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "expectText": "Принять заказ по записи"
+      },
+      {
+        "screenshot": "accept-sheet"
+      },
+      {
+        "fill": "role=dialog >> role=textbox[name=\"Цена\"]",
+        "value": "0"
+      },
+      {
+        "click": "role=dialog >> role=button[name=\"Принять заказ\"]"
+      },
+      {
+        "expectText": "Заказ №1025"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "screenshot": "accepted-order"
+      },
+      {
+        "goto": "/biz/orders"
+      },
+      {
+        "expectText": "Заказ №1025"
+      },
+      {
+        "screenshot": "list-after"
+      }
+    ]
+  },
+  {
+    "route": "/b/fixpoint/book?s=sv_fix_intake&m=any&step=time",
+    "persona": "guest",
+    "lang": "ru",
+    "device": "phone",
+    "steps": [
+      {
+        "expectText": "Запись на сдачу"
+      },
+      {
+        "click": "[data-f=\"F-03-084 F-03-065 F-02-075\"] >> button:has-text(\":\") >> nth=0"
+      },
+      {
+        "click": "role=button[name=\"Продолжить\"]"
+      },
+      {
+        "wait": 800
+      },
+      {
+        "expectText": "Что сдаёте?"
+      },
+      {
+        "screenshot": "details"
+      },
+      {
+        "fill": "input[placeholder=\"Введите имя\"]",
+        "value": "Сона Тест"
+      },
+      {
+        "fill": "input[type=tel]",
+        "value": "00177099"
+      },
+      {
+        "click": "role=button[name=\"Получить код\"]"
+      },
+      {
+        "wait": 1200
+      },
+      {
+        "fill": "role=textbox[name^=\"Что сдаёте\"]",
+        "value": "Ноутбук ASUS — не заряжается"
+      },
+      {
+        "click": "role=checkbox"
+      },
+      {
+        "click": "role=button[name=\"Записаться\"] >> nth=-1"
+      },
+      {
+        "wait": 1500
+      },
+      {
+        "wait": 20000
+      },
+      {
+        "expectVisible": "text=/Вы записаны|Ждёт подтверждения мастера/"
+      },
+      {
+        "screenshot": "booked"
+      }
+    ]
+  }
+]

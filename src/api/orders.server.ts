@@ -15,6 +15,9 @@ import {
   pickupReminderModeOf,
   type EstimateDecision,
   type EstimateInput,
+  type IntakeBooking,
+  type IntakeSettings,
+  type IntakeSettingsInput,
   type Order,
   type OrderInput,
   type OrderPatch,
@@ -46,6 +49,7 @@ function normalizeOrder(o: Order): Order {
     pickupReminderCount: o.pickupReminderCount ?? 0,
     pickupRemindedAt: localTime(o.pickupRemindedAt ?? null),
     estimate: normalizeEstimate(o.estimate ?? null),
+    bookingId: o.bookingId ?? null,
     createdAt: localTime(o.createdAt) ?? o.createdAt,
     updatedAt: localTime(o.updatedAt) ?? o.updatedAt,
   };
@@ -143,4 +147,25 @@ export async function setPickupRemindersServer(businessId: Id, mode: PickupRemin
   await http<BusinessOut>('PATCH', BUSINESS_PATH(businessId), { orderPickupReminders: mode }, { version: b.version ?? 0 });
   notifyDbChange('areas.orders');
   return mode;
+}
+
+// ─────────── ⭐ запись на сдачу по времени (05.10.2026) ───────────
+
+export async function getIntakeSettingsServer(businessId: Id): Promise<IntakeSettings> {
+  trackRead('areas.orders');
+  return http<IntakeSettings>('GET', `${ORDERS_BASE(businessId)}/intake`);
+}
+
+export async function setIntakeSettingsServer(businessId: Id, input: IntakeSettingsInput): Promise<IntakeSettings> {
+  const res = await http<IntakeSettings>('PUT', `${ORDERS_BASE(businessId)}/intake`, input);
+  notifyDbChange('areas.orders');
+  return res;
+}
+
+/** Записи на сдачу за день (время Еревана) */
+export async function listIntakeBookingsServer(businessId: Id, date: string): Promise<IntakeBooking[]> {
+  // Запись клиента на сдачу приходит в журнал (зеркало записей) — список перечитывается вместе с ним
+  trackRead('areas.orders', 'core.bookings');
+  const rows = await http<IntakeBooking[]>('GET', `${ORDERS_BASE(businessId)}/intake/bookings`, undefined, { query: { date } });
+  return rows.map((r) => ({ ...r, start: localTime(r.start) ?? r.start }));
 }

@@ -3,6 +3,7 @@ import { DATA_COOKIE, PLATFORM_COOKIE, SESSION_COOKIE, resolveDataMode } from '@
 import { BIZ_PERSONAS, COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, DEFAULT_DEMO, isValidDemoValue, type DemoSettings, type PersonaId } from '@/demo/settings';
 import { isLocale } from '@/i18n/config';
 import { URL_LOCALE_HEADER, isLocalizablePath, localizedPath, splitLocalePrefix } from '@/i18n/localePath';
+import { PATHNAME_HEADER } from '@/i18n/routeMessages';
 import { nativeAppKindFromUserAgent } from '@/lib/native/bridge';
 import { isClientOnlyPath } from '@/lib/native/businessApp';
 
@@ -64,7 +65,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(target, 307);
   }
 
-  if (!hasDemoParams) return prefixed.locale ? localeResponse(request, prefixed.locale, path) : NextResponse.next();
+  if (!hasDemoParams) return prefixed.locale ? localeResponse(request, prefixed.locale, path) : nextWithPath(request, path);
 
   const clean = url.clone();
   const updates: [string, string][] = [];
@@ -86,6 +87,16 @@ export function proxy(request: NextRequest) {
 }
 
 /**
+ * Путь страницы (без языка) — заголовком запроса: корневой layout по нему решает, какие словари отдать браузеру
+ * (публичным страницам — только свои, src/i18n/routeMessages.ts). Заголовок от браузера с тем же именем перезаписывается.
+ */
+function nextWithPath(request: NextRequest, path: string): NextResponse {
+  const headers = new Headers(request.headers);
+  headers.set(PATHNAME_HEADER, path);
+  return NextResponse.next({ request: { headers } });
+}
+
+/**
  * /hy/<путь>, /en/<путь>: публичная страница — переписываем на /<путь> с языком в заголовке URL_LOCALE_HEADER
  * (сервер читает его раньше cookie) и запоминаем язык в cookie, чтобы дальше по приложению он сохранился.
  * Непубличная (/hy/biz, /hy/b/x/book) — перенаправляем на адрес без префикса, язык — тоже в cookie.
@@ -97,6 +108,7 @@ function localeResponse(request: NextRequest, locale: string, path: string): Nex
   if (isLocalizablePath(path)) {
     const headers = new Headers(request.headers);
     headers.set(URL_LOCALE_HEADER, locale);
+    headers.set(PATHNAME_HEADER, path);
     response = NextResponse.rewrite(target, { request: { headers } });
   } else {
     response = NextResponse.redirect(target, 307);

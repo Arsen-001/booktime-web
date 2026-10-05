@@ -122,7 +122,10 @@
       "items": "Add at least one item",
       "price": "Enter a price (0 is fine)",
       "prepaidOverPrice": "Prepayment is more than the price"
-    }
+    },
+    "fromBookingTitle": "Accept order from booking",
+    "fromBookingHint": "Client and item come from the drop-off booking. Check the item, set the price and due date.",
+    "alreadyAccepted": "An order for this booking has already been accepted"
   },
   "next": {
     "in_progress": "Start work",
@@ -265,6 +268,10 @@
       "estimate": {
         "title": "Estimates — one tap",
         "text": "After diagnostics, send an estimate: the client taps “Approve” or “Decline” via the link. No reply in a day — we'll remind them."
+      },
+      "dropoff": {
+        "title": "The client books a drop-off",
+        "text": "On your page they pick when they’ll bring the item and say what it is. You know who to expect — no queue at the counter."
       }
     },
     "reminders": {
@@ -278,6 +285,21 @@
       "d3_7": "After 3 and 7 days",
       "d3_7Hint": "Twice — the fastest way to get orders picked up",
       "saved": "Saved"
+    },
+    "intake": {
+      "title": "Drop-off booking",
+      "description": "Clients choose on your page when they’ll bring the item — the booking appears in the calendar. When they arrive, “Accept order” in one tap.",
+      "toggleLabel": "Accept drop-off bookings",
+      "toggleHint": "A “Book a drop-off” button on your client page",
+      "slot": "Time per drop-off",
+      "slotHint": "The slot length in the calendar — to check the item and create the order",
+      "staff": "Who accepts",
+      "staffHint": "Slots follow their schedules; the client goes to whoever is free.",
+      "openPage": "Open the client page",
+      "savedOn": "Drop-off booking is on",
+      "savedOff": "Drop-off booking is off",
+      "saved": "Saved",
+      "noStaff": "No one to accept: add a staff member"
     }
   },
   "receipt": {
@@ -363,5 +385,19 @@
       "approved": "Client approved — order is in progress",
       "declined": "Recorded: client declined"
     }
+  },
+  "intake": {
+    "todayTitle": "{count, plural, =0 {Drop-offs today — all accepted} one {Drop-offs today · #} other {Drop-offs today · #}}",
+    "todayHint": "Booked a drop-off on your page. When they arrive — “Accept order”.",
+    "accept": "Accept order",
+    "acceptHint": "An order opens with the client and item from the booking — just check it and set the price.",
+    "accepted": "Order #{number}",
+    "openOrder": "Open order",
+    "noName": "No name",
+    "noDescription": "The client didn’t say what they’re bringing",
+    "windowTitle": "Drop-off at {time}",
+    "windowGone": "Drop-off booking not found",
+    "windowGoneHint": "It was cancelled or moved to another day — open it again from the calendar.",
+    "allToday": "All drop-offs — in “Orders”"
   }
 }

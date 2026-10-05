@@ -430,8 +430,16 @@ export function getPublicBusinessData(slug: string, formId?: string): Promise<Pu
     const online = readArea('online');
     const serviceConfigs = online.serviceConfigs ?? {};
     const today0 = today();
+    // ⭐ «Приём заказа» (запись на сдачу, 05.10.2026) — только пока у бизнеса включены «Заказы» (как сервер)
+    const ordersOn = ordersEnabledTx(business.id, business.sphereIds);
     const services = core.services.filter(
-      (s) => s.businessId === business.id && s.active && s.onlineBookable && isServiceCurrentlyBookable(serviceConfigs[s.id], today0) && inServiceWindowPeriod(s.id, today0),
+      (s) =>
+        s.businessId === business.id &&
+        s.active &&
+        s.onlineBookable &&
+        (ordersOn || s.kind !== 'intake') &&
+        isServiceCurrentlyBookable(serviceConfigs[s.id], today0) &&
+        inServiceWindowPeriod(s.id, today0),
     );
     const categories = core.serviceCategories.filter((c) => c.businessId === business.id);
     const staff = core.staff
@@ -499,7 +507,7 @@ export function getPublicBusinessData(slug: string, formId?: string): Promise<Pu
       anyStaffAllowed: online.businessRules[business.id]?.allowAnyStaffForAllLinks ?? true,
       maxDaysAhead: online.businessRules[business.id]?.maxDaysAhead ?? DEFAULT_MAX_DAYS_AHEAD,
       todayHours: todayOpenHours(core, location, staff, today0),
-      ordersEnabled: ordersEnabledTx(business.id, business.sphereIds),
+      ordersEnabled: ordersOn,
     };
   });
 }

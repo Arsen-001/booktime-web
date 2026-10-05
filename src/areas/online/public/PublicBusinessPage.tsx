@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getPublicBusinessData, trackWidgetEvent, type PublicBusinessData } from '@/api/online';
 import { useApiQuery } from '@/api/request';
 import { ApplyWidgetTheme } from '@/areas/online/public/ApplyWidgetTheme';
+import { DropOffCard } from '@/areas/online/public/DropOffCard';
 import { OrdersPlaceInfo } from '@/areas/online/public/OrdersPlaceInfo';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import { useFormat } from '@/i18n/useFormat';
@@ -25,6 +26,7 @@ import { Sheet } from '@/ui/Sheet';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import type { PromoBlock } from '@/domain/online';
+import { intakeBookHref, isIntakeService } from '@/domain/ordersIntake';
 import { useTrackOnce } from '@/lib/analytics';
 
 /**
@@ -83,7 +85,12 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
 
   const { business, location, categories, services, staff, link, linkStaffGone, promoBlocks, businessStars, networkBranches, addressHidden, todayHours } = data;
   const displayName = business.name.trim() || t('public.unnamedBusiness');
-  const canBook = services.length > 0 && staff.length > 0;
+  // ⭐ «Приём заказа» (запись на сдачу, 05.10.2026) — не услуга каталога: своя кнопка «Записаться на сдачу»
+  const intakeService = data.ordersEnabled ? services.find(isIntakeService) : undefined;
+  const catalogServices = services.filter((s) => !isIntakeService(s));
+  const catalogStaff = staff.filter((m) => catalogServices.some((s) => m.serviceIds.includes(s.id) || s.staffIds.includes(m.id)));
+  const dropOffHref = intakeService && staff.some((m) => intakeService.staffIds.includes(m.id) || m.serviceIds.includes(intakeService.id)) ? intakeBookHref(slug, intakeService.id) : undefined;
+  const canBook = catalogServices.length > 0 && catalogStaff.length > 0;
   // Мастерская «заказов» без онлайн-услуг (05.10.2026): вместо пустой записи — «как сдать вещь» и звонок
   const ordersOnly = !canBook && data.ordersEnabled === true;
   const orderPhone = location?.phone || business.phone;
@@ -348,6 +355,9 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
         )}
       </Card>
 
+      {/* ⭐ Запись на сдачу (05.10.2026): у мастерской с обычными услугами — сразу под главной карточкой */}
+      {canBook && dropOffHref && <DropOffCard href={dropOffHref} slotMin={intakeService?.durationMin ?? 15} />}
+
       {/* О22: фото — ниже главной карточки с кнопкой «Записаться», первый экран не занят картинкой */}
       {business.photos.length > 0 && (
         <div data-f="F-03-103" className="overflow-hidden rounded-2xl">
@@ -365,7 +375,7 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
       )}
 
       {ordersOnly ? (
-        <OrdersPlaceInfo business={business} location={location} />
+        <OrdersPlaceInfo business={business} location={location} dropOffHref={dropOffHref} />
       ) : !canBook ? (
         <div data-f="F-03-134">
           <EmptyState title={t('public.noneOnline.title')} description={t('public.noneOnline.description')} />
@@ -374,13 +384,13 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
         <SectionCard title={t('public.services')}>
           <div className="flex flex-col gap-5">
             {categories
-              .filter((c) => services.some((s) => s.categoryId === c.id))
+              .filter((c) => catalogServices.some((s) => s.categoryId === c.id))
               .sort((a, b) => a.order - b.order)
               .map((c) => (
                 <div key={c.id} className="flex flex-col gap-1">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">{pickText(c.name, locale)}</h3>
                   <ul className="divide-y divide-border">
-                    {services
+                    {catalogServices
                       .filter((s) => s.categoryId === c.id)
                       .sort((a, b) => a.order - b.order)
                       .map((s) => (
@@ -403,10 +413,10 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
         </SectionCard>
       )}
 
-      {business.kind === 'salon' && staff.length > 0 && (
+      {business.kind === 'salon' && catalogStaff.length > 0 && (
         <SectionCard title={t('public.masters')}>
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {staff.map((m) => (
+            {catalogStaff.map((m) => (
               <li key={m.id}>
                 <Link href={bookHref(undefined, m.id)} className="flex items-center gap-3 rounded-lg bg-surface-2 p-3 hover:bg-surface-3">
                   <Avatar name={m.name} src={m.avatarUrl} colorIndex={m.colorIndex} />
@@ -450,6 +460,12 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
     {/* О22: «Записаться» всегда у большого пальца — липкая панель внизу на всей странице */}
     {canBook ? (
       bookBar
+    ) : ordersOnly && dropOffHref ? (
+      <StickyActionBar desktop="hidden">
+        <LinkButton href={dropOffHref} data-f="orders-dropoff-cta">
+          {t('public.dropOff.button')}
+        </LinkButton>
+      </StickyActionBar>
     ) : ordersOnly && orderPhone ? (
       <StickyActionBar desktop="hidden">
         <a href={telLink(orderPhone)} className={buttonClasses({ variant: 'primary' })}>

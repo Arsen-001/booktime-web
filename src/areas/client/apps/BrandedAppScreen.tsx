@@ -278,6 +278,7 @@ function BrandedAppForm({
               <Button
                 size="sm"
                 variant="secondary"
+                className="min-w-10"
                 aria-label="−"
                 disabled={readOnly || request.extraLocations <= 0}
                 onClick={() => void safeMutate(extraLocations.mutate, request.extraLocations - 1)}
@@ -288,6 +289,7 @@ function BrandedAppForm({
               <Button
                 size="sm"
                 variant="secondary"
+                className="min-w-10"
                 aria-label="+"
                 disabled={readOnly}
                 onClick={() => void safeMutate(extraLocations.mutate, request.extraLocations + 1)}

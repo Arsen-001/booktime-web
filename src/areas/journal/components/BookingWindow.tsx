@@ -1502,8 +1502,10 @@ export function BookingWindow({
     }
   };
 
+  // ⭐ Запись на сдачу (05.10.2026): вкладка «Сдача заказа» (раздел orders) — только у записи на услугу «Приём заказа»
+  const isIntakeBookingOpen = isEdit && Boolean(booking?.services.some((l) => servicesById.get(l.serviceId)?.kind === 'intake'));
   const extEntries = allExtEntries.filter(
-    (e) => (isEdit || !NEW_BOOKING_HIDDEN_EXT_AREAS.has(e.area)) && (e.area !== 'online' || onlineTabHasContent),
+    (e) => (isEdit || !NEW_BOOKING_HIDDEN_EXT_AREAS.has(e.area)) && (e.area !== 'online' || onlineTabHasContent) && (e.area !== 'orders' || isIntakeBookingOpen),
   );
   const activeExtEntry = extEntries.find((e) => e.area === activeMainTab);
 

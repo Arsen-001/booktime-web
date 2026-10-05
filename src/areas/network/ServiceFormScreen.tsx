@@ -88,7 +88,7 @@ export function ServiceFormScreen() {
     setNameEn(service.name.en ?? "");
     setOnlineName(detailQ.data.onlineName ?? "");
     setDescRu(service.description?.ru ?? "");
-    setKind(service.kind);
+    setKind(service.kind === 'group' ? 'group' : 'individual');
     setDurationMin(service.durationMin);
     setPriceMin(service.priceMin);
     setPriceRange(service.priceMax != null);

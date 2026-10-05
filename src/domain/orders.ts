@@ -10,6 +10,7 @@ import { addDays, diffMinutes } from '@/lib/date';
 import { canSendEstimate, isStatusEntry, type EstimateStatus, type OrderEstimate, type PublicOrderEstimate } from '@/domain/ordersEstimate';
 
 export * from '@/domain/ordersEstimate';
+export * from '@/domain/ordersIntake';
 
 export type OrderStatus = 'received' | 'in_progress' | 'ready' | 'issued' | 'cancelled';
 
@@ -70,6 +71,8 @@ export interface Order {
   pickupRemindedAt?: ISODateTime | null;
   /** ⭐ Смета (05.10.2026); нет поля или null — не отправляли */
   estimate?: OrderEstimate | null;
+  /** ⭐ Принят по записи на сдачу (05.10.2026); нет поля или null — принят у стойки */
+  bookingId?: Id | null;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }
@@ -87,6 +90,8 @@ export interface OrderInput {
   prepaid?: number;
   comment?: string | null;
   locationId?: Id | null;
+  /** ⭐ Принять по записи на сдачу (05.10.2026): одна запись — один заказ; мастер и филиал по умолчанию — из записи */
+  bookingId?: Id;
 }
 
 /** Что можно поменять у заказа (PATCH) */

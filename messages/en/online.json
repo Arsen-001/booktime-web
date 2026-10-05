@@ -56,10 +56,18 @@
       "steps": {
         "bring": "Bring your item — the master will take a look and accept the order.",
         "receipt": "You’ll get a receipt with a link to your order status.",
-        "ready": "When it’s ready, they’ll message you — no need to call and ask."
+        "ready": "When it’s ready, they’ll message you — no need to call and ask.",
+        "bringBooked": "Pick a time and briefly describe the item — the master will be expecting you."
       },
       "call": "Call",
-      "write": "Message on WhatsApp"
+      "write": "Message on WhatsApp",
+      "titleBooked": "How to drop off an item",
+      "descriptionBooked": "Book a convenient time and skip the queue. You can also just come in during opening hours."
+    },
+    "dropOff": {
+      "title": "Drop off at a set time",
+      "description": "Choose when you’ll bring it — drop-off takes about {min} min, no queue.",
+      "button": "Book a drop-off"
     }
   },
   "hub": {
@@ -515,7 +523,11 @@
       "joinFailed": "Couldn't add you to the waitlist",
       "alreadyJoined": "You're on the waitlist for this day — we'll notify you about a free slot"
     },
-    "servicesSummary": "{count, plural, one {# service} other {# services}} · {price}"
+    "servicesSummary": "{count, plural, one {# service} other {# services}} · {price}",
+    "dropOff": {
+      "commentLabel": "What are you bringing? Briefly describe the item and the problem",
+      "timeHint": "Drop-off booking: choose when you’ll bring the item. It takes about {min} min."
+    }
   },
   "confirmed": {
     "goodsAtVisit": "pay at the visit",

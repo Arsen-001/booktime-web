@@ -115,7 +115,8 @@ function LocationLine({
             aria-label={iconOnly ? addLabel : undefined}
             className={cn(
               'flex shrink-0 items-center gap-1 rounded-full text-xs text-primary-text hover:bg-primary-soft',
-              iconOnly ? 'size-8 justify-center' : 'px-1.5 py-0.5',
+              // Зона нажатия ≥ 40 px (CONVENTIONS §4), заливка при наведении — та же пилюля
+              iconOnly ? 'size-10 justify-center' : 'min-h-10 px-2',
             )}
           >
             <Plus aria-hidden className={iconOnly ? 'size-4' : 'size-3.5'} />

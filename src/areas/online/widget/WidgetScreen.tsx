@@ -109,7 +109,7 @@ export function WidgetScreen() {
   const staffQ = useApiQuery(['online-widget-staff', businessId], () => coreList('staff', (s) => s.businessId === businessId), {
     enabled: ready && Boolean(businessId),
   });
-  const servicesQ = useApiQuery(['online-widget-services', businessId], () => coreList('services', (s) => s.businessId === businessId), {
+  const servicesQ = useApiQuery(['online-widget-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'), {
     enabled: ready && Boolean(businessId),
   });
   const locationsQ = useApiQuery(['online-widget-locations', businessId], () => coreList('locations', { businessId: businessId ?? '' }), {

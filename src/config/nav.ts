@@ -7,16 +7,13 @@ import {
   Armchair,
   Bell,
   Building2,
-  CalendarCheck,
   CalendarClock,
   CalendarDays,
   ChartColumn,
-  CircleUser,
   Coins,
   CreditCard,
   Gift,
   Globe,
-  Heart,
   Hourglass,
   House,
   LayoutDashboard,
@@ -34,7 +31,6 @@ import {
   Plug,
   Presentation,
   Rocket,
-  Search,
   Settings,
   Shapes,
   ShieldCheck,
@@ -52,6 +48,7 @@ import type { Permission } from '@/config/permissions';
 import { SPHERES, SPHERE_IDS, type SphereFeature } from '@/config/spheres';
 import type { PersonaId } from '@/demo/settings';
 import type { SphereId } from '@/domain/core';
+import { CLIENT_NAV } from '@/config/nav-client';
 import { subnav as clientSub } from '@/areas/client/nav';
 import { subnav as platformSub } from '@/areas/platform/nav';
 import { subnav as journalSub } from '@/areas/journal/nav';
@@ -210,16 +207,8 @@ export const PLATFORM_NAV: NavItem[] = withoutDuplicateChildren([
   item('support', 'platform', '/platform/support', LifeBuoy, 'platform', ['platform']),
 ]);
 
-const EVERYONE: PersonaId[] = ['guest', 'client', 'individual', 'owner', 'admin', 'master', 'network', 'platform'];
-
-/** Приложение клиента: нижние вкладки на телефоне, верхнее меню на десктопе */
-export const CLIENT_NAV: NavItem[] = [
-  item('home', 'client', '/', House, 'clients', EVERYONE),
-  item('search', 'client', '/search', Search, 'clients', EVERYONE),
-  { ...item('bookings', 'client', '/bookings', CalendarCheck, 'clients', EVERYONE), shortLabelKey: 'common.navShort.bookings' },
-  item('favorites', 'client', '/favorites', Heart, 'clients', EVERYONE),
-  item('profile', 'client', '/profile', CircleUser, 'clients', EVERYONE),
-];
+/** Приложение клиента — в src/config/nav-client.ts (без меню разделов: публичным страницам не нужен код кабинета) */
+export { CLIENT_NAV };
 
 export interface NavVisibilityContext {
   persona: PersonaId;

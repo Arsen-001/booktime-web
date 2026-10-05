@@ -10,6 +10,7 @@ import { NativeAppKindProvider } from '@/lib/native/NativeAppKind';
 import { getNativeAppKind } from '@/lib/native/nativeAppKind.server';
 import { IntlProvider } from '@/i18n/IntlProvider';
 import { loadMessages } from '@/i18n/load';
+import { PATHNAME_HEADER, namespacesForPath } from '@/i18n/routeMessages';
 import { getUrlLocale } from '@/i18n/locale';
 import { UrlLocaleProvider } from '@/i18n/useLocalizedHref';
 import { DemoSwitcher } from '@/shell/demo/DemoSwitcher';
@@ -19,7 +20,7 @@ import { ViewportHintProvider } from '@/ui/device/ViewportHintProvider';
 import { getViewportHint } from '@/ui/device/viewportHint.server';
 import { SidebarHintProvider } from '@/shell/workspace/SidebarHint';
 import { SIDEBAR_COOKIE } from '@/demo/store';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { getTranslations } from 'next-intl/server';
 import { isIndexable, siteUrl } from '@/lib/seo/site';
 import './globals.css';
@@ -88,7 +89,9 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
   const demo = await getDemoSettings();
   // Язык в адресе (/hy/…, /en/…) — клиентским ссылкам до гидрации (src/i18n/useLocalizedHref.tsx)
   const urlLocale = await getUrlLocale();
-  const { messages, fallbackKeys } = await loadMessages(demo.lang);
+  // Публичным страницам — только их словари (скорость на телефоне, src/i18n/routeMessages.ts); остальным — все
+  const pageNamespaces = namespacesForPath((await headers()).get(PATHNAME_HEADER));
+  const { messages, fallbackKeys } = await loadMessages(demo.lang, pageNamespaces ?? undefined);
   const viewportWidth = await getViewportHint();
   const sidebarCookie = (await cookies()).get(SIDEBAR_COOKIE)?.value;
   // Открыт в приложении BookTime / BookTime Business — по строке браузера (src/lib/native/NativeAppKind.tsx)
@@ -104,7 +107,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-bg text-fg">
-        <IntlProvider locale={demo.lang} messages={messages} fallbackKeys={fallbackKeys}>
+        <IntlProvider locale={demo.lang} messages={messages} fallbackKeys={fallbackKeys} partial={pageNamespaces !== null}>
           <UrlLocaleProvider value={urlLocale}>
           <DemoProvider initial={demo}>
             <ViewportHintProvider width={viewportWidth}>

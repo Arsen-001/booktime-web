@@ -4,7 +4,7 @@
  * Чтения раздела «Заказы»: один ключ = одна функция api (ordersKeys). Бизнес и сфера — из демо-контекста / сессии.
  */
 import { useCoreGet } from '@/api/core';
-import { getOrder, getPickupReminders, getPublicOrder, listOrders, ordersKeys, useOrdersEnabledQuery } from '@/api/orders';
+import { getIntakeSettings, getOrder, getPickupReminders, getPublicOrder, listIntakeBookings, listOrders, ordersKeys, useOrdersEnabledQuery } from '@/api/orders';
 import { useApiQuery, type QueryOptions } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
@@ -52,4 +52,18 @@ export function useOrdersEnabled(): { enabled: boolean; loading: boolean } {
 export function usePickupReminders() {
   const { ready, businessId } = useCurrent();
   return useApiQuery(ordersKeys.pickupReminders(businessId ?? ''), () => getPickupReminders(businessId ?? ''), { enabled: ready && Boolean(businessId) });
+}
+
+/** ⭐ «Запись на сдачу» (05.10.2026): вкл/выкл, длина окна, кто принимает */
+export function useIntakeSettings() {
+  const { ready, businessId } = useCurrent();
+  return useApiQuery(ordersKeys.intake(businessId ?? ''), () => getIntakeSettings(businessId ?? ''), { enabled: ready && Boolean(businessId) });
+}
+
+/** Записи на сдачу за день (по умолчанию — сегодня): кто придёт, что сдаёт, принят ли заказ */
+export function useIntakeBookings(date: string, options?: { enabled?: boolean }) {
+  const { ready, businessId } = useCurrent();
+  return useApiQuery(ordersKeys.intakeBookings(businessId ?? '', date), () => listIntakeBookings(businessId ?? '', date), {
+    enabled: ready && Boolean(businessId) && (options?.enabled ?? true),
+  });
 }

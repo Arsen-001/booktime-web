@@ -169,22 +169,25 @@ export function DetailsStep({
       />
       {addOns}
 
-      <div className="flex flex-col gap-2" data-f="F-03-141">
-        <p className="text-sm font-medium text-fg">{t('booking.details.forWhom')}</p>
-        <SegmentedControl
-          value={form.forWhom}
-          onValueChange={(v) => onPatch({ forWhom: v as BookingForWhom })}
-          size="sm"
-          fullWidth
-          options={[
-            { value: 'self', label: t('booking.details.forWhomSelf') },
-            { value: 'child', label: t('booking.details.forWhomChild') },
-            // F-00-145: «Питомец» только у сфер, где принимают животных
-            ...(sphereIdsShowPet(sphereIds) ? [{ value: 'pet', label: t('booking.details.forWhomPet') }] : []),
-            { value: 'other', label: t('booking.details.forWhomOther') },
-          ]}
-        />
-      </div>
+      {/* ⭐ Запись на сдачу (05.10.2026): «для кого» у сдачи вещи не спрашиваем */}
+      {!services.every((s) => s.kind === 'intake') && (
+        <div className="flex flex-col gap-2" data-f="F-03-141">
+          <p className="text-sm font-medium text-fg">{t('booking.details.forWhom')}</p>
+          <SegmentedControl
+            value={form.forWhom}
+            onValueChange={(v) => onPatch({ forWhom: v as BookingForWhom })}
+            size="sm"
+            fullWidth
+            options={[
+              { value: 'self', label: t('booking.details.forWhomSelf') },
+              { value: 'child', label: t('booking.details.forWhomChild') },
+              // F-00-145: «Питомец» только у сфер, где принимают животных
+              ...(sphereIdsShowPet(sphereIds) ? [{ value: 'pet', label: t('booking.details.forWhomPet') }] : []),
+              { value: 'other', label: t('booking.details.forWhomOther') },
+            ]}
+          />
+        </div>
+      )}
 
       {workplace === 'visit' && (
         <div data-f="F-00-080">

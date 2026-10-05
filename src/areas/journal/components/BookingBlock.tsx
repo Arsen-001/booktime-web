@@ -15,6 +15,7 @@
 import { memo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
+import { PackagePlus } from 'lucide-react';
 import type { Booking, Client, Id, Service } from '@/domain/core';
 import type { BookingExtras } from '@/domain/journal';
 import { cn } from '@/lib/cn';
@@ -281,9 +282,12 @@ function BookingBlockInner({
               <span className={cn(styles.ink, TIME_SIZE, 'shrink-0 max-md:hidden', text.dimmed && 'line-through')}><TimeText value={text.time} suffixClassName="text-xs" /></span>
               <span className="flex min-w-0 flex-col pt-0.5 pr-5">
                 <span data-f="F-01-128 F-01-171" className={cn(NAME_SIZE, 'mt-0', text.dimmed && 'max-md:line-through')}>
+                  {/* ⭐ Запись на сдачу: на телефоне вторая строка («Сдача: …») у короткой записи не помещается — значок у имени */}
+                  {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
                   {text.primary}
                 </span>
                 <span className={cn(styles.ink, 'truncate text-xs leading-snug opacity-90', displayHeight < COMPACT_PHONE_TWO_LINES_FROM && 'max-md:hidden')}>
+                  {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
                   {text.secondary}
                 </span>
               </span>
@@ -297,7 +301,10 @@ function BookingBlockInner({
                 {text.primary}
               </span>
               {displayHeight >= CARD_SERVICE_FROM && (
-                <span className={cn(styles.ink, 'mt-0.5 truncate text-xs leading-snug opacity-90')}>{text.secondary}</span>
+                <span className={cn(styles.ink, 'mt-0.5 truncate text-xs leading-snug opacity-90')}>
+                  {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                  {text.secondary}
+                </span>
               )}
               {displayHeight >= CARD_PILL_FROM && (
                 <span className="mt-auto flex max-w-full items-center gap-1 self-start rounded-full bg-surface px-2 py-0.5 text-[11px] leading-4 font-semibold text-primary-text">

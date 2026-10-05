@@ -1,8 +1,12 @@
 'use client';
 
-/** /biz/orders/settings — «Заказы» вкл/выкл, напоминание «заказ ждёт вас» (04.10.2026) и как это работает для клиента. */
-import { BellRing, Clock3, FileCheck2, Link2, PackagePlus } from 'lucide-react';
+/**
+ * /biz/orders/settings — «Заказы» вкл/выкл, ⭐ запись на сдачу по времени (05.10.2026), напоминание «заказ ждёт вас»
+ * (04.10.2026) и как это работает для клиента.
+ */
+import { BellRing, CalendarClock, Clock3, FileCheck2, Link2, PackagePlus } from 'lucide-react';
 import { useT } from '@/i18n/useT';
+import { IntakeCard } from '@/areas/orders/settings/IntakeCard';
 import { OrdersToggleCard } from '@/areas/orders/settings/OrdersToggleCard';
 import { PickupRemindersCard } from '@/areas/orders/settings/PickupRemindersCard';
 import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersData';
@@ -10,6 +14,7 @@ import { PageHeader } from '@/ui/PageHeader';
 import { SectionCard } from '@/ui/SectionCard';
 
 const STEPS = [
+  { key: 'dropoff', icon: CalendarClock },
   { key: 'accept', icon: PackagePlus },
   { key: 'estimate', icon: FileCheck2 },
   { key: 'ready', icon: BellRing },
@@ -24,6 +29,7 @@ export function OrdersSettingsScreen() {
     <div data-f="orders-settings" className="mx-auto flex w-full max-w-[760px] flex-col gap-6">
       <PageHeader title={t('settings.title')} description={t('settings.subtitle')} back={{ href: '/biz/settings' }} />
       <OrdersToggleCard />
+      {enabled && <IntakeCard />}
       {enabled && <PickupRemindersCard />}
       <SectionCard title={t('settings.howTitle')}>
         <ol className="flex flex-col gap-4">

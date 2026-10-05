@@ -53,11 +53,13 @@ export function ClientTopBar() {
             ))}
           </nav>
         )}
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        {/* Гость на телефоне: значок, язык, тема и армянское «Մուտք գործել» — без зазоров между значками, иначе кнопка
+            заходит на правое поле экрана (390 px) */}
+        <div className="ml-auto flex items-center gap-0 sm:gap-2">
           <LanguageSwitch />
           <ThemeToggle />
           {persona === 'guest' && !loginOnScreen && (
-            <LinkButton href={`/login?next=${encodeURIComponent(localized(pathname))}`} size="sm" variant="secondary">
+            <LinkButton href={`/login?next=${encodeURIComponent(localized(pathname))}`} size="sm" variant="secondary" className="px-3 sm:px-3.5">
               {t('actions.login')}
             </LinkButton>
           )}

@@ -31,7 +31,7 @@ export default function OnlineStaffCard({ staffId, businessId }: StaffCardExtPro
 
   const dataQ = useApiQuery(['online-staffcard', staffId], () => getPlacesData(staffId, undefined));
   const rulesQ = useApiQuery(['online-staffcard-rules', staffId], () => getStaffRules(staffId));
-  const servicesQ = useApiQuery(['online-staffcard-services', businessId], () => coreList('services', { businessId }));
+  const servicesQ = useApiQuery(['online-staffcard-services', businessId], () => coreList('services', (s) => s.businessId === businessId && s.kind !== 'intake'));
   const pairsQ = useApiQuery(['online-staffcard-pairs', businessId], () => getStaffServiceOnlineFlags(businessId));
 
   const [savedId, setSavedId] = useState<string | null>(null);

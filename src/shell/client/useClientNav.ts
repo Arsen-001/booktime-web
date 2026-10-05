@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { CLIENT_NAV } from '@/config/nav';
+import { CLIENT_NAV } from '@/config/nav-client';
 import { localizedPath, splitLocalePrefix } from '@/i18n/localePath';
 import { useUrlLocale } from '@/i18n/useLocalizedHref';
 import { useNavPending } from '@/ui/navigation/navPending';

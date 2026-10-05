@@ -323,7 +323,12 @@ export interface ServiceCategory {
   order: number;
 }
 
-export type ServiceKind = 'individual' | 'group';
+/**
+ * 'intake' — ⭐ «Приём заказа» мастерской (запись на сдачу по времени, 05.10.2026; хозяин — orders): скрытая услуга, которой
+ * клиент записывается принести вещь; в каталоге, поиске, выборе услуг журнала и в услугах кабинета её нет
+ * (isIntakeService). Ведёт себя как индивидуальная: окна, запись, напоминания — общий движок.
+ */
+export type ServiceKind = 'individual' | 'group' | 'intake';
 
 export interface Service {
   id: Id;

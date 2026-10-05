@@ -15,7 +15,7 @@
  * первое настоящее подключение, решение нужно принять заново по месту (не здесь) — задача не в этом файле.
  */
 import { addDays, addMinutes, eachDay, parse, toISODate, weekdayIndex } from '@/lib/date';
-import type { Id, ISODate, ISODateTime, Minutes, Money, ServicePackage, TimeHM } from '@/domain/core';
+import type { Id, ISODate, ISODateTime, Minutes, Money, ServiceKind, ServicePackage, TimeHM } from '@/domain/core';
 import { localDigits } from '@/lib/phone';
 import { normalizeSearch } from '@/lib/text';
 
@@ -689,7 +689,7 @@ export function defaultPackageExtra(serviceId: Id): PackageExtra {
 /** Услуга, урезанная до того, что нужно расчётам длительности/цены пакета */
 export interface PackageServiceLite {
   id: Id;
-  kind: 'individual' | 'group';
+  kind: ServiceKind;
   durationMin: Minutes;
   durationMax?: Minutes;
   priceMin: Money;

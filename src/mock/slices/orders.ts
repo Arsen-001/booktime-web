@@ -1,6 +1,7 @@
 import type { CoreData, Id } from '@/domain/core';
 import { estimateTotalOf, type Order, type OrderEstimate, type OrderHistoryEntry, type OrderItem, type OrderStatus, type OrdersSettings } from '@/domain/orders';
 import { dayjs, toISODate } from '@/lib/date';
+import { FIX_DROPOFF_ACCEPTED_BOOKING_ID } from '@/mock/seed/dropoff';
 import { BIZ, LOC, ST } from '@/mock/seed/ids';
 import { defineSlice } from '@/mock/slice';
 
@@ -35,6 +36,8 @@ interface Plan {
   comment?: string;
   /** Авто-напоминания «заказ ждёт вас», уже ушедшие: [дней назад, время] */
   reminders?: [number, string][];
+  /** ⭐ Принят по записи на сдачу (05.10.2026) */
+  booking?: Id;
   /** ⭐ Смета (05.10.2026): строки, комментарий, когда отправили и что ответил клиент */
   estimate?: {
     lines: [string, number][];
@@ -130,7 +133,8 @@ const PLANS: Plan[] = [
     due: 2, price: 11000, prepaid: 3000,
   },
   {
-    n: 1022, code: 'n9re4bm3tc', client: ['cl_fix_03', 'Лилит Аветисян', '+37400170003'],
+    // Клиентка записалась на сдачу на 11:45 — заказ принят по записи (src/mock/seed/dropoff.ts)
+    n: 1022, code: 'n9re4bm3tc', client: ['cl_fix_03', 'Лилит Аветисян', '+37400170003'], booking: FIX_DROPOFF_ACCEPTED_BOOKING_ID,
     items: [{ title: 'Наушники AirPods Pro — хрип в левом', qty: 1 }],
     staff: ST.fixNarek, path: [['received', 0, '11:45'], ['in_progress', 0, '12:30']],
     due: 4, price: 15000, prepaid: 0,
@@ -186,7 +190,8 @@ function seedEstimate(p: Plan, statuses: OrderHistoryEntry[], at: (d: number, ti
 }
 
 export const ordersSlice = defineSlice<OrdersState>({
-  version: 3,
+  // 4 — запись на сдачу (05.10.2026): заказ №1022 принят по записи (bookingId)
+  version: 4,
   seed: (core: CoreData, now: Date) => {
     if (!core.businesses.some((b) => b.id === BIZ.fixpoint)) return { orders: [], settings: {} };
     const at = (daysAgo: number, time: string) => `${toISODate(dayjs(now).subtract(daysAgo, 'day'))}T${time}`;
@@ -220,6 +225,7 @@ export const ordersSlice = defineSlice<OrdersState>({
         pickupReminderCount: p.reminders?.length ?? 0,
         pickupRemindedAt: p.reminders?.length ? at(...p.reminders[p.reminders.length - 1]) : null,
         estimate,
+        ...(p.booking ? { bookingId: p.booking } : {}),
         createdAt: history[0].at,
         updatedAt: last.at,
       };

@@ -30,9 +30,45 @@ import { AREA_IDS } from '@/config/areas';
 import type { Permission } from '@/config/permissions';
 import { dataMode } from '@/api/mode';
 import type { CoreCollection, CoreData, Id, LocaleCode } from '@/domain/core';
-import { SEED_VERSION, seedCore } from '@/mock/seed';
-import { localizeDemo } from '@/mock/seed/demoLocale';
-import { SLICES, type AreaStates } from '@/mock/slices';
+import type { AreaStates } from '@/mock/slices';
+
+/**
+ * Сид ядра и срезы разделов (около 600 КБ кода) — отдельным куском, а не в первом куске каждой страницы (скорость
+ * публичных страниц, 05.10.2026). Загрузка начинается, как только этот файл выполнился в браузере, — параллельно
+ * с гидратацией; bootDb() дожидается её до чтения localStorage. Всё, что ниже зовёт seedKit(), работает после bootDb().
+ */
+interface SeedKit {
+  seedCore: typeof import('@/mock/seed').seedCore;
+  SEED_VERSION: number;
+  SLICES: typeof import('@/mock/slices').SLICES;
+  localizeDemo: typeof import('@/mock/seed/demoLocale').localizeDemo;
+}
+let kit: SeedKit | undefined;
+let kitLoad: Promise<SeedKit> | undefined;
+function loadSeedKit(): Promise<SeedKit> {
+  kitLoad ??= Promise.all([import('@/mock/seed'), import('@/mock/slices'), import('@/mock/seed/demoLocale')]).then(
+    ([seed, slices, demoLocale]) =>
+      (kit = { seedCore: seed.seedCore, SEED_VERSION: seed.SEED_VERSION, SLICES: slices.SLICES, localizeDemo: demoLocale.localizeDemo }),
+  );
+  return kitLoad;
+}
+/** Кусок с сидом не скачался (обрыв сети) — ещё две попытки, потом ошибка в консоль, как у любого куска страницы */
+async function loadSeedKitWithRetry(): Promise<SeedKit> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await loadSeedKit();
+    } catch (e) {
+      kitLoad = undefined;
+      if (attempt >= 2) throw e;
+      await new Promise((resolve) => setTimeout(resolve, 500 * (attempt + 1)));
+    }
+  }
+}
+function seedKit(): SeedKit {
+  if (!kit) throw new Error('[mock-db] сид ещё не загружен — сначала bootDb()');
+  return kit;
+}
+if (typeof window !== 'undefined') void loadSeedKit().catch(() => undefined);
 
 export interface DbMeta {
   seedVersion: number;
@@ -125,7 +161,7 @@ function fillMissingAreas(s: DbData, now: Date): AreaStates | null {
     if (!isPlainObject(current)) continue;
     let fresh: unknown;
     try {
-      fresh = SLICES[id].seed(s.core, now);
+      fresh = seedKit().SLICES[id].seed(s.core, now);
     } catch {
       continue;
     }
@@ -152,7 +188,7 @@ function seedAreas(core: CoreData, now: Date): { areas: AreaStates; versions: Pa
   const areas = {} as Record<AreaId, unknown>;
   const versions: Partial<Record<AreaId, number>> = {};
   for (const id of AREA_IDS) {
-    const slice = SLICES[id];
+    const slice = seedKit().SLICES[id];
     areas[id] = slice.seed(core, now);
     versions[id] = slice.version;
   }
@@ -161,13 +197,48 @@ function seedAreas(core: CoreData, now: Date): { areas: AreaStates; versions: Pa
 
 /** Полный свежий набор демо-данных от момента now */
 export function createSeedData(now: Date = new Date()): DbData {
-  const core: CoreData = { ...emptyCore(), ...seedCore(now) };
+  const core: CoreData = { ...emptyCore(), ...seedKit().seedCore(now) };
   const { areas, versions } = seedAreas(core, now);
   return {
     core,
     areas,
     access: { staffPermissions: {} },
-    meta: { seedVersion: SEED_VERSION, seededAt: now.toISOString(), sliceVersions: versions, rev: 1 },
+    meta: { seedVersion: seedKit().SEED_VERSION, seededAt: now.toISOString(), sliceVersions: versions, rev: 1 },
+  };
+}
+
+/**
+ * Отдать поток браузеру между частями долгой работы (скорость, 05.10.2026): сид всех срезов — сотни мс на телефоне
+ * одной задачей, страница в это время не отвечает на касания. scheduler.yield, где есть; иначе MessageChannel —
+ * в отличие от setTimeout, его не замедляют во вкладке на заднем плане.
+ */
+function yieldToBrowser(): Promise<void> {
+  if (typeof window === 'undefined') return Promise.resolve();
+  const scheduler = (globalThis as { scheduler?: { yield?: () => Promise<void> } }).scheduler;
+  if (scheduler?.yield) return scheduler.yield();
+  return new Promise((resolve) => {
+    const channel = new MessageChannel();
+    channel.port1.onmessage = () => resolve();
+    channel.port2.postMessage(null);
+  });
+}
+
+/** createSeedData по частям — ядро, затем срез за срезом, отдавая поток между ними. Те же данные. */
+async function createSeedDataInSteps(now: Date): Promise<DbData> {
+  const core: CoreData = { ...emptyCore(), ...seedKit().seedCore(now) };
+  const areas = {} as Record<AreaId, unknown>;
+  const versions: Partial<Record<AreaId, number>> = {};
+  for (const id of AREA_IDS) {
+    await yieldToBrowser();
+    const slice = seedKit().SLICES[id];
+    areas[id] = slice.seed(core, now);
+    versions[id] = slice.version;
+  }
+  return {
+    core,
+    areas: areas as AreaStates,
+    access: { staffPermissions: {} },
+    meta: { seedVersion: seedKit().SEED_VERSION, seededAt: now.toISOString(), sliceVersions: versions, rev: 1 },
   };
 }
 
@@ -203,7 +274,7 @@ function deepEqual(a: unknown, b: unknown): boolean {
 
 /** Ядро: свежий сид от `now` (в памяти, НЕ пишется в хранилище) с точечными переопределениями из localStorage. */
 function buildCoreFromSeedAndOverrides(now: Date, overrides: Partial<CoreData>): CoreData {
-  const core: CoreData = { ...emptyCore(), ...seedCore(now) };
+  const core: CoreData = { ...emptyCore(), ...seedKit().seedCore(now) };
   for (const key of CORE_COLLECTIONS) {
     if (overrides[key] !== undefined) (core as unknown as Record<string, unknown>)[key] = overrides[key];
   }
@@ -214,7 +285,7 @@ function buildCoreFromSeedAndOverrides(now: Date, overrides: Partial<CoreData>):
 function buildAreasFromSeedAndOverrides(core: CoreData, now: Date, overrides: Partial<Record<AreaId, unknown>>): AreaStates {
   const areas = {} as Record<AreaId, unknown>;
   for (const id of AREA_IDS) {
-    areas[id] = overrides[id] !== undefined ? overrides[id] : SLICES[id].seed(core, now);
+    areas[id] = overrides[id] !== undefined ? overrides[id] : seedKit().SLICES[id].seed(core, now);
   }
   return areas as AreaStates;
 }
@@ -727,6 +798,7 @@ export function localizeDemoData(locale: LocaleCode): void {
   const s = rawGetState();
   if (!s.meta.seedVersion) return;
   const sources = [s.core.services, s.core.serviceCategories];
+  const { localizeDemo } = seedKit();
   const core = localizeDemo(s.core, locale, sources);
   const areas = localizeDemo(s.areas, locale, sources);
   if (core === s.core && areas === s.areas) return;
@@ -741,6 +813,7 @@ export function localizeDemoData(locale: LocaleCode): void {
 export async function bootDb(locale?: LocaleCode): Promise<void> {
   if (booting) return readyPromise;
   booting = true;
+  const { SEED_VERSION } = await loadSeedKitWithRetry();
   try {
     await useDb.persist.rehydrate();
   } catch (e) {
@@ -754,17 +827,18 @@ export async function bootDb(locale?: LocaleCode): Promise<void> {
   if (s.meta.seedVersion !== SEED_VERSION || stale || s.core.businesses.length === 0) {
     if (s.meta.seedVersion && s.meta.seedVersion !== SEED_VERSION) console.info('[mock-db] версия сида изменилась — пересоздаю демо-данные');
     else if (s.meta.seedVersion && stale) console.info('[mock-db] демо-данные старше 7 дней — пересоздаю');
+    const seeded = await createSeedDataInSteps(now);
     markNextFlushAsDerived('all'); // сид воспроизводим из seed()/meta.seededAt — на диск не идёт (qa/requests/*.md, «quota»)
-    rawGetState().replaceAll(createSeedData(now));
+    rawGetState().replaceAll(seeded);
   } else {
     // Срезы, у которых сменилась версия или которых ещё нет, — пересеять по отдельности
-    const outdated = AREA_IDS.filter((id) => s.meta.sliceVersions[id] !== SLICES[id].version || s.areas[id] === undefined);
+    const outdated = AREA_IDS.filter((id) => s.meta.sliceVersions[id] !== seedKit().SLICES[id].version || s.areas[id] === undefined);
     if (outdated.length) {
       const areas = { ...s.areas } as Record<AreaId, unknown>;
       const versions = { ...s.meta.sliceVersions };
       for (const id of outdated) {
-        areas[id] = SLICES[id].seed(s.core, now);
-        versions[id] = SLICES[id].version;
+        areas[id] = seedKit().SLICES[id].seed(s.core, now);
+        versions[id] = seedKit().SLICES[id].version;
       }
       console.info(`[mock-db] пересоздан срез: ${outdated.join(', ')}`);
       markNextFlushAsDerived(outdated); // пересеянные срезы тоже выводимы из seed() — не персистим

@@ -90,6 +90,9 @@
 свои списки языков в разделах не заводить — только `LOCALES` из `@/i18n/config`.
 Пустой или неполный `messages/hy/<area>.json` — НЕ дефект раздела (ядро k4, client-g2-1-fix1): измеритель его не заводит,
 армянский дольём одним проходом по всем разделам, когда владелец включит язык.
+Публичные страницы (главная, поиск, /b/…, «Для бизнеса», юридические, /book, /login, /places) получают в браузер только
+словари `PUBLIC_NAMESPACES` из `src/i18n/routeMessages.ts` (скорость, 05.10.2026); остальные — догружаются при переходе.
+Компонент публичной страницы с `useT('<другой словарь>')` — допишите словарь туда (иначе `[i18n:missing]` в замере).
 
 ## 1. Главное правило: пишите только в своих путях
 
@@ -407,7 +410,7 @@ const terms = useTerms(); terms.client;            // «Клиент» / «Па�
 
 | Хост | Хозяин | Вклады |
 |---|---|---|
-| Окно записи `bookingWindow` | journal | finance (оплата), stock (расходники), loyalty, notify, clients (панель клиента), resources, online (источник) |
+| Окно записи `bookingWindow` | journal | finance (оплата), stock (расходники), loyalty, notify, clients (панель клиента), resources, online (источник), orders (сдача заказа — только у записи на «Приём заказа») |
 | Карточка клиента `clientCard` | clients | journal (визиты), loyalty, finance, notify, online, client (пуш, k4) |
 | Карточка сотрудника `staffCard` | staff | schedule, payroll, online, services, resources, notify (k4) |
 | Карточка услуги `serviceCard` | services | online, stock (техкарта), payroll, resources, loyalty |
