@@ -14,6 +14,7 @@
 
 | Файл | Что это |
 |---|---|
+| [LAUNCH-DAY.md](LAUNCH-DAY.md) | **Порядок дня, когда придёт D-U-N-S** — аккаунты, Team ID, ключи, fastlane, отправка |
 | [listing-client.md](listing-client.md) | Тексты «BookTime»: название, подзаголовок, ключевые слова, описание, «что нового», категории, возрастной рейтинг, URL — hy/ru/en |
 | [listing-business.md](listing-business.md) | То же для «BookTime Business» |
 | [privacy-answers.md](privacy-answers.md) | Ответы на App Privacy (Apple) и Data safety (Google) по типам данных |
@@ -142,15 +143,11 @@
    - имя, язык по умолчанию **Armenian (hy-AM)** (или ru-RU);
    - App, Free;
    - согласия.
-2. **Ключ загрузки** — один на приложение, хранить вне git:
-   ```bash
-   keytool -genkeypair -v -keystore booktime-upload.jks -alias upload -keyalg RSA -keysize 2048 -validity 10000
-   ```
-   Положите `apps/<app>/android/keystore.properties` (storeFile, storePassword, keyAlias, keyPassword) и выполните
-   `npm run sync`. Подпись подхватится сама.
-3. Сборка: `cd apps/client/android && ./gradlew bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`.
+2. **Ключ загрузки** — один на оба приложения, владелец создаёт сам: `npm run upload-key` в booktime-mobile
+   (ключ и пароль — в `~/.booktime-secrets/`, gradle находит их сам).
+3. Сборка: `npm run build:android-release` → `apps/<app>/android/app/build/outputs/bundle/release/app-release.aab`.
 4. **Play App Signing** включается при первой загрузке.
-   App integrity → App signing key certificate → SHA-256 → env Vercel `ANDROID_SHA256_CERT`
+   App integrity → App signing key certificate → SHA-256 (`node scripts/android-sha256.mjs client <deployment_cert.der>`) → env Vercel `ANDROID_SHA256_CERT`
    (для Business — `ANDROID_BUSINESS_SHA256_CERT`). SHA-1 → Android OAuth client в Google Cloud.
 5. Testing → **Internal testing** → Create release → `.aab` → тестировщики по почте → проверка на телефоне.
    Новый личный аккаунт разработчика сначала требует **Closed testing**: 12 тестировщиков 14 дней подряд.
@@ -181,8 +178,8 @@
 | Где | Переменная | Зачем |
 |---|---|---|
 | booktime-mobile `config/<app>/` | `GoogleService-Info.plist`, `google-services.json` | Пуши FCM, Google Sign-In |
-| booktime-mobile при `npm run sync` | `APPLE_TEAM_ID` | Подпись Xcode |
-| booktime-mobile `apps/<app>/android/keystore.properties` | storeFile, storePassword, keyAlias, keyPassword | Подпись релиза Android |
+| booktime-mobile `config/signing.xcconfig` (или `APPLE_TEAM_ID` при `npm run sync`) | `DEVELOPMENT_TEAM` | Подпись Xcode обоих приложений |
+| `~/.booktime-secrets/android-upload.properties` (пишет `npm run upload-key`) | storeFile, storePassword, keyAlias, keyPassword | Подпись релиза Android |
 | Railway api + worker | `FCM_PROJECT_ID`, `FCM_CLIENT_EMAIL`, `FCM_PRIVATE_KEY` | Отправка пушей |
 | Railway api | `APPLE_CLIENT_IDS`, `GOOGLE_CLIENT_ID` (web + iOS + Android через запятую) | Вход Apple и Google из приложений |
 | Railway api + worker | `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`, `SECRETS_KEY` | Отзыв входа Apple при удалении аккаунта |
