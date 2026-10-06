@@ -20,7 +20,8 @@
   `railway up -s api -e staging --detach` из `booktime-backend` (секреты из `.gitignore` не загружаются; сборка — `npm run
   build` с `prebuild: prisma generate`).
 - Разовый импорт мест в базу staging: `railway tcp-proxy create --port 3306 -s MySQL -e staging` → `ProspectsService.import`
-  с `DATABASE_URL` на прокси (тот же код, что кнопка «Импорт») → `railway tcp-proxy delete <id> -s MySQL -e staging --yes`.
+  с `DATABASE_URL` на прокси (тот же код, что кнопка «Импорт»; через прокси — порциями по 5 строк, иначе транзакция
+  обновлений не укладывается в 5 с; скрипт — `booking-research/places/import-prospects.mts`, запуск `npx tsx` из booktime-backend) → `railway tcp-proxy delete <id> -s MySQL -e staging --yes`.
 - В production попадает только слиянием `develop` → `main` (fast-forward) — по слову владельца.
 - Регион Railway — `europe-west4` (Нидерланды), записан в `railway.json` сервера: без этого сервис уезжал в `sfo`
   и каждый запрос к базе шёл через океан (карточка салона — 40 с вместо 0,8 с).
