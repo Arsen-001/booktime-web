@@ -1,27 +1,44 @@
 'use client';
 
-import { Check, Repeat, Search } from 'lucide-react';
+import { BellRing, Check, CircleCheck, Repeat, Search, Send } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { CalendarMark } from '@/areas/client/home/CalendarMark';
 import { useReducedMotion } from '@/areas/client/home/landing';
 import { PhoneDemo } from '@/areas/client/home/PhoneDemo';
 import { useT } from '@/i18n/useT';
+import { cn } from '@/lib/cn';
 
 const ROTATE = [1, 2, 3, 4, 5] as const;
 const HINTS = [1, 2, 3, 4] as const;
 const ROTATE_MS = 2200;
+const SLIDE_MS = 6000;
 
 /**
  * Первый экран главной для гостя — вариант «Живая запись» (владелец 03.10.2026): в заголовке меняется услуга
  * («на маникюр / на стрижку / к стоматологу…»), в поиске сама печатается подсказка, справа телефон показывает запись.
+ * На телефоне — слайдер из трёх картинок с подписями и поиск под ним (владелец 08.10.2026: столбик текста был непонятен).
  */
 export function GuestHero() {
+  return (
+    <section data-f="F-00-005">
+      <div className="flex flex-col gap-5 md:hidden">
+        <HeroSlider />
+        <HeroSearch />
+      </div>
+      <div className="hidden md:block">
+        <DesktopHero />
+      </div>
+    </section>
+  );
+}
+
+function DesktopHero() {
   const t = useT('client');
   const points = [t('home.hero.free'), t('home.hero.noCalls'), t('home.hero.reminders')];
 
   return (
-    <section data-f="F-00-005" className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-8">
+    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-8">
       <div className="flex min-w-0 flex-col gap-6">
         <span className="inline-flex w-max max-w-full items-center gap-2.5 rounded-full border border-border bg-surface py-1.5 pr-3.5 pl-2.5 text-sm font-semibold text-muted">
           <span className="lp-pulse" />
@@ -56,7 +73,139 @@ export function GuestHero() {
           {t('home.hero.chipReschedule')}
         </span>
       </div>
-    </section>
+    </div>
+  );
+}
+
+/**
+ * Слайдер первого экрана на телефоне: листается пальцем (scroll-snap), точки под ним, сам перелистывает каждые 6 с,
+ * пока гость не тронул его; при «меньше движения» — только вручную.
+ */
+function HeroSlider() {
+  const t = useT('client');
+  const reduced = useReducedMotion();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [touched, setTouched] = useState(false);
+
+  const slides: { visual: ReactNode; title: ReactNode; text: string }[] = [
+    {
+      visual: (
+        // zoom, а не scale: телефон нарисован под ширину 270 px, уменьшаем его целиком вместе с местом, которое он занимает
+        <div className="w-[270px]" style={{ zoom: 0.54 }}>
+          <PhoneDemo />
+        </div>
+      ),
+      title: (
+        <>
+          {t('home.hero.titleStart')} <RotatingWord /> {t('home.hero.titleEnd')}
+        </>
+      ),
+      text: t('home.hero.text'),
+    },
+    {
+      visual: (
+        <div className="w-[14rem]">
+          <CalendarMark />
+        </div>
+      ),
+      title: t('home.slides.calendarTitle'), text: t('home.slides.calendarText') },
+    { visual: <ReminderVisual />, title: t('home.slides.remindTitle'), text: t('home.slides.remindText') },
+  ];
+
+  const goTo = (i: number) => {
+    const track = trackRef.current;
+    if (track) track.scrollTo({ left: i * track.clientWidth, behavior: reduced ? 'auto' : 'smooth' });
+  };
+
+  useEffect(() => {
+    if (reduced || touched) return;
+    const id = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track) return;
+      const next = (Math.round(track.scrollLeft / track.clientWidth) + 1) % slides.length;
+      track.scrollTo({ left: next * track.clientWidth, behavior: 'smooth' });
+    }, SLIDE_MS);
+    return () => window.clearInterval(id);
+  }, [reduced, touched, slides.length]);
+
+  return (
+    <div role="region" aria-roledescription="carousel" aria-label={t('home.slides.region')} className="flex flex-col gap-2">
+      <div
+        ref={trackRef}
+        className="-mx-4 flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        onScroll={(e) => setActive(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
+        onPointerDown={() => setTouched(true)}
+        onTouchStart={() => setTouched(true)}
+      >
+        {slides.map((s, i) => (
+          <div key={i} role="group" aria-roledescription="slide" aria-label={t('home.slides.goTo', { n: i + 1 })} className="flex w-full shrink-0 snap-center flex-col gap-4 px-4">
+            <div aria-hidden className="grid h-[19.5rem] place-items-center overflow-hidden rounded-3xl bg-primary-soft">
+              {s.visual}
+            </div>
+            {i === 0 ? (
+              <h1 className="font-display text-[1.75rem] leading-tight font-extrabold text-fg">{s.title}</h1>
+            ) : (
+              <h2 className="font-display text-[1.75rem] leading-tight font-extrabold text-fg">{s.title}</h2>
+            )}
+            <p className="text-base text-muted">{s.text}</p>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-center">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={t('home.slides.goTo', { n: i + 1 })}
+            aria-current={i === active ? 'true' : undefined}
+            className="grid size-10 place-items-center rounded-full focus-visible:outline-2 focus-visible:outline-focus"
+            onClick={() => {
+              setTouched(true);
+              goTo(i);
+            }}
+          >
+            <span className={cn('h-2 rounded-full transition-all', i === active ? 'w-6 bg-primary' : 'w-2 bg-border-strong')} />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Картинка третьего слайда: напоминание из Telegram, «Вы записаны» и что можно сделать дальше */
+function ReminderVisual() {
+  const t = useT('client');
+  const time = '17:30';
+  return (
+    <div className="flex w-[17.5rem] flex-col gap-2.5">
+      <div className="flex items-start gap-3 rounded-2xl border border-border bg-surface p-3 shadow-lg">
+        <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-info text-primary-contrast">
+          <Send className="size-4" />
+        </span>
+        <div className="min-w-0">
+          <b className="block text-sm text-fg">{t('home.demo.pushTitle')}</b>
+          <span className="block text-sm leading-snug text-muted">{t('home.demo.pushText', { time })}</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-3 shadow-md">
+        <CircleCheck className="size-8 shrink-0 text-success" />
+        <div className="min-w-0">
+          <b className="block font-display text-base font-extrabold text-fg">{t('home.demo.doneTitle')}</b>
+          <span className="block truncate text-sm text-muted">{t('home.demo.doneText', { time })}</span>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-fg">
+          <BellRing className="size-4 text-primary-text" />
+          {t('home.hero.chipReminder')}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-fg">
+          <Repeat className="size-4 text-primary-text" />
+          {t('home.hero.chipReschedule')}
+        </span>
+      </div>
+    </div>
   );
 }
 
