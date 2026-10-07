@@ -1,0 +1,14 @@
+[
+  { "route": "/platform/prospects", "persona": "platform", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "upload": "input[type=file]", "file": "/Users/arsen/WebstormProjects/booking-research/places/merged-2026-10-07.json" },
+      { "expectText": "добавлено" }, { "wait": 1500 }, { "screenshot": "bulk-imported" },
+      { "click": "role=button[name=/Телефон|WhatsApp/]" }, { "wait": 800 }, { "screenshot": "bulk-filter-phone" },
+      { "goto": "/platform/prospects?page=60" }, { "wait": 1000 }, { "screenshot": "bulk-far-page" }
+    ] },
+  { "route": "/platform/prospects", "persona": "platform", "lang": "ru", "device": "phone",
+    "steps": [
+      { "upload": "input[type=file]", "file": "/Users/arsen/WebstormProjects/booking-research/places/merged-2026-10-07.json" },
+      { "expectText": "добавлено" }, { "wait": 1500 }, { "screenshot": "bulk-imported-phone" }
+    ] }
+]

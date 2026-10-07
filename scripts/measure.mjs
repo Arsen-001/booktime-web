@@ -36,7 +36,8 @@
 //     "device": "desktop",
 //     "steps": [ {"click": "role=button[name=\"Новая запись\"]"}, {"fill": "input[name=phone]", "value": "00123456"},
 //                {"press": "Enter"}, {"expectText": "Запись создана"}, {"expectVisible": "[data-f=\"F-01-024\"]"},
-//                {"wait": 500}, {"screenshot": "after-save"}, {"goto": "/biz/records"} ] }
+//                {"wait": 500}, {"screenshot": "after-save"}, {"goto": "/biz/records"},
+//                {"upload": "input[type=file]", "file": "/abs/path/places.json"} ] }  — upload: и скрытый input (sr-only)
 //   Селекторы — CSS или движки Playwright: text=…, role=button[name="…"]. Шаг упал → снимок и остановка.
 //
 // Код выхода 0 всегда (это замер), кроме ошибки запуска (сервер не отвечает, нет браузера).
@@ -276,6 +277,10 @@ async function runStep(page, step, combo, shot) {
   if (step.click) {
     await loc(step.click).click({ timeout: 8000 });
     await page.waitForTimeout(150);
+    await waitLoaded(page);
+  } else if (step.upload) {
+    await page.locator(step.upload).first().setInputFiles(step.file, { timeout: 8000 });
+    await page.waitForTimeout(300);
     await waitLoaded(page);
   } else if (step.fill) {
     await loc(step.fill).fill(String(step.value ?? ''), { timeout: 8000 });
