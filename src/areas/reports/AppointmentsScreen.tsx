@@ -31,9 +31,11 @@ import { DateRangePicker } from '@/ui/DateRangePicker';
 import { DropdownMenu } from '@/ui/DropdownMenu';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
+import { FilterBar, type FilterBarFilter } from '@/ui/FilterBar';
 import { IconButton } from '@/ui/IconButton';
 import { PermissionGate } from '@/ui/PermissionGate';
 import { Select } from '@/ui/Select';
+import { useIsMobile } from '@/ui/hooks/useMediaQuery';
 import { DEFAULT_PAGE_SIZE } from '@/ui/Pagination';
 import { SkeletonText } from '@/ui/Skeleton';
 import { Table, type TableColumn } from '@/ui/Table';
@@ -91,6 +93,7 @@ export function AppointmentsScreen() {
   const [filters, setFilters] = useState<AppointmentsFilters>(defaultFilters());
   const [applied, setApplied] = useState<AppointmentsFilters>(defaultFilters());
   const [selected, setSelected] = useState<string[]>([]);
+  const isMobile = useIsMobile();
   const [confirmBulk, setConfirmBulk] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
 
@@ -264,6 +267,93 @@ export function AppointmentsScreen() {
 
   if (!perms.recordsView) return <ErrorState title={t('appointments.noAccess')} />;
 
+  const showButton = <Button onClick={onShow}>{t('appointments.show')}</Button>;
+  const filterFields: FilterBarFilter[] = [
+    {
+      id: 'created',
+      label: t('appointments.filterCreated'),
+      primary: true,
+      node: <DateRangePicker className="max-sm:w-full" value={{ from: filters.createdFrom, to: filters.createdTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, createdFrom: r.from ?? s.createdFrom, createdTo: r.to ?? s.createdTo }))} presets />,
+    },
+    {
+      id: 'visit',
+      label: t('appointments.filterVisit'),
+      node: <DateRangePicker className="max-sm:w-full" value={{ from: filters.visitFrom, to: filters.visitTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, visitFrom: r.from, visitTo: r.to }))} presets />,
+    },
+    {
+      id: 'staff',
+      label: t('appointments.filterStaff'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterStaff')}
+          value={filters.staffId ?? ''}
+          onValueChange={(v) => setFilters((s) => ({ ...s, staffId: v || undefined }))}
+          options={[{ value: '', label: t('appointments.allStaff') }, ...(staffQ.data ?? []).map((s) => ({ value: s.id, label: s.name }))]}
+        />
+      ),
+    },
+    {
+      id: 'cancelled',
+      label: t('appointments.filterCancelled'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterCancelled')}
+          value={filters.cancelled}
+          onValueChange={(v) => setFilters((s) => ({ ...s, cancelled: v as AppointmentCancelledFilter }))}
+          options={CANCELLED_VALUES.map((v) => ({ value: v, label: t(`appointments.cancelled.${v}`) }))}
+        />
+      ),
+    },
+    {
+      id: 'status',
+      label: t('appointments.filterStatus'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterStatus')}
+          value={filters.status ?? ''}
+          onValueChange={(v) => setFilters((s) => ({ ...s, status: v || undefined }))}
+          options={[{ value: '', label: t('appointments.allStatuses') }, ...STATUS_VALUES.map((v) => ({ value: v, label: statusLabel(v) }))]}
+        />
+      ),
+    },
+    {
+      id: 'source',
+      label: t('appointments.filterSource'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterSource')}
+          value={filters.source}
+          onValueChange={(v) => setFilters((s) => ({ ...s, source: v as AppointmentSourceFilter }))}
+          options={SOURCE_VALUES.map((v) => ({ value: v, label: t(`appointments.sourceFilter.${v}`) }))}
+        />
+      ),
+    },
+    {
+      id: 'services',
+      label: t('appointments.filterServices'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterServices')}
+          value={filters.hasServices}
+          onValueChange={(v) => setFilters((s) => ({ ...s, hasServices: v as AppointmentServicesFilter }))}
+          options={SERVICES_VALUES.map((v) => ({ value: v, label: t(`appointments.servicesFilter.${v}`) }))}
+        />
+      ),
+    },
+    {
+      id: 'pageSize',
+      label: t('appointments.filterPageSize'),
+      node: (
+        <Select
+          aria-label={t('appointments.filterPageSize')}
+          value={String(filters.pageSize)}
+          onValueChange={(v) => setFilters((s) => ({ ...s, pageSize: Number(v) as AppointmentPageSize }))}
+          options={[25, 50, 100].map((n) => ({ value: String(n), label: t('appointments.pageSizeOption', { n }) }))}
+        />
+      ),
+    },
+  ];
+
   return (
     <PermissionGate permission="reports.view" fallback="message">
       <Suspense fallback={null}>
@@ -298,66 +388,20 @@ export function AppointmentsScreen() {
         />
 
         <div data-f="F-12-004" className="flex flex-col gap-3">
-          <div className="flex flex-wrap items-end gap-3">
-            {/* Телефон: поля во всю ширину — длинный период (hy «5 սեպտեմբերի – 4 հոկտեմբերի 2026») вылезал за экран */}
-            <div className="flex min-w-0 flex-col gap-1 max-sm:w-full">
-              <span className="text-xs text-muted">{t('appointments.filterCreated')}</span>
-              <DateRangePicker className="max-sm:w-full" value={{ from: filters.createdFrom, to: filters.createdTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, createdFrom: r.from ?? s.createdFrom, createdTo: r.to ?? s.createdTo }))} presets />
+          {isMobile ? (
+            // Телефон: поля — в шторке «Фильтры»; в строке столбиком они занимали весь экран, и записей не было видно
+            <FilterBar filters={filterFields} onReset={() => setFilters(defaultFilters())} actions={showButton} />
+          ) : (
+            <div className="flex flex-wrap items-end gap-3">
+              {filterFields.map((f) => (
+                <div key={f.id} className={f.id === 'pageSize' ? 'w-full max-w-40' : f.primary || f.id === 'visit' ? 'flex min-w-0 flex-col gap-1' : 'w-full sm:max-w-xs'}>
+                  {(f.primary || f.id === 'visit') && <span className="text-xs text-muted">{f.label}</span>}
+                  {f.node}
+                </div>
+              ))}
+              {showButton}
             </div>
-            <div className="flex min-w-0 flex-col gap-1 max-sm:w-full">
-              <span className="text-xs text-muted">{t('appointments.filterVisit')}</span>
-              <DateRangePicker className="max-sm:w-full" value={{ from: filters.visitFrom, to: filters.visitTo }} onValueChange={(r: DateRange) => setFilters((s) => ({ ...s, visitFrom: r.from, visitTo: r.to }))} presets />
-            </div>
-            <div className="w-full sm:max-w-xs">
-              <Select
-                aria-label={t('appointments.filterStaff')}
-                value={filters.staffId ?? ''}
-                onValueChange={(v) => setFilters((s) => ({ ...s, staffId: v || undefined }))}
-                options={[{ value: '', label: t('appointments.allStaff') }, ...(staffQ.data ?? []).map((s) => ({ value: s.id, label: s.name }))]}
-              />
-            </div>
-            <div className="w-full sm:max-w-xs">
-              <Select
-                aria-label={t('appointments.filterCancelled')}
-                value={filters.cancelled}
-                onValueChange={(v) => setFilters((s) => ({ ...s, cancelled: v as AppointmentCancelledFilter }))}
-                options={CANCELLED_VALUES.map((v) => ({ value: v, label: t(`appointments.cancelled.${v}`) }))}
-              />
-            </div>
-            <div className="w-full sm:max-w-xs">
-              <Select
-                aria-label={t('appointments.filterStatus')}
-                value={filters.status ?? ''}
-                onValueChange={(v) => setFilters((s) => ({ ...s, status: v || undefined }))}
-                options={[{ value: '', label: t('appointments.allStatuses') }, ...STATUS_VALUES.map((v) => ({ value: v, label: statusLabel(v) }))]}
-              />
-            </div>
-            <div className="w-full sm:max-w-xs">
-              <Select
-                aria-label={t('appointments.filterSource')}
-                value={filters.source}
-                onValueChange={(v) => setFilters((s) => ({ ...s, source: v as AppointmentSourceFilter }))}
-                options={SOURCE_VALUES.map((v) => ({ value: v, label: t(`appointments.sourceFilter.${v}`) }))}
-              />
-            </div>
-            <div className="w-full sm:max-w-xs">
-              <Select
-                aria-label={t('appointments.filterServices')}
-                value={filters.hasServices}
-                onValueChange={(v) => setFilters((s) => ({ ...s, hasServices: v as AppointmentServicesFilter }))}
-                options={SERVICES_VALUES.map((v) => ({ value: v, label: t(`appointments.servicesFilter.${v}`) }))}
-              />
-            </div>
-            <div className="w-full max-w-40">
-              <Select
-                aria-label={t('appointments.filterPageSize')}
-                value={String(filters.pageSize)}
-                onValueChange={(v) => setFilters((s) => ({ ...s, pageSize: Number(v) as AppointmentPageSize }))}
-                options={[25, 50, 100].map((n) => ({ value: String(n), label: t('appointments.pageSizeOption', { n }) }))}
-              />
-            </div>
-            <Button onClick={onShow}>{t('appointments.show')}</Button>
-          </div>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">

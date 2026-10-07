@@ -13,6 +13,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
+import { StickyActionBar } from '@/ui/StickyActionBar';
 import { ErrorState } from '@/ui/ErrorState';
 import { Input } from '@/ui/Input';
 import { Modal } from '@/ui/Modal';
@@ -139,11 +140,11 @@ function LinkSettingsForm({
       </div>
 
       {canEdit && (
-        <div className="sticky bottom-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] z-10 flex justify-end">
+        <StickyActionBar desktop="sticky">
           <Button size="lg" loading={pending} onClick={handleSave}>
             {t('online.save')}
           </Button>
-        </div>
+        </StickyActionBar>
       )}
 
       <Modal open={qrOpen} onOpenChange={setQrOpen} title={t('online.link.qrTitle')} size="sm">

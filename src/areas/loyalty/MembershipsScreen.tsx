@@ -317,7 +317,7 @@ export function MembershipsScreen() {
       cell: (r) => (
         <a
           href={`/biz/clients/${r.clientId}`}
-          className="inline-flex min-h-10 max-w-[20rem] items-center text-primary-text underline decoration-border-strong underline-offset-2"
+          className="inline-flex min-h-10 max-w-full items-center md:max-w-[20rem] text-primary-text underline decoration-border-strong underline-offset-2"
         >
           <span className="truncate">{r.clientName ? `${r.clientName} · ${format.phone(r.clientPhone)}` : format.phone(r.clientPhone)}</span>
         </a>

@@ -24,6 +24,7 @@ import { useCan, useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
+import { StickyActionBar } from '@/ui/StickyActionBar';
 import { ChoiceGroup } from '@/ui/ChoiceGroup';
 import { Collapse } from '@/ui/Collapse';
 import { ErrorState } from '@/ui/ErrorState';
@@ -502,11 +503,11 @@ function MethodsForm({
       </div>
 
       {canEdit && (
-        <div className="sticky bottom-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] z-10 flex justify-end">
+        <StickyActionBar desktop="sticky">
           <Button size="lg" loading={saveM.isPending} onClick={handleSave}>
             {t('methods.save')}
           </Button>
-        </div>
+        </StickyActionBar>
       )}
     </div>
     </fieldset>

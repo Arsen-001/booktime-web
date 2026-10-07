@@ -273,7 +273,7 @@ export function CertificatesScreen() {
       header: t('certificates.columns.client'),
       cell: (r) =>
         r.clientId ? (
-          <Link href={`/biz/clients/${r.clientId}`} className="inline-flex min-h-10 max-w-[16rem] items-center text-primary-text underline decoration-border-strong underline-offset-2">
+          <Link href={`/biz/clients/${r.clientId}`} className="inline-flex min-h-10 max-w-full items-center md:max-w-[16rem] text-primary-text underline decoration-border-strong underline-offset-2">
             <span className="truncate">{r.clientName ? `${r.clientName} · ${format.phone(r.clientPhone)}` : format.phone(r.clientPhone)}</span>
           </Link>
         ) : (
