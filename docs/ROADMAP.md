@@ -67,7 +67,7 @@
 - Сделано 05.10.2026: реквизиты AI Switch LLC и info@booktime.am (Google Workspace) в `operator.ts`; Firebase `booktime-47539`
   (4 приложения, файлы в booktime-mobile/config, ключ FCM на staging и production); вход проверяющих на staging и
   production (`scripts/set-review-env.mjs`, коды в ~/.booktime-secrets/review-login.env); салон «BookTime Demo» на
-  production (`scripts/seed-review-demo.mjs`); заявка D-U-N-S (AI Switch LLC) отправлена.
+  production (`scripts/seed-review-demo.mjs`); заявка D-U-N-S (AI Switch LLC) отправлена, номер обещают ~12.10.2026 (просят скан выписки из госреестра: рег. номер, юр. адрес, директор, участники).
 - Дальше:
   - D-U-N-S → аккаунты Apple Developer и Google Play на компанию (оплачивает владелец);
   - бесплатные дни «BookTime Demo» в панели платформы до ~15.10.2026 (иначе салон замёрзнет после пробного периода);
