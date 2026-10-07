@@ -209,6 +209,16 @@ html:not(.vt-sidebar)::view-transition-old(root),
 html:not(.vt-sidebar)::view-transition-new(root) {
   animation: none;
 }
+/* Смена темы (src/shell/ThemeToggle.tsx): новая тема расходится кругом от кнопки поверх старой, как в Telegram.
+   На это время всё — одним снимком root: иначе верхняя полоса и вкладки со своими снимками сменились бы сразу */
+html.vt-theme * {
+  view-transition-name: none !important;
+}
+html.vt-theme::view-transition-old(root),
+html.vt-theme::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
 /* Новая страница ещё ждёт данные (PageTransition → vt-hold): на экране остаётся старая, новая скрыта под ней.
    Класс снимают, как только данные пришли, — анимации исчезают, и переход сразу заканчивается живой страницей */
 html.vt-hold::view-transition-old(root) {
