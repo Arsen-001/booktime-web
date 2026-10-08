@@ -324,6 +324,8 @@ export function DayGrid({
     const now = today();
     const dayPast = date < now;
     const dayToday = date === now;
+    // Прошедшее приглушаем только сегодня и пока рабочий день идёт: закончившийся и прошлый день читаются в цвете
+    const dimPast = dayToday && lateNow !== null && lateNow < layout.range.endMin;
     const nowMin = dayToday ? lateNow : null;
     return layout.cols.map(({ column, items }) => {
       const per: Record<Id, { phase: "past" | "now" | "future"; pct: number; note?: string }> = {};
@@ -344,7 +346,7 @@ export function DayGrid({
           continue;
         }
         if (dayPast || !active || (nowMin !== null && to <= nowMin)) {
-          per[b.id] = { phase: dayPast || nowMin !== null ? "past" : "future", pct: 0 };
+          per[b.id] = { phase: dimPast ? "past" : "future", pct: 0 };
           continue;
         }
         if (nowMin !== null && from <= nowMin) {

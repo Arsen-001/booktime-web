@@ -113,13 +113,13 @@ export function WeekGrid({
   const google = style === "google";
   const ios = style === "ios";
   const live = style === "live";
-  // «Живой день»: прошедшее приглушено, идущий визит — с прогрессом (минута «сейчас» по Еревану)
+  // «Живой день»: прошедшее сегодня приглушено, идущий визит — с прогрессом (минута «сейчас» по Еревану)
   const nowMin = useNowMinuteYerevan(today());
   const phaseOf = (day: string, booking: Booking) => {
     if (!live) return undefined;
     const now = today();
-    if (day < now) return { phase: "past" as const, pct: 0 };
-    if (day > now || nowMin === null) return { phase: "future" as const, pct: 0 };
+    // Прошедшее приглушаем только сегодня, пока рабочий день идёт: прошлые дни и закончившийся день — в цвете
+    if (day !== now || nowMin === null || nowMin >= range.endMin) return { phase: "future" as const, pct: 0 };
     const from = Number(booking.start.slice(11, 13)) * 60 + Number(booking.start.slice(14, 16));
     const to = from + booking.durationMin;
     if (to <= nowMin || !isActiveBooking(booking)) return { phase: "past" as const, pct: 0 };

@@ -24,7 +24,7 @@ import styles from '@/areas/journal/board.module.css';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
-import { fromMinutes, today } from '@/lib/date';
+import { fromMinutes, today, toMinutes } from '@/lib/date';
 import { pickText } from '@/lib/text';
 import { useBookingStatusLabel } from '@/ui/BookingStatusBadge';
 import { useLocale } from 'next-intl';
@@ -89,7 +89,10 @@ export function LiveAgenda({
   const servicesById = new Map(services.map((s) => [s.id, s]));
   const own = bookings.filter((b) => b.staffId === selected.id).sort((a, b) => a.start.localeCompare(b.start));
   const endOf = (b: Booking) => startMinutes(b) + b.durationMin;
-  const isPast = (b: Booking) => dayPast || (nowMin !== null && lateMinutes(b, nowMin) === null && (endOf(b) <= nowMin || !isActiveBooking(b)));
+  // Прошедшее сворачиваем только сегодня, пока смена мастера идёт: закончившийся и прошлый день — весь списком, в цвете
+  const shiftEnd = Math.max(0, ...(hoursByStaff[selected.id] ?? []).map((h) => toMinutes(h.to)));
+  const foldPast = !dayPast && nowMin !== null && nowMin < shiftEnd;
+  const isPast = (b: Booking) => foldPast && nowMin !== null && lateMinutes(b, nowMin) === null && (endOf(b) <= nowMin || !isActiveBooking(b));
   const isNow = (b: Booking) =>
     nowMin !== null && isActiveBooking(b) && startMinutes(b) <= nowMin && nowMin < endOf(b) && lateMinutes(b, nowMin) === null;
   const past = own.filter(isPast);
