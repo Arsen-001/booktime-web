@@ -61,12 +61,13 @@ import { HoldWhileClosing } from "@/areas/journal/components/HoldWhileClosing";
 import { EmptyDayState } from "@/areas/journal/components/EmptyDayState";
 import { GroupEventBlock } from "@/areas/journal/components/GroupEventBlock";
 import { NowLine } from "@/areas/journal/components/NowLine";
+import { renderedJournalStyle } from "@/areas/journal/lib/journalStyle";
 import { lateMinutes, useNowMinuteYerevan } from "@/areas/journal/lib/lateness";
 import { StaffScheduleModal } from "@/areas/journal/components/StaffScheduleModal";
 import { WorkingDaysRangeModal } from "@/areas/journal/components/WorkingDaysRangeModal";
 import {
   bookingTone,
-  CARD_MIN_HEIGHT,
+  cardSizes,
   startMinutes,
   staffLoad,
 } from "@/areas/journal/lib/board";
@@ -207,6 +208,8 @@ export function DayGrid({
   onPickSlot,
   className,
 }: DayGridProps) {
+  // Стиль, которым рисуется доска (lib/journalStyle): при смене стиля JournalScreen перемонтирует её
+  const google = renderedJournalStyle() === "google";
   const columnWidth = columnsPerScreen ? `calc((100cqw - ${GUTTER}px) / ${columnsPerScreen})` : undefined;
   const t = useT("journal");
   const tc = useT("common");
@@ -269,7 +272,7 @@ export function DayGrid({
           booking,
           client,
           top: minutesToTop(startMinutes(booking), range, zoomMin),
-          height: Math.max(naturalHeight, CARD_MIN_HEIGHT),
+          height: Math.max(naturalHeight, cardSizes().min),
           naturalHeight,
           tone,
           text: cardText(booking, client, extrasById[booking.id], textCtx, {
@@ -427,14 +430,15 @@ export function DayGrid({
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div data-journal-board="" className={cn("relative flex min-h-0 flex-col", className)}>
+      <div className={cn("relative flex min-h-0 flex-col", className)}>
         <div
           data-f="F-01-018 F-01-019 F-01-022 F-01-023 F-01-024 F-01-034 F-01-215"
           // F-01-184: на телефоне «+ Запись» висит над правым нижним углом — запас снизу даёт докрутить последнюю
           // карточку выше неё
           className={cn(
-            // Как у Google Calendar: сетка без рамки-карточки, прямо на белой странице (board.module.css → data-journal-board)
-            "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface pb-24 md:pb-0",
+            "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface pb-24 md:pb-0",
+            // «Google Calendar»: сетка без рамки-карточки, прямо на белой странице (board.module.css); «BookTime» — карточка r16
+            google ? "border-t border-border" : "rounded-2xl border border-border",
             // snap с отступом на колонку часов: иначе первая колонка «прилипает» под неё и видна обрезанной
             columnsPerScreen && "@container snap-x scroll-pl-[52px]",
           )}
@@ -538,11 +542,15 @@ export function DayGrid({
                   <span
                     key={m}
                     style={{ top: minutesToTop(m, range, zoomMin) }}
-                    className="absolute right-3 -translate-y-1/2 text-[10px] font-medium tracking-wide text-muted tabular-nums select-none"
+                    className={cn(
+                      "absolute -translate-y-1/2 text-muted tabular-nums select-none",
+                      google ? "right-3 text-[10px] font-medium tracking-wide" : "right-2 text-[11px]",
+                    )}
                   >
                     <TimeText value={format.time(`${date}T${String(Math.floor(m / 60)).padStart(2, "0")}:00`)} suffixClassName="text-[10px]" hourOnly />
                   </span>
                 ))}
+                <NowLine date={date} range={range} zoomMin={zoomMin} variant="pill" />
               </div>
 
               {layout.cols.map(({ column, bands, markupLines, items }) => (
@@ -636,7 +644,7 @@ export function DayGrid({
                         <SharedBookingSlot
                           key={item.booking.id}
                           bookingId={item.booking.id}
-                          ghostStyle={{ top: item.top, height: item.height, backgroundColor: item.tone.solid }}
+                          ghostStyle={{ top: item.top, height: item.height, backgroundColor: google ? item.tone.solid : item.tone.fill }}
                         >
                           {block}
                         </SharedBookingSlot>
@@ -793,7 +801,7 @@ function DragHint({
     const issue = check(drop.booking, drop.plan, drop.targetColumn);
     const span = describe.range(drop.plan.startMin, drop.booking.durationMin);
     const top = topOf(drop.plan.startMin);
-    const height = Math.max(drop.booking.durationMin * ppm, CARD_MIN_HEIGHT);
+    const height = Math.max(drop.booking.durationMin * ppm, cardSizes().min);
     setGhost({
       left: cell.getBoundingClientRect().left - body.getBoundingClientRect().left + 4,
       top,

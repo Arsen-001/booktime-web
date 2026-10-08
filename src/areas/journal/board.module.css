@@ -4,14 +4,11 @@
  * проявление панели «Требует внимания». Анимируются только transform и opacity.
  */
 
-/* ── Событие «как в Google Calendar» (owner 08.10.2026) ──────────────────────────────────────────
-   Сплошная заливка цвета записи (--tone-solid: белый текст ≥ 4.5:1, ui/tone.ts), тонкая белая кромка отделяет
-   соседние события. Ждёт подтверждения — белая с пунктиром цвета записи; отменена / не пришёл — бледная. */
+/* ── Карточка записи «C · Тон» ─────────────────────────────────────────────────────────────── */
 .card {
   position: relative;
-  background-color: var(--tone-solid);
-  color: #fff; /* tokens-ok — текст на сплошной заливке события, контраст проверен tone.solid */
-  box-shadow: 0 0 0 1px var(--color-surface);
+  background-color: var(--tone-fill);
+  transition: transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 /* Тень наведения — отдельным слоем, меняется только его opacity (не box-shadow) */
 .card::after {
@@ -25,56 +22,114 @@
   transition: opacity 150ms ease-out;
 }
 @media (hover: hover) {
+  .card:hover {
+    transform: translateY(-1px);
+  }
   .card:hover::after {
     opacity: 1;
   }
 }
+.card:active {
+  transform: scale(0.985);
+}
 .ink {
   color: var(--tone-ink);
 }
+.drop {
+  background-color: var(--tone-drop);
+  box-shadow: 0 0 0 3px var(--tone-ring);
+}
+/*
+ * Ждёт подтверждения: пунктир warning 1.5px. Owner 27.09.2026: положительный outline-offset рисует пунктир
+ * ЗА пределами рамки записи — у записей без зазора (конец одной встык с началом следующей) он наезжал на
+ * соседнюю карточку. Отрицательный offset держит пунктир внутри собственного прямоугольника записи — не может
+ * задеть соседнюю, какой бы ни была высота обеих.
+ */
+.pending {
+  outline: 1.5px dashed var(--color-warning);
+  outline-offset: -3px;
+}
+
 /* Капля цвета записи в списках (панель «Требует внимания») */
 .dot {
   background-color: var(--tone-drop);
 }
+
+/* Тёмная тема: тон кладём на тёмную поверхность, текст — светлый тон того же цвета (контраст ≥ 4.5:1 проверен) */
+:global(:root[data-theme='dark']) .card {
+  background-color: color-mix(in srgb, var(--tone-drop) 24%, var(--color-surface));
+}
+:global(:root[data-theme='dark']) .ink {
+  color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
+}
+:global(:root[data-theme='dark']) .drop {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone-drop) 45%, var(--color-surface));
+}
+
+/* ── Стиль «Google Calendar» (owner 08.10.2026, lib/journalStyle) ────────────────────────────────
+   Сплошная заливка цвета записи (--tone-solid: белый текст ≥ 4.5:1, ui/tone.ts), тонкая белая кромка отделяет
+   соседние события. Ждёт подтверждения — белая с пунктиром цвета записи; отменена / не пришёл — бледная. */
+.gCard {
+  position: relative;
+  background-color: var(--tone-solid);
+  color: #fff; /* tokens-ok — текст на сплошной заливке события, контраст проверен tone.solid */
+  box-shadow: 0 0 0 1px var(--color-surface);
+}
+/* Тень наведения — отдельным слоем, меняется только его opacity (не box-shadow) */
+.gCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sh-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+@media (hover: hover) {
+  .gCard:hover::after {
+    opacity: 1;
+  }
+}
 /* Точка — вход в карточку статуса: цвет лака записи в белом колечке; без лака — белая (на белой — цвета записи) */
-.drop {
+.gDrop {
   background-color: var(--tone-lacquer, color-mix(in srgb, #fff 85%, transparent)); /* tokens-ok — на сплошной заливке */
   box-shadow: 0 0 0 1.5px #fff; /* tokens-ok — колечко точки на заливке */
 }
-.pending,
-.dimmed {
+.gPending,
+.gDimmed {
   color: var(--tone-ink);
 }
-.pending {
+.gPending {
   background-color: var(--color-surface);
   outline: 1.5px dashed var(--tone-solid);
   outline-offset: -1.5px;
 }
-.dimmed {
+.gDimmed {
   background-color: var(--tone-fill);
 }
-.pending ~ * .drop,
-.dimmed ~ * .drop {
+.gPending ~ * .gDrop,
+.gDimmed ~ * .gDrop {
   background-color: var(--tone-lacquer, var(--tone-solid));
 }
 
 /* Тёмная тема: заливка чуть приглушена к поверхности, текст остаётся белым */
-:global(:root[data-theme='dark']) .card {
+:global(:root[data-theme='dark']) .gCard {
   background-color: color-mix(in srgb, var(--tone-solid) 82%, var(--color-surface));
 }
-:global(:root[data-theme='dark']) .pending {
+:global(:root[data-theme='dark']) .gPending {
   background-color: var(--color-surface);
 }
-:global(:root[data-theme='dark']) .pending,
-:global(:root[data-theme='dark']) .dimmed {
+:global(:root[data-theme='dark']) .gPending,
+:global(:root[data-theme='dark']) .gDimmed {
   color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
 }
-:global(:root[data-theme='dark']) .dimmed {
+:global(:root[data-theme='dark']) .gDimmed {
   background-color: color-mix(in srgb, var(--tone-drop) 18%, var(--color-surface));
 }
 
 /* Страница журнала — белая целиком, как у Google Calendar: сетка без рамки-карточки лежит прямо на ней */
-:global(main#content):has([data-journal-board]) {
+:global(main#content):has([data-journal-style='google']) {
   background-color: var(--color-surface);
 }
 
@@ -106,7 +161,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card::after {
+  .card,
+  .card::after,
+  .gCard::after {
     transition: none;
+  }
+  .card:hover,
+  .card:active {
+    transform: none;
   }
 }

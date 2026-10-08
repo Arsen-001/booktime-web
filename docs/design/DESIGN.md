@@ -11,7 +11,9 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 
 ## Journal (docs/design/mockups/A2-*.png)
 
-**08.10.2026 — owner: «очень похоже по дизайну на Google Calendar».** This overrides the card and grid rules below where they differ:
+**08.10.2026 — owner: two journal styles, each person picks one** («кто какой стиль захочет»): "BookTime" (everything below,
+unchanged) and "Google Calendar" («очень похоже по дизайну на Google Calendar»). The choice is in "⋯ More" → grid settings,
+stored on the device (`src/areas/journal/lib/journalStyle.ts`, default "Google Calendar"). The "Google Calendar" style:
 - The journal page is white end to end; the grid has no card frame (only a top border) and sits on the page.
 - Control row: "Today" outlined pill · round ‹ › · the date title in regular weight (not bold).
 - Grid: hour labels 10px muted at the line, no time pill; the "now" line is 2px danger with a 12px dot on the left.

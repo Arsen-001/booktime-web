@@ -41,6 +41,7 @@ import {
 } from "@/lib/date";
 import { BookingBlock } from "@/areas/journal/components/BookingBlock";
 import { NowLine } from "@/areas/journal/components/NowLine";
+import { renderedJournalStyle } from "@/areas/journal/lib/journalStyle";
 import {
   computeDayRange,
   hourTicks,
@@ -51,7 +52,7 @@ import {
   yToTime,
 } from "@/areas/journal/lib/grid";
 import { isNewClientBooking } from "@/areas/journal/lib/heuristics";
-import { bookingTone, CARD_MIN_HEIGHT } from "@/areas/journal/lib/board";
+import { bookingTone, cardSizes } from "@/areas/journal/lib/board";
 import { cardLabels, cardText } from "@/areas/journal/lib/cardText";
 import { useBookingStatusLabel } from "@/ui/BookingStatusBadge";
 import type { FirstLineMode } from "@/domain/journal";
@@ -106,6 +107,8 @@ export function WeekGrid({
   firstLineMode,
   showPhones,
 }: WeekGridProps) {
+  // Стиль, которым рисуется доска (lib/journalStyle): при смене стиля JournalScreen перемонтирует её
+  const google = renderedJournalStyle() === "google";
   const t = useT("journal");
   const tc = useT("common");
   const toast = useToast();
@@ -253,19 +256,21 @@ export function WeekGrid({
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <div
-        data-journal-board=""
         data-f="F-01-013 F-01-023 F-02-037 F-16-020"
-        className="scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface"
+        className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", google ? "border-t border-border" : "rounded-2xl border border-border")}
       >
         <div className="flex" style={{ minWidth: days.length * 160 + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">
-            <div className="sticky top-0 z-40 h-[5.5rem] shrink-0 border-b border-border bg-surface" />
+            <div className={cn("sticky top-0 z-40 shrink-0 border-b border-border bg-surface", google ? "h-[5.5rem]" : "h-14")} />
             <div className="relative" style={{ height: heightPx }}>
               {ticks.slice(1).map((m) => (
                 <span
                   key={m}
                   style={{ top: minutesToTop(m, range, zoomMin) }}
-                  className="absolute right-3 -translate-y-1/2 text-[10px] font-medium tracking-wide text-muted tabular-nums select-none"
+                  className={cn(
+                    "absolute -translate-y-1/2 text-muted tabular-nums select-none",
+                    google ? "right-3 text-[10px] font-medium tracking-wide" : "right-2 text-[11px]",
+                  )}
                 >
                   <TimeText value={format.time(`${start}T${String(Math.floor(m / 60)).padStart(2, "0")}:00`)} suffixClassName="text-[10px]" hourOnly />
                 </span>
@@ -286,25 +291,35 @@ export function WeekGrid({
                 key={day}
                 className="flex w-40 min-w-40 flex-1 flex-col border-l border-line"
               >
-                {/* Шапка дня как в Google Calendar: «ЧТ» мелко и число в круге, сегодня — круг цвета primary */}
+                {/* «Google Calendar»: «ЧТ» мелко и число в круге, сегодня — круг цвета primary; «BookTime» — «чт, 8 октября» */}
                 <div
                   className={cn(
-                    "sticky top-0 z-30 flex h-[5.5rem] shrink-0 flex-col items-center justify-center gap-0.5 border-b border-border bg-surface text-center",
-                    day === today() ? "text-primary-text" : day === date ? "text-fg" : "text-muted",
+                    "sticky top-0 z-30 flex shrink-0 flex-col items-center justify-center border-b border-border bg-surface text-center",
+                    google
+                      ? cn("h-[5.5rem] gap-0.5", day === today() ? "text-primary-text" : day === date ? "text-fg" : "text-muted")
+                      : cn("h-14", day === date && "text-primary-text"),
                   )}
                 >
-                  <span className="text-[11px] font-semibold tracking-wider uppercase">
-                    {format.date(day, "weekdayShort").split(",")[0]}
-                  </span>
-                  <span
-                    aria-label={format.date(day, "weekday")}
-                    className={cn(
-                      "grid size-11 place-items-center rounded-full text-2xl font-normal tabular-nums",
-                      day === today() ? "bg-primary text-primary-contrast" : "text-fg",
-                    )}
-                  >
-                    {Number(day.slice(8, 10))}
-                  </span>
+                  {google ? (
+                    <>
+                      <span className="text-[11px] font-semibold tracking-wider uppercase">
+                        {format.date(day, "weekdayShort").split(",")[0]}
+                      </span>
+                      <span
+                        aria-label={format.date(day, "weekday")}
+                        className={cn(
+                          "grid size-11 place-items-center rounded-full text-2xl font-normal tabular-nums",
+                          day === today() ? "bg-primary text-primary-contrast" : "text-fg",
+                        )}
+                      >
+                        {Number(day.slice(8, 10))}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="max-w-full truncate px-1 text-sm font-semibold">
+                      {format.date(day, "weekday")}
+                    </span>
+                  )}
                   {working ? (
                     isStaff ? (
                       <span className="text-[0.6875rem] text-muted">{`${hours[0].from}–${hours[hours.length - 1].to}`}</span>
@@ -384,7 +399,7 @@ export function WeekGrid({
                         )}
                         labels={labels}
                         top={top}
-                        height={Math.max(naturalHeight, CARD_MIN_HEIGHT)}
+                        height={Math.max(naturalHeight, cardSizes().min)}
                         naturalHeight={naturalHeight}
                         canMove={canCreate}
                         onOpen={openById}

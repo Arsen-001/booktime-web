@@ -15,6 +15,7 @@ import type { JournalZoomMin } from "@/domain/journal";
 import { cn } from "@/lib/cn";
 import { hourTicks, minutesToTop, rangeHeightPx, type DayRange } from "@/areas/journal/lib/grid";
 import { NowLine } from "@/areas/journal/components/NowLine";
+import { renderedJournalStyle } from "@/areas/journal/lib/journalStyle";
 import { Skeleton, SkeletonText } from "@/ui/Skeleton";
 import { useRememberedLayout } from "@/ui/hooks/useSkeletonCount";
 
@@ -71,7 +72,8 @@ export function DayGridSkeleton({ date, shape, zoomMin, columnsPerScreen, classN
     <div aria-busy className={cn("relative flex min-h-0 flex-col", className)}>
       <div
         className={cn(
-          "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface pb-24 md:pb-0",
+          "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface pb-24 md:pb-0",
+          renderedJournalStyle() === "google" ? "border-t border-border" : "rounded-2xl border border-border",
           columnsPerScreen && "@container snap-x scroll-pl-[52px]",
         )}
       >
@@ -109,6 +111,7 @@ export function DayGridSkeleton({ date, shape, zoomMin, columnsPerScreen, classN
                   <SkeletonText width="4.5ch" />
                 </span>
               ))}
+              <NowLine date={date} range={range} zoomMin={zoomMin} variant="pill" />
             </div>
             {cols.map((i) => (
               <div key={i} className={cn("border-l border-line", colClass)} style={colStyle}>

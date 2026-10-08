@@ -9,6 +9,7 @@ import type { BookingStatus } from "@/domain/core";
 import type { JournalZoomMin } from "@/domain/journal";
 import { useCan } from "@/demo/hooks";
 import { useT } from "@/i18n/useT";
+import { JOURNAL_STYLES, setJournalStyle, useJournalStyle, type JournalStyle } from "@/areas/journal/lib/journalStyle";
 import { useBookingStatusLabel } from "@/ui/BookingStatusBadge";
 import { Checkbox } from "@/ui/Checkbox";
 import { SegmentedControl } from "@/ui/SegmentedControl";
@@ -59,6 +60,7 @@ export function JournalGridSettings({
 }: JournalGridSettingsProps) {
   const t = useT("journal");
   const statusLabel = useBookingStatusLabel();
+  const journalStyle = useJournalStyle();
   // Перерыв визита и «Делить запись по ресурсам» — настройки всего салона (F-01-174/175): их меняет тот, у кого
   // settings.manage, как на странице «Цифровой журнал»; статусы и шаг сетки — личные, остаются всем
   const canSalonSettings = useCan("settings.manage");
@@ -72,6 +74,17 @@ export function JournalGridSettings({
 
   return (
     <div data-f="F-01-014 F-01-015" className="flex flex-col gap-5">
+      {/* Стиль журнала — выбор каждого, на этом устройстве (owner 08.10.2026, lib/journalStyle) */}
+      <div className="flex flex-col gap-1.5">
+        <Label>{t("toolbar.style.label")}</Label>
+        <SegmentedControl
+          size="sm"
+          aria-label={t("toolbar.style.label")}
+          value={journalStyle}
+          onValueChange={(v) => setJournalStyle(v as JournalStyle)}
+          options={JOURNAL_STYLES.map((style) => ({ value: style, label: t(`toolbar.style.${style}`) }))}
+        />
+      </div>
       <div className="flex flex-col gap-1.5">
         <Label>
           {hiddenStatuses.length > 0

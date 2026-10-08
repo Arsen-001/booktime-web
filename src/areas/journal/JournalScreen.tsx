@@ -49,6 +49,7 @@ import { MixedTypeChoice } from '@/areas/journal/components/MixedTypeChoice';
 import { DayGrid, type ColumnDef } from '@/areas/journal/components/DayGrid';
 import { EmptyDayState } from '@/areas/journal/components/EmptyDayState';
 import { JournalSidebar } from '@/areas/journal/components/JournalSidebar';
+import { setRenderedJournalStyle, useJournalStyle } from '@/areas/journal/lib/journalStyle';
 import { AttentionContent, AttentionPanel, useAttention, type AttentionData } from '@/areas/journal/components/AttentionPanel';
 import { DayTotals, DayTotalsSkeleton } from '@/areas/journal/components/DayTotals';
 import { DayGridSkeleton, useDayGridShape, useSaveDayGridShape } from '@/areas/journal/components/DayGridSkeleton';
@@ -98,6 +99,10 @@ const JOURNAL_FAVORITE: FavoriteSection = { id: 'journal', labelKey: 'sections.j
 
 export function JournalScreen() {
   const t = useT('journal');
+  // Стиль журнала — выбор каждого (lib/journalStyle): ставим его до любых расчётов сетки; доска и ряд управления
+  // перемонтируются по смене стиля (key) — раскладка всегда в одном стиле
+  const journalStyle = useJournalStyle();
+  setRenderedJournalStyle(journalStyle);
   const locale = useLocale();
   const router = useRouter();
   const params = useSearchParams();
@@ -989,6 +994,7 @@ export function JournalScreen() {
     // F-01-204: стартовая страница после входа — этот экран (redirect в src/app/biz/page.tsx).
     <div
       data-f="F-01-006 F-01-186 F-01-188 F-01-205 F-01-220 F-01-167 F-01-204 F-14-085 F-14-086 F-14-087 F-01-033 F-01-002"
+      data-journal-style={journalStyle}
       className="flex h-[calc(100dvh-148px)] min-h-[520px] flex-col md:h-[calc(100dvh-124px)] lg:h-[calc(100dvh-140px)]"
     >
       <h1 className="sr-only">{t('board.title')}</h1>
@@ -1043,7 +1049,7 @@ export function JournalScreen() {
           data-f="F-01-009 F-01-012 F-01-013 F-01-014 F-01-015"
           className="-mx-6 -mt-5 flex min-h-[72px] items-center gap-3 border-b border-border bg-surface px-4 lg:-mx-8 lg:-mt-7 lg:px-6"
         >
-          <JournalDateNav date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
+          <JournalDateNav key={journalStyle} date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {viewSwitch}
             {mastersPicker}
@@ -1061,7 +1067,7 @@ export function JournalScreen() {
         </div>
       )}
 
-      <div className="flex min-h-0 flex-1 gap-5 md:pt-4">
+      <div key={journalStyle} className="flex min-h-0 flex-1 gap-5 md:pt-4">
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           {/* Итоги и «Требует внимания» смонтированы и в неделе/месяце (скрыты): возврат в день их не пересоздаёт */}
           {!isMobile && (
