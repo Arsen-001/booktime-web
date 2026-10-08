@@ -11,6 +11,11 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 
 ## Journal (docs/design/mockups/A2-*.png)
 
+**The A2 code is removed (08.10.2026, owner «убери старый код A2»):** the sections below that describe A2 cards
+(«C · Тон», 30px time, the lacquer-tone fill, the pastel category palette, 96px hour) are history — the code only has
+BookTime («Живой день»), Google Calendar and iOS Calendar. Layout decisions of A2 that still hold (control row,
+"Needs attention" panel, phone header + week strip, working hours only) stay as written.
+
 **08.10.2026, late evening — owner: «Живой день» IS the "BookTime" style** («нужно было live day поставить вместо
 booktime»): the old A2 look below is no longer offered; a saved "booktime" choice opens «Живой день». Styles: BookTime
 (`live`), Google Calendar, iOS Calendar. Brought to the mockup: outlined ‹ ›, Manrope 26/800 title with a "today" chip;

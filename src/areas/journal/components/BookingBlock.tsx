@@ -1,13 +1,14 @@
 'use client';
 
 /**
- * Карточка записи в сетке журнала — в стиле, который выбрал человек (lib/journalStyle):
- *  - «BookTime» — «C · Тон» (docs/design/DESIGN.md, Cards2.png колонка C): вся карточка — светлый тон оттенка лака
- *    (или цвета категории услуги), крупное время — тёмным тоном того же цвета, имя, «услуга · до HH:MM», белая
- *    пилюля «статус · лак», капля лака справа вверху, пунктир у «ждёт подтверждения»;
- *  - «Google Calendar» (owner 08.10.2026) — сплошная заливка цвета услуги с белым текстом, мелкий шрифт: имя,
- *    «11:00 – 12:00», услуга, статус; короткая — одной строкой «Имя, 11:00»; лак — точкой; ждёт подтверждения —
- *    белая с пунктиром цвета записи, отменённая и «не пришёл» — бледная и зачёркнутая.
+ * Карточка записи в сетке журнала — в виде, который выбрал человек (lib/journalStyle):
+ *  - «BookTime» («Живой день», owner 08.10.2026, макет https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z): тон услуги,
+ *    крупное время и длительность, имя и «новый», услуга, внизу цена и статус; прошедшее приглушено, идущий визит —
+ *    primary с прогрессом, опоздание — розовая рамка, «Позвонить», ждёт ответа — белая с жёлтой рамкой;
+ *  - «Google Calendar» — сплошная заливка цвета услуги с белым текстом, мелкий шрифт; короткая — «Имя, 11:00»;
+ *  - «Календарь iOS» — подкраска с полосой слева.
+ * Лак — точкой своего цвета в углу (вход в карточку статуса). Прежний вид A2 («C · Тон», крупное время 30px) убран
+ * 08.10.2026 — его заменил «Живой день».
  * Функции прежнего блока сохранены: F-01-026, F-01-027, F-01-214, F-01-031 (растягивание), F-01-032 (перерыв),
  * F-01-028/051/052 (метки, свои категории, ручной цвет — `BookingExtras`), F-01-110/111/114 (перенос), F-01-171,
  * F-16-022, F-16-127.
@@ -44,21 +45,7 @@ const MANUAL_COLOR_BORDER: Record<number, string> = {
   8: 'border-l-chart-8',
 };
 
-/**
- * Единый масштаб карточки (owner 27.09.2026, DESIGN.md → «C · Тон»): время всегда 30px/800, имя всегда одного
- * размера под ним, паддинги и капля лака — тоже одни на все карточки. Разного размера карточка была раньше по
- * ВЫСОТЕ (см. lib/board.CARD_MIN_HEIGHT и lib/grid.pxPerMin) — не по шрифту.
- */
-const TIME_SIZE = 'num-display';
-const NAME_SIZE = 'mt-1 truncate pr-1 text-[13px] leading-tight font-semibold text-fg';
-const CARD_PADDING = 'px-3 pt-2.5 pb-2';
-/** Короткая карточка на телефоне: с этой высоты под именем помещается вторая строка (услуга), ниже — только имя */
-const COMPACT_PHONE_TWO_LINES_FROM = 50;
-const DROP_SIZE = 'size-[18px]';
-const DROP_BUTTON =
-  'absolute top-0 right-0 z-20 inline-flex size-10 items-start justify-end p-2.5 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus';
-
-/** Стиль «Google Calendar» (owner 08.10.2026): мелкий текст события, белая точка вместо капли */
+/** Мелкий текст события (все три вида) и точка — вход в карточку статуса; зона нажатия 40px (на компьютере 36px) */
 const G_NAME = 'truncate pr-3 text-xs leading-4 font-semibold';
 const G_LINE = 'truncate text-xs leading-4';
 const G_PADDING = 'px-2 py-1';
@@ -163,8 +150,6 @@ function BookingBlockInner({
   const ios = style === 'ios';
   const live = style === 'live';
   const liveNow = live && phase === 'now';
-  // «Google» и «iOS» — мелкий текст события и точка вместо капли; различаются заливкой и порядком строк
-  const small = google || ios || live;
   const sizes = cardSizes();
 
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({
@@ -252,15 +237,15 @@ function BookingBlockInner({
     onMouseEnter: openStatusCardOnHover,
     onMouseLeave: closeStatusCardOnHover,
     onBlur: closeStatusCardOnHover,
-    className: small ? G_DROP_BUTTON : DROP_BUTTON,
+    className: G_DROP_BUTTON,
   };
   const drop = (
     <span
       aria-hidden
       className={cn(
-        google ? styles.gDrop : ios || live ? styles.iDrop : styles.drop,
+        google ? styles.gDrop : styles.iDrop,
         'block rounded-full',
-        small ? G_DROP_SIZE : DROP_SIZE,
+        G_DROP_SIZE,
         liveNow && 'ring-2 ring-primary-contrast',
         // BookTime, как в макете: точки нет, если у записи нет лака (вход в карточку статуса остаётся на месте)
         live && !tone.lacquerHex && 'opacity-0',
@@ -286,7 +271,6 @@ function BookingBlockInner({
         // Google: справа зазор, в него можно нажать, чтобы создать запись на это же время
         google ? 'absolute right-2 left-0.5 z-10' : ios ? 'absolute right-1 left-0.5 z-10' : live ? 'absolute right-2 left-1.5 z-10' : 'absolute inset-x-1 z-10',
         isDragging && 'z-30 opacity-80',
-        !small && text.dimmed && 'opacity-60',
         className,
       )}
     >
@@ -301,11 +285,11 @@ function BookingBlockInner({
             onOpen(booking.id);
           }}
           className={cn(
-            google ? styles.gCard : ios ? styles.iCard : live ? cn(styles.lCard, liveNow && styles.lNow, phase === 'past' && styles.lPast) : styles.card,
+            google ? styles.gCard : ios ? styles.iCard : cn(styles.lCard, liveNow && styles.lNow, phase === 'past' && styles.lPast),
             'flex h-full w-full flex-col overflow-hidden text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
-            google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : live ? 'gap-px rounded-[10px] px-2.5 py-1.5' : cn('rounded-xl', CARD_PADDING),
-            text.pending && (google ? styles.gPending : ios ? styles.iPending : live ? styles.lPending : styles.pending),
-            text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : live ? styles.lPast : undefined),
+            google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : 'gap-px rounded-[10px] px-2.5 py-1.5',
+            text.pending && (google ? styles.gPending : ios ? styles.iPending : styles.lPending),
+            text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : styles.lPast),
             manualColorClass && cn('border-l-[3px]', manualColorClass),
             highlighted && 'ring-2 ring-primary ring-offset-1 ring-offset-surface',
             late && !highlighted && (live ? styles.lLate : 'ring-2 ring-danger ring-offset-1 ring-offset-surface'),
@@ -397,7 +381,7 @@ function BookingBlockInner({
                 </>
               )}
             </>
-          ) : google ? (
+          ) : (
             <>
               {/* Как в Google Calendar (owner 08.10.2026): короткая — одной строкой «Имя, 11:00», выше — имя, «11:00 – 12:00»,
                   услуга, статус (пороги — lib/board.cardSizes). Метки клиента, телефон, комментарий —
@@ -424,57 +408,6 @@ function BookingBlockInner({
                     </span>
                   )}
                   {displayHeight >= sizes.pill && <span className={cn(G_LINE, 'mt-auto opacity-80')}>{text.pill}</span>}
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {/* DESIGN.md → «C · Тон»: один масштаб на все карточки (owner 27.09.2026) — время всегда 30px/800,
-                  имя всегда одного размера под ним. Карточка держит ровно 4 строки данных (время, имя, «услуга ·
-                  до HH:MM», пилюля «статус · лак») — «никаких цветных шапок, никакого стека значков». Телефон,
-                  метки клиента/своя категория, значок статуса, «Новый клиент» и занятость ресурса остались
-                  функциями (см. карточку статуса F-01-029 и окно записи), но не рисуются здесь второй раз. */}
-              {compact ? (
-                // Короче CARD_STACK_FROM (запись меньше часа): те же шрифты, время слева, имя и услуга справа —
-                // ничего не налезает на соседнюю запись. Полная информация — в карточке статуса и окне записи.
-                // Телефон (решение 01.10.2026): узкая колонка не вмещает крупное время и имя — время не выводим (оно на оси,
-                // в aria-label и окне записи), первым идёт имя клиента; услуга — второй строкой, если на неё хватает высоты.
-                <span className="flex min-w-0 items-start gap-2.5">
-                  <span className={cn(styles.ink, TIME_SIZE, 'shrink-0 max-md:hidden', text.dimmed && 'line-through')}><TimeText value={text.time} suffixClassName="text-xs" /></span>
-                  <span className="flex min-w-0 flex-col pt-0.5 pr-5">
-                    <span data-f="F-01-128 F-01-171" className={cn(NAME_SIZE, 'mt-0', text.dimmed && 'max-md:line-through')}>
-                      {/* ⭐ Запись на сдачу: на телефоне вторая строка («Сдача: …») у короткой записи не помещается — значок у имени */}
-                      {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
-                      {text.pickup && <PackageCheck aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
-                      {text.primary}
-                    </span>
-                    <span className={cn(styles.ink, 'truncate text-xs leading-snug opacity-90', displayHeight < COMPACT_PHONE_TWO_LINES_FROM && 'max-md:hidden')}>
-                      {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                      {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                      {text.secondary}
-                    </span>
-                  </span>
-                </span>
-              ) : (
-                // DESIGN.md → A2 / «C · Тон», как в одобренном макете: время и имя всегда, «услуга · до» с CARD_SERVICE_FROM,
-                // пилюля «статус · лак» с CARD_PILL_FROM.
-                <>
-                  <span className={cn(styles.ink, TIME_SIZE, 'pr-6', text.dimmed && 'line-through')}><TimeText value={text.time} suffixClassName="text-xs" /></span>
-                  <span data-f="F-01-128 F-01-171" className={NAME_SIZE}>
-                    {text.primary}
-                  </span>
-                  {displayHeight >= sizes.service && (
-                    <span className={cn(styles.ink, 'mt-0.5 truncate text-xs leading-snug opacity-90')}>
-                      {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                      {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                      {text.secondary}
-                    </span>
-                  )}
-                  {displayHeight >= sizes.pill && (
-                    <span className="mt-auto flex max-w-full items-center gap-1 self-start rounded-full bg-surface px-2 py-0.5 text-[11px] leading-4 font-semibold text-primary-text">
-                      <span className="truncate">{text.pill}</span>
-                    </span>
-                  )}
                 </>
               )}
             </>

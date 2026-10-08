@@ -75,14 +75,9 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
             <ChevronLeft aria-hidden className="size-6" strokeWidth={2.5} />
             {capitalize(format.monthName(date))}
           </span>
-        ) : google ? (
+        ) : (
           // «Google Calendar»: месяц обычным шрифтом с ▾, как в приложении Google
           <span className="flex items-center gap-1 text-[22px] leading-tight text-fg">
-            {capitalize(format.monthName(date))}
-            <DropdownChevron />
-          </span>
-        ) : (
-          <span className="flex items-center gap-1 text-xl leading-tight font-bold text-fg">
             {capitalize(format.monthName(date))}
             <DropdownChevron />
           </span>

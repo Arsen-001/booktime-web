@@ -80,20 +80,6 @@ export function dayTotals(bookings: Booking[], hoursByStaff: Record<Id, DayHours
 }
 
 /**
- * Цвет категорий услуг — данные, а не токены темы: из цвета карточка строит свой тон (светлая заливка + тёмное
- * время), токенов под это нет. Спокойные «лаковые» оттенки, различимые между собой.
- */
-const CATEGORY_HEX = [
-  '#d98a9e', // tokens-ok — розовый
-  '#8fb9a8', // tokens-ok — шалфей
-  '#a896d6', // tokens-ok — лаванда
-  '#e2a878', // tokens-ok — персик
-  '#7fa3d1', // tokens-ok — голубой
-  '#c9a95c', // tokens-ok — песок
-  '#9cb4c4', // tokens-ok — туман
-  '#cf8fbf', // tokens-ok — орхидея
-];
-/**
  * Стиль «Google Calendar» (owner 08.10.2026): яркие цвета событий — все держат белый текст ≥ 4.5:1 сами, без
  * затемнения (затемнённые светлые лаки выходили бурыми, поэтому там заливка — по услуге, а лак — точкой).
  */
@@ -160,13 +146,8 @@ function hashString(s: string): number {
 }
 
 /**
- * Тон карточки: оттенок лака записи, если он есть, иначе цвет — по конкретной услуге (DESIGN.md → «C · Тон»);
- * в стиле «Google Calendar» — всегда цвет услуги, лак — точкой (lacquerHex).
- * Owner 27.09.2026 («почти все карточки розовые»): индекс раньше брали от КАТЕГОРИИ первой услуги — в салоне
- * ногтевого сервиса «Маникюр» одна категория держит и классический, и аппаратный, и мужской, и детский
- * маникюр разом, так что почти весь день красился в CATEGORY_HEX[0]. Индекс от id самой услуги держит те же
- * 8 «лаковых» оттенков, но разводит их между услугами одной категории — заливка всё ещё проходит через
- * tone.ts, контраст ≥4.5:1 не меняется.
+ * Тон карточки — цвет по конкретной услуге (не по категории: owner 27.09.2026 «почти все карточки розовые», одна
+ * категория «Маникюр» держит много услуг) в палитре выбранного вида; лак — отдельно, точкой (lacquerHex).
  */
 export function bookingTone(
   booking: Pick<Booking, 'services'>,
@@ -184,35 +165,10 @@ export function bookingTone(
     const base = cachedTone(IOS_HEX[idx % IOS_HEX.length]);
     return lacquer ? { ...base, lacquerName: lacquer.name, lacquerHex: lacquer.hex } : base;
   }
-  if (renderedJournalStyle() === 'google') {
-    // Заливка — всегда яркий цвет услуги; лак — точкой своего цвета на событии
-    const base = cachedTone(GOOGLE_HEX[idx % GOOGLE_HEX.length]);
-    return lacquer ? { ...base, lacquerName: lacquer.name, lacquerHex: lacquer.hex } : base;
-  }
-  if (lacquer) return { ...cachedTone(lacquer.hex), lacquerName: lacquer.name, lacquerHex: lacquer.hex };
-  return cachedTone(CATEGORY_HEX[idx % CATEGORY_HEX.length]);
+  // «Google Calendar»: заливка — всегда яркий цвет услуги; лак — точкой своего цвета на событии
+  const base = cachedTone(GOOGLE_HEX[idx % GOOGLE_HEX.length]);
+  return lacquer ? { ...base, lacquerName: lacquer.name, lacquerHex: lacquer.hex } : base;
 }
-
-/**
- * Единый масштаб карточки записи (owner 27.09.2026: «не нравится, что элементы разного размера»).
- * Раньше карточка ниже 64px переключала время/имя на мелкий шрифт (22/18px) и укладывала их в одну строку —
- * при листании дня получалось три разных на вид типа карточек. Теперь текст всегда одного размера
- * (BookingBlock.TIME_SIZE/NAME_SIZE), а подбирает это высота строки сетки (lib/grid.pxPerMin): CARD_MIN_HEIGHT —
- * минимум, которого хватает «время + имя» при стандартном размере (сама сетка уже держит 30 минут выше этого
- * порога, см. pxPerMin); только записи короче — редкие 15-минутные — растягиваются в него принудительно и
- * заходят на соседнюю строку, а не переключают карточку на другую раскладку.
- */
-export const CARD_MIN_HEIGHT = 44;
-/**
- * Owner 27.09.2026: «нравится дизайн как в макете» (A2). Шрифты одни на все карточки; содержимое — по высоте, как в
- * макете: с CARD_STACK_FROM время и имя столбиком, с CARD_SERVICE_FROM + «услуга · до», с CARD_PILL_FROM + пилюля.
- * Ниже CARD_STACK_FROM — строка «время | имя, услуга» тех же размеров; CARD_MIN_HEIGHT — сколько ей нужно.
- */
-export const CARD_STACK_FROM = 76;
-/** Строка «услуга · до HH:MM» — с этой высоты карточки */
-export const CARD_SERVICE_FROM = 96;
-/** Пилюля «статус · лак» — с этой высоты карточки */
-export const CARD_PILL_FROM = 120;
 
 export interface CardSizes {
   min: number;
@@ -221,16 +177,14 @@ export interface CardSizes {
   pill: number;
 }
 /**
- * Пороги карточки в стиле, которым рисуется доска. «Google Calendar» (owner 08.10.2026) — мелкий текст события,
- * пороги ниже: одна строка «Имя, 11:00» до stack, дальше имя и «11:00 – 12:00» столбиком, услуга, статус.
+ * Пороги карточки в виде, которым рисуется доска (мелкий текст события): одна строка до stack, дальше столбиком;
+ * с service — услуга, с pill — цена и статус (BookTime) или статус и лак (Google, iOS).
  */
 export function cardSizes(): CardSizes {
   const style = renderedJournalStyle();
   if (style === 'ios') return { min: 40, stack: 44, service: 58, pill: 78 };
   // «Живой день»: до stack — строка «10:30 Имя», дальше время+длительность, имя, услуга, внизу цена и статус
   if (style === 'live') return { min: 40, stack: 50, service: 62, pill: 80 };
-  return style === 'google'
-    ? // min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись (30px) заходит на следующую, строка видна
-      { min: 40, stack: 44, service: 54, pill: 72 }
-    : { min: CARD_MIN_HEIGHT, stack: CARD_STACK_FROM, service: CARD_SERVICE_FROM, pill: CARD_PILL_FROM };
+  // «Google Calendar». min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись заходит на следующую
+  return { min: 40, stack: 44, service: 54, pill: 72 };
 }
