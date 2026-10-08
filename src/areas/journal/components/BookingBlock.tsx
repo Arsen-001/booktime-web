@@ -349,10 +349,12 @@ function BookingBlockInner({
                       </span>
                     )
                   ) : (
+                    // У опоздавшего с номером внизу — «Позвонить» (поверх карточки), цена и статус не нужны
+                    !(late && text.callHref) &&
                     displayHeight >= sizes.pill && (
                       <span className="mt-auto flex items-center justify-between gap-2 text-xs leading-4 font-semibold">
                         <span className="truncate">{text.price}</span>
-                        <span className="truncate rounded-full bg-surface/75 px-1.5 text-[10.5px] text-fg">{text.statusLabel}</span>
+                        <span className="truncate rounded-full bg-surface/75 px-1.5 text-[10.5px] text-fg">{text.liveStatus}</span>
                       </span>
                     )
                   )}
@@ -516,6 +518,16 @@ function BookingBlockInner({
           >
             {drop}
           </button>
+        )}
+        {/* «Живой день»: опоздавшему — «Позвонить» прямо на карточке (номер, если он виден сотруднику) */}
+        {live && late && text.callHref && displayHeight >= sizes.service && (
+          <a
+            href={text.callHref}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute bottom-1.5 left-2.5 z-20 inline-flex h-7 items-center rounded-full bg-danger px-3 text-xs font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+          >
+            {labels.liveCall}
+          </a>
         )}
         {canResize && onResize && pxPerMin && (
           <div

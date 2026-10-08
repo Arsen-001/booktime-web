@@ -76,6 +76,7 @@ import {
   type Gap,
 } from "@/areas/journal/lib/board";
 import styles from "@/areas/journal/board.module.css";
+import type { OfferGap } from "@/areas/journal/components/GapOfferSheet";
 import {
   combineBreakMin,
   computeDayRange,
@@ -141,6 +142,8 @@ export interface DayGridProps {
   /** Право «Перенос записи» — растягивание длительности (F-01-031) */
   canResize: boolean;
   onCreate: (columnId: Id, startTime: string) => void;
+  /** «Живой день»: «Предложить» на свободном окне — шторка листа ожидания и горящего окна (GapOfferSheet) */
+  onOfferGap?: (gap: OfferGap) => void;
   onOpen: (bookingId: Id) => void;
   groupEventsByColumn?: Record<Id, GroupEvent[]>;
   participantCountByEvent?: Record<Id, number>;
@@ -209,6 +212,7 @@ export function DayGrid({
   canCreate,
   canResize,
   onCreate,
+  onOfferGap,
   onOpen,
   groupEventsByColumn = {},
   seriesDefsById = {},
@@ -746,37 +750,56 @@ export function DayGrid({
                         </button>
                       );
                     })}
-                    {/* «Живой день»: свободное окно от часа — фирменные точки и «+ Записать» на его начало */}
+                    {/* «Живой день»: свободное окно от часа — фирменные точки, «+ Записать» на его начало и «Предложить»
+                        (лист ожидания и горящее окно — GapOfferSheet); сегодня длинное окно помечено «горит» */}
                     {live &&
                       !slotGaps &&
                       (liveInfo?.[colIndex].gaps ?? []).map((g) => {
                         const gapHeight = (g.to - g.from) * ppm;
                         const from = format.time(`${date}T${fromMinutes(g.from)}`);
                         const to = format.time(`${date}T${fromMinutes(g.to)}`);
+                        const hot = date === today() && g.to - g.from >= 120;
                         return (
-                          <button
+                          <div
                             key={`free-${g.from}`}
-                            type="button"
-                            disabled={!canCreate}
-                            aria-label={`${t("board.live.free", { from, to })}, ${t("board.live.book")}`}
+                            role="group"
+                            aria-label={t("board.live.free", { from, to })}
                             style={{ top: minutesToTop(g.from, range, zoomMin) + 2, height: gapHeight - 4 }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onCreate(column.id, fromMinutes(g.from));
-                            }}
+                            onClick={(e) => e.stopPropagation()}
                             className={cn(
                               styles.lFree,
-                              "absolute right-2 left-1.5 z-[1] flex flex-col items-start gap-0.5 overflow-hidden rounded-[10px] px-2.5 py-1.5 text-left text-xs leading-4 disabled:cursor-default",
+                              "absolute right-2 left-1.5 z-[1] flex flex-col items-start gap-0.5 overflow-hidden rounded-[10px] px-2.5 py-1.5 text-xs leading-4",
                             )}
                           >
                             <span className="text-[13px] font-semibold">{t("board.live.free", { from, to })}</span>
-                            <span className="opacity-90">{format.duration(g.to - g.from)}</span>
-                            {canCreate && gapHeight >= 84 && (
-                              <span className="mt-auto inline-flex h-7 items-center rounded-full bg-primary px-3 font-semibold text-primary-contrast">
-                                + {t("board.live.book")}
+                            <span className="opacity-90">
+                              {format.duration(g.to - g.from)}
+                              {hot && <span className="font-semibold text-danger"> · {t("board.live.hot")}</span>}
+                            </span>
+                            {canCreate && gapHeight >= 70 && (
+                              <span className="mt-auto flex flex-wrap gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => onCreate(column.id, fromMinutes(g.from))}
+                                  className="inline-flex h-7 items-center rounded-full bg-primary px-3 font-semibold text-primary-contrast transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                                >
+                                  + {t("board.live.book")}
+                                </button>
+                                {onOfferGap && column.kind === "staff" && (
+                                  <button
+                                    type="button"
+                                    onClick={() => onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to })}
+                                    className={cn(
+                                      "inline-flex h-7 items-center rounded-full px-3 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus",
+                                      hot ? "bg-danger text-primary-contrast hover:opacity-90" : "bg-surface text-primary-text ring-1 ring-primary/30 hover:bg-primary-soft",
+                                    )}
+                                  >
+                                    {t("board.live.offer")}
+                                  </button>
+                                )}
                               </span>
                             )}
-                          </button>
+                          </div>
                         );
                       })}
                     {markupLines.map((m) => (

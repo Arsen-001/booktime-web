@@ -19,7 +19,11 @@ red ring and "late N min". Free windows ≥1 h (from now, today; whole day ahead
 "+ Book" at their start. Master header: load ring in the master's colour around the avatar, "68% · 33 000 ֏" and what
 the master is doing now (with whom until when / waiting for whom / free until — only within working hours). Above the grid
 the "day pulse" (`LivePulse`) replaces the "now" row and the totals. Phone: running visits as primary cards with a ring
-above the grid (`LiveNowStrip`). The "now" line lies under the cards. Scale 1.4 / 1.8 / 2.2 px per minute.
+above the grid (`LiveNowStrip`) and "Payment" / "+15 min" (overlap-checked); the week strip shows a load bar per day. The
+"now" line lies under the cards. Scale 1.4 / 1.8 / 2.2 px per minute. A free window has "+ Book" and "Offer" (`GapOfferSheet`:
+waitlist and hot window to subscribers, as in "Find a slot"); today a window of 2 h+ is marked "hot" and its "Offer" is red.
+A late card shows "Call" (tel:, only if the phone is visible to this employee); the card status says "prepaid" / "awaiting
+prepayment" when the booking has a prepayment. Not built from the mockup: "coffee served" (no such data).
 
 **08.10.2026 — owner: two journal styles, each person picks one** («кто какой стиль захочет»): "BookTime" (everything below,
 unchanged) and "Google Calendar" («очень похоже по дизайну на Google Calendar»). The choice is in "⋯ More" → grid settings,

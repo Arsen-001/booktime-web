@@ -27,6 +27,10 @@ export interface CardText {
   duration: string;
   until: string;
   price: string;
+  /** «Живой день»: статус внизу карточки — с предоплатой «предоплата внесена» / «ждёт предоплату», иначе статус записи */
+  liveStatus: string;
+  /** «Живой день»: «Позвонить» опоздавшему — только если номер виден этому сотруднику */
+  callHref?: string;
   primary: string;
   secondary: string;
   pill: string;
@@ -54,8 +58,9 @@ export interface CardText {
 /** Постоянные подписи карточек (одинаковые для всех) */
 export interface CardLabels {
   newClient: string;
-  /** «Живой день»: подпись идущего визита */
+  /** «Живой день»: подпись идущего визита и «Позвонить» опоздавшему */
   liveNow: string;
+  liveCall: string;
   online: string;
   statusCard: string;
   resizeHandle: string;
@@ -71,6 +76,7 @@ export function cardLabels(t: JournalT, format: Formatter): CardLabels {
   return {
     newClient: t('board.card.newClient'),
     liveNow: t('board.live.now'),
+    liveCall: t('board.live.call'),
     online: t('board.card.online'),
     statusCard: t('board.card.statusCard'),
     resizeHandle: t('block.resizeHandle'),
@@ -147,6 +153,12 @@ export function cardText(
     duration: format.duration(booking.durationMin),
     until,
     price: booking.total > 0 ? format.money(booking.total) : '',
+    liveStatus: booking.prepayment
+      ? booking.prepayment.paid
+        ? t('board.live.prepaid')
+        : t('board.live.prepayWait')
+      : statusLabel(booking.status),
+    callHref: showPhones && client?.phone ? `tel:${client.phone}` : undefined,
     detail:
       (firstLineMode === 'clientName' ? serviceNames : (clientName ?? noClient)) +
       (booking.visitorName && client?.name ? ` · ${booking.visitorName}` : ''),

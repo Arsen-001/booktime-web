@@ -63,6 +63,7 @@ import { OFFER_GAP_EVENT } from '@/areas/journal/lib/visitTiming';
 import { NEXT_VISIT_EVENT, findNextVisitSlot, repeatDaysOf } from '@/areas/journal/lib/nextVisit';
 import { CONFIRM_TOMORROW_EVENT, ConfirmTomorrowSheet } from '@/areas/journal/components/ConfirmTomorrowSheet';
 import { FreeTodaySheet } from '@/areas/journal/components/FreeTodaySheet';
+import { GapOfferSheet, type OfferGap } from '@/areas/journal/components/GapOfferSheet';
 import { WorkdaySheets } from '@/areas/journal/components/workday/WorkdaySheets';
 import { JournalDateNav, shiftDate } from '@/areas/journal/components/JournalDateNav';
 import { JournalWorkday } from '@/areas/journal/components/JournalWorkday';
@@ -151,6 +152,8 @@ export function JournalScreen() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [confirmTomorrowOpen, setConfirmTomorrowOpen] = useState(false);
   const [freeTodayOpen, setFreeTodayOpen] = useState(false);
+  // «Живой день»: «Предложить» на свободном окне сетки
+  const [offerGap, setOfferGap] = useState<OfferGap | null>(null);
   // «Закончили раньше» / «Начать сейчас» освободили время — «Предложить окно» в тосте открывает «Свободно сегодня»;
   // «Напомнить» в «Требует внимания» — шторку «Подтвердить завтра»
   useEffect(() => {
@@ -929,6 +932,7 @@ export function JournalScreen() {
         slotGaps={slotService ? slotGapsByColumn : undefined}
         slotDurationMin={slotService?.durationMin}
         onPickSlot={pickSlot}
+        onOfferGap={businessId ? setOfferGap : undefined}
       />
   );
   // Виды дня «Обзор / Лента / Список» — те же колонки и записи, что у сетки; «Колонки» (DayGrid) при этом лишь скрыты
@@ -1089,6 +1093,7 @@ export function JournalScreen() {
                 staff={staffWithSchedule}
                 services={services}
                 onOpen={openBooking}
+                canExtend={canReschedule}
               />
             </div>
           )}
@@ -1379,6 +1384,17 @@ export function JournalScreen() {
         <SharedWindowFrame
           bookingId={bookingId}
           className="pointer-events-none fixed inset-x-0 bottom-0 z-[45] h-[90dvh] rounded-t-2xl sm:inset-y-0 sm:right-0 sm:left-auto sm:h-dvh sm:w-[min(60rem,calc(100vw-5rem))] sm:rounded-l-2xl sm:rounded-tr-none"
+        />
+      )}
+
+      {businessId && (
+        <GapOfferSheet
+          gap={offerGap}
+          onClose={() => setOfferGap(null)}
+          businessId={businessId}
+          date={date}
+          staff={staffWithSchedule}
+          services={services}
         />
       )}
 

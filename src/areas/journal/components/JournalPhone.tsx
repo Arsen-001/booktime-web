@@ -122,6 +122,7 @@ export function WeekStrip({ date, onDateChange, staffIds }: WeekStripProps) {
     enabled: staffIds.length > 0,
   });
   const now = today();
+  const live = renderedJournalStyle() === 'live';
   if (renderedJournalStyle() === 'google') {
     // «Google Calendar»: буква дня над числом, сегодня — синий круг, выбранный другой день — светло-синий
     return (
@@ -214,7 +215,17 @@ export function WeekStrip({ date, onDateChange, staffIds }: WeekStripProps) {
             <span className={cn('text-xl leading-none font-bold tabular-nums', d === now && !selected && 'text-primary-text')}>
               {Number(d.slice(8, 10))}
             </span>
-            <span aria-hidden className={cn('size-1 rounded-full', busy ? (selected ? 'bg-primary-contrast' : 'bg-primary') : 'bg-transparent')} />
+            {live ? (
+              // «Живой день»: под числом — полоска загрузки дня вместо точки «есть записи»
+              <span aria-hidden className={cn('block h-[3px] w-6 overflow-hidden rounded-full', selected ? 'bg-primary-contrast/30' : 'bg-surface-3')}>
+                <span
+                  className={cn('block h-full rounded-full', selected ? 'bg-primary-contrast' : 'bg-primary')}
+                  style={{ width: `${Math.round((loadQuery.data?.[d]?.ratio ?? 0) * 100)}%` }}
+                />
+              </span>
+            ) : (
+              <span aria-hidden className={cn('size-1 rounded-full', busy ? (selected ? 'bg-primary-contrast' : 'bg-primary') : 'bg-transparent')} />
+            )}
           </button>
         );
       })}
