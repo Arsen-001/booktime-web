@@ -48,8 +48,21 @@ export function NowLine({ date, range, zoomMin, variant = "line" }: NowLineProps
   const mm = String(now.getMinutes()).padStart(2, "0");
   const label = format.time(`${date}T${hh}:${mm}`);
 
-  const google = renderedJournalStyle() === "google";
+  const style = renderedJournalStyle();
+  const google = style === "google";
   if (variant === "pill" && google) return null;
+  // «Календарь iOS»: красное время у оси без плашки (фон прячет подпись часа под ним)
+  if (variant === "pill" && style === "ios")
+    return (
+      <span
+        role="img"
+        aria-label={t("board.now", { time: label })}
+        style={{ transform: `translateY(${top}px)` }}
+        className="pointer-events-none absolute top-0 right-1 z-20 -mt-2 bg-surface px-0.5 text-[11px] leading-4 font-semibold text-danger tabular-nums"
+      >
+        <TimeText value={label} suffixClassName="text-[10px]" />
+      </span>
+    );
   if (variant === "pill")
     return (
       <span
@@ -62,6 +75,14 @@ export function NowLine({ date, range, zoomMin, variant = "line" }: NowLineProps
       </span>
     );
 
+  if (style === "ios")
+    return (
+      <div
+        aria-hidden
+        style={{ transform: `translateY(${top}px)` }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 -mt-px h-0.5 bg-danger before:absolute before:-top-[3px] before:-left-1 before:size-2 before:rounded-full before:bg-danger before:content-['']"
+      />
+    );
   // Стиль «Google Calendar» (08.10.2026): пилюли со временем нет — линия с точкой у левого края, время в подписи
   if (google)
     return (

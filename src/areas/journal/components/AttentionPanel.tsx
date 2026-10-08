@@ -228,9 +228,9 @@ export function AttentionPanel({ loading, ...props }: AttentionData & { loading?
   const t = useT('journal');
   const wide = useMediaQuery('(min-width: 1440px)');
   const [pref, setPref] = useState<boolean | null>(() => (typeof window === 'undefined' ? null : readPref()));
-  // Стиль «Google Calendar»: справа по умолчанию узкая полоса значков, как у Google (раскрыть — по нажатию)
-  const google = renderedJournalStyle() === 'google';
-  const open = pref ?? (wide && !google);
+  // «Google» и «Календарь iOS»: справа по умолчанию узкая полоса значков, как у них (раскрыть — по нажатию)
+  const flat = renderedJournalStyle() !== 'booktime';
+  const open = pref ?? (wide && !flat);
   // Панель выезжает, только когда её открыли/свернули сейчас; при открытии страницы она уже на месте — без движения
   const [moved, setMoved] = useState(false);
   const desktop = !useIsMobile();
@@ -264,7 +264,7 @@ export function AttentionPanel({ loading, ...props }: AttentionData & { loading?
         className={cn(
           moved && styles.stripIn,
           'h-full flex-col items-center gap-4 bg-surface py-3',
-          google ? 'border-l border-border' : 'rounded-2xl border border-border',
+          flat ? 'border-l border-border' : 'rounded-2xl border border-border',
           !open && 'flex',
         )}
       >

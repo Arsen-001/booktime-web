@@ -29,6 +29,8 @@ export const MAX_DURATION_MIN = 23 * 60 + 55;
 export function pxPerMin(zoomMin: JournalZoomMin): number {
   // Стиль «Google Calendar» (owner 08.10.2026): мелкий текст события, час 60px при шаге 15 мин (у Google 48px)
   if (renderedJournalStyle() === 'google') return zoomMin === 5 ? 1.8 : zoomMin === 10 ? 1.3 : 1.0;
+  // Стиль «Календарь iOS»: час 72px при шаге 15 мин — как день в Календаре iPad
+  if (renderedJournalStyle() === 'ios') return zoomMin === 5 ? 2.0 : zoomMin === 10 ? 1.6 : 1.2;
   return zoomMin === 5 ? 2.4 : zoomMin === 10 ? 2.0 : 1.6;
 }
 

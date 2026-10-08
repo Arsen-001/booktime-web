@@ -73,8 +73,14 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
             format.date(date, 'dayMonthShort'),
           ];
   const rel = view === 'day' ? relative(date) : undefined;
-  const google = renderedJournalStyle() === 'google';
-  const titleClass = google ? 'text-[22px] leading-tight font-normal text-fg' : 'text-[22px] leading-tight font-bold tracking-[-0.3px] text-fg';
+  const style = renderedJournalStyle();
+  const google = style === 'google';
+  const ios = style === 'ios';
+  const titleClass = google
+    ? 'text-[22px] leading-tight font-normal text-fg'
+    : ios
+      ? 'text-[26px] leading-tight font-bold tracking-[-0.4px] text-fg'
+      : 'text-[22px] leading-tight font-bold tracking-[-0.3px] text-fg';
 
   // Какая форма влезает: место под кнопку (slot) минус всё, что в кнопке кроме текста, сравниваем с шириной форм
   const slotRef = useRef<HTMLDivElement>(null);
@@ -110,13 +116,19 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
     // @container: «сегодня» рядом с датой или под ней — по ширине ряда
     <div data-f="F-01-009" className="@container flex min-w-0 flex-1 items-center gap-1">
       {/* Стиль «Google Calendar» (owner 08.10.2026): «Сегодня» — пилюля с рамкой, затем ‹ ›, затем заголовок */}
+      {/* «Календарь iOS»: «Сегодня» — красное слово без рамки, стрелки красные */}
+      {ios && (
+        <Button variant="ghost" className="shrink-0 px-2 text-danger" onClick={() => onDateChange(today())}>
+          {t('toolbar.today')}
+        </Button>
+      )}
       {google && (
         <Button variant="outline" className="mr-2 shrink-0 rounded-full px-5" onClick={() => onDateChange(today())}>
           {t('toolbar.today')}
         </Button>
       )}
-      <IconButton variant="ghost" className={google ? 'rounded-full' : undefined} icon={<ChevronLeft aria-hidden />} label={t(`board.prev.${view}`)} onClick={() => onDateChange(shiftDate(date, view, -1))} />
-      <IconButton variant="ghost" className={google ? 'rounded-full' : undefined} icon={<ChevronRight aria-hidden />} label={t(`board.next.${view}`)} onClick={() => onDateChange(shiftDate(date, view, 1))} />
+      <IconButton variant="ghost" className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronLeft aria-hidden />} label={t(`board.prev.${view}`)} onClick={() => onDateChange(shiftDate(date, view, -1))} />
+      <IconButton variant="ghost" className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronRight aria-hidden />} label={t(`board.next.${view}`)} onClick={() => onDateChange(shiftDate(date, view, 1))} />
       <div ref={slotRef} className="relative ml-2 flex min-w-0 flex-1">
         {/* Невидимые образцы всех форм — по ним меряем, какая влезет */}
         <span ref={measureRef} aria-hidden className="pointer-events-none invisible absolute top-0 left-0 h-0 w-0 overflow-hidden">

@@ -6,7 +6,7 @@
  * Сетка на 2 мастера и «+ Запись» у большого пальца — в JournalScreen (DayGrid columnsPerScreen, Fab).
  */
 import Link from 'next/link';
-import { AlarmClock, Timer, CalendarDays, MoreHorizontal, ChevronRight, Clock, UserSearch, Users, Wallet } from 'lucide-react';
+import { AlarmClock, Timer, CalendarDays, MoreHorizontal, ChevronLeft, ChevronRight, Clock, UserSearch, Users, Wallet } from 'lucide-react';
 import type { Id, ISODate } from '@/domain/core';
 import { getRangeLoad } from '@/api/journal';
 import { useApiQuery } from '@/api/request';
@@ -15,6 +15,7 @@ import { useT } from '@/i18n/useT';
 import { useFormat } from '@/i18n/useFormat';
 import { cn } from '@/lib/cn';
 import { addDays, eachDay, today, weekStart } from '@/lib/date';
+import { renderedJournalStyle } from '@/areas/journal/lib/journalStyle';
 import { DropdownChevron } from '@/ui/DropdownChevron';
 import { IconButton } from '@/ui/IconButton';
 import { SkeletonText } from '@/ui/Skeleton';
@@ -43,6 +44,8 @@ export interface PhoneHeaderProps {
 export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLoading }: PhoneHeaderProps) {
   const t = useT('journal');
   const format = useFormat();
+  // «Календарь iOS»: слева красное «‹ Октябрь», как кнопка к месяцу в Календаре iPhone
+  const ios = renderedJournalStyle() === 'ios';
   return (
     <div className="flex min-h-14 items-center gap-1 pr-1 pl-4">
       <button
@@ -52,10 +55,17 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
         aria-label={t('board.phone.openCalendar')}
         className="flex min-h-12 min-w-0 flex-1 flex-col items-start justify-center rounded-lg text-left"
       >
-        <span className="flex items-center gap-1 text-xl leading-tight font-bold text-fg">
-          {capitalize(format.monthName(date))}
-          <DropdownChevron />
-        </span>
+        {ios ? (
+          <span className="-ml-1.5 flex items-center text-[17px] leading-tight text-danger">
+            <ChevronLeft aria-hidden className="size-6" strokeWidth={2.5} />
+            {capitalize(format.monthName(date))}
+          </span>
+        ) : (
+          <span className="flex items-center gap-1 text-xl leading-tight font-bold text-fg">
+            {capitalize(format.monthName(date))}
+            <DropdownChevron />
+          </span>
+        )}
         {salonLoading ? (
           <span className="truncate text-[13px] text-muted">
             <SkeletonText width="16ch" />
@@ -89,6 +99,46 @@ export function WeekStrip({ date, onDateChange, staffIds }: WeekStripProps) {
     enabled: staffIds.length > 0,
   });
   const now = today();
+  if (renderedJournalStyle() === 'ios') {
+    // «Календарь iOS»: буква дня над числом, число в круге — сегодня красный, выбранный другой день чёрный;
+    // под полосой — выбранная дата словами, как в Календаре iPhone
+    return (
+      <div className="flex flex-col gap-1.5">
+        <div role="group" aria-label={t('board.phone.weekStrip')} className="-mx-1 flex justify-between">
+          {days.map((d, i) => {
+            const selected = d === date;
+            const isToday = d === now;
+            const busy = (loadQuery.data?.[d]?.ratio ?? 0) > 0;
+            return (
+              <button
+                key={d}
+                type="button"
+                aria-pressed={selected}
+                aria-label={format.date(d, 'weekdayLong')}
+                onClick={() => onDateChange(d)}
+                className="flex min-h-[58px] w-[46px] flex-col items-center justify-center gap-1"
+              >
+                <span className="text-[11px] text-muted capitalize">{weekdays[i]}</span>
+                <span
+                  className={cn(
+                    'grid size-9 place-items-center rounded-full text-xl leading-none tabular-nums',
+                    selected && isToday && 'bg-danger font-semibold text-primary-contrast',
+                    selected && !isToday && 'bg-fg font-semibold text-surface',
+                    !selected && isToday && 'text-danger',
+                    !selected && !isToday && 'text-fg',
+                  )}
+                >
+                  {Number(d.slice(8, 10))}
+                </span>
+                <span aria-hidden className={cn('size-1 rounded-full', busy ? 'bg-muted' : 'bg-transparent')} />
+              </button>
+            );
+          })}
+        </div>
+        <p className="text-center text-[15px] font-semibold text-fg">{capitalize(format.date(date, 'weekdayLong'))}</p>
+      </div>
+    );
+  }
   return (
     <div role="group" aria-label={t('board.phone.weekStrip')} className="-mx-1 flex justify-between gap-1">
       {days.map((d, i) => {

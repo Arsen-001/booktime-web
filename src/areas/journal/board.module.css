@@ -125,11 +125,43 @@
   color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
 }
 :global(:root[data-theme='dark']) .gDimmed {
-  background-color: color-mix(in srgb, var(--tone-drop) 18%, var(--color-surface));
+  background-color: var(--tone-fill); /* 16% цвета — под неё tone.ink держит ≥ 4.5:1 */
+}
+
+/* ── Стиль «Календарь iOS» (owner 08.10.2026: «1:1 как у iOS», lib/journalStyle) ─────────────────────
+   Событие — подкраска цвета календаря (16%, tone.fill) с яркой полосой 3px слева, текст — тёмный тон того же цвета (tone.ink, ≥4.5:1);
+   ждёт подтверждения — косая штриховка, как «под вопросом» в iOS; отменено — бледное и зачёркнутое. */
+.iCard {
+  position: relative;
+  background-color: var(--tone-fill); /* 16% цвета — под неё tone.ink держит ≥ 4.5:1 */
+  color: var(--tone-ink);
+  box-shadow: inset 3px 0 0 var(--tone-drop);
+}
+.iPending {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 5px,
+    color-mix(in srgb, var(--tone-drop) 30%, transparent) 5px 7px
+  );
+}
+.iDimmed {
+  opacity: 0.55;
+}
+.iDrop {
+  background-color: var(--tone-lacquer, var(--tone-drop));
+}
+:global(:root[data-theme='dark']) .iCard {
+  background-color: color-mix(in srgb, var(--tone-drop) 26%, var(--color-surface));
+  color: color-mix(in srgb, var(--tone-drop) 55%, #fff); /* tokens-ok — светлый тон цвета события, как в iOS */
+}
+/* Системный шрифт — на iPhone, iPad и Mac это SF, как в самом Календаре */
+:global([data-journal-style='ios']) {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
 }
 
 /* Страница журнала — белая целиком, как у Google Calendar: сетка без рамки-карточки лежит прямо на ней */
-:global(main#content):has([data-journal-style='google']) {
+:global(main#content):has([data-journal-style='google']),
+:global(main#content):has([data-journal-style='ios']) {
   background-color: var(--color-surface);
 }
 

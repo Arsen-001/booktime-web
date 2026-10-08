@@ -3,7 +3,9 @@
 /**
  * Стиль журнала — выбор каждого (owner 08.10.2026: «кто какой стиль захочет, тот и сделает»):
  *  - 'booktime' — наш макет A2 (DESIGN.md → Journal): светлый тон лака, крупное время, белая карточка-сетка;
- *  - 'google'   — «как Google Calendar»: белая страница, события сплошным цветом услуги, мелкий текст.
+ *  - 'google'   — «как Google Calendar»: белая страница, события сплошным цветом услуги, мелкий текст;
+ *  - 'ios'      — «1:1 как Календарь iOS» (owner 08.10.2026): подкраска цвета с полосой слева, красный акцент «сегодня»,
+ *                 системный шрифт (на Apple — SF).
  * Хранится на устройстве (localStorage). Меняется в «⋯ Ещё» → «Сетка» (JournalGridSettings).
  *
  * Чистые функции сетки (lib/grid.pxPerMin, lib/board.bookingTone, cardSizes) читают стиль, которым журнал
@@ -12,9 +14,9 @@
  */
 import { useSyncExternalStore } from 'react';
 
-export type JournalStyle = 'booktime' | 'google';
+export type JournalStyle = 'booktime' | 'google' | 'ios';
 
-export const JOURNAL_STYLES: JournalStyle[] = ['booktime', 'google'];
+export const JOURNAL_STYLES: JournalStyle[] = ['booktime', 'google', 'ios'];
 
 const KEY = 'bt-journal-style';
 const DEFAULT: JournalStyle = 'google';
@@ -31,7 +33,7 @@ function readStored(): JournalStyle {
   } catch {
     /* приватное окно — стиль по умолчанию */
   }
-  stored = value === 'booktime' || value === 'google' ? value : DEFAULT;
+  stored = value === 'booktime' || value === 'google' || value === 'ios' ? value : DEFAULT;
   return stored;
 }
 

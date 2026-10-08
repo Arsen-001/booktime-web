@@ -1026,6 +1026,7 @@ export function JournalScreen() {
               F-01-007). Обе — сплошным белым блоком во всю ширину, как в макете. */}
           <div className="flex flex-col gap-2 border-b border-border bg-surface pb-2">
             <PhoneHeader
+              key={journalStyle}
               date={date}
               salonName={businessQuery.data?.name}
               salonLoading={loading || businessQuery.isLoading}
@@ -1035,7 +1036,7 @@ export function JournalScreen() {
             />
             {view === 'day' && (
               <div className="px-3">
-                <WeekStrip date={date} onDateChange={setDate} staffIds={staffForView.map((s) => s.id)} />
+                <WeekStrip key={journalStyle} date={date} onDateChange={setDate} staffIds={staffForView.map((s) => s.id)} />
               </div>
             )}
           </div>
@@ -1084,8 +1085,20 @@ export function JournalScreen() {
               label={t('board.more')}
               onClick={() => setMoreOpen(true)}
             />
-            {/* Левая колонка открыта — «Новая запись» в ней, как «Создать» у Google */}
-            {!showRail && newBookingButton}
+            {/* Левая колонка открыта — «Новая запись» в ней, как «Создать» у Google; «Календарь iOS» — красный «+» */}
+            {journalStyle === 'ios' && canCreate ? (
+              <IconButton
+                data-f="F-01-184"
+                variant="ghost"
+                className="text-danger [&_svg]:size-6"
+                icon={<Plus aria-hidden strokeWidth={2.25} />}
+                label={canCreateBooking || loading ? t('newBooking') : newBookingDisabledReason}
+                disabled={loading || !canCreateBooking}
+                onClick={() => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter())}
+              />
+            ) : (
+              !showRail && newBookingButton
+            )}
           </div>
         </div>
       )}

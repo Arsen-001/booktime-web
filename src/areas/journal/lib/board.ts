@@ -107,6 +107,20 @@ const GOOGLE_HEX = [
   '#d84315', // tokens-ok — мандарин
   '#0277bd', // tokens-ok — павлин
 ];
+/**
+ * Стиль «Календарь iOS» (owner 08.10.2026): системные цвета iOS. Красный — акцент «сегодня» и линии «сейчас», а
+ * коричневый на подкраске выходил грязным — их среди цветов записей нет.
+ */
+const IOS_HEX = [
+  '#007aff', // tokens-ok — синий iOS
+  '#34c759', // tokens-ok — зелёный iOS
+  '#af52de', // tokens-ok — фиолетовый iOS
+  '#ff9500', // tokens-ok — оранжевый iOS
+  '#ff2d55', // tokens-ok — розовый iOS
+  '#30b0c7', // tokens-ok — бирюзовый iOS
+  '#5856d6', // tokens-ok — индиго iOS
+  '#ffcc00', // tokens-ok — жёлтый iOS
+];
 
 export interface BookingToneInfo extends Tone {
   lacquerName?: string;
@@ -147,6 +161,11 @@ export function bookingTone(
 ): BookingToneInfo {
   const service = booking.services[0] ? servicesById.get(booking.services[0].serviceId) : undefined;
   const idx = service ? hashString(service.id) : 0;
+  if (renderedJournalStyle() === 'ios') {
+    // Как в Календаре iOS: цвет календаря (по услуге), лак — словом в строке статуса и точкой
+    const base = cachedTone(IOS_HEX[idx % IOS_HEX.length]);
+    return lacquer ? { ...base, lacquerName: lacquer.name, lacquerHex: lacquer.hex } : base;
+  }
   if (renderedJournalStyle() === 'google') {
     // Заливка — всегда яркий цвет услуги; лак — точкой своего цвета на событии
     const base = cachedTone(GOOGLE_HEX[idx % GOOGLE_HEX.length]);
@@ -188,7 +207,9 @@ export interface CardSizes {
  * пороги ниже: одна строка «Имя, 11:00» до stack, дальше имя и «11:00 – 12:00» столбиком, услуга, статус.
  */
 export function cardSizes(): CardSizes {
-  return renderedJournalStyle() === 'google'
+  const style = renderedJournalStyle();
+  if (style === 'ios') return { min: 40, stack: 44, service: 58, pill: 78 };
+  return style === 'google'
     ? // min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись (30px) заходит на следующую, строка видна
       { min: 40, stack: 44, service: 54, pill: 72 }
     : { min: CARD_MIN_HEIGHT, stack: CARD_STACK_FROM, service: CARD_SERVICE_FROM, pill: CARD_PILL_FROM };

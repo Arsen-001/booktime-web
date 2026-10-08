@@ -209,7 +209,8 @@ export function DayGrid({
   className,
 }: DayGridProps) {
   // Стиль, которым рисуется доска (lib/journalStyle): при смене стиля JournalScreen перемонтирует её
-  const google = renderedJournalStyle() === "google";
+  const style = renderedJournalStyle();
+  const google = style === "google";
   const columnWidth = columnsPerScreen ? `calc((100cqw - ${GUTTER}px) / ${columnsPerScreen})` : undefined;
   const t = useT("journal");
   const tc = useT("common");
@@ -438,7 +439,7 @@ export function DayGrid({
           className={cn(
             "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface pb-24 md:pb-0",
             // «Google Calendar»: сетка без рамки-карточки, прямо на белой странице (board.module.css); «BookTime» — карточка r16
-            google ? "border-t border-border" : "rounded-2xl border border-border",
+            style === "booktime" ? "rounded-2xl border border-border" : "border-t border-border",
             // snap с отступом на колонку часов: иначе первая колонка «прилипает» под неё и видна обрезанной
             columnsPerScreen && "@container snap-x scroll-pl-[52px]",
           )}

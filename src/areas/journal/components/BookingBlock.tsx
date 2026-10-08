@@ -149,7 +149,11 @@ function BookingBlockInner({
 }: BookingBlockProps) {
   const manualColorClass = extras?.colorIndex ? MANUAL_COLOR_BORDER[extras.colorIndex] : undefined;
   // Стиль, которым рисуется доска (lib/journalStyle): при смене стиля доска перемонтируется
-  const google = renderedJournalStyle() === 'google';
+  const style = renderedJournalStyle();
+  const google = style === 'google';
+  const ios = style === 'ios';
+  // «Google» и «iOS» — мелкий текст события и точка вместо капли; различаются заливкой и порядком строк
+  const small = google || ios;
   const sizes = cardSizes();
 
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({
@@ -237,9 +241,11 @@ function BookingBlockInner({
     onMouseEnter: openStatusCardOnHover,
     onMouseLeave: closeStatusCardOnHover,
     onBlur: closeStatusCardOnHover,
-    className: google ? G_DROP_BUTTON : DROP_BUTTON,
+    className: small ? G_DROP_BUTTON : DROP_BUTTON,
   };
-  const drop = <span aria-hidden className={cn(google ? styles.gDrop : styles.drop, 'block rounded-full', google ? G_DROP_SIZE : DROP_SIZE)} />;
+  const drop = (
+    <span aria-hidden className={cn(google ? styles.gDrop : ios ? styles.iDrop : styles.drop, 'block rounded-full', small ? G_DROP_SIZE : DROP_SIZE)} />
+  );
 
   return (
     <div
@@ -257,9 +263,9 @@ function BookingBlockInner({
       onMouseLeave={packageGroupId && onPackageHover ? () => onPackageHover(undefined) : undefined}
       className={cn(
         // Google: справа зазор, в него можно нажать, чтобы создать запись на это же время
-        google ? 'absolute right-2 left-0.5 z-10' : 'absolute inset-x-1 z-10',
+        google ? 'absolute right-2 left-0.5 z-10' : ios ? 'absolute right-1 left-0.5 z-10' : 'absolute inset-x-1 z-10',
         isDragging && 'z-30 opacity-80',
-        !google && text.dimmed && 'opacity-60',
+        !small && text.dimmed && 'opacity-60',
         className,
       )}
     >
@@ -274,11 +280,11 @@ function BookingBlockInner({
             onOpen(booking.id);
           }}
           className={cn(
-            google ? styles.gCard : styles.card,
+            google ? styles.gCard : ios ? styles.iCard : styles.card,
             'flex h-full w-full flex-col overflow-hidden text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
-            google ? cn('rounded-md', G_PADDING) : cn('rounded-xl', CARD_PADDING),
-            text.pending && (google ? styles.gPending : styles.pending),
-            google && text.dimmed && styles.gDimmed,
+            google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : cn('rounded-xl', CARD_PADDING),
+            text.pending && (google ? styles.gPending : ios ? styles.iPending : styles.pending),
+            text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : undefined),
             manualColorClass && cn('border-l-[3px]', manualColorClass),
             highlighted && 'ring-2 ring-primary ring-offset-1 ring-offset-surface',
             late && !highlighted && 'ring-2 ring-danger ring-offset-1 ring-offset-surface',
@@ -287,7 +293,32 @@ function BookingBlockInner({
           {...(canMove ? attributes : undefined)}
           {...(canMove ? listeners : undefined)}
         >
-          {google ? (
+          {ios ? (
+            <>
+              {/* Как в Календаре iOS (owner 08.10.2026): жирное имя, под ним услуга (как «место» у iOS), время и статус —
+                  если хватает высоты; короткая — одной строкой «Имя 10:30» */}
+              {compact ? (
+                <span data-f="F-01-128 F-01-171" className={cn(G_LINE, 'pr-3', text.dimmed && 'line-through')}>
+                  {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3 align-[-2px]" />}
+                  {text.pickup && <PackageCheck aria-hidden className="mr-1 inline size-3 align-[-2px]" />}
+                  <span className="font-semibold">{text.primary}</span> <span className="opacity-80"><TimeText value={text.time} /></span>
+                </span>
+              ) : (
+                <>
+                  <span data-f="F-01-128 F-01-171" className={cn(G_NAME, text.dimmed && 'line-through')}>
+                    {text.primary}
+                  </span>
+                  <span className={cn(G_LINE, 'opacity-85')}>
+                    {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                    {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                    {text.detail}
+                  </span>
+                  {displayHeight >= sizes.service && <span className={cn(G_LINE, 'opacity-75')}>{text.range}</span>}
+                  {displayHeight >= sizes.pill && <span className={cn(G_LINE, 'mt-auto opacity-75')}>{text.pill}</span>}
+                </>
+              )}
+            </>
+          ) : google ? (
             <>
               {/* Как в Google Calendar (owner 08.10.2026): короткая — одной строкой «Имя, 11:00», выше — имя, «11:00 – 12:00»,
                   услуга, статус (пороги — lib/board.cardSizes). Метки клиента, телефон, комментарий —

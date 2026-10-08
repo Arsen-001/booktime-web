@@ -13,7 +13,14 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 
 **08.10.2026 — owner: two journal styles, each person picks one** («кто какой стиль захочет»): "BookTime" (everything below,
 unchanged) and "Google Calendar" («очень похоже по дизайну на Google Calendar»). The choice is in "⋯ More" → grid settings,
-stored on the device (`src/areas/journal/lib/journalStyle.ts`, default "Google Calendar"). The "Google Calendar" style:
+stored on the device (`src/areas/journal/lib/journalStyle.ts`, default "Google Calendar"). Later the same day — a third style,
+**"iOS Calendar"** («календарь 1:1 как у iOS»): events are a 16% tint of the iOS system colour (blue, green, purple, orange, pink,
+teal, indigo, yellow — no red, it is the "today" accent) with a bright 3px bar on the left, text in the dark tone of the colour;
+awaiting confirmation is diagonally striped, cancelled is faded and struck through. Red accent: the "Today" word and ‹ › are
+red, today's number in a red circle (another selected day — black), the "now" line red with a dot and the red time at the
+axis, "+" is a red icon. System font (SF on Apple devices), bold 26px title, flat grid, "Needs attention" collapsed. Week
+header "mon 5" in one row. Phone: red "‹ October" at the top, week strip with circles and the chosen date in words under it.
+Scale 1.2 / 1.6 / 2.0 px per minute (an hour is 72px). The "Google Calendar" style:
 - The journal page is white end to end; the grid has no card frame (only a top border) and sits on the page.
 - Control row: ☰ · "Today" outlined pill · round ‹ › · the date title in regular weight (not bold); the view is a dropdown pill
   "Day ▾" instead of the segmented control.

@@ -108,7 +108,9 @@ export function WeekGrid({
   showPhones,
 }: WeekGridProps) {
   // Стиль, которым рисуется доска (lib/journalStyle): при смене стиля JournalScreen перемонтирует её
-  const google = renderedJournalStyle() === "google";
+  const style = renderedJournalStyle();
+  const google = style === "google";
+  const ios = style === "ios";
   const t = useT("journal");
   const tc = useT("common");
   const toast = useToast();
@@ -257,7 +259,7 @@ export function WeekGrid({
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <div
         data-f="F-01-013 F-01-023 F-02-037 F-16-020"
-        className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", google ? "border-t border-border" : "rounded-2xl border border-border")}
+        className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", style === "booktime" ? "rounded-2xl border border-border" : "border-t border-border")}
       >
         <div className="flex" style={{ minWidth: days.length * (google ? 104 : 160) + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">
@@ -291,16 +293,33 @@ export function WeekGrid({
                 key={day}
                 className={cn("flex flex-1 flex-col border-l border-line", google ? "w-26 min-w-26" : "w-40 min-w-40")}
               >
-                {/* «Google Calendar»: «ЧТ» мелко и число в круге, сегодня — круг цвета primary; «BookTime» — «чт, 8 октября» */}
+                {/* «Google Calendar»: «ЧТ» мелко и число в круге, сегодня — круг цвета primary; «Календарь iOS»: «пн 5» в строку,
+                    сегодня — красный круг; «BookTime» — «чт, 8 октября» */}
                 <div
                   className={cn(
                     "sticky top-0 z-30 flex shrink-0 flex-col items-center justify-center border-b border-border bg-surface text-center",
                     google
                       ? cn("h-[5.5rem] gap-0.5", day === today() ? "text-primary-text" : day === date ? "text-fg" : "text-muted")
-                      : cn("h-14", day === date && "text-primary-text"),
+                      : ios
+                        ? "h-14"
+                        : cn("h-14", day === date && "text-primary-text"),
                   )}
                 >
-                  {google ? (
+                  {ios ? (
+                    <span aria-label={format.date(day, "weekday")} className="flex items-center gap-1.5 text-sm">
+                      <span className={cn(day === today() ? "font-semibold text-danger" : "text-muted")}>
+                        {format.date(day, "weekdayShort").split(",")[0].toLocaleLowerCase()}
+                      </span>
+                      <span
+                        className={cn(
+                          "grid size-7 place-items-center rounded-full font-semibold tabular-nums",
+                          day === today() ? "bg-danger text-primary-contrast" : day === date ? "bg-fg text-surface" : "text-fg",
+                        )}
+                      >
+                        {Number(day.slice(8, 10))}
+                      </span>
+                    </span>
+                  ) : google ? (
                     <>
                       <span className="text-[11px] font-semibold tracking-wider uppercase">
                         {format.date(day, "weekdayShort").split(",")[0]}
@@ -321,7 +340,7 @@ export function WeekGrid({
                     </span>
                   )}
                   {working ? (
-                    isStaff ? (
+                    isStaff && !ios ? (
                       <span className="text-[0.6875rem] text-muted">{`${hours[0].from}–${hours[hours.length - 1].to}`}</span>
                     ) : null
                   ) : (

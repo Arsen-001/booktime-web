@@ -73,7 +73,7 @@ export function DayGridSkeleton({ date, shape, zoomMin, columnsPerScreen, classN
       <div
         className={cn(
           "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface pb-24 md:pb-0",
-          renderedJournalStyle() === "google" ? "border-t border-border" : "rounded-2xl border border-border",
+          renderedJournalStyle() === "booktime" ? "rounded-2xl border border-border" : "border-t border-border",
           columnsPerScreen && "@container snap-x scroll-pl-[52px]",
         )}
       >
