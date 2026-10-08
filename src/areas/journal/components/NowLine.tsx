@@ -1,10 +1,9 @@
 "use client";
 
 /**
- * Линия текущего времени (F-01-023): 2px цвета danger через всю сетку, слева — «пилюля» со временем в колонке часов
- * (DESIGN.md → Journal A2). Обновляется раз в минуту; двигается через transform (translateY), без перерисовки сетки.
+ * Линия текущего времени (F-01-023): 2px цвета danger через всю сетку с точкой слева, как в Google Calendar
+ * (owner 08.10.2026). Обновляется раз в минуту; двигается через transform (translateY), без перерисовки сетки.
  */
-import { TimeText } from '@/areas/journal/components/TimeText';
 import { useEffect, useState } from "react";
 import type { ISODate } from "@/domain/core";
 import type { DayRange } from "@/areas/journal/lib/grid";
@@ -19,11 +18,9 @@ export interface NowLineProps {
   date: ISODate;
   range: DayRange;
   zoomMin: JournalZoomMin;
-  /** line — сама линия (в теле сетки); pill — время в колонке часов (она прилипает слева при прокрутке вбок) */
-  variant?: "line" | "pill";
 }
 
-export function NowLine({ date, range, zoomMin, variant = "line" }: NowLineProps) {
+export function NowLine({ date, range, zoomMin }: NowLineProps) {
   const [now, setNow] = useState<Date | null>(null);
   const format = useFormat({ hourCycle: useJournalHourFormat() });
   const t = useT("journal");
@@ -47,23 +44,13 @@ export function NowLine({ date, range, zoomMin, variant = "line" }: NowLineProps
   const mm = String(now.getMinutes()).padStart(2, "0");
   const label = format.time(`${date}T${hh}:${mm}`);
 
-  if (variant === "pill")
-    return (
-      <span
-        role="img"
-        aria-label={t("board.now", { time: label })}
-        style={{ transform: `translateY(${top}px)` }}
-        className="pointer-events-none absolute top-0 left-1 z-20 -mt-2.5 rounded-md bg-danger px-1.5 text-[11px] leading-5 font-bold text-primary-contrast tabular-nums"
-      >
-        <TimeText value={label} suffixClassName="text-[10px]" />
-      </span>
-    );
-
+  // Как у Google Calendar (08.10.2026): красная линия с точкой у левого края; время — в подписи для чтения с экрана
   return (
     <div
-      aria-hidden
+      role="img"
+      aria-label={t("board.now", { time: label })}
       style={{ transform: `translateY(${top}px)` }}
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 -mt-px h-0.5 bg-danger"
+      className="pointer-events-none absolute inset-x-0 top-0 z-20 -mt-px h-0.5 bg-danger before:absolute before:-top-[5px] before:-left-1.5 before:size-3 before:rounded-full before:bg-danger before:content-['']"
     />
   );
 }

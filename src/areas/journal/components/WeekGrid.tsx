@@ -36,6 +36,7 @@ import {
   fromMinutes,
   parse,
   toISODate,
+  today,
   weekStart as weekStartOf,
 } from "@/lib/date";
 import { BookingBlock } from "@/areas/journal/components/BookingBlock";
@@ -252,18 +253,19 @@ export function WeekGrid({
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <div
+        data-journal-board=""
         data-f="F-01-013 F-01-023 F-02-037 F-16-020"
-        className="scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain rounded-2xl border border-border bg-surface"
+        className="scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface"
       >
         <div className="flex" style={{ minWidth: days.length * 160 + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">
-            <div className="sticky top-0 z-40 h-14 shrink-0 border-b border-border bg-surface" />
+            <div className="sticky top-0 z-40 h-[5.5rem] shrink-0 border-b border-border bg-surface" />
             <div className="relative" style={{ height: heightPx }}>
               {ticks.slice(1).map((m) => (
                 <span
                   key={m}
                   style={{ top: minutesToTop(m, range, zoomMin) }}
-                  className="absolute right-2 -translate-y-1/2 text-[11px] text-muted tabular-nums select-none"
+                  className="absolute right-3 -translate-y-1/2 text-[10px] font-medium tracking-wide text-muted tabular-nums select-none"
                 >
                   <TimeText value={format.time(`${start}T${String(Math.floor(m / 60)).padStart(2, "0")}:00`)} suffixClassName="text-[10px]" hourOnly />
                 </span>
@@ -284,14 +286,24 @@ export function WeekGrid({
                 key={day}
                 className="flex w-40 min-w-40 flex-1 flex-col border-l border-line"
               >
+                {/* Шапка дня как в Google Calendar: «ЧТ» мелко и число в круге, сегодня — круг цвета primary */}
                 <div
                   className={cn(
-                    "sticky top-0 z-30 flex h-14 shrink-0 flex-col items-center justify-center border-b border-border bg-surface text-center",
-                    day === date && "text-primary-text",
+                    "sticky top-0 z-30 flex h-[5.5rem] shrink-0 flex-col items-center justify-center gap-0.5 border-b border-border bg-surface text-center",
+                    day === today() ? "text-primary-text" : day === date ? "text-fg" : "text-muted",
                   )}
                 >
-                  <span className="max-w-full truncate px-1 text-sm font-semibold">
-                    {format.date(day, "weekday")}
+                  <span className="text-[11px] font-semibold tracking-wider uppercase">
+                    {format.date(day, "weekdayShort").split(",")[0]}
+                  </span>
+                  <span
+                    aria-label={format.date(day, "weekday")}
+                    className={cn(
+                      "grid size-11 place-items-center rounded-full text-2xl font-normal tabular-nums",
+                      day === today() ? "bg-primary text-primary-contrast" : "text-fg",
+                    )}
+                  >
+                    {Number(day.slice(8, 10))}
                   </span>
                   {working ? (
                     isStaff ? (

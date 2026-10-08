@@ -26,7 +26,8 @@ export const MAX_DURATION_MIN = 23 * 60 + 55;
  * как A2); 30 минут = 48px вмещают строчную карточку «время | имя, услуга» без наложения (lib/board).
  */
 export function pxPerMin(zoomMin: JournalZoomMin): number {
-  return zoomMin === 5 ? 2.4 : zoomMin === 10 ? 2.0 : 1.6;
+  // Owner 08.10.2026: «как в Google Calendar» — мелкий текст события, час 60px при шаге 15 мин (у Google 48px)
+  return zoomMin === 5 ? 1.8 : zoomMin === 10 ? 1.3 : 1.0;
 }
 
 export interface DayRange {

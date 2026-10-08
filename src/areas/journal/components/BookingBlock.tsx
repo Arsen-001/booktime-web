@@ -1,9 +1,11 @@
 'use client';
 
 /**
- * Карточка записи в сетке журнала — «C · Тон» (docs/design/DESIGN.md, Cards2.png колонка C):
- * вся карточка — светлый тон оттенка лака (или цвета категории услуги), крупное время — тёмным тоном того же цвета,
- * имя, «услуга · до HH:MM», белая пилюля «статус · лак», капля лака справа вверху, пунктир у «ждёт подтверждения».
+ * Карточка записи в сетке журнала — событие «как в Google Calendar» (owner 08.10.2026, DESIGN.md → Journal):
+ * сплошная заливка цвета лака (или услуги) с белым текстом, мелкий шрифт: имя, «11:00 – 12:00», услуга, статус.
+ * Короткая запись — одной строкой «Имя, 11:00». Ждёт подтверждения — белая с пунктиром цвета записи (как
+ * «не ответил» у Google), отменённая и «не пришёл» — бледная и зачёркнутая. Белая точка справа вверху — вход
+ * в карточку статуса.
  * Функции прежнего блока сохранены: F-01-026, F-01-027, F-01-214, F-01-031 (растягивание), F-01-032 (перерыв),
  * F-01-028/051/052 (метки, свои категории, ручной цвет — `BookingExtras`), F-01-110/111/114 (перенос), F-01-171,
  * F-16-022, F-16-127.
@@ -44,15 +46,13 @@ const MANUAL_COLOR_BORDER: Record<number, string> = {
  * размера под ним, паддинги и капля лака — тоже одни на все карточки. Разного размера карточка была раньше по
  * ВЫСОТЕ (см. lib/board.CARD_MIN_HEIGHT и lib/grid.pxPerMin) — не по шрифту.
  */
-const TIME_SIZE = 'num-display';
-const NAME_SIZE = 'mt-1 truncate pr-1 text-[13px] leading-tight font-semibold text-fg';
-const CARD_PADDING = 'px-3 pt-2.5 pb-2';
-/** Короткая карточка на телефоне: с этой высоты под именем помещается вторая строка (услуга), ниже — только имя */
-const COMPACT_PHONE_TWO_LINES_FROM = 50;
-const DROP_SIZE = 'size-[18px]';
+const NAME_SIZE = 'truncate pr-3 text-xs leading-4 font-semibold';
+const LINE = 'truncate text-xs leading-4';
+const CARD_PADDING = 'px-2 py-1';
+const DROP_SIZE = 'size-2.5';
 
 const DROP_BUTTON =
-  'absolute top-0 right-0 z-20 inline-flex size-10 items-start justify-end p-2.5 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus';
+  'absolute top-0 right-0 z-20 inline-flex size-8 items-start justify-end p-1.5 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus';
 // DESIGN.md → Journal/мокап: технический перерыв — спокойная светлая заливка тем же тоном записи, БЕЗ пунктирной
 // штриховки (пунктир в карточках означает только «ждёт подтверждения», F-01-078). Функция не меняется: перерыв
 // по-прежнему блокирует запись и по-прежнему открывает своё меню/подсказку по наведению или тапу.
@@ -208,6 +208,8 @@ function BookingBlockInner({
   };
 
   const toneVars = {
+    '--tone-solid': tone.solid,
+    ...(tone.lacquerHex ? { '--tone-lacquer': tone.lacquerHex } : {}),
     '--tone-fill': tone.fill,
     '--tone-ink': tone.ink,
     '--tone-drop': tone.drop,
@@ -239,9 +241,9 @@ function BookingBlockInner({
       onMouseEnter={packageGroupId && onPackageHover ? () => onPackageHover(packageGroupId) : undefined}
       onMouseLeave={packageGroupId && onPackageHover ? () => onPackageHover(undefined) : undefined}
       className={cn(
-        'absolute inset-x-1 z-10',
+        // Справа зазор, как у Google: в него можно нажать, чтобы создать запись на это же время
+        'absolute right-2 left-0.5 z-10',
         isDragging && 'z-30 opacity-80',
-        text.dimmed && 'opacity-60',
         className,
       )}
     >
@@ -257,9 +259,10 @@ function BookingBlockInner({
           }}
           className={cn(
             styles.card,
-            'flex h-full w-full flex-col overflow-hidden rounded-xl text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
+            'flex h-full w-full flex-col overflow-hidden rounded-md text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
             CARD_PADDING,
             text.pending && styles.pending,
+            text.dimmed && styles.dimmed,
             manualColorClass && cn('border-l-[3px]', manualColorClass),
             highlighted && 'ring-2 ring-primary ring-offset-1 ring-offset-surface',
             late && !highlighted && 'ring-2 ring-danger ring-offset-1 ring-offset-surface',
@@ -268,52 +271,31 @@ function BookingBlockInner({
           {...(canMove ? attributes : undefined)}
           {...(canMove ? listeners : undefined)}
         >
-          {/* DESIGN.md → «C · Тон»: один масштаб на все карточки (owner 27.09.2026) — время всегда 30px/800,
-              имя всегда одного размера под ним. Карточка держит ровно 4 строки данных (время, имя, «услуга ·
-              до HH:MM», пилюля «статус · лак») — «никаких цветных шапок, никакого стека значков». Телефон,
-              метки клиента/своя категория, значок статуса, «Новый клиент» и занятость ресурса остались
-              функциями (см. карточку статуса F-01-029 и окно записи), но не рисуются здесь второй раз. */}
+          {/* Как в Google Calendar (owner 08.10.2026): короткая — одной строкой «Имя, 11:00», выше — имя, «11:00 – 12:00»,
+              услуга, статус (с CARD_STACK_FROM / CARD_SERVICE_FROM / CARD_PILL_FROM). Метки клиента, телефон, комментарий —
+              в карточке статуса и окне записи, не здесь. */}
           {compact ? (
-            // Короче CARD_STACK_FROM (запись меньше часа): те же шрифты, время слева, имя и услуга справа —
-            // ничего не налезает на соседнюю запись. Полная информация — в карточке статуса и окне записи.
-            // Телефон (решение 01.10.2026): узкая колонка не вмещает крупное время и имя — время не выводим (оно на оси,
-            // в aria-label и окне записи), первым идёт имя клиента; услуга — второй строкой, если на неё хватает высоты.
-            <span className="flex min-w-0 items-start gap-2.5">
-              <span className={cn(styles.ink, TIME_SIZE, 'shrink-0 max-md:hidden', text.dimmed && 'line-through')}><TimeText value={text.time} suffixClassName="text-xs" /></span>
-              <span className="flex min-w-0 flex-col pt-0.5 pr-5">
-                <span data-f="F-01-128 F-01-171" className={cn(NAME_SIZE, 'mt-0', text.dimmed && 'max-md:line-through')}>
-                  {/* ⭐ Запись на сдачу: на телефоне вторая строка («Сдача: …») у короткой записи не помещается — значок у имени */}
-                  {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
-                  {text.pickup && <PackageCheck aria-hidden className="mr-1 inline size-3.5 align-[-2px] md:hidden" />}
-                  {text.primary}
-                </span>
-                <span className={cn(styles.ink, 'truncate text-xs leading-snug opacity-90', displayHeight < COMPACT_PHONE_TWO_LINES_FROM && 'max-md:hidden')}>
-                  {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                  {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                  {text.secondary}
-                </span>
-              </span>
+            <span data-f="F-01-128 F-01-171" className={cn(LINE, 'pr-3', text.dimmed && 'line-through')}>
+              {text.dropOff && <PackagePlus aria-hidden className="mr-1 inline size-3 align-[-2px]" />}
+              {text.pickup && <PackageCheck aria-hidden className="mr-1 inline size-3 align-[-2px]" />}
+              <span className="font-semibold">{text.primary}</span>, <TimeText value={text.time} />
             </span>
           ) : (
-            // DESIGN.md → A2 / «C · Тон», как в одобренном макете: время и имя всегда, «услуга · до» с CARD_SERVICE_FROM,
-            // пилюля «статус · лак» с CARD_PILL_FROM.
             <>
-              <span className={cn(styles.ink, TIME_SIZE, 'pr-6', text.dimmed && 'line-through')}><TimeText value={text.time} suffixClassName="text-xs" /></span>
-              <span data-f="F-01-128 F-01-171" className={NAME_SIZE}>
+              <span data-f="F-01-128 F-01-171" className={cn(NAME_SIZE, text.dimmed && 'line-through')}>
                 {text.primary}
               </span>
+              <span className={cn(LINE, 'opacity-90')}>
+                {text.range}
+              </span>
               {displayHeight >= CARD_SERVICE_FROM && (
-                <span className={cn(styles.ink, 'mt-0.5 truncate text-xs leading-snug opacity-90')}>
+                <span className={cn(LINE, 'opacity-90')}>
                   {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
                   {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
-                  {text.secondary}
+                  {text.detail}
                 </span>
               )}
-              {displayHeight >= CARD_PILL_FROM && (
-                <span className="mt-auto flex max-w-full items-center gap-1 self-start rounded-full bg-surface px-2 py-0.5 text-[11px] leading-4 font-semibold text-primary-text">
-                  <span className="truncate">{text.pill}</span>
-                </span>
-              )}
+              {displayHeight >= CARD_PILL_FROM && <span className={cn(LINE, 'mt-auto opacity-80')}>{text.pill}</span>}
             </>
           )}
         </button>
@@ -371,7 +353,7 @@ function BookingBlockInner({
           <div
             onPointerDown={startResize}
             aria-label={labels.resizeHandle}
-            className="absolute inset-x-2 bottom-0 z-20 h-2 cursor-row-resize touch-none rounded-b-xl hover:bg-primary/25"
+            className="absolute inset-x-2 bottom-0 z-20 h-2 cursor-row-resize touch-none rounded-b-md hover:bg-surface/30"
           />
         )}
       </div>

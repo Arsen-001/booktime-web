@@ -427,13 +427,14 @@ export function DayGrid({
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className={cn("relative flex min-h-0 flex-col", className)}>
+      <div data-journal-board="" className={cn("relative flex min-h-0 flex-col", className)}>
         <div
           data-f="F-01-018 F-01-019 F-01-022 F-01-023 F-01-024 F-01-034 F-01-215"
           // F-01-184: на телефоне «+ Запись» висит над правым нижним углом — запас снизу даёт докрутить последнюю
           // карточку выше неё
           className={cn(
-            "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain rounded-2xl border border-border bg-surface pb-24 md:pb-0",
+            // Как у Google Calendar: сетка без рамки-карточки, прямо на белой странице (board.module.css → data-journal-board)
+            "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface pb-24 md:pb-0",
             // snap с отступом на колонку часов: иначе первая колонка «прилипает» под неё и видна обрезанной
             columnsPerScreen && "@container snap-x scroll-pl-[52px]",
           )}
@@ -537,12 +538,11 @@ export function DayGrid({
                   <span
                     key={m}
                     style={{ top: minutesToTop(m, range, zoomMin) }}
-                    className="absolute right-2 -translate-y-1/2 text-[11px] text-muted tabular-nums select-none"
+                    className="absolute right-3 -translate-y-1/2 text-[10px] font-medium tracking-wide text-muted tabular-nums select-none"
                   >
                     <TimeText value={format.time(`${date}T${String(Math.floor(m / 60)).padStart(2, "0")}:00`)} suffixClassName="text-[10px]" hourOnly />
                   </span>
                 ))}
-                <NowLine date={date} range={range} zoomMin={zoomMin} variant="pill" />
               </div>
 
               {layout.cols.map(({ column, bands, markupLines, items }) => (
@@ -636,7 +636,7 @@ export function DayGrid({
                         <SharedBookingSlot
                           key={item.booking.id}
                           bookingId={item.booking.id}
-                          ghostStyle={{ top: item.top, height: item.height, backgroundColor: item.tone.fill }}
+                          ghostStyle={{ top: item.top, height: item.height, backgroundColor: item.tone.solid }}
                         >
                           {block}
                         </SharedBookingSlot>

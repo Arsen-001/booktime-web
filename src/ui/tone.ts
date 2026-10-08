@@ -3,7 +3,7 @@
  * цвет мастера) — заливка карточки, тёмный тон для крупного времени и текста, кольцо вокруг «капли».
  * Контраст не на глаз: toneInk сам затемняет, пока текст не держит ≥ 4.5:1 на заливке.
  *
- *   const t = tone('#9b1b30');   // { fill, ink, ring, drop, contrast }
+ *   const t = tone('#9b1b30');   // { fill, ink, ring, drop, solid, contrast }
  *   <div style={{ background: t.fill, color: t.ink }}>…</div>
  *
  * Чистые функции без React — проверка: node scripts/tone-check.mjs
@@ -94,9 +94,21 @@ export function toneInk(hex: string, background: string = toneFill(hex), min: nu
   return ink;
 }
 
+/**
+ * Сплошная заливка события, как в Google Calendar (журнал, 08.10.2026): сам цвет, а если белый текст на нём
+ * не держит 4.5:1 — тот же цвет темнее шагами по 8% (насыщенность остаётся, цвет не «грязнеет» в серый).
+ */
+export function toneSolid(hex: string, min: number = MIN_CONTRAST): string {
+  let solid = toHex(parseHex(hex));
+  for (let i = 0; i < 30 && contrast(solid, toHex(WHITE)) < min; i++) solid = darken(solid, 0.92);
+  return solid;
+}
+
 export interface Tone {
   /** Исходный цвет — «капля» */
   drop: string;
+  /** Сплошная заливка с белым текстом (≥ 4.5:1) */
+  solid: string;
   /** Заливка карточки */
   fill: string;
   /** Текст и крупное время */
@@ -112,5 +124,5 @@ export function tone(hex: string): Tone {
   const drop = toHex(parseHex(hex));
   const fill = toneFill(drop);
   const ink = toneInk(drop, fill);
-  return { drop, fill, ink, ring: toneRing(drop), contrast: contrast(ink, fill) };
+  return { drop, solid: toneSolid(drop), fill, ink, ring: toneRing(drop), contrast: contrast(ink, fill) };
 }

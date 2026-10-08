@@ -71,7 +71,7 @@ export function DayGridSkeleton({ date, shape, zoomMin, columnsPerScreen, classN
     <div aria-busy className={cn("relative flex min-h-0 flex-col", className)}>
       <div
         className={cn(
-          "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain rounded-2xl border border-border bg-surface pb-24 md:pb-0",
+          "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain border-t border-border bg-surface pb-24 md:pb-0",
           columnsPerScreen && "@container snap-x scroll-pl-[52px]",
         )}
       >
@@ -109,7 +109,6 @@ export function DayGridSkeleton({ date, shape, zoomMin, columnsPerScreen, classN
                   <SkeletonText width="4.5ch" />
                 </span>
               ))}
-              <NowLine date={date} range={range} zoomMin={zoomMin} variant="pill" />
             </div>
             {cols.map((i) => (
               <div key={i} className={cn("border-l border-line", colClass)} style={colStyle}>

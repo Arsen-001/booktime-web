@@ -819,7 +819,7 @@ export function AttentionContent({
                     <span
                       aria-hidden
                       style={{ ['--tone-drop' as string]: tone.drop, ['--tone-ring' as string]: tone.ring }}
-                      className={cn(styles.drop, 'size-3 shrink-0 rounded-full')}
+                      className={cn(styles.dot, 'size-3 shrink-0 rounded-full')}
                     />
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-[13px] font-semibold text-fg">{clientName(b)}</span>

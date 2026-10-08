@@ -19,6 +19,10 @@ type JournalT = ReturnType<typeof useT<'journal'>>;
 
 export interface CardText {
   time: string;
+  /** «11:00 – 12:00» — вторая строка события в сетке (как в Google Calendar) */
+  range: string;
+  /** Третья строка события в сетке: услуга (или клиент, если первой строкой не имя) — без «до HH:MM» */
+  detail: string;
   primary: string;
   secondary: string;
   pill: string;
@@ -132,6 +136,10 @@ export function cardText(
   ];
   return {
     time,
+    range: `${time} – ${end}`,
+    detail:
+      (firstLineMode === 'clientName' ? serviceNames : (clientName ?? noClient)) +
+      (booking.visitorName && client?.name ? ` · ${booking.visitorName}` : ''),
     primary,
     secondary,
     pill: [status, opts.lacquerName].filter(Boolean).join(' · '),
