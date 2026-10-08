@@ -14,7 +14,7 @@
  * колокольчик, новое показывается тостом, а строка заявки пишет «напомнили в HH:MM».
  */
 import { TimeText } from '@/areas/journal/components/TimeText';
-import { useEffect, useEffectEvent, useState, type ReactNode } from 'react';
+import { useEffect, useEffectEvent, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
 import { AlarmClock, Banknote, BellRing, Check, ChevronLeft, ChevronRight, Clock, Hourglass, ListOrdered, MessageCircle, MoreHorizontal, Phone, Timer, TimerReset, UserCheck, UserX } from 'lucide-react';
 import type { Booking, BookingStatus, Client, DayHours, Id, ISODate, Service, Staff } from '@/domain/core';
@@ -224,9 +224,32 @@ function readPref(): boolean | null {
   }
 }
 
+/**
+ * Открыта ли панель — запомненный выбор (localStorage) через useSyncExternalStore: при оживлении страницы первый рендер
+ * берёт серверное «не выбрано» (полоса значков), как в HTML с сервера, и только потом — сохранённое. Раньше выбор
+ * читался прямо в первом рендере, и запомненная открытая панель давала ошибку гидрации (w-[292px] против w-14).
+ */
+const prefListeners = new Set<() => void>();
+function subscribePref(listener: () => void) {
+  prefListeners.add(listener);
+  window.addEventListener('journal:attention-open', listener);
+  return () => {
+    prefListeners.delete(listener);
+    window.removeEventListener('journal:attention-open', listener);
+  };
+}
+function writePref(open: boolean) {
+  try {
+    window.localStorage.setItem(PANEL_KEY, open ? '1' : '0');
+  } catch {
+    /* приватное окно — просто не запомним */
+  }
+  prefListeners.forEach((l) => l());
+}
+
 export function AttentionPanel({ loading, ...props }: AttentionData & { loading?: boolean }) {
   const t = useT('journal');
-  const [pref, setPref] = useState<boolean | null>(() => (typeof window === 'undefined' ? null : readPref()));
+  const pref = useSyncExternalStore(subscribePref, readPref, () => null);
   // «Google» и «Календарь iOS»: справа по умолчанию узкая полоса значков, как у них (раскрыть — по нажатию)
   const flat = renderedJournalStyle() !== 'live';
   // Все виды (BookTime «Живой день», Google, iOS): по умолчанию полоса значков — сетке нужна ширина, как в макетах
@@ -235,24 +258,15 @@ export function AttentionPanel({ loading, ...props }: AttentionData & { loading?
   const [moved, setMoved] = useState(false);
   const desktop = !useIsMobile();
   const attention = useAttention({ ...props, pollReminders: desktop });
-  // «3 ждут подтверждения» в итогах дня раскрывает панель (событие шлёт JournalScreen)
+  // «3 ждут подтверждения» в итогах дня раскрывает панель (JournalScreen пишет выбор и шлёт событие) — с въездом
   useEffect(() => {
-    const onOpen = () => {
-      setMoved(true);
-      setPref(true);
-    };
+    const onOpen = () => setMoved(true);
     window.addEventListener('journal:attention-open', onOpen);
     return () => window.removeEventListener('journal:attention-open', onOpen);
   }, []);
   const toggle = () => {
-    const next = !open;
     setMoved(true);
-    setPref(next);
-    try {
-      window.localStorage.setItem(PANEL_KEY, next ? '1' : '0');
-    } catch {
-      /* приватное окно — просто не запомним */
-    }
+    writePref(!open);
   };
 
   // Полоса и панель смонтированы обе, видна одна (`hidden`): раскрытие не пересоздаёт содержимое панели
