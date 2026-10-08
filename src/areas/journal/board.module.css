@@ -128,6 +128,17 @@
   background-color: color-mix(in srgb, var(--tone-drop) 18%, var(--color-surface));
 }
 
+/* BookTime («Живой день»): розовый акцент макета — линия «сейчас», опоздание, «горит», «Позвонить» — вместо красного
+   danger на странице журнала (белый текст на #db2a62 — 4.65:1; тёмная тема — как прежний danger по светлоте) */
+:global(:root:has([data-journal-style='live'])) {
+  --danger: #db2a62; /* tokens-ok */
+  --danger-soft: #fde7ee; /* tokens-ok */
+}
+:global(:root[data-theme='dark']:has([data-journal-style='live'])) {
+  --danger: #f0648f; /* tokens-ok */
+  --danger-soft: #3a1524; /* tokens-ok */
+}
+
 /* ── Стиль «Живой день» (owner 08.10.2026, lib/journalStyle) ──────────────────────────────────────
    Карточка — светлый тон (tone.fill) с тёмным текстом того же цвета (≥ 4.5:1); прошедшее приглушено, идущий визит —
    сплошной primary с полосой прогресса, опоздание — красная обводка, свободное окно — фирменные точки BookTime. */

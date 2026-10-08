@@ -20,6 +20,10 @@ free windows "N from the waitlist fit" and "+ money" (`lib/liveGaps`), "Offer" +
 default. Phone: «Thursday, 8 October» title, masters as load rings (pick one), the picked master's running visit
 (`LiveNowStrip`), then the day as a "time | card" list with free windows and "N visits done · sum" folded (`LiveAgenda`),
 floating glass tab bar and a dark square "+".
+Colours exactly as in the mockup (owner: «все цвета макета я не вижу в проекте»): five card tones by service — lilac
+#efeafd/#3d2a8f, mint #e2f4ec/#1d5e45, peach #fdece0/#8a3f10, sky #e5effd/#1d4a8f, rose #fde7ee/#8f1d43
+(`lib/board.LIVE_TONES`), the lacquer only as the dot; the pink accent replaces red `--danger` on the journal page
+(#db2a62, dark #f0648f): the "now" line, late, "hot", "Call".
 
 **08.10.2026, evening — owner: «Живой день» (default style, `live`).** Chosen from three concepts (artifact
 https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z, «1 · Живой день»): the journal shows money and empty time itself. Cards are

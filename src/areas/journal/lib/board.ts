@@ -108,6 +108,20 @@ const GOOGLE_HEX = [
   '#0277bd', // tokens-ok — павлин
 ];
 /**
+ * BookTime («Живой день», макет https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z): пять тонов карточек ровно как в
+ * макете — сиреневый, мятный, персиковый, голубой, розовый (заливка + тёмный текст того же цвета, контраст ≥ 6.5:1);
+ * drop — насыщенный цвет тона (тёмная тема, точка). Лак — отдельно точкой своего цвета (owner 08.10.2026: «все цвета
+ * макета я не вижу в проекте»).
+ */
+const LIVE_TONES: Tone[] = [
+  { fill: '#efeafd', ink: '#3d2a8f', drop: '#7a6ff0', solid: '#5b4fd6', ring: '#d9d2fa', contrast: 9.3 }, // tokens-ok — сиреневый
+  { fill: '#e2f4ec', ink: '#1d5e45', drop: '#2fa77a', solid: '#1d7a57', ring: '#c4e8d8', contrast: 6.7 }, // tokens-ok — мятный
+  { fill: '#fdece0', ink: '#8a3f10', drop: '#e07a2f', solid: '#b5571a', ring: '#f9d6bd', contrast: 6.5 }, // tokens-ok — персиковый
+  { fill: '#e5effd', ink: '#1d4a8f', drop: '#2f7de1', solid: '#1f5fb8', ring: '#c8dcf8', contrast: 7.5 }, // tokens-ok — голубой
+  { fill: '#fde7ee', ink: '#8f1d43', drop: '#e5326b', solid: '#c21f55', ring: '#f9cddb', contrast: 7.4 }, // tokens-ok — розовый
+];
+
+/**
  * Стиль «Календарь iOS» (owner 08.10.2026): системные цвета iOS. Красный — акцент «сегодня» и линии «сейчас», а
  * коричневый на подкраске выходил грязным — их среди цветов записей нет.
  */
@@ -161,6 +175,10 @@ export function bookingTone(
 ): BookingToneInfo {
   const service = booking.services[0] ? servicesById.get(booking.services[0].serviceId) : undefined;
   const idx = service ? hashString(service.id) : 0;
+  if (renderedJournalStyle() === 'live') {
+    const base = LIVE_TONES[idx % LIVE_TONES.length];
+    return lacquer ? { ...base, lacquerName: lacquer.name, lacquerHex: lacquer.hex } : base;
+  }
   if (renderedJournalStyle() === 'ios') {
     // Как в Календаре iOS: цвет календаря (по услуге), лак — словом в строке статуса и точкой
     const base = cachedTone(IOS_HEX[idx % IOS_HEX.length]);
