@@ -7,7 +7,7 @@
  */
 import Link from 'next/link';
 import { AlarmClock, Timer, Calendar, CalendarDays, MoreHorizontal, ChevronLeft, ChevronRight, Clock, UserSearch, Users, Wallet } from 'lucide-react';
-import type { Id, ISODate } from '@/domain/core';
+import type { Id, ISODate, Staff } from '@/domain/core';
 import { getRangeLoad } from '@/api/journal';
 import { useApiQuery } from '@/api/request';
 import { useCan } from '@/demo/hooks';
@@ -16,7 +16,9 @@ import { useFormat } from '@/i18n/useFormat';
 import { cn } from '@/lib/cn';
 import { addDays, eachDay, today, weekStart } from '@/lib/date';
 import { renderedJournalStyle } from '@/areas/journal/lib/journalStyle';
+import { Avatar } from '@/ui/Avatar';
 import { DropdownChevron } from '@/ui/DropdownChevron';
+import { DropdownMenu } from '@/ui/DropdownMenu';
 import { IconButton } from '@/ui/IconButton';
 import { SkeletonText } from '@/ui/Skeleton';
 
@@ -36,6 +38,10 @@ export interface PhoneHeaderProps {
   salonLoading?: boolean;
   /** «Google Calendar»: кнопка «сегодня» с числом, как в приложении Google */
   onToday?: () => void;
+  /** BookTime («Живой день»): мастер, чей день в списке, его загрузка и выбор другого — кружком справа, как в макете */
+  liveStaff?: { staff: Staff; loadPct: number };
+  liveStaffOptions?: Staff[];
+  onPickLiveStaff?: (staffId: Id) => void;
 }
 
 /**
@@ -43,7 +49,7 @@ export interface PhoneHeaderProps {
  * чат» (F-01-017). Полоса каркаса снова стоит на каждой странице (DESIGN.md → Shell, 27.09.2026), поэтому меню и
  * колокольчик (F-01-007) здесь больше не повторяются — на экране их было по два.
  */
-export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLoading, onToday }: PhoneHeaderProps) {
+export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLoading, onToday, liveStaff, liveStaffOptions, onPickLiveStaff }: PhoneHeaderProps) {
   const t = useT('journal');
   const format = useFormat();
   // «Календарь iOS»: слева красное «‹ Октябрь», как кнопка к месяцу в Календаре iPhone
@@ -51,7 +57,7 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
   const ios = style === 'ios';
   const google = style === 'google';
   return (
-    <div className="flex min-h-14 items-center gap-1 pr-1 pl-4">
+    <div className={cn('flex min-h-14 items-center gap-1 pl-4', style === 'live' ? 'pr-4' : 'pr-1')}>
       <button
         type="button"
         data-f="F-01-187 F-14-088"
@@ -60,10 +66,9 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
         className="flex min-h-12 min-w-0 flex-1 flex-col items-start justify-center rounded-lg text-left"
       >
         {style === 'live' ? (
-          // BookTime («Живой день»): «Четверг, 8 октября» крупно, как в макете; нажатие — календарь месяца
-          <span className="font-display flex items-center gap-1 text-[22px] leading-tight font-extrabold tracking-[-0.4px] text-fg">
-            {capitalize(format.date(date, 'weekdayLong'))}
-            <DropdownChevron />
+          // BookTime («Живой день»): «Четверг, 8 окт.» крупно, как в макете; нажатие — календарь месяца
+          <span className="font-display text-2xl leading-tight font-extrabold tracking-[-0.4px] text-fg">
+            {capitalize(format.date(date, 'weekdayLong').split(',')[0])}, {format.date(date, 'dayMonthShort')}
           </span>
         ) : ios ? (
           <span className="-ml-1.5 flex items-center text-[17px] leading-tight text-danger">
@@ -82,7 +87,11 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
             <DropdownChevron />
           </span>
         )}
-        {salonLoading ? (
+        {style === 'live' && liveStaff ? (
+          <span className="truncate text-[13px] text-muted">
+            {liveStaff.staff.name} · {t('board.live.dayLoad', { pct: liveStaff.loadPct })}
+          </span>
+        ) : salonLoading ? (
           <span className="truncate text-[13px] text-muted">
             <SkeletonText width="16ch" />
           </span>
@@ -105,7 +114,30 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
           }
         />
       )}
-      <IconButton data-f="F-01-017" variant="ghost" icon={<UserSearch aria-hidden />} label={t('board.search')} onClick={onSearch} />
+      {style === 'live' && liveStaff ? (
+        // BookTime: кружок мастера с кольцом загрузки — выбор, чей день показывать (поиск клиентов — в «⋯ Ещё»)
+        <DropdownMenu
+          align="end"
+          label={t('board.masters.byStaff')}
+          trigger={(p) => (
+            <button {...p} type="button" aria-label={t('board.masters.byStaff')} className="relative grid size-12 shrink-0 place-items-center">
+              <svg aria-hidden viewBox="0 0 48 48" className="absolute inset-0 size-12 -rotate-90 text-primary">
+                <circle cx="24" cy="24" r="21.5" fill="none" strokeWidth="3" className="stroke-surface-3" />
+                <circle cx="24" cy="24" r="21.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray={`${Math.round((liveStaff.loadPct / 100) * 135)} 136`} />
+              </svg>
+              <Avatar name={liveStaff.staff.name} src={liveStaff.staff.avatarUrl} colorIndex={liveStaff.staff.colorIndex} size="sm" />
+            </button>
+          )}
+          items={(liveStaffOptions ?? []).map((s) => ({
+            id: s.id,
+            label: s.name,
+            disabled: s.id === liveStaff.staff.id,
+            onSelect: () => onPickLiveStaff?.(s.id),
+          }))}
+        />
+      ) : (
+        <IconButton data-f="F-01-017" variant="ghost" icon={<UserSearch aria-hidden />} label={t('board.search')} onClick={onSearch} />
+      )}
     </div>
   );
 }
@@ -217,7 +249,7 @@ export function WeekStrip({ date, onDateChange, staffIds }: WeekStripProps) {
               selected ? 'bg-primary text-primary-contrast' : 'text-fg active:bg-surface-2',
             )}
           >
-            <span className={cn('text-xs capitalize', selected ? 'text-primary-contrast/85' : 'text-muted')}>{weekdays[i]}</span>
+            <span className={cn('text-xs', live ? 'lowercase' : 'capitalize', selected ? 'text-primary-contrast/85' : 'text-muted')}>{weekdays[i]}</span>
             <span className={cn('text-xl leading-none font-bold tabular-nums', d === now && !selected && 'text-primary-text')}>
               {Number(d.slice(8, 10))}
             </span>

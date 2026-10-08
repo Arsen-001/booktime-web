@@ -257,7 +257,14 @@ function BookingBlockInner({
   const drop = (
     <span
       aria-hidden
-      className={cn(google ? styles.gDrop : ios || live ? styles.iDrop : styles.drop, 'block rounded-full', small ? G_DROP_SIZE : DROP_SIZE, liveNow && 'ring-2 ring-primary-contrast')}
+      className={cn(
+        google ? styles.gDrop : ios || live ? styles.iDrop : styles.drop,
+        'block rounded-full',
+        small ? G_DROP_SIZE : DROP_SIZE,
+        liveNow && 'ring-2 ring-primary-contrast',
+        // BookTime, как в макете: точки нет, если у записи нет лака (вход в карточку статуса остаётся на месте)
+        live && !tone.lacquerHex && 'opacity-0',
+      )}
     />
   );
 

@@ -13,7 +13,7 @@ import type { Booking, Client, DayHours, Id, ISODate, Service, Staff } from '@/d
 import type { BookingLacquer } from '@/domain/journal';
 import { useWaitlist } from '@/api/resources';
 import { useCurrent } from '@/demo/hooks';
-import { bookingTone, FREE_SLOT_MIN, freeGaps, isActiveBooking, staffLoad, startMinutes } from '@/areas/journal/lib/board';
+import { bookingTone, FREE_SLOT_MIN, freeGaps, isActiveBooking, startMinutes } from '@/areas/journal/lib/board';
 import { lateMinutes, useNowMinuteYerevan } from '@/areas/journal/lib/lateness';
 import { isNewClientBooking } from '@/areas/journal/lib/heuristics';
 import { liveGap } from '@/areas/journal/lib/liveGaps';
@@ -27,22 +27,12 @@ import { cn } from '@/lib/cn';
 import { fromMinutes, today } from '@/lib/date';
 import { pickText } from '@/lib/text';
 import { useBookingStatusLabel } from '@/ui/BookingStatusBadge';
-import { Avatar } from '@/ui/Avatar';
 import { useLocale } from 'next-intl';
-
-const STAFF_TEXT: Record<number, string> = {
-  1: 'text-chart-1',
-  2: 'text-chart-2',
-  3: 'text-chart-3',
-  4: 'text-chart-4',
-  5: 'text-chart-5',
-  6: 'text-chart-6',
-  7: 'text-chart-7',
-  8: 'text-chart-8',
-};
 
 export interface LiveAgendaProps {
   date: ISODate;
+  /** Чей день показываем — выбирается кружком мастера в шапке (PhoneHeader) */
+  staffId: Id;
   staff: Staff[];
   hoursByStaff: Record<Id, DayHours>;
   bookings: Booking[];
@@ -58,12 +48,19 @@ export interface LiveAgendaProps {
   canExtend: boolean;
 }
 
+/** «Рипсиме С.» — как в сетке и макете: имя и первая буква фамилии */
+function shortName(name: string): string {
+  const [first, last] = name.trim().split(/\s+/);
+  return last ? `${first} ${last[0]}.` : first;
+}
+
 type Row =
   | { kind: 'booking'; at: number; booking: Booking; late: number | null }
   | { kind: 'gap'; at: number; gap: ReturnType<typeof liveGap> };
 
 export function LiveAgenda({
   date,
+  staffId,
   staff,
   hoursByStaff,
   bookings,
@@ -81,12 +78,11 @@ export function LiveAgenda({
   const format = useFormat({ hourCycle: useJournalHourFormat() });
   const statusLabel = useBookingStatusLabel();
   const locale = useLocale();
-  const { staffId: ownStaffId, businessId } = useCurrent();
+  const { businessId } = useCurrent();
   const nowMin = useNowMinuteYerevan(date);
   const waitlistQuery = useWaitlist(businessId);
-  const [picked, setPicked] = useState<Id | undefined>(undefined);
   const [pastOpen, setPastOpen] = useState(false);
-  const selected = staff.find((s) => s.id === picked) ?? staff.find((s) => s.id === ownStaffId) ?? staff[0];
+  const selected = staff.find((s) => s.id === staffId) ?? staff[0];
   if (!selected) return null;
 
   const dayPast = date < today();
@@ -130,7 +126,7 @@ export function LiveAgenda({
         >
           <span className="flex items-center gap-1.5">
             <span className={cn('font-display truncate text-[15px] font-bold text-fg', b.status.startsWith('cancelled') && 'line-through')}>
-              {client?.name ?? t('block.noClient')}
+              {client?.name ? shortName(client.name) : t('block.noClient')}
             </span>
             {isNew && <span className="shrink-0 rounded-full bg-fg px-1.5 text-[11px] leading-5 font-semibold text-surface">{t('board.card.newClient')}</span>}
             {late !== null && (
@@ -163,39 +159,6 @@ export function LiveAgenda({
 
   return (
     <section aria-label={selected.name} className="flex flex-col gap-3">
-      {/* Мастера кружками: кольцо — загрузка дня, выбранный — заливкой имени */}
-      {staff.length > 1 && (
-        <div role="group" aria-label={t('board.masters.byStaff')} className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
-          {staff.map((s) => {
-            const load = staffLoad(hoursByStaff[s.id] ?? [], bookings.filter((b) => b.staffId === s.id));
-            const on = s.id === selected.id;
-            return (
-              <button
-                key={s.id}
-                type="button"
-                aria-pressed={on}
-                onClick={() => {
-                  setPicked(s.id);
-                  setPastOpen(false);
-                }}
-                className="flex w-[68px] shrink-0 flex-col items-center gap-1"
-              >
-                <span className={cn('relative grid size-14 place-items-center', STAFF_TEXT[s.colorIndex] ?? 'text-primary')}>
-                  <svg aria-hidden viewBox="0 0 56 56" className="absolute inset-0 size-14 -rotate-90">
-                    <circle cx="28" cy="28" r="25" fill="none" strokeWidth="3.5" className="stroke-surface-3" />
-                    <circle cx="28" cy="28" r="25" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeDasharray={`${Math.round(load.ratio * 157)} 158`} />
-                  </svg>
-                  <Avatar name={s.name} src={s.avatarUrl} colorIndex={s.colorIndex} size="sm" />
-                </span>
-                <span className={cn('max-w-full truncate rounded-full px-2 text-xs leading-5', on ? 'bg-primary font-semibold text-primary-contrast' : 'text-muted')}>
-                  {s.name.split(' ')[0]}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
-
       {/* Идущий визит выбранного мастера — крупной карточкой с кольцом, «Оплата» и «+15 мин» */}
       <LiveNowStrip
         date={date}
@@ -208,7 +171,7 @@ export function LiveAgenda({
       />
 
       {rows.map((row) => (
-        <div key={row.kind === 'gap' ? `gap-${row.at}` : row.booking.id} className="grid grid-cols-[52px_1fr] items-start gap-3">
+        <div key={row.kind === 'gap' ? `gap-${row.at}` : row.booking.id} className="grid grid-cols-[52px_minmax(0,1fr)] items-start gap-3">
           <span className={cn('font-display pt-3 text-right text-[15px] font-extrabold', row.kind === 'gap' ? 'text-primary-text' : 'text-fg')}>{time(row.at)}</span>
           {row.kind === 'gap' ? (
             <div className={cn(styles.lFree, 'flex flex-col gap-0.5 rounded-2xl px-3.5 py-3 text-[13px]')}>
@@ -251,7 +214,7 @@ export function LiveAgenda({
       )}
 
       {past.length > 0 && (
-        <div className="grid grid-cols-[52px_1fr] items-start gap-3">
+        <div className="grid grid-cols-[52px_minmax(0,1fr)] items-start gap-3">
           <span className="pt-3 text-right text-[13px] text-muted">{t('board.live.pastLabel')}</span>
           <div className="flex flex-col gap-2">
             <button

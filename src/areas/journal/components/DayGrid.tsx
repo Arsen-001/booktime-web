@@ -9,7 +9,6 @@
  * дня; карточки — чистый CSS без Motion; линия «сейчас» и карточки двигаются transform'ом.
  */
 import { TimeText } from '@/areas/journal/components/TimeText';
-import { Plus } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
@@ -783,44 +782,69 @@ export function DayGrid({
                             role="group"
                             aria-label={t("board.live.free", { from, to })}
                             style={{ top: minutesToTop(g.from, range, zoomMin) + 2, height: gapHeight - 4 }}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (canCreate) onCreate(column.id, fromMinutes(g.from));
+                            }}
                             className={cn(
                               styles.lFree,
+                              canCreate && "cursor-pointer",
                               "absolute right-2 left-1.5 z-[1] flex flex-col items-start gap-0.5 overflow-hidden rounded-[10px] px-2.5 py-1.5 text-xs leading-4",
                             )}
                           >
                             <span className="text-[13px] font-semibold">{t("board.live.free", { from, to })}</span>
                             <span className="opacity-90">
                               {format.duration(g.to - g.from)}
-                              {g.waiting > 0 && ` · ${t("board.live.waitingFit", { n: g.waiting })}`}
-                              {hot && <span className="font-semibold text-danger"> · {t("board.live.hot")}</span>}
+                              {hot ? ` — ${t("board.live.hot")}` : g.waiting > 0 && ` · ${t("board.live.waitingFit", { n: g.waiting })}`}
                             </span>
-                            {canCreate && gapHeight >= 70 && (
-                              <span className="mt-auto flex w-full items-center gap-1.5">
-                                {onOfferGap && column.kind === "staff" && (
+                            {/* Как в макете: длинное окно сегодня — две большие кнопки сразу под текстом и «можно заработать до …»
+                                внизу; обычное — «Предложить» и «+ сумма» в строку. Нажатие на само окно — запись на его начало */}
+                            {canCreate && onOfferGap && column.kind === "staff" && (hot && gapHeight >= 150 ? (
+                              <>
+                                <span className="mt-2 flex w-full flex-col gap-1.5">
                                   <button
                                     type="button"
-                                    onClick={() => onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to })}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to });
+                                    }}
+                                    className="inline-flex min-h-8 w-full items-center rounded-full bg-danger px-3 text-left font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                                  >
+                                    {t("board.live.hotOffer")}
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to });
+                                    }}
+                                    className="inline-flex min-h-8 w-full items-center rounded-full bg-primary px-3 text-left font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                                  >
+                                    {g.waiting > 0 ? t("board.live.offerWaiting", { n: g.waiting }) : t("board.live.offer")}
+                                  </button>
+                                </span>
+                                {g.potential > 0 && <span className="mt-auto text-[11px] font-medium">{t("board.live.canEarn", { money: format.money(g.potential) })}</span>}
+                              </>
+                            ) : (
+                              gapHeight >= 70 && (
+                                <span className="mt-auto flex w-full items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to });
+                                    }}
                                     className={cn(
-                                      "inline-flex h-7 items-center rounded-full px-3 font-semibold text-primary-contrast transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus",
-                                      hot ? "bg-danger hover:opacity-90" : "bg-primary hover:bg-primary-hover",
+                                      "inline-flex h-7 items-center rounded-full px-3 font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus",
+                                      hot ? "bg-danger" : "bg-primary hover:bg-primary-hover",
                                     )}
                                   >
                                     {t("board.live.offer")}
                                   </button>
-                                )}
-                                <button
-                                  type="button"
-                                  aria-label={t("board.live.book")}
-                                  title={t("board.live.book")}
-                                  onClick={() => onCreate(column.id, fromMinutes(g.from))}
-                                  className="inline-grid size-7 place-items-center rounded-full bg-surface text-primary-text ring-1 ring-primary/30 transition-colors hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
-                                >
-                                  <Plus aria-hidden className="size-4" strokeWidth={2.5} />
-                                </button>
-                                {g.potential > 0 && <span className="ml-auto truncate text-[11px] font-medium">+ {format.money(g.potential)}</span>}
-                              </span>
-                            )}
+                                  {g.potential > 0 && <span className="ml-auto truncate text-[11px] font-medium">+ {format.money(g.potential)}</span>}
+                                </span>
+                              )
+                            ))}
                           </div>
                         );
                       })}
@@ -911,9 +935,8 @@ export function DayGrid({
                 />
               )}
 
-              {/* Линия «сейчас» — одна через все колонки, поверх карточек; в «Живом дне» — под ними: идущий визит и так
-                  синий с прогрессом, линия не должна перечёркивать его текст */}
-              <div className={cn("pointer-events-none absolute inset-y-0 right-0", live && "z-[5]")} style={{ left: GUTTER }}>
+              {/* Линия «сейчас» — одна через все колонки, поверх карточек */}
+              <div className="pointer-events-none absolute inset-y-0 right-0" style={{ left: GUTTER }}>
                 <NowLine date={date} range={range} zoomMin={zoomMin} />
               </div>
             </div>

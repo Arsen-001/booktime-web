@@ -72,7 +72,7 @@ import { JournalMoreSheet } from '@/areas/journal/components/JournalMoreSheet';
 import { AlertBar, JournalBottomNav, PendingBar, PendingBarSkeleton, PhoneHeader, WeekStrip } from '@/areas/journal/components/JournalPhone';
 import { MastersPicker } from '@/areas/journal/components/MastersPicker';
 import { MonthGrid } from '@/areas/journal/components/MonthGrid';
-import { bookingTone, dayTotals, isActiveBooking, startMinutes } from '@/areas/journal/lib/board';
+import { bookingTone, dayTotals, isActiveBooking, staffLoad, startMinutes } from '@/areas/journal/lib/board';
 import { findSlotGaps, nearestSlots } from '@/areas/journal/lib/findSlots';
 import { FindSlotButton } from '@/areas/journal/components/FindSlotButton';
 import { WaitlistPanel } from '@/areas/journal/components/WaitlistPanel';
@@ -155,6 +155,8 @@ export function JournalScreen() {
   const [freeTodayOpen, setFreeTodayOpen] = useState(false);
   // «Живой день»: «Предложить» на свободном окне сетки
   const [offerGap, setOfferGap] = useState<OfferGap | null>(null);
+  // BookTime на телефоне: чей день в списке (кружок мастера в шапке)
+  const [liveStaffId, setLiveStaffId] = useState<Id | undefined>(undefined);
   // «Закончили раньше» / «Начать сейчас» освободили время — «Предложить окно» в тосте открывает «Свободно сегодня»;
   // «Напомнить» в «Требует внимания» — шторку «Подтвердить завтра»
   useEffect(() => {
@@ -898,6 +900,7 @@ export function JournalScreen() {
 
   // BookTime («Живой день») на телефоне: вместо сетки на 2 колонки — день одного мастера списком (LiveAgenda)
   const phoneAgenda = isMobile && journalStyle === 'live' && view === 'day' && dayLayout === 'columns';
+  const liveStaff = staffWithSchedule.find((s) => s.id === liveStaffId) ?? staffWithSchedule.find((s) => s.id === ownStaffId) ?? staffWithSchedule[0];
   // Сетка дня не размонтируется при переходе на неделю/месяц — прячется: возврат к дню не пересобирает десятки
   // карточек (DESIGN.md → Performance: «День → Неделя → День» без рывка)
   const dayGrid = (
@@ -967,7 +970,7 @@ export function JournalScreen() {
       <DayList {...dayViewProps} />
     );
   // Подписи видны с 1280px; уже — только значки (подпись остаётся для чтения с экрана)
-  const layoutSwitch = (withLabels: boolean, iconsOnly = false) => (
+  const layoutSwitch = (withLabels: boolean) => (
     <SegmentedControl
       size="sm"
       fullWidth={withLabels}
@@ -978,7 +981,7 @@ export function JournalScreen() {
         value: l,
         // В «⋯ Ещё» на телефоне — только подписи: с значками четыре вида не влезают в ширину
         icon: withLabels ? undefined : layoutIcons[l],
-        label: <span className={withLabels ? undefined : iconsOnly ? 'sr-only' : 'sr-only xl:not-sr-only'}>{t(`board.layout.${l}`)}</span>,
+        label: <span className={withLabels ? undefined : 'sr-only xl:not-sr-only'}>{t(`board.layout.${l}`)}</span>,
       }))}
     />
   );
@@ -1059,6 +1062,13 @@ export function JournalScreen() {
               onOpenMenu={() => requestShellDrawerOpen()}
               onSearch={() => setClientsOpen(true)}
               onToday={() => setDate(today())}
+              liveStaff={
+                phoneAgenda && liveStaff
+                  ? { staff: liveStaff, loadPct: Math.round(staffLoad(hoursByStaff[liveStaff.id] ?? [], totalsBookings.filter((b) => b.staffId === liveStaff.id)).ratio * 100) }
+                  : undefined
+              }
+              liveStaffOptions={staffWithSchedule}
+              onPickLiveStaff={setLiveStaffId}
             />
             {view === 'day' && (
               <div className="px-3">
@@ -1066,7 +1076,7 @@ export function JournalScreen() {
               </div>
             )}
           </div>
-          {view === 'day' && (loading || businessId) && (
+          {view === 'day' && (loading || businessId) && journalStyle !== 'live' && (
             // «Найти окно» и на телефоне — рядом с «Требует внимания»; панель открывается нижней шторкой
             // Плашка «ждут подтверждения» не сжимается кнопкой: не влезают рядом — кнопка уходит строкой ниже
             <div className="flex flex-wrap items-center gap-2 px-4">
@@ -1107,7 +1117,11 @@ export function JournalScreen() {
         // здесь второй раз — они уже в полосе каркаса выше.
         <div
           data-f="F-01-009 F-01-012 F-01-013 F-01-014 F-01-015"
-          className="-mx-6 -mt-5 flex min-h-[72px] items-center gap-3 border-b border-border bg-surface px-4 lg:-mx-8 lg:-mt-7 lg:px-6"
+          className={cn(
+            '-mx-6 -mt-5 flex min-h-[72px] items-center gap-3 px-4 lg:-mx-8 lg:-mt-7 lg:px-6',
+            // BookTime: шапка лежит прямо на фоне страницы, как в макете
+            journalStyle === 'live' ? 'pt-2' : 'border-b border-border bg-surface',
+          )}
         >
           {googleStyle && railFits && (
             <IconButton variant="ghost" className="-mr-1 rounded-full" icon={<MenuIcon aria-hidden />} label={t('board.rail.toggle')} aria-expanded={railOpen} onClick={toggleRail} />
@@ -1190,8 +1204,8 @@ export function JournalScreen() {
               />
             )}
             {loading ? <DayTotalsSkeleton /> : journalStyle !== 'live' && <DayTotals totals={totals} onPendingClick={openAttention} />}
-            {/* BookTime: пульс дня — одной строкой, поэтому вид дня — только значками (подписи — для чтения с экрана) */}
-            {layoutSwitch(false, journalStyle === 'live')}
+            {/* BookTime: над сеткой только пульс дня одной строкой — вид дня в «⋯ Ещё» */}
+            {journalStyle !== 'live' && layoutSwitch(false)}
             </div>
           )}
           {/* Карточка «перетекает» в окно записи — имя перехода через контекст, сетка дня при этом не перерисовывается */}
@@ -1210,6 +1224,7 @@ export function JournalScreen() {
                 <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-28">
                   <LiveAgenda
                     date={date}
+                    staffId={liveStaff?.id ?? ''}
                     staff={staffWithSchedule}
                     hoursByStaff={hoursByStaff}
                     bookings={totalsBookings}
@@ -1283,7 +1298,18 @@ export function JournalScreen() {
           // на телефоне (там своей полосы каркаса ряд управления не показывает).
           <div className="flex flex-col gap-3">
             {isMobile && viewSwitch}
-            {isMobile && view === 'day' && layoutSwitch(true)}
+            {/* BookTime: вид дня — здесь и на компьютере (над сеткой только пульс, как в макете) */}
+            {(isMobile || journalStyle === 'live') && view === 'day' && layoutSwitch(true)}
+            {/* BookTime на телефоне: «Найти окно» и «ждут подтверждения» — здесь, над списком дня только «Сейчас» */}
+            {isMobile && journalStyle === 'live' && view === 'day' && findSlotButton}
+            {isMobile && journalStyle === 'live' && view === 'day' && !loading && (
+              <AttentionSheetTrigger
+                {...attentionProps}
+                open={attentionSheetOpen}
+                onOpenChange={setAttentionSheetOpen}
+                title={t('board.attention.title')}
+              />
+            )}
             {isMobile && mastersPicker}
             <LocationSwitcher className="w-full" />
           </div>
