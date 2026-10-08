@@ -149,7 +149,47 @@
 }
 @media (max-width: 767.98px) {
   :root:has([data-client-tabbar]) {
-    --app-bottom-inset: 4rem;
+    /* плавающая полоса: 4rem высоты + до 0.625rem отступа снизу + зазор над ней */
+    --app-bottom-inset: 4.75rem;
+  }
+}
+
+/*
+ * Нижние вкладки клиента (ClientTabBar, 08.10.2026): «стекло» — содержимое просвечивает сквозь размытие,
+ * тонкий светлый край сверху; подсветка вкладки переезжает с пружиной, иконка новой вкладки подпрыгивает.
+ */
+.tabbar-glass {
+  background-color: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 45%, transparent),
+    0 10px 30px -10px var(--overlay),
+    0 2px 8px -4px var(--overlay);
+}
+:root[data-theme='dark'] .tabbar-glass {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+    0 10px 30px -8px rgb(0 0 0 / 0.6);
+}
+.tabbar-thumb {
+  background-color: var(--primary-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 12%, transparent);
+  transition-timing-function: cubic-bezier(0.34, 1.32, 0.5, 1);
+}
+@theme inline {
+  --animate-tab-pop: tab-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes tab-pop {
+  0% {
+    transform: scale(0.8) translateY(2px);
+  }
+  55% {
+    transform: scale(1.12) translateY(-2px);
+  }
+  100% {
+    transform: none;
   }
 }
 
