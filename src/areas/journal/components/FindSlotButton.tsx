@@ -15,6 +15,7 @@ import type { Id, Service, Staff } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
+import { renderedJournalStyle } from '@/areas/journal/lib/journalStyle';
 import { fromMinutes } from '@/lib/date';
 import { normalizeSearch, pickText } from '@/lib/text';
 import type { SlotSuggestion } from '@/areas/journal/lib/findSlots';
@@ -79,7 +80,13 @@ export function FindSlotButton({ services, serviceId, onServiceChange, suggestio
           >
             {/* Уже 1400px без выбранной услуги — только значок, чтобы дата в ряду управления не обрезалась */}
             {/* Своя подпись «Найти окно» не режется (hy «Գտնել ազատ ժամ» длиннее): на телефоне без предела, на компьютере до 144px */}
-            <span className={cn('truncate', service ? 'max-w-32 md:max-[1399px]:max-w-20' : 'max-w-36 max-md:max-w-none md:max-[1399px]:sr-only')}>
+            {/* BookTime: в шапке места хватает (как в макете) — подпись видна всегда */}
+            <span
+              className={cn(
+                'truncate',
+                service ? 'max-w-32 md:max-[1399px]:max-w-20' : renderedJournalStyle() === 'live' ? 'max-w-36 max-md:max-w-none' : 'max-w-36 max-md:max-w-none md:max-[1399px]:sr-only',
+              )}
+            >
               {service ? pickText(service.name, locale) : t('board.findSlot.button')}
             </span>
           </Button>

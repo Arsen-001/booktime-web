@@ -1129,9 +1129,13 @@ export function JournalScreen() {
                     <JournalDateNav key={journalStyle} date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {viewSwitch}
-            {mastersPicker}
+            {/* BookTime, как в макете: в шапке только вид, «Найти окно», «⋯» и «Новая запись» — выбор мастеров и поиск
+                клиентов в «⋯ Ещё» */}
+            {journalStyle !== 'live' && mastersPicker}
             {findSlotButton}
-            <IconButton variant="outline" icon={<Search aria-hidden />} label={t('board.search')} onClick={() => setClientsOpen(true)} />
+            {journalStyle !== 'live' && (
+              <IconButton variant="outline" icon={<Search aria-hidden />} label={t('board.search')} onClick={() => setClientsOpen(true)} />
+            )}
             <IconButton
               data-f="F-01-010 F-01-011 F-01-016"
               variant="outline"
@@ -1310,7 +1314,7 @@ export function JournalScreen() {
                 title={t('board.attention.title')}
               />
             )}
-            {isMobile && mastersPicker}
+            {(isMobile || journalStyle === 'live') && mastersPicker}
             <LocationSwitcher className="w-full" />
           </div>
         }

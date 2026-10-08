@@ -149,7 +149,13 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
               type="button"
               className="flex min-h-11 min-w-0 items-center gap-2 rounded-lg px-2 text-left transition-colors hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-focus"
             >
-              <span className="flex min-w-0 flex-col @min-[28rem]:flex-row @min-[28rem]:items-baseline @min-[28rem]:gap-2">
+              <span
+                className={cn(
+                  'flex min-w-0',
+                  // BookTime: «сегодня» плашкой в строку с датой, как в макете
+                  google || ios ? 'flex-col @min-[28rem]:flex-row @min-[28rem]:items-baseline @min-[28rem]:gap-2' : 'flex-row items-center gap-2.5',
+                )}
+              >
                 {/* truncate — лишь страховка: форма подобрана так, чтобы влезть целиком */}
                 <span ref={titleRef} className={cn(titleClass, 'truncate')}>
                   {title}
@@ -159,10 +165,10 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
                     <span className="shrink-0 text-xs text-muted @min-[28rem]:text-sm">{rel}</span>
                   ) : (
                     // BookTime: «сегодня» плашкой рядом с датой
-                    <span className="shrink-0 self-start rounded-full bg-primary-soft px-2.5 py-0.5 text-[13px] font-semibold text-primary-text @min-[28rem]:self-center">{rel}</span>
+                    <span className="shrink-0 rounded-full bg-primary-soft px-2.5 py-0.5 text-[13px] font-semibold text-primary-text">{rel}</span>
                   ))}
               </span>
-              <DropdownChevron open={p['aria-expanded']} className="shrink-0" />
+              {(google || ios) && <DropdownChevron open={p['aria-expanded']} className="shrink-0" />}
             </button>
           )}
         >
