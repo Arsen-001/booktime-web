@@ -118,6 +118,12 @@ export interface BookingBlockProps {
   highlighted?: boolean;
   /** ⭐ Клиент опаздывает (lib/lateness) — красная обводка, пока не отметили «Пришёл» */
   late?: boolean;
+  /** «Живой день»: где запись относительно «сейчас» — прошла (приглушена), идёт (primary + прогресс), впереди */
+  phase?: 'past' | 'now' | 'future';
+  /** «Живой день»: доля пройденного у идущего визита, 0…100 */
+  progressPct?: number;
+  /** «Живой день»: «ещё 53 мин» у идущего, «опаздывает 7 мин» у опоздавшего */
+  liveNote?: string;
   className?: string;
 }
 
@@ -145,6 +151,9 @@ function BookingBlockInner({
   onPackageHover,
   highlighted,
   late,
+  phase,
+  progressPct = 0,
+  liveNote,
   className,
 }: BookingBlockProps) {
   const manualColorClass = extras?.colorIndex ? MANUAL_COLOR_BORDER[extras.colorIndex] : undefined;
@@ -152,8 +161,10 @@ function BookingBlockInner({
   const style = renderedJournalStyle();
   const google = style === 'google';
   const ios = style === 'ios';
+  const live = style === 'live';
+  const liveNow = live && phase === 'now';
   // «Google» и «iOS» — мелкий текст события и точка вместо капли; различаются заливкой и порядком строк
-  const small = google || ios;
+  const small = google || ios || live;
   const sizes = cardSizes();
 
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({
@@ -244,7 +255,10 @@ function BookingBlockInner({
     className: small ? G_DROP_BUTTON : DROP_BUTTON,
   };
   const drop = (
-    <span aria-hidden className={cn(google ? styles.gDrop : ios ? styles.iDrop : styles.drop, 'block rounded-full', small ? G_DROP_SIZE : DROP_SIZE)} />
+    <span
+      aria-hidden
+      className={cn(google ? styles.gDrop : ios || live ? styles.iDrop : styles.drop, 'block rounded-full', small ? G_DROP_SIZE : DROP_SIZE, liveNow && 'ring-2 ring-primary-contrast')}
+    />
   );
 
   return (
@@ -263,7 +277,7 @@ function BookingBlockInner({
       onMouseLeave={packageGroupId && onPackageHover ? () => onPackageHover(undefined) : undefined}
       className={cn(
         // Google: справа зазор, в него можно нажать, чтобы создать запись на это же время
-        google ? 'absolute right-2 left-0.5 z-10' : ios ? 'absolute right-1 left-0.5 z-10' : 'absolute inset-x-1 z-10',
+        google ? 'absolute right-2 left-0.5 z-10' : ios ? 'absolute right-1 left-0.5 z-10' : live ? 'absolute right-2 left-1.5 z-10' : 'absolute inset-x-1 z-10',
         isDragging && 'z-30 opacity-80',
         !small && text.dimmed && 'opacity-60',
         className,
@@ -280,20 +294,72 @@ function BookingBlockInner({
             onOpen(booking.id);
           }}
           className={cn(
-            google ? styles.gCard : ios ? styles.iCard : styles.card,
+            google ? styles.gCard : ios ? styles.iCard : live ? cn(styles.lCard, liveNow && styles.lNow, phase === 'past' && styles.lPast) : styles.card,
             'flex h-full w-full flex-col overflow-hidden text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
-            google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : cn('rounded-xl', CARD_PADDING),
+            google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : live ? 'gap-px rounded-[10px] px-2.5 py-1.5' : cn('rounded-xl', CARD_PADDING),
             text.pending && (google ? styles.gPending : ios ? styles.iPending : styles.pending),
-            text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : undefined),
+            text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : live ? styles.lPast : undefined),
             manualColorClass && cn('border-l-[3px]', manualColorClass),
             highlighted && 'ring-2 ring-primary ring-offset-1 ring-offset-surface',
-            late && !highlighted && 'ring-2 ring-danger ring-offset-1 ring-offset-surface',
+            late && !highlighted && (live ? styles.lLate : 'ring-2 ring-danger ring-offset-1 ring-offset-surface'),
             canMove && 'touch-none',
           )}
           {...(canMove ? attributes : undefined)}
           {...(canMove ? listeners : undefined)}
         >
-          {ios ? (
+          {live ? (
+            <>
+              {/* «Живой день» (owner 08.10.2026): время крупно и длительность (у идущего — «до 15:30» и «сейчас»), имя и
+                  «новый», услуга, внизу цена и статус; у идущего — полоса прогресса и «ещё N мин»; у опоздавшего —
+                  «опаздывает N мин». Короткая — строкой «10:30 Имя». */}
+              {compact ? (
+                <span data-f="F-01-128 F-01-171" className={cn(G_LINE, 'flex items-center gap-1.5 pr-3', text.dimmed && 'line-through')}>
+                  <b className="font-display text-[13px] font-extrabold"><TimeText value={text.time} /></b>
+                  <span className={cn('truncate font-semibold', !liveNow && 'text-fg')}>{text.primary}</span>
+                  {liveNote && <span className="truncate opacity-90">· {liveNote}</span>}
+                </span>
+              ) : (
+                <>
+                  <span className="flex items-baseline gap-1.5 pr-3">
+                    <b className={cn('font-display text-[15px] leading-5 font-extrabold tracking-[-0.2px]', text.dimmed && 'line-through')}>
+                      <TimeText value={text.time} suffixClassName="text-[10px]" />
+                    </b>
+                    <span className="truncate text-[11px] opacity-80">{liveNow ? text.until : text.duration}</span>
+                    {liveNow && <span className="ml-auto shrink-0 rounded-full bg-primary-contrast/20 px-1.5 text-[10.5px] leading-4 font-semibold">{labels.liveNow}</span>}
+                  </span>
+                  <span data-f="F-01-128 F-01-171" className={cn('flex min-w-0 items-center gap-1.5 text-[13px] leading-4 font-semibold', !liveNow && 'text-fg', text.dimmed && 'line-through')}>
+                    <span className="truncate">{text.primary}</span>
+                    {text.isNew && <span className="shrink-0 rounded-full bg-fg px-1.5 text-[10px] leading-4 text-surface">{labels.newClient}</span>}
+                  </span>
+                  {late && liveNote && <span className="self-start rounded-full bg-danger px-1.5 text-[10.5px] leading-4 font-semibold text-primary-contrast">{liveNote}</span>}
+                  {displayHeight >= sizes.service && (
+                    <span className={cn(G_LINE, 'opacity-90')}>
+                      {text.dropOff && <PackagePlus aria-hidden data-f="orders-dropoff-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                      {text.pickup && <PackageCheck aria-hidden data-f="orders-pickup-badge" className="mr-1 inline size-3 align-[-2px]" />}
+                      {text.detail}
+                    </span>
+                  )}
+                  {liveNow ? (
+                    displayHeight >= sizes.service && (
+                      <span className="mt-auto flex flex-col gap-0.5">
+                        <span aria-hidden className="block h-1.5 overflow-hidden rounded-full bg-primary-contrast/25">
+                          <span className="block h-full rounded-full bg-primary-contrast" style={{ width: `${Math.max(3, Math.min(100, progressPct))}%` }} />
+                        </span>
+                        {liveNote && <span className="text-[11px] leading-4 opacity-90">{liveNote}</span>}
+                      </span>
+                    )
+                  ) : (
+                    displayHeight >= sizes.pill && (
+                      <span className="mt-auto flex items-center justify-between gap-2 text-xs leading-4 font-semibold">
+                        <span className="truncate">{text.price}</span>
+                        <span className="truncate rounded-full bg-surface/75 px-1.5 text-[10.5px] text-fg">{text.statusLabel}</span>
+                      </span>
+                    )
+                  )}
+                </>
+              )}
+            </>
+          ) : ios ? (
             <>
               {/* Как в Календаре iOS (owner 08.10.2026): жирное имя, под ним услуга (как «место» у iOS), время и статус —
                   если хватает высоты; короткая — одной строкой «Имя 10:30» */}

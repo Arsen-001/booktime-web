@@ -128,6 +128,57 @@
   background-color: color-mix(in srgb, var(--tone-drop) 18%, var(--color-surface));
 }
 
+/* ── Стиль «Живой день» (owner 08.10.2026, lib/journalStyle) ──────────────────────────────────────
+   Карточка — светлый тон (tone.fill) с тёмным текстом того же цвета (≥ 4.5:1); прошедшее приглушено, идущий визит —
+   сплошной primary с полосой прогресса, опоздание — красная обводка, свободное окно — фирменные точки BookTime. */
+.lCard {
+  position: relative;
+  background-color: var(--tone-fill);
+  color: var(--tone-ink);
+}
+.lCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sh-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+@media (hover: hover) {
+  .lCard:hover::after {
+    opacity: 1;
+  }
+}
+.lPast {
+  opacity: 0.5;
+  filter: saturate(0.35);
+}
+.lNow {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  box-shadow: 0 10px 26px -8px color-mix(in srgb, var(--color-primary) 60%, transparent);
+}
+.lLate {
+  box-shadow: 0 0 0 2px var(--color-danger);
+}
+.lFree {
+  border: 1.5px dashed color-mix(in srgb, var(--color-primary) 40%, var(--color-surface));
+  background:
+    radial-gradient(color-mix(in srgb, var(--color-primary) 22%, transparent) 1.3px, transparent 1.6px) 0 0 / 12px 12px,
+    color-mix(in srgb, var(--color-primary) 3%, var(--color-surface));
+  color: var(--color-primary-text);
+}
+:global(:root[data-theme='dark']) .lCard {
+  background-color: color-mix(in srgb, var(--tone-drop) 24%, var(--color-surface));
+  color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
+}
+:global(:root[data-theme='dark']) .lCard.lNow {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
 /* Стиль «Google Calendar» 1:1 (owner 08.10.2026): синий акцент Google вместо нашего индиго — на всей странице журнала
    (:root, чтобы и шторки, и всплывающие окна из портала были синими), шрифт Google (Google Sans / Roboto, если есть
    в системе — Android, ChromeOS; иначе системный). Цвета — данные стиля Google, контраст проверен: #1967d2 на белом 5.6:1. */
@@ -218,7 +269,8 @@
 @media (prefers-reduced-motion: reduce) {
   .card,
   .card::after,
-  .gCard::after {
+  .gCard::after,
+  .lCard::after {
     transition: none;
   }
   .card:hover,

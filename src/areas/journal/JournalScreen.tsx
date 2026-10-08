@@ -52,6 +52,8 @@ import { EmptyDayState } from '@/areas/journal/components/EmptyDayState';
 import { JournalSidebar } from '@/areas/journal/components/JournalSidebar';
 import { setRenderedJournalStyle, useJournalStyle } from '@/areas/journal/lib/journalStyle';
 import { JournalLeftRail, useLeftRail } from '@/areas/journal/components/JournalLeftRail';
+import { LiveNowStrip } from '@/areas/journal/components/LiveNowStrip';
+import { LivePulse } from '@/areas/journal/components/LivePulse';
 import { AttentionContent, AttentionPanel, useAttention, type AttentionData } from '@/areas/journal/components/AttentionPanel';
 import { DayTotals, DayTotalsSkeleton } from '@/areas/journal/components/DayTotals';
 import { DayGridSkeleton, useDayGridShape, useSaveDayGridShape } from '@/areas/journal/components/DayGridSkeleton';
@@ -1077,6 +1079,19 @@ export function JournalScreen() {
               {findSlotButton}
             </div>
           )}
+          {/* «Живой день» на телефоне: идущие визиты карточками над сеткой */}
+          {view === 'day' && !loading && journalStyle === 'live' && (
+            <div className="px-4">
+              <LiveNowStrip
+                date={date}
+                bookings={totalsBookings}
+                clientsById={clientsById}
+                staff={staffWithSchedule}
+                services={services}
+                onOpen={openBooking}
+              />
+            </div>
+          )}
         </div>
       ) : (
         // Ряд управления 72px под полосой каркаса (полоса снова на месте на любой ширине, owner 27.09.2026):
@@ -1142,7 +1157,17 @@ export function JournalScreen() {
           {/* «Google Calendar»: над сеткой ничего — итоги дня в «⋯ Ещё» → «Итоги дня», раскладка — в меню «День ▾» */}
           {!isMobile && !googleStyle && (
             <div className={view === 'day' ? 'flex flex-wrap items-center justify-between gap-x-4 gap-y-2' : 'hidden'}>
-            {!loading && (
+            {!loading && journalStyle === 'live' ? (
+              // «Живой день»: пульс дня вместо строки «Сейчас» и итогов (опоздания и «ждут ответа» — в нём же)
+              <LivePulse
+                date={date}
+                bookings={totalsBookings}
+                totals={totals}
+                staffCount={staffWithSchedule.length}
+                onPendingClick={openAttention}
+                className="min-w-0 flex-1"
+              />
+            ) : !loading && (
               <DayNow
                 date={date}
                 bookings={scopedBookings}
@@ -1154,7 +1179,7 @@ export function JournalScreen() {
                 className="basis-full"
               />
             )}
-            {loading ? <DayTotalsSkeleton /> : <DayTotals totals={totals} onPendingClick={openAttention} />}
+            {loading ? <DayTotalsSkeleton /> : journalStyle !== 'live' && <DayTotals totals={totals} onPendingClick={openAttention} />}
             {layoutSwitch(false)}
             </div>
           )}

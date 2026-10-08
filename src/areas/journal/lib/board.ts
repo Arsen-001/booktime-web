@@ -209,6 +209,8 @@ export interface CardSizes {
 export function cardSizes(): CardSizes {
   const style = renderedJournalStyle();
   if (style === 'ios') return { min: 40, stack: 44, service: 58, pill: 78 };
+  // «Живой день»: до stack — строка «10:30 Имя», дальше время+длительность, имя, услуга, внизу цена и статус
+  if (style === 'live') return { min: 40, stack: 50, service: 62, pill: 80 };
   return style === 'google'
     ? // min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись (30px) заходит на следующую, строка видна
       { min: 40, stack: 44, service: 54, pill: 72 }

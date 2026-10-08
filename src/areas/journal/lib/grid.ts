@@ -31,6 +31,8 @@ export function pxPerMin(zoomMin: JournalZoomMin): number {
   if (renderedJournalStyle() === 'google') return zoomMin === 5 ? 1.8 : zoomMin === 10 ? 1.3 : 1.0;
   // Стиль «Календарь iOS»: час 72px при шаге 15 мин — как день в Календаре iPad
   if (renderedJournalStyle() === 'ios') return zoomMin === 5 ? 2.0 : zoomMin === 10 ? 1.6 : 1.2;
+  // «Живой день»: в карточке время, имя, услуга и цена — час 84px при шаге 15 мин
+  if (renderedJournalStyle() === 'live') return zoomMin === 5 ? 2.2 : zoomMin === 10 ? 1.8 : 1.4;
   return zoomMin === 5 ? 2.4 : zoomMin === 10 ? 2.0 : 1.6;
 }
 

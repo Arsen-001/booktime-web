@@ -54,7 +54,7 @@ import { useCan, useCurrent } from "@/demo/hooks";
 import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
 import { cn } from "@/lib/cn";
-import { fromMinutes, today } from "@/lib/date";
+import { fromMinutes, today, toMinutes } from "@/lib/date";
 import { pickText } from "@/lib/text";
 import { BookingBlock } from "@/areas/journal/components/BookingBlock";
 import { HoldWhileClosing } from "@/areas/journal/components/HoldWhileClosing";
@@ -68,9 +68,14 @@ import { WorkingDaysRangeModal } from "@/areas/journal/components/WorkingDaysRan
 import {
   bookingTone,
   cardSizes,
+  FREE_SLOT_MIN,
+  freeGaps,
+  isActiveBooking,
   startMinutes,
   staffLoad,
+  type Gap,
 } from "@/areas/journal/lib/board";
+import styles from "@/areas/journal/board.module.css";
 import {
   combineBreakMin,
   computeDayRange,
@@ -163,6 +168,18 @@ const MARKUP_OPTIONS: (StaffMarkupMin | 0)[] = [0, 15, 30, 60, 90, 120];
 const GUTTER = 52;
 
 /** Полоса загрузки — цвет мастера (Staff.colorIndex → chart-N) */
+/** «Живой день»: цвет кольца загрузки (stroke="currentColor") — тот же набор chart-1..8 */
+const STAFF_TEXT: Record<number, string> = {
+  1: "text-chart-1",
+  2: "text-chart-2",
+  3: "text-chart-3",
+  4: "text-chart-4",
+  5: "text-chart-5",
+  6: "text-chart-6",
+  7: "text-chart-7",
+  8: "text-chart-8",
+};
+
 const STAFF_BAR: Record<number, string> = {
   1: "bg-chart-1",
   2: "bg-chart-2",
@@ -290,6 +307,69 @@ export function DayGrid({
     return { range, cols, ticks: hourTicks(range), heightPx: rangeHeightPx(range, zoomMin), ppm };
   }, [columns, bookingsByColumn, clientsById, services, lacquersById, extrasById, bookingCategories, zoomMin, staffMarkupMin, breakOverrideMin, breakCombineMode, showCrossColumnInfo, allStaff, allResources, locale, t, format, statusLabel, firstLineMode, showPhones]);
   const labels = useMemo(() => cardLabels(t, format), [t, format]);
+
+  // «Живой день» (lib/journalStyle): где каждая запись относительно «сейчас», что мастер делает сейчас, выручка мастера
+  // и свободные окна от часа — один расчёт на данные дня и минуту «сейчас»
+  const live = style === "live";
+  const liveInfo = useMemo(() => {
+    if (!live) return null;
+    const now = today();
+    const dayPast = date < now;
+    const dayToday = date === now;
+    const nowMin = dayToday ? lateNow : null;
+    return layout.cols.map(({ column, items }) => {
+      const per: Record<Id, { phase: "past" | "now" | "future"; pct: number; note?: string }> = {};
+      let current: (typeof items)[number] | undefined;
+      let waiting: (typeof items)[number] | undefined;
+      let nextStart: number | undefined;
+      let revenue = 0;
+      for (const item of items) {
+        const b = item.booking;
+        const from = startMinutes(b);
+        const to = from + b.durationMin;
+        const active = isActiveBooking(b) && b.status !== "no_show";
+        if (active) revenue += b.total;
+        const late = lateMinutes(b, nowMin);
+        if (late !== null) {
+          per[b.id] = { phase: "future", pct: 0, note: t("board.live.late", { time: format.duration(late) }) };
+          waiting ??= item;
+          continue;
+        }
+        if (dayPast || !active || (nowMin !== null && to <= nowMin)) {
+          per[b.id] = { phase: dayPast || nowMin !== null ? "past" : "future", pct: 0 };
+          continue;
+        }
+        if (nowMin !== null && from <= nowMin) {
+          per[b.id] = {
+            phase: "now",
+            pct: ((nowMin - from) / b.durationMin) * 100,
+            note: t("board.live.left", { time: format.duration(to - nowMin) }),
+          };
+          current = item;
+          continue;
+        }
+        per[b.id] = { phase: "future", pct: 0 };
+        if (nowMin !== null && (nextStart === undefined || from < nextStart)) nextStart = from;
+      }
+      // Свободные окна от часа — только сегодня (с «сейчас», округлено до 5 минут) и впереди
+      const gaps: Gap[] =
+        column.kind === "staff" && !dayPast
+          ? freeGaps(column.hours, bookingsByColumn[column.id] ?? [], FREE_SLOT_MIN, nowMin !== null ? Math.ceil(nowMin / 5) * 5 : 0)
+          : [];
+      const timeAt = (m: number) => format.time(`${date}T${fromMinutes(m)}`);
+      const status = current
+        ? { tone: "busy" as const, text: t("board.live.withClient", { name: current.text.primary, time: timeAt(startMinutes(current.booking) + current.booking.durationMin) }) }
+        : waiting
+          ? { tone: "late" as const, text: t("board.live.waiting", { name: waiting.text.primary }) }
+          : nowMin !== null &&
+              column.kind === "staff" &&
+              // «свободна» — только в рабочие часы: до смены и после неё статуса нет
+              column.hours.some((h) => toMinutes(h.from) <= nowMin && nowMin < toMinutes(h.to))
+            ? { tone: "free" as const, text: nextStart !== undefined ? t("board.live.freeUntil", { time: timeAt(nextStart) }) : t("board.live.freeAll") }
+            : null;
+      return { per, gaps, revenue, status };
+    });
+  }, [live, layout, lateNow, date, bookingsByColumn, t, format]);
 
   const { range, ticks, heightPx, ppm } = layout;
 
@@ -465,21 +545,41 @@ export function DayGrid({
                   </>
                 )}
               </div>
-              {layout.cols.map(({ column, load, markup }) => (
+              {layout.cols.map(({ column, load, markup }, colIndex) => (
                 <div
                   key={column.id}
-                  className={cn("flex h-16 items-center gap-2.5 border-l border-line px-3", colClass)}
+                  className={cn("flex items-center gap-2.5 border-l border-line px-3", live ? "h-[76px]" : "h-16", colClass)}
                   style={colStyle}
                 >
                   {column.kind === "staff" ? (
                     <>
-                      <Avatar
-                        name={column.staff.name}
-                        src={column.staff.avatarUrl}
-                        colorIndex={column.staff.colorIndex}
-                        size={columnsPerScreen ? "xs" : "sm"}
-                        className="shrink-0"
-                      />
+                      {live ? (
+                        // «Живой день»: кольцо загрузки дня цвета мастера вокруг аватара
+                        <span aria-hidden className={cn("relative grid size-11 shrink-0 place-items-center", STAFF_TEXT[column.staff.colorIndex] ?? "text-primary")}>
+                          <svg viewBox="0 0 44 44" className="absolute inset-0 size-11 -rotate-90">
+                            <circle cx="22" cy="22" r="20" fill="none" strokeWidth="3" className="stroke-surface-3" />
+                            <circle
+                              cx="22"
+                              cy="22"
+                              r="20"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              strokeDasharray={`${Math.round(load.ratio * 125.7)} 126`}
+                            />
+                          </svg>
+                          <Avatar name={column.staff.name} src={column.staff.avatarUrl} colorIndex={column.staff.colorIndex} size="xs" />
+                        </span>
+                      ) : (
+                        <Avatar
+                          name={column.staff.name}
+                          src={column.staff.avatarUrl}
+                          colorIndex={column.staff.colorIndex}
+                          size={columnsPerScreen ? "xs" : "sm"}
+                          className="shrink-0"
+                        />
+                      )}
                       <div className="flex min-w-0 flex-1 flex-col gap-1">
                         {/* F-01-020/F-01-126: меню графика по имени — у кого есть право править график; разметка (F-01-021) — у всех */}
                         {canEditSchedule ? (
@@ -521,6 +621,31 @@ export function DayGrid({
                           />
                           </span>
                         )}
+                        {live && !column.off ? (
+                          // «Живой день»: «72% · 54 000 ֏» и что мастер делает сейчас
+                          <span className="-mt-1 flex min-w-0 flex-col text-xs leading-4">
+                            <span className="truncate text-muted" aria-label={t("board.column.load", { pct: Math.round(load.ratio * 100) })}>
+                              {Math.round(load.ratio * 100)}% · {liveInfo?.[colIndex].revenue ? format.money(liveInfo[colIndex].revenue) : t("board.column.bookings", { n: load.count })}
+                            </span>
+                            {liveInfo?.[colIndex].status && (
+                              <span
+                                className={cn(
+                                  "flex min-w-0 items-center gap-1.5",
+                                  liveInfo[colIndex].status.tone === "late" ? "font-semibold text-danger" : liveInfo[colIndex].status.tone === "free" ? "text-primary-text" : "text-fg",
+                                )}
+                              >
+                                <span
+                                  aria-hidden
+                                  className={cn(
+                                    "size-1.5 shrink-0 rounded-full",
+                                    liveInfo[colIndex].status.tone === "late" ? "bg-danger" : liveInfo[colIndex].status.tone === "free" ? "bg-primary" : "bg-success",
+                                  )}
+                                />
+                                <span className="truncate">{liveInfo[colIndex].status.text}</span>
+                              </span>
+                            )}
+                          </span>
+                        ) : (
                         <span className="flex items-center gap-2" aria-label={t("board.column.load", { pct: Math.round(load.ratio * 100) })}>
                           <span aria-hidden className={cn("relative hidden h-1 w-16 overflow-hidden rounded-full bg-surface-3", !column.off && "lg:block")}>
                             <span
@@ -539,6 +664,7 @@ export function DayGrid({
                             </span>
                           )}
                         </span>
+                        )}
                       </div>
                     </>
                   ) : (
@@ -571,7 +697,7 @@ export function DayGrid({
                 <NowLine date={date} range={range} zoomMin={zoomMin} variant="pill" />
               </div>
 
-              {layout.cols.map(({ column, bands, markupLines, items }) => (
+              {layout.cols.map(({ column, bands, markupLines, items }, colIndex) => (
                 <div key={column.id} className={cn("border-l border-line", colClass)} style={colStyle}>
                   <DroppableCell
                     data-f={column.kind === "resource" ? "F-16-023" : undefined}
@@ -620,6 +746,39 @@ export function DayGrid({
                         </button>
                       );
                     })}
+                    {/* «Живой день»: свободное окно от часа — фирменные точки и «+ Записать» на его начало */}
+                    {live &&
+                      !slotGaps &&
+                      (liveInfo?.[colIndex].gaps ?? []).map((g) => {
+                        const gapHeight = (g.to - g.from) * ppm;
+                        const from = format.time(`${date}T${fromMinutes(g.from)}`);
+                        const to = format.time(`${date}T${fromMinutes(g.to)}`);
+                        return (
+                          <button
+                            key={`free-${g.from}`}
+                            type="button"
+                            disabled={!canCreate}
+                            aria-label={`${t("board.live.free", { from, to })}, ${t("board.live.book")}`}
+                            style={{ top: minutesToTop(g.from, range, zoomMin) + 2, height: gapHeight - 4 }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onCreate(column.id, fromMinutes(g.from));
+                            }}
+                            className={cn(
+                              styles.lFree,
+                              "absolute right-2 left-1.5 z-[1] flex flex-col items-start gap-0.5 overflow-hidden rounded-[10px] px-2.5 py-1.5 text-left text-xs leading-4 disabled:cursor-default",
+                            )}
+                          >
+                            <span className="text-[13px] font-semibold">{t("board.live.free", { from, to })}</span>
+                            <span className="opacity-90">{format.duration(g.to - g.from)}</span>
+                            {canCreate && gapHeight >= 84 && (
+                              <span className="mt-auto inline-flex h-7 items-center rounded-full bg-primary px-3 font-semibold text-primary-contrast">
+                                + {t("board.live.book")}
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
                     {markupLines.map((m) => (
                       <div
                         key={m}
@@ -656,6 +815,9 @@ export function DayGrid({
                           onPackageHover={cardHandlers.packageHover}
                           highlighted={Boolean(packageGroupId) && packageGroupId === hoveredPackageGroupId}
                           late={lateMinutes(item.booking, lateNow) !== null}
+                          phase={liveInfo?.[colIndex].per[item.booking.id]?.phase}
+                          progressPct={liveInfo?.[colIndex].per[item.booking.id]?.pct}
+                          liveNote={liveInfo?.[colIndex].per[item.booking.id]?.note}
                         />
                       );
                       return (
@@ -704,8 +866,9 @@ export function DayGrid({
                 />
               )}
 
-              {/* Линия «сейчас» — одна через все колонки, поверх карточек */}
-              <div className="pointer-events-none absolute inset-y-0 right-0" style={{ left: GUTTER }}>
+              {/* Линия «сейчас» — одна через все колонки, поверх карточек; в «Живом дне» — под ними: идущий визит и так
+                  синий с прогрессом, линия не должна перечёркивать его текст */}
+              <div className={cn("pointer-events-none absolute inset-y-0 right-0", live && "z-[5]")} style={{ left: GUTTER }}>
                 <NowLine date={date} range={range} zoomMin={zoomMin} />
               </div>
             </div>

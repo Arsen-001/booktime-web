@@ -23,6 +23,10 @@ export interface CardText {
   range: string;
   /** Третья строка события в сетке: услуга (или клиент, если первой строкой не имя) — без «до HH:MM» */
   detail: string;
+  /** «Живой день»: «1 ч 15 мин», «до 15:30», «12 000 ֏» */
+  duration: string;
+  until: string;
+  price: string;
   primary: string;
   secondary: string;
   pill: string;
@@ -50,6 +54,8 @@ export interface CardText {
 /** Постоянные подписи карточек (одинаковые для всех) */
 export interface CardLabels {
   newClient: string;
+  /** «Живой день»: подпись идущего визита */
+  liveNow: string;
   online: string;
   statusCard: string;
   resizeHandle: string;
@@ -64,6 +70,7 @@ export const BREAK_DURATION_OPTIONS = [5, 10, 15, 20, 30, 45, 60];
 export function cardLabels(t: JournalT, format: Formatter): CardLabels {
   return {
     newClient: t('board.card.newClient'),
+    liveNow: t('board.live.now'),
     online: t('board.card.online'),
     statusCard: t('board.card.statusCard'),
     resizeHandle: t('block.resizeHandle'),
@@ -137,6 +144,9 @@ export function cardText(
   return {
     time,
     range: `${time} – ${end}`,
+    duration: format.duration(booking.durationMin),
+    until,
+    price: booking.total > 0 ? format.money(booking.total) : '',
     detail:
       (firstLineMode === 'clientName' ? serviceNames : (clientName ?? noClient)) +
       (booking.visitorName && client?.name ? ` · ${booking.visitorName}` : ''),

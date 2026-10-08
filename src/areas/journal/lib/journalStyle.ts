@@ -2,6 +2,9 @@
 
 /**
  * Стиль журнала — выбор каждого (owner 08.10.2026: «кто какой стиль захочет, тот и сделает»):
+ *  - 'live'     — «Живой день» (owner 08.10.2026, по умолчанию): журнал сам показывает деньги и дыры в дне — прошедшее
+ *                 приглушено, у идущего визита полоса «ещё N мин», свободные окна выделены точками с «Записать»,
+ *                 у мастера кольцо загрузки, выручка и что он делает сейчас, сверху «пульс дня»;
  *  - 'booktime' — наш макет A2 (DESIGN.md → Journal): светлый тон лака, крупное время, белая карточка-сетка;
  *  - 'google'   — «как Google Calendar»: белая страница, события сплошным цветом услуги, мелкий текст;
  *  - 'ios'      — «1:1 как Календарь iOS» (owner 08.10.2026): подкраска цвета с полосой слева, красный акцент «сегодня»,
@@ -14,12 +17,12 @@
  */
 import { useSyncExternalStore } from 'react';
 
-export type JournalStyle = 'booktime' | 'google' | 'ios';
+export type JournalStyle = 'live' | 'booktime' | 'google' | 'ios';
 
-export const JOURNAL_STYLES: JournalStyle[] = ['booktime', 'google', 'ios'];
+export const JOURNAL_STYLES: JournalStyle[] = ['live', 'booktime', 'google', 'ios'];
 
 const KEY = 'bt-journal-style';
-const DEFAULT: JournalStyle = 'google';
+const DEFAULT: JournalStyle = 'live';
 
 let stored: JournalStyle | null = null;
 let rendered: JournalStyle = DEFAULT;
@@ -33,7 +36,7 @@ function readStored(): JournalStyle {
   } catch {
     /* приватное окно — стиль по умолчанию */
   }
-  stored = value === 'booktime' || value === 'google' || value === 'ios' ? value : DEFAULT;
+  stored = (JOURNAL_STYLES as string[]).includes(value ?? '') ? (value as JournalStyle) : DEFAULT;
   return stored;
 }
 

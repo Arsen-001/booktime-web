@@ -18,7 +18,7 @@ import {
   useSensors,
   type DragEndEvent,
 } from "@dnd-kit/core";
-import type { Client, DayHours, Id, ISODate, Resource, Service, Staff } from "@/domain/core";
+import type { Booking, Client, DayHours, Id, ISODate, Resource, Service, Staff } from "@/domain/core";
 import {
   getBookingCategories,
   getWeekHours,
@@ -52,7 +52,8 @@ import {
   yToTime,
 } from "@/areas/journal/lib/grid";
 import { isNewClientBooking } from "@/areas/journal/lib/heuristics";
-import { bookingTone, cardSizes } from "@/areas/journal/lib/board";
+import { bookingTone, cardSizes, isActiveBooking } from "@/areas/journal/lib/board";
+import { useNowMinuteYerevan } from "@/areas/journal/lib/lateness";
 import { cardLabels, cardText } from "@/areas/journal/lib/cardText";
 import { useBookingStatusLabel } from "@/ui/BookingStatusBadge";
 import type { FirstLineMode } from "@/domain/journal";
@@ -111,6 +112,20 @@ export function WeekGrid({
   const style = renderedJournalStyle();
   const google = style === "google";
   const ios = style === "ios";
+  const live = style === "live";
+  // «Живой день»: прошедшее приглушено, идущий визит — с прогрессом (минута «сейчас» по Еревану)
+  const nowMin = useNowMinuteYerevan(today());
+  const phaseOf = (day: string, booking: Booking) => {
+    if (!live) return undefined;
+    const now = today();
+    if (day < now) return { phase: "past" as const, pct: 0 };
+    if (day > now || nowMin === null) return { phase: "future" as const, pct: 0 };
+    const from = Number(booking.start.slice(11, 13)) * 60 + Number(booking.start.slice(14, 16));
+    const to = from + booking.durationMin;
+    if (to <= nowMin || !isActiveBooking(booking)) return { phase: "past" as const, pct: 0 };
+    if (from <= nowMin) return { phase: "now" as const, pct: ((nowMin - from) / booking.durationMin) * 100 };
+    return { phase: "future" as const, pct: 0 };
+  };
   const t = useT("journal");
   const tc = useT("common");
   const toast = useToast();
@@ -433,6 +448,8 @@ export function WeekGrid({
                         packageGroupId={packageGroupId}
                         onPackageHover={setHoveredPackageGroupId}
                         highlighted={Boolean(packageGroupId) && packageGroupId === hoveredPackageGroupId}
+                        phase={phaseOf(day, booking)?.phase}
+                        progressPct={phaseOf(day, booking)?.pct}
                       />
                     );
                   })}

@@ -11,6 +11,16 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 
 ## Journal (docs/design/mockups/A2-*.png)
 
+**08.10.2026, evening — owner: «Живой день» (default style, `live`).** Chosen from three concepts (artifact
+https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z, «1 · Живой день»): the journal shows money and empty time itself. Cards are
+the light tone with a big Manrope time + duration, name with "new", service, and price + status at the bottom; past bookings
+are faded and desaturated, the running visit is solid primary with a progress bar and "N min left", a late client gets a
+red ring and "late N min". Free windows ≥1 h (from now, today; whole day ahead) are dotted BookTime-pattern blocks with
+"+ Book" at their start. Master header: load ring in the master's colour around the avatar, "68% · 33 000 ֏" and what
+the master is doing now (with whom until when / waiting for whom / free until — only within working hours). Above the grid
+the "day pulse" (`LivePulse`) replaces the "now" row and the totals. Phone: running visits as primary cards with a ring
+above the grid (`LiveNowStrip`). The "now" line lies under the cards. Scale 1.4 / 1.8 / 2.2 px per minute.
+
 **08.10.2026 — owner: two journal styles, each person picks one** («кто какой стиль захочет»): "BookTime" (everything below,
 unchanged) and "Google Calendar" («очень похоже по дизайну на Google Calendar»). The choice is in "⋯ More" → grid settings,
 stored on the device (`src/areas/journal/lib/journalStyle.ts`, default "Google Calendar"). Later the same day — a third style,
