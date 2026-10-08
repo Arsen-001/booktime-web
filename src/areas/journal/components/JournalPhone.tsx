@@ -59,7 +59,13 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
         aria-label={t('board.phone.openCalendar')}
         className="flex min-h-12 min-w-0 flex-1 flex-col items-start justify-center rounded-lg text-left"
       >
-        {ios ? (
+        {style === 'live' ? (
+          // BookTime («Живой день»): «Четверг, 8 октября» крупно, как в макете; нажатие — календарь месяца
+          <span className="font-display flex items-center gap-1 text-[22px] leading-tight font-extrabold tracking-[-0.4px] text-fg">
+            {capitalize(format.date(date, 'weekdayLong'))}
+            <DropdownChevron />
+          </span>
+        ) : ios ? (
           <span className="-ml-1.5 flex items-center text-[17px] leading-tight text-danger">
             <ChevronLeft aria-hidden className="size-6" strokeWidth={2.5} />
             {capitalize(format.monthName(date))}
@@ -301,13 +307,21 @@ export function JournalBottomNav({ onMore }: { onMore: () => void }) {
   const t = useT('journal');
   const canClients = useCan('clients.view');
   const canCash = useCan('finance.view');
-  const item = 'group flex min-h-16 flex-col items-center justify-center gap-1 text-[11px] font-medium text-muted';
+  // BookTime («Живой день»): плавающая «стеклянная» полоса, как у клиента и в макете
+  const floating = renderedJournalStyle() === 'live';
+  const item = cn('group flex flex-col items-center justify-center gap-1 text-[11px] font-medium text-muted', floating ? 'min-h-14' : 'min-h-16');
   const pill = 'grid h-8 w-14 place-items-center rounded-full transition-colors [&_svg]:size-[22px]';
   return (
     <nav
       aria-label={t('board.phone.nav.label')}
       data-journal-tabbar=""
-      className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface md:hidden"
+      data-floating={floating ? '' : undefined}
+      className={cn(
+        'z-30 md:hidden',
+        floating
+          ? 'tabbar-glass fixed inset-x-3 bottom-[max(0.625rem,calc(env(safe-area-inset-bottom,0px)-0.375rem))] mx-auto max-w-md rounded-[1.75rem] p-1'
+          : 'pb-safe fixed inset-x-0 bottom-0 border-t border-border bg-surface',
+      )}
     >
       <ul className={cn('mx-auto grid max-w-lg', ['grid-cols-2', 'grid-cols-3', 'grid-cols-4'][Number(canClients) + Number(canCash)])}>
         <li>

@@ -26,8 +26,7 @@
     "splitByResource": "Делить запись по ресурсам",
     "style": {
       "label": "Вид журнала",
-      "live": "Живой день",
-      "booktime": "BookTime",
+      "live": "BookTime",
       "google": "Google Календарь",
       "ios": "Календарь iOS"
     }
@@ -1448,7 +1447,7 @@
       "revenue": "Выручка",
       "revenueOf": "из {total}",
       "busyNow": "{n} из {total} мастеров сейчас с клиентом",
-      "freeSlots": "{n, plural, one {# свободное окно} few {# свободных окна} many {# свободных окон} other {# свободного окна}}",
+      "freeSlots": "{n, plural, one {# окно} few {# окна} many {# окон} other {# окна}} свободно",
       "late_n": "{n, plural, one {# опаздывает} few {# опаздывают} many {# опаздывают} other {# опаздывают}}",
       "pending": "{n, plural, one {# ждёт ответа} few {# ждут ответа} many {# ждут ответа} other {# ждут ответа}}",
       "pulse": "Пульс дня",
@@ -1463,7 +1462,14 @@
       "prepayWait": "ждёт предоплату",
       "plus15": "+15 мин",
       "pay": "Оплата",
-      "extended": "Визит продлён до {time}"
+      "extended": "Визит продлён до {time}",
+      "waitlist": "{n} в листе ожидания",
+      "waitingFit": "подходит {n} из листа ожидания",
+      "break": "Перерыв",
+      "freeFor": "Свободно {time}",
+      "emptyDay": "В этот день у мастера нет записей и окон",
+      "pastLabel": "раньше",
+      "pastSummary": "{n, plural, one {# визит} few {# визита} many {# визитов} other {# визита}} позади"
     }
   },
   "hotkeys": {

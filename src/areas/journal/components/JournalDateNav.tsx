@@ -80,7 +80,8 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
     ? 'text-[22px] leading-tight font-normal text-fg'
     : ios
       ? 'text-[26px] leading-tight font-bold tracking-[-0.4px] text-fg'
-      : 'text-[22px] leading-tight font-bold tracking-[-0.3px] text-fg';
+      : // BookTime («Живой день»): Manrope 26/800, как в макете
+        'font-display text-[26px] leading-tight font-extrabold tracking-[-0.5px] text-fg';
 
   // Какая форма влезает: место под кнопку (slot) минус всё, что в кнопке кроме текста, сравниваем с шириной форм
   const slotRef = useRef<HTMLDivElement>(null);
@@ -127,8 +128,8 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
           {t('toolbar.today')}
         </Button>
       )}
-      <IconButton variant="ghost" className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronLeft aria-hidden />} label={t(`board.prev.${view}`)} onClick={() => onDateChange(shiftDate(date, view, -1))} />
-      <IconButton variant="ghost" className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronRight aria-hidden />} label={t(`board.next.${view}`)} onClick={() => onDateChange(shiftDate(date, view, 1))} />
+      <IconButton variant={google || ios ? 'ghost' : 'outline'} className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronLeft aria-hidden />} label={t(`board.prev.${view}`)} onClick={() => onDateChange(shiftDate(date, view, -1))} />
+      <IconButton variant={google || ios ? 'ghost' : 'outline'} className={google ? 'rounded-full' : ios ? 'text-danger' : undefined} icon={<ChevronRight aria-hidden />} label={t(`board.next.${view}`)} onClick={() => onDateChange(shiftDate(date, view, 1))} />
       <div ref={slotRef} className="relative ml-2 flex min-w-0 flex-1">
         {/* Невидимые образцы всех форм — по ним меряем, какая влезет */}
         <span ref={measureRef} aria-hidden className="pointer-events-none invisible absolute top-0 left-0 h-0 w-0 overflow-hidden">
@@ -153,7 +154,13 @@ export function JournalDateNav({ date, onDateChange, view, staffIds }: JournalDa
                 <span ref={titleRef} className={cn(titleClass, 'truncate')}>
                   {title}
                 </span>
-                {rel && <span className="shrink-0 text-xs text-muted @min-[28rem]:text-sm">{rel}</span>}
+                {rel &&
+                  (google || ios ? (
+                    <span className="shrink-0 text-xs text-muted @min-[28rem]:text-sm">{rel}</span>
+                  ) : (
+                    // BookTime: «сегодня» плашкой рядом с датой
+                    <span className="shrink-0 self-start rounded-full bg-primary-soft px-2.5 py-0.5 text-[13px] font-semibold text-primary-text @min-[28rem]:self-center">{rel}</span>
+                  ))}
               </span>
               <DropdownChevron open={p['aria-expanded']} className="shrink-0" />
             </button>

@@ -9,6 +9,7 @@
  * дня; карточки — чистый CSS без Motion; линия «сейчас» и карточки двигаются transform'ом.
  */
 import { TimeText } from '@/areas/journal/components/TimeText';
+import { Plus } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
@@ -50,6 +51,8 @@ import {
 } from "@/api/journal";
 import { deleteCells, findAffectedBookings } from "@/api/schedule";
 import { useApiMutation } from "@/api/request";
+import { useWaitlist } from "@/api/resources";
+import { liveGap } from "@/areas/journal/lib/liveGaps";
 import { useCan, useCurrent } from "@/demo/hooks";
 import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
@@ -243,7 +246,7 @@ export function DayGrid({
   // F-01-110/F-01-114: сенсор перетаскивания — до раннего return ниже (правила хуков)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
   const canEditSchedule = useCan("journal.edit");
-  const { staffId: ownStaffId, ready: currentReady } = useCurrent();
+  const { staffId: ownStaffId, ready: currentReady, businessId: currentBusinessId } = useCurrent();
   const confirm = useConfirm();
   const mover = useMoveBooking({ date, clientsById, resources: allResources });
   const bodyRef = useRef<HTMLDivElement | null>(null);
@@ -315,6 +318,8 @@ export function DayGrid({
   // «Живой день» (lib/journalStyle): где каждая запись относительно «сейчас», что мастер делает сейчас, выручка мастера
   // и свободные окна от часа — один расчёт на данные дня и минуту «сейчас»
   const live = style === "live";
+  // Лист ожидания — «подходит N» на свободном окне (тот же ключ, что у панели и экрана листа)
+  const waitlistQuery = useWaitlist(live ? currentBusinessId : undefined);
   const liveInfo = useMemo(() => {
     if (!live) return null;
     const now = today();
@@ -356,10 +361,14 @@ export function DayGrid({
         if (nowMin !== null && (nextStart === undefined || from < nextStart)) nextStart = from;
       }
       // Свободные окна от часа — только сегодня (с «сейчас», округлено до 5 минут) и впереди
-      const gaps: Gap[] =
+      const rawGaps: Gap[] =
         column.kind === "staff" && !dayPast
           ? freeGaps(column.hours, bookingsByColumn[column.id] ?? [], FREE_SLOT_MIN, nowMin !== null ? Math.ceil(nowMin / 5) * 5 : 0)
           : [];
+      // У окна: «подходит N из листа ожидания» и «+ сумма» (lib/liveGaps)
+      const gaps = rawGaps.map((g) =>
+        column.kind === "staff" ? liveGap(g, column.staff, services, waitlistQuery.data ?? [], date) : { ...g, waiting: 0, potential: 0 },
+      );
       const timeAt = (m: number) => format.time(`${date}T${fromMinutes(m)}`);
       const status = current
         ? { tone: "busy" as const, text: t("board.live.withClient", { name: current.text.primary, time: timeAt(startMinutes(current.booking) + current.booking.durationMin) }) }
@@ -373,7 +382,7 @@ export function DayGrid({
             : null;
       return { per, gaps, revenue, status };
     });
-  }, [live, layout, lateNow, date, bookingsByColumn, t, format]);
+  }, [live, layout, lateNow, date, bookingsByColumn, t, format, services, waitlistQuery.data]);
 
   const { range, ticks, heightPx, ppm } = layout;
 
@@ -523,7 +532,7 @@ export function DayGrid({
           className={cn(
             "scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface pb-24 md:pb-0",
             // «Google Calendar»: сетка без рамки-карточки, прямо на белой странице (board.module.css); «BookTime» — карточка r16
-            style === "booktime" ? "rounded-2xl border border-border" : "border-t border-border",
+            style === "live" ? "rounded-2xl border border-border" : "border-t border-border",
             // snap с отступом на колонку часов: иначе первая колонка «прилипает» под неё и видна обрезанной
             columnsPerScreen && "@container snap-x scroll-pl-[52px]",
           )}
@@ -713,15 +722,24 @@ export function DayGrid({
                     {/* DESIGN.md → Journal 3: сетка уже обрезана по общему рабочему диапазону (computeDayRange) —
                         эта заливка красит только чужой перерыв ВНУТРИ него (обед, окно между сменами одного
                         мастера), поэтому тон совсем лёгкий — не «длинный серый блок», а спокойный фон. */}
-                    {bands
-                      .filter((b) => !b.working)
-                      .map((b) => (
+                    {bands.map((b, i) =>
+                      b.working ? null : live && bands[i - 1]?.working && bands[i + 1]?.working ? (
+                        // BookTime («Живой день»): перерыв между сменами — серыми точками с подписью «Перерыв»
+                        <div
+                          key={`${b.from}-${b.to}`}
+                          style={{ top: minutesToTop(b.from, range, zoomMin) + 2, height: (b.to - b.from) * ppm - 4 }}
+                          className={cn(styles.lBreak, "pointer-events-none absolute right-2 left-1.5 grid place-items-center rounded-[10px] text-xs")}
+                        >
+                          {(b.to - b.from) * ppm >= 24 ? t("board.live.break") : null}
+                        </div>
+                      ) : (
                         <div
                           key={`${b.from}-${b.to}`}
                           style={{ top: minutesToTop(b.from, range, zoomMin), height: (b.to - b.from) * ppm }}
                           className="pointer-events-none absolute inset-x-0 bg-surface-2/50"
                         />
-                      ))}
+                      ),
+                    )}
                     {ticks.slice(1).map((m) => (
                       <div
                         key={m}
@@ -774,29 +792,33 @@ export function DayGrid({
                             <span className="text-[13px] font-semibold">{t("board.live.free", { from, to })}</span>
                             <span className="opacity-90">
                               {format.duration(g.to - g.from)}
+                              {g.waiting > 0 && ` · ${t("board.live.waitingFit", { n: g.waiting })}`}
                               {hot && <span className="font-semibold text-danger"> · {t("board.live.hot")}</span>}
                             </span>
                             {canCreate && gapHeight >= 70 && (
-                              <span className="mt-auto flex flex-wrap gap-1.5">
-                                <button
-                                  type="button"
-                                  onClick={() => onCreate(column.id, fromMinutes(g.from))}
-                                  className="inline-flex h-7 items-center rounded-full bg-primary px-3 font-semibold text-primary-contrast transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
-                                >
-                                  + {t("board.live.book")}
-                                </button>
+                              <span className="mt-auto flex w-full items-center gap-1.5">
                                 {onOfferGap && column.kind === "staff" && (
                                   <button
                                     type="button"
                                     onClick={() => onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to })}
                                     className={cn(
-                                      "inline-flex h-7 items-center rounded-full px-3 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus",
-                                      hot ? "bg-danger text-primary-contrast hover:opacity-90" : "bg-surface text-primary-text ring-1 ring-primary/30 hover:bg-primary-soft",
+                                      "inline-flex h-7 items-center rounded-full px-3 font-semibold text-primary-contrast transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus",
+                                      hot ? "bg-danger hover:opacity-90" : "bg-primary hover:bg-primary-hover",
                                     )}
                                   >
                                     {t("board.live.offer")}
                                   </button>
                                 )}
+                                <button
+                                  type="button"
+                                  aria-label={t("board.live.book")}
+                                  title={t("board.live.book")}
+                                  onClick={() => onCreate(column.id, fromMinutes(g.from))}
+                                  className="inline-grid size-7 place-items-center rounded-full bg-surface text-primary-text ring-1 ring-primary/30 transition-colors hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                                >
+                                  <Plus aria-hidden className="size-4" strokeWidth={2.5} />
+                                </button>
+                                {g.potential > 0 && <span className="ml-auto truncate text-[11px] font-medium">+ {format.money(g.potential)}</span>}
                               </span>
                             )}
                           </div>

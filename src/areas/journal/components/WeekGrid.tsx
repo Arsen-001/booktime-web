@@ -274,7 +274,7 @@ export function WeekGrid({
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <div
         data-f="F-01-013 F-01-023 F-02-037 F-16-020"
-        className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", style === "booktime" ? "rounded-2xl border border-border" : "border-t border-border")}
+        className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", style === "live" ? "rounded-2xl border border-border" : "border-t border-border")}
       >
         <div className="flex" style={{ minWidth: days.length * (google ? 104 : 160) + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">

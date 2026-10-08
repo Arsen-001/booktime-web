@@ -2,10 +2,9 @@
 
 /**
  * Стиль журнала — выбор каждого (owner 08.10.2026: «кто какой стиль захочет, тот и сделает»):
- *  - 'live'     — «Живой день» (owner 08.10.2026, по умолчанию): журнал сам показывает деньги и дыры в дне — прошедшее
+ *  - 'live'     — вид «BookTime» = «Живой день» (owner 08.10.2026, по умолчанию; заменил прежний вид A2): журнал сам показывает деньги и дыры в дне — прошедшее
  *                 приглушено, у идущего визита полоса «ещё N мин», свободные окна выделены точками с «Записать»,
  *                 у мастера кольцо загрузки, выручка и что он делает сейчас, сверху «пульс дня»;
- *  - 'booktime' — наш макет A2 (DESIGN.md → Journal): светлый тон лака, крупное время, белая карточка-сетка;
  *  - 'google'   — «как Google Calendar»: белая страница, события сплошным цветом услуги, мелкий текст;
  *  - 'ios'      — «1:1 как Календарь iOS» (owner 08.10.2026): подкраска цвета с полосой слева, красный акцент «сегодня»,
  *                 системный шрифт (на Apple — SF).
@@ -17,9 +16,9 @@
  */
 import { useSyncExternalStore } from 'react';
 
-export type JournalStyle = 'live' | 'booktime' | 'google' | 'ios';
+export type JournalStyle = 'live' | 'google' | 'ios';
 
-export const JOURNAL_STYLES: JournalStyle[] = ['live', 'booktime', 'google', 'ios'];
+export const JOURNAL_STYLES: JournalStyle[] = ['live', 'google', 'ios'];
 
 const KEY = 'bt-journal-style';
 const DEFAULT: JournalStyle = 'live';
@@ -36,6 +35,7 @@ function readStored(): JournalStyle {
   } catch {
     /* приватное окно — стиль по умолчанию */
   }
+  // Старый вид «BookTime» (A2) заменён «Живым днём» (owner 08.10.2026) — кто его выбирал, получает новый BookTime
   stored = (JOURNAL_STYLES as string[]).includes(value ?? '') ? (value as JournalStyle) : DEFAULT;
   return stored;
 }

@@ -5,9 +5,10 @@
  * сделанного из плана дня с полосой, сколько мастеров сейчас с клиентом, свободные окна от часа, ждут ответа,
  * опаздывают. Сделанное — записи, которые уже закончились или идут с отметкой «Пришёл»; день в прошлом — весь план.
  */
-import type { Booking, ISODate } from '@/domain/core';
+import type { Booking, DayHours, Id, ISODate, Staff } from '@/domain/core';
+import { computeWaitlistStatus, useWaitlist, waitlistWantsDay } from '@/api/resources';
 import type { DayTotalsData } from '@/areas/journal/lib/board';
-import { isActiveBooking, startMinutes } from '@/areas/journal/lib/board';
+import { FREE_SLOT_MIN, freeGaps, isActiveBooking, startMinutes } from '@/areas/journal/lib/board';
 import { lateMinutes, useNowMinuteYerevan } from '@/areas/journal/lib/lateness';
 import { useJournalBlockRights } from '@/areas/journal/lib/rights';
 import { useFormat } from '@/i18n/useFormat';
@@ -19,13 +20,16 @@ export interface LivePulseProps {
   date: ISODate;
   bookings: Booking[];
   totals: DayTotalsData;
-  /** Сколько мастеров с графиком в этот день */
-  staffCount: number;
+  /** Мастера с графиком в этот день и их часы — свободные окна от часа (сегодня — от «сейчас») */
+  staff: Staff[];
+  hoursByStaff: Record<Id, DayHours>;
+  businessId?: Id;
   onPendingClick: () => void;
   className?: string;
 }
 
-export function LivePulse({ date, bookings, totals, staffCount, onPendingClick, className }: LivePulseProps) {
+export function LivePulse({ date, bookings, totals, staff, hoursByStaff, businessId, onPendingClick, className }: LivePulseProps) {
+  const staffCount = staff.length;
   const t = useT('journal');
   const format = useFormat();
   const { showStatistics } = useJournalBlockRights();
@@ -45,22 +49,39 @@ export function LivePulse({ date, bookings, totals, staffCount, onPendingClick, 
       : new Set(active.filter((b) => startMinutes(b) <= nowMin && nowMin < startMinutes(b) + b.durationMin && lateMinutes(b, nowMin) === null).map((b) => b.staffId)).size;
   const late = nowMin === null ? 0 : bookings.filter((b) => lateMinutes(b, nowMin) !== null).length;
   const pct = totals.revenue > 0 ? Math.round((done / totals.revenue) * 100) : 0;
+  // Свободные окна от часа, как на сетке: сегодня — от «сейчас», впереди — весь день, прошлый день — нет
+  const gaps = dayPast
+    ? []
+    : staff.flatMap((s) =>
+        freeGaps(hoursByStaff[s.id] ?? [], bookings.filter((b) => b.staffId === s.id), FREE_SLOT_MIN, nowMin !== null ? Math.ceil(nowMin / 5) * 5 : 0),
+      );
+  const freeMin = gaps.reduce((sum, g) => sum + g.to - g.from, 0);
+  // Лист ожидания на этот день: активные заявки, которые ждут этот день или любой
+  const waitlistQuery = useWaitlist(businessId, { enabled: Boolean(businessId) && !dayPast });
+  const waiting = dayPast
+    ? 0
+    : (waitlistQuery.data ?? []).filter((e) => computeWaitlistStatus(e, today()) === 'active' && waitlistWantsDay(e, date)).length;
 
   return (
     <section
       aria-label={t('board.live.pulse')}
-      className={cn('flex min-h-[52px] flex-wrap items-center gap-x-7 gap-y-1 rounded-2xl border border-border bg-surface px-5 py-2 text-[13px] text-muted', className)}
+      className={cn('flex min-h-[52px] flex-wrap items-center gap-x-6 gap-y-1 rounded-[14px] border border-border bg-surface px-5 py-2 text-[13px] text-muted', className)}
     >
       {showStatistics && (
         <span className="flex items-center gap-2.5 whitespace-nowrap">
           {t('board.live.revenue')} <b className="font-bold text-fg tabular-nums">{format.money(done)}</b> {t('board.live.revenueOf', { total: format.money(totals.revenue) })}
-          <span aria-hidden className="block h-2 w-40 overflow-hidden rounded-full bg-surface-3">
-            <span className="block h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+          <span aria-hidden className="block h-2 w-36 overflow-hidden rounded-full bg-surface-3">
+            <span className="block h-full rounded-full bg-gradient-to-r from-primary to-primary/60" style={{ width: `${pct}%` }} />
           </span>
         </span>
       )}
       {busy > 0 && <span className="whitespace-nowrap">{t('board.live.busyNow', { n: busy, total: staffCount })}</span>}
-      <span className="font-semibold whitespace-nowrap text-primary-text">{t('board.live.freeSlots', { n: totals.freeSlots })}</span>
+      {gaps.length > 0 && (
+        <span className="whitespace-nowrap text-primary-text">
+          <b className="font-bold">{t('board.live.freeSlots', { n: gaps.length })}</b> · {format.duration(freeMin)}
+        </span>
+      )}
+      {waiting > 0 && <span className="whitespace-nowrap">{t('board.live.waitlist', { n: waiting })}</span>}
       {totals.pending > 0 && (
         <button
           type="button"

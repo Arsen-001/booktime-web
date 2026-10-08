@@ -73,7 +73,7 @@ import { addDays, combine, datePart, nowDateTime, timePart, today, weekdayIndex 
 import { newId } from '@/lib/id';
 import { normalizePhone } from '@/lib/phone';
 
-export { computeWaitlistStatus, draftsToWishes, filterWaitlist, nextWish, upcomingWish, wishesToDrafts } from '@/domain/resources';
+export { computeWaitlistStatus, draftsToWishes, filterWaitlist, nextWish, upcomingWish, waitlistWantsDay, wishesToDrafts } from '@/domain/resources';
 export type { AssistantShareRule, BookingAssistant, PackageAvailabilityWindow, PackageExtra, PackagePricingMethod } from '@/domain/resources';
 export type { AssistantSettings, ResourcesFineRights } from '@/domain/resources';
 export type { EventSeriesDef, EventTemplate, RepeatFreq, SeriesDayRule, VisitScheduleEntry, WaitlistEntry, WaitlistFilter, WaitlistRow, WaitlistSource, WaitlistStatus, WaitlistWish, WaitlistWishDraft } from '@/domain/resources';

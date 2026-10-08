@@ -48,7 +48,7 @@ import { WorkdayAttentionCards, WorkdayStrip } from '@/areas/journal/components/
 import { Button } from '@/ui/Button';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
 import { IconButton } from '@/ui/IconButton';
-import { useIsMobile, useMediaQuery } from '@/ui/hooks/useMediaQuery';
+import { useIsMobile } from '@/ui/hooks/useMediaQuery';
 import { useToast } from '@/ui/Toast';
 
 export interface AttentionData {
@@ -226,11 +226,11 @@ function readPref(): boolean | null {
 
 export function AttentionPanel({ loading, ...props }: AttentionData & { loading?: boolean }) {
   const t = useT('journal');
-  const wide = useMediaQuery('(min-width: 1440px)');
   const [pref, setPref] = useState<boolean | null>(() => (typeof window === 'undefined' ? null : readPref()));
   // «Google» и «Календарь iOS»: справа по умолчанию узкая полоса значков, как у них (раскрыть — по нажатию)
-  const flat = renderedJournalStyle() !== 'booktime';
-  const open = pref ?? (wide && !flat);
+  const flat = renderedJournalStyle() !== 'live';
+  // Все виды (BookTime «Живой день», Google, iOS): по умолчанию полоса значков — сетке нужна ширина, как в макетах
+  const open = pref ?? false;
   // Панель выезжает, только когда её открыли/свернули сейчас; при открытии страницы она уже на месте — без движения
   const [moved, setMoved] = useState(false);
   const desktop = !useIsMobile();

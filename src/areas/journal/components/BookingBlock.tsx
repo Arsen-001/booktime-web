@@ -297,7 +297,7 @@ function BookingBlockInner({
             google ? styles.gCard : ios ? styles.iCard : live ? cn(styles.lCard, liveNow && styles.lNow, phase === 'past' && styles.lPast) : styles.card,
             'flex h-full w-full flex-col overflow-hidden text-left focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus',
             google ? cn('rounded-md', G_PADDING) : ios ? 'rounded-[5px] py-1 pr-2 pl-2.5' : live ? 'gap-px rounded-[10px] px-2.5 py-1.5' : cn('rounded-xl', CARD_PADDING),
-            text.pending && (google ? styles.gPending : ios ? styles.iPending : styles.pending),
+            text.pending && (google ? styles.gPending : ios ? styles.iPending : live ? styles.lPending : styles.pending),
             text.dimmed && (google ? styles.gDimmed : ios ? styles.iDimmed : live ? styles.lPast : undefined),
             manualColorClass && cn('border-l-[3px]', manualColorClass),
             highlighted && 'ring-2 ring-primary ring-offset-1 ring-offset-surface',
@@ -326,6 +326,10 @@ function BookingBlockInner({
                     </b>
                     <span className="truncate text-[11px] opacity-80">{liveNow ? text.until : text.duration}</span>
                     {liveNow && <span className="ml-auto shrink-0 rounded-full bg-primary-contrast/20 px-1.5 text-[10.5px] leading-4 font-semibold">{labels.liveNow}</span>}
+                    {/* Ждёт ответа — белая карточка с жёлтой рамкой и плашкой, как в макете */}
+                    {text.pending && !liveNow && (
+                      <span className="ml-auto shrink-0 truncate rounded-full bg-warning-soft px-1.5 text-[10.5px] leading-4 font-semibold text-warning">{text.statusLabel}</span>
+                    )}
                   </span>
                   <span data-f="F-01-128 F-01-171" className={cn('flex min-w-0 items-center gap-1.5 text-[13px] leading-4 font-semibold', !liveNow && 'text-fg', text.dimmed && 'line-through')}>
                     <span className="truncate">{text.primary}</span>

@@ -11,6 +11,16 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 
 ## Journal (docs/design/mockups/A2-*.png)
 
+**08.10.2026, late evening — owner: «Живой день» IS the "BookTime" style** («нужно было live day поставить вместо
+booktime»): the old A2 look below is no longer offered; a saved "booktime" choice opens «Живой день». Styles: BookTime
+(`live`), Google Calendar, iOS Calendar. Brought to the mockup: outlined ‹ ›, Manrope 26/800 title with a "today" chip;
+the grid in a white r16 card; the day pulse in one row (free windows with hours, waitlist for the day; day layouts as icons
+only); breaks between shifts as grey dots "Break"; awaiting-reply cards white with an amber ring and an "awaiting" chip;
+free windows "N from the waitlist fit" and "+ money" (`lib/liveGaps`), "Offer" + "+"; "Needs attention" collapsed by
+default. Phone: «Thursday, 8 October» title, masters as load rings (pick one), the picked master's running visit
+(`LiveNowStrip`), then the day as a "time | card" list with free windows and "N visits done · sum" folded (`LiveAgenda`),
+floating glass tab bar and a dark square "+".
+
 **08.10.2026, evening — owner: «Живой день» (default style, `live`).** Chosen from three concepts (artifact
 https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z, «1 · Живой день»): the journal shows money and empty time itself. Cards are
 the light tone with a big Manrope time + duration, name with "new", service, and price + status at the bottom; past bookings

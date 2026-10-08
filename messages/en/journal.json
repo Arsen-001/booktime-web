@@ -26,8 +26,7 @@
     "splitByResource": "Split booking by resource",
     "style": {
       "label": "Journal style",
-      "live": "Live day",
-      "booktime": "BookTime",
+      "live": "BookTime",
       "google": "Google Calendar",
       "ios": "iOS Calendar"
     }
@@ -1448,7 +1447,7 @@
       "revenue": "Revenue",
       "revenueOf": "of {total}",
       "busyNow": "{n} of {total} staff with a client now",
-      "freeSlots": "{n, plural, one {# free slot} other {# free slots}}",
+      "freeSlots": "{n, plural, one {# slot} other {# slots}} free",
       "late_n": "{n, plural, one {# running late} other {# running late}}",
       "pending": "{n, plural, one {# awaiting reply} other {# awaiting reply}}",
       "pulse": "Day pulse",
@@ -1463,7 +1462,14 @@
       "prepayWait": "awaiting prepayment",
       "plus15": "+15 min",
       "pay": "Payment",
-      "extended": "Visit extended until {time}"
+      "extended": "Visit extended until {time}",
+      "waitlist": "{n} on the waitlist",
+      "waitingFit": "{n} from the waitlist fit",
+      "break": "Break",
+      "freeFor": "Free for {time}",
+      "emptyDay": "No bookings or free slots for this staff member on this day",
+      "pastLabel": "earlier",
+      "pastSummary": "{n, plural, one {# visit} other {# visits}} done"
     }
   },
   "hotkeys": {

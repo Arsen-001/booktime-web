@@ -52,6 +52,7 @@ import { EmptyDayState } from '@/areas/journal/components/EmptyDayState';
 import { JournalSidebar } from '@/areas/journal/components/JournalSidebar';
 import { setRenderedJournalStyle, useJournalStyle } from '@/areas/journal/lib/journalStyle';
 import { JournalLeftRail, useLeftRail } from '@/areas/journal/components/JournalLeftRail';
+import { LiveAgenda } from '@/areas/journal/components/LiveAgenda';
 import { LiveNowStrip } from '@/areas/journal/components/LiveNowStrip';
 import { LivePulse } from '@/areas/journal/components/LivePulse';
 import { AttentionContent, AttentionPanel, useAttention, type AttentionData } from '@/areas/journal/components/AttentionPanel';
@@ -895,12 +896,14 @@ export function JournalScreen() {
       </Tooltip>
     ));
 
+  // BookTime («Живой день») на телефоне: вместо сетки на 2 колонки — день одного мастера списком (LiveAgenda)
+  const phoneAgenda = isMobile && journalStyle === 'live' && view === 'day' && dayLayout === 'columns';
   // Сетка дня не размонтируется при переходе на неделю/месяц — прячется: возврат к дню не пересобирает десятки
   // карточек (DESIGN.md → Performance: «День → Неделя → День» без рывка)
   const dayGrid = (
       // F-16-024: журнал ресурсов на телефоне — до 3 колонок экземпляров на экран, остальные прокруткой
       <DayGrid
-        className={view === 'day' && dayLayout === 'columns' ? 'flex-1' : 'hidden'}
+        className={view === 'day' && dayLayout === 'columns' && !phoneAgenda ? 'flex-1' : 'hidden'}
         date={date}
         columns={columns}
         bookingsByColumn={bookingsByColumn}
@@ -964,7 +967,7 @@ export function JournalScreen() {
       <DayList {...dayViewProps} />
     );
   // Подписи видны с 1280px; уже — только значки (подпись остаётся для чтения с экрана)
-  const layoutSwitch = (withLabels: boolean) => (
+  const layoutSwitch = (withLabels: boolean, iconsOnly = false) => (
     <SegmentedControl
       size="sm"
       fullWidth={withLabels}
@@ -975,7 +978,7 @@ export function JournalScreen() {
         value: l,
         // В «⋯ Ещё» на телефоне — только подписи: с значками четыре вида не влезают в ширину
         icon: withLabels ? undefined : layoutIcons[l],
-        label: <span className={withLabels ? undefined : 'sr-only xl:not-sr-only'}>{t(`board.layout.${l}`)}</span>,
+        label: <span className={withLabels ? undefined : iconsOnly ? 'sr-only' : 'sr-only xl:not-sr-only'}>{t(`board.layout.${l}`)}</span>,
       }))}
     />
   );
@@ -1084,7 +1087,7 @@ export function JournalScreen() {
             </div>
           )}
           {/* «Живой день» на телефоне: идущие визиты карточками над сеткой */}
-          {view === 'day' && !loading && journalStyle === 'live' && (
+          {view === 'day' && !loading && journalStyle === 'live' && !phoneAgenda && (
             <div className="px-4">
               <LiveNowStrip
                 date={date}
@@ -1168,7 +1171,9 @@ export function JournalScreen() {
                 date={date}
                 bookings={totalsBookings}
                 totals={totals}
-                staffCount={staffWithSchedule.length}
+                staff={staffWithSchedule}
+                hoursByStaff={hoursByStaff}
+                businessId={businessId}
                 onPendingClick={openAttention}
                 className="min-w-0 flex-1"
               />
@@ -1185,7 +1190,8 @@ export function JournalScreen() {
               />
             )}
             {loading ? <DayTotalsSkeleton /> : journalStyle !== 'live' && <DayTotals totals={totals} onPendingClick={openAttention} />}
-            {layoutSwitch(false)}
+            {/* BookTime: пульс дня — одной строкой, поэтому вид дня — только значками (подписи — для чтения с экрана) */}
+            {layoutSwitch(false, journalStyle === 'live')}
             </div>
           )}
           {/* Карточка «перетекает» в окно записи — имя перехода через контекст, сетка дня при этом не перерисовывается */}
@@ -1200,6 +1206,25 @@ export function JournalScreen() {
           ) : (
             <>
               <OpenBookingContext value={windowOpen ? bookingId : undefined}>{dayGrid}</OpenBookingContext>
+              {phoneAgenda && (
+                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-28">
+                  <LiveAgenda
+                    date={date}
+                    staff={staffWithSchedule}
+                    hoursByStaff={hoursByStaff}
+                    bookings={totalsBookings}
+                    clientsById={clientsById}
+                    services={services}
+                    lacquersById={lacquers}
+                    showPhones={journalRights.showPhones}
+                    canCreate={canCreate}
+                    onOpen={openBooking}
+                    onCreate={(staffId, time) => startCreate(staffId, time)}
+                    onOfferGap={businessId ? setOfferGap : undefined}
+                    canExtend={canReschedule}
+                  />
+                </div>
+              )}
               {altDayView}
               {otherView}
             </>
@@ -1508,8 +1533,13 @@ export function JournalScreen() {
         <Fab
           data-f="F-01-184"
           // «Google Calendar»: квадратная кнопка «+» светло-синего цвета, как в приложении Google
-          className={cn(windowOpen && 'hidden', googleStyle && 'rounded-2xl bg-primary-soft text-primary-text shadow-md hover:bg-primary-soft [&_svg]:size-7')}
-          extended={!googleStyle}
+          // BookTime («Живой день»): тёмная квадратная «+», как в макете
+          className={cn(
+            windowOpen && 'hidden',
+            googleStyle && 'rounded-2xl bg-primary-soft text-primary-text shadow-md hover:bg-primary-soft [&_svg]:size-7',
+            journalStyle === 'live' && 'rounded-[18px] bg-fg text-surface hover:bg-fg',
+          )}
+          extended={!googleStyle && journalStyle !== 'live'}
           icon={<Plus aria-hidden />}
           label={t('board.phone.fab')}
           onClick={() => {
