@@ -109,16 +109,16 @@ const GOOGLE_HEX = [
 ];
 /**
  * BookTime («Живой день», макет https://claude.ai/artifact/U3Xdi4nkNKgCZzsh83sQ5Z): пять тонов карточек ровно как в
- * макете — сиреневый, мятный, персиковый, голубой, розовый (заливка + тёмный текст того же цвета, контраст ≥ 6.5:1);
+ * макете — сиреневый, мятный, персиковый, голубой, розовый (заливка + тёмный текст того же цвета, контраст ≥ 6.8:1); owner 08.10.2026 «ярче» — заливки насыщеннее, чем в макете;
  * drop — насыщенный цвет тона (тёмная тема, точка). Лак — отдельно точкой своего цвета (owner 08.10.2026: «все цвета
  * макета я не вижу в проекте»).
  */
 const LIVE_TONES: Tone[] = [
-  { fill: '#efeafd', ink: '#3d2a8f', drop: '#7a6ff0', solid: '#5b4fd6', ring: '#d9d2fa', contrast: 9.3 }, // tokens-ok — сиреневый
-  { fill: '#e2f4ec', ink: '#1d5e45', drop: '#2fa77a', solid: '#1d7a57', ring: '#c4e8d8', contrast: 6.7 }, // tokens-ok — мятный
-  { fill: '#fdece0', ink: '#8a3f10', drop: '#e07a2f', solid: '#b5571a', ring: '#f9d6bd', contrast: 6.5 }, // tokens-ok — персиковый
-  { fill: '#e5effd', ink: '#1d4a8f', drop: '#2f7de1', solid: '#1f5fb8', ring: '#c8dcf8', contrast: 7.5 }, // tokens-ok — голубой
-  { fill: '#fde7ee', ink: '#8f1d43', drop: '#e5326b', solid: '#c21f55', ring: '#f9cddb', contrast: 7.4 }, // tokens-ok — розовый
+  { fill: '#ddd3ff', ink: '#33208a', drop: '#7a6ff0', solid: '#5b4fd6', ring: '#c9bcff', contrast: 8.7 }, // tokens-ok — сиреневый
+  { fill: '#c8f0dc', ink: '#134d35', drop: '#2fa77a', solid: '#1d7a57', ring: '#a6e3c5', contrast: 7.9 }, // tokens-ok — мятный
+  { fill: '#ffd8bf', ink: '#7a3410', drop: '#e07a2f', solid: '#b5571a', ring: '#ffc29c', contrast: 6.8 }, // tokens-ok — персиковый
+  { fill: '#cfe2ff', ink: '#163f80', drop: '#2f7de1', solid: '#1f5fb8', ring: '#b2d0ff', contrast: 7.8 }, // tokens-ok — голубой
+  { fill: '#ffd1e0', ink: '#7f1739', drop: '#e5326b', solid: '#c21f55', ring: '#ffb3cb', contrast: 7.4 }, // tokens-ok — розовый
 ];
 
 /**

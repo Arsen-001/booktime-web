@@ -192,8 +192,8 @@
   color: var(--color-primary-text);
 }
 :global(:root[data-theme='dark']) .lCard {
-  background-color: color-mix(in srgb, var(--tone-drop) 24%, var(--color-surface));
-  color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
+  background-color: color-mix(in srgb, var(--tone-drop) 34%, var(--color-surface));
+  color: color-mix(in srgb, var(--tone-drop) 30%, var(--color-fg));
 }
 :global(:root[data-theme='dark']) .lCard.lPending {
   background-color: var(--color-surface);
