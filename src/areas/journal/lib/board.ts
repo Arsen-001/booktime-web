@@ -189,6 +189,7 @@ export interface CardSizes {
  */
 export function cardSizes(): CardSizes {
   return renderedJournalStyle() === 'google'
-    ? { min: 22, stack: 38, service: 54, pill: 72 }
+    ? // min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись (30px) заходит на следующую, строка видна
+      { min: 40, stack: 44, service: 54, pill: 72 }
     : { min: CARD_MIN_HEIGHT, stack: CARD_STACK_FROM, service: CARD_SERVICE_FROM, pill: CARD_PILL_FROM };
 }

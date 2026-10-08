@@ -15,14 +15,20 @@ exact numbers); the canvas with every option is https://claude.ai/artifact/Ruy7b
 unchanged) and "Google Calendar" («очень похоже по дизайну на Google Calendar»). The choice is in "⋯ More" → grid settings,
 stored on the device (`src/areas/journal/lib/journalStyle.ts`, default "Google Calendar"). The "Google Calendar" style:
 - The journal page is white end to end; the grid has no card frame (only a top border) and sits on the page.
-- Control row: "Today" outlined pill · round ‹ › · the date title in regular weight (not bold).
+- Control row: ☰ · "Today" outlined pill · round ‹ › · the date title in regular weight (not bold); the view is a dropdown pill
+  "Day ▾" instead of the segmented control.
+- Left rail (≥1280px, ☰ hides it, remembered on the device — `JournalLeftRail`): "New booking" big white button with a shadow
+  (like Google's "Create"; then it is not repeated in the control row), the month calendar always visible, masters as checkboxes
+  in their colour (week: one master, picked by row). Positions, saved sets and resources stay in the masters picker.
+- "Needs attention" starts collapsed to the icon strip (flat, left border), like Google's side panel.
 - Grid: hour labels 10px muted at the line, no time pill; the "now" line is 2px danger with a 12px dot on the left.
 - Week: day header "THU" small caps and the date number in a 44px circle, today filled with primary.
 - Booking = Google event: solid fill of the service colour (vivid palette in `lib/board.CATEGORY_HEX`, white text ≥4.5:1 via
   `tone.solid`), radius 6, 1px white edge between neighbours, 12px text. Under 38px one line "Name, 11:00"; otherwise name,
   "11:00 – 12:00", from 54px the service, from 72px "status · lacquer". The lacquer is the small dot top-right (its own colour
   in a white ring) — it still opens the status card. Awaiting confirmation: white with a dashed border in the event colour;
-  cancelled / no-show: pale fill, struck through. Scale 1.0 / 1.3 / 1.8 px per minute (an hour is 60px at the 15-minute step).
+  cancelled / no-show: pale fill, struck through. Scale 1.0 / 1.3 / 1.8 px per minute (an hour is 60px at the 15-minute step);
+  an event is at least 40px tall (touch target), the status dot's tap zone 40px on the phone and 36px on the computer.
 1. **One control row** (72px, white, bottom border): ‹ › · "Friday, 26 September" + "today" ⌄ (a month calendar opens on click) ·
    empty space · segmented control Day/Week/Month · a stack of master avatars + "All masters" · search · one primary "New booking".
    No big "Journal" heading, no star, no rows of filters: the extra filters go under "⋯" or into the master selector.

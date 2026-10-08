@@ -42,6 +42,7 @@ import { freeGaps, isActiveBooking, startMinutes, type BookingToneInfo } from '@
 import { shortClientName } from '@/areas/journal/lib/clientName';
 import { confirmDeadlineOf } from '@/areas/journal/lib/confirmDeadline';
 import { useJournalHourFormat } from '@/areas/journal/lib/useJournalHourFormat';
+import { renderedJournalStyle } from '@/areas/journal/lib/journalStyle';
 import styles from '@/areas/journal/board.module.css';
 import { WorkdayAttentionCards, WorkdayStrip } from '@/areas/journal/components/workday/WorkdayAttentionCards';
 import { Button } from '@/ui/Button';
@@ -227,7 +228,9 @@ export function AttentionPanel({ loading, ...props }: AttentionData & { loading?
   const t = useT('journal');
   const wide = useMediaQuery('(min-width: 1440px)');
   const [pref, setPref] = useState<boolean | null>(() => (typeof window === 'undefined' ? null : readPref()));
-  const open = pref ?? wide;
+  // Стиль «Google Calendar»: справа по умолчанию узкая полоса значков, как у Google (раскрыть — по нажатию)
+  const google = renderedJournalStyle() === 'google';
+  const open = pref ?? (wide && !google);
   // Панель выезжает, только когда её открыли/свернули сейчас; при открытии страницы она уже на месте — без движения
   const [moved, setMoved] = useState(false);
   const desktop = !useIsMobile();
@@ -258,7 +261,12 @@ export function AttentionPanel({ loading, ...props }: AttentionData & { loading?
     <aside aria-label={t('board.attention.title')} className={cn('hidden shrink-0 md:block', open ? 'w-[292px]' : 'w-14')}>
       <div
         hidden={open}
-        className={cn(moved && styles.stripIn, 'h-full flex-col items-center gap-4 rounded-2xl border border-border bg-surface py-3', !open && 'flex')}
+        className={cn(
+          moved && styles.stripIn,
+          'h-full flex-col items-center gap-4 bg-surface py-3',
+          google ? 'border-l border-border' : 'rounded-2xl border border-border',
+          !open && 'flex',
+        )}
       >
         <IconButton variant="ghost" size="sm" icon={<ChevronLeft aria-hidden />} label={t('board.attention.expand')} onClick={toggle} />
         {attention.late.length > 0 && (

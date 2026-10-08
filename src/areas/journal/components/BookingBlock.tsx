@@ -64,7 +64,7 @@ const G_LINE = 'truncate text-xs leading-4';
 const G_PADDING = 'px-2 py-1';
 const G_DROP_SIZE = 'size-2.5';
 const G_DROP_BUTTON =
-  'absolute top-0 right-0 z-20 inline-flex size-8 items-start justify-end p-1.5 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus';
+  'absolute top-0 right-0 z-20 inline-flex size-10 items-start justify-end p-1.5 md:size-9 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus';
 // DESIGN.md → Journal/мокап: технический перерыв — спокойная светлая заливка тем же тоном записи, БЕЗ пунктирной
 // штриховки (пунктир в карточках означает только «ждёт подтверждения», F-01-078). Функция не меняется: перерыв
 // по-прежнему блокирует запись и по-прежнему открывает своё меню/подсказку по наведению или тапу.

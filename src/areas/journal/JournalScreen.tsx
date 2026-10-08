@@ -10,7 +10,7 @@
 import { startTransition, useEffect, useEffectEvent, useMemo, useState, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChartNoAxesGantt, Columns3, Columns4, List, MoreHorizontal, Plus, Search } from 'lucide-react';
+import { ChartNoAxesGantt, Columns3, Columns4, List, Menu as MenuIcon, MoreHorizontal, Plus, Search } from 'lucide-react';
 import type { Booking, Id, ISODate } from '@/domain/core';
 import type { FavoriteSection, JournalGroupBy } from '@/domain/journal';
 import { dayTypeById, isScheduleStaff } from '@/domain/schedule';
@@ -50,6 +50,7 @@ import { DayGrid, type ColumnDef } from '@/areas/journal/components/DayGrid';
 import { EmptyDayState } from '@/areas/journal/components/EmptyDayState';
 import { JournalSidebar } from '@/areas/journal/components/JournalSidebar';
 import { setRenderedJournalStyle, useJournalStyle } from '@/areas/journal/lib/journalStyle';
+import { JournalLeftRail, useLeftRail } from '@/areas/journal/components/JournalLeftRail';
 import { AttentionContent, AttentionPanel, useAttention, type AttentionData } from '@/areas/journal/components/AttentionPanel';
 import { DayTotals, DayTotalsSkeleton } from '@/areas/journal/components/DayTotals';
 import { DayGridSkeleton, useDayGridShape, useSaveDayGridShape } from '@/areas/journal/components/DayGridSkeleton';
@@ -76,6 +77,8 @@ import { DayList } from '@/areas/journal/components/DayList';
 import { DAY_LAYOUTS, useDayLayout } from '@/areas/journal/lib/dayLayout';
 import type { DayLayout } from '@/domain/journal';
 import type { JournalView } from '@/areas/journal/components/JournalToolbar';
+
+const JOURNAL_VIEWS: JournalView[] = ['day', 'week', 'month'];
 import { JournalScaleSheet, maxMobileColumns, type JournalScaleValue } from '@/areas/journal/components/JournalScaleSheet';
 import { PackageCreateModal } from '@/areas/journal/components/PackageCreateModal';
 import { OfflineBanner } from '@/areas/journal/components/OfflineBanner';
@@ -83,6 +86,7 @@ import { RightPanel } from '@/areas/journal/components/RightPanel';
 import { StaffScheduleModal } from '@/areas/journal/components/StaffScheduleModal';
 import { WeekGrid, prefetchStaffWeek } from '@/areas/journal/components/WeekGrid';
 import { Button } from '@/ui/Button';
+import { DropdownMenu } from '@/ui/DropdownMenu';
 import { ErrorState } from '@/ui/ErrorState';
 import { Fab } from '@/ui/Fab';
 import { IconButton } from '@/ui/IconButton';
@@ -92,7 +96,7 @@ import { OpenBookingContext, SharedWindowFrame, setSharedBookingId } from '@/are
 import { HoldWhileClosing } from '@/areas/journal/components/HoldWhileClosing';
 import { Sheet } from '@/ui/Sheet';
 import { Tooltip } from '@/ui/Tooltip';
-import { useIsMobile } from '@/ui/hooks/useMediaQuery';
+import { useIsMobile, useMediaQuery } from '@/ui/hooks/useMediaQuery';
 import { useToast } from '@/ui/Toast';
 
 const JOURNAL_FAVORITE: FavoriteSection = { id: 'journal', labelKey: 'sections.journal', href: '/biz/journal' };
@@ -103,6 +107,10 @@ export function JournalScreen() {
   // перемонтируются по смене стиля (key) — раскладка всегда в одном стиле
   const journalStyle = useJournalStyle();
   setRenderedJournalStyle(journalStyle);
+  const googleStyle = journalStyle === 'google';
+  // Стиль «Google Calendar»: левая колонка (новая запись, календарь, мастера) — на компьютере от 1280px, ☰ сворачивает
+  const railFits = useMediaQuery('(min-width: 1280px)');
+  const [railOpen, toggleRail] = useLeftRail();
   const locale = useLocale();
   const router = useRouter();
   const params = useSearchParams();
@@ -777,24 +785,35 @@ export function JournalScreen() {
     closeWindow();
   };
 
-  const viewSwitch = (
-    <SegmentedControl
-      size="sm"
-      aria-label={t('board.view.label')}
-      value={view}
-      onValueChange={(v) => {
-        setView(v as JournalView);
-        // Неделя открывается на мастере с графиком: у владельца без своих смен неделя была бы пустой
-        if (v === 'week' && !staffWithSchedule.some((s) => s.id === weekStaffId) && staffWithSchedule[0]) setWeekStaffId(staffWithSchedule[0].id);
-        else if (v === 'week' && !weekStaffId && allStaff[0]) setWeekStaffId(allStaff[0].id);
-      }}
-      options={[
-        { value: 'day', label: t('board.view.day') },
-        { value: 'week', label: t('board.view.week') },
-        { value: 'month', label: t('board.view.month') },
-      ]}
-    />
-  );
+  const showRail = googleStyle && !isMobile && railFits && railOpen;
+  const changeView = (v: JournalView) => {
+    setView(v);
+    // Неделя открывается на мастере с графиком: у владельца без своих смен неделя была бы пустой
+    if (v === 'week' && !staffWithSchedule.some((s) => s.id === weekStaffId) && staffWithSchedule[0]) setWeekStaffId(staffWithSchedule[0].id);
+    else if (v === 'week' && !weekStaffId && allStaff[0]) setWeekStaffId(allStaff[0].id);
+  };
+  const viewSwitch =
+    googleStyle && !isMobile ? (
+      // Стиль «Google Calendar»: вид — выпадающая пилюля «День ▾», как у Google
+      <DropdownMenu
+        align="end"
+        label={t('board.view.label')}
+        trigger={(p) => (
+          <Button {...p} type="button" variant="outline" className="rounded-full">
+            {t(`board.view.${view}`)}
+          </Button>
+        )}
+        items={JOURNAL_VIEWS.map((v) => ({ id: v, label: t(`board.view.${v}`), disabled: v === view, onSelect: () => changeView(v) }))}
+      />
+    ) : (
+      <SegmentedControl
+        size="sm"
+        aria-label={t('board.view.label')}
+        value={view}
+        onValueChange={(v) => changeView(v as JournalView)}
+        options={JOURNAL_VIEWS.map((v) => ({ value: v, label: t(`board.view.${v}`) }))}
+      />
+    );
   // «Работают сейчас»: у кого текущая минута внутри рабочих часов
   const nowMinute = toMinutes(nowYerevan().format('HH:mm'));
   const workingNowIds = staffWithSchedule
@@ -1049,7 +1068,10 @@ export function JournalScreen() {
           data-f="F-01-009 F-01-012 F-01-013 F-01-014 F-01-015"
           className="-mx-6 -mt-5 flex min-h-[72px] items-center gap-3 border-b border-border bg-surface px-4 lg:-mx-8 lg:-mt-7 lg:px-6"
         >
-          <JournalDateNav key={journalStyle} date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
+          {googleStyle && railFits && (
+            <IconButton variant="ghost" className="-mr-1 rounded-full" icon={<MenuIcon aria-hidden />} label={t('board.rail.toggle')} aria-expanded={railOpen} onClick={toggleRail} />
+          )}
+                    <JournalDateNav key={journalStyle} date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {viewSwitch}
             {mastersPicker}
@@ -1062,12 +1084,29 @@ export function JournalScreen() {
               label={t('board.more')}
               onClick={() => setMoreOpen(true)}
             />
-            {newBookingButton}
+            {/* Левая колонка открыта — «Новая запись» в ней, как «Создать» у Google */}
+            {!showRail && newBookingButton}
           </div>
         </div>
       )}
 
       <div key={journalStyle} className="flex min-h-0 flex-1 gap-5 md:pt-4">
+        {showRail && (
+          <JournalLeftRail
+            date={date}
+            onDateChange={setDate}
+            view={view}
+            staff={staffWithSchedule}
+            calendarStaffIds={staffForView.map((s) => s.id)}
+            hiddenStaffIds={hiddenStaffIds}
+            onHiddenStaffChange={setHiddenStaffIds}
+            weekStaffId={weekStaff?.id ?? ''}
+            onWeekStaffChange={setWeekStaffId}
+            onCreate={canCreate ? () => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter()) : undefined}
+            createDisabledReason={!canCreateBooking && !loading ? newBookingDisabledReason : undefined}
+            createLoading={loading}
+          />
+        )}
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           {/* Итоги и «Требует внимания» смонтированы и в неделе/месяце (скрыты): возврат в день их не пересоздаёт */}
           {!isMobile && (

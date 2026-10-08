@@ -259,7 +259,7 @@ export function WeekGrid({
         data-f="F-01-013 F-01-023 F-02-037 F-16-020"
         className={cn("scrollbar-thin min-h-0 flex-1 overflow-auto overscroll-contain bg-surface", google ? "border-t border-border" : "rounded-2xl border border-border")}
       >
-        <div className="flex" style={{ minWidth: days.length * 160 + 56 }}>
+        <div className="flex" style={{ minWidth: days.length * (google ? 104 : 160) + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">
             <div className={cn("sticky top-0 z-40 shrink-0 border-b border-border bg-surface", google ? "h-[5.5rem]" : "h-14")} />
             <div className="relative" style={{ height: heightPx }}>
@@ -289,7 +289,7 @@ export function WeekGrid({
             return (
               <div
                 key={day}
-                className="flex w-40 min-w-40 flex-1 flex-col border-l border-line"
+                className={cn("flex flex-1 flex-col border-l border-line", google ? "w-26 min-w-26" : "w-40 min-w-40")}
               >
                 {/* «Google Calendar»: «ЧТ» мелко и число в круге, сегодня — круг цвета primary; «BookTime» — «чт, 8 октября» */}
                 <div
