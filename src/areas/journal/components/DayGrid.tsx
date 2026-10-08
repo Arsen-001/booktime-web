@@ -54,7 +54,7 @@ import { useCan, useCurrent } from "@/demo/hooks";
 import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
 import { cn } from "@/lib/cn";
-import { fromMinutes } from "@/lib/date";
+import { fromMinutes, today } from "@/lib/date";
 import { pickText } from "@/lib/text";
 import { BookingBlock } from "@/areas/journal/components/BookingBlock";
 import { HoldWhileClosing } from "@/areas/journal/components/HoldWhileClosing";
@@ -447,7 +447,24 @@ export function DayGrid({
           <div style={{ minWidth }}>
             {/* Шапки колонок — прилипают сверху */}
             <div className="sticky top-0 z-30 flex border-b border-border bg-surface">
-              <div className="sticky left-0 z-10 shrink-0 bg-surface" style={{ width: GUTTER }} />
+              <div className="sticky left-0 z-10 flex shrink-0 flex-col items-center justify-center bg-surface" style={{ width: GUTTER }}>
+                {/* «Google Calendar»: в углу день, как у Google, — «ЧТ» и число в круге (сегодня — синий круг) */}
+                {google && (
+                  <>
+                    <span className={cn("text-[10px] font-semibold uppercase", date === today() ? "text-primary-text" : "text-muted")}>
+                      {format.date(date, "weekdayShort").split(",")[0]}
+                    </span>
+                    <span
+                      className={cn(
+                        "grid size-8 place-items-center rounded-full text-lg tabular-nums",
+                        date === today() ? "bg-primary text-primary-contrast" : "text-fg",
+                      )}
+                    >
+                      {Number(date.slice(8, 10))}
+                    </span>
+                  </>
+                )}
+              </div>
               {layout.cols.map(({ column, load, markup }) => (
                 <div
                   key={column.id}

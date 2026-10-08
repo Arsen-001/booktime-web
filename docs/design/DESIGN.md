@@ -28,6 +28,12 @@ Scale 1.2 / 1.6 / 2.0 px per minute (an hour is 72px). The "Google Calendar" sty
   (like Google's "Create"; then it is not repeated in the control row), the month calendar always visible, masters as checkboxes
   in their colour (week: one master, picked by row). Positions, saved sets and resources stay in the masters picker.
 - "Needs attention" starts collapsed to the icon strip (flat, left border), like Google's side panel.
+- 1:1 pass (owner «google calendar тоже 1:1?»): Google blue accent instead of our indigo on the whole journal page
+  (`--primary*` overridden on `:root:has([data-journal-style='google'])`, dark: #8ab4f8 with dark text), Google Sans / Roboto
+  when the system has them (Noto Sans Armenian draws Armenian letters). Nothing above the grid: the day totals and "now" row
+  are gone, the day layouts (columns / overview / timeline / list) are a group in the "Day ▾" menu. Grid corner: "THU" and
+  the date in a circle (day), "GMT+04" (week). Phone: "October ▾" in regular weight, a "today" button with the date number,
+  week strip "MON / 5" with today in a blue circle, the "+" button a light-blue rounded square (Material 3), not "+ Booking".
 - Grid: hour labels 10px muted at the line, no time pill; the "now" line is 2px danger with a 12px dot on the left.
 - Week: day header "THU" small caps and the date number in a 44px circle, today filled with primary.
 - Booking = Google event: solid fill of the service colour (vivid palette in `lib/board.CATEGORY_HEX`, white text ≥4.5:1 via

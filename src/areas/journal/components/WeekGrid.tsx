@@ -263,7 +263,15 @@ export function WeekGrid({
       >
         <div className="flex" style={{ minWidth: days.length * (google ? 104 : 160) + 56 }}>
           <div className="sticky left-0 z-40 flex w-14 shrink-0 flex-col bg-surface">
-            <div className={cn("sticky top-0 z-40 shrink-0 border-b border-border bg-surface", google ? "h-[5.5rem]" : "h-14")} />
+            <div
+              className={cn(
+                "sticky top-0 z-40 flex shrink-0 items-end justify-end border-b border-border bg-surface pr-2 pb-1",
+                google ? "h-[5.5rem]" : "h-14",
+              )}
+            >
+              {/* «Google Calendar»: часовой пояс в углу, как у Google (журнал — по Еревану) */}
+              {google && <span className="text-[10px] text-muted">GMT+04</span>}
+            </div>
             <div className="relative" style={{ height: heightPx }}>
               {ticks.slice(1).map((m) => (
                 <span

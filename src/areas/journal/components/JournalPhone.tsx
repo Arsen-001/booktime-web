@@ -6,7 +6,7 @@
  * Сетка на 2 мастера и «+ Запись» у большого пальца — в JournalScreen (DayGrid columnsPerScreen, Fab).
  */
 import Link from 'next/link';
-import { AlarmClock, Timer, CalendarDays, MoreHorizontal, ChevronLeft, ChevronRight, Clock, UserSearch, Users, Wallet } from 'lucide-react';
+import { AlarmClock, Timer, Calendar, CalendarDays, MoreHorizontal, ChevronLeft, ChevronRight, Clock, UserSearch, Users, Wallet } from 'lucide-react';
 import type { Id, ISODate } from '@/domain/core';
 import { getRangeLoad } from '@/api/journal';
 import { useApiQuery } from '@/api/request';
@@ -34,6 +34,8 @@ export interface PhoneHeaderProps {
   onSearch: () => void;
   /** Название салона ещё грузится — полоса на его месте */
   salonLoading?: boolean;
+  /** «Google Calendar»: кнопка «сегодня» с числом, как в приложении Google */
+  onToday?: () => void;
 }
 
 /**
@@ -41,11 +43,13 @@ export interface PhoneHeaderProps {
  * чат» (F-01-017). Полоса каркаса снова стоит на каждой странице (DESIGN.md → Shell, 27.09.2026), поэтому меню и
  * колокольчик (F-01-007) здесь больше не повторяются — на экране их было по два.
  */
-export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLoading }: PhoneHeaderProps) {
+export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLoading, onToday }: PhoneHeaderProps) {
   const t = useT('journal');
   const format = useFormat();
   // «Календарь iOS»: слева красное «‹ Октябрь», как кнопка к месяцу в Календаре iPhone
-  const ios = renderedJournalStyle() === 'ios';
+  const style = renderedJournalStyle();
+  const ios = style === 'ios';
+  const google = style === 'google';
   return (
     <div className="flex min-h-14 items-center gap-1 pr-1 pl-4">
       <button
@@ -59,6 +63,12 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
           <span className="-ml-1.5 flex items-center text-[17px] leading-tight text-danger">
             <ChevronLeft aria-hidden className="size-6" strokeWidth={2.5} />
             {capitalize(format.monthName(date))}
+          </span>
+        ) : google ? (
+          // «Google Calendar»: месяц обычным шрифтом с ▾, как в приложении Google
+          <span className="flex items-center gap-1 text-[22px] leading-tight text-fg">
+            {capitalize(format.monthName(date))}
+            <DropdownChevron />
           </span>
         ) : (
           <span className="flex items-center gap-1 text-xl leading-tight font-bold text-fg">
@@ -76,6 +86,19 @@ export function PhoneHeader({ date, salonName, onOpenCalendar, onSearch, salonLo
       </button>
       {/* Меню и колокольчик — в полосе каркаса прямо над этой шапкой (DESIGN.md → Shell), второй раз не рисуем.
           Поиск здесь свой — «Клиенты и чат» (F-01-017), поэтому и значок клиентский, а не вторая лупа. */}
+      {google && onToday && (
+        <IconButton
+          variant="ghost"
+          label={t('board.goToday')}
+          onClick={onToday}
+          icon={
+            <span aria-hidden className="relative grid place-items-center">
+              <Calendar className="size-6" />
+              <span className="absolute top-[9px] text-[9px] leading-none font-bold">{Number(today().slice(8, 10))}</span>
+            </span>
+          }
+        />
+      )}
       <IconButton data-f="F-01-017" variant="ghost" icon={<UserSearch aria-hidden />} label={t('board.search')} onClick={onSearch} />
     </div>
   );
@@ -99,6 +122,37 @@ export function WeekStrip({ date, onDateChange, staffIds }: WeekStripProps) {
     enabled: staffIds.length > 0,
   });
   const now = today();
+  if (renderedJournalStyle() === 'google') {
+    // «Google Calendar»: буква дня над числом, сегодня — синий круг, выбранный другой день — светло-синий
+    return (
+      <div role="group" aria-label={t('board.phone.weekStrip')} className="-mx-1 flex justify-between">
+        {days.map((d, i) => {
+          const selected = d === date;
+          const isToday = d === now;
+          return (
+            <button
+              key={d}
+              type="button"
+              aria-pressed={selected}
+              aria-label={format.date(d, 'weekdayLong')}
+              onClick={() => onDateChange(d)}
+              className="flex min-h-[58px] w-[46px] flex-col items-center justify-center gap-1"
+            >
+              <span className={cn('text-[11px] font-medium uppercase', isToday ? 'text-primary-text' : 'text-muted')}>{weekdays[i]}</span>
+              <span
+                className={cn(
+                  'grid size-9 place-items-center rounded-full text-lg leading-none tabular-nums',
+                  isToday ? 'bg-primary text-primary-contrast' : selected ? 'bg-primary-soft text-primary-text' : 'text-fg',
+                )}
+              >
+                {Number(d.slice(8, 10))}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
   if (renderedJournalStyle() === 'ios') {
     // «Календарь iOS»: буква дня над числом, число в круге — сегодня красный, выбранный другой день чёрный;
     // под полосой — выбранная дата словами, как в Календаре iPhone

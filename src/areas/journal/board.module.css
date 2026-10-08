@@ -125,7 +125,29 @@
   color: color-mix(in srgb, var(--tone-drop) 42%, var(--color-fg));
 }
 :global(:root[data-theme='dark']) .gDimmed {
-  background-color: var(--tone-fill); /* 16% цвета — под неё tone.ink держит ≥ 4.5:1 */
+  background-color: color-mix(in srgb, var(--tone-drop) 18%, var(--color-surface));
+}
+
+/* Стиль «Google Calendar» 1:1 (owner 08.10.2026): синий акцент Google вместо нашего индиго — на всей странице журнала
+   (:root, чтобы и шторки, и всплывающие окна из портала были синими), шрифт Google (Google Sans / Roboto, если есть
+   в системе — Android, ChromeOS; иначе системный). Цвета — данные стиля Google, контраст проверен: #1967d2 на белом 5.6:1. */
+:global(:root:has([data-journal-style='google'])) {
+  --primary: #1a73e8; /* tokens-ok */
+  --primary-hover: #1765cc; /* tokens-ok */
+  --primary-soft: #e8f0fe; /* tokens-ok */
+  --primary-text: #1967d2; /* tokens-ok */
+  --primary-contrast: #ffffff; /* tokens-ok */
+}
+:global(:root[data-theme='dark']:has([data-journal-style='google'])) {
+  --primary: #8ab4f8; /* tokens-ok */
+  --primary-hover: #aecbfa; /* tokens-ok */
+  --primary-soft: #394457; /* tokens-ok */
+  --primary-text: #8ab4f8; /* tokens-ok */
+  --primary-contrast: #202124; /* tokens-ok */
+}
+:global([data-journal-style='google']) {
+  /* Армянских букв у Google Sans и Roboto нет — их рисует наш Noto Sans Armenian; без шрифтов Google — наш Noto Sans */
+  font-family: 'Google Sans', 'Google Sans Text', Roboto, var(--font-noto-armenian), var(--font-noto-sans), system-ui, sans-serif;
 }
 
 /* ── Стиль «Календарь iOS» (owner 08.10.2026: «1:1 как у iOS», lib/journalStyle) ─────────────────────
@@ -156,7 +178,8 @@
 }
 /* Системный шрифт — на iPhone, iPad и Mac это SF, как в самом Календаре */
 :global([data-journal-style='ios']) {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  /* Не Apple — наш Noto Sans (и Noto Sans Armenian для армянских букв) */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', var(--font-noto-armenian), var(--font-noto-sans), system-ui, sans-serif;
 }
 
 /* Страница журнала — белая целиком, как у Google Calendar: сетка без рамки-карточки лежит прямо на ней */

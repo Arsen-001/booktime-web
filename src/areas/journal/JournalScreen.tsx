@@ -42,6 +42,7 @@ import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { startNavPending } from '@/ui/navigation/navPending';
 import { useT } from '@/i18n/useT';
 import { pickText } from '@/lib/text';
+import { cn } from '@/lib/cn';
 import { addDays, fromMinutes, nowYerevan, today, toMinutes } from '@/lib/date';
 import { BookingWindow } from '@/areas/journal/components/BookingWindow';
 import { useJournalBlockRights } from '@/areas/journal/lib/rights';
@@ -785,6 +786,12 @@ export function JournalScreen() {
     closeWindow();
   };
 
+  const layoutIcons: Record<DayLayout, ReactNode> = {
+    columns: <Columns3 aria-hidden />,
+    overview: <Columns4 aria-hidden />,
+    timeline: <ChartNoAxesGantt aria-hidden />,
+    list: <List aria-hidden />,
+  };
   const showRail = googleStyle && !isMobile && railFits && railOpen;
   const changeView = (v: JournalView) => {
     setView(v);
@@ -803,7 +810,22 @@ export function JournalScreen() {
             {t(`board.view.${view}`)}
           </Button>
         )}
-        items={JOURNAL_VIEWS.map((v) => ({ id: v, label: t(`board.view.${v}`), disabled: v === view, onSelect: () => changeView(v) }))}
+        items={[
+          ...JOURNAL_VIEWS.map((v) => ({ id: v, label: t(`board.view.${v}`), disabled: v === view, onSelect: () => changeView(v) })),
+          // Как варианты вида в меню Google: раскладка дня — здесь же, строки над сеткой в этом стиле нет
+          { id: 'sep', separator: true as const },
+          { id: 'layouts', groupLabel: t('board.layout.label') },
+          ...DAY_LAYOUTS.map((l) => ({
+            id: `layout-${l}`,
+            label: t(`board.layout.${l}`),
+            icon: layoutIcons[l],
+            disabled: view === 'day' && dayLayout === l,
+            onSelect: () => {
+              setDayLayout(l);
+              if (view !== 'day') changeView('day');
+            },
+          })),
+        ]}
       />
     ) : (
       <SegmentedControl
@@ -935,12 +957,6 @@ export function JournalScreen() {
     ) : (
       <DayList {...dayViewProps} />
     );
-  const layoutIcons: Record<DayLayout, ReactNode> = {
-    columns: <Columns3 aria-hidden />,
-    overview: <Columns4 aria-hidden />,
-    timeline: <ChartNoAxesGantt aria-hidden />,
-    list: <List aria-hidden />,
-  };
   // Подписи видны с 1280px; уже — только значки (подпись остаётся для чтения с экрана)
   const layoutSwitch = (withLabels: boolean) => (
     <SegmentedControl
@@ -1033,6 +1049,7 @@ export function JournalScreen() {
               onOpenCalendar={() => setMobileCalendarOpen(true)}
               onOpenMenu={() => requestShellDrawerOpen()}
               onSearch={() => setClientsOpen(true)}
+              onToday={() => setDate(today())}
             />
             {view === 'day' && (
               <div className="px-3">
@@ -1122,7 +1139,8 @@ export function JournalScreen() {
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           {/* Итоги и «Требует внимания» смонтированы и в неделе/месяце (скрыты): возврат в день их не пересоздаёт */}
-          {!isMobile && (
+          {/* «Google Calendar»: над сеткой ничего — итоги дня в «⋯ Ещё» → «Итоги дня», раскладка — в меню «День ▾» */}
+          {!isMobile && !googleStyle && (
             <div className={view === 'day' ? 'flex flex-wrap items-center justify-between gap-x-4 gap-y-2' : 'hidden'}>
             {!loading && (
               <DayNow
@@ -1448,8 +1466,9 @@ export function JournalScreen() {
       {isMobile && (loading || businessId) && canCreate && (loading || staffWithSchedule.length > 0) && (
         <Fab
           data-f="F-01-184"
-          className={windowOpen ? 'hidden' : undefined}
-          extended
+          // «Google Calendar»: квадратная кнопка «+» светло-синего цвета, как в приложении Google
+          className={cn(windowOpen && 'hidden', googleStyle && 'rounded-2xl bg-primary-soft text-primary-text shadow-md hover:bg-primary-soft [&_svg]:size-7')}
+          extended={!googleStyle}
           icon={<Plus aria-hidden />}
           label={t('board.phone.fab')}
           onClick={() => {
