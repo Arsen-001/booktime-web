@@ -208,9 +208,13 @@ export function BookFlow({
 
   return (
     <div data-f="F-00-004 F-00-007 F-00-031 F-00-108 F-00-092" className="flex flex-col gap-5">
-      {(!appUserId || profileQ.data) && (
-        <AcceptsNotice accepts={staff.accepts} sphereId={staff.sphereIds[0]} staffName={nameOf(staff.name).split(' ')[0]} viewerGender={profileQ.data?.appUser.gender} />
-      )}
+      <AcceptsNotice
+        accepts={staff.accepts}
+        sphereId={staff.sphereIds[0]}
+        staffName={nameOf(staff.name).split(' ')[0]}
+        viewerGender={profileQ.data?.appUser.gender}
+        pending={Boolean(appUserId) && !profileQ.data}
+      />
       <div className="flex flex-col gap-3">
         {stepIndex > 0 ? (
           <Button variant="ghost" size="sm" className="-ml-2 w-fit text-muted" leftIcon={<ChevronLeft aria-hidden />} onClick={goBack}>

@@ -37,7 +37,12 @@ export function BookScreen({
   const { ready, appUserId } = useCurrent();
   const q = useApiQuery(clientKeys.masterCard(staffId ?? '', appUserId), () => getMasterCard(staffId ?? '', appUserId), {
     enabled: ready && Boolean(staffId),
+    // Гость вошёл по коду посреди записи — сменился только appUserId: держим карточку, иначе запись на миг уходит в
+    // скелетон, поток собирается заново и вместо «Готово» снова форма (с предупреждением о только что созданной записи)
+    keepPrevious: true,
   });
+  // Прежние данные — только того же мастера: другой мастер в ссылке ждёт свою карточку
+  const card = q.data && q.data.staff.id === staffId ? q.data : undefined;
 
   if (!staffId) {
     if (businessId) return <BusinessBookPicker businessId={businessId} storyId={storyId} initialServiceId={serviceId} />;
@@ -52,7 +57,7 @@ export function BookScreen({
     );
   }
 
-  if (q.isLoading) {
+  if (q.isLoading || (q.data && !card)) {
     return (
       <div className="flex flex-col gap-4" aria-busy="true">
         <Skeleton variant="text" className="h-8 w-48" />
@@ -69,7 +74,7 @@ export function BookScreen({
       </div>
     );
   }
-  if (!q.data) {
+  if (!card) {
     return (
       <EmptyState
         icon={<UserX />}
@@ -79,7 +84,7 @@ export function BookScreen({
       />
     );
   }
-  if (!q.data.services.length) {
+  if (!card.services.length) {
     return (
       <EmptyState
         icon={<SearchX />}
@@ -93,9 +98,9 @@ export function BookScreen({
   return (
     <BookFlow
       key={`${staffId}:${slot ?? ''}:${serviceId ?? ''}`}
-      card={q.data}
+      card={card}
       initialSlot={slot}
-      initialServiceId={serviceId && q.data.services.some((s) => s.id === serviceId) ? serviceId : undefined}
+      initialServiceId={serviceId && card.services.some((s) => s.id === serviceId) ? serviceId : undefined}
       storyId={storyId}
     />
   );

@@ -16,12 +16,16 @@ export function AcceptsNotice({
   sphereId,
   staffName,
   viewerGender,
+  pending = false,
 }: {
   accepts: AcceptsWhom;
   sphereId?: SphereId;
   staffName: string;
   /** Пол вошедшего клиента: подходит мастеру — окно не показываем (женщине у мастера «только женщин» — лишнее, qa 30.09) */
   viewerGender?: Gender;
+  /** Профиль вошедшего ещё грузится (пол неизвестен): окно ждёт, но «Закрыли» помнится — гость вошёл по коду посреди
+   *  записи, и окно не всплывает второй раз */
+  pending?: boolean;
 }) {
   const t = useT('client');
   const fits = (accepts === 'women' && viewerGender === 'female') || (accepts === 'men' && viewerGender === 'male');
@@ -29,7 +33,7 @@ export function AcceptsNotice({
   if (accepts === 'all' || fits) return null;
   return (
     <Modal
-      open={open}
+      open={open && !pending}
       onOpenChange={setOpen}
       size="sm"
       title={t('book.accepts.title')}
