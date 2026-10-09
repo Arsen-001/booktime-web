@@ -8,6 +8,7 @@ import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { PurchaseStatusBadge } from '@/areas/client/purchases/PurchaseStatusCard';
+import { LoginGate } from '@/areas/client/ui/GuestGate';
 import { useT } from '@/i18n/useT';
 import { Avatar } from '@/ui/Avatar';
 import { Card } from '@/ui/Card';
@@ -30,7 +31,9 @@ export function CertificatesScreen() {
   return (
     <div data-f="F-14-040" className="flex flex-col gap-5 pb-6">
       <PageHeader title={t('certificates.title')} />
-      {!ready || q.isLoading ? (
+      {ready && !appUserId ? (
+        <LoginGate icon={<Gift aria-hidden className="size-8 text-muted" />} next="/certificates" />
+      ) : !ready || q.isLoading ? (
         <div className="flex flex-col gap-3" aria-busy="true">
           <Skeleton variant="rect" className="h-32 rounded-2xl" />
           <Skeleton variant="rect" className="h-32 rounded-2xl" />

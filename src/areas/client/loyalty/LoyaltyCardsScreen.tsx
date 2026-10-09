@@ -5,6 +5,7 @@ import { CreditCard } from 'lucide-react';
 import { listLoyaltyCards, type LoyaltyCardRow } from '@/api/client';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
+import { LoginGate } from '@/areas/client/ui/GuestGate';
 import type { CashbackEarnRule } from '@/domain/client';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useT } from '@/i18n/useT';
@@ -40,7 +41,9 @@ export function LoyaltyCardsScreen() {
   return (
     <div data-f="F-14-054" className="flex flex-col gap-5 pb-6">
       <PageHeader title={t('loyalty.cardsTitle')} />
-      {!ready || q.isLoading ? (
+      {ready && !appUserId ? (
+        <LoginGate icon={<CreditCard aria-hidden className="size-8 text-muted" />} next="/loyalty-cards" />
+      ) : !ready || q.isLoading ? (
         <div className="flex flex-col gap-3" aria-busy="true">
           <Skeleton variant="rect" className="h-32 rounded-2xl" />
         </div>

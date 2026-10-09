@@ -30,3 +30,19 @@ export function GuestGate({ icon, title, description, next }: { icon: ReactNode;
     />
   );
 }
+
+/**
+ * Экран гостя для того, что есть только у вошедшего (сертификаты, абонементы, карты, приглашения): сюда попадают по
+ * прямой ссылке, минуя профиль — не «пока пусто», а «войдите», иначе кажется, что купленного нет.
+ */
+export function LoginGate({ icon, next }: { icon: ReactNode; next: string }) {
+  const t = useT('client');
+  return (
+    <EmptyState
+      icon={icon}
+      title={t('common.needLoginTitle')}
+      description={t('common.needLoginHint')}
+      action={<LinkButton href={`/login?next=${encodeURIComponent(next)}`}>{t('common.goLogin')}</LinkButton>}
+    />
+  );
+}

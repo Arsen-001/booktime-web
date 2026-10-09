@@ -10,6 +10,7 @@ import { listMyReferrals, type MyReferralBusiness } from '@/api/referral';
 import { useApiQuery } from '@/api/request';
 import { InviteFriendCard, InviteFriendCardSkeleton } from '@/areas/client/referral/InviteFriendCard';
 import { useCurrent } from '@/demo/hooks';
+import { LoginGate } from '@/areas/client/ui/GuestGate';
 import type { ReferralInviteeStatus } from '@/domain/rules/referral';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -34,7 +35,9 @@ export function MyInvitesScreen() {
   return (
     <div data-f="F-06-081 F-06-085" className="flex flex-col gap-6 pb-6">
       <PageHeader back={{ href: '/profile' }} title={t('referral.pageTitle')} description={t('referral.pageSubtitle')} />
-      {q.isLoading ? (
+      {ready && !appUserId ? (
+        <LoginGate icon={<Gift />} next="/profile/invite" />
+      ) : !ready || q.isLoading ? (
         <div className="flex flex-col gap-4" aria-busy>
           <InviteFriendCardSkeleton />
         </div>

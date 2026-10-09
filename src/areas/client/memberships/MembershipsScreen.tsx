@@ -7,6 +7,7 @@ import { Snowflake, Flame, User } from 'lucide-react';
 import { listMemberships, type MembershipWithBusiness } from '@/api/client';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
+import { LoginGate } from '@/areas/client/ui/GuestGate';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { daysUntil } from '@/areas/client/loyalty/loyaltyDates';
 import { PurchaseStatusBadge } from '@/areas/client/purchases/PurchaseStatusCard';
@@ -34,7 +35,9 @@ export function MembershipsScreen() {
   return (
     <div data-f="F-14-037" className="flex flex-col gap-5 pb-6">
       <PageHeader title={t('memberships.title')} />
-      {!ready || q.isLoading ? (
+      {ready && !appUserId ? (
+        <LoginGate icon={<User aria-hidden className="size-8 text-muted" />} next="/memberships" />
+      ) : !ready || q.isLoading ? (
         <div className="flex flex-col gap-3" aria-busy="true">
           <Skeleton variant="rect" className="h-40 rounded-2xl" />
           <Skeleton variant="rect" className="h-40 rounded-2xl" />
