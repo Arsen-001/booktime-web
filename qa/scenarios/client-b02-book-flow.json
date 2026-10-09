@@ -16,7 +16,7 @@
     { "expectVisible": "text=Код отправлен" },
     { "fill": "input[inputmode='numeric']", "value": "0000" },
     { "click": "role=button[name=\"Подтвердить запись\"]" },
-    { "expectText": "Запись создана" },
+    { "expectText": "Вы записаны" },
     { "wait": 600 },
     { "screenshot": "b02-book-done" },
     { "expectVisible": "[data-f=\"F-14-011\"]" }

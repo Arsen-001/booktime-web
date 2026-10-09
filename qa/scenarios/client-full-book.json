@@ -1,0 +1,52 @@
+[
+  { "route": "/search", "persona": "guest", "lang": "ru", "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "full-book-guest-search" },
+      { "click": "css=main a[href^='/masters/st_nuri_ani']:visible >> nth=0" },
+      { "wait": 3000 },
+      { "expectVisible": "[data-f=\"F-00-123\"]" },
+      { "click": "css=a[href^='/book?staff='][href*='slot=']:visible >> nth=0" },
+      { "wait": 3000 },
+      { "expectVisible": "[data-f=\"F-00-004 F-00-007 F-00-031 F-00-108 F-00-092\"]" },
+      { "click": "role=button[name=\"Продолжить запись\"]" },
+      { "wait": 500 },
+      { "fill": "input[placeholder='Как к вам обращаться']", "value": "Гость Полный" },
+      { "fill": "input[type='tel']", "value": "77123457" },
+      { "press": "Space", "selector": "role=checkbox" },
+      { "screenshot": "full-book-guest-form" },
+      { "click": "role=button[name=\"Получить код\"]" },
+      { "expectVisible": "text=Код отправлен" },
+      { "fill": "input[inputmode='numeric']", "value": "0000" },
+      { "expectText": "Вы записаны" },
+      { "expectVisible": "role=link[name=\"Открыть запись\"]" },
+      { "wait": 500 },
+      { "screenshot": "full-book-guest-done" },
+      { "click": "css=[data-client-tabbar] a[href='/bookings']" },
+      { "wait": 1200 },
+      { "expectVisible": "css=main a[href^='/bookings/']" },
+      { "screenshot": "full-book-guest-in-bookings" }
+    ] },
+  { "route": "/search", "persona": "client", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "wait": 800 },
+      { "click": "css=main a[href^='/masters/st_nuri_ani']:visible >> nth=0" },
+      { "wait": 3000 },
+      { "click": "css=a[href^='/book?staff='][href*='slot=']:visible >> nth=0" },
+      { "wait": 3000 },
+      { "expectVisible": "role=button[name=\"Подтвердить запись\"]" },
+      { "screenshot": "full-book-client-confirm" },
+      { "click": "role=button[name=\"Подтвердить запись\"]" },
+      { "expectText": "Вы записаны" },
+      { "wait": 500 },
+      { "screenshot": "full-book-client-done" }
+    ] },
+  { "route": "/places/biz_nuri", "persona": "client", "lang": "en", "device": "phone",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "full-place-en" },
+      { "click": "css=main a[href^='/book?business=biz_nuri'] >> nth=0" },
+      { "wait": 1500 },
+      { "screenshot": "full-place-book-start-en" }
+    ] }
+]

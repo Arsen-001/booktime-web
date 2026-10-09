@@ -3,15 +3,16 @@
   "steps": [
     { "click": "css=a[href^='/book?staff=']" },
     { "wait": 800 },
+    { "click": "role=button[name=\"Продолжить запись\"]" },
     { "screenshot": "ux-book-guest" },
     { "fill": "input[placeholder='Как к вам обращаться']", "value": "Анна" },
     { "fill": "input[type='tel']", "value": "77123456" },
-    { "click": "role=checkbox" },
+    { "press": "Space", "selector": "role=checkbox" },
     { "click": "role=button[name=\"Получить код\"]" },
     { "wait": 1200 },
     { "screenshot": "ux-book-guest-code" },
     { "fill": "input[inputmode='numeric']", "value": "0000" },
-    { "click": "role=button[name=\"Подтвердить запись\"]" },
+    { "expectText": "Вы записаны" },
     { "wait": 400 },
     { "screenshot": "ux-book-guest-after-toast" },
     { "wait": 1500 },
@@ -37,7 +38,7 @@
   ] },
 { "route": "/search", "persona": "client", "lang": "ru", "device": "phone",
   "steps": [
-    { "click": "role=button[name=\"Фильтры\"]" },
+    { "click": "role=button[name=/Фильтры/]" },
     { "wait": 700 },
     { "screenshot": "ux-search-filters" }
   ] },
@@ -63,7 +64,7 @@
   "steps": [
     { "fill": "input[placeholder='Как к вам обращаться']", "value": "Анна" },
     { "fill": "input[type='tel']", "value": "77123456" },
-    { "click": "role=checkbox" },
+    { "press": "Space", "selector": "role=checkbox" },
     { "screenshot": "ux-login-filled" },
     { "click": "role=button[name=\"Получить код\"]" },
     { "wait": 1200 },

@@ -19,7 +19,7 @@
     "steps": [
       { "expectVisible": "[data-f=\"F-14-011\"]" },
       { "screenshot": "b02-bookings-desktop" },
-      { "click": "role=tab[name=\"Прошедшие\"]" },
+      { "click": "role=radio[name=\"Прошедшие\"]" },
       { "wait": 200 },
       { "screenshot": "b02-bookings-past" }
     ]

@@ -1,0 +1,58 @@
+[
+  { "route": "/masters/st_vard_zara", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "role=button[name=\"Подписаться\"][pressed=false] >> nth=0" },
+      { "expectText": "Готово — вы подписаны" },
+      { "expectVisible": "role=button[name=\"Подписаться\"][pressed=true] >> nth=0" },
+      { "goto": "/favorites" },
+      { "wait": 800 },
+      { "expectVisible": "css=main a[href='/masters/st_vard_zara']" },
+      { "screenshot": "full-fav-list" }
+    ] },
+  { "route": "/masters/st_vard_zara", "persona": "guest", "lang": "ru", "device": "phone",
+    "steps": [
+      { "wait": 1500 },
+      { "click": "role=button[name=\"Подписаться\"] >> nth=0" },
+      { "wait": 4000 },
+      { "expectText": "Вход" },
+      { "screenshot": "full-fav-guest-to-login" }
+    ] },
+  { "route": "/bookings", "persona": "client", "lang": "ru", "device": "desktop",
+    "steps": [
+      { "click": "role=radio[name=\"Прошедшие\"]" },
+      { "wait": 500 },
+      { "click": "css=main a[href^='/bookings/']:visible >> nth=0" },
+      { "wait": 1500 },
+      { "expectText": "Понравилось?" },
+      { "click": "role=button[name=\"Оценить мастера\"]" },
+      { "expectText": "Вы поставили звёздочку" },
+      { "screenshot": "full-star-rated" }
+    ] },
+  { "route": "/masters/st_nuri_mariam", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "role=button[name=\"Сообщить, если освободится\"]" },
+      { "expectVisible": "text=Лист ожидания" },
+      { "click": "role=button[name=\"Встать в очередь\"]" },
+      { "expectText": "Готово — сообщим, когда освободится время" },
+      { "goto": "/bookings" },
+      { "expectVisible": "text=Мой лист ожидания" },
+      { "screenshot": "full-waitlist-in-bookings" }
+    ] },
+  { "route": "/masters/st_nuri_ani", "persona": "guest", "lang": "ru", "device": "phone",
+    "steps": [
+      { "wait": 600 },
+      { "click": "a[href^='/stories/']:visible >> nth=0" },
+      { "wait": 2500 },
+      { "expectVisible": "[data-f=\"F-00-159 F-00-162 F-14-033 F-14-035\"]" },
+      { "screenshot": "full-story-guest" }
+    ] },
+  { "route": "/", "persona": "client", "lang": "hy", "device": "desktop",
+    "steps": [
+      { "wait": 600 },
+      { "click": "a[href^='/stories/']:visible >> nth=0" },
+      { "wait": 2500 },
+      { "expectVisible": "[data-f=\"F-00-159 F-00-162 F-14-033 F-14-035\"]" },
+      { "screenshot": "full-story-client-hy-desktop" }
+    ] }
+]

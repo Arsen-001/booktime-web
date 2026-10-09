@@ -9,13 +9,13 @@
   "steps": [ { "wait": 1500 }, { "click": "text=Маникюр классический" }, { "wait": 600 }, { "screenshot": "r5-book-service-picked" },
     { "click": "role=button[name=\"Продолжить\"]" }, { "wait": 1200 }, { "screenshot": "r5-book-slot-step" } ] },
 { "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
-  "steps": [ { "wait": 1500 }, { "click": "role=tab >> nth=1" }, { "wait": 1200 }, { "screenshot": "r5-bookings-past" } ] },
+  "steps": [ { "wait": 1500 }, { "click": "role=radio >> nth=1" }, { "wait": 1200 }, { "screenshot": "r5-bookings-past" } ] },
 { "route": "/favorites", "persona": "client", "lang": "ru", "device": "phone",
   "steps": [ { "wait": 1500 }, { "click": "role=tab >> nth=1" }, { "wait": 1200 }, { "screenshot": "r5-favorites-masters" } ] },
 { "route": "/places/biz_nuri", "persona": "client", "lang": "ru", "device": "phone",
   "steps": [ { "wait": 2000 }, { "click": "role=button[name=\"Купить\"] >> nth=0" }, { "wait": 800 }, { "screenshot": "r5-place-buy" } ] },
 { "route": "/loyalty-cards", "persona": "client", "lang": "ru", "device": "phone",
-  "steps": [ { "wait": 1500 }, { "click": "text=LC-7003" }, { "wait": 600 }, { "screenshot": "r5-loyalty-copy" } ] },
+  "steps": [ { "wait": 1500 }, { "click": "text=/LC-\\d+/" }, { "wait": 600 }, { "screenshot": "r5-loyalty-copy" } ] },
 { "route": "/notifications", "persona": "client", "lang": "ru", "device": "phone",
-  "steps": [ { "wait": 1500 }, { "click": "role=button[name=\"Подробнее\"] >> nth=0" }, { "wait": 2000 }, { "screenshot": "r5-notif-open" } ] }
+  "steps": [ { "wait": 1500 }, { "click": "role=link[name=\"Подробнее\"] >> nth=0" }, { "wait": 2000 }, { "screenshot": "r5-notif-open" } ] }
 ]

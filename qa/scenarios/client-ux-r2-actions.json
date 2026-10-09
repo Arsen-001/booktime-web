@@ -4,7 +4,7 @@
     { "click": "role=button[name=\"Отменить запись\"]" },
     { "wait": 600 },
     { "screenshot": "r2-cancel-dialog" },
-    { "click": "role=button[name=\"Да, отменить\"]" },
+    { "click": "role=dialog >> role=button[name=\"Отменить запись\"]" },
     { "wait": 700 },
     { "screenshot": "r2-cancel-done" }
   ] },
@@ -22,7 +22,7 @@
     { "wait": 2500 },
     { "screenshot": "r2-reschedule-landing" }
   ] },
-{ "route": "/masters/st_nuri_ani", "persona": "client", "lang": "ru", "device": "phone",
+{ "route": "/masters/st_nuri_mariam", "persona": "client", "lang": "ru", "device": "phone",
   "steps": [
     { "click": "role=button[name=\"Сообщить, если освободится\"]" },
     { "wait": 700 },
@@ -35,6 +35,7 @@
   "steps": [
     { "click": "css=a[href*='slot='] >> nth=0" },
     { "wait": 3000 },
+    { "click": "role=button[name=\"Продолжить запись\"]" },
     { "screenshot": "r2-guest-from-slot" },
     { "press": "End" },
     { "wait": 300 },
@@ -45,10 +46,10 @@
   ] },
 { "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
   "steps": [
-    { "click": "role=tab[name=\"Прошедшие\"]" },
+    { "click": "role=radio[name=\"Прошедшие\"]" },
     { "wait": 500 },
     { "screenshot": "r2-tab-past" },
-    { "click": "role=tab >> nth=2" },
+    { "click": "role=radio >> nth=2" },
     { "wait": 500 },
     { "screenshot": "r2-tab-cancelled" }
   ] }

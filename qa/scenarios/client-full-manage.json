@@ -1,0 +1,48 @@
+[
+  { "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "css=main a[href^='/bookings/']:visible >> nth=0" },
+      { "wait": 1500 },
+      { "click": "role=button[name=\"Отменить запись\"]" },
+      { "expectVisible": "text=Отменить запись?" },
+      { "screenshot": "full-cancel-confirm" },
+      { "click": "role=dialog >> role=button[name=\"Отменить запись\"]" },
+      { "expectText": "Запись отменена" },
+      { "wait": 500 },
+      { "screenshot": "full-cancel-done" }
+    ] },
+  { "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "css=main a[href^='/bookings/']:visible >> nth=1" },
+      { "wait": 1500 },
+      { "click": "role=link[name=\"Перенести\"]" },
+      { "wait": 1500 },
+      { "expectText": "Перенос записи" },
+      { "click": "css=main .grid button >> nth=1" },
+      { "expectText": "Запись перенесена" },
+      { "wait": 500 },
+      { "screenshot": "full-reschedule-done" },
+      { "click": "role=link[name=\"К записи\"]" },
+      { "wait": 1500 },
+      { "screenshot": "full-reschedule-booking" }
+    ] },
+  { "route": "/bookings", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "role=radio[name=\"Прошедшие\"]" },
+      { "wait": 500 },
+      { "click": "css=main a[href^='/bookings/']:visible >> nth=0" },
+      { "wait": 1500 },
+      { "click": "role=link[name=\"Повторить запись\"]" },
+      { "wait": 2000 },
+      { "expectVisible": "[data-f=\"F-00-004 F-00-007 F-00-031 F-00-108 F-00-092\"]" },
+      { "screenshot": "full-repeat-wizard" }
+    ] },
+  { "route": "/bookings", "persona": "client", "lang": "hy", "device": "desktop", "theme": "dark",
+    "steps": [
+      { "wait": 800 },
+      { "screenshot": "full-bookings-hy-dark" },
+      { "click": "css=main a[href^='/bookings/']:visible >> nth=0" },
+      { "wait": 1500 },
+      { "screenshot": "full-booking-detail-hy-dark" }
+    ] }
+]

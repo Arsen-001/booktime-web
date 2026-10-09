@@ -22,7 +22,7 @@
       { "click": "role=button[name=\"Отменить запись\"]" },
       { "expectVisible": "text=Отменить запись?" },
       { "screenshot": "b02-cancel-confirm" },
-      { "click": "role=button[name=\"Да, отменить\"]" },
+      { "click": "role=dialog >> role=button[name=\"Отменить запись\"]" },
       { "wait": 500 },
       { "expectText": "Запись отменена" },
       { "screenshot": "b02-cancel-done" }

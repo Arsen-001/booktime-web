@@ -1,0 +1,37 @@
+[
+  { "route": "/profile", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "role=button[name=\"Изменить имя\"]" },
+      { "fill": "role=dialog >> input", "value": "Тест Профиль" },
+      { "click": "role=dialog >> role=button[name=\"Сохранить\"]" },
+      { "expectText": "Имя сохранено" },
+      { "expectText": "Тест Профиль" },
+      { "screenshot": "full-profile-name" }
+    ] },
+  { "route": "/profile", "persona": "client", "lang": "ru", "device": "phone",
+    "steps": [
+      { "click": "role=button[name=\"Выйти\"]" },
+      { "wait": 1500 },
+      { "click": "css=a[href^='/login']:visible >> nth=0" },
+      { "wait": 1500 },
+      { "fill": "input[placeholder='Как к вам обращаться']", "value": "Новый Клиент" },
+      { "fill": "input[type='tel']", "value": "77123458" },
+      { "press": "Space", "selector": "role=checkbox" },
+      { "click": "role=button[name=\"Получить код\"]" },
+      { "expectText": "Код отправлен" },
+      { "fill": "input[inputmode='numeric']", "value": "1111" },
+      { "expectText": "Неверный код" },
+      { "fill": "input[inputmode='numeric']", "value": "0000" },
+      { "expectText": "Добро пожаловать" },
+      { "wait": 800 },
+      { "screenshot": "full-login-done" },
+      { "click": "css=[data-client-tabbar] a[href='/profile']" },
+      { "wait": 800 },
+      { "screenshot": "full-login-profile" }
+    ] },
+  { "route": "/login", "persona": "guest", "lang": "hy", "device": "phone", "theme": "dark",
+    "steps": [
+      { "wait": 600 },
+      { "screenshot": "full-login-hy-dark" }
+    ] }
+]
