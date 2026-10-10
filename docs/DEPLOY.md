@@ -33,6 +33,10 @@
   ответ уходит с адреса, на который написали. Подробно — `~/WebstormProjects/aiswitch/README.md`.
   Записи: MX `smtp.google.com` (1), TXT `google-site-verification=VSPt…` (Workspace) и `WagG…` (Search Console),
   SPF `v=spf1 include:_spf.google.com ~all`, DKIM `google._domainkey`, DMARC `_dmarc` (p=none, отчёты на info@).
+  DKIM: 10.10.2026 запись заменена на действующий ключ Google и подпись включена (в админке → Gmail →
+  «Аутентификация электронной почты» она была «отключена»: в DNS с 05.10 стоял не тот ключ, письма от
+  info@booktime.am не проходили DMARC). Проверено письмом: SPF, DKIM (booktime.am), DMARC — PASS.
+  Кнопку «Создать новую запись» там не нажимать — она меняет ключ, и запись в DNS перестаёт подходить.
   Почта с другого сервиса (рассылки, Resend и т. п.) — дописать его в SPF, а не заводить вторую SPF-запись.
 
 ## Сервер на Railway
