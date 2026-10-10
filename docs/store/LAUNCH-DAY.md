@@ -13,8 +13,10 @@
 
 1. **Apple Developer Program как организация.** developer.apple.com/programs/enroll → Organization →
    D-U-N-S, юрлицо AI Switch LLC, сайт компании **aiswitch.am**, рабочая почта **info@aiswitch.am** (Apple ID на неё).
-   $99/год. Решение владельца 09.10.2026: аккаунты — на почту компании, одни на BookTime и QR Space. До этого шага
-   почта и сайт должны работать — `~/WebstormProjects/aiswitch/README.md`, шаги 1–6.
+   $99/год. Решение владельца 09.10.2026: аккаунты — на почту компании, одни на BookTime и QR Space.
+   Готово 10.10.2026: сайт aiswitch.am и почта info@aiswitch.am работают, **Apple ID info@aiswitch.am уже заведён**
+   (двухфакторная защита включена) — в день D-U-N-S остаётся только подать заявку. Состояние —
+   `~/WebstormProjects/aiswitch/README.md`, «Где остановились».
 2. Когда одобрят: developer.apple.com → Membership → **Team ID** (10 символов). Его — в три места:
    - `booktime-mobile/config/signing.xcconfig` → `DEVELOPMENT_TEAM = XXXXXXXXXX`
      (или `APPLE_TEAM_ID=XXXXXXXXXX npm run sync`). Это вся настройка подписи обоих приложений;
@@ -42,7 +44,8 @@
 ## Google (≈30 минут + проверка аккаунта Google)
 
 9. **Play Console как организация** (play.google.com/console, $25): тип «Organization», D-U-N-S, почта
-   info@aiswitch.am, сайт aiswitch.am. У аккаунта организации нет требования «12 тестировщиков 14 дней».
+   info@aiswitch.am (это вход Google ящика компании, с 10.10.2026 — главный адрес Workspace), сайт aiswitch.am.
+   У аккаунта организации нет требования «12 тестировщиков 14 дней».
 10. **Ключ загрузки** — один раз, сами в Терминале (агентам не поручать):
     ```bash
     cd ~/WebstormProjects/booktime-mobile && npm run upload-key
