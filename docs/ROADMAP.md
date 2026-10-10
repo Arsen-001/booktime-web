@@ -73,7 +73,9 @@
   production (`scripts/set-review-env.mjs`, коды в ~/.booktime-secrets/review-login.env); салон «BookTime Demo» на
   production (`scripts/seed-review-demo.mjs`); заявка D-U-N-S (AI Switch LLC) отправлена, номер обещают ~12.10.2026 (просят скан выписки из госреестра: рег. номер, юр. адрес, директор, участники).
 - Дальше:
-  - D-U-N-S → аккаунты Apple Developer и Google Play на компанию (оплачивает владелец);
+  - D-U-N-S → аккаунты Apple Developer и Google Play на компанию (оплачивает владелец) — на почту **info@aiswitch.am**,
+    сайт aiswitch.am (решение 09.10.2026); до этого домен и почта компании должны заработать: 10.10.2026 домен
+    утверждён реестром, но стоит на заглушке name.am — шаги владельца в `~/WebstormProjects/aiswitch/README.md`;
   - бесплатные дни «BookTime Demo» в панели платформы до ~15.10.2026 (иначе салон замёрзнет после пробного периода);
   - ключ APNs (.p8) в Firebase, Apple в профиле, вход через Google (Client ID);
   - проверка на телефонах (iPhone — симулятор или устройство).
