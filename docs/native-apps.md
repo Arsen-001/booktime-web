@@ -6,12 +6,12 @@
 
 | | iOS | Android |
 |---|---|---|
-| Папка | `../booktime-ios` | `../booktime-android` |
+| Папка | `../booktime-ios` (https://github.com/Arsen-001/booktime-ios, закрытый) | `../booktime-android` (https://github.com/Arsen-001/booktime-android, закрытый) |
 | Язык, UI | Swift 6, SwiftUI, iOS 17+ | Kotlin, Jetpack Compose (Material 3 под наши токены), minSdk 26 |
 | Проект | `project.yml` → `xcodegen generate` (`.xcodeproj` не в git) | Gradle (Kotlin DSL), version catalog |
 | Сеть | URLSession + async/await, Codable | OkHttp + Retrofit + kotlinx.serialization, корутины |
 | Картинки | AsyncImage + свой кеш | Coil |
-| Идентификатор | `am.booktime.app` | `am.booktime.app` |
+| Идентификатор | `am.booktime.app`, Business — `am.booktime.business` | то же |
 
 Те же идентификаторы, что у обёртки, — приложение в магазинах одно и то же, нативная версия приходит обновлением.
 
@@ -59,3 +59,18 @@ Android-эмулятор ходит на локальный сервер чер�
 16 ГБ памяти: тяжёлые шаги (xcodebuild, gradle, симулятор, эмулятор) — по одному, через общий замок
 `until mkdir /tmp/booktime-build.lock 2>/dev/null; do sleep 5; done` … `rmdir /tmp/booktime-build.lock`.
 JDK — `~/Library/Java/temurin-21/Contents/Home`, Android SDK — `~/Library/Android/sdk`.
+
+## BookTime Business (начато 10.10.2026)
+
+Второе приложение в тех же репозиториях: общее ядро (сеть, сессия, модели, тема, шрифты, тексты, ICU) — отдельным
+модулем (iOS: framework-таргет `BookTimeCore` в `project.yml`; Android: Gradle-модули `:core`, `:app-client`,
+`:app-business`), у каждого приложения свой таргет, иконка, заставка (из `../booktime-mobile`), id `am.booktime.business`.
+Вход — тот же код, но `app:'business'`; выбор бизнеса и роли — `GET /v1/auth/session` (memberships), права роли
+(владелец, администратор, мастер) — как на сайте (`src/domain/rules`, `/v1/biz/{businessId}/…`). Запросы — `/v1/biz/*`
+из openapi; эталон экранов — `src/app/biz/**`, `src/areas/<раздел>/**`, тексты — `messages/*/<раздел>.json` + `common.json`.
+
+Этап 1 (сейчас): вход и выбор бизнеса; **журнал «Живой день»** (вид BookTime: телефон — день мастера списком как
+`LiveAgenda`, полоска пульса, идущие визиты, свободные окна с «Предложить»; планшет/iPad — сетка мастеров как
+`DayGrid`; неделя; переход по дням) и **окно записи** (создать, изменить, перенести, статус, пришёл/не пришёл, оплата,
+отмена); **клиенты** (список, поиск, карточка, история визитов, создать); колокольчик уведомлений; профиль (язык, тема, выход).
+Этап 2: график, услуги, сотрудники, финансы и касса, лояльность, отчёты, склад, зарплата, онлайн-запись, настройки.
