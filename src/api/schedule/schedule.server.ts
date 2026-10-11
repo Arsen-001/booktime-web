@@ -120,7 +120,7 @@ export async function findAffectedBookings(staffIds: Id[], dates: ISODate[], new
   return toAffected(refs);
 }
 
-/** Тип и заметка дня сотрудников на дату (Г3, Г16) — сервер `note` пока не хранит (см. docstring контроллера) */
+/** Тип и заметка дня сотрудников на дату (Г3, Г16) */
 export function getStaffDayInfo(staffIds: Id[], date: ISODate): Promise<Record<Id, { typeId: string | null; note?: string }>> {
   reads();
   if (!staffIds.length) return Promise.resolve({});
@@ -142,6 +142,7 @@ function cellsBody(input: SetCellsInput & { force?: boolean }) {
     hours: input.hours,
     locationId: input.locationId,
     vacationUntil: input.vacationUntil,
+    note: input.note,
     historyAction: input.historyAction,
     force: input.force,
   };
@@ -198,6 +199,7 @@ export async function createTemplate(input: Omit<ScheduleTemplate, 'id' | 'creat
     shiftWork: input.shiftWork,
     shiftOff: input.shiftOff,
     hours: input.hours,
+    weekdayHours: input.weekdayHours,
   });
   return changed(input.businessId, t);
 }
