@@ -43,7 +43,9 @@ Android-эмулятор ходит на локальный сервер чер�
 7. Избранное, уведомления (входящие), профиль (имя, язык, тема, уведомления, приглашения, удаление аккаунта, выход).
 8. Сертификаты, абонементы, карты лояльности, дневник, поддержка, документы (privacy, terms, account-deletion).
 9. Вход: телефон → код (Telegram / WhatsApp / SMS из `/v1/auth/channels`) → согласие; Apple (iOS), Google.
-10. Нативное: пуши FCM (`POST /v1/me/push-tokens`), диплинки `booktime.am/b/*`, `/s/*`, `/bookings*`, «Поделиться».
+10. Нативное: пуши FCM (`POST /v1/me/push-tokens {app, platform, token}`, сделаны 15.10.2026 в обоих приложениях обеих
+   платформ; файлы Firebase — `scripts/firebase-config.sh` из `../booktime-mobile/config`, не в git; iOS доставит только
+   после ключа APNs `.p8` в Firebase; канал Android — по `data.url`, пока сервер не шлёт вид уведомления), диплинки `booktime.am/b/*`, `/s/*`, `/bookings*`, «Поделиться».
 
 ## Дизайн и тексты
 
