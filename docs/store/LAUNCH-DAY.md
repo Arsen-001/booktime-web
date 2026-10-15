@@ -17,6 +17,8 @@
    Готово 10.10.2026: сайт aiswitch.am и почта info@aiswitch.am работают, **Apple ID info@aiswitch.am уже заведён**
    (двухфакторная защита включена) — в день D-U-N-S остаётся только подать заявку. Состояние —
    `~/WebstormProjects/aiswitch/README.md`, «Где остановились».
+   **Заявка подана 15.10.2026: Enrollment ID `2NCW5NK89U`** (юрлицо в Apple — «AI Switch, LLC», как в D&B). Ждём
+   письма Apple на info@aiswitch.am: проверка права подписи, потом оплата $99/год.
 2. Когда одобрят: developer.apple.com → Membership → **Team ID** (10 символов). Его — в три места:
    - `booktime-mobile/config/signing.xcconfig` → `DEVELOPMENT_TEAM = XXXXXXXXXX`
      (или `APPLE_TEAM_ID=XXXXXXXXXX npm run sync`). Это вся настройка подписи обоих приложений;

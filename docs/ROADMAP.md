@@ -80,8 +80,9 @@
     Firebase, Google Cloud и админка — тот же аккаунт под новым именем. Состояние и что ждёт —
     `~/WebstormProjects/aiswitch/README.md`, «Где остановились».
     **13.10.2026: D-U-N-S получен — 933897745** (AI Switch, LLC; письмо «Интерфакс — D&B» лежало в «Спаме» личной
-    почты владельца, найдено 15.10). В базе D&B — через 2 рабочих дня (≈15.10), дальше — заявка Apple Developer
-    (`docs/store/LAUNCH-DAY.md`, шаг 1) и Google Play Console на компанию;
+    почты владельца, найдено 15.10). **15.10.2026 подана заявка Apple Developer** (Enrollment ID `2NCW5NK89U`,
+    AI Switch, LLC, info@aiswitch.am) — ждём письма Apple о проверке и оплате $99/год (`docs/store/LAUNCH-DAY.md`,
+    шаг 1); дальше — Google Play Console на компанию ($25 один раз);
   - бесплатные дни «BookTime Demo» в панели платформы до ~15.10.2026 (иначе салон замёрзнет после пробного периода);
   - ключ APNs (.p8) в Firebase, Apple в профиле, вход через Google (Client ID);
   - проверка на телефонах (iPhone — симулятор или устройство).
