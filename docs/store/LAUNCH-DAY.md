@@ -12,7 +12,7 @@
 ## Apple (≈1 час + ожидание одобрения аккаунта, обычно 1–2 дня)
 
 1. **Apple Developer Program как организация.** developer.apple.com/programs/enroll → Organization →
-   D-U-N-S, юрлицо AI Switch LLC, сайт компании **aiswitch.am**, рабочая почта **info@aiswitch.am** (Apple ID на неё).
+   D-U-N-S **933897745** (выдан 13.10.2026), юрлицо AI Switch LLC, сайт компании **aiswitch.am**, рабочая почта **info@aiswitch.am** (Apple ID на неё).
    $99/год. Решение владельца 09.10.2026: аккаунты — на почту компании, одни на BookTime и QR Space.
    Готово 10.10.2026: сайт aiswitch.am и почта info@aiswitch.am работают, **Apple ID info@aiswitch.am уже заведён**
    (двухфакторная защита включена) — в день D-U-N-S остаётся только подать заявку. Состояние —
