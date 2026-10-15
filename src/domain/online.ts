@@ -163,9 +163,9 @@ export interface BusinessOnlineRules {
   maxDaysAhead?: number;
   /**
    * О1/О25 «Сотрудник для всех онлайн-записей» — общее для бизнеса (раньше жило в одной ссылке). Ссылка со своим
-   * `staffForAllBookings` главнее; нет обоих — клиент выбирает специалиста сам.
+   * `staffForAllBookings` главнее; нет обоих — клиент выбирает специалиста сам. null — снять (сервер стирает только по null).
    */
-  staffForAllBookings?: Id;
+  staffForAllBookings?: Id | null;
 }
 
 /** О1: горизонт записи по умолчанию — 60 дней вперёд */

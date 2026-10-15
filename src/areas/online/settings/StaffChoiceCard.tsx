@@ -35,7 +35,7 @@ export function StaffChoiceCard({ businessId, rules, staff }: { businessId: Id; 
 
   const save = async () => {
     try {
-      await mutation.mutate({ allowAnyStaffForAllLinks: any, staffForAllBookings: forAll || undefined });
+      await mutation.mutate({ allowAnyStaffForAllLinks: any, staffForAllBookings: forAll || null });
       toast.success(t('settings.saved'));
     } catch {
       toast.error(t('settings.saveFailed'));
