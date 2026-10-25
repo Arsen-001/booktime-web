@@ -91,11 +91,11 @@ Sign in: tap "Profile" → enter phone +374 00 000 101 → the app asks for a 4-
 
 To make a test booking: open https://booktime.am/b/booktime-demo (the demo salon is hidden from search on purpose) → pick a service → "Any master" → a time → confirm.
 
-Native features: push notifications (booking reminders and status changes), universal links to booktime.am/b/* and /bookings, native share sheet, Sign in with Apple and Sign in with Google.
+Native app (Kotlin / Swift): push notifications (booking reminders and status changes), links to booktime.am/b/* and /bookings open in the app, native share sheet, offline screen.
 
-Sign in with Apple is offered next to Sign in with Google on the sign-in screen (iOS only). New users confirm their phone number once, because bookings are tied to a phone number that the salon sees.
+Sign-in is by phone number only (one-time code), because bookings are tied to a phone number that the salon sees.
 
-Account deletion: Profile → "Delete account" (bottom of the screen). The account is erased 25 days after the request, and the Apple refresh token is revoked at that moment (POST https://appleid.apple.com/auth/revoke). Public instructions: https://booktime.am/en/account-deletion
+Account deletion: Profile → "Delete account" (bottom of the screen). The account is erased 25 days after the request. Public instructions: https://booktime.am/en/account-deletion
 
 The app does not sell digital goods. Prepayments for salon services (a physical service) are transferred by the client directly to the salon's bank details outside the app.
 ```
@@ -106,15 +106,15 @@ BookTime Business is a booking calendar and client base for salons, clinics, ind
 
 Sign in: enter phone +374 00 000 102 → code <CODE> (fixed review number, no real messages are sent). You will see the demo salon "BookTime Demo" with staff, services, clients and bookings.
 
-Try: Calendar → tap a booking (booking window: status, payment, client); "+ Booking" to create one; Clients; More → Orders.
+Try: Journal → tap a booking (booking window: status, payment, client); "+" to create one; Clients; More → Schedule, Finance.
 
-Native features: push notifications for new, moved and cancelled bookings, universal links to booktime.am/biz, camera for photos of work and the inventory barcode scanner, share sheet, Sign in with Apple / Google.
+Native app (Kotlin / Swift): push notifications for new, moved and cancelled bookings that open the booking in the app, tablet layout with a column per professional, share sheet.
 
-Account deletion: Settings → Personal account → Account management → "Delete my account". It happens 25 days after the request (the owner can transfer the salon first and can cancel during this time). The Apple token is revoked on deletion. Instructions: https://booktime.am/en/account-deletion
+Account deletion: Profile → "Delete account". It happens 25 days after the request (the owner can transfer the salon first and can cancel during this time). Instructions: https://booktime.am/en/account-deletion
 
-No digital goods are sold in the app. Business subscriptions are invoiced to companies outside the app, and the app has no purchase buttons or links to them on iOS.
+No digital goods are sold in the app. Business subscriptions are invoiced to companies outside the app, and the app has no purchase buttons or links to them.
 ```
-> Так и есть с 04.10.2026: в приложениях iOS и Android нет «Подписки», «Монет», продвижения и сторис за монеты — вместо экрана строка без ссылки (`NativePurchaseGate`).
+> Тексты выше — для нативных приложений (`booktime-ios`, `booktime-android`, с 26.10.2026): входа Apple/Google, камеры и сканера в них пока нет. В нативном Business с версии 2.0.1 нет пунктов «Подписка» и «Монеты» и удаление аккаунта есть в профиле. Появится вход Apple/Google (iOS) — допишите его сюда.
 
 **Contact information:** имя, телефон и почта владельца — для звонка проверяющего (поля Contact First/Last Name, Phone, Email).
 
@@ -128,8 +128,8 @@ No digital goods are sold in the app. Business subscriptions are invoiced to com
 
 | Правило | Как у нас |
 |---|---|
-| 4.2 Minimum functionality («просто сайт») | Пуши, universal links и App Links, нативный вход Apple/Google, «Поделиться», офлайн-экран, системные полосы, «Назад» Android |
-| 4.8 Sign in with Apple | Есть рядом с Google, только в iOS |
+| 4.2 Minimum functionality («просто сайт») | Нативные приложения (Swift, Kotlin), пуши, App Links, «Поделиться», офлайн-экран |
+| 4.8 Sign in with Apple | Нужен только при входе через Google; сейчас вход только по телефону |
 | 5.1.1(v) удаление аккаунта | В приложении; отзыв токена Apple на сервере (код готов, нужны env `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`, `SECRETS_KEY`) |
 | 5.1.1 подписи разрешений | Камера, фото, место — en/ru/hy (`scripts/native.mjs`, 04.10.2026) |
 | 2.3.10 другие платформы в тексте | В текстах iOS нет Android и Google Play |
