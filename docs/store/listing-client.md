@@ -234,9 +234,9 @@ The first release of BookTime: professionals with free time today and tomorrow, 
 
 ## Հայերեն (hy) — только Google Play (в App Store армянского нет)
 
-**Անվանում** (≤ 30)
+**Անվանում** (≤ 30) — только имя: армянский текст рядом с именем владелец снял 27.10.2026
 ```text
-BookTime՝ գրանցում վարպետին
+BookTime
 ```
 
 **Կարճ նկարագրություն** (≤ 80)
