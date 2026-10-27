@@ -68,7 +68,12 @@
     cd ~/WebstormProjects/booktime-mobile
     npm run sync                    # Team ID и файлы Firebase → проекты
     npm run build:android-release   # оба AAB, должно быть «подписан ключом загрузки»
-    npm run build:ios-archive       # оба App.ipa (подпись автоматическая)
+    ```
+    iOS — нативные приложения `~/WebstormProjects/booktime-ios` (с 26.10.2026, версия 2.0.1, сборка 101; Release
+    проверен — собирается):
+    ```bash
+    cd ~/WebstormProjects/booktime-ios
+    bash scripts/archive.sh         # оба .ipa → build/ipa/client.ipa и business.ipa (Team ID — из signing.xcconfig)
     ```
 14. Первая загрузка AAB — **вручную** в Play Console (API не принимает первую сборку нового приложения):
     Test and release → Testing → Internal testing → Create release → `apps/<app>/android/app/build/outputs/bundle/release/app-release.aab`.
@@ -86,7 +91,7 @@
     `GoogleService-Info.plist` обоих iOS-приложений в `booktime-mobile/config/<app>/` (появится `CLIENT_ID`),
     `npm run sync`, пересобрать. Все Client ID (web, iOS ×2, Android ×2) — через запятую в Railway `GOOGLE_CLIENT_ID`.
     Без этого в приложениях есть только кнопка Apple (так и проверено 06.10).
-17. iOS: `fastlane ios upload app:client` и `app:business` → через 10–30 мин сборки в TestFlight. Поставьте на свой
+17. iOS: `fastlane ios upload app:client` и `app:business` (берут `booktime-ios/build/ipa/<app>.ipa`) → через 10–30 мин сборки в TestFlight. Поставьте на свой
     iPhone (Internal Testing) и проверьте: вход, пуш, ссылку `https://booktime.am/b/booktime-demo` из Заметок, камеру.
 
 ## Проверяющие
@@ -105,7 +110,8 @@
 
 ## Карточки и отправка
 
-21. Тексты, скриншоты, иконки и баннеры (fastlane сам пересоберёт их из `docs/store`):
+21. Тексты, скриншоты, иконки и баннеры (fastlane сам пересоберёт их из `docs/store`; скриншоты iPhone и iPad сняты
+    с нативных приложений — `bash scripts/store-shots.sh client` и `business` в booktime-ios):
     ```bash
     fastlane ios metadata app:client      && fastlane ios metadata app:business
     fastlane android metadata app:client  && fastlane android metadata app:business
@@ -116,9 +122,9 @@
     - Play Console → App content: Privacy policy, App access (review-notes.md), Ads — нет, Content rating (IARC),
       Target audience, Data safety (privacy-answers.md, удаление — https://booktime.am/account-deletion);
       Store settings → категория и почта info@booktime.am.
-    - **iPad:** приложения универсальные, скриншоты iPad 13″ загружаются. Если решите «только iPhone» — до первой
-      загрузки уберите iPad в Xcode (Supported Destinations) и запускайте `npm run store-metadata -- --no-ipad`.
+    - **iPad:** BookTime — только iPhone, BookTime Business — iPhone и iPad (свой вид журнала с колонками мастеров),
+      скриншоты iPad 13″ для Business загружаются.
 23. **Отправка:**
-    - App Store: `fastlane ios submit app:client build:1` и `app:business build:1` (или кнопка Add for Review).
+    - App Store: `fastlane ios submit app:client build:101` и `app:business build:101` (или кнопка Add for Review).
     - Google Play: Internal testing проверен → Production → Create release → тот же AAB → Countries → Send for review.
 24. После одобрения: если «BookTime Demo» публиковали в каталоге — снимите; вход проверяющих оставьте.
