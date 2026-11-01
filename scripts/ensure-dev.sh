@@ -63,6 +63,11 @@ if mkdir "$LOCK" 2>/dev/null; then
   if [ -f "$ROOT/.dev.log" ] && [ "$(stat -f %z "$ROOT/.dev.log" 2>/dev/null || echo 0)" -gt 20971520 ]; then
     mv "$ROOT/.dev.log" "$ROOT/.dev.log.1"
   fi
+  # Кэш next dev сам не чистится: 01.11.2026 вырос до 56 ГБ и забил диск. Больше 10 ГБ — сбрасываем.
+  if [ -d "$ROOT/.next/dev" ] && [ "$(du -sk "$ROOT/.next/dev" 2>/dev/null | cut -f1)" -gt 10485760 ]; then
+    echo "Кэш .next/dev больше 10 ГБ — сбрасываю (первые страницы соберутся заново)."
+    rm -rf "$ROOT/.next/dev"
+  fi
   echo "===== $(date '+%Y-%m-%d %H:%M:%S') запуск next dev -p ${PORT} =====" >> "$ROOT/.dev.log"
   nohup npx next dev -p "$PORT" >> "$ROOT/.dev.log" 2>&1 &
   disown || true
