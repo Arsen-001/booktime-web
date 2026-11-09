@@ -1,5 +1,8 @@
 # Выкладка BookTime (с 02.10.2026)
 
+**09.11.2026 — сервер BookTime на Railway ВЫКЛЮЧЕН по слову владельца** («отключи там буктайм, чтобы больше не тратился»; у пространства Railway кончился пробный период). В проекте `booktime` у `api`, `MySQL`, `Redis` в production и staging снята выкладка (`railway down`); диски на месте: mysql-volume 335 МБ (production) и 397 МБ (staging), api-volume, redis-volume production 564 МБ. Redis staging опустел (кэш). api.booktime.am отвечает «Application not found»; сайт на Vercel открывается, но без сервера не работает.
+Ошибка по пути: сначала пробовал `railway scale eu-west=0` — Railway не остановил, а перезапустил службы в US West (`us-west2`). **Включить обратно** (после выбора плана на Railway), из `booktime-backend`, для каждого окружения: сначала базы, потом api — `railway scale -e production -s MySQL eu-west=1 us-west2=0`, так же `Redis`, потом `api` (то же для `-e staging`). Это вернёт их в EU West (Нидерланды) и запустит заново; проверить `curl https://api.booktime.am/` — ответ сервера, а не «Application not found».
+
 ## Где что живёт
 
 | | staging (ветка `develop`) | production (ветка `main`) |
