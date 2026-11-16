@@ -38,18 +38,35 @@ import type { AreaStates } from '@/mock/slices';
  * с гидратацией; bootDb() дожидается её до чтения localStorage. Всё, что ниже зовёт seedKit(), работает после bootDb().
  */
 interface SeedKit {
-  seedCore: typeof import('@/mock/seed').seedCore;
+  seedCore: (now: Date) => Partial<CoreData>;
   SEED_VERSION: number;
   SLICES: typeof import('@/mock/slices').SLICES;
   localizeDemo: typeof import('@/mock/seed/demoLocale').localizeDemo;
 }
+
+/**
+ * Режим api (staging/production, 07.10.2026): демо-сида нет вовсе — куски `@/mock/seed` и `@/mock/seed/demoLocale`
+ * не скачиваются и не выполняются. Ядро браузера стартует пустым (его наполняет зеркало сервера, src/api/mirror.ts),
+ * срезы разделов — seed() над пустым ядром: остаются только их общие данные (каталоги, шаблоны, настройки по
+ * умолчанию), без демо-салонов. Своя версия сида: при смене режима (разработка, ?data=) база пересеивается целиком,
+ * демо-данные не смешиваются с зеркалом. В сборке api (NEXT_PUBLIC_DATA=api) ветка демо вырезается при сборке.
+ */
+const API_SEED_VERSION = -1;
+function apiSeedMode(): boolean {
+  return process.env.NEXT_PUBLIC_DATA === 'api' || dataMode() === 'api';
+}
+
 let kit: SeedKit | undefined;
 let kitLoad: Promise<SeedKit> | undefined;
 function loadSeedKit(): Promise<SeedKit> {
-  kitLoad ??= Promise.all([import('@/mock/seed'), import('@/mock/slices'), import('@/mock/seed/demoLocale')]).then(
-    ([seed, slices, demoLocale]) =>
-      (kit = { seedCore: seed.seedCore, SEED_VERSION: seed.SEED_VERSION, SLICES: slices.SLICES, localizeDemo: demoLocale.localizeDemo }),
-  );
+  kitLoad ??= apiSeedMode()
+    ? import('@/mock/slices').then(
+        (slices) => (kit = { seedCore: () => ({}), SEED_VERSION: API_SEED_VERSION, SLICES: slices.SLICES, localizeDemo: (data) => data }),
+      )
+    : Promise.all([import('@/mock/seed'), import('@/mock/slices'), import('@/mock/seed/demoLocale')]).then(
+        ([seed, slices, demoLocale]) =>
+          (kit = { seedCore: seed.seedCore, SEED_VERSION: seed.SEED_VERSION, SLICES: slices.SLICES, localizeDemo: demoLocale.localizeDemo }),
+      );
   return kitLoad;
 }
 /** Кусок с сидом не скачался (обрыв сети) — ещё две попытки, потом ошибка в консоль, как у любого куска страницы */
@@ -824,7 +841,8 @@ export async function bootDb(locale?: LocaleCode): Promise<void> {
   const seededAt = s.meta.seededAt ? new Date(s.meta.seededAt) : undefined;
   const stale = !seededAt || now.getTime() - seededAt.getTime() > STALE_AFTER_DAYS * 86_400_000;
 
-  if (s.meta.seedVersion !== SEED_VERSION || stale || s.core.businesses.length === 0) {
+  // Пустое ядро — признак несеянной базы только в демо; в режиме api ядро пустое, пока зеркало его не наполнит
+  if (s.meta.seedVersion !== SEED_VERSION || stale || (!apiSeedMode() && s.core.businesses.length === 0)) {
     if (s.meta.seedVersion && s.meta.seedVersion !== SEED_VERSION) console.info('[mock-db] версия сида изменилась — пересоздаю демо-данные');
     else if (s.meta.seedVersion && stale) console.info('[mock-db] демо-данные старше 7 дней — пересоздаю');
     const seeded = await createSeedDataInSteps(now);

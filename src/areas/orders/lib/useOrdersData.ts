@@ -3,7 +3,6 @@
 /**
  * Чтения раздела «Заказы»: один ключ = одна функция api (ordersKeys). Бизнес и сфера — из демо-контекста / сессии.
  */
-import { useCoreGet } from '@/api/core';
 import {
   getIntakeSettings,
   getOrder,
@@ -12,12 +11,11 @@ import {
   listOrders,
   listPickupBookings,
   ordersKeys,
-  useOrdersEnabledQuery,
 } from '@/api/orders';
 import { useApiQuery, type QueryOptions } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
-import { defaultOrdersEnabled, type Order, type OrdersQuery } from '@/domain/orders';
+import type { Order, OrdersQuery } from '@/domain/orders';
 
 // Чтения страницы заказа без входа (/o/<код>) — в лёгком usePublicOrderData (не тянет api кабинета); реэкспорт для прежних импортов
 export { usePickupSlots, usePublicOrder } from '@/areas/orders/lib/usePublicOrderData';
@@ -35,26 +33,8 @@ export function useOrder(orderId: Id, options?: QueryOptions<Order>) {
   });
 }
 
-/** Счётчик готовых заказов у пункта меню (нет данных или 0 — без значка) */
-export function useReadyOrdersCount(): number | undefined {
-  const { ready, businessId } = useCurrent();
-  const q = useApiQuery(ordersKeys.count(businessId ?? '', 'ready'), () => listOrders(businessId ?? '', { status: 'ready', page: 1, pageSize: 1 }), {
-    enabled: ready && Boolean(businessId),
-  });
-  return q.data?.total;
-}
-
-/**
- * Включены ли «Заказы» у текущего бизнеса. Пока ответа нет — по сфере бизнеса (а пока не знаем и бизнес — по сфере демо),
- * чтобы пункт меню не появлялся и не исчезал после загрузки.
- */
-export function useOrdersEnabled(): { enabled: boolean; loading: boolean } {
-  const { ready, businessId, sphere } = useCurrent();
-  const businessQ = useCoreGet('businesses', businessId, { enabled: ready });
-  const sphereIds = businessQ.data?.sphereIds ?? [sphere];
-  const q = useOrdersEnabledQuery(businessId, sphereIds, { enabled: ready && Boolean(businessQ.data) });
-  return { enabled: q.data ?? defaultOrdersEnabled(sphereIds), loading: !ready || businessQ.isLoading || q.isLoading };
-}
+// Меню кабинета (каждая страница /biz) — лёгкий useOrdersShell; реэкспорт для прежних импортов
+export { useOrdersEnabled, useReadyOrdersCount } from '@/areas/orders/lib/useOrdersShell';
 
 /** «Заказ ждёт вас»: когда напоминать клиенту, который не забрал готовый заказ (по умолчанию — 3 и 7 дней) */
 export function usePickupReminders() {

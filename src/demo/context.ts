@@ -65,6 +65,9 @@ export function resolveDemoContext(
     list.find((x) => x.sphereIds.includes(sphere)) ?? list[0];
 
   if (persona === 'client') {
+    // Живой сайт: клиент — человек из сессии сервера (SessionBridge кладёт его id в demo_app_user); в ядре браузера
+    // режима api демо-клиентов нет (src/mock/db.ts — без демо-сида), запросы клиента сервер отвечает по сессии
+    if (dataMode() === 'api') return { ...base, appUserId: identity.appUserId || undefined };
     // Вошедший по коду клиент (cookie demo_app_user); нет такого в базе — демо-клиент по умолчанию
     const signedIn = identity.appUserId ? core.appUsers.find((u) => u.id === identity.appUserId) : undefined;
     return { ...base, appUserId: (signedIn ?? core.appUsers[0])?.id };

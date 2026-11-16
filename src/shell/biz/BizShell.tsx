@@ -11,7 +11,7 @@ import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { TopSearch } from '@/shell/biz/TopSearch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
 import { useNetworkAccess } from '@/areas/network/lib/useNetworkAccess';
-import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersData';
+import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersShell';
 
 const HIDE_ORDERS: ReadonlySet<string> = new Set(['orders']);
 // В приложениях iOS/Android цифровое не продаётся (App Store 3.1.1): нет «Подписки», «Монет» и того, что за монеты

@@ -128,6 +128,8 @@ import {
   sendOnlineBookingCode,
   trackWidgetEvent,
 } from '@/api/online-public';
+import { countPendingRequests } from '@/api/online-shell';
+export { countPendingRequests };
 export {
   computePackageDurationRange,
   computePackagePriceRange,
@@ -1654,9 +1656,8 @@ export function listOnlineRequests(businessId: Id, staffId?: Id, _viewerStaffId?
   });
 }
 
-/** Заявок, ждущих подтверждения мастера — для счётчика в меню и (когда фундамент отдаст inbox) в колокольчике (F-00-067) */
-export function countPendingRequests(businessId: Id, staffId?: Id): Promise<number> {
-  if (isApiMode()) return OnlineServer.countPendingRequestsServer(staffId);
+/** Демо-реализация countPendingRequests (сервер и обёртка — '@/api/online-shell', счётчик в меню кабинета) */
+export function countPendingRequestsMock(businessId: Id, staffId?: Id): Promise<number> {
   return request(() => {
     const core = readCore();
     const meta = readArea('online').bookingMeta;

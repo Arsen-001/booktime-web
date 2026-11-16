@@ -6,16 +6,18 @@
  * Владелец (network.manage) видит всё; пользователь сети — только разделы своих галочек.
  */
 import { useMemo } from "react";
-import * as networkApi from "@/api/network";
-import { getMyNetworkAccess } from "@/api/network";
+import { getMyNetworkAccess } from "@/api/network-shell";
 import { useApiQuery } from "@/api/request";
 import { useCan, useCurrent } from "@/demo/hooks";
 import type { NetworkPermissionKey } from "@/domain/network";
 
 // Только в разработке: проверяющие зовут API сети напрямую (qa/full-test-0930/network/j-*.mjs), чтобы убедиться,
 // что права режет сама функция, а не только экран. В сборке для людей этого нет.
+// Лениво: статический импорт тянул весь API сети (и финансов) в каждую страницу кабинета (07.10.2026, скорость).
 if (process.env.NODE_ENV !== "production" && typeof window !== "undefined") {
-  (window as unknown as { __bpNetworkApi?: typeof networkApi }).__bpNetworkApi = networkApi;
+  void import("@/api/network").then((networkApi) => {
+    (window as unknown as { __bpNetworkApi?: typeof networkApi }).__bpNetworkApi = networkApi;
+  });
 }
 
 /** Раздел кабинета сети → право сети; самый длинный префикс важнее. Обзор и переключатель — без права. */

@@ -3,9 +3,9 @@
 import { ArrowRight, Bell, BellOff, BellRing, CalendarClock, CalendarPlus, CalendarSync, CalendarX, CheckCheck, Clock, PackageMinus, Wallet } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { InboxEventKind, InboxPreviewItem } from '@/api/notify';
-import { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead } from '@/api/notify';
+import { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead } from '@/api/notify-shell';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert } from '@/api/stock';
+import { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert } from '@/api/stock-shell';
 import type { Id } from '@/domain/core';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useLocale } from 'next-intl';

@@ -63,24 +63,9 @@ import { newId } from "@/lib/id";
 import * as stockApi from "@/api/stock";
 import { occupiesTime } from "@/domain/rules/booking-status";
 
-export const ALL_NETWORK_PERMISSIONS: NetworkPermissionKey[] = [
-  "settings",
-  "users",
-  "clients",
-  "records",
-  "staff",
-  "services",
-  "goods",
-  "loyalty",
-  "accounts",
-  "telephony",
-  "plans",
-  "analytics",
-  "fields",
-  "subdivisions",
-  "migrations",
-  "payroll",
-];
+// Права сети и «мой доступ» (меню кабинета) — в лёгком '@/api/network-shell'; здесь демо-реализация (*Mock)
+import { ALL_NETWORK_PERMISSIONS, getMyNetworkAccess, type MyNetworkAccess } from "@/api/network-shell";
+export { ALL_NETWORK_PERMISSIONS, getMyNetworkAccess, type MyNetworkAccess };
 
 /**
  * Сеть1: чтение и запись кабинета сети — только с правом network.manage и только своей сети (бизнес или сотрудник
@@ -134,23 +119,8 @@ function networkMemberRow(networkId: Id, staffId: Id | undefined): NetworkUser |
   return readArea("network").users.find((u) => u.networkId === networkId && u.phone === phone);
 }
 
-export interface MyNetworkAccess {
-  /** Может войти в кабинет сети: владелец (network.manage) или пользователь сети */
-  member: boolean;
-  /** Права в сети (F-11-029…035); у владельца — все */
-  permissions: NetworkPermissionKey[];
-}
-
-/**
- * 01.10.2026 (решение владельца): права пользователя сети реально режут меню и экраны кабинета сети.
- * Владелец / network.manage — все права; пользователь сети — права своей строки по сетям, куда входит его бизнес.
- */
-export function getMyNetworkAccess(staffId: Id | undefined, businessId: Id | undefined, canManage: boolean): Promise<MyNetworkAccess> {
-  if (canManage) return Promise.resolve({ member: true, permissions: ALL_NETWORK_PERMISSIONS });
-  if (isApiMode()) {
-    if (!businessId) return Promise.resolve({ member: false, permissions: [] });
-    return Server.getMyNetworkAccess(businessId).then((a) => ({ member: a.member, permissions: a.permissions }));
-  }
+/** Демо-реализация getMyNetworkAccess (сервер и обёртка — '@/api/network-shell'; network.manage туда не доходит) */
+export function getMyNetworkAccessMock(staffId: Id | undefined, businessId: Id | undefined): Promise<MyNetworkAccess> {
   return request(() => {
     const networks = readCore().networks.filter(
       (n) => !isDeleted(n.id) && (!businessId || n.businessIds.includes(businessId)),

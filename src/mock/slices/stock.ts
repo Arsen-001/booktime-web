@@ -18,7 +18,7 @@ import {
 } from '@/domain/stock';
 import { dayjs, toISODate, toISODateTime } from '@/lib/date';
 import { defineSlice } from '@/mock/slice';
-import { BIZ } from '@/mock/seed';
+import { BIZ } from '@/mock/seed/ids';
 
 /**
  * Срез моковой базы раздела «stock». Принадлежит разделу.

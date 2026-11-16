@@ -59,10 +59,12 @@ import { mutateArea, readArea, readCore } from '@/api/area';
 import { changeBookingStatus, coreCreate, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import * as N from '@/api/notify.server';
+// Центр уведомлений для колокольчика кабинета — в лёгком '@/api/notify-shell'; здесь демо-реализации (*Mock)
+import { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead, WEEKLY_PUSH_LIMIT } from '@/api/notify-shell';
+export { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead, WEEKLY_PUSH_LIMIT };
 import { dayCloseNoticesForSync } from '@/api/notify-dayclose';
 import { dayCloseInboxId } from '@/domain/journalWorkday';
-import { getMessageLanguage } from '@/api/settings';
-import { ApiError, request } from '@/api/request';
+import { ApiError, request, viaMock } from '@/api/request';
 import { dayjs, toISODateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { deriveLiveLogEntries } from '@/areas/notify/lib/liveLog';
@@ -215,7 +217,8 @@ export const getNotifySettings = async (businessId: Id): Promise<NotifySettings>
       const own = readArea('notify').settings[businessId] ?? DEFAULT_NOTIFY_SETTINGS;
       return { ...own, quietHours: own.quietHours ?? DEFAULT_QUIET_HOURS };
     }),
-    getMessageLanguage(businessId).catch(() => undefined),
+    // API настроек — лениво (07.10.2026, скорость: экраны с уведомлениями не тянут его целиком); контекст запроса — viaMock
+    viaMock(() => import('@/api/settings'), (m) => m.getMessageLanguage(businessId)).catch(() => undefined),
   ]);
   // Н5 (28.09): язык сообщений клиентам — один источник, «Системные» (settings.messageLanguage); своё поле — запасное
   return { ...stored, language: language ?? stored.language };
@@ -351,9 +354,7 @@ export const listMailings = (businessId: Id) =>
       .sort((a, b) => ((a.scheduledAt ?? a.createdAt) < (b.scheduledAt ?? b.createdAt) ? 1 : -1));
   });
 
-/** ⭐ F-00-114 / F-05-095: не больше стольки бесплатных пушей подписчикам в неделю на бизнес */
-export const WEEKLY_PUSH_LIMIT = 3;
-
+/** ⭐ F-00-114 / F-05-095: сколько бесплатных пушей подписчикам бизнес отправил за неделю (лимит WEEKLY_PUSH_LIMIT — '@/api/notify-shell') */
 function recentAppPushCount(businessId: Id): number {
   const weekAgo = dayjs().subtract(7, 'day');
   return (readArea('notify').mailings[businessId] ?? []).filter(
@@ -730,10 +731,8 @@ export const listScheduledLog = (businessId: Id) =>
 
 export const listInboxRead = (businessId: Id) => request(() => readArea('notify').inboxRead[businessId] ?? []);
 
-export const markInboxRead = (input: { businessId: Id; ids: Id[] }) => {
-  // Возврат каллеру не важен (просто триггерит перечитывание) — но тип должен остаться тем же, что у мока
-  // (вся область `notify`), а не Promise<void>, иначе useApiMutation типизируется по-разному в двух режимах.
-  if (isApiMode()) return N.markInboxRead(input).then(() => readArea('notify'));
+/** Демо-реализация markInboxRead (сервер и обёртка — '@/api/notify-shell', колокольчик кабинета) */
+export const markInboxReadMock = (input: { businessId: Id; ids: Id[] }) => {
   return request(() =>
     mutateArea('notify', (s) => {
       const current = new Set(s.inboxRead[input.businessId] ?? []);
@@ -866,8 +865,8 @@ function inboxEvents(businessId: Id): InboxEvent[] {
   return events.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)).slice(0, 30);
 }
 
-export const countUnreadInbox = (businessId: Id) => {
-  if (isApiMode()) return N.countUnreadInbox(businessId);
+/** Демо-реализация countUnreadInbox (сервер и обёртка — '@/api/notify-shell') */
+export const countUnreadInboxMock = (businessId: Id) => {
   return request(() => {
     const readSet = new Set(readArea('notify').inboxRead[businessId] ?? []);
     return inboxEvents(businessId).filter((e) => !readSet.has(e.id)).length;
@@ -878,8 +877,8 @@ export interface InboxPreviewItem extends InboxEvent {
   unread: boolean;
 }
 
-export const listInboxPreview = (businessId: Id, limit = 5) => {
-  if (isApiMode()) return N.listInboxPreview(businessId, limit);
+/** Демо-реализация listInboxPreview (сервер и обёртка — '@/api/notify-shell') */
+export const listInboxPreviewMock = (businessId: Id, limit = 5) => {
   return request<InboxPreviewItem[]>(() => {
     const readSet = new Set(readArea('notify').inboxRead[businessId] ?? []);
     return inboxEvents(businessId)
@@ -888,9 +887,9 @@ export const listInboxPreview = (businessId: Id, limit = 5) => {
   });
 };
 
-/** Полная вкладка «Записи» центра уведомлений (F-05-061/062) — та же лента, что и превью колокольчика */
-export const listInboxEvents = (businessId: Id) => {
-  if (isApiMode()) return N.listInboxEvents(businessId);
+/** Демо-реализация listInboxEvents — полная вкладка «Записи» центра уведомлений (F-05-061/062), та же лента, что и
+ * превью колокольчика (сервер и обёртка — '@/api/notify-shell') */
+export const listInboxEventsMock = (businessId: Id) => {
   return request<InboxPreviewItem[]>(() => {
     const readSet = new Set(readArea('notify').inboxRead[businessId] ?? []);
     return inboxEvents(businessId).map((e) => ({ ...e, unread: !readSet.has(e.id) }));
@@ -976,8 +975,8 @@ export const sendOneOffMessage = (input: SendOneOffInput) =>
 
 // ─────────────────────────── Уведомления в Web-версии (F-05-058) ───────────────────────────
 
-export const getWebPopupSettings = (businessId: Id) => {
-  if (isApiMode()) return N.getWebPopupSettings(businessId);
+/** Демо-реализация getWebPopupSettings (сервер и обёртка — '@/api/notify-shell') */
+export const getWebPopupSettingsMock = (businessId: Id) => {
   return request<WebPopupSettings>(() => ({ ...DEFAULT_WEB_POPUP_SETTINGS, ...readArea('notify').webPopups[businessId] }));
 };
 

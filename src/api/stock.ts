@@ -12,6 +12,8 @@ import { mutateArea, readArea, readCore } from '@/api/area';
 import { recordOperation as recordFinanceOperation, cancelOperation as cancelFinanceOperation } from '@/api/finance';
 import { trackAdClick, trackAdImpression } from '@/api/platform/ads';
 import * as Server from '@/api/stock.server';
+import { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert } from '@/api/stock-shell';
+export { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert };
 import { isApiMode } from '@/api/http';
 import type { OperationMethod as FinanceOperationMethod } from '@/domain/finance';
 import type { Id, LocaleCode, Money } from '@/domain/core';
@@ -3473,38 +3475,15 @@ export function listReminders(businessId: Id, locationId: Id, staffId?: Id): Pro
 
 // ── ⭐ F-00-137: «Заканчивается» и сроки годности — в колокольчике кабинета (владелец, 01.10.2026) ──
 
-export interface StockBellAlert {
-  /** Стабильный id группы + «отпечаток» товаров: новый товар ниже минимума делает строку снова непрочитанной */
-  id: string;
-  kind: 'lowStock' | 'expiring';
-  count: number;
-  names: string[];
-  href: string;
-  unread: boolean;
+// Колокольчик кабинета (StockBellAlert, listStockBellAlerts, markStockBellAlertsRead) — в лёгком '@/api/stock-shell'
+// (каждая страница /biz); здесь демо-реализация отметки «прочитано» в срезе (*Mock)
+/** Демо: прочитанные строки колокольчика в срезе */
+export function listStockBellSeenMock(businessId: Id): Promise<string[]> {
+  return request(() => readArea(AREA).bellSeen?.[businessId] ?? []);
 }
 
-/** Прочитанные строки колокольчика (id с отпечатком) — в памяти вкладки; мок — ещё и в срезе */
-const bellSeenMemory = new Set<string>();
-
-export async function listStockBellAlerts(businessId: Id, locationId: Id): Promise<StockBellAlert[]> {
-  const reminders = await listReminders(businessId, locationId);
-  // Чтение мок-базы — только внутри request() (иначе предупреждение [mock-db] на каждой странице с колокольчиком)
-  const stored = isApiMode() ? [] : await request(() => readArea(AREA).bellSeen?.[businessId] ?? []);
-  const seen = new Set<string>([...bellSeenMemory, ...stored]);
-  const group = (kind: StockBellAlert['kind'], items: StockReminder[], href: string): StockBellAlert | undefined => {
-    if (!items.length) return undefined;
-    const id = `stock_${kind}_${locationId}:${items.map((r) => r.id).sort().join(',')}`;
-    return { id, kind, count: items.length, names: items.map((r) => r.title), href, unread: !seen.has(id) };
-  };
-  return [
-    group('lowStock', reminders.filter((r) => r.kind === 'lowStock'), '/biz/stock/order'),
-    group('expiring', reminders.filter((r) => r.kind === 'expired' || r.kind === 'expiring'), '/biz/stock/reminders'),
-  ].filter((a): a is StockBellAlert => Boolean(a));
-}
-
-export function markStockBellAlertsRead(businessId: Id, ids: string[]): Promise<void> {
-  ids.forEach((id) => bellSeenMemory.add(id));
-  if (isApiMode()) return Promise.resolve();
+/** Демо: отметить строки колокольчика прочитанными в срезе */
+export function markStockBellSeenMock(businessId: Id, ids: string[]): Promise<void> {
   return request(() => {
     mutateArea(AREA, (s) => {
       const prev = s.bellSeen?.[businessId] ?? [];

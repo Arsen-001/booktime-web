@@ -152,6 +152,8 @@ import {
   submitDemandLead,
   toggleFavorite,
 } from '@/api/client-public';
+import { countPendingPurchaseRequests } from '@/api/client-shell';
+export { countPendingPurchaseRequests };
 import {
   changeAdminPassword,
   getLoginChannels,
@@ -2909,8 +2911,8 @@ export function listPurchaseRequests(businessId: Id, status: 'pendingConfirmatio
 }
 
 /** Сколько заявок ждёт решения — счётчик у пункта меню loyalty (В-17, как online.requests) */
-export function countPendingPurchaseRequests(businessId: Id): Promise<number> {
-  if (isApiMode()) return CLX.biz(businessId, 'countPendingPurchaseRequests');
+/** Демо-реализация countPendingPurchaseRequests (сервер и обёртка — '@/api/client-shell', счётчик в меню) */
+export function countPendingPurchaseRequestsMock(businessId: Id): Promise<number> {
   return request(() => {
     const s = readArea('client');
     const pending = (list: { businessId: Id; purchaseStatus: PurchaseStatus }[]) =>
@@ -4629,6 +4631,7 @@ export function getAppPayrollCalculation(businessId: Id, staffId: Id, from: ISOD
       (b) =>
         b.businessId === businessId &&
         b.staffId === staffId &&
+        !b.deletedAt &&
         b.status === 'arrived' &&
         toISODate(dayjs(b.start)) >= from &&
         toISODate(dayjs(b.start)) <= to,

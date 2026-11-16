@@ -8,11 +8,15 @@ import * as C from '@/api/clients/clients.server';
 import { isApiMode } from '@/api/http';
 import { readArea, readCore, mutateArea } from '@/api/area';
 import { assertCan, coreTx, currentActor } from '@/api/core';
-import { ApiError, request } from '@/api/request';
-import { countRecentAppPushes, getSmsSettings, WEEKLY_PUSH_LIMIT } from '@/api/notify';
+import { ApiError, request, viaMock } from '@/api/request';
+import { WEEKLY_PUSH_LIMIT } from '@/api/notify-shell';
 import { newId } from '@/lib/id';
 import { nowDateTime, today } from '@/lib/date';
 import { logChange, deleteClientTx } from '@/api/clients/shared';
+
+// Полный API уведомлений — лениво, только в демо-ветке отправки (07.10.2026, скорость: список клиентов не тянет его);
+// viaMock сохраняет контекст запроса, как при прямом вызове
+const notifyApi = () => import('@/api/notify');
 
 // ─────────────────────────── Массовые действия (F-04-037…042) ───────────────────────────
 
@@ -59,7 +63,7 @@ export function bulkSendMessage(businessId: Id, clientIds: Id[], text: string): 
   if (isApiMode()) return C.bulkSendMessage(businessId, clientIds, text);
   return request(async () => {
     assertCan('notify.mailings');
-    const smsSettings = await getSmsSettings(businessId);
+    const smsSettings = await viaMock(notifyApi, (m) => m.getSmsSettings(businessId));
     if (!smsSettings.connected) throw new ApiError('sms_not_connected');
     const targets = audienceOf(clientIds).sms;
     const day = today();
@@ -85,7 +89,7 @@ export function bulkSendPush(businessId: Id, clientIds: Id[], text: string): Pro
   if (isApiMode()) return C.bulkSendPush(businessId, clientIds, text);
   return request(async () => {
     assertCan('notify.mailings');
-    const alreadySent = await countRecentAppPushes(businessId);
+    const alreadySent = await viaMock(notifyApi, (m) => m.countRecentAppPushes(businessId));
     if (alreadySent >= WEEKLY_PUSH_LIMIT) {
       throw new ApiError('weekly_push_limit');
     }

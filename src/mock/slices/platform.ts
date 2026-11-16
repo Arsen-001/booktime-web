@@ -147,50 +147,53 @@ export const platformSlice = defineSlice<PlatformState>({
     };
     const kindSphere = (bizId: Id) => core.businesses.find((b) => b.id === bizId)?.sphereIds[0] ?? 'general';
 
-    // На проверке — самые старые сверху (очередь)
-    const b0 = bizAt(0);
-    const s0 = staffWithPhotos(b0.id);
-    // Прежние фото этих мастеров уже прошли проверку — у каждого фото мастера есть статус, новое ждёт своей очереди
-    const approvedEarlier = (staff: { id: Id; name: string; photos: string[] }, bizId: Id) =>
-      staff.photos.slice(0, -1).forEach((url, i) => pushItem({ kind: 'staffPhoto', businessId: bizId, staffId: staff.id, refId: url, imageUrl: url, label: staff.name, status: 'approved', source: 'user' }, 30 + i, 11));
-    if (s0) pushItem({ kind: 'staffPhoto', businessId: b0.id, staffId: s0.id, refId: lastPhoto(s0.photos), imageUrl: lastPhoto(s0.photos), label: s0.name, status: 'pending', source: 'user' }, 3, 10);
-    const b1 = bizAt(1);
-    if (b1.photos.length) pushItem({ kind: 'salonPhoto', businessId: b1.id, refId: lastPhoto(b1.photos), imageUrl: lastPhoto(b1.photos), status: 'pending', source: 'user' }, 2, 11);
-    const b2 = bizAt(2);
-    pushItem({ kind: 'service', businessId: b2.id, refId: `svc_new_${b2.id}`, label: kindSphere(b2.id) === 'dental' ? 'Отбеливание зубов' : 'Уход за кожей рук', text: kindSphere(b2.id) === 'dental' ? '60 мин · 25 000 ֏ — отбеливание за один визит, с защитой дёсен' : '45 мин · 7 000 ֏ — скраб, маска и массаж рук', status: 'pending', source: 'user' }, 2, 15);
-    const b3 = bizAt(3);
-    const s3 = staffWithPhotos(b3.id);
-    if (s3) pushItem({ kind: 'servicePhoto', businessId: b3.id, staffId: s3.id, refId: lastPhoto(s3.photos), imageUrl: lastPhoto(s3.photos), label: s3.name, status: 'pending', source: 'user' }, 1, 9);
-    const b4 = bizAt(4);
-    pushItem({ kind: 'story', businessId: b4.id, refId: `story_${b4.id}`, imageUrl: b4.photos[0] ?? workPhotos('nails', 1, 2)[0], text: 'Скидка 15% на первое посещение до конца недели', paidCoins: 2000, status: 'pending', source: 'user' }, 1, 12);
-    const b5 = bizAt(5);
-    pushItem({ kind: 'text', businessId: b5.id, refId: `text_${b5.id}`, text: 'Работаем с 2015 года. Стерильные инструменты, одноразовые пилки. Пишите в WhatsApp +374 99 123 456 — ответим быстрее!', status: 'pending', source: 'user' }, 1, 16);
-    const b6 = bizAt(6);
-    const s6 = staffByBiz(b6.id)[0];
-    pushItem({ kind: 'diploma', businessId: b6.id, staffId: s6?.id, refId: `diploma_${s6?.id ?? b6.id}`, label: s6?.name ?? b6.name, text: 'Сертификат курса повышения квалификации, 2024', status: 'pending', source: 'user' }, 0, 9);
-    const b7 = bizAt(7);
-    pushItem({ kind: 'complaint', businessId: b7.id, refId: `complaint_${b7.id}`, imageUrl: b7.photos[0], text: 'Клиент пишет: «Это фото не их работы — видела его у другого салона в Instagram»', status: 'pending', source: 'user' }, 0, 11);
+    // Очередь и решения — по бизнесам ядра; ядро пустое (режим api: демо-сида нет, src/mock/db.ts) — очередь пустая
+    if (businesses.length) {
+      // На проверке — самые старые сверху (очередь)
+      const b0 = bizAt(0);
+      const s0 = staffWithPhotos(b0.id);
+      // Прежние фото этих мастеров уже прошли проверку — у каждого фото мастера есть статус, новое ждёт своей очереди
+      const approvedEarlier = (staff: { id: Id; name: string; photos: string[] }, bizId: Id) =>
+        staff.photos.slice(0, -1).forEach((url, i) => pushItem({ kind: 'staffPhoto', businessId: bizId, staffId: staff.id, refId: url, imageUrl: url, label: staff.name, status: 'approved', source: 'user' }, 30 + i, 11));
+      if (s0) pushItem({ kind: 'staffPhoto', businessId: b0.id, staffId: s0.id, refId: lastPhoto(s0.photos), imageUrl: lastPhoto(s0.photos), label: s0.name, status: 'pending', source: 'user' }, 3, 10);
+      const b1 = bizAt(1);
+      if (b1.photos.length) pushItem({ kind: 'salonPhoto', businessId: b1.id, refId: lastPhoto(b1.photos), imageUrl: lastPhoto(b1.photos), status: 'pending', source: 'user' }, 2, 11);
+      const b2 = bizAt(2);
+      pushItem({ kind: 'service', businessId: b2.id, refId: `svc_new_${b2.id}`, label: kindSphere(b2.id) === 'dental' ? 'Отбеливание зубов' : 'Уход за кожей рук', text: kindSphere(b2.id) === 'dental' ? '60 мин · 25 000 ֏ — отбеливание за один визит, с защитой дёсен' : '45 мин · 7 000 ֏ — скраб, маска и массаж рук', status: 'pending', source: 'user' }, 2, 15);
+      const b3 = bizAt(3);
+      const s3 = staffWithPhotos(b3.id);
+      if (s3) pushItem({ kind: 'servicePhoto', businessId: b3.id, staffId: s3.id, refId: lastPhoto(s3.photos), imageUrl: lastPhoto(s3.photos), label: s3.name, status: 'pending', source: 'user' }, 1, 9);
+      const b4 = bizAt(4);
+      pushItem({ kind: 'story', businessId: b4.id, refId: `story_${b4.id}`, imageUrl: b4.photos[0] ?? workPhotos('nails', 1, 2)[0], text: 'Скидка 15% на первое посещение до конца недели', paidCoins: 2000, status: 'pending', source: 'user' }, 1, 12);
+      const b5 = bizAt(5);
+      pushItem({ kind: 'text', businessId: b5.id, refId: `text_${b5.id}`, text: 'Работаем с 2015 года. Стерильные инструменты, одноразовые пилки. Пишите в WhatsApp +374 99 123 456 — ответим быстрее!', status: 'pending', source: 'user' }, 1, 16);
+      const b6 = bizAt(6);
+      const s6 = staffByBiz(b6.id)[0];
+      pushItem({ kind: 'diploma', businessId: b6.id, staffId: s6?.id, refId: `diploma_${s6?.id ?? b6.id}`, label: s6?.name ?? b6.name, text: 'Сертификат курса повышения квалификации, 2024', status: 'pending', source: 'user' }, 0, 9);
+      const b7 = bizAt(7);
+      pushItem({ kind: 'complaint', businessId: b7.id, refId: `complaint_${b7.id}`, imageUrl: b7.photos[0], text: 'Клиент пишет: «Это фото не их работы — видела его у другого салона в Instagram»', status: 'pending', source: 'user' }, 0, 11);
 
-    // Решённые
-    const b8 = bizAt(8);
-    if (b8.photos.length) pushItem({ kind: 'salonPhoto', businessId: b8.id, refId: b8.photos[0], imageUrl: b8.photos[0], status: 'approved', source: 'user' }, 5, 10);
-    const s9 = staffWithPhotos(bizAt(9).id);
-    if (s9) pushItem({ kind: 'staffPhoto', businessId: bizAt(9).id, staffId: s9.id, refId: lastPhoto(s9.photos), imageUrl: lastPhoto(s9.photos), label: s9.name, status: 'pending', source: 'user' }, 0, 8);
-    pushItem({ kind: 'text', businessId: bizAt(10).id, refId: `text_${bizAt(10).id}`, text: 'Уютная студия у метро, парковка во дворе. Запись онлайн — без звонков.', status: 'approved', source: 'user' }, 7, 12);
-    pushItem({ kind: 'staffPhoto', businessId: bizAt(2).id, refId: `rejected_photo_${bizAt(2).id}`, imageUrl: workPhotos('hair', 1, 1)[0], status: 'rejected', source: 'user', reasonId: rejectReasons[1].id, reasonNote: 'Такое же фото есть в интернете' }, 4, 14);
-    pushItem({ kind: 'story', businessId: bizAt(3).id, refId: `story_rejected_${bizAt(3).id}`, imageUrl: workPhotos('massage', 1, 0)[0], text: 'Звоните по номеру в профиле Instagram', paidCoins: 2000, status: 'rejected', source: 'user', reasonId: rejectReasons[2].id }, 5, 11);
-    pushItem({ kind: 'story', businessId: bizAt(5).id, refId: `story_tpl_${bizAt(5).id}`, imageUrl: workPhotos('barber', 1, 0)[0], text: 'Свободно сегодня: 15:00, 17:30', status: 'auto', source: 'template' }, 2, 10);
-    const s11 = staffWithPhotos(bizAt(11).id);
-    if (s11) pushItem({ kind: 'staffPhoto', businessId: bizAt(11).id, staffId: s11.id, refId: `reuse_${s11.id}`, imageUrl: s11.photos[0], label: s11.name, status: 'auto', source: 'reuse' }, 3, 17);
+      // Решённые
+      const b8 = bizAt(8);
+      if (b8.photos.length) pushItem({ kind: 'salonPhoto', businessId: b8.id, refId: b8.photos[0], imageUrl: b8.photos[0], status: 'approved', source: 'user' }, 5, 10);
+      const s9 = staffWithPhotos(bizAt(9).id);
+      if (s9) pushItem({ kind: 'staffPhoto', businessId: bizAt(9).id, staffId: s9.id, refId: lastPhoto(s9.photos), imageUrl: lastPhoto(s9.photos), label: s9.name, status: 'pending', source: 'user' }, 0, 8);
+      pushItem({ kind: 'text', businessId: bizAt(10).id, refId: `text_${bizAt(10).id}`, text: 'Уютная студия у метро, парковка во дворе. Запись онлайн — без звонков.', status: 'approved', source: 'user' }, 7, 12);
+      pushItem({ kind: 'staffPhoto', businessId: bizAt(2).id, refId: `rejected_photo_${bizAt(2).id}`, imageUrl: workPhotos('hair', 1, 1)[0], status: 'rejected', source: 'user', reasonId: rejectReasons[1].id, reasonNote: 'Такое же фото есть в интернете' }, 4, 14);
+      pushItem({ kind: 'story', businessId: bizAt(3).id, refId: `story_rejected_${bizAt(3).id}`, imageUrl: workPhotos('massage', 1, 0)[0], text: 'Звоните по номеру в профиле Instagram', paidCoins: 2000, status: 'rejected', source: 'user', reasonId: rejectReasons[2].id }, 5, 11);
+      pushItem({ kind: 'story', businessId: bizAt(5).id, refId: `story_tpl_${bizAt(5).id}`, imageUrl: workPhotos('barber', 1, 0)[0], text: 'Свободно сегодня: 15:00, 17:30', status: 'auto', source: 'template' }, 2, 10);
+      const s11 = staffWithPhotos(bizAt(11).id);
+      if (s11) pushItem({ kind: 'staffPhoto', businessId: bizAt(11).id, staffId: s11.id, refId: `reuse_${s11.id}`, imageUrl: s11.photos[0], label: s11.name, status: 'auto', source: 'reuse' }, 3, 17);
 
-    if (s0) approvedEarlier(s0, b0.id);
-    if (s3) approvedEarlier(s3, b3.id);
-    if (s9) approvedEarlier(s9, bizAt(9).id);
+      if (s0) approvedEarlier(s0, b0.id);
+      if (s3) approvedEarlier(s3, b3.id);
+      if (s9) approvedEarlier(s9, bizAt(9).id);
 
-    // F-00-171: фото, снятые нами на визите, — без очереди
-    for (let i = 0; i < 3; i += 1) {
-      const biz = bizAt(i);
-      if (biz.photos[0]) pushItem({ kind: 'salonPhoto', businessId: biz.id, refId: `visit_${biz.id}`, imageUrl: biz.photos[0], status: 'auto', source: 'visit' }, 20 + i, 15);
+      // F-00-171: фото, снятые нами на визите, — без очереди
+      for (let i = 0; i < 3; i += 1) {
+        const biz = bizAt(i);
+        if (biz.photos[0]) pushItem({ kind: 'salonPhoto', businessId: biz.id, refId: `visit_${biz.id}`, imageUrl: biz.photos[0], status: 'auto', source: 'visit' }, 20 + i, 15);
+      }
     }
 
     const coinEntries: CoinEntry[] = moderationItems
@@ -218,7 +221,7 @@ export const platformSlice = defineSlice<PlatformState>({
       const status = visitStatuses[i % visitStatuses.length];
       const visitedAt = isoDate(now, -(i % 25));
       const createdAt = iso(now, -(i % 25), 11);
-      const businessId = status === 'connected' && i % 4 === 0 ? businesses[i % businesses.length].id : undefined;
+      const businessId = status === 'connected' && i % 4 === 0 ? businesses[i % businesses.length]?.id : undefined;
       // Перезвоны: один сегодня (i=1), один просрочен на 2 дня (i=10), остальные — через 3–6 дней
       const callbackDelta = i === 1 ? 0 : i === 10 ? -2 : 3 + (i % 4);
       const history: Visit['history'] = [{ id: `v${i}_h1`, at: createdAt, kind: 'created', status }];
@@ -366,7 +369,7 @@ export const platformSlice = defineSlice<PlatformState>({
       });
     }
 
-    const firstAwards: FirstAward[] = [
+    const firstAwards: FirstAward[] = !businesses.length ? [] : [
       { id: 'first_1', businessId: businesses[3]?.id ?? businesses[0].id, scope: 'district', sphereId: 'massage', district: 'avan', freeDays: 30, coins: 1000, at: iso(now, -12) },
     ];
 
@@ -448,7 +451,7 @@ export const platformSlice = defineSlice<PlatformState>({
         sizeKb: 80 + bi * 12 + k * 4,
       })),
     );
-    const exportLog: ExportLogEntry[] = [
+    const exportLog: ExportLogEntry[] = !businesses.length ? [] : [
       { id: 'exp_1', businessId: businesses[businesses.length - 1].id, what: 'clients', rows: core.clients.filter((c) => c.businessId === businesses[businesses.length - 1].id).length, at: iso(now, -9) },
       { id: 'exp_2', businessId: businesses[businesses.length - 1].id, what: 'bookings', rows: core.bookings.filter((b) => b.businessId === businesses[businesses.length - 1].id).length, at: iso(now, -9, 10) },
     ];
@@ -525,7 +528,7 @@ export const platformSlice = defineSlice<PlatformState>({
     // ── Идеи (F-00-009, наша очередь) — «Предложить идею» ставится в кабинете бизнеса (раздел client);
     // здесь только очередь с голосами и статусом, и отметка «уведомили автора» при «сделано».
     const ideaAuthors = businesses.slice(0, 6);
-    const ideas: Idea[] = [
+    const ideas: Idea[] = ideaAuthors.length < 6 ? [] : [
       { id: 'idea_1', businessId: ideaAuthors[0].id, authorName: ideaAuthors[0].name, text: 'Повторяющиеся записи — чтобы не создавать одну и ту же запись каждую неделю вручную', votes: 14, voterIds: businesses.slice(0, 14).map((b) => b.id), status: 'inProgress', createdAt: iso(now, -21) },
       { id: 'idea_2', businessId: ideaAuthors[1].id, authorName: ideaAuthors[1].name, text: 'Напоминание клиенту за час до записи, а не только за день', votes: 9, voterIds: businesses.slice(0, 9).map((b) => b.id), status: 'considering', createdAt: iso(now, -15) },
       { id: 'idea_3', businessId: ideaAuthors[2].id, authorName: ideaAuthors[2].name, text: 'Список ожидания — если клиент отменил запись, предложить окно следующему в очереди', votes: 21, voterIds: businesses.slice(0, Math.min(21, businesses.length)).map((b) => b.id), status: 'inProgress', createdAt: iso(now, -30) },

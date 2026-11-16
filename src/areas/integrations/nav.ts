@@ -1,4 +1,4 @@
-import { countInstalledForBusiness } from '@/api/integrations';
+import { countInstalledForBusiness } from '@/api/integrations-shell';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { SubNav } from '@/config/nav-types';

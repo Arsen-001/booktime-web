@@ -16,6 +16,7 @@ import { mutateArea, readArea, readCore } from '@/api/area';
 import { assertCan, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import * as Server from '@/api/integrations.server';
+import { countInstalledForBusiness } from '@/api/integrations-shell';
 import type { Id } from '@/domain/core';
 import {
   activationDeadline,
@@ -80,6 +81,8 @@ import { appHasChatCapability } from '@/areas/integrations/catalog';
 import { addMinutes, nowDateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { pickText, slugify } from '@/lib/text';
+// Счётчик для меню кабинета — в лёгком '@/api/integrations-shell'; здесь демо-реализация (*Mock)
+export { countInstalledForBusiness };
 
 const AREA = 'integrations' as const;
 
@@ -310,8 +313,8 @@ export function listInstalled(locationIds: Id[]): Promise<InstalledRow[]> {
 }
 
 /** Счётчик для пункта меню и вклада в хаб настроек — по всему бизнесу, не только текущему филиалу */
-export function countInstalledForBusiness(businessId: Id): Promise<number> {
-  if (isApiMode()) return Server.countInstalledForBusiness(businessId);
+/** Демо-реализация countInstalledForBusiness (сервер и обёртка — '@/api/integrations-shell', счётчик в меню) */
+export function countInstalledForBusinessMock(businessId: Id): Promise<number> {
   return request(() => readArea(AREA).installs.filter((i) => i.businessId === businessId && i.status !== 'disconnected').length);
 }
 

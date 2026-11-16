@@ -1,5 +1,5 @@
 import type { SubNav } from '@/config/nav-types';
-import { useReadyOrdersCount } from '@/areas/orders/lib/useOrdersData';
+import { useReadyOrdersCount } from '@/areas/orders/lib/useOrdersShell';
 
 /**
  * Подпункты меню раздела «Заказы» (03.10.2026). Файл принадлежит разделу; подписи — messages/<lang>/orders.json → nav.*.

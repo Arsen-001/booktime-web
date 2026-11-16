@@ -1,4 +1,4 @@
-import { countPendingPurchaseRequests } from '@/api/client';
+import { countPendingPurchaseRequests } from '@/api/client-shell';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { SubNav } from '@/config/nav-types';

@@ -16,8 +16,7 @@ import * as S from '@/api/orders.server';
 import { intakeBookingForOrderTx, markIntakeArrivedTx } from '@/api/ordersIntake';
 import { activePickupBookingTx, pickupEnabledTx } from '@/api/ordersPickup';
 import { publicOrderTx } from '@/api/ordersPublic';
-import { ordersKeys } from '@/api/orders-public';
-import { ApiError, request, useApiQuery, type QueryOptions } from '@/api/request';
+import { ApiError, request } from '@/api/request';
 import type { Client, Id, LocalizedText, SphereId } from '@/domain/core';
 import type { LogChannel } from '@/domain/notify';
 import {
@@ -145,8 +144,8 @@ function logReadyTx(order: Order, at: string): void {
 // ─────────────────────────── чтения ───────────────────────────
 
 /** Список заказов бизнеса: фильтр статуса (по умолчанию активные), поиск по №, имени, номеру, вещам; новые сверху */
-export function listOrders(businessId: Id, query: OrdersQuery = {}): Promise<OrdersPage> {
-  if (isApiMode()) return S.listOrdersServer(businessId, query);
+/** Демо-реализация listOrders (сервер и обёртка — '@/api/orders-shell') */
+export function listOrdersMock(businessId: Id, query: OrdersQuery = {}): Promise<OrdersPage> {
   return request(() => {
     const status = query.status ?? 'active';
     const q = normalizeSearch(query.q ?? '');
@@ -182,18 +181,9 @@ export function ordersEnabledTx(businessId: Id, sphereIds: readonly SphereId[]):
   return readArea('orders').settings[businessId]?.ordersEnabled ?? defaultOrdersEnabled(sphereIds);
 }
 
-/** «Заказы» включены у бизнеса: выбор владельца, иначе — по сфере бизнеса */
-export function getOrdersEnabled(businessId: Id, sphereIds: readonly SphereId[]): Promise<boolean> {
-  if (isApiMode()) return S.getOrdersEnabledServer(businessId).then((v) => v ?? defaultOrdersEnabled(sphereIds));
+/** Демо-реализация getOrdersEnabled (сервер, обёртка и хук useOrdersEnabledQuery — '@/api/orders-shell') */
+export function getOrdersEnabledMock(businessId: Id, sphereIds: readonly SphereId[]): Promise<boolean> {
   return request(() => ordersEnabledTx(businessId, sphereIds));
-}
-
-/** Хук: включены ли «Заказы» (меню кабинета, экран настроек). Пока бизнес не известен — по сфере */
-export function useOrdersEnabledQuery(businessId: Id | undefined, sphereIds: readonly SphereId[], options?: QueryOptions<boolean>) {
-  return useApiQuery(ordersKeys.enabled(businessId ?? ''), () => getOrdersEnabled(businessId ?? '', sphereIds), {
-    ...options,
-    enabled: Boolean(businessId) && (options?.enabled ?? true),
-  });
 }
 
 // ─────────────────────────── записи ───────────────────────────
@@ -332,3 +322,5 @@ export { getIntakeSettings, listIntakeBookings, setIntakeSettings } from '@/api/
 export { listPickupBookings } from '@/api/ordersPickup';
 // Страница заказа без входа (/o/<код>) — лёгкий '@/api/orders-public'; здесь и в ordersPickup/ordersEstimate — демо-реализации (*Mock)
 export { bookPublicPickup, cancelPublicPickup, decidePublicEstimate, getPublicOrder, getPublicPickupSlots, ordersKeys, publicAddressText } from '@/api/orders-public';
+// Меню кабинета (включены ли заказы, счётчик готовых) — лёгкий '@/api/orders-shell'; здесь демо-реализации (*Mock)
+export { getOrdersEnabled, listOrders, useOrdersEnabledQuery } from '@/api/orders-shell';

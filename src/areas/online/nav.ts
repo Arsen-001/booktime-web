@@ -1,4 +1,4 @@
-import { countPendingRequests } from '@/api/online';
+import { countPendingRequests } from '@/api/online-shell';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { SubNav } from '@/config/nav-types';
