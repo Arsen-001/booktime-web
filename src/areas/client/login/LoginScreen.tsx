@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import type { GoogleSignInResult, LoginChannel, PendingGoogle } from '@/api/client';
 import { changeAdminPassword, pendingLinkTokens, sendLoginCode, verifyAdminLogin, verifyBusinessPhoneLogin } from '@/api/client-auth';
 import type { SecondFactorChallenge } from '@/api/session';
-import { SESSION_KEY, verifySecondFactor } from '@/api/session';
+import { SESSION_KEY, setSessionMode, verifySecondFactor } from '@/api/session';
+import { isApiMode } from '@/api/http';
 import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
 import { ClientCodeLogin } from '@/areas/client/login/ClientCodeLogin';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
@@ -28,8 +29,6 @@ import { SegmentedControl } from '@/ui/SegmentedControl';
 import { useToast } from '@/ui/Toast';
 
 type Step = 'form' | 'code';
-/** Роль на входе: клиент или бизнес — мастер/индивидуал/владелец (F-00-033) и администратор (F-00-034) */
-type LoginRole = 'client' | 'business';
 /** Способ входа бизнеса: по телефону (мастер/владелец) или логином и паролем (администратор) */
 type BusinessMode = 'phone' | 'password';
 
@@ -49,37 +48,51 @@ function AgreementModal({ open, onOpenChange }: { open: boolean; onOpenChange: (
   );
 }
 
-/** Вход клиента: имя + телефон → согласие на соглашение и обработку данных → код в Telegram или WhatsApp (F-00-032, F-14-006…F-14-008) */
+/**
+ * Вход (F-00-032…F-00-034, F-14-006…F-14-008). На сайте — одна форма: номер → код и Google, без вкладок «Клиент /
+ * Бизнес» (владелец, 17.11.2026, DESIGN.md «Вход на сайте — одна форма»): куда вести после входа, решает сам вход —
+ * есть салон → кабинет, нет → туда, откуда пришли. Под формой — «Войти по логину и паролю» (администраторы с паролем)
+ * и «Зарегистрировать салон». Приложение «BookTime Business» не меняется: там вход только бизнеса.
+ */
 export function LoginScreen({ next }: { next: string }) {
   const t = useT('client');
-  // Приложение «BookTime Business» — вход только бизнеса, без выбора роли (после входа — кабинет /biz).
-  // Пришли на вход из кабинета (/biz) в браузере или клиентском приложении — сразу вкладка бизнеса
   const businessApp = useInBusinessApp();
-  const [chosen, setRole] = useState<LoginRole>(next.startsWith('/biz') ? 'business' : 'client');
-  const role: LoginRole = businessApp ? 'business' : chosen;
+  const [mode, setMode] = useState<'phone' | 'password'>('phone');
+
+  if (businessApp) {
+    return (
+      <div className="mx-auto flex max-w-sm flex-col gap-5 py-6">
+        <div>
+          <h1 className="text-2xl font-semibold text-fg">{t('login.title')}</h1>
+          <p className="mt-1 text-sm text-muted">{t('login.businessSubtitle')}</p>
+        </div>
+        <BusinessLogin />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex max-w-sm flex-col gap-5 py-6">
       <div>
         <h1 className="text-2xl font-semibold text-fg">{t('login.title')}</h1>
-        <p className="mt-1 text-sm text-muted">{t(role === 'client' ? 'login.subtitle' : 'login.businessSubtitle')}</p>
+        <p className="mt-1 text-sm text-muted">{t(mode === 'phone' ? 'login.oneSubtitle' : 'login.passwordSubtitle')}</p>
       </div>
 
-      {!businessApp && (
-        <SegmentedControl
-          value={role}
-          onValueChange={(v) => setRole(v as LoginRole)}
-          fullWidth
-          options={[
-            { value: 'client', label: t('login.roleClient') },
-            { value: 'business', label: t('login.roleBusiness') },
-          ]}
-        />
-      )}
+      {mode === 'phone' ? <ClientLoginForm next={next} /> : <AdminLoginForm onUsePhone={() => setMode('phone')} />}
 
-      {role === 'client' ? <ClientLoginForm next={next} /> : <BusinessLogin />}
+      <div data-f="F-00-034 F-00-035" className="flex flex-col items-center">
+        {/* В режиме пароля обратно к номеру ведёт ссылка в самой форме («Забыли пароль? Войдите по номеру телефона») */}
+        {mode === 'phone' && (
+          <Button variant="link" size="sm" onClick={() => setMode('password')}>
+            {t('login.passwordLink')}
+          </Button>
+        )}
+        <Link href="/register-business" className="inline-flex min-h-10 items-center px-1 text-sm font-medium text-primary-text hover:underline">
+          {t('login.registerSalonLink')}
+        </Link>
+      </div>
 
-      {role === 'client' ? <p className="text-center text-xs text-muted">{t('login.guestNotice')}</p> : null}
+      {mode === 'phone' && <p className="text-center text-xs text-muted">{t('login.guestNotice')}</p>}
     </div>
   );
 }
@@ -91,9 +104,9 @@ export function LoginScreen({ next }: { next: string }) {
  */
 function ClientLoginForm({ next }: { next: string }) {
   const t = useT('client');
-  const router = useRouter();
   const toast = useToast();
   const apply = useApplyDemo();
+  const go = useAfterLogin(next);
   const [agreementOpen, setAgreementOpen] = useState(false);
   const [pending, setPending] = useState<PendingGoogle | undefined>(undefined);
 
@@ -111,7 +124,7 @@ function ClientLoginForm({ next }: { next: string }) {
     // Демо: user = null — демо-клиент по умолчанию
     apply({ persona: 'client', appUser: r.user?.id ?? '' });
     toast.success(t('login.success'));
-    router.push(safeNext(next));
+    void go(r.hasBusiness);
   };
 
   return (
@@ -135,7 +148,7 @@ function ClientLoginForm({ next }: { next: string }) {
             apply({ persona: 'client', appUser: user.id });
             if (pending && user.googleLinked === false) toast.error(t(pendingTextKey(pending, 'linkFailed')));
             else toast.success(t(pending ? pendingTextKey(pending, 'linked') : 'login.success'));
-            router.push(safeNext(next));
+            void go(Boolean(user.hasBusiness));
           }}
           agreementAction={agreementLink}
         />
@@ -148,6 +161,33 @@ function ClientLoginForm({ next }: { next: string }) {
 /** Куда вернуть после входа — только свой путь приложения (не чужой сайт по ссылке /login?next=https://…) */
 function safeNext(next: string): string {
   return next.startsWith('/') && !next.startsWith('//') ? next : '/';
+}
+
+/** Вход посреди записи в салон: запись в приложении (/book), по ссылке салона (/b/<slug>/book, …/booking/…) */
+function isBookingPath(path: string): boolean {
+  return /^\/book(\/|\?|$)/.test(path) || /^\/b\/[^/?]+\/(book|booking)(\/|\?|$)/.test(path);
+}
+
+/**
+ * Куда вести после входа на сайте (DESIGN.md, 17.11.2026): за номером есть салон → кабинет /biz (сессия переходит
+ * в режим бизнеса), кроме входа посреди записи — сначала заканчиваем запись. Салона нет: шёл в кабинет → регистрация
+ * салона, иначе — туда, откуда пришёл.
+ */
+function useAfterLogin(next: string) {
+  const router = useRouter();
+  const apply = useApplyDemo();
+  // Как «Мой бизнес» в профиле: режим сессии на сервере + свежая сессия в кэше (иначе /biz видит старый режим клиента)
+  const toBusiness = useApiMutation(() => setSessionMode('business'), { invalidates: [SESSION_KEY] });
+  return async (hasBusiness: boolean) => {
+    const target = safeNext(next);
+    if (hasBusiness && !isBookingPath(target)) {
+      if (isApiMode()) await toBusiness.mutate(undefined).catch(() => undefined);
+      else apply({ persona: 'owner' });
+      router.push('/biz');
+      return;
+    }
+    router.push(!hasBusiness && target.startsWith('/biz') ? '/register-business' : target);
+  };
 }
 
 /** Вход бизнеса: телефон+код (мастер/индивидуал/владелец, F-00-033) или логин+пароль (администратор, F-00-034) */

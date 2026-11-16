@@ -924,7 +924,8 @@ export interface VerifyLoginInput {
 }
 
 /** Вошли по коду; с pendingGoogle/pendingApple — привязался ли Google/Apple (false — ожидание истекло или он уже у другого) */
-export type VerifiedAppUser = AppUser & { googleLinked?: boolean };
+/** hasBusiness — за номером есть салон (владелец или сотрудник): вход на сайте ведёт в кабинет (DESIGN.md, 17.11.2026) */
+export type VerifiedAppUser = AppUser & { googleLinked?: boolean; hasBusiness?: boolean };
 
 const DEMO_CODE = '0000';
 
@@ -956,7 +957,7 @@ export async function verifyLoginCodeMock(input: VerifyLoginInput): Promise<Veri
     for (const b of c.bookings) {
       if (!b.appUserId && !b.deletedAt && b.createdBy === 'client' && b.clientId && cardIds.has(b.clientId)) coreTx.update('bookings', b.id, { appUserId: user.id });
     }
-    return user;
+    return { ...user, hasBusiness: c.staff.some((s) => s.phone === normalized) };
   });
 }
 

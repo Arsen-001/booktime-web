@@ -68,7 +68,7 @@ export async function verifyLoginCode(input: VerifyLoginInput): Promise<Verified
       pendingGoogle: input.pendingGoogle,
       pendingApple: input.pendingApple,
     });
-    return { ...appUserOfSession(session), googleLinked: session.googleLinked ?? session.appleLinked };
+    return { ...appUserOfSession(session), googleLinked: session.googleLinked ?? session.appleLinked, hasBusiness: session.memberships.length > 0 };
   }
   return viaMock(client, (m) => m.verifyLoginCodeMock(input));
 }
