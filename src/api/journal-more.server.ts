@@ -6,6 +6,7 @@
  * journal.server.ts: тот правят соседние лейны, свой файл им не мешает.
  */
 import { apiIdentity } from '@/api/identity';
+import { readDbUntracked } from '@/mock/db';
 import { http } from '@/api/http';
 import { ApiError, trackRead } from '@/api/request';
 import type { DayHours, ISODate, ISODateTime, Id, Money } from '@/domain/core';
@@ -37,9 +38,25 @@ function scope(businessIds?: Id[]): { path: string; others?: string } {
 
 // ─────────── часы и загрузка ───────────
 
-export function staffHours(staffIds: Id[], from: ISODate, to: ISODate, locationId?: Id): Promise<Record<Id, Record<ISODate, DayHours>>> {
-  if (!staffIds.length) return Promise.resolve({});
-  return http('GET', `${j()}/staff-hours`, undefined, { query: { staffIds: staffIds.join(','), from, to, locationId } });
+/**
+ * Часы мастеров — у бизнеса каждого мастера (зеркало знает, чей он). Сеть: владелец выбрал другой филиал (Manana →
+ * Шенгавит), а часы спрашивались у бизнеса сессии (Нор-Норк) — сервер отвечал пустыми днями, журнал писал «Расписание
+ * не установлено» (проход кабинета 17.11.2026). Мастера разных филиалов — по запросу на филиал, ответы складываются.
+ */
+export async function staffHours(staffIds: Id[], from: ISODate, to: ISODate, locationId?: Id): Promise<Record<Id, Record<ISODate, DayHours>>> {
+  if (!staffIds.length) return {};
+  const staff = readDbUntracked().core.staff;
+  const byBiz = new Map<Id, Id[]>();
+  for (const id of staffIds) {
+    const biz = staff.find((s) => s.id === id)?.businessId ?? sessionBiz();
+    byBiz.set(biz, [...(byBiz.get(biz) ?? []), id]);
+  }
+  const parts = await Promise.all(
+    [...byBiz].map(([biz, ids]) =>
+      http<Record<Id, Record<ISODate, DayHours>>>('GET', `${j(biz)}/staff-hours`, undefined, { query: { staffIds: ids.join(','), from, to, locationId } }),
+    ),
+  );
+  return Object.assign({}, ...parts);
 }
 
 export function rangeLoad(staffIds: Id[], from: ISODate, to: ISODate): Promise<Record<ISODate, { ratio: number; hasSchedule: boolean }>> {
