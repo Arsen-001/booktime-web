@@ -10,7 +10,7 @@ import { PrepaymentNotice, type WizardPrepayment } from '@/areas/online/booking/
 import { VisitSummary } from '@/areas/online/booking/wizard/VisitSummary';
 import { sphereIdsShowPet } from '@/areas/online/booking/wizard/specialistTerms';
 import type { BookingForWhom, Service, SphereId, Staff, Workplace } from '@/domain/core';
-import type { ClientFieldsConfig, CustomClientField } from '@/domain/online';
+import { DEFAULT_CLIENT_FIELDS, type ClientFieldsConfig, type CustomClientField } from '@/domain/online';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
@@ -259,7 +259,7 @@ export function DetailsStep({
         )}
         {!clientFields.commentHidden && (
           <div data-f="F-03-071">
-            <FormField label={clientFields.commentLabel || t('booking.details.comment')} required={clientFields.commentRequired} optional={!clientFields.commentRequired}>
+            <FormField label={commentLabelOf(clientFields.commentLabel) ?? t('booking.details.comment')} required={clientFields.commentRequired} optional={!clientFields.commentRequired}>
               <Textarea value={form.comment} onChange={(e) => onPatch({ comment: e.target.value.slice(0, 150) })} maxLength={150} rows={2} />
             </FormField>
             <p className="mt-1 text-right text-xs text-muted">{form.comment.length}/150</p>
@@ -341,4 +341,13 @@ export function DetailsStep({
       </StickyActionBar>
     </div>
   );
+}
+
+/**
+ * Подпись поля комментария: своя у салона — как есть; стандартная (её кабинет хранит по-русски, DEFAULT_CLIENT_FIELDS)
+ * или пустая — переведённая «Комментарий к записи» (16.11.2026: в английской записи стояло по-русски).
+ */
+function commentLabelOf(label: string | undefined): string | undefined {
+  const v = label?.trim();
+  return v && v !== DEFAULT_CLIENT_FIELDS.commentLabel ? v : undefined;
 }
