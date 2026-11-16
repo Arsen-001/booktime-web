@@ -315,11 +315,7 @@ export function ServiceFormScreen() {
 
               <SectionCard title={t('form.timingTitle')}>
                 <BookingSettingsSection draft={draft} set={set} disabled={disabled} />
-                {f.serviceId && f.businessId && (
-                  <div className="mt-4">
-                    <ServiceReminderField businessId={f.businessId} serviceId={f.serviceId} />
-                  </div>
-                )}
+                {f.serviceId && f.businessId && <ServiceReminderField businessId={f.businessId} serviceId={f.serviceId} />}
               </SectionCard>
             </div>
           )}

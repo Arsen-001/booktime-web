@@ -30,6 +30,7 @@ import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { GoodPicker } from '@/areas/stock/GoodPicker';
 import { warehouseLabel, useUnitShort } from '@/areas/stock/warehouse.utils';
+import { isOrderService } from '@/domain/ordersPickup';
 
 interface LineDraft {
   good: GoodRow;
@@ -129,7 +130,8 @@ export function TechCardFormScreen({ cardId }: { cardId?: Id }) {
     return <EmptyState title={t('techCardForm.notFound')} />;
   }
 
-  const services = servicesQ.data ?? [];
+  // Скрытые «Приём / Выдача заказа» — не услуги каталога (проход 17.11)
+  const services = (servicesQ.data ?? []).filter((s) => !isOrderService(s));
   const staff = staffQ.data ?? [];
   const warehouses = warehousesQ.data ?? [];
 

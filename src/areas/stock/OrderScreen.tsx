@@ -11,7 +11,7 @@ import { MessageCircle, PackageSearch } from 'lucide-react';
 import { buildOrderWhatsAppUrl, getOrderSupplier, listOrderCandidates, saveOrderSupplier } from '@/api/stock';
 import { listCounterparties } from '@/api/finance';
 import { useApiQuery } from '@/api/request';
-import { useCurrent, useDemo } from '@/demo/hooks';
+import { useCan, useCurrent, useDemo } from '@/demo/hooks';
 import type { LocaleCode } from '@/domain/core';
 import type { Id } from '@/domain/core';
 import { useT } from '@/i18n/useT';
@@ -75,7 +75,13 @@ export function OrderScreen() {
   const enabled = ready && Boolean(businessId) && Boolean(locationId);
   const q = useApiQuery(['stock', 'orderCandidates', businessId, locationId], () => listOrderCandidates(businessId!, locationId!), { enabled });
   const supplierQ = useApiQuery(['stock', 'orderSupplier', businessId], () => getOrderSupplier(businessId!), { enabled: ready && Boolean(businessId) });
-  const counterpartiesQ = useApiQuery(['finance', 'counterparties', businessId], () => listCounterparties(businessId!), { enabled: ready && Boolean(businessId) });
+  // Справочник поставщиков — тем, кто ведёт склад или финансы (как сервер); мастер со «смотреть склад» видит список
+  // без выбора поставщика, без 403 в консоли (проход 17.11)
+  const canStockEdit = useCan('stock.edit');
+  const canFinanceView = useCan('finance.view');
+  const counterpartiesQ = useApiQuery(['finance', 'counterparties', businessId], () => listCounterparties(businessId!), {
+    enabled: ready && Boolean(businessId) && (canStockEdit || canFinanceView),
+  });
 
   const [unchecked, setUnchecked] = useState<Set<Id>>(new Set());
   const [qtyDraft, setQtyDraft] = useState<Record<Id, string>>({});

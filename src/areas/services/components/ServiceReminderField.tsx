@@ -8,6 +8,7 @@
  */
 import { getServiceReminderHours, setServiceReminderHours } from '@/api/notify';
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
+import { useCan } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { FormField } from '@/ui/FormField';
 import { Select } from '@/ui/Select';
@@ -22,7 +23,16 @@ interface Args {
   hours: number | null;
 }
 
-export function ServiceReminderField({ businessId, serviceId }: { businessId: string; serviceId: string }) {
+/**
+ * Время напоминания — настройка уведомлений (`notify.manage`, как на сервере): без этого права поля нет и запроса тоже
+ * (проход 17.11: мастер в карточке услуги получал 403 в консоли).
+ */
+export function ServiceReminderField(props: { businessId: string; serviceId: string }) {
+  const canManage = useCan('notify.manage');
+  return canManage ? <ReminderSelect {...props} /> : null;
+}
+
+function ReminderSelect({ businessId, serviceId }: { businessId: string; serviceId: string }) {
   const t = useT('services');
   const toast = useToast();
   const q = useApiQuery(['notify', 'serviceReminder', businessId, serviceId], () => getServiceReminderHours({ businessId, serviceId }));
@@ -30,7 +40,7 @@ export function ServiceReminderField({ businessId, serviceId }: { businessId: st
     optimistic: optimistic<number | null, Args>((a) => ['notify', 'serviceReminder', a.businessId, a.serviceId], (_old, a) => a.hours),
   });
   return (
-    <FormField label={t('form.reminderLabel')} hint={t('form.reminderHint')}>
+    <FormField className="mt-4" label={t('form.reminderLabel')} hint={t('form.reminderHint')}>
       {q.isLoading ? (
         <Skeleton variant="rect" className="h-11 w-full" />
       ) : (

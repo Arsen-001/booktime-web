@@ -181,7 +181,8 @@ function AgentFlagsCard() {
           <Checkbox checked={flags.sendToClient} onCheckedChange={(sendToClient) => patch({ ...flags, sendToClient })} label={t('developer.agentFlagClient')} />
           <Checkbox checked={flags.sendToAdmin} onCheckedChange={(sendToAdmin) => patch({ ...flags, sendToAdmin })} label={t('developer.agentFlagAdmin')} />
           <div className="flex flex-wrap items-center gap-3 border-t border-border pt-3">
-            <Button variant="outline" size="sm" onClick={runSimulation} loading={simulate.isPending}>
+            {/* Длинная подпись (hy) переносится, а не уезжает за край телефона (проход 17.11) */}
+            <Button variant="outline" size="sm" className="h-auto min-h-10 max-w-full whitespace-normal py-2 text-left md:min-h-9" onClick={runSimulation} loading={simulate.isPending}>
               {t('developer.simulateAgentBooking')}
             </Button>
             {lastResult !== null && (

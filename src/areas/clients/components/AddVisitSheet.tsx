@@ -32,6 +32,7 @@ import { Textarea } from '@/ui/Textarea';
 import { TimePicker } from '@/ui/TimePicker';
 import { useToast } from '@/ui/Toast';
 import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
+import { isOrderService } from '@/domain/ordersPickup';
 
 export interface AddVisitSheetProps {
   open: boolean;
@@ -101,7 +102,8 @@ export function AddVisitSheet({ open, onOpenChange, businessId, locationId, clie
   const addVisitM = useApiMutation(addPastVisit);
 
   const staffOptions = (staffQ.data ?? []).map((s) => ({ value: s.id, label: s.name }));
-  const services = servicesQ.data ?? [];
+  // Скрытые «Приём / Выдача заказа» — не услуги каталога (проход 17.11)
+  const services = (servicesQ.data ?? []).filter((s) => !isOrderService(s));
   const serviceOptions = services.map((s) => ({ value: s.id, label: pickText(s.name, locale as never) }));
   const clientOptions = (rowsQ.data ?? []).map((r) => ({ value: r.id, label: r.name, description: r.phone }));
   const total = lines.reduce((sum, l) => sum + (l.price ?? 0), 0);

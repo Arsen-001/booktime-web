@@ -75,7 +75,7 @@ export function PurchaseRequestsScreen() {
     { id: 'purchasedAt', header: t('appPurchases.columns.date'), cell: (r) => <span className="whitespace-nowrap">{format.dateTime(r.purchasedAt)}</span>, mobile: 'meta', width: '13rem', skeletonWidth: '14ch' },
     { id: 'kind', header: '', cell: (r) => t(('appPurchases.kind.' + r.kind) as 'appPurchases.kind.membership'), mobile: 'meta', width: '8rem', skeletonWidth: '10ch' },
     { id: 'itemName', header: t('appPurchases.columns.item'), cell: (r) => <span className="line-clamp-1">{r.itemName}</span>, mobile: 'title', width: '16rem', skeletonWidth: '22ch' },
-    { id: 'client', header: t('appPurchases.columns.client'), cell: (r) => <span className="line-clamp-1">{r.clientPhone ? `${r.clientName} · ${r.clientPhone}` : r.clientName}</span>, mobile: 'meta', width: '16rem', skeletonWidth: '22ch' },
+    { id: 'client', header: t('appPurchases.columns.client'), cell: (r) => <span className="line-clamp-1">{r.clientPhone ? `${r.clientName} · ${format.phone(r.clientPhone)}` : r.clientName}</span>, mobile: 'meta', width: '16rem', skeletonWidth: '22ch' },
     { id: 'price', header: t('appPurchases.columns.price'), cell: (r) => format.money(r.price), align: 'right', mobile: 'meta', width: '8rem', skeletonWidth: '8ch', className: 'whitespace-nowrap' },
     {
       id: 'status',

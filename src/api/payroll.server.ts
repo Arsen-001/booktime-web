@@ -23,6 +23,7 @@ import { apiIdentity } from '@/api/identity';
 import { bizOf } from '@/api/staff.server';
 import { ApiError } from '@/api/request';
 import type { Id, ISODate } from '@/domain/core';
+import { defaultAssistRates } from '@/domain/payroll';
 import type {
   BonusPenaltyKind,
   BonusPenaltyType,
@@ -72,22 +73,35 @@ export function saveGeneralSettings(settings: GeneralSettings): Promise<GeneralS
 
 // ─────────────────────────── Схема сотрудника ───────────────────────────
 
+/**
+ * Схема с сервера — в форме сайта: схемы, сохранённые до 17.11, на сервере без ставок ассистента (`assistRates` сервер
+ * тогда не принимал) — подставляем «по умолчанию», как у новой схемы (проход 17.11: карточка зарплаты мастера падала
+ * «Cannot read properties of undefined (reading 'withoutAssistant')»). То же у прежних версий схемы (`history`).
+ */
+function schemeFromServer(v: PayrollScheme): PayrollScheme {
+  const ps = v.personalServices;
+  const fixed = ps && !ps.assistRates ? { ...v, personalServices: { ...ps, assistRates: defaultAssistRates() } } : v;
+  return fixed.history?.length ? { ...fixed, history: fixed.history.map(schemeFromServer) } : fixed;
+}
+
 export function getScheme(staffId: Id): Promise<PayrollScheme | undefined> {
-  return http<PayrollScheme | null>('GET', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`).then((v) => v ?? undefined);
+  return http<PayrollScheme | null>('GET', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`).then((v) => (v ? schemeFromServer(v) : undefined));
 }
 
 export function saveScheme(scheme: PayrollScheme): Promise<PayrollScheme> {
   const { staffId, createdAt: _createdAt, updatedAt: _updatedAt, ...body } = scheme;
-  return http<PayrollScheme>('PATCH', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`, body);
+  return http<PayrollScheme>('PATCH', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`, body).then(schemeFromServer);
 }
 
 export function copyScheme(fromStaffId: Id, toStaffId: Id): Promise<PayrollScheme> {
-  return http<PayrollScheme>('POST', `${b(bizOf(toStaffId))}/staff/${toStaffId}/payroll-scheme/copy-from/${fromStaffId}`);
+  return http<PayrollScheme>('POST', `${b(bizOf(toStaffId))}/staff/${toStaffId}/payroll-scheme/copy-from/${fromStaffId}`).then(schemeFromServer);
 }
 
 /** F-09-001/010: «Схемы расчёта» — все схемы бизнеса разом (этап 21, лейн rest), для listStaffSchemeStatus */
 export function listSchemesByBusiness(businessId: Id): Promise<Record<Id, PayrollScheme>> {
-  return http<Record<Id, PayrollScheme>>('GET', `${b(businessId)}/payroll/schemes`);
+  return http<Record<Id, PayrollScheme>>('GET', `${b(businessId)}/payroll/schemes`).then((all) =>
+    Object.fromEntries(Object.entries(all).map(([id, sc]) => [id, schemeFromServer(sc)])),
+  );
 }
 
 // ─────────────────────────── Расчёт ───────────────────────────
@@ -272,8 +286,16 @@ export function signStatement(sheetId: Id): Promise<StatementApproval> {
 
 // ─────────────────────────── Взаиморасчёты (используется из src/api/finance.ts) ───────────────────────────
 
+/** Ведомости до 17.11 сервер подписывал «2026-11-17 – 2026-11-17» — показываем как мок: «17.11.2026–17.11.2026» */
+const ISO_PERIOD_LABEL = /^(\d{4})-(\d{2})-(\d{2}) – (\d{4})-(\d{2})-(\d{2})$/;
+
 export function listSettlements(businessId: Id, staffId: Id, periodFrom?: ISODate, periodTo?: ISODate) {
-  return http('GET', `${b(businessId)}/staff/${staffId}/settlements`, undefined, { query: { periodFrom, periodTo } });
+  return http<{ label: string }[]>('GET', `${b(businessId)}/staff/${staffId}/settlements`, undefined, { query: { periodFrom, periodTo } }).then((rows) =>
+    rows.map((r) => {
+      const m = ISO_PERIOD_LABEL.exec(r.label);
+      return m ? { ...r, label: `${m[3]}.${m[2]}.${m[1]}–${m[6]}.${m[5]}.${m[4]}` } : r;
+    }),
+  );
 }
 
 export function createSheet(businessId: Id, staffId: Id, periodFrom: ISODate, periodTo: ISODate, comment?: string, draft?: boolean) {

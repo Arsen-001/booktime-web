@@ -20,7 +20,7 @@ import { http } from '@/api/http';
 import { ApiError } from '@/api/request';
 import * as ServicesServer from '@/api/services.server';
 import * as StaffServer from '@/api/staff.server';
-import { dayjs, nowDateTime, toISODateTime } from '@/lib/date';
+import { dayjs, nowDateTime, toISODateTime, toLocalDateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import {
   calcPrepayment as calcPrepaymentPure,
@@ -92,6 +92,7 @@ import type {
   SaleRefundMode,
 } from '@/api/finance';
 import type { Id, ISODateTime, Money } from '@/domain/core';
+import { isOrderService } from '@/domain/ordersPickup';
 import type {
   Account,
   AccountInput,
@@ -140,7 +141,7 @@ export async function reorderAccounts(businessId: Id, orderedIds: Id[]): Promise
 }
 
 export function transferFunds(businessId: Id, input: TransferFundsInput): Promise<Operation[]> {
-  return http('POST', `${fb(businessId)}/cash-registers/transfer`, input);
+  return http<Operation[]>('POST', `${fb(businessId)}/cash-registers/transfer`, input).then((ops) => ops.map(opFromServer));
 }
 
 // ─────────────────────────── Статьи ───────────────────────────
@@ -179,20 +180,35 @@ function opQuery(filter?: OperationFilter) {
   };
 }
 
+/**
+ * Операция с сервера — во времени Еревана без пояса, как в данных сайта: сервер отдаёт мгновения UTC
+ * ('2026-11-16T22:06:06Z'), и список показывал оплату 17.11 в 02:06 строкой «16.11.2026, 22:06» (проход 17.11).
+ */
+function opFromServer(o: Operation): Operation {
+  const local = (v: ISODateTime | undefined) => (v ? (toLocalDateTime(v) ?? v) : v);
+  return {
+    ...o,
+    date: local(o.date) as ISODateTime,
+    createdAt: local(o.createdAt) as ISODateTime,
+    ...(o.cancelledAt ? { cancelledAt: local(o.cancelledAt) } : {}),
+    ...(Array.isArray(o.history) ? { history: o.history.map((h) => ({ ...h, at: local(h.at) as ISODateTime })) } : {}),
+  };
+}
+
 export function listOperations(businessId: Id, filter?: OperationFilter): Promise<Operation[]> {
-  return http('GET', `${fb(businessId)}/fin-ops`, undefined, { query: opQuery(filter) });
+  return http<Operation[]>('GET', `${fb(businessId)}/fin-ops`, undefined, { query: opQuery(filter) }).then((rows) => rows.map(opFromServer));
 }
 
 export function getOperation(businessId: Id, id: Id): Promise<Operation> {
-  return http('GET', `${fb(businessId)}/fin-ops/${id}`);
+  return http<Operation>('GET', `${fb(businessId)}/fin-ops/${id}`).then(opFromServer);
 }
 
 export function recordOperation(businessId: Id, input: OperationInput): Promise<Operation> {
-  return http('POST', `${fb(businessId)}/fin-ops`, input, { idempotencyKey: crypto.randomUUID() });
+  return http<Operation>('POST', `${fb(businessId)}/fin-ops`, input, { idempotencyKey: crypto.randomUUID() }).then(opFromServer);
 }
 
 export function updateOperation(businessId: Id, id: Id, patch: OperationUpdate): Promise<Operation> {
-  return http('PATCH', `${fb(businessId)}/fin-ops/${id}`, patch);
+  return http<Operation>('PATCH', `${fb(businessId)}/fin-ops/${id}`, patch).then(opFromServer);
 }
 
 export async function cancelOperation(businessId: Id, id: Id): Promise<void> {
@@ -202,11 +218,11 @@ export async function cancelOperation(businessId: Id, id: Id): Promise<void> {
 /** recordLoyaltySale мока: приход за абонемент/сертификат/пополнение счёта в кассу способа (POST …/finance/loyalty-sales).
  * Продажи из «Лояльности» сервер проводит сам в той же транзакции — этот маршрут для продаж, собранных отдельно. */
 export function recordLoyaltySale(businessId: Id, input: LoyaltySaleInput): Promise<Operation> {
-  return http('POST', `${fb(businessId)}/loyalty-sales`, { ...input, amount: Math.round(input.amount) }, { idempotencyKey: crypto.randomUUID() });
+  return http<Operation>('POST', `${fb(businessId)}/loyalty-sales`, { ...input, amount: Math.round(input.amount) }, { idempotencyKey: crypto.randomUUID() }).then(opFromServer);
 }
 
 export function importOperations(businessId: Id, rows: OperationInput[]): Promise<Operation[]> {
-  return http('POST', `${fb(businessId)}/fin-ops/import`, { rows });
+  return http<Operation[]>('POST', `${fb(businessId)}/fin-ops/import`, { rows }).then((ops) => ops.map(opFromServer));
 }
 
 // ─────────────────────────── Контрагенты ───────────────────────────
@@ -233,22 +249,27 @@ export function importCounterparties(businessId: Id, rows: CounterpartyInput[]):
 
 // ─────────────────────────── Документы ───────────────────────────
 
+/** Документ с сервера — дата во времени Еревана (сервер отдаёт мгновение UTC), как у операций */
+function docFromServer(d: FinanceDocument): FinanceDocument {
+  return { ...d, date: (toLocalDateTime(d.date) ?? d.date) as FinanceDocument['date'], createdAt: (toLocalDateTime(d.createdAt) ?? d.createdAt) as FinanceDocument['createdAt'] };
+}
+
 export function listDocuments(businessId: Id, filter?: DocumentFilter): Promise<FinanceDocument[]> {
-  return http('GET', `${fb(businessId)}/documents`, undefined, { query: { type: filter?.type, contentKind: filter?.contentKind, dateFrom: filter?.dateFrom, dateTo: filter?.dateTo, search: filter?.search } });
+  return http<FinanceDocument[]>('GET', `${fb(businessId)}/documents`, undefined, { query: { type: filter?.type, contentKind: filter?.contentKind, dateFrom: filter?.dateFrom, dateTo: filter?.dateTo, search: filter?.search } }).then((rows) => rows.map(docFromServer));
 }
 
 export function getDocument(businessId: Id, id: Id): Promise<FinanceDocument> {
-  return http('GET', `${fb(businessId)}/documents/${id}`);
+  return http<FinanceDocument>('GET', `${fb(businessId)}/documents/${id}`).then(docFromServer);
 }
 
 export function updateDocument(businessId: Id, id: Id, patch: { note?: string }): Promise<FinanceDocument> {
-  return http('PATCH', `${fb(businessId)}/documents/${id}`, patch);
+  return http<FinanceDocument>('PATCH', `${fb(businessId)}/documents/${id}`, patch).then(docFromServer);
 }
 
 // ─────────────────────────── Возвраты и штрафы ───────────────────────────
 
 export function chargeClientPenalty(businessId: Id, locationId: Id, accountId: Id, clientId: Id, amount: Money, comment?: string): Promise<Operation> {
-  return http('POST', `${fb(businessId)}/fines`, { locationId, accountId, clientId, amount, comment });
+  return http<Operation>('POST', `${fb(businessId)}/fines`, { locationId, accountId, clientId, amount, comment }).then(opFromServer);
 }
 
 // ─────────────────────────── Отчёты ───────────────────────────
@@ -308,8 +329,10 @@ async function toSummary(businessId: Id, bookingId: Id, s: ServerBookingPaymentS
     amount: l.amount,
     operationId: l.operationId,
     cancelled: l.cancelled,
-    cancelledAt: l.cancelledAt,
-    createdAt: l.createdAt,
+    // Сервер отдаёт мгновение в UTC ('…T22:06:06Z'), в данных сайта — время Еревана без пояса (проход 17.11:
+    // оплату в 02:06 было видно как «16 ноября, 22:06»)
+    cancelledAt: toLocalDateTime(l.cancelledAt) ?? undefined,
+    createdAt: toLocalDateTime(l.createdAt) ?? l.createdAt,
     createdBy: l.createdBy,
   }));
   return { booking, lineTotals: s.lineTotals, payments, due: s.due, status: s.status, note: s.note, goods: s.goods, total: s.payableTotal };
@@ -773,9 +796,9 @@ export async function cancelSalaryPayout(businessId: Id, entryId: Id): Promise<v
 
 // ── Справочники для настроек предоплаты (F-07-089/090) ──
 
-export async function listServicesBrief(businessId: Id): Promise<{ id: Id; name: string; free: boolean }[]> {
+export async function listServicesBrief(businessId: Id): Promise<import('@/api/finance').ServiceBrief[]> {
   const rows = await ServicesServer.listServices(businessId);
-  return rows.map((s) => ({ id: s.id, name: s.name.ru, free: !s.priceMin || s.priceMin <= 0 }));
+  return rows.map((s) => ({ id: s.id, name: s.name.ru, nameText: s.name, free: !s.priceMin || s.priceMin <= 0, orderService: isOrderService(s) }));
 }
 
 export async function listStaffBriefFinance(businessId: Id): Promise<{ id: Id; name: string }[]> {

@@ -4461,7 +4461,8 @@ export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Prom
     const core = readCore();
     const area = readArea('client');
     const bookings = core.bookings.filter(
-      (b) => b.businessId === businessId && toISODate(dayjs(b.start)) === date && b.status === 'arrived' && (!staffId || b.staffId === staffId),
+      // Удалённая запись не считается и со статусом «Пришёл» — как сервер (проход 17.11)
+      (b) => b.businessId === businessId && !b.deletedAt && toISODate(dayjs(b.start)) === date && b.status === 'arrived' && (!staffId || b.staffId === staffId),
     );
     const rows: VisitReportRow[] = bookings.map((booking) => {
       const client = core.clients.find((c) => c.id === booking.clientId);
@@ -4496,10 +4497,11 @@ export interface DailyReportMetrics {
 
 function dayMetrics(businessId: Id, date: ISODate): DailyReportMetrics {
   const core = readCore();
-  const bookings = core.bookings.filter((b) => b.businessId === businessId && toISODate(dayjs(b.start)) === date);
+  // Удалённые записи и клиенты не считаются — как сервер (app-reports.service, проход 17.11)
+  const bookings = core.bookings.filter((b) => b.businessId === businessId && !b.deletedAt && toISODate(dayjs(b.start)) === date);
   const arrived = bookings.filter((b) => b.status === 'arrived');
   const revenue = arrived.reduce((s, b) => s + b.total, 0);
-  const newClients = core.clients.filter((c) => c.businessId === businessId && toISODate(dayjs(c.createdAt)) === date).length;
+  const newClients = core.clients.filter((c) => c.businessId === businessId && !c.deletedAt && toISODate(dayjs(c.createdAt)) === date).length;
   return {
     revenue,
     bookingsCount: bookings.length,

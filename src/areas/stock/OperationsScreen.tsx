@@ -46,6 +46,7 @@ import { StatCard } from '@/ui/StatCard';
 import { Table, type TableColumn } from '@/ui/Table';
 import { HelpArticleButton } from '@/areas/stock/HelpArticleButton';
 import { useDebouncedValue } from '@/areas/stock/useDebouncedValue';
+import { isOrderService } from '@/domain/ordersPickup';
 
 const TYPE_TONE: Record<OperationType, 'success' | 'accent' | 'danger' | 'warning' | 'neutral'> = {
   income: 'success',
@@ -448,7 +449,7 @@ export function OperationsScreen() {
               <Select
                 options={[
                   { value: '', label: t('operations.filters.allServices') },
-                  ...(servicesQ.data ?? []).map((s) => ({ value: s.id, label: pickText(s.name, lang) })),
+                  ...(servicesQ.data ?? []).filter((s) => !isOrderService(s)).map((s) => ({ value: s.id, label: pickText(s.name, lang) })),
                 ]}
                 value={serviceId}
                 onValueChange={(v) => {

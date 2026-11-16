@@ -10,6 +10,9 @@ import { useApiQuery } from '@/api/request';
 import type { Booking, Money } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
+import type { LocaleCode } from '@/domain/core';
+import { pickText } from '@/lib/text';
+import { useLocale } from 'next-intl';
 
 export interface VisitLinesProps {
   businessId: string;
@@ -22,8 +25,13 @@ export interface VisitLinesProps {
 export function VisitLines({ businessId, booking, lineTotals, goods = [] }: VisitLinesProps) {
   const t = useT('finance');
   const format = useFormat();
+  const locale = useLocale() as LocaleCode;
   const namesQ = useApiQuery(['finance', 'policyServices', businessId], () => listServicesBrief(businessId), { enabled: Boolean(businessId) });
-  const nameOf = (serviceId: string) => namesQ.data?.find((s) => s.id === serviceId)?.name;
+  // Название — на языке человека (проход 17.11: на hy/en было по-русски)
+  const nameOf = (serviceId: string) => {
+    const s = namesQ.data?.find((x) => x.id === serviceId);
+    return s ? pickText(s.nameText, locale) : undefined;
+  };
 
   if (booking.services.length === 0 && goods.length === 0) return null;
 

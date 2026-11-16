@@ -41,6 +41,7 @@ import { useToast } from '@/ui/Toast';
 function SellCertificateDialog({ open, onOpenChange, businessId, locationId, onSold }: { open: boolean; onOpenChange: (open: boolean) => void; businessId: Id; locationId: Id; onSold: () => void }) {
   const t = useT('loyalty');
   const toast = useToast();
+  const format = useFormat();
   const typesQ = useApiQuery(['loyalty', 'certificateTypes', businessId], () => listCertificateTypes(businessId), { enabled: open });
   const staffQ = useApiQuery(['staff', 'brief', businessId], () => listStaffBrief(businessId), { enabled: open });
 
@@ -142,7 +143,7 @@ function SellCertificateDialog({ open, onOpenChange, businessId, locationId, onS
             <Select
               options={(typesQ.data ?? []).map((ct) => ({
                 value: ct.id,
-                label: `${ct.name} · ${ct.nominal} ֏`,
+                label: `${ct.name} · ${format.money(ct.nominal)}`,
               }))}
               value={typeId}
               onValueChange={setTypeId}
@@ -170,7 +171,12 @@ function SellCertificateDialog({ open, onOpenChange, businessId, locationId, onS
           </FormField>
           <div className="grid grid-cols-2 gap-3">
             <FormField label={t('sell.priceLabel')}>
-              <MoneyInput value={price} onValueChange={setPrice} />
+              {/* Пусто — продаём по номиналу со скидкой (как api): подсказка показывает эту сумму, а не «0» (проход 17.11) */}
+              <MoneyInput
+                value={price}
+                onValueChange={setPrice}
+                placeholder={type ? format.money(Math.round((type.nominal * (100 - (discountPercent ?? 0))) / 100)).replace(/\s*֏$/, '') : undefined}
+              />
             </FormField>
             <FormField label={t('sell.discountLabel')}>
               <Input type="number" min={0} max={100} value={discountPercent ?? ''} onChange={(e) => setDiscountPercent(Number(e.target.value) || undefined)} />

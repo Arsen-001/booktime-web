@@ -11,6 +11,7 @@ import type { Id } from '@/domain/core';
 import { useT } from '@/i18n/useT';
 import { FormField } from '@/ui/FormField';
 import { Select } from '@/ui/Select';
+import { isOrderService } from '@/domain/ordersPickup';
 
 export interface MailingSegment {
   lastVisitOlderThanDays?: number;
@@ -62,7 +63,7 @@ export function MailingSegmentFields({ value, onChange }: MailingSegmentFieldsPr
           searchable
           options={[
             { value: '', label: anyLabel },
-            ...(servicesQ.data ?? []).map((sv) => ({ value: sv.id, label: sv.name[locale] || sv.name.ru })),
+            ...(servicesQ.data ?? []).filter((sv) => !isOrderService(sv)).map((sv) => ({ value: sv.id, label: sv.name[locale] || sv.name.ru })),
           ]}
           value={value.serviceId ?? ''}
           onValueChange={(v) => onChange({ ...value, serviceId: v || undefined })}

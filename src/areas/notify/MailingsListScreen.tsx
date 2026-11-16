@@ -22,10 +22,11 @@ import type { TableColumn } from '@/ui/Table';
 import { Table } from '@/ui/Table';
 import type { Mailing, MailingChannel } from '@/domain/notify';
 
-const CHANNEL_LABEL: Record<MailingChannel, string> = {
-  sms: 'SMS',
-  pushOwnApp: 'Push · брендированное приложение',
-  pushClientApp: 'Push · наше приложение',
+/** Подпись канала — словарём, как в «Новой рассылке» (проход 17.11: была строкой по-русски на всех языках) */
+const CHANNEL_LABEL_KEY: Record<MailingChannel, 'newMailing.channel.sms' | 'newMailing.channel.pushOwnApp' | 'newMailing.channel.pushClientApp'> = {
+  sms: 'newMailing.channel.sms',
+  pushOwnApp: 'newMailing.channel.pushOwnApp',
+  pushClientApp: 'newMailing.channel.pushClientApp',
 };
 
 /** Метка места числа во фразе правил — пока число грузится, на её месте полоса скелетона */
@@ -63,7 +64,7 @@ export function MailingsListScreen() {
     {
       id: 'channel',
       header: t('mailings.columns.channel'),
-      cell: (row) => <span className="line-clamp-1">{CHANNEL_LABEL[row.channel]}</span>,
+      cell: (row) => <span className="line-clamp-1">{t(CHANNEL_LABEL_KEY[row.channel])}</span>,
       mobile: 'subtitle',
       width: '13rem',
       skeletonWidth: '16ch',

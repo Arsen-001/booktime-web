@@ -55,6 +55,9 @@ export function setIntakeSettings(args: { businessId: Id; input: IntakeSettingsI
       if (input.staffIds?.length && !staffIds.length) throw new ApiError('validation', 'staffIds');
       if (input.enabled && !staffIds.length) throw new ApiError('intake_no_staff', 'Некому принимать');
       const existing = intakeServiceTx(businessId);
+      // Выключено и ни разу не включали — заводить нечего (как сервер, проход 17.11): скрытые «Приём / Выдача заказа»
+      // появляются только при первом включении
+      if (!existing && !input.enabled) return intakeSettingsOf(undefined);
       const fields = { durationMin: input.slotMin, staffIds, active: input.enabled, onlineBookable: input.enabled };
       const svc = existing
         ? coreTx.update('services', existing.id, fields)

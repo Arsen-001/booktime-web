@@ -33,7 +33,7 @@ import { useCoreList } from '@/api/core';
 import { listNetworkCalls } from '@/api/network';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { SupportChatModal } from '@/areas/notify/components/SupportChatModal';
-import { useCurrent } from '@/demo/hooks';
+import { useCan, useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { waLink } from '@/lib/phone';
@@ -120,17 +120,20 @@ export function InboxScreen() {
   // не самодельным чтением bookings, иначе обычная отмена (без soft-delete) не попадала в центр уведомлений.
   const eventsQ = useApiQuery(['notify', 'inboxEvents', businessId], () => listInboxEvents(businessId!), { enabled: ready && !!businessId });
   const staffQ = useCoreList('staff', { businessId }, { enabled: ready && !!businessId });
-  const newsQ = useApiQuery(['notify', 'news'], () => listNews());
+  const newsQ = useApiQuery(['notify', 'news', businessId], () => listNews(businessId!), { enabled: ready && !!businessId });
   const markRead = useApiMutation(markInboxRead);
   const webPopupQ = useApiQuery(['notify', 'webPopups', businessId], () => getWebPopupSettings(businessId!), { enabled: ready && !!businessId });
   // F-13-209: раздел «Звонки» в центре уведомлений — только при подключённой телефонии сети
   // (F-11-146…152, @/api/network); без сети или без разрешённого маршрута вкладка просто пуста,
   // а не «не показываем совсем» — «Готово, когда» сети без телефонии из F-05-061 всё ещё требует
   // видеть разделы «Записи»/«Остальные».
+  // Звонки сети читает тот, кто управляет сетью (сервер: доступ сети «telephony»); администратор салона сети —
+  // нет: был 403 в консоли на каждом открытии (проход 17.11), вкладка у него просто пуста
+  const canNetwork = useCan('network.manage');
   const callsQ = useApiQuery(
     ['notify', 'inboxCalls', networkId, businessId],
     () => listNetworkCalls(networkId!, businessId),
-    { enabled: ready && !!networkId },
+    { enabled: ready && !!networkId && canNetwork },
   );
   // F-05-058: галочка «Операции с записями» (/biz/notifications/channels) — выключена, значит новые записи
   // не всплывают попапом и не попадают в центр уведомлений вовсе (то же правило для попапа и для колокольчика).

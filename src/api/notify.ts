@@ -742,8 +742,9 @@ export const markInboxReadMock = (input: { businessId: Id; ids: Id[] }) => {
   );
 };
 
-export const listNews = () => {
-  if (isApiMode()) return N.listPlatformNews(currentActor().businessId!);
+/** Новости платформы; бизнес — явно из экрана (было из сессии: до её подъёма уходил `/biz/undefined/…` → 403, проход 17.11) */
+export const listNews = (businessId: Id) => {
+  if (isApiMode()) return N.listPlatformNews(businessId);
   return request(() => readArea('notify').news);
 };
 

@@ -71,13 +71,14 @@ export function SchemesListScreen() {
   const t = useT('payroll');
   const locale = useLocale();
   const { ready, businessId } = useCurrent();
-  const q = useApiQuery(['payroll', 'schemesList', businessId], () => listStaffSchemeStatus(businessId!), {
-    enabled: ready && Boolean(businessId),
-  });
-  // F-09-089: базовое право раздела — без payroll.view/payroll.manage список схем всех сотрудников недоступен.
+  // F-09-089: базовое право раздела — без payroll.view/payroll.manage список схем всех сотрудников недоступен
+  // (и не запрашивается: был 403 в консоли)
   const canView = useCan('payroll.view');
   const canManage = useCan('payroll.manage');
   const canViewPayroll = canView || canManage;
+  const q = useApiQuery(['payroll', 'schemesList', businessId], () => listStaffSchemeStatus(businessId!), {
+    enabled: ready && Boolean(businessId) && canViewPayroll,
+  });
 
   if (ready && !canViewPayroll) {
     return (

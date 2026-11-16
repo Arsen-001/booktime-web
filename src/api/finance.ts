@@ -13,7 +13,9 @@ import { isApiMode } from '@/api/http';
 import { recordDayCloseNoticeSync } from '@/api/notify-dayclose';
 import * as PayrollServer from '@/api/payroll.server';
 import { ApiError, request } from '@/api/request';
-import type { Booking, Id, ISODateTime, Money } from '@/domain/core';
+import type { Booking, Id, ISODateTime, LocalizedText, Money } from '@/domain/core';
+import { isOrderService } from '@/domain/ordersPickup';
+import { localizeAccounts, localizeItems } from '@/api/finance.names';
 import { prepaidAmount } from '@/domain/rules';
 import { EMPTY_BOOKING_EXTRAS, type JournalPaymentLine } from '@/domain/journal';
 import type {
@@ -126,11 +128,11 @@ function currentActorId(): string {
 // ─────────────────────────── Кассы и счета ───────────────────────────
 
 export function listAccounts(businessId: Id, locationIds?: Id[]): Promise<Account[]> {
-  if (isApiMode()) return Server.listAccounts(businessId, locationIds);
+  if (isApiMode()) return Server.listAccounts(businessId, locationIds).then(localizeAccounts);
   return request(() => {
     const all = readArea('finance').accounts.filter((a) => a.businessId === businessId);
     const filtered = locationIds && locationIds.length > 0 ? all.filter((a) => locationIds.includes(a.locationId)) : all;
-    return [...filtered].sort((a, b) => a.order - b.order);
+    return localizeAccounts([...filtered].sort((a, b) => a.order - b.order));
   });
 }
 
@@ -140,14 +142,16 @@ export interface AccountWithBalance extends Account {
 
 /** Кассы вместе с посчитанным балансом (начальный + операции, без отменённых) */
 export function listAccountsWithBalance(businessId: Id, locationIds?: Id[]): Promise<AccountWithBalance[]> {
-  if (isApiMode()) return Server.listAccountsWithBalance(businessId, locationIds);
+  if (isApiMode()) return Server.listAccountsWithBalance(businessId, locationIds).then(localizeAccounts);
   return request(() => {
     const area = readArea('finance');
     const all = area.accounts.filter((a) => a.businessId === businessId);
     const filtered = locationIds && locationIds.length > 0 ? all.filter((a) => locationIds.includes(a.locationId)) : all;
-    return [...filtered]
-      .sort((a, b) => a.order - b.order)
-      .map((acc) => ({ ...acc, balance: accountBalance(acc, area.operations.filter((op) => op.accountId === acc.id)) }));
+    return localizeAccounts(
+      [...filtered]
+        .sort((a, b) => a.order - b.order)
+        .map((acc) => ({ ...acc, balance: accountBalance(acc, area.operations.filter((op) => op.accountId === acc.id)) })),
+    );
   });
 }
 
@@ -447,8 +451,8 @@ export function closeCashShift(businessId: Id, shiftId: Id, countedCash: Money, 
 // ─────────────────────────── Статьи ───────────────────────────
 
 export function listItems(businessId: Id): Promise<FinanceItem[]> {
-  if (isApiMode()) return Server.listItemsRemembering(businessId);
-  return request(() => readArea('finance').items.filter((i) => i.businessId === businessId));
+  if (isApiMode()) return Server.listItemsRemembering(businessId).then(localizeItems);
+  return request(() => localizeItems(readArea('finance').items.filter((i) => i.businessId === businessId)));
 }
 
 export function createItem(businessId: Id, input: FinanceItemInput): Promise<FinanceItem> {
@@ -666,7 +670,8 @@ export function listCounterparties(businessId: Id): Promise<Counterparty[]> {
 export function createCounterparty(businessId: Id, input: CounterpartyInput): Promise<Counterparty> {
   if (isApiMode()) return Server.createCounterparty(businessId, input);
   return request(() => {
-    assertCan('finance.edit');
+    // Нового поставщика заводит и склад (приход, заказ поставщику) — как сервер (проход 17.11)
+    if (!canNow('stock.edit')) assertCan('finance.edit');
     const cp: Counterparty = { ...input, id: newId('cpt'), businessId, createdAt: nowDateTime() };
     mutateArea('finance', (s) => {
       s.counterparties.push(cp);
@@ -3042,12 +3047,24 @@ export function setServicePrepayment(businessId: Id, serviceId: Id, patch: Parti
 }
 
 /** Услуги и мастера бизнеса для выбора в настройке обязательной предоплаты (F-07-089/090) */
-export function listServicesBrief(businessId: Id): Promise<{ id: Id; name: string; free: boolean }[]> {
+/**
+ * Услуги бизнеса коротко: окно оплаты (названия строк) и «Политика оплаты». `nameText` — на всех языках (показывать
+ * через pickText, проход 17.11: на hy/en было по-русски); `orderService` — скрытые «Приём / Выдача заказа».
+ */
+export interface ServiceBrief {
+  id: Id;
+  name: string;
+  nameText: LocalizedText;
+  free: boolean;
+  orderService: boolean;
+}
+
+export function listServicesBrief(businessId: Id): Promise<ServiceBrief[]> {
   if (isApiMode()) return Server.listServicesBrief(businessId);
   return request(() =>
     readCore()
       .services.filter((s) => s.businessId === businessId)
-      .map((s) => ({ id: s.id, name: s.name.ru, free: !s.priceMin || s.priceMin <= 0 }))
+      .map((s) => ({ id: s.id, name: s.name.ru, nameText: s.name, free: !s.priceMin || s.priceMin <= 0, orderService: isOrderService(s) }))
   );
 }
 

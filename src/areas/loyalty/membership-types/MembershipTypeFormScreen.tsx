@@ -420,7 +420,8 @@ function MembershipTypeFormBody({
               {networkId && (
                 <FormField label={t('membershipTypeForm.locations')}>
                   <div className="flex flex-col gap-2">
-                    <div className="flex gap-2">
+                    {/* flex-wrap: на телефоне в hy две кнопки не помещаются в строку (проход 17.11) */}
+                    <div className="flex flex-wrap gap-2">
                       <Button variant="secondary" size="sm" onClick={() => setLocationIds(allLocationIds)}>
                         {t('membershipTypeForm.addAllLocations')}
                       </Button>

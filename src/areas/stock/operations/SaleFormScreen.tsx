@@ -509,6 +509,7 @@ function AddExtraModal({
   onAdd: (draft: ExtraDraft) => void;
 }) {
   const t = useT('stock');
+  const format = useFormat();
   const [tab, setTab] = useState<'certificate' | 'membership'>('certificate');
   const [code, setCode] = useState('');
 
@@ -566,7 +567,7 @@ function AddExtraModal({
                     className="flex min-h-11 w-full items-center justify-between rounded-lg border border-border bg-surface px-3 py-2 text-left hover:border-primary"
                   >
                     <span className="text-sm text-fg">{c.name}</span>
-                    <span className="text-sm font-semibold text-fg">{c.nominal.toLocaleString('ru')} ֏</span>
+                    <span className="text-sm font-semibold text-fg">{format.money(c.nominal)}</span>
                   </button>
                 </li>
               ))}
@@ -588,7 +589,7 @@ function AddExtraModal({
                     className="flex min-h-11 w-full items-center justify-between rounded-lg border border-border bg-surface px-3 py-2 text-left hover:border-primary"
                   >
                     <span className="text-sm text-fg">{m.name}</span>
-                    <span className="text-sm font-semibold text-fg">{m.price.toLocaleString('ru')} ֏</span>
+                    <span className="text-sm font-semibold text-fg">{format.money(m.price)}</span>
                   </button>
                 </li>
               ))}

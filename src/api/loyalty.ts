@@ -444,7 +444,8 @@ export function listServiceScopeOptions(businessId: Id, locale = 'ru'): Promise<
   if (isApiMode()) return LX.lx('listServiceScopeOptions', [businessId, locale]);
   return request(() => {
     const core = readCore();
-    const services = core.services.filter((s) => s.businessId === businessId && s.active);
+    // Скрытые «Приём / Выдача заказа» (kind intake/pickup) — не услуги каталога, программам лояльности их не выбрать (проход 17.11)
+    const services = core.services.filter((s) => s.businessId === businessId && s.active && s.kind !== 'intake' && s.kind !== 'pickup');
     const categories = core.serviceCategories
       .filter((c) => c.businessId === businessId && services.some((s) => s.categoryId === c.id))
       .map((c) => ({

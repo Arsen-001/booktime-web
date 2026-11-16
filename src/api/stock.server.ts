@@ -13,6 +13,7 @@
  * через тот же `setLines`; `updateInventoryMeta` — свой PATCH `inventories/:id`, этап 21).
  */
 import { http } from '@/api/http';
+import { toLocalDateTime } from '@/lib/date';
 import { getBooking } from '@/api/journal.server';
 import type { Id, Money } from '@/domain/core';
 import {
@@ -163,7 +164,7 @@ export function getGood(businessId: Id, id: Id): Promise<(GoodRow & { levels: St
 }
 
 export function listGoodHistory(businessId: Id, goodId: Id): Promise<HistoryEntry[]> {
-  return http('GET', `${sb(businessId)}/products/${goodId}/history`);
+  return http<HistoryEntry[]>('GET', `${sb(businessId)}/products/${goodId}/history`).then(historyView);
 }
 
 export function createGood(businessId: Id, locationId: Id, input: GoodInput): Promise<Good> {
@@ -217,10 +218,17 @@ export async function listExpiredGoods(businessId: Id, locationId: Id): Promise<
 
 // ─────────────────────────── Приход, списание, перемещение, документ ───────────────────────────
 
+/** Мгновение UTC с сервера ('…T23:27:32Z') → время Еревана без пояса, как в данных сайта */
+const local = <T extends string | undefined>(v: T): T => (v ? ((toLocalDateTime(v) ?? v) as T) : v);
+
 function docView(doc: OperationDocDetail): OperationDocDetail {
-  // Сервер отдаёт то же имя полей, что OperationDoc/OperationDocDetail мока (docView бэкенда собран по этому контракту) — без переформовки.
-  return doc;
+  // Имена полей — как у OperationDoc/OperationDocDetail мока; время — по Еревану (проход 17.11: продажа в 03:27 в карточке
+  // документа стояла «16 ноября, 23:27», хотя журнал склада показывал 03:27)
+  return { ...doc, date: local(doc.date), createdAt: local(doc.createdAt), updatedAt: local(doc.updatedAt) };
 }
+
+/** История изменений — время по Еревану */
+const historyView = (rows: HistoryEntry[]): HistoryEntry[] => rows.map((h) => ({ ...h, at: local(h.at) }));
 
 export function createIncomeOperation(businessId: Id, locationId: Id, input: IncomeInput): Promise<OperationDoc> {
   const paymentMethod: 'cash' | 'card' = input.paymentMethod === 'card' ? 'card' : 'cash';
@@ -257,7 +265,7 @@ export function cancelMoveOperation(businessId: Id, docId: Id): Promise<void> {
 }
 
 export function listOperationHistory(businessId: Id, docId: Id): Promise<HistoryEntry[]> {
-  return http('GET', `${sb(businessId)}/stock-ops/${docId}/history`);
+  return http<HistoryEntry[]>('GET', `${sb(businessId)}/stock-ops/${docId}/history`).then(historyView);
 }
 
 // ─────────────────────────── Продажа товара ───────────────────────────
@@ -488,7 +496,7 @@ export function replaceStockPermissions(businessId: Id, staffId: Id, permissions
 }
 
 export function listPermissionHistory(businessId: Id, staffId: Id): Promise<HistoryEntry[]> {
-  return http('GET', `${sb(businessId)}/permissions/${staffId}/history`);
+  return http<HistoryEntry[]>('GET', `${sb(businessId)}/permissions/${staffId}/history`).then(historyView);
 }
 
 export async function getStoredPriceTagLayout(businessId: Id): Promise<PriceTagLayout | null> {

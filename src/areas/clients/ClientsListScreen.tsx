@@ -48,6 +48,7 @@ import { useRememberedLayout } from '@/ui/hooks/useSkeletonCount';
 import { Table, type TableSort } from '@/ui/Table';
 import { useToast } from '@/ui/Toast';
 import { useIsMobile } from '@/ui/hooks/useMediaQuery';
+import { isOrderService } from '@/domain/ordersPickup';
 
 
 export function ClientsListScreen() {
@@ -461,7 +462,7 @@ export function ClientsListScreen() {
           resetPage();
         }}
         staffOptions={(staffQ.data ?? []).map((s) => ({ value: s.id, label: s.name }))}
-        serviceOptions={(servicesQ.data ?? []).map((s) => ({ value: s.id, label: s.name }))}
+        serviceOptions={(servicesQ.data ?? []).filter((s) => !isOrderService(s)).map((s) => ({ value: s.id, label: s.name }))}
         categoryOptions={categoriesQ.data ?? []}
         businessId={businessId ?? undefined}
         locationIds={activeLocationIds}

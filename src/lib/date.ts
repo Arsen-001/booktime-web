@@ -58,6 +58,9 @@ export function toISODateTime(d: Dayjs | Date): ISODateTime {
 
 /** 'YYYY-MM-DD' или 'YYYY-MM-DDTHH:mm' → Dayjs */
 export function parse(value: ISODate | ISODateTime): Dayjs {
+  // Мгновение с поясом ('2026-11-16T22:06:06Z' с сервера) — сначала во время Еревана: строгий разбор по формату
+  // отбрасывал пояс, и оплату 17.11 в 02:06 было видно как «16 ноября, 22:06» (проход 17.11)
+  if (value.length > 16 && /[zZ]|[+-]\d{2}:?\d{2}$/.test(value)) return dayjs(toLocalDateTime(value) as string, DATE_TIME_FORMAT);
   return dayjs(value, value.length > 10 ? DATE_TIME_FORMAT : DATE_FORMAT);
 }
 

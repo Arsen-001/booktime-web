@@ -44,11 +44,11 @@ export function ImportExportScreen() {
   const rowsQ = useApiQuery(['clients', 'rows-for-export', businessId], () => listClientRows(businessId ?? ''), {
     enabled: ready && Boolean(businessId),
   });
-  const runsQ = useApiQuery(['clients', 'import-runs'], () => listImportRuns(), { enabled: ready });
-  const exportLogQ = useApiQuery(['clients', 'export-log'], () => listExportLog(), { enabled: ready });
-
-  // Импорт — право «редактировать клиентов» (clients.edit), выгрузка — тонкое право «выгружать список»
+  // Импорт — право «редактировать клиентов» (clients.edit), выгрузка — тонкое право «выгружать список».
+  // Журналы читаем только с правом на своё действие (проход 17.11: администратор без выгрузки получал 403 в консоли)
   const canImport = rights.editClient;
+  const runsQ = useApiQuery(['clients', 'import-runs'], () => listImportRuns(), { enabled: ready && rights.ready && canImport });
+  const exportLogQ = useApiQuery(['clients', 'export-log'], () => listExportLog(), { enabled: ready && rights.ready && canExport });
   const [importBusy, setImportBusy] = useState(false);
   const [phoneBookOpen, setPhoneBookOpen] = useState(false);
   const exportM = useApiMutation(exportClients);
@@ -143,7 +143,7 @@ export function ImportExportScreen() {
 
       {/* F-04-126 журнал операций своего раздела; F-04-206 — те же операции идут и в общий журнал
           «Операции с данными» через coreTx.logDataOperation() (core-k3 №2, g2-2) */}
-      {!importBusy && (runsQ.isLoading || (runsQ.data ?? []).length > 0) && (
+      {canImport && !importBusy && (runsQ.isLoading || (runsQ.data ?? []).length > 0) && (
         <div data-f="F-04-206">
           <SectionCard title={t('importPage.log.title')}>
             <ul className="flex flex-col gap-1 text-xs text-muted">

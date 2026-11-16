@@ -195,7 +195,12 @@ function SellMembershipDialog({
           </FormField>
           <div className="grid grid-cols-2 gap-3">
             <FormField label={t('sell.priceLabel')}>
-              <MoneyInput value={price} onValueChange={setPrice} />
+              {/* Пусто — по цене типа со скидкой (как api): подсказка показывает эту сумму, а не «0» (проход 17.11) */}
+              <MoneyInput
+                value={price}
+                onValueChange={setPrice}
+                placeholder={type ? format.money(Math.round((type.price * (100 - (discountPercent ?? 0))) / 100)).replace(/\s*֏$/, '') : undefined}
+              />
             </FormField>
             <FormField label={t('sell.discountLabel')}>
               <Input

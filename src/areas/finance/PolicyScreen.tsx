@@ -60,10 +60,14 @@ import { StickyActionBar } from '@/ui/StickyActionBar';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
 import { ExitHold } from '@/ui/ExitHold';
+import { useLocale } from 'next-intl';
+import { pickText } from '@/lib/text';
+import type { LocaleCode } from '@/domain/core';
 
 export function PolicyScreen() {
   const t = useT('finance');
   const toast = useToast();
+  const locale = useLocale() as LocaleCode;
   const { ready, businessId } = useCurrent();
   const canEdit = useCan('finance.edit');
 
@@ -103,7 +107,8 @@ export function PolicyScreen() {
       initial={policyQ.data}
       adyenConnected={adyenQ.data.status === 'connected'}
       anyPaymentSystemConnected={adyenQ.data.status === 'connected' || Object.values(onlineQ.data.providerByWay).some((p) => p !== null)}
-      services={servicesQ.data}
+      // Скрытые «Приём / Выдача заказа» — не услуги каталога; названия — на языке человека (проход 17.11)
+      services={servicesQ.data.filter((s) => !s.orderService).map((s) => ({ id: s.id, name: pickText(s.nameText, locale), free: s.free }))}
       staff={staffQ.data}
       overrides={overridesQ.data}
       canEdit={canEdit}

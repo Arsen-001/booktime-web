@@ -28,7 +28,10 @@ export interface SupplierFieldProps {
 
 export function SupplierField({ businessId, value, onChange, disabled, id }: SupplierFieldProps) {
   const t = useT('stock');
-  const canCreate = useCan('finance.edit');
+  // Нового поставщика заводит и склад (stock.edit), как на сервере (проход 17.11)
+  const canFinance = useCan('finance.edit');
+  const canStock = useCan('stock.edit');
+  const canCreate = canFinance || canStock;
   const q = useApiQuery(['finance', 'counterparties', businessId], () => listCounterparties(businessId), { enabled: Boolean(businessId) });
   const create = useApiMutation((name: string) => createCounterparty(businessId, { type: 'supplier', name }));
 

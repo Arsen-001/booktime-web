@@ -1,6 +1,9 @@
 'use client';
 
-/** Строка «Ждут отметки»: клиент, время, сумма визита и «Пришёл» / «Не пришёл» (F-00-127) */
+/**
+ * Строка «Ждут отметки»: клиент, время, сумма визита и «Пришёл» / «Не пришёл» (F-00-127). На телефоне сумма — во всю
+ * ширину, кнопки — под ней пополам (проход 17.11: в одну строку «Не пришёл» уезжала за край экрана).
+ */
 import { useState } from 'react';
 import { CheckCircle2, XCircle } from 'lucide-react';
 import { markVisitArrived, markVisitNoShow } from '@/api/clients';
@@ -38,14 +41,14 @@ export function PendingMarkRow({ mark }: { mark: PendingMark }) {
           {fmt.dateTime(mark.start)} · {mark.staffName}
         </p>
       </div>
-      <div className="grid grid-cols-[1fr_auto_auto] items-center gap-2 sm:flex">
-        <div className="sm:w-32">
+      <div className="grid grid-cols-2 items-center gap-2 sm:flex">
+        <div className="col-span-2 sm:w-32">
           <MoneyInput value={amount} onValueChange={setAmount} aria-label={t('summary.amount')} />
         </div>
-        <Button size="sm" leftIcon={<CheckCircle2 aria-hidden />} loading={arrived.isPending} onClick={() => run('arrived')}>
+        <Button size="sm" className="w-full sm:w-auto" leftIcon={<CheckCircle2 aria-hidden />} loading={arrived.isPending} onClick={() => run('arrived')}>
           {t('summary.markArrived')}
         </Button>
-        <Button size="sm" variant="outline" leftIcon={<XCircle aria-hidden />} loading={noShow.isPending} onClick={() => run('noShow')}>
+        <Button size="sm" variant="outline" className="w-full sm:w-auto" leftIcon={<XCircle aria-hidden />} loading={noShow.isPending} onClick={() => run('noShow')}>
           {t('summary.markNoShow')}
         </Button>
       </div>
@@ -66,14 +69,14 @@ export function PendingMarkRowSkeleton() {
           <SkeletonText width="24ch" />
         </p>
       </div>
-      <div className="grid grid-cols-[1fr_auto_auto] items-center gap-2 sm:flex">
-        <div className="sm:w-32">
+      <div className="grid grid-cols-2 items-center gap-2 sm:flex">
+        <div className="col-span-2 sm:w-32">
           <MoneyInput value={undefined} onValueChange={() => {}} disabled aria-label={t('summary.amount')} />
         </div>
-        <Button size="sm" disabled leftIcon={<CheckCircle2 aria-hidden />}>
+        <Button size="sm" disabled className="w-full sm:w-auto" leftIcon={<CheckCircle2 aria-hidden />}>
           {t('summary.markArrived')}
         </Button>
-        <Button size="sm" variant="outline" disabled leftIcon={<XCircle aria-hidden />}>
+        <Button size="sm" variant="outline" disabled className="w-full sm:w-auto" leftIcon={<XCircle aria-hidden />}>
           {t('summary.markNoShow')}
         </Button>
       </div>
