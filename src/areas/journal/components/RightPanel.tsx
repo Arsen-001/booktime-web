@@ -134,6 +134,8 @@ export function RightPanel({
         <div data-f="F-01-163 F-04-103" className="flex flex-col gap-3">
           <SearchInput
             autoFocus={inSheet}
+            // Лист берёт фокус на себя (useFocusTrap) — без метки «/» открывал поиск, а печатать было нельзя
+            data-autofocus={inSheet ? "" : undefined}
             debounceMs={200}
             defaultValue={query}
             onValueChange={(v) => {

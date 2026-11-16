@@ -14,6 +14,9 @@ import { IconButton } from '@/ui/IconButton';
 import { SkeletonText } from '@/ui/Skeleton';
 import { useToast } from '@/ui/Toast';
 
+/** Имя основной ссылки, которое заводят сервер и демо-данные (online.service ensurePrimaryLink, mock/slices/online) */
+const DEFAULT_LINK_NAME = 'Форма компании';
+
 export interface LinkCardProps {
   link: BookingLink;
   locationName: string | undefined;
@@ -48,7 +51,8 @@ export function LinkCard({ link, locationName, staffName, publicUrl, onDelete, o
             href={`/biz/online/links/${link.id}`}
             className="inline-flex min-h-10 items-center text-base font-semibold text-fg hover:underline"
           >
-            {link.name}
+            {/* Основную ссылку заводит сервер с именем «Форма компании» по-русски — на hy/en кабинете показываем перевод */}
+            {link.primary && link.name === DEFAULT_LINK_NAME ? t('links.defaultName') : link.name}
           </Link>
           {locationName && <p className="mt-0.5 text-sm text-muted">{t('links.card.forLocation', { name: locationName })}</p>}
         </div>
@@ -93,7 +97,7 @@ export function LinkCard({ link, locationName, staffName, publicUrl, onDelete, o
         />
       </div>
 
-      <LinkQrModal open={qrOpen} onOpenChange={setQrOpen} url={publicUrl} title={link.name} />
+      <LinkQrModal open={qrOpen} onOpenChange={setQrOpen} url={publicUrl} title={link.primary && link.name === DEFAULT_LINK_NAME ? t('links.defaultName') : link.name} />
 
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">

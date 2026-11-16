@@ -8,7 +8,7 @@ import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
 import { Button } from "@/ui/Button";
 import { Popover } from "@/ui/Popover";
-import { Skeleton } from "@/ui/Skeleton";
+import { Skeleton, SkeletonText } from "@/ui/Skeleton";
 import { Tooltip } from "@/ui/Tooltip";
 import { Info } from "lucide-react";
 
@@ -70,7 +70,10 @@ export function DaySummaryButton({ businessId, date }: DaySummaryButtonProps) {
           size="sm"
           data-f="F-01-011"
         >
-          {query.data ? format.money(query.data.cashIn) : "…"}
+          {/* Одна сумма без подписи была непонятной кнопкой («5 000 ֏ ▾» в «Ещё»): подпись и сумма; до ответа — полоса
+              того же места, а не «…», чтобы кнопка не меняла ширину */}
+          <span className="text-muted">{t("header.daySummary.title")}</span>
+          <span className="font-semibold">{query.data ? format.money(query.data.cashIn) : <SkeletonText width="7ch" />}</span>
         </Button>
       )}
     >

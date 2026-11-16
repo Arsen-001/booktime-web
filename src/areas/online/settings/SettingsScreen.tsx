@@ -22,7 +22,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { useSystemSettings } from '@/api/settings';
 import { useCurrent } from '@/demo/hooks';
 import type { AcceptsWhom, ConfirmMode, Id, LocaleCode, Staff } from '@/domain/core';
-import { MARKET_TIMEZONE_LABEL, reviewModeOf, type ClientFieldType, type ClientFieldTarget, type ReviewMode } from '@/domain/online';
+import { DEFAULT_CLIENT_FIELDS, reviewModeOf, type ClientFieldType, type ClientFieldTarget, type ReviewMode } from '@/domain/online';
 import { today } from '@/lib/date';
 import { useT } from '@/i18n/useT';
 import { useOnlineAccess } from '@/areas/online/access';
@@ -301,7 +301,7 @@ function PauseBanner({ businessId, rules, onSaved }: { businessId: Id; rules: Aw
             </div>
             <div className="rounded-lg bg-surface p-2">
               <p className="text-xs text-muted">{t('settings.format.timezone')}</p>
-              <p className="text-fg">{MARKET_TIMEZONE_LABEL}</p>
+              <p className="text-fg">{t('settings.format.timezoneValue')}</p>
             </div>
           </div>
           <FormField label={t('settings.format.hourCycle')} hint={t('settings.format.hourCycleHint')}>
@@ -741,7 +741,10 @@ function ClientFieldsCard({
   const toast = useToast();
   const [commentHidden, setCommentHidden] = useState(config.commentHidden);
   const [commentRequired, setCommentRequired] = useState(config.commentRequired);
-  const [commentLabel, setCommentLabel] = useState(config.commentLabel);
+  // Стандартная подпись хранится по-русски (DEFAULT_CLIENT_FIELDS): в поле — пусто с переведённой подсказкой, иначе в
+  // английском и армянском кабинете стояло «Комментарий к записи» (проход кабинета 17.11.2026)
+  const storedCommentLabel = config.commentLabel === DEFAULT_CLIENT_FIELDS.commentLabel ? '' : config.commentLabel;
+  const [commentLabel, setCommentLabel] = useState(storedCommentLabel);
   const [emailHidden, setEmailHidden] = useState(config.emailHidden);
   const [emailRequired, setEmailRequired] = useState(config.emailRequired);
   const [lastNameEnabled, setLastNameEnabled] = useState(config.lastNameEnabled);
@@ -763,7 +766,7 @@ function ClientFieldsCard({
   const dirty =
     commentHidden !== config.commentHidden ||
     commentRequired !== config.commentRequired ||
-    commentLabel !== config.commentLabel ||
+    commentLabel !== storedCommentLabel ||
     emailHidden !== config.emailHidden ||
     emailRequired !== config.emailRequired ||
     lastNameEnabled !== config.lastNameEnabled ||
@@ -777,7 +780,7 @@ function ClientFieldsCard({
       await saveMutation.mutate({
         commentHidden,
         commentRequired,
-        commentLabel: commentLabel.trim().slice(0, 60) || 'Комментарий к записи',
+        commentLabel: commentLabel.trim().slice(0, 60) || DEFAULT_CLIENT_FIELDS.commentLabel,
         emailHidden,
         emailRequired,
         lastNameEnabled,
@@ -845,7 +848,7 @@ function ClientFieldsCard({
     },
     {
       key: 'comment',
-      label: commentLabel || t('settings.clientFields.commentLabel'),
+      label: commentLabel || t('booking.details.comment'),
       ask: !commentHidden,
       onAsk: (v) => setCommentHidden(!v),
       required: commentRequired,
@@ -958,7 +961,13 @@ function ClientFieldsCard({
           {editingCommentLabel && (
             <div className="mt-2">
               <FormField label={t('settings.clientFields.commentLabel')} hint={t('settings.clientFields.commentLabelHint')}>
-                <Input value={commentLabel} onChange={(e) => setCommentLabel(e.target.value.slice(0, 60))} maxLength={60} disabled={commentHidden} />
+                <Input
+                  value={commentLabel}
+                  placeholder={t('booking.details.comment')}
+                  onChange={(e) => setCommentLabel(e.target.value.slice(0, 60))}
+                  maxLength={60}
+                  disabled={commentHidden}
+                />
               </FormField>
             </div>
           )}
