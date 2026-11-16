@@ -7,6 +7,7 @@ import { BIZ_PERSONAS } from '@/demo/settings';
 import { useDemo, usePermissions } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
+import { FrozenBanner } from '@/shell/biz/FrozenBanner';
 import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { TopSearch } from '@/shell/biz/TopSearch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
@@ -64,6 +65,7 @@ export function BizShell({ children }: { children: ReactNode }) {
         </>
       }
       drawerTop={<LocationSwitcher className="w-full max-w-none" />}
+      topBanner={<FrozenBanner />}
     >
       {children}
     </WorkspaceShell>

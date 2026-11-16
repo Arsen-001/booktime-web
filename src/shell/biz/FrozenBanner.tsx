@@ -1,0 +1,39 @@
+'use client';
+
+import Link from 'next/link';
+import { Lock } from 'lucide-react';
+import { useApiQuery } from '@/api/request';
+import { subscriptionWarnings } from '@/api/settings';
+import { useCan, useCurrent } from '@/demo/hooks';
+import { useT } from '@/i18n/useT';
+import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
+
+/**
+ * Подписка заморожена — полоса на всех страницах кабинета (проход 17.11.2026). Сервер в заморозке разрешает только
+ * чтение (423 frozen на любую запись), а кабинет выглядел как обычно: запись «Записать» падала с «Не получилось.
+ * Попробуйте ещё раз». Владельцу — «Продлить» (оплата в /biz/billing), мастеру и администратору — что делать: продлит
+ * владелец. Заканчивающийся срок и пробный месяц — по-прежнему только на «Подписке» и хабе настроек (SubscriptionBanner).
+ */
+export function FrozenBanner() {
+  const t = useT('common');
+  const { businessId, ready } = useCurrent();
+  const canBilling = useCan('billing.manage');
+  const hidePurchases = useHideDigitalPurchases();
+  const q = useApiQuery(['shell', 'billing-warnings', businessId], () => subscriptionWarnings(businessId!), {
+    enabled: ready && Boolean(businessId),
+  });
+  const frozen = q.data?.some((w) => w.messageKey === 'billing.warning.frozen');
+  if (!frozen) return null;
+  const owner = canBilling && !hidePurchases;
+  return (
+    <div role="status" className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
+      <Lock aria-hidden className="size-4 shrink-0" />
+      <span className="min-w-0 flex-1">{owner ? t('frozen.owner') : t('frozen.staff')}</span>
+      {owner && (
+        <Link href="/biz/billing" className="inline-flex min-h-9 items-center rounded-lg bg-danger px-3 font-semibold text-primary-contrast hover:opacity-90">
+          {t('frozen.renew')}
+        </Link>
+      )}
+    </div>
+  );
+}

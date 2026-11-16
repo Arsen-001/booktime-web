@@ -36,6 +36,8 @@ export interface WorkspaceShellProps {
   topBarEnd?: ReactNode;
   /** Вверху выезжающего меню телефона (переключатель филиала) */
   drawerTop?: ReactNode;
+  /** Над содержимым каждой страницы (кабинет: «Подписка заморожена») */
+  topBanner?: ReactNode;
   children: ReactNode;
 }
 
@@ -54,6 +56,7 @@ export function WorkspaceShell({
   topBarStart,
   topBarEnd,
   drawerTop,
+  topBanner,
   children,
 }: WorkspaceShellProps) {
   const t = useT('common');
@@ -209,6 +212,7 @@ export function WorkspaceShell({
         {/* Снизу запас 96 px на компьютере: плавающая демо-кнопка (DemoSwitcher, 72 px от низа) не закрывает переключатель
             страниц и последние кнопки, когда долистали до конца */}
         <main id="content" className="relative flex-1 px-4 pt-5 pb-10 md:px-6 md:pb-24 lg:px-8 lg:pt-7">
+          {topBanner}
           <PageTransition>{children}</PageTransition>
           {/* Нажали ссылку — полоска и скелет сразу, не дожидаясь новой страницы */}
           <NavPendingFeedback />
