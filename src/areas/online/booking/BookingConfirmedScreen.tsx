@@ -89,7 +89,10 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
   const [now, setNow] = useState(() => Date.now());
 
   const prepaymentInfo = q.data?.booking.prepayment;
-  const paymentReported = Boolean(q.data?.meta?.prepaymentReportedAt);
+  // Сервер хранит «сообщил об оплате» в самой предоплате (prepayment.clientMarkedPaidAt), мок — в meta. Раньше в режиме
+  // api после «Я оплатил» блок оплаты оставался и писал «Время на оплату истекло» (таймер снят сервером), хотя оплата
+  // принята (проход кабинета 17.11.2026)
+  const paymentReported = Boolean(q.data?.meta?.prepaymentReportedAt || q.data?.booking.prepayment?.clientMarkedPaidAt);
   const awaitingPrepayment = q.data?.booking.status === 'awaiting_prepayment' && Boolean(prepaymentInfo) && !prepaymentInfo?.paid;
   // holdUntil — местное время Еревана без пояса: переводим в настоящее время через сдвиг «Ереван − устройство»,
   // иначе у клиента в другом поясе таймер оплаты врёт на часы
