@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   // React Compiler: сам запоминает компоненты и значения — перерисовывается только то, чьи данные
   // поменялись (замер и решение — docs/STATE.md). Выключить у одного компонента — 'use no memo'.
   reactCompiler: true,
+  // Кэш next dev на диске (.next/dev) сам не чистится и рос до 56 ГБ (01.11.2026) — выключен (владелец, 16.11.2026).
+  // После перезапуска дев-сервера страницы собираются заново; scripts/ensure-dev.sh и так прогревает меню.
+  experimental: { turbopackFileSystemCacheForDev: false },
   // Sentry — только ошибки (tracesSampleRate: 0, без Replay). Флаги сборки SDK, как `bundleSizeOptimizations`
   // у withSentryConfig (его webpack.treeshake с Turbopack не работает): вырезают из бандла трассировку
   // (browserTracingIntegration, спаны, web-vitals), отладочные логи SDK и части Replay. Отчёты об ошибках остаются.
