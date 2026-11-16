@@ -266,7 +266,7 @@ export function PackageFormScreen({ packageId }: PackageFormScreenProps) {
                   setName(v);
                   if (v.ru.trim()) setNameError(undefined);
                 }}
-                labels={{ ru: t('form.nameRu'), en: t('form.nameEn') }}
+                labels={{ hy: t('form.nameHy'), ru: t('form.nameRu'), en: t('form.nameEn') }}
                 placeholder={t('packages.namePlaceholder')}
                 error={nameError}
               />
@@ -472,7 +472,7 @@ export function PackageFormScreen({ packageId }: PackageFormScreenProps) {
               <LocalizedNameField
                 value={name}
                 onValueChange={setName}
-                labels={{ ru: t('form.nameRu'), en: t('form.nameEn') }}
+                labels={{ hy: t('form.nameHy'), ru: t('form.nameRu'), en: t('form.nameEn') }}
                 placeholder={t('packages.namePlaceholder')}
               />
             </div>

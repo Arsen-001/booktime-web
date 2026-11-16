@@ -40,7 +40,7 @@ export function ResourceFields({ draft, onDraftChange, errors, serviceOptions, l
         <LocalizedNameField
           value={draft.name}
           onValueChange={(name) => onDraftChange({ name })}
-          labels={{ ru: t('form.nameRu'), en: t('form.nameEn') }}
+          labels={{ hy: t('form.nameHy'), ru: t('form.nameRu'), en: t('form.nameEn') }}
           placeholder={t('form.namePlaceholder')}
           error={errors.name}
           disabled={disabled}
