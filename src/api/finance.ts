@@ -1225,16 +1225,8 @@ export function bookingPaymentBriefSync(businessId: Id, booking: Booking): Booki
  * бизнеса и удалённые пропускаются.
  */
 export function listBookingPaymentSummaries(businessId: Id, bookingIds: Id[]): Promise<Record<Id, BookingPaymentBrief>> {
-  if (isApiMode()) {
-    return Promise.all(
-      bookingIds.map((id) =>
-        Server.getBookingPaymentSummary(businessId, id).then(
-          (s) => [id, briefOf(s)] as const,
-          () => undefined,
-        ),
-      ),
-    ).then((rows) => Object.fromEntries(rows.filter((r): r is readonly [Id, BookingPaymentBrief] => Boolean(r))));
-  }
+  // Сервер — одним запросом на пачку (раньше запрос на каждую запись: 1418 запросов на странице «Записи», 9–11 с)
+  if (isApiMode()) return bookingIds.length ? Server.listBookingPaymentBriefs(businessId, bookingIds) : Promise.resolve({});
   return request(() => {
     const wanted = new Set(bookingIds);
     const out: Record<Id, BookingPaymentBrief> = {};

@@ -546,6 +546,16 @@ export interface ReadTracker {
 /** Состояние как есть — для кода самой базы (сид, подъём), без учёта чтений */
 const rawGetState = useDb.getState;
 
+/**
+ * Режим api: зеркало ядра (src/api/mirror.ts) и поиск «чей это id» в *.server.ts — служебные чтения, а не данные
+ * экрана. Без учёта и без предупреждения «вне request()»: раньше такое чтение засчитывалось всем идущим запросам
+ * (запасной получатель), и каждая запись зеркала перечитывала их все — сессию, колокольчик, список записей —
+ * волнами по 5–6 раз за открытие страницы (проход кабинета 17.11.2026).
+ */
+export function readDbUntracked(): DbState {
+  return rawGetState();
+}
+
 let activeTracker: ReadTracker | undefined;
 let fallbackTracker: ReadTracker | undefined;
 

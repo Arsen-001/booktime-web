@@ -14,18 +14,18 @@ import { ApiError, trackRead } from '@/api/request';
 import { bizOf } from '@/api/staff.server';
 import type { Id, LocalizedText, Service, ServiceCategory, Staff } from '@/domain/core';
 import type { ServiceExtra, StaffServiceTerm, TechBreakMode } from '@/domain/services';
-import { useDb, notifyDbChange } from '@/mock/db';
+import { readDbUntracked, notifyDbChange } from '@/mock/db';
 
 /** Этап 21 «network», попытка 3: экспортирован — `network.server.ts` резолвит бизнес услуги по её id
  * (`getServiceNetworkInfo(serviceId)`: мок несёт только serviceId, без businessId). */
 export function bizOfService(serviceId?: Id): Id {
-  const fromMirror = serviceId ? useDb.getState().core.services.find((s) => s.id === serviceId)?.businessId : undefined;
+  const fromMirror = serviceId ? readDbUntracked().core.services.find((s) => s.id === serviceId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;
 }
 function bizOfCategory(categoryId?: Id): Id {
-  const fromMirror = categoryId ? useDb.getState().core.serviceCategories.find((c) => c.id === categoryId)?.businessId : undefined;
+  const fromMirror = categoryId ? readDbUntracked().core.serviceCategories.find((c) => c.id === categoryId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;

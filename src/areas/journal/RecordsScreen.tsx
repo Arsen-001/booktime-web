@@ -26,6 +26,7 @@ import {
 } from '@/api/journal';
 import { bookingCategoryLabel } from '@/areas/journal/lib/bookingCategoryLabel';
 import { listBookingPaymentSummaries } from '@/api/finance';
+import { isApiMode } from '@/api/http';
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
@@ -566,7 +567,8 @@ export function RecordsScreen() {
                 ]}
               />
             )}
-            {canCreateAny && (
+            {/* Демо-форма «как у бота»: на живом сайте бот зовёт API сам — кнопки нет (не обманываем: «Демо» в кабинете) */}
+            {canCreateAny && !isApiMode() && (
               <Button
                 data-f="F-01-036 F-13-108"
                 type="button"

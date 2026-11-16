@@ -1,5 +1,6 @@
 'use client';
 
+import { isApiMode } from '@/api/http';
 /**
  * Экран «Цифровой журнал» (пачка b05): F-01-155, F-01-167…180.
  * Одна страница настроек журнала — все поля сохраняются одной кнопкой (F-01-168). Права доступа
@@ -322,7 +323,8 @@ export function JournalSettingsScreen() {
             </div>
           </SectionCard>
 
-          <ChatSection form={form} patch={patch} businessId={businessId} t={t} />
+          {/* Чат подключается только в демо (кнопка «Демо: подключить чат»): на живом сайте подключения нет — раздела нет */}
+          {!isApiMode() && <ChatSection form={form} patch={patch} businessId={businessId} t={t} />}
 
         </>
       )}

@@ -24,7 +24,7 @@ import { apiIdentity } from '@/api/identity';
 import type { Booking, Business, CalendarMark, Client, CoreData, GroupEvent, Id, Location, Network, Resource, Service, ServiceCategory, Staff, WorkSchedule } from '@/domain/core';
 import type { BookingExtras, PackageGroup } from '@/domain/journal';
 import type { DayRecord, PlanningPeriodYears, ServiceSlotWindow, SlotRule, UnavailableRange } from '@/domain/schedule';
-import { dbReady, notifyDbChange, useDb } from '@/mock/db';
+import { dbReady, notifyDbChange, readDbUntracked } from '@/mock/db';
 
 export interface CoreSnapshot {
   businesses: Business[];
@@ -75,7 +75,7 @@ function upsert<T extends { id: Id }>(list: T[], items: T[]): T[] {
 
 /** Положить сущности сервера в ядро (по id: есть — заменить, нет — добавить) */
 export function mirrorCore(part: Partial<Pick<CoreData, Mirrored>>): void {
-  useDb.getState().setCore((core) => ({
+  readDbUntracked().setCore((core) => ({
     ...core,
     businesses: upsert(core.businesses, part.businesses ?? []),
     locations: upsert(core.locations, part.locations ?? []),
@@ -89,18 +89,18 @@ export function mirrorCore(part: Partial<Pick<CoreData, Mirrored>>): void {
 
 /** Убрать из зеркала (сотрудник/услуга/ресурс удалены на сервере) */
 export function unmirror(collection: Mirrored, id: Id): void {
-  useDb.getState().setCore((core) => ({ ...core, [collection]: (core[collection] as { id: Id }[]).filter((x) => x.id !== id) }));
+  readDbUntracked().setCore((core) => ({ ...core, [collection]: (core[collection] as { id: Id }[]).filter((x) => x.id !== id) }));
 }
 
 /** Клиенты — по мере обращения раздела `clients` (см. комментарий выше), не в общем `mirrorCore`/`CoreSnapshot` */
 export function mirrorClients(clients: Client[]): void {
   if (!clients.length) return;
-  const core = useDb.getState().core;
-  if (upsert(core.clients, clients) !== core.clients) useDb.getState().setCore((c) => ({ ...c, clients: upsert(c.clients, clients) }));
+  const core = readDbUntracked().core;
+  if (upsert(core.clients, clients) !== core.clients) readDbUntracked().setCore((c) => ({ ...c, clients: upsert(c.clients, clients) }));
 }
 
 export function unmirrorClient(id: Id): void {
-  useDb.getState().setCore((core) => ({ ...core, clients: core.clients.filter((c) => c.id !== id) }));
+  readDbUntracked().setCore((core) => ({ ...core, clients: core.clients.filter((c) => c.id !== id) }));
 }
 
 /**
@@ -109,7 +109,7 @@ export function unmirrorClient(id: Id): void {
  */
 export function mirrorSnapshot(snap: CoreSnapshot): void {
   const ids = new Set(snap.businesses.map((b) => b.id));
-  useDb.getState().setCore((core) => ({
+  readDbUntracked().setCore((core) => ({
     ...core,
     businesses: upsert(core.businesses, snap.businesses),
     locations: upsert(
@@ -183,7 +183,7 @@ export interface ScheduleMirror {
  */
 export function mirrorSchedule(businessId: Id, m: ScheduleMirror): void {
   const staff = new Set(m.staffIds);
-  const state = useDb.getState();
+  const state = readDbUntracked();
   const locations = new Set(state.core.locations.filter((l) => l.businessId === businessId).map((l) => l.id));
   const services = new Set(state.core.services.filter((sv) => sv.businessId === businessId).map((sv) => sv.id));
   const ours = (key: string) => {
@@ -247,13 +247,25 @@ export interface BookingsMirror {
  */
 export function mirrorBookingsSnapshot(m: BookingsMirror): void {
   const ids = new Set(m.businessIds);
-  const state = useDb.getState();
-  state.setCore((core) => ({
-    ...core,
-    bookings: [...core.bookings.filter((b) => !ids.has(b.businessId)), ...m.bookings],
-    groupEvents: [...core.groupEvents.filter((e) => !ids.has(e.businessId)), ...m.groupEvents],
-    clients: upsert(core.clients, m.clients),
-  }));
+  const state = readDbUntracked();
+  // Снимок покрывает только свои даты (from…to): записи вне них (старее 400 дней — их приносит список «Записи»)
+  // не выбрасываем. И ничего не пишем, если снимок тот же: раньше каждый снимок выбрасывал 4 старые записи Nuri,
+  // список «Записи» добавлял их обратно — и они перечитывали друг друга по кругу (проход кабинета 17.11.2026)
+  const inSnapshot = (x: { businessId: Id; start: string }) => {
+    const day = x.start.slice(0, 10);
+    return ids.has(x.businessId) && (!m.from || day >= m.from) && (!m.to || day <= m.to);
+  };
+  const core = state.core;
+  const sameBookings = sameJson(core.bookings.filter(inSnapshot), m.bookings);
+  const sameEvents = sameJson(core.groupEvents.filter(inSnapshot), m.groupEvents);
+  if (!sameBookings || !sameEvents || upsert(core.clients, m.clients) !== core.clients) {
+    state.setCore((c) => ({
+      ...c,
+      bookings: sameBookings ? c.bookings : [...c.bookings.filter((b) => !inSnapshot(b)), ...m.bookings],
+      groupEvents: sameEvents ? c.groupEvents : [...c.groupEvents.filter((e) => !inSnapshot(e)), ...m.groupEvents],
+      clients: upsert(c.clients, m.clients),
+    }));
+  }
   const own = new Set(m.bookings.map((b) => b.id));
   const breaks = Object.fromEntries(
     Object.entries(m.extras)
@@ -285,24 +297,24 @@ export async function syncBookings(businessIds: Id[]): Promise<void> {
 /** Положить записи сервера в ядро (по id) — после каждой записи раздела */
 export function mirrorBookings(bookings: Booking[]): void {
   if (!bookings.length) return;
-  const core = useDb.getState().core;
+  const core = readDbUntracked().core;
   const next = upsert(core.bookings, bookings);
-  if (next !== core.bookings) useDb.getState().setCore((c) => ({ ...c, bookings: upsert(c.bookings, bookings) }));
+  if (next !== core.bookings) readDbUntracked().setCore((c) => ({ ...c, bookings: upsert(c.bookings, bookings) }));
 }
 
 /** Доп. данные визита — в срез journal браузера (те же — не трогаем) */
 export function mirrorExtras(bookingId: Id, extras: BookingExtras): void {
-  if (sameJson(useDb.getState().areas.journal?.extras?.[bookingId], extras)) return;
-  useDb.getState().setArea('journal', (area) => ({ ...area, extras: { ...area.extras, [bookingId]: extras } }));
+  if (sameJson(readDbUntracked().areas.journal?.extras?.[bookingId], extras)) return;
+  readDbUntracked().setArea('journal', (area) => ({ ...area, extras: { ...area.extras, [bookingId]: extras } }));
 }
 
 export function mirrorGroupEvents(events: GroupEvent[]): void {
   if (!events.length) return;
-  const core = useDb.getState().core;
-  if (upsert(core.groupEvents, events) !== core.groupEvents) useDb.getState().setCore((c) => ({ ...c, groupEvents: upsert(c.groupEvents, events) }));
+  const core = readDbUntracked().core;
+  if (upsert(core.groupEvents, events) !== core.groupEvents) readDbUntracked().setCore((c) => ({ ...c, groupEvents: upsert(c.groupEvents, events) }));
 }
 
 export function mirrorPackageGroup(group: PackageGroup): void {
-  if (sameJson(useDb.getState().areas.journal?.packageGroups?.[group.id], group)) return;
-  useDb.getState().setArea('journal', (area) => ({ ...area, packageGroups: { ...area.packageGroups, [group.id]: group } }));
+  if (sameJson(readDbUntracked().areas.journal?.packageGroups?.[group.id], group)) return;
+  readDbUntracked().setArea('journal', (area) => ({ ...area, packageGroups: { ...area.packageGroups, [group.id]: group } }));
 }

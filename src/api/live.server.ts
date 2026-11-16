@@ -9,15 +9,14 @@
 import { API_URL } from '@/api/http';
 import { syncBookings, syncSchedule } from '@/api/mirror';
 import type { Id } from '@/domain/core';
-import { useDb } from '@/mock/db';
+import { readDbUntracked } from '@/mock/db';
 
 const MAX_CHANNELS = 20;
 const DEBOUNCE_MS = 700;
 
 export function startLive(businessId: Id, businessIds: Id[] = [businessId]): () => void {
   if (typeof window === 'undefined' || typeof EventSource === 'undefined') return () => undefined;
-  const staff = useDb
-    .getState()
+  const staff = readDbUntracked()
     .core.staff.filter((s) => s.businessId === businessId && s.status !== 'fired')
     .slice(0, MAX_CHANNELS - 1)
     .map((s) => `staff:${s.id}`);

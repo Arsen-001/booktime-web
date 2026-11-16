@@ -42,7 +42,7 @@ import type {
   VisitScheduleEntry,
   WaitlistEntry,
 } from '@/domain/resources';
-import { useDb, notifyDbChange } from '@/mock/db';
+import { readDbUntracked, notifyDbChange } from '@/mock/db';
 import type {
   AddParticipantInput,
   AssistantEligibleStaff,
@@ -60,13 +60,13 @@ import type {
 } from '@/api/resources';
 
 function bizOfResource(resourceId?: Id): Id {
-  const fromMirror = resourceId ? useDb.getState().core.resources.find((r) => r.id === resourceId)?.businessId : undefined;
+  const fromMirror = resourceId ? readDbUntracked().core.resources.find((r) => r.id === resourceId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;
 }
 function bizOfPackage(serviceId?: Id): Id {
-  const fromMirror = serviceId ? useDb.getState().core.services.find((s) => s.id === serviceId)?.businessId : undefined;
+  const fromMirror = serviceId ? readDbUntracked().core.services.find((s) => s.id === serviceId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;
@@ -341,13 +341,13 @@ export function setGroupServicePayment(
 // ─────────────────────────────────────────────────────────────────────────────────────────────
 
 function bizOfEvent(eventId?: Id): Id {
-  const fromMirror = eventId ? useDb.getState().core.groupEvents?.find((e) => e.id === eventId)?.businessId : undefined;
+  const fromMirror = eventId ? readDbUntracked().core.groupEvents?.find((e) => e.id === eventId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;
 }
 function bizOfBooking(bookingId?: Id): Id {
-  const fromMirror = bookingId ? useDb.getState().core.bookings?.find((b) => b.id === bookingId)?.businessId : undefined;
+  const fromMirror = bookingId ? readDbUntracked().core.bookings?.find((b) => b.id === bookingId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;

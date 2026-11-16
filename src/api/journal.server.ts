@@ -38,7 +38,7 @@ import type {
 import type { PlaceBookingInput } from '@/domain/rules/booking-flow';
 import type { StatusActor } from '@/domain/rules/booking-status';
 import type { SeriesOccurrence, SeriesRule } from '@/domain/schedule';
-import { useDb } from '@/mock/db';
+import { readDbUntracked } from '@/mock/db';
 
 // ─────────── чей бизнес ───────────
 
@@ -50,17 +50,17 @@ function sessionBiz(): Id {
 
 /** Бизнес записи — из зеркала, иначе из сессии */
 export function bizOfBooking(bookingId: Id): Id {
-  return useDb.getState().core.bookings.find((b) => b.id === bookingId)?.businessId ?? sessionBiz();
+  return readDbUntracked().core.bookings.find((b) => b.id === bookingId)?.businessId ?? sessionBiz();
 }
 /** Бизнес мастера из зеркала, иначе из сессии (для фасадов других разделов, которым нельзя читать базу напрямую) */
 export function bizOfStaffOrSession(staffId?: Id): Id {
   return bizOfStaff(staffId);
 }
 function bizOfStaff(staffId?: Id): Id {
-  return (staffId ? useDb.getState().core.staff.find((s) => s.id === staffId)?.businessId : undefined) ?? sessionBiz();
+  return (staffId ? readDbUntracked().core.staff.find((s) => s.id === staffId)?.businessId : undefined) ?? sessionBiz();
 }
 function bizOfClient(clientId?: Id): Id {
-  return (clientId ? useDb.getState().core.clients.find((c) => c.id === clientId)?.businessId : undefined) ?? sessionBiz();
+  return (clientId ? readDbUntracked().core.clients.find((c) => c.id === clientId)?.businessId : undefined) ?? sessionBiz();
 }
 
 const b = (businessId: Id) => `/v1/biz/${businessId}`;
@@ -298,7 +298,7 @@ export async function createGroupEvent(input: Omit<GroupEvent, 'id' | 'createdAt
 }
 
 export async function updateGroupEvent(id: Id, patch: Partial<Omit<GroupEvent, 'id' | 'createdAt'>>): Promise<GroupEvent> {
-  const businessId = useDb.getState().core.groupEvents.find((e) => e.id === id)?.businessId ?? sessionBiz();
+  const businessId = readDbUntracked().core.groupEvents.find((e) => e.id === id)?.businessId ?? sessionBiz();
   const { businessId: _b, ...body } = patch;
   void _b;
   const e = await http<GroupEvent>('PATCH', `${b(businessId)}/events/${id}`, body);
@@ -347,10 +347,10 @@ async function flushExtrasBatch(): Promise<void> {
 
 /** Пачка доп. данных — одной записью в срез (одно уведомление читателям, а не по одному на строку) */
 function mirrorExtrasMany(all: Record<Id, BookingExtras>): void {
-  const current = useDb.getState().areas.journal.extras;
+  const current = readDbUntracked().areas.journal.extras;
   const changed = Object.entries(all).filter(([id, e]) => !sameJson(current[id] ?? EMPTY_EXTRAS, e));
   if (!changed.length) return;
-  useDb.getState().setArea('journal', (area) => ({ ...area, extras: { ...area.extras, ...Object.fromEntries(changed) } }));
+  readDbUntracked().setArea('journal', (area) => ({ ...area, extras: { ...area.extras, ...Object.fromEntries(changed) } }));
 }
 
 async function refreshExtras(bookingId: Id): Promise<void> {
@@ -490,7 +490,7 @@ export function history(bookingId: Id): Promise<BookingHistoryEntry[]> {
 
 export async function logHistory(bookingId: Id, input: { authorName: string; action: BookingHistoryEntry['action']; summary: string }): Promise<BookingHistoryEntry> {
   const entry = await http<BookingHistoryEntry>('POST', `${b(bizOfBooking(bookingId))}/bookings/${bookingId}/history`, input);
-  useDb.getState().setArea('journal', (area) => ({ ...area, history: { ...area.history, [bookingId]: [...(area.history[bookingId] ?? []), entry] } }));
+  readDbUntracked().setArea('journal', (area) => ({ ...area, history: { ...area.history, [bookingId]: [...(area.history[bookingId] ?? []), entry] } }));
   return entry;
 }
 
@@ -517,7 +517,7 @@ export interface JournalConfig {
 
 /** Настройки журнала — в срез journal браузера: экраны и расчёты журнала читают их оттуда (то же — не трогаем) */
 function mirrorConfig(c: JournalConfig): JournalConfig {
-  const area = useDb.getState().areas.journal;
+  const area = readDbUntracked().areas.journal;
   const next = {
     settings: c.settings,
     visitIntervalMin: c.visitIntervalMin,
@@ -537,7 +537,7 @@ function mirrorConfig(c: JournalConfig): JournalConfig {
     },
   };
   const changed = Object.fromEntries(Object.entries(next).filter(([k, v]) => !sameJson((area as unknown as Record<string, unknown>)[k], v)));
-  if (Object.keys(changed).length) useDb.getState().setArea('journal', (a) => ({ ...a, ...changed }));
+  if (Object.keys(changed).length) readDbUntracked().setArea('journal', (a) => ({ ...a, ...changed }));
   return c;
 }
 
@@ -586,7 +586,7 @@ export interface CheckResult {
 
 export function check(input: { staffId?: Id; start: ISODateTime; durationMin: number; excludeBookingId?: Id; resourceId?: Id; instanceId?: Id; locationId?: Id; clientId?: Id; workplace?: string }): Promise<CheckResult> {
   reads();
-  const businessId = input.staffId ? bizOfStaff(input.staffId) : input.locationId ? (useDb.getState().core.locations.find((l) => l.id === input.locationId)?.businessId ?? sessionBiz()) : input.clientId ? bizOfClient(input.clientId) : sessionBiz();
+  const businessId = input.staffId ? bizOfStaff(input.staffId) : input.locationId ? (readDbUntracked().core.locations.find((l) => l.id === input.locationId)?.businessId ?? sessionBiz()) : input.clientId ? bizOfClient(input.clientId) : sessionBiz();
   return http<CheckResult>('POST', `${b(businessId)}/journal/check`, input);
 }
 
@@ -780,19 +780,19 @@ export async function closeClaim(token: string): Promise<{ bookingId: Id }> {
 
 export async function setClientTags(clientId: Id, tags: string[]): Promise<void> {
   await http('PUT', `${b(bizOfClient(clientId))}/clients/${clientId}/window-tags`, { tags });
-  useDb.getState().setCore((core) => ({ ...core, clients: core.clients.map((c) => (c.id === clientId ? { ...c, tags } : c)) }));
+  readDbUntracked().setCore((core) => ({ ...core, clients: core.clients.map((c) => (c.id === clientId ? { ...c, tags } : c)) }));
 }
 
 export async function setClientNote(clientId: Id, note: string): Promise<void> {
   const C = await import('@/api/clients/clients.server');
   await C.updateClientNote(bizOfClient(clientId), clientId, note);
-  useDb.getState().setCore((core) => ({ ...core, clients: core.clients.map((c) => (c.id === clientId ? { ...c, note } : c)) }));
+  readDbUntracked().setCore((core) => ({ ...core, clients: core.clients.map((c) => (c.id === clientId ? { ...c, note } : c)) }));
 }
 
 /** F-01-032: перерыв под записью — в доп. данных записи на сервере и в prefs среза (его читает сетка) */
 export async function setBreakOverride(bookingId: Id, minutes: number): Promise<void> {
   await setExtras(bookingId, { breakOverrideMin: minutes } as Partial<BookingExtras>);
-  useDb.getState().setArea('journal', (area) => ({ ...area, prefs: { ...area.prefs, breakOverrideMin: { ...area.prefs.breakOverrideMin, [bookingId]: minutes } } }));
+  readDbUntracked().setArea('journal', (area) => ({ ...area, prefs: { ...area.prefs, breakOverrideMin: { ...area.prefs.breakOverrideMin, [bookingId]: minutes } } }));
 }
 
 // ─────────── повтор записей ядра на сервере (core.withServerWrites) ───────────
@@ -811,7 +811,7 @@ export async function replayCoreWrites(ops: RecordedWrite[]): Promise<void> {
   const idMap = new Map<Id, Id>();
   const m = (id: unknown) => (typeof id === 'string' ? (idMap.get(id) ?? id) : id);
   const dropLocal = (collection: 'bookings' | 'groupEvents', id: Id) =>
-    useDb.getState().setCore((core) => ({ ...core, [collection]: (core[collection] as { id: Id }[]).filter((x) => x.id !== id) }));
+    readDbUntracked().setCore((core) => ({ ...core, [collection]: (core[collection] as { id: Id }[]).filter((x) => x.id !== id) }));
   const businessIds = new Set<Id>();
   try {
     for (const op of ops) {

@@ -32,7 +32,7 @@ import type {
   StaffPosition,
   StaffRoleTemplateId,
 } from '@/domain/staff';
-import { useDb, notifyDbChange } from '@/mock/db';
+import { readDbUntracked, notifyDbChange } from '@/mock/db';
 
 export interface ServerStaffRow {
   staff: Staff;
@@ -53,7 +53,7 @@ interface ServerAccess {
 
 /** Бизнес сотрудника: из зеркала ядра, иначе — текущий бизнес вошедшего */
 export function bizOf(staffId?: Id): Id {
-  const fromMirror = staffId ? useDb.getState().core.staff.find((s) => s.id === staffId)?.businessId : undefined;
+  const fromMirror = staffId ? readDbUntracked().core.staff.find((s) => s.id === staffId)?.businessId : undefined;
   const id = fromMirror ?? apiIdentity()?.businessId;
   if (!id) throw new ApiError('forbidden', 'No business in session');
   return id;

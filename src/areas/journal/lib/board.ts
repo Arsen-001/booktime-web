@@ -188,3 +188,50 @@ export function cardSizes(): CardSizes {
   // «Google Calendar». min 40 — зона нажатия пальцем (CONVENTIONS §10); 30-минутная запись заходит на следующую
   return { min: 40, stack: 44, service: 54, pill: 72 };
 }
+
+/** Горизонтальное место карточки в колонке: отступы слева и справа (CSS), поверх классов left/right карточки */
+export interface LanePlace {
+  left?: string;
+  right?: string;
+}
+
+/** Доля колонки справа под отменённые записи, которые легли на рабочую запись или свободное окно */
+const SIDE_LANE_PCT = 40;
+
+/**
+ * Отменённые записи («Отменил клиент/мастер») в сетке дня не накрывают живые (проход кабинета 17.11.2026: клиент
+ * отменил 10:00, на 10:00 записали другого — карточки и окно «Свободно» лежали друг на друге, текст по тексту).
+ * Отменённая запись, которая пересекается с живой записью, свободным окном или другой отменённой, уходит в полосу
+ * справа (40 % колонки; несколько одновременно — делят её поровну); живая запись и окно рядом с ней сужаются.
+ * Остальные карточки — как были. Ключ — id записи или `gap:<from>` для окна.
+ */
+export function sideLaneLayout(bookings: Booking[], gaps: { from: Minutes; to: Minutes }[]): Map<string, LanePlace> {
+  const out = new Map<string, LanePlace>();
+  const span = (b: Booking) => ({ from: startMinutes(b), to: startMinutes(b) + b.durationMin });
+  const cross = (a: { from: number; to: number }, b: { from: number; to: number }) => a.from < b.to && b.from < a.to;
+  const main = [
+    ...bookings.filter(isActiveBooking).map((b) => ({ key: b.id, ...span(b) })),
+    ...gaps.map((g) => ({ key: `gap:${g.from}`, from: g.from, to: g.to })),
+  ];
+  const inactive = bookings.filter((b) => !isActiveBooking(b)).map((b) => ({ key: b.id, ...span(b) }));
+  const side = inactive.filter((x) => main.some((m) => cross(m, x)) || inactive.some((y) => y.key !== x.key && cross(x, y)));
+  if (!side.length) return out;
+  // Полоса справа: пересекающиеся отменённые — в соседние дорожки (жадно по началу)
+  const sorted = [...side].sort((a, b) => a.from - b.from || a.to - b.to);
+  const laneEnds: number[] = [];
+  const laneOf = new Map<string, number>();
+  for (const x of sorted) {
+    let lane = laneEnds.findIndex((end) => end <= x.from);
+    if (lane < 0) lane = laneEnds.push(0) - 1;
+    laneEnds[lane] = x.to;
+    laneOf.set(x.key, lane);
+  }
+  const lanes = laneEnds.length;
+  const width = SIDE_LANE_PCT / lanes;
+  for (const x of sorted) {
+    const lane = laneOf.get(x.key)!;
+    out.set(x.key, { left: `calc(${100 - SIDE_LANE_PCT + lane * width}% + 2px)`, right: `calc(${(lanes - lane - 1) * width}% + 4px)` });
+  }
+  for (const m of main) if (sorted.some((x) => cross(m, x))) out.set(m.key, { right: `calc(${SIDE_LANE_PCT}% + 2px)` });
+  return out;
+}

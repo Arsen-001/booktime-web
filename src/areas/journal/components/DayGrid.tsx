@@ -75,8 +75,7 @@ import {
   isActiveBooking,
   startMinutes,
   staffLoad,
-  type Gap,
-} from "@/areas/journal/lib/board";
+  type Gap, sideLaneLayout } from "@/areas/journal/lib/board";
 import styles from "@/areas/journal/board.module.css";
 import type { OfferGap } from "@/areas/journal/components/GapOfferSheet";
 import {
@@ -384,6 +383,12 @@ export function DayGrid({
       return { per, gaps, revenue, status };
     });
   }, [live, layout, lateNow, date, bookingsByColumn, t, format, services, waitlistQuery.data]);
+
+  // Отменённые записи, легшие на живую запись или свободное окно, — в полосу справа (lib/board sideLaneLayout)
+  const lanesByCol = useMemo(
+    () => layout.cols.map(({ items }, i) => sideLaneLayout(items.map((it) => it.booking), live && !slotGaps ? (liveInfo?.[i].gaps ?? []) : [])),
+    [layout, liveInfo, live, slotGaps],
+  );
 
   const { range, ticks, heightPx, ppm } = layout;
 
@@ -774,7 +779,15 @@ export function DayGrid({
                     {live &&
                       !slotGaps &&
                       (liveInfo?.[colIndex].gaps ?? []).map((g) => {
-                        const gapHeight = (g.to - g.from) * ppm;
+                        // Короткая запись перед окном рисуется не ниже своей наименьшей высоты (15 мин «Выдача заказа») и
+                        // закрывала заголовок «Свободно …» — окно начинается под её нижним краем
+                        const naturalTop = minutesToTop(g.from, range, zoomMin) + 2;
+                        const coveredTo = items.reduce(
+                          (bottom, it) =>
+                            isActiveBooking(it.booking) && it.top < naturalTop && it.top + it.height + 2 > bottom ? it.top + it.height + 2 : bottom,
+                          naturalTop,
+                        );
+                        const gapHeight = (g.to - g.from) * ppm - (coveredTo - naturalTop);
                         const from = format.time(`${date}T${fromMinutes(g.from)}`);
                         const to = format.time(`${date}T${fromMinutes(g.to)}`);
                         const hot = date === today() && g.to - g.from >= 120;
@@ -783,7 +796,7 @@ export function DayGrid({
                             key={`free-${g.from}`}
                             role="group"
                             aria-label={t("board.live.free", { from, to })}
-                            style={{ top: minutesToTop(g.from, range, zoomMin) + 2, height: gapHeight - 4 }}
+                            style={{ top: coveredTo, height: gapHeight - 4, right: lanesByCol[colIndex]?.get(`gap:${g.from}`)?.right }}
                             onClick={(e) => {
                               e.stopPropagation();
                               if (canCreate) onCreate(column.id, fromMinutes(g.from));
@@ -889,6 +902,7 @@ export function DayGrid({
                           phase={liveInfo?.[colIndex].per[item.booking.id]?.phase}
                           progressPct={liveInfo?.[colIndex].per[item.booking.id]?.pct}
                           liveNote={liveInfo?.[colIndex].per[item.booking.id]?.note}
+                          lane={lanesByCol[colIndex]?.get(item.booking.id)}
                         />
                       );
                       return (

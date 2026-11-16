@@ -111,6 +111,8 @@ export interface BookingBlockProps {
   progressPct?: number;
   /** «Живой день»: «ещё 53 мин» у идущего, «опаздывает 7 мин» у опоздавшего */
   liveNote?: string;
+  /** Место по горизонтали, когда рядом отменённая запись (lib/board sideLaneLayout) — иначе на всю колонку */
+  lane?: { left?: string; right?: string };
   className?: string;
 }
 
@@ -141,6 +143,7 @@ function BookingBlockInner({
   phase,
   progressPct = 0,
   liveNote,
+  lane,
   className,
 }: BookingBlockProps) {
   const manualColorClass = extras?.colorIndex ? MANUAL_COLOR_BORDER[extras.colorIndex] : undefined;
@@ -262,6 +265,8 @@ function BookingBlockInner({
         ...toneVars,
         top,
         height: displayHeight,
+        left: lane?.left,
+        right: lane?.right,
         transform: transform ? CSS.Translate.toString(transform) : undefined,
         cursor: canMove ? 'grab' : undefined,
       }}

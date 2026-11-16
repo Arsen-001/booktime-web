@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { isApiMode } from '@/api/http';
 import { setApiIdentity, type ApiIdentity } from '@/api/identity';
 import { syncCore } from '@/api/mirror';
 import { startLive } from '@/api/live.server';
-import { usePlatformSession, useSession, type SessionMembership, type SessionView } from '@/api/session';
+import { getQueryClient } from '@/api/request';
+import { SESSION_KEY, setSessionMode, usePlatformSession, useSession, type SessionMembership, type SessionView } from '@/api/session';
 import type { Permission } from '@/config/permissions';
 import { useApplyDemo, useDemo } from '@/demo/hooks';
 import type { PersonaId } from '@/demo/settings';
@@ -66,6 +67,20 @@ export function SessionBridge() {
   const loaded = api && !q.isLoading && !q.isError;
   const membership = loaded && !onPlatform ? activeMembership(session.data ?? null) : undefined;
   const noBusiness = Boolean(loaded && !onPlatform && session.data && session.data.mode === 'business' && !membership);
+  // Человек вошёл как клиент (или нажал «В приложение клиента»), а потом открыл кабинет /biz: салон за номером есть —
+  // сессия сама переходит в режим бизнеса, как «Мой бизнес» в профиле; салона нет — регистрация салона (DESIGN.md
+  // «Вход на сайте — одна форма», 17.11.2026). Раньше здесь был экран «Выберите персону в демо-переключателе».
+  // Согласие клиента и приглашение в салон открываются по ссылке без кабинета — их не трогаем.
+  const clientOnBiz = Boolean(
+    loaded &&
+      !onPlatform &&
+      session.data?.mode === 'client' &&
+      pathname.startsWith('/biz') &&
+      !pathname.startsWith('/biz/clients/consent/') &&
+      !pathname.startsWith('/biz/onboarding/invite'),
+  );
+  const canSwitchToBusiness = clientOnBiz && (session.data?.memberships.length ?? 0) > 0;
+  const switching = useRef(false);
   const identityJson = JSON.stringify(identityOf(membership));
   const mirrorFor = membership?.businessId;
   const target: { persona: PersonaId; appUser: string } | undefined = !loaded
@@ -110,6 +125,22 @@ export function SessionBridge() {
     // Вошёл «Мой бизнес», а бизнеса нет — регистрация бизнеса (приглашение в салон принимается на своём экране)
     if (noBusiness && pathname.startsWith('/biz') && !pathname.startsWith('/biz/onboarding/invite')) router.replace('/register-business');
   }, [target?.persona, target?.appUser, pathname, noBusiness]);
+
+  useEffect(() => {
+    if (!clientOnBiz) return;
+    if (!canSwitchToBusiness) {
+      router.replace('/register-business');
+      return;
+    }
+    if (switching.current) return;
+    switching.current = true;
+    setSessionMode('business')
+      .then(() => getQueryClient().invalidateQueries({ queryKey: SESSION_KEY }))
+      .catch(() => router.replace('/'))
+      .finally(() => {
+        switching.current = false;
+      });
+  }, [clientOnBiz, canSwitchToBusiness, router]);
 
   return null;
 }

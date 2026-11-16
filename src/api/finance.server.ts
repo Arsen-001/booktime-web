@@ -320,6 +320,19 @@ export async function getBookingPaymentSummary(businessId: Id, bookingId: Id): P
   return toSummary(businessId, bookingId, s);
 }
 
+/** «Оплачено / к оплате» по многим записям: один запрос на 2000 записей вместо запроса на каждую (страница «Записи») */
+export async function listBookingPaymentBriefs(
+  businessId: Id,
+  bookingIds: Id[],
+): Promise<Record<Id, { total: Money; due: Money; paid: Money; status: BookingPaymentStatus }>> {
+  const chunks: Id[][] = [];
+  for (let i = 0; i < bookingIds.length; i += 2000) chunks.push(bookingIds.slice(i, i + 2000));
+  const parts = await Promise.all(
+    chunks.map((ids) => http<Record<Id, { total: Money; due: Money; paid: Money; status: BookingPaymentStatus }>>('POST', `${fb(businessId)}/bookings/payment-briefs`, { ids })),
+  );
+  return Object.assign({}, ...parts);
+}
+
 export async function getBookingPaymentStatus(businessId: Id, bookingId: Id): Promise<BookingPaymentStatus> {
   const s = await http<ServerBookingPaymentSummary>('GET', `${fb(businessId)}/bookings/${bookingId}/payments`);
   return s.status;

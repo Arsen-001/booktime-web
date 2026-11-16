@@ -38,7 +38,7 @@ import type {
   StatementApproval,
   StatementComputation,
 } from '@/domain/payroll';
-import { useDb } from '@/mock/db';
+import { readDbUntracked } from '@/mock/db';
 
 function currentBusinessId(): Id {
   const id = apiIdentity()?.businessId;
@@ -48,7 +48,7 @@ function currentBusinessId(): Id {
 
 /** Локация сотрудника — из ядра (мирроred staff), иначе первая локация текущего членства */
 function locationOfStaff(staffId: Id): Id {
-  const staff = useDb.getState().core.staff.find((s) => s.id === staffId);
+  const staff = readDbUntracked().core.staff.find((s) => s.id === staffId);
   const id = staff?.locationIds[0] ?? apiIdentity()?.locationIds[0];
   if (!id) throw new ApiError('forbidden', 'No location for staff');
   return id;

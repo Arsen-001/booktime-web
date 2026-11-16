@@ -1,5 +1,6 @@
 'use client';
 
+import { isApiMode } from '@/api/http';
 import { useRef, useState, useSyncExternalStore } from 'react';
 import { Copy, Check, ExternalLink } from 'lucide-react';
 import { coreGet, coreList } from '@/api/core';
@@ -348,7 +349,7 @@ function ChannelsCard({ businessId }: { businessId: string }) {
 
 
   return (
-    <SectionCard title={t('widget.channels.title')} description={t('widget.channels.hint')} padding="none">
+    <SectionCard title={t('widget.channels.title')} description={isApiMode() ? t('widget.channels.hintLive') : t('widget.channels.hint')} padding="none">
       <ul className="flex flex-col divide-y divide-border">
         <li className="flex flex-col gap-3 px-4 py-4 sm:px-5" data-f="F-03-036">
           <div className="flex flex-wrap items-start justify-between gap-3">
@@ -421,6 +422,10 @@ function ChannelsCard({ businessId }: { businessId: string }) {
             </div>
           )}
         </li>
+        {/* Сторонние площадки ниже — демо-подключение (переключатель без похода на площадку): на живом сайте их нет,
+            чтобы салон не думал, что запись из Google или Яндекса уже идёт (проход кабинета 17.11.2026) */}
+        {!isApiMode() && (
+        <>
         {/* Литеральный data-f у каждого <li> (не через переменную) — scripts/fids.mjs размечает охват
             статическим regex по исходнику и не видит `data-f={переменная}` — ChannelRow рендерит только
             содержимое строки, литеральный data-f стоит здесь, в JSX вызова. */}
@@ -442,6 +447,8 @@ function ChannelsCard({ businessId }: { businessId: string }) {
         <li className="flex items-center justify-between gap-3 px-4 py-4 sm:px-5" data-f="F-03-046">
           <ChannelRow id="thirdPartyBots" byId={byId} toggle={toggle} pending={toggleMutation.isPending} />
         </li>
+        </>
+        )}
       </ul>
     </SectionCard>
   );

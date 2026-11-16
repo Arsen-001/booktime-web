@@ -72,7 +72,7 @@ import { JournalMoreSheet } from '@/areas/journal/components/JournalMoreSheet';
 import { AlertBar, JournalBottomNav, PendingBar, PendingBarSkeleton, PhoneHeader, WeekStrip } from '@/areas/journal/components/JournalPhone';
 import { MastersPicker } from '@/areas/journal/components/MastersPicker';
 import { MonthGrid } from '@/areas/journal/components/MonthGrid';
-import { bookingTone, dayTotals, isActiveBooking, staffLoad, startMinutes } from '@/areas/journal/lib/board';
+import { bookingTone, dayTotals, freeGaps, isActiveBooking, staffLoad, startMinutes } from '@/areas/journal/lib/board';
 import { findSlotGaps, nearestSlots } from '@/areas/journal/lib/findSlots';
 import { FindSlotButton } from '@/areas/journal/components/FindSlotButton';
 import { WaitlistPanel } from '@/areas/journal/components/WaitlistPanel';
@@ -700,9 +700,14 @@ export function JournalScreen() {
     Object.fromEntries(shownStaffIds.map((id) => [id, hoursByStaff[id] ?? []])),
     Object.fromEntries(shownStaffIds.map((id) => [id, bookingsByColumn[id] ?? []])),
   );
-  const nextQuarter = () => {
+  // Время новой записи из шапки, клавиши и «+»: первое свободное окно мастера в его рабочие часы (сегодня — не раньше
+  // «сейчас»). Раньше — просто «сейчас», округлённое до 15 минут: ночью окно открывалось на 01:00, вне графика
+  const nextQuarter = (staffId?: Id) => {
     const isToday = date === today();
-    return isToday ? fromMinutes(Math.min(Math.ceil(toMinutes(nowYerevan().format('HH:mm')) / 15) * 15, 23 * 60)) : '10:00';
+    const nowMin = isToday ? Math.ceil(toMinutes(nowYerevan().format('HH:mm')) / 15) * 15 : 0;
+    const gap = staffId ? freeGaps(hoursByStaff[staffId] ?? [], bookingsByColumn[staffId] ?? [], 15, nowMin)[0] : undefined;
+    if (gap) return fromMinutes(gap.from);
+    return isToday ? fromMinutes(Math.min(nowMin, 23 * 60)) : '10:00';
   };
   const canPackage = canCreate && services.length >= 2 && staffWithSchedule.length > 0;
 
@@ -885,7 +890,7 @@ export function JournalScreen() {
         data-f="F-01-184 F-14-089 F-14-090"
         leftIcon={<Plus aria-hidden />}
         disabled={loading}
-        onClick={() => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter())}
+        onClick={() => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter(staffWithSchedule[0]?.id))}
       >
         {/* 768–1279px — только «+»: иначе ряд кнопок выталкивает дату целиком */}
         <span className="md:max-xl:sr-only">{t('newBooking')}</span>
@@ -1152,7 +1157,7 @@ export function JournalScreen() {
                 icon={<Plus aria-hidden strokeWidth={2.25} />}
                 label={canCreateBooking || loading ? t('newBooking') : newBookingDisabledReason}
                 disabled={loading || !canCreateBooking}
-                onClick={() => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter())}
+                onClick={() => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter(staffWithSchedule[0]?.id))}
               />
             ) : (
               !showRail && newBookingButton
@@ -1173,7 +1178,7 @@ export function JournalScreen() {
             onHiddenStaffChange={setHiddenStaffIds}
             weekStaffId={weekStaff?.id ?? ''}
             onWeekStaffChange={setWeekStaffId}
-            onCreate={canCreate ? () => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter()) : undefined}
+            onCreate={canCreate ? () => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter(staffWithSchedule[0]?.id)) : undefined}
             createDisabledReason={!canCreateBooking && !loading ? newBookingDisabledReason : undefined}
             createLoading={loading}
           />
@@ -1575,7 +1580,7 @@ export function JournalScreen() {
           onClick={() => {
             if (loading) return;
             const staffId = staffWithSchedule.find((s) => s.id === ownStaffId)?.id ?? staffWithSchedule[0]?.id ?? '';
-            openWindow({ new: '1', staff: staffId, start: nextQuarter(), date });
+            openWindow({ new: '1', staff: staffId, start: nextQuarter(staffId), date });
           }}
         />
       )}
@@ -1596,8 +1601,8 @@ export function JournalScreen() {
             canCreate && canCreateBooking
               ? () => {
                   const staffId = staffWithSchedule.find((s) => s.id === ownStaffId)?.id ?? staffWithSchedule[0]?.id ?? '';
-                  if (effectiveRecordType === 'group') startCreate(staffId, nextQuarter());
-                  else openWindow({ new: '1', staff: staffId, start: nextQuarter(), date });
+                  if (effectiveRecordType === 'group') startCreate(staffId, nextQuarter(staffId));
+                  else openWindow({ new: '1', staff: staffId, start: nextQuarter(staffId), date });
                 }
               : undefined,
           search: () => setClientsOpen(true),
