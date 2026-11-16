@@ -169,14 +169,8 @@ export function BookFlow({
       });
       forgetReferral(card.business.slug);
       track('booking_created', { businessId: staff.businessId, sphere: service.sphereId, source: appBookingSource(), prepayment: res.booking.status === 'awaiting_prepayment' });
+      // Экран «Готово» сам говорит, что вышло (записан / ждём подтверждения / оплатите) — всплывашка его повторяла
       setResult(res);
-      toast.success(
-        res.booking.status === 'scheduled'
-          ? t('book.successBooked')
-          : res.booking.status === 'awaiting_prepayment'
-            ? t('book.successPrepay')
-            : t('book.success'),
-      );
     } catch (e) {
       const code = e instanceof ApiError ? e.code : undefined;
       if (code === 'slot_taken') {

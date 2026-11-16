@@ -8,6 +8,7 @@
  * что вызывающий экран уже вошёл (иначе `/v1/me/*` ответит 401 раньше, чем эта функция вообще позвала бы http()).
  */
 import { apiIdentity } from '@/api/identity';
+import { toLocalDateTime } from '@/lib/date';
 import { http } from '@/api/http';
 import type { TelegramLinkInfo } from '@/domain/client';
 import { ApiError } from '@/api/request';
@@ -66,8 +67,8 @@ export function getPlaceCardServer(businessId: Id): Promise<PlaceCard> {
   return http('GET', `/v1/public/places/${businessId}`);
 }
 
-export function getBookingDaysServer(staffId: Id, serviceId: Id, workplace: Workplace | undefined, days: number): Promise<BookingSlotDay[]> {
-  return http('GET', `/v1/public/masters/${staffId}/days`, undefined, { query: { serviceId, workplace, days } });
+export function getBookingDaysServer(staffId: Id, serviceId: Id, workplace: Workplace | undefined, days: number, excludeBookingId?: Id): Promise<BookingSlotDay[]> {
+  return http('GET', `/v1/public/masters/${staffId}/days`, undefined, { query: { serviceId, workplace, days, excludeBookingId } });
 }
 
 export function getSlotsServer(staffId: Id, date: string, serviceId?: Id, workplace?: Workplace): Promise<FreeSlot[]> {
@@ -245,7 +246,11 @@ export function removeDiaryEntryServer(id: Id): Promise<void> {
 // ─────────────────────────── лента (F-14-055) ───────────────────────────
 
 export function listNotificationsServer(): Promise<NotificationEntry[]> {
-  return http('GET', '/v1/me/inbox');
+  // 16.11.2026: сервер отдаёт createdAt мгновением UTC («…T20:00:21Z»), экран читает местное время Еревана без пояса —
+  // уведомление, пришедшее в 00:00, показывалось «Вчера, 20:00»
+  return http<NotificationEntry[]>('GET', '/v1/me/inbox').then((rows) =>
+    rows.map((n) => ({ ...n, createdAt: toLocalDateTime(n.createdAt) ?? n.createdAt })),
+  );
 }
 
 export function markNotificationReadServer(id: Id): Promise<void> {
@@ -337,7 +342,12 @@ export function setDefaultNetworkLocationServer(networkId: Id, businessId: Id): 
 }
 
 export function getClientProfileServer(): Promise<import('@/api/client').ClientProfile> {
-  return http('GET', '/v1/me/client-profile');
+  // 16.11.2026: сервер хранит формат как «24h» / «12h», экран и useClientFormat ждут «24» / «12» (запись уже
+  // переводит так — setTimeFormat). Без перевода переключатель стоял пустым, а выбранные 12 часов не включались.
+  return http<Omit<import('@/api/client').ClientProfile, 'timeFormat'> & { timeFormat?: string }>('GET', '/v1/me/client-profile').then((p) => ({
+    ...p,
+    timeFormat: p.timeFormat === '12h' || p.timeFormat === '12' ? '12' : '24',
+  }));
 }
 
 // ─────────────────────────── автоперевод (F-00-174) — этап 21, лейн client+online, попытка 2 ───────────────────────────

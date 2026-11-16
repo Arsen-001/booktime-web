@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CircleCheck } from 'lucide-react';
 import type { OnlineCodeChannel, OnlineCodeSent } from '@/api/online';
 import { CodeChannelPicker, CodeSentVia } from '@/areas/online/booking/wizard/CodeChannelChoice';
@@ -13,9 +13,11 @@ export type CodeState =
   | { kind: 'idle' }
   | { kind: 'sending' }
   /** via — куда код ушёл на самом деле и какие каналы ещё есть; requested — какой выбрал человек */
-  | { kind: 'sent'; demoCode?: string; via?: OnlineCodeSent; requested?: OnlineCodeChannel }
-  | { kind: 'wrong'; via?: OnlineCodeSent; requested?: OnlineCodeChannel }
-  | { kind: 'sendFailed' };
+  /** resendAt — когда можно прислать код ещё раз (мс); до того кнопка повтора ждёт с обратным отсчётом */
+  | { kind: 'sent'; demoCode?: string; via?: OnlineCodeSent; requested?: OnlineCodeChannel; resendAt?: number }
+  | { kind: 'wrong'; via?: OnlineCodeSent; requested?: OnlineCodeChannel; resendAt?: number }
+  /** tooMany — сервер ответил лимитом запросов кода (не «попробуйте ещё раз»: повтор сразу снова упрётся в лимит) */
+  | { kind: 'sendFailed'; tooMany?: boolean };
 
 /**
  * Подтверждение номера при записи (F-03-077, F-03-078). О9: «подтверждён» относится к конкретному номеру — сменили
@@ -49,6 +51,16 @@ export function PhoneCodeBlock({
   const t = useT('online');
   const [channel, setChannel] = useState<OnlineCodeChannel>('telegram');
   const shownVia = (state.kind === 'sent' || state.kind === 'wrong') && state.via ? { via: state.via, requested: state.requested } : undefined;
+  // 16.11.2026: «Отправить код ещё раз» сразу после отправки упиралось в «повтор через 60 с» сервера и показывало
+  // «Не удалось отправить код» — теперь кнопка ждёт с обратным отсчётом
+  const resendAt = state.kind === 'sent' || state.kind === 'wrong' ? state.resendAt : undefined;
+  const [now, setNow] = useState(() => Date.now());
+  const left = resendAt ? Math.max(0, Math.ceil((resendAt - now) / 1000)) : 0;
+  useEffect(() => {
+    if (!resendAt || resendAt <= Date.now()) return;
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [resendAt]);
   if (verified) {
     return (
       <div className="flex min-h-11 flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-surface-2 px-3 py-2" data-f="F-03-077 F-03-078">
@@ -72,8 +84,20 @@ export function PhoneCodeBlock({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="min-w-0 flex-1 text-sm text-muted">{sent ? t('booking.details.codeEnterHint') : t('booking.details.verifyPhoneHint')}</p>
-        <Button size="sm" variant="secondary" onClick={() => onSend(shownVia?.via.channel ?? channel)} loading={state.kind === 'sending'} type="button">
-          {sent ? t('booking.details.resendCode') : t('booking.details.sendCode')}
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={() => onSend(shownVia?.via.channel ?? channel)}
+          loading={state.kind === 'sending'}
+          disabled={left > 0}
+          type="button"
+          className="tabular-nums"
+        >
+          {!sent
+            ? t('booking.details.sendCode')
+            : left > 0
+              ? t('booking.details.resendIn', { time: `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` })
+              : t('booking.details.resendCode')}
         </Button>
       </div>
       {!sent && <CodeChannelPicker value={channel} onChange={setChannel} />}
@@ -91,7 +115,7 @@ export function PhoneCodeBlock({
       )}
       {state.kind === 'sent' && state.demoCode && <p className="text-sm text-muted">{t('booking.details.codeDemoFilled', { code: state.demoCode })}</p>}
       {state.kind === 'wrong' && <p className="text-sm text-danger">{t('booking.details.codeWrong')}</p>}
-      {state.kind === 'sendFailed' && <p className="text-sm text-danger">{t('booking.details.codeSendFailed')}</p>}
+      {state.kind === 'sendFailed' && <p className="text-sm text-danger">{t(state.tooMany ? 'booking.details.codeTooMany' : 'booking.details.codeSendFailed')}</p>}
       {error && <p className="text-sm text-danger">{error}</p>}
     </div>
   );

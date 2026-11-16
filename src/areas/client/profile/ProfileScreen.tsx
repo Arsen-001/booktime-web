@@ -7,7 +7,7 @@ import { ChevronRight, Clock, FileDown, LogOut, Pencil, Trash2, User } from 'luc
 import { deleteMyClientAccount, downloadMyClientData, getClientProfile, setProfilePhoto, setTimeFormat, updateProfileName } from '@/api/client';
 import { HttpApiError, isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { SESSION_KEY, cancelMyAccountDeletion, getAccount, logout, setSessionMode } from '@/api/session';
+import { SESSION_KEY, cancelMyAccountDeletion, getAccount, logout, patchAccount, setSessionMode } from '@/api/session';
 import { useApplyDemo, useDemo } from '@/demo/hooks';
 import { GoogleAccountCard } from '@/areas/client/profile/GoogleAccountCard';
 import { TelegramRemindersCard } from '@/areas/client/profile/TelegramRemindersCard';
@@ -39,6 +39,7 @@ import { SegmentedControl } from '@/ui/SegmentedControl';
 import { SkeletonText } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
+import { toLocalDateTime } from '@/lib/date';
 
 const LANG_LABEL: Record<Locale, string> = { ru: 'Русский', hy: 'Հայերեն', en: 'English' };
 
@@ -90,7 +91,8 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
   // Живой сайт: сервер удаляет аккаунт через 25 дней после запроса, до того — «Отменить удаление» (POST /v1/me/account/delete/cancel)
   const accountQ = useApiQuery(['me', 'account'], getAccount, { enabled: isApiMode() });
   const cancelDeletion = useApiMutation(() => cancelMyAccountDeletion(), { invalidates: [['me', 'account']] });
-  const deletionAt = accountQ.data?.deletionAt ?? null;
+  // Сервер отдаёт мгновение UTC — дата по Еревану (запрос после 00:00 по Еревану показывал вчерашнюю дату)
+  const deletionAt = toLocalDateTime(accountQ.data?.deletionAt);
 
   // Один вход и переключатель «Я клиент / Мой бизнес» (В-21, C1): на живом сайте — режим сессии на сервере;
   // бизнеса у человека нет — ведём на регистрацию бизнеса. Демо — переключение на бизнес-персону.
@@ -142,7 +144,7 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
     try {
       await removeAccount.mutate(uid);
       if (isApiMode()) {
-        const at = (await getAccount().catch(() => null))?.deletionAt;
+        const at = toLocalDateTime((await getAccount().catch(() => null))?.deletionAt);
         void accountQ.refetch();
         toast.success(at ? t('profile.deleteScheduled', { date: fmt.date(at) }) : t('profile.deleteRequested'));
         return;
@@ -245,7 +247,11 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
             <SegmentedControl
               fullWidth
               value={settings.lang}
-              onValueChange={(v) => apply({ lang: v as Locale })}
+              onValueChange={(v) => {
+                apply({ lang: v as Locale });
+                // Язык напоминаний и пушей сервер берёт из аккаунта — сохраняем и туда (16.11.2026: менялся только экран)
+                if (isApiMode()) void getAccount().then((a) => patchAccount({ locale: v as Locale }, a.version)).catch(() => undefined);
+              }}
               options={CLIENT_LOCALES.map((l) => ({ value: l, label: LANG_LABEL[l] }))}
             />
           </div>

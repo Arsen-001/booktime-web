@@ -71,10 +71,12 @@ function RescheduleBody({ detail, appUserId }: { detail: NonNullable<Awaited<Ret
   const locale = useLocale();
   const toast = useToast();
   const serviceId = service?.id ?? booking.services[0]?.serviceId ?? '';
-  const daysQ = useApiQuery(clientKeys.bookingDays(staff.id, serviceId), () => getBookingDays(staff.id, serviceId), { enabled: Boolean(serviceId) });
+  // Окна того же места (салон / на дому), сама запись их не занимает: сдвинуть 11:00 на 10:30 можно (16.11.2026 — не давало)
+  const daysKey = [...clientKeys.bookingDays(staff.id, serviceId, booking.workplace), booking.id] as const;
+  const daysQ = useApiQuery(daysKey, () => getBookingDays(staff.id, serviceId, booking.workplace, 14, booking.id), { enabled: Boolean(serviceId) });
   const [moved, setMoved] = useState(false);
   const move = useApiMutation(({ start }: { start: ISODateTime }) => rescheduleBookingByClient(booking.id, start, appUserId), {
-    invalidates: [clientKeys.booking(booking.id, appUserId), clientKeys.myBookings(appUserId), clientKeys.upcoming(appUserId), clientKeys.bookingDays(staff.id, serviceId)],
+    invalidates: [clientKeys.booking(booking.id, appUserId), clientKeys.myBookings(appUserId), clientKeys.upcoming(appUserId), daysKey],
   });
 
   const moveTo = async (start: ISODateTime, undo = false) => {

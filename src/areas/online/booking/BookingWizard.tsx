@@ -6,6 +6,7 @@ import { useLocale } from 'next-intl';
 import { ChevronLeft, PackagePlus } from 'lucide-react';
 import type { OnlineCodeChannel, CreateOnlineBookingInput, PlanLegSlot, PlanQuery, PublicBusinessData } from '@/api/online';
 import { createPlanBookings, getBusinessRules, getClientFieldsConfig, getPublicBusinessData, getWidgetExtraFields, listPublicGroupEvents, listStaffRules, rememberedPhoneSkipsCode, sendOnlineBookingCode, trackWidgetEvent } from '@/api/online-public';
+import { HttpApiError } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { SlotPicker } from '@/areas/online/booking/SlotPicker';
 import { ChainStaffStep } from '@/areas/online/booking/wizard/ChainStaffStep';
@@ -146,6 +147,8 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
     createPlanBookings(args.base, args.legs),
   );
   const codeMutation = useApiMutation(sendOnlineBookingCode);
+  // Запись создана — до открытия «Вы записаны» кнопка остаётся с крутилкой (иначе секунду выглядит свободной: второе нажатие)
+  const [leaving, setLeaving] = useState(false);
 
   // Дизайн ссылки (F-03-024): цвет кнопок — CSS-переменная на корень виджета, цвет как данные
   const widgetStyle = link
@@ -364,18 +367,25 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
       setErrors((e) => ({ ...e, phone: t('booking.details.phoneInvalid') }));
       return;
     }
+    const prev = codeFor === normalized ? codeState : undefined;
     setCodeState({ kind: 'sending' });
     setCodeFor(normalized);
     try {
       const { demoCode, ...via } = await codeMutation.mutate({ slug: business.slug, phone: normalized, channel });
-      setCodeState({ kind: 'sent', demoCode, via, requested: channel });
+      setCodeState({ kind: 'sent', demoCode, via, requested: channel, resendAt: via.resendAfter ? Date.now() + via.resendAfter * 1000 : undefined });
       // О16: демо-код — прямо в поле и сразу проверен, без всплывающего сообщения поверх формы
       if (demoCode) {
         setCode(demoCode);
         verifyCode(demoCode, normalized, demoCode);
       } else setCode('');
-    } catch {
-      setCodeState({ kind: 'sendFailed' });
+    } catch (e) {
+      const err = e instanceof HttpApiError ? e : undefined;
+      // Код уже ушёл, повтор рано — оставляем поле кода и показываем, через сколько можно ещё раз
+      if (err?.code === 'code_resend_wait' && prev && (prev.kind === 'sent' || prev.kind === 'wrong')) {
+        setCodeState({ ...prev, resendAt: Date.now() + (err.retryAfter ?? 60) * 1000 });
+        return;
+      }
+      setCodeState({ kind: 'sendFailed', tooMany: err?.code === 'rate_limited' || err?.status === 429 });
     }
   };
 
@@ -455,6 +465,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
       void trackWidgetEvent(link?.id, business.id, 'booked');
       // Визит из нескольких записей: открываем ту, что ждёт предоплату (О5) — остальные части видны на ней же
       const first = results.find((r) => r.booking.status === 'awaiting_prepayment') ?? results[0];
+      setLeaving(true);
       router.push(`/b/${slug}/booking/${first.booking.id}?h=${first.accessHash}`);
     } catch (e) {
       const errCode = (e as { code?: string } | undefined)?.code;
@@ -664,7 +675,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
           clientFields={clientFields}
           networkFields={networkFields}
           workplace={workplace ?? 'salon'}
-          submitting={bookMutation.isPending}
+          submitting={bookMutation.isPending || leaving}
           onSubmit={submit}
           onEditTime={() => goTo('time')}
           onEditServices={() => goTo('services')}

@@ -31,6 +31,8 @@ export function AcceptsNotice({
   const fits = (accepts === 'women' && viewerGender === 'female') || (accepts === 'men' && viewerGender === 'male');
   const [open, setOpen] = useState(accepts !== 'all');
   if (accepts === 'all' || fits) return null;
+  // Пол известен и не подходит: себя сервер не запишет (accepts_mismatch) — говорим честно, ребёнка — можно
+  const notYou = viewerGender === 'female' || viewerGender === 'male';
   return (
     <Modal
       open={open && !pending}
@@ -50,7 +52,7 @@ export function AcceptsNotice({
         <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full bg-primary-soft text-primary-text">
           <UsersRound className="size-5" />
         </span>
-        <p className="text-fg">{t('book.accepts.text', { name: staffName, who: t(`book.accepts.who.${accepts}`) })}</p>
+        <p className="text-fg">{t(notYou ? 'book.accepts.textNotYou' : 'book.accepts.text', { name: staffName, who: t(`book.accepts.who.${accepts}`) })}</p>
       </div>
     </Modal>
   );

@@ -9,7 +9,8 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 // Нажатие — лёгкое «вдавливание» (active:scale), без прыжка раскладки; при reduced-motion переходы гасятся глобально
 const BASE =
-  'inline-flex items-center justify-center font-medium whitespace-nowrap select-none ' +
+  // [&_svg]:shrink-0 — в узкой кнопке с переносом подписи (панель действий на телефоне) иконка сжималась до точки (16.11.2026)
+  'inline-flex items-center justify-center font-medium whitespace-nowrap select-none [&_svg]:shrink-0 ' +
   'transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out ' +
   'active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ' +
   'disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none aria-disabled:opacity-50 aria-disabled:pointer-events-none';

@@ -269,8 +269,26 @@ export function getPlanMonthAvailability(q: PlanQuery, monthStart: ISODate): Pro
 export function getPlanNearestDate(q: PlanQuery, from: ISODate, maxDays = 60): Promise<ISODate | undefined> {
   const limit = q.maxDate && q.maxDate < addDays(from, maxDays) ? q.maxDate : addDays(from, maxDays);
   if (isApiMode() && q.slug) {
+    const slug = q.slug;
     return (async () => {
-      for (let d = from; d <= limit; d = addDays(d, 1)) {
+      const leg = q.legs[0];
+      if (!leg) return undefined;
+      // 16.11.2026: ближайший день первой части ищет сервер — один запрос на мастера. Раньше перебирали дни здесь:
+      // у мастера без окон 60 запросов подряд, у салона из нескольких таких — сотни, и упирались в лимит 300 в минуту.
+      const firsts = await Promise.all(
+        leg.staffIds.map((staffId) =>
+          OnlineServer.getNearestAvailableDateServer(slug, staffId, leg.durationMin, from, {
+            durationMax: leg.durationMax,
+            serviceId: leg.serviceIds[0],
+            locationId: q.locationId,
+            workplace: q.workplace,
+          }),
+        ),
+      );
+      const start = firsts.filter((d): d is ISODate => Boolean(d) && (d as ISODate) <= limit).sort()[0];
+      if (!start || q.legs.length === 1) return start;
+      // Цепочка мастеров (О4): с первого дня, где есть первая часть, проверяем, сходится ли весь визит
+      for (let d = start; d <= limit; d = addDays(d, 1)) {
         if ((await planSlotsForDayApi(q, d, true)).length > 0) return d;
       }
       return undefined;

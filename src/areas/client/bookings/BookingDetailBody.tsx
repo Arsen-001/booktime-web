@@ -157,6 +157,23 @@ export function BookingDetailBody({ detail, appUserId }: { detail: BookingDetail
         }
       />
 
+      {/* Ждёт предоплату — это главное на экране (срок 15 мин): реквизиты и «Я оплатил» сразу под заголовком,
+          а не внизу под панелью «Перенести» (16.11.2026) */}
+      {booking.status === 'awaiting_prepayment' && booking.prepayment && !booking.prepayment.paid && (
+        <PrepaymentCard
+          bookingId={booking.id}
+          appUserId={appUserId}
+          amount={booking.prepayment.amount}
+          full={booking.prepayment.full}
+          reported={detail.prepaymentReported || Boolean(booking.prepayment.clientMarkedPaidAt)}
+          requisites={detail.prepaymentRequisites}
+          deadline={detail.prepaymentDeadline}
+          noShowReason={
+            booking.prepayment.reason === 'no_shows' ? { noShows: booking.prepayment.noShows ?? 2, months: booking.prepayment.months ?? 12 } : undefined
+          }
+        />
+      )}
+
       <div className="grid gap-4 lg:grid-cols-2">
         <Card padding="md" className="flex items-center gap-3">
           <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="lg" />
@@ -268,21 +285,6 @@ export function BookingDetailBody({ detail, appUserId }: { detail: BookingDetail
             <Row key={i} label={t(`bookingDetail.product.${p.nameKey}`)} value={fmt.money(p.price)} />
           ))}
         </Card>
-      )}
-
-      {booking.status === 'awaiting_prepayment' && booking.prepayment && !booking.prepayment.paid && (
-        <PrepaymentCard
-          bookingId={booking.id}
-          appUserId={appUserId}
-          amount={booking.prepayment.amount}
-          full={booking.prepayment.full}
-          reported={detail.prepaymentReported || Boolean(booking.prepayment.clientMarkedPaidAt)}
-          requisites={detail.prepaymentRequisites}
-          deadline={detail.prepaymentDeadline}
-          noShowReason={
-            booking.prepayment.reason === 'no_shows' ? { noShows: booking.prepayment.noShows ?? 2, months: booking.prepayment.months ?? 12 } : undefined
-          }
-        />
       )}
 
       {active && (

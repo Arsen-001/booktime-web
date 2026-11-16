@@ -1358,8 +1358,9 @@ export interface BookingSlotDay {
  * Окна мастера на N дней вперёд под длительность услуги, по дням (шаг «Время» в /book, F-00-092). Для выезда — окна
  * графика выезда, если он у мастера есть (decision-c3 №1).
  */
-export function getBookingDays(staffId: Id, serviceId: Id, workplace?: Workplace, days = 14): Promise<BookingSlotDay[]> {
-  if (isApiMode()) return CS.getBookingDaysServer(staffId, serviceId, workplace, days);
+/** excludeBookingId — перенос: сама переносимая запись окна не занимает (только режим api; мок её не исключает) */
+export function getBookingDays(staffId: Id, serviceId: Id, workplace?: Workplace, days = 14, excludeBookingId?: Id): Promise<BookingSlotDay[]> {
+  if (isApiMode()) return CS.getBookingDaysServer(staffId, serviceId, workplace, days, excludeBookingId);
   return request(() => {
     const core = readCore();
     const service = core.services.find((s) => s.id === serviceId);

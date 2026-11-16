@@ -72,6 +72,8 @@ export interface OnlineCodeSent {
   demoCode?: string;
   channel: OnlineCodeChannel;
   channels: OnlineCodeChannel[];
+  /** Через сколько секунд можно прислать код ещё раз (сервер: 60 с на номер) */
+  resendAfter?: number;
 }
 
 /** F-00-007, B2: код перед записью без входа — доставляет сервер в выбранный канал, не показывает его */
@@ -79,6 +81,7 @@ export function sendOnlineBookingCodeServer(input: SendOnlineCodeInput): Promise
   return http<OnlineCodeSent>('POST', `/v1/public/b/${input.slug}/code`, { phone: input.phone, channel: input.channel ?? 'telegram' }).then((r) => ({
     channel: r.channel,
     channels: r.channels,
+    resendAfter: r.resendAfter,
   }));
 }
 
