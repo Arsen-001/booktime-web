@@ -20,8 +20,21 @@ export interface ApiIdentity {
   permissions: Permission[];
 }
 
-/** resolved — сессия сервера уже прочитана (до этого «кто я» неизвестен и экраны кабинета не грузят данные) */
-export const useApiIdentity = create<{ identity: ApiIdentity | null; resolved: boolean }>(() => ({ identity: null, resolved: false }));
+/**
+ * resolved — сессия сервера уже прочитана (до этого «кто я» неизвестен и экраны кабинета не грузят данные).
+ * mirrored — бизнес, чьё зеркало (ядро, график, записи) уже лежит в базе браузера после входа: до него экраны кабинета
+ * не начинают свои запросы, иначе каждая запись зеркала перечитывала их — таблица графика 4–5 раз, «Окна для записи»
+ * 36 запросов на первое открытие (проход кабинета 17.11.2026).
+ */
+export const useApiIdentity = create<{ identity: ApiIdentity | null; resolved: boolean; mirrored: Id | null }>(() => ({
+  identity: null,
+  resolved: false,
+  mirrored: null,
+}));
+
+export function setMirrored(businessId: Id): void {
+  if (useApiIdentity.getState().mirrored !== businessId) useApiIdentity.setState({ mirrored: businessId });
+}
 
 export function apiIdentity(): ApiIdentity | null {
   return useApiIdentity.getState().identity;

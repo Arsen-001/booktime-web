@@ -49,6 +49,8 @@ export function useCurrent(): CurrentContext {
   const api = useApiIdentity((s) => s.identity);
   // Живой сайт: пока сессия сервера не прочитана, «кто я» неизвестен — экраны не запускают запросы (enabled: ready)
   const identityResolved = useApiIdentity((s) => s.resolved);
+  const apiBusinessId = useApiIdentity((s) => s.identity?.businessId);
+  const mirrored = useApiIdentity((s) => s.mirrored);
   const selected = useDemoStore((s) => s.locationId);
   const selectedNetwork = useDemoStore((s) => s.networkId);
   // Выбранный филиал — в контекст: у сети текущий бизнес = бизнес этого филиала (Сеть2)
@@ -62,9 +64,10 @@ export function useCurrent(): CurrentContext {
         ? selected
         : fallback;
     const activeLocationIds = locationId === 'all' ? ctx.locationIds : locationId ? [locationId] : [];
-    const ready = dbReady && (identityResolved || dataMode() !== 'api');
+    // Кабинет на живом сайте ждёт и первого зеркала своего бизнеса (useApiIdentity.mirrored)
+    const ready = dbReady && (dataMode() !== 'api' || (identityResolved && (!apiBusinessId || mirrored === apiBusinessId)));
     return { ...ctx, ready, locationId, activeLocationIds };
-  }, [ctxJson, selected, dbReady, identityResolved]);
+  }, [ctxJson, selected, dbReady, identityResolved, apiBusinessId, mirrored]);
 }
 
 export function usePermissions(): ReadonlySet<Permission> {

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { isApiMode } from '@/api/http';
-import { setApiIdentity, type ApiIdentity } from '@/api/identity';
+import { setApiIdentity, setMirrored, type ApiIdentity } from '@/api/identity';
 import { syncCore } from '@/api/mirror';
 import { startLive } from '@/api/live.server';
 import { getQueryClient } from '@/api/request';
@@ -101,13 +101,14 @@ export function SessionBridge() {
     if (!mirrorFor) return;
     let stop: (() => void) | undefined;
     let cancelled = false;
-    syncCore(mirrorFor)
+    syncCore(mirrorFor, () => setMirrored(mirrorFor))
       .then(() => {
         // Чужие правки записей и графика — событиями SSE (этап 7): зеркало перечитывается само
         if (!cancelled) stop = startLive(mirrorFor, JSON.parse(identityJson)?.businessIds ?? [mirrorFor]);
       })
       .catch(() => {
-        /* сервер недоступен — экраны покажут свою ошибку на своих запросах */
+        /* сервер недоступен — экраны покажут свою ошибку на своих запросах (и не ждут зеркала вечно) */
+        setMirrored(mirrorFor);
       });
     return () => {
       cancelled = true;

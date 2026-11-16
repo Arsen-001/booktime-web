@@ -141,15 +141,19 @@ export async function fetchCoreSnapshot(businessId: Id): Promise<CoreSnapshot> {
 }
 
 /** Перечитать с сервера свой бизнес (и филиалы сети) и положить в ядро */
-export async function syncCore(businessId: Id): Promise<CoreSnapshot> {
+export async function syncCore(businessId: Id, onCoreReady?: () => void): Promise<CoreSnapshot> {
   const snap = await fetchCoreSnapshot(businessId);
   // База браузера поднимается по частям (src/mock/db.ts, bootDb): кладём ответ сервера после неё, иначе сид перезапишет
   await dbReady();
   mirrorSnapshot(snap);
-  await syncSchedule(businessId).catch(() => undefined);
+  // График и записи — одновременно (не друг за другом). Экраны кабинета ждут ядро и график (onCoreReady →
+  // useApiIdentity.mirrored), но не записи: зеркало записей ±400 дней — 170–240 мс и 450–660 КБ.
   // Записи своего бизнеса и (сеть) филиалов, доступных этому входу — «Все филиалы» журнала (F-01-006)
   const network = (apiIdentity()?.businessIds ?? []).filter((id) => id !== businessId);
-  await syncBookings([businessId, ...network]).catch(() => undefined);
+  const bookings = syncBookings([businessId, ...network]).catch(() => undefined);
+  await syncSchedule(businessId).catch(() => undefined);
+  onCoreReady?.();
+  await bookings;
   return snap;
 }
 
