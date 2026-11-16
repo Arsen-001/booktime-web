@@ -72,3 +72,15 @@ export function localizeAccounts<T extends Account>(accounts: T[]): T[] {
     return name === a.name ? a : { ...a, name };
   });
 }
+
+/** Стандартные способы оплаты (ключи cash/card), пока их не переименовали */
+const METHOD_NAMES: Record<'cash' | 'card', Names> = {
+  cash: { ru: 'Наличные', hy: 'Կանխիկ', en: 'Cash' },
+  card: { ru: 'Банковская карта', hy: 'Բանկային քարտ', en: 'Bank card' },
+};
+
+/** Подпись способа оплаты: стандартная (cash/card с русским именем по умолчанию) — переводом */
+export function localizeMethodLabel(key: string, label: string): string {
+  const names = key === 'cash' || key === 'card' ? METHOD_NAMES[key] : undefined;
+  return translated(label, names, uiLang());
+}

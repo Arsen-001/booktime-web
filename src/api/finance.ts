@@ -15,7 +15,7 @@ import * as PayrollServer from '@/api/payroll.server';
 import { ApiError, request } from '@/api/request';
 import type { Booking, Id, ISODateTime, LocalizedText, Money } from '@/domain/core';
 import { isOrderService } from '@/domain/ordersPickup';
-import { localizeAccounts, localizeItems } from '@/api/finance.names';
+import { localizeAccounts, localizeItems, localizeMethodLabel } from '@/api/finance.names';
 import { prepaidAmount } from '@/domain/rules';
 import { EMPTY_BOOKING_EXTRAS, type JournalPaymentLine } from '@/domain/journal';
 import type {
@@ -971,7 +971,7 @@ export function updateCustomPaymentMethod(businessId: Id, id: Id, patch: Partial
 /** Плитки способов оплаты для окна визита (F-07-025…030) — из сохранённых настроек */
 export function listBookingPaymentTiles(businessId: Id): Promise<PaymentMethodTile[]> {
   if (isApiMode()) return Server.listBookingPaymentTiles(businessId);
-  return getPaymentMethodsSettings(businessId).then((settings) => paymentMethodTiles(settings));
+  return getPaymentMethodsSettings(businessId).then((settings) => paymentMethodTiles(settings).map((t) => ({ ...t, label: localizeMethodLabel(t.key, t.label) })));
 }
 
 // ─────────────────────────── Оплата визита (F-07-036…050, 181, 184) ───────────────────────────

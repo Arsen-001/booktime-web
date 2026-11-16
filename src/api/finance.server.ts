@@ -93,6 +93,7 @@ import type {
 } from '@/api/finance';
 import type { Id, ISODateTime, Money } from '@/domain/core';
 import { isOrderService } from '@/domain/ordersPickup';
+import { localizeMethodLabel } from '@/api/finance.names';
 import type {
   Account,
   AccountInput,
@@ -291,7 +292,7 @@ interface PaymentMethodRow {
 
 export async function listBookingPaymentTiles(businessId: Id): Promise<{ key: string; kind: 'cash' | 'card' | 'custom'; label: string; accountId: Id | null; feePct: number }[]> {
   const rows = await http<PaymentMethodRow[]>('GET', `${fb(businessId)}/payment-methods`);
-  return rows.filter((r) => r.active).map((r) => ({ key: r.key, kind: r.kind, label: r.label, accountId: r.accountId ?? null, feePct: r.feePercent }));
+  return rows.filter((r) => r.active).map((r) => ({ key: r.key, kind: r.kind, label: localizeMethodLabel(r.key, r.label), accountId: r.accountId ?? null, feePct: r.feePercent }));
 }
 
 // ─────────────────────────── Оплата визита (kind='money' — F-07-036…050/181/184) ───────────────────────────
@@ -324,7 +325,8 @@ async function toSummary(businessId: Id, bookingId: Id, s: ServerBookingPaymentS
     groupId: l.groupId,
     refundedAmount: l.refundedAmount,
     methodKey: l.methodKey,
-    methodLabel: l.methodLabel,
+    // «Наличные» / «Банковская карта» сервера — на языке человека (проход 17.11: на en было по-русски)
+    methodLabel: localizeMethodLabel(l.methodKey, l.methodLabel),
     accountId: l.accountId,
     amount: l.amount,
     operationId: l.operationId,
