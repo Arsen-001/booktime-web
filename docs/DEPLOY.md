@@ -1,6 +1,9 @@
 # Выкладка BookTime (с 02.10.2026)
 
 **09.11.2026 — сервер BookTime на Railway ВЫКЛЮЧЕН по слову владельца** («отключи там буктайм, чтобы больше не тратился»; у пространства Railway кончился пробный период). В проекте `booktime` у `api`, `MySQL`, `Redis` в production и staging снята выкладка (`railway down`); диски на месте: mysql-volume 335 МБ (production) и 397 МБ (staging), api-volume, redis-volume production 564 МБ. Redis staging опустел (кэш). api.booktime.am отвечает «Application not found»; сайт на Vercel открывается, но без сервера не работает.
+**16.11.2026 — включаем обратно** (владелец: веб в идеальное боевое состояние). Пространство Railway уже на плане **Hobby**. `railway scale -e production -s MySQL|Redis eu-west=1 us-west2=0` — Railway пишет «migrated from US West to EU West», развёртывание баз долго висит на «Creating containers». У api в проекте лежат неприменённые правки «Num Replicas europe-west4 = 1, убрать Sfo» — применить после баз. **До 01.12.2026** перевести `railway.json` на `.railway/railway.ts` (`railway config migrate`): старый формат Railway перестаёт читать.
+Vercel: команда уже на **Pro**; Web Analytics включена 16.11 (базовая, по $0,03 за 1 000 событий из кредита Pro) — данные пойдут после следующей выкладки main.
+Регион функций сайта — **fra1** (Франкфурт), `vercel.json` (16.11.2026): до этого страницы собирались в iad1 (Вашингтон, `x-vercel-id: fra1::iad1`), а сервер — в Амстердаме; теперь сайт, сервер и Армения рядом.
 Ошибка по пути: сначала пробовал `railway scale eu-west=0` — Railway не остановил, а перезапустил службы в US West (`us-west2`). **Включить обратно** (после выбора плана на Railway), из `booktime-backend`, для каждого окружения: сначала базы, потом api — `railway scale -e production -s MySQL eu-west=1 us-west2=0`, так же `Redis`, потом `api` (то же для `-e staging`). Это вернёт их в EU West (Нидерланды) и запустит заново; проверить `curl https://api.booktime.am/` — ответ сервера, а не «Application not found».
 
 ## Где что живёт
@@ -268,6 +271,7 @@
   `TELEGRAM_WEBHOOK_SECRET` (без секрета — 403). У бота один вебхук, поэтому на staging бота нет — сообщения
   там пишутся в лог. Проверить: `getWebhookInfo` (поле `last_error_message`).
 - **«Войти через Google»** (03.10.2026) — без Client ID кнопки нет, вход по номеру работает как раньше. Что сделать владельцу:
+  **Сделано 16.11.2026** (по слову владельца «сделай сам»): Google Auth Platform в проекте Firebase `booktime-47539` (BookTime, External, **In production**, домен booktime.am, /privacy и /terms), веб-клиент «BookTime web» — Client ID `616538110621-hs0h95f004ki64pe808lti630s8trcj2.apps.googleusercontent.com` (origins: booktime.am, staging.booktime.am, localhost:3710). Записан: Vercel `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (Production и Preview develop), Railway api `GOOGLE_CLIENT_ID` (production и staging, без перевыкладки). Заработает со следующей выкладкой сайта и сервера. Секрет клиента не нужен и нигде не хранится.
   1. console.cloud.google.com → создать проект **BookTime** (или выбрать существующий).
   2. APIs & Services → **OAuth consent screen** (Google Auth Platform → Branding): User type **External**, имя
      приложения **BookTime**, почта поддержки, логотип (необязательно); Authorized domains — **booktime.am**; ссылки на
