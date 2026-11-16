@@ -250,6 +250,8 @@ export function useServiceForm() {
     saving: saveM.isPending,
     loading,
     isError: categoriesQ.isError || detailQ.isError,
+    // Услугу удалили (старая ссылка, закладка): сервер отвечает not_found — это не «нет связи»
+    notFound: detailQ.isError && (detailQ.error as { code?: string } | null)?.code === 'not_found',
     retry: () => (categoriesQ.isError ? categoriesQ.refetch() : detailQ.refetch()),
     categories: categoriesQ.data ?? [],
     staffList: staffListQ.data ?? [],

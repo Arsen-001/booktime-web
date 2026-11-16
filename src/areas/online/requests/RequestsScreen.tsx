@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import { Inbox } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { coreList } from '@/api/core';
+import { pickText } from '@/lib/text';
+import type { LocaleCode } from '@/domain/core';
 import { confirmPrepaymentReceived, listOnlineRequests, respondToRequest } from '@/api/online';
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
@@ -45,6 +48,16 @@ export function RequestsScreen() {
   const staffQ = useApiQuery(['online-requests-staff', businessId], () => coreList('staff', (s) => s.businessId === businessId), {
     enabled: ready && Boolean(businessId),
   });
+  // Сервер и мок отдают названия услуг в заявке по-русски (serviceNames) — на hy/en показываем перевод из каталога
+  // (проход кабинета 17.11.2026: «Маникюр аппаратный» в армянском и английском кабинете)
+  const locale = useLocale();
+  const servicesQ = useApiQuery(['online-requests-services', businessId], () => coreList('services', (sv) => sv.businessId === businessId), {
+    enabled: ready && Boolean(businessId) && locale !== 'ru',
+  });
+  const serviceTitle = (ru: string) => {
+    const sv = servicesQ.data?.find((x) => x.name.ru === ru);
+    return sv ? pickText(sv.name, locale as LocaleCode) || ru : ru;
+  };
   const requestsQ = useApiQuery(
     ['online-requests', businessId, ownStaffOnly ? staffId : undefined, staffId],
     () => listOnlineRequests(businessId!, ownStaffOnly ? staffId : undefined, staffId),
@@ -140,7 +153,7 @@ export function RequestsScreen() {
             {pageItems.map((r) => (
               <RequestCard
                 key={r.bookingId}
-                request={r}
+                request={locale === 'ru' ? r : { ...r, serviceNames: r.serviceNames.map(serviceTitle) }}
                 staff={staffById.get(r.staffId)}
                 viewerStaffId={staffId}
                 now={now}

@@ -124,7 +124,13 @@ export async function findAffectedBookings(staffIds: Id[], dates: ISODate[], new
 export function getStaffDayInfo(staffIds: Id[], date: ISODate): Promise<Record<Id, { typeId: string | null; note?: string }>> {
   reads();
   if (!staffIds.length) return Promise.resolve({});
-  return http('POST', `${b(bizOfStaff(staffIds[0]))}/schedule/day-info`, { staffIds, date });
+  // «Все филиалы» сети: мастера разных филиалов — по запросу на филиал (раньше всё уходило бизнесу первого мастера —
+  // 404 на мастеров другого филиала, проход кабинета 17.11.2026)
+  const byBiz = new Map<Id, Id[]>();
+  for (const id of staffIds) byBiz.set(bizOfStaff(id), [...(byBiz.get(bizOfStaff(id)) ?? []), id]);
+  return Promise.all(
+    [...byBiz].map(([biz, ids]) => http<Record<Id, { typeId: string | null; note?: string }>>('POST', `${b(biz)}/schedule/day-info`, { staffIds: ids, date })),
+  ).then((parts) => Object.assign({}, ...parts));
 }
 
 /** Кому передать записи закрываемого дня (Г3) */

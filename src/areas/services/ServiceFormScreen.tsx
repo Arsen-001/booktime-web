@@ -38,7 +38,8 @@ import { ServiceStaffSection } from '@/areas/services/components/ServiceStaffSec
 import { UpsellSection } from '@/areas/services/components/UpsellSection';
 import { FIELD_IDS, useServiceForm, type ServiceFormErrorKey } from '@/areas/services/useServiceForm';
 import type { ServiceKind } from '@/domain/core';
-import { Button } from '@/ui/Button';
+import { Button, LinkButton } from '@/ui/Button';
+import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { FormField } from '@/ui/FormField';
 import { ImageUpload } from '@/ui/ImageUpload';
@@ -83,6 +84,14 @@ export function ServiceFormScreen() {
     if (value.startsWith('ext:') && !visitedExt.includes(value)) setVisitedExt((v) => [...v, value]);
   };
 
+  if (f.notFound)
+    return (
+      <EmptyState
+        title={t('form.notFoundTitle')}
+        description={t('form.notFoundText')}
+        action={<LinkButton href="/biz/services">{t('form.notFoundBack')}</LinkButton>}
+      />
+    );
   if (f.isError) return <ErrorState onRetry={f.retry} />;
 
   const toList = () => router.push('/biz/services');

@@ -140,7 +140,8 @@ export function SlotOfferConfirm({ businessId, date, serviceId, serviceName, slo
         <EmptyState compact icon={<Send />} title={t('board.findSlot.offer.nobody')} description={t('board.findSlot.offer.nobodyHint')} />
       ) : (
         <>
-          <p className="px-1 text-xs font-semibold tracking-wide text-muted uppercase">{t('board.findSlot.offer.who')}</p>
+          {/* Свой заголовок («Кому предложить» у окна в сетке) уже говорит то же — второй «Кому отправить» был повтором */}
+          {!title && <p className="px-1 text-xs font-semibold tracking-wide text-muted uppercase">{t('board.findSlot.offer.who')}</p>}
           <div className="flex flex-col gap-3 px-1">
             {CHANNELS.map((ch) => (
               <Checkbox
