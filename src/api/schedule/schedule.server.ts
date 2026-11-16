@@ -14,7 +14,7 @@ import { mirrorCore, syncSchedule } from '@/api/mirror';
 import { ApiError, trackRead } from '@/api/request';
 import type { Booking, CalendarMark, DayHours, ISODate, ISODateTime, Id, Minutes, Staff, TimeRange } from '@/domain/core';
 import type { HistoryEntry, PlanningPeriodYears, ScheduleFilters, ScheduleTemplate, ScheduleViewConfig, ServiceSlotWindow, SlotRule, SlotScopeKind, UnavailableRange } from '@/domain/schedule';
-import { useDb } from '@/mock/db';
+import { readDbUntracked, useDb } from '@/mock/db';
 import { today } from '@/lib/date';
 import type { AffectedBooking, CellSnapshot, CellsApplyResult, CellsEditResult, MarksEditResult, SetCellsInput, SetCellsResult } from '@/api/schedule/shared';
 import type { AnySpecialistSlot, FreeSlot, SlotQuery, StaffSlotUtilization } from '@/api/schedule/slots';
@@ -30,24 +30,24 @@ function sessionBiz(): Id {
   return id;
 }
 export function bizOfStaff(staffId?: Id): Id {
-  const fromMirror = staffId ? useDb.getState().core.staff.find((s) => s.id === staffId)?.businessId : undefined;
+  const fromMirror = staffId ? readDbUntracked().core.staff.find((s) => s.id === staffId)?.businessId : undefined;
   return fromMirror ?? sessionBiz();
 }
 function bizOfScope(kind: SlotScopeKind, id: Id): Id {
   if (kind === 'staff') return bizOfStaff(id);
-  return useDb.getState().core.locations.find((l) => l.id === id)?.businessId ?? sessionBiz();
+  return readDbUntracked().core.locations.find((l) => l.id === id)?.businessId ?? sessionBiz();
 }
 function bizOfService(serviceId: Id): Id {
-  return useDb.getState().core.services.find((s) => s.id === serviceId)?.businessId ?? sessionBiz();
+  return readDbUntracked().core.services.find((s) => s.id === serviceId)?.businessId ?? sessionBiz();
 }
 function staffOfMark(markId: Id): Id {
-  const staffId = useDb.getState().core.calendarMarks.find((m) => m.id === markId)?.staffId;
+  const staffId = readDbUntracked().core.calendarMarks.find((m) => m.id === markId)?.staffId;
   if (!staffId) throw new ApiError('not_found', 'Mark not found');
   return staffId;
 }
 /** Бизнес записи — из зеркала журнала (стадия 21, лейн services+rest: getMoveCandidates не имеет businessId в подписи) */
 function bizOfBooking(bookingId?: Id): Id {
-  const fromMirror = bookingId ? useDb.getState().core.bookings.find((bk) => bk.id === bookingId)?.businessId : undefined;
+  const fromMirror = bookingId ? readDbUntracked().core.bookings.find((bk) => bk.id === bookingId)?.businessId : undefined;
   return fromMirror ?? sessionBiz();
 }
 
