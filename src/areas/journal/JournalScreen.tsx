@@ -1132,6 +1132,13 @@ export function JournalScreen() {
             <IconButton variant="ghost" className="-mr-1 rounded-full" icon={<MenuIcon aria-hidden />} label={t('board.rail.toggle')} aria-expanded={railOpen} onClick={toggleRail} />
           )}
                     <JournalDateNav key={journalStyle} date={date} onDateChange={setDate} view={view} staffIds={staffForView.map((s) => s.id)} />
+          {/* Неделя в «Живом дне» — одного мастера, а выбор мастера живёт в «⋯ Ещё»: без имени было непонятно, чья это
+              неделя (проход кабинета 17.11.2026, Kaytsak — 16 мастеров). Имя — кнопкой, открывает тот же выбор */}
+          {journalStyle === 'live' && view === 'week' && weekSubjectKind === 'staff' && canSeeOthers && weekStaff && (
+            <Button variant="ghost" size="sm" className="max-md:hidden" onClick={() => setMoreOpen(true)} aria-label={t('board.weekOf', { name: weekStaff.name })}>
+              {weekStaff.name}
+            </Button>
+          )}
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {viewSwitch}
             {/* BookTime, как в макете: в шапке только вид, «Найти окно», «⋯» и «Новая запись» — выбор мастеров и поиск
