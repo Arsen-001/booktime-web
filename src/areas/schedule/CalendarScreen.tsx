@@ -310,7 +310,8 @@ export function CalendarScreen() {
 
       <section className="flex flex-col gap-3" aria-label={t('calendar.weekLabel')} data-f="F-00-053 F-00-054">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-1">
+          {/* Телефон: «Загрузка месяца» и неделя не влезали в 390 px одной строкой — страница уезжала вбок на 67 px */}
+          <div className="flex min-w-0 flex-wrap items-center gap-1">
             <Button variant="ghost" size="sm" leftIcon={<CalendarDays aria-hidden />} onClick={() => setMonthLoadOpen(true)}>
               {t('calendar.monthLoadButton')}
             </Button>

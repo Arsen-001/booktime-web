@@ -235,7 +235,13 @@ export function visibleNav(items: NavItem[], ctx: NavVisibilityContext): NavItem
     .filter((i) => !ctx.hiddenItemIds?.has(i.id))
     .filter((i) => !i.hiddenInSpheres?.includes(ctx.sphere))
     .filter((i) => !i.permission || ctx.can(i.permission))
-    .map((i) => ({ ...i, children: i.children?.filter((c) => childVisible(c, ctx)) }));
+    .map((i) => {
+      const children = i.children?.filter((c) => childVisible(c, ctx));
+      // Подпункт с адресом самого пункта скрыт (мастеру нельзя «Ссылки на запись») — пункт ведёт на первый видимый
+      // подпункт, а не на экран «Нет прав» (проход кабинета 17.11.2026: «Онлайн-запись» мастера)
+      const ownHidden = i.children?.some((c) => c.href === i.href) && !children?.some((c) => c.href === i.href);
+      return { ...i, href: ownHidden && children?.[0] ? children[0].href : i.href, children };
+    });
 }
 
 /** Все адреса меню (включая подпункты), сгруппированные по разделам — для /dev/routes и замеров */
