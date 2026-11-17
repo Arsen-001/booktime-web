@@ -14,14 +14,17 @@ import {
   getStaffBalance,
   getStaffWorkedHours,
   listSettlementEntries,
+  signOwnStatement,
 } from "@/api/payroll";
 import { useCoreList } from "@/api/core";
-import { useApiQuery } from "@/api/request";
+import { useApiMutation, useApiQuery } from "@/api/request";
 import { usePayrollAccess } from "@/areas/payroll/access";
 import { useCurrent, useDemo } from "@/demo/hooks";
 import { useFormat } from "@/i18n/useFormat";
 import { useT } from "@/i18n/useT";
 import { today } from "@/lib/date";
+import { Badge } from "@/ui/Badge";
+import { Button } from "@/ui/Button";
 import { Card } from "@/ui/Card";
 import { DateRangePicker, presetRange } from "@/ui/DateRangePicker";
 import type { DateRange } from "@/ui/Calendar";
@@ -31,6 +34,7 @@ import { PageHeader } from "@/ui/PageHeader";
 import { Select } from "@/ui/Select";
 import { Skeleton, SkeletonText } from "@/ui/Skeleton";
 import { Tabs } from "@/ui/Tabs";
+import { useToast } from "@/ui/Toast";
 
 export function MeScreen() {
   const t = useT("payroll");
@@ -312,6 +316,20 @@ function PayoutsTab({
     ["payroll", "settlementEntries", businessId, staffId],
     () => listSettlementEntries(businessId, staffId),
   );
+  // F-09-100: ведомость, которую владелец отправил на подпись, сотрудник подписывает здесь — экран ведомости ему
+  // закрыт (нет права на раздел «Зарплата»), и согласование стояло на «Отправлено сотруднику» (проход 17.11)
+  const toast = useToast();
+  const signM = useApiMutation((sheetId: string) => signOwnStatement(businessId, staffId, sheetId), {
+    invalidates: [["payroll", "settlementEntries", businessId, staffId]],
+  });
+  const sign = async (sheetId: string) => {
+    try {
+      await signM.mutate(sheetId);
+      toast.success(t("statement.approval.signed"));
+    } catch {
+      toast.error(t("me.signFailed"));
+    }
+  };
 
   if (q.isError || (!q.isLoading && !q.data))
     return <ErrorState onRetry={() => void q.refetch()} />;
@@ -384,6 +402,16 @@ function PayoutsTab({
                   {e.label ? ` · ${e.label}` : ""}
                 </p>
                 <p className="text-xs text-muted">{format.date(e.createdAt)}</p>
+                {e.kind === "sheet" && e.approvalStatus && e.approvalStatus !== "sentToStaff" && (
+                  <Badge tone={e.approvalStatus === "signed" || e.approvalStatus === "paid" ? "success" : "neutral"} size="sm" className="mt-1">
+                    {t(`statement.approval.status.${e.approvalStatus}`)}
+                  </Badge>
+                )}
+                {e.kind === "sheet" && e.approvalStatus === "sentToStaff" && (
+                  <Button size="sm" className="mt-2" loading={signM.isPending} onClick={() => void sign(e.id)}>
+                    {t("statement.approval.sign")}
+                  </Button>
+                )}
               </div>
               <span
                 className={`shrink-0 tabular-nums font-semibold ${

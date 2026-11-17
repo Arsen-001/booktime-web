@@ -651,7 +651,7 @@ export function StatementScreen() {
                     >
                       <div className="flex items-center justify-between gap-3">
                         <span className="text-sm font-medium text-fg">
-                          {op.date} · {op.time}
+                          {format.date(op.date, "dayMonth")} · {op.time}
                         </span>
                         <div className="flex items-center gap-2">
                           {stale && (

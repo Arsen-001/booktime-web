@@ -2047,6 +2047,12 @@ export function advanceStatementApproval(
   });
 }
 
+/** F-09-100: сотрудник подписывает СВОЮ ведомость в «Моя зарплата → Выплаты» (без права на раздел «Зарплата») */
+export function signOwnStatement(businessId: Id, staffId: Id, sheetId: Id): Promise<StatementApproval> {
+  if (isApiMode()) return Server.signOwnStatement(businessId, staffId, sheetId);
+  return signStatement(sheetId, staffId);
+}
+
 /** F-09-100: сотрудник подписывает свою ведомость (фиксирует время; «устройство» — демо, у нас один клиент) */
 export function signStatement(
   sheetId: Id,

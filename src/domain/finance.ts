@@ -692,6 +692,8 @@ export interface SettlementEntry {
    * сид не может посчитать схему: срез зарплаты ему недоступен). После пересчёта флаг снимается.
    */
   seedRecalc?: boolean;
+  /** F-09-100: статус согласования ведомости (`kind: 'sheet'`), если согласование включено — «Подписать» у сотрудника */
+  approvalStatus?: 'pendingReview' | 'reviewed' | 'approved' | 'sentToStaff' | 'signed' | 'paid';
   createdAt: ISODateTime;
   createdBy: string;
 }

@@ -40,6 +40,7 @@ import type {
   StatementComputation,
 } from '@/domain/payroll';
 import { readDbUntracked } from '@/mock/db';
+import { toLocalDateTime } from '@/lib/date';
 
 function currentBusinessId(): Id {
   const id = apiIdentity()?.businessId;
@@ -280,6 +281,11 @@ export function advanceStatementApproval(sheetId: Id): Promise<StatementApproval
   return http<StatementApproval>('POST', `${b(currentBusinessId())}/payroll/statements/${sheetId}/approval/advance`);
 }
 
+/** Сотрудник подписывает свою ведомость из «Моя зарплата» (без payroll.view, проход 17.11) */
+export function signOwnStatement(businessId: Id, staffId: Id, sheetId: Id): Promise<StatementApproval> {
+  return http<StatementApproval>('POST', `${b(businessId)}/staff/${staffId}/statements/${sheetId}/sign`);
+}
+
 export function signStatement(sheetId: Id): Promise<StatementApproval> {
   return http<StatementApproval>('POST', `${b(currentBusinessId())}/payroll/statements/${sheetId}/approval/sign`);
 }
@@ -290,10 +296,13 @@ export function signStatement(sheetId: Id): Promise<StatementApproval> {
 const ISO_PERIOD_LABEL = /^(\d{4})-(\d{2})-(\d{2}) – (\d{4})-(\d{2})-(\d{2})$/;
 
 export function listSettlements(businessId: Id, staffId: Id, periodFrom?: ISODate, periodTo?: ISODate) {
-  return http<{ label: string }[]>('GET', `${b(businessId)}/staff/${staffId}/settlements`, undefined, { query: { periodFrom, periodTo } }).then((rows) =>
+  return http<{ label: string; createdAt?: string }[]>('GET', `${b(businessId)}/staff/${staffId}/settlements`, undefined, { query: { periodFrom, periodTo } }).then((rows) =>
     rows.map((r) => {
       const m = ISO_PERIOD_LABEL.exec(r.label);
-      return m ? { ...r, label: `${m[3]}.${m[2]}.${m[1]}–${m[6]}.${m[5]}.${m[4]}` } : r;
+      // Время записи — по Еревану без пояса, как у визитов: сервер отдаёт мгновение UTC («…T02:17:00Z»), и сравнение
+      // «визит правили после начисления» (F-09-070) красило свежую ведомость «Изменилось после начисления» (проход 17.11)
+      const createdAt = r.createdAt ? (toLocalDateTime(r.createdAt) ?? r.createdAt) : r.createdAt;
+      return { ...r, createdAt, ...(m ? { label: `${m[3]}.${m[2]}.${m[1]}–${m[6]}.${m[5]}.${m[4]}` } : {}) };
     }),
   );
 }

@@ -2373,7 +2373,11 @@ export function listSettlementEntries(businessId: Id, staffId: Id, periodFrom?: 
     await recalcSeedSheets(businessId, staffId);
     const all = readArea('finance').settlementEntries.filter((e) => e.businessId === businessId && e.staffId === staffId);
     const filtered = periodFrom && periodTo ? all.filter((e) => e.createdAt >= periodFrom && e.createdAt <= periodTo) : all;
-    return [...filtered].sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1));
+    // Статус согласования ведомости — как отдаёт сервер (срез зарплаты только читаем)
+    const approvals = readArea('payroll').statementApprovals;
+    return [...filtered]
+      .sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1))
+      .map((e) => (e.kind === 'sheet' && approvals[e.id] ? { ...e, approvalStatus: approvals[e.id].status } : e));
   });
 }
 
