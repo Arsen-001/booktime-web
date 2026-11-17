@@ -24,6 +24,7 @@ import { apiIdentity } from '@/api/identity';
 import type { Booking, Business, CalendarMark, Client, CoreData, GroupEvent, Id, Location, Network, Resource, Service, ServiceCategory, Staff, WorkSchedule } from '@/domain/core';
 import type { BookingExtras, PackageGroup } from '@/domain/journal';
 import type { DayRecord, PlanningPeriodYears, ServiceSlotWindow, SlotRule, UnavailableRange } from '@/domain/schedule';
+import { addDays, today } from '@/lib/date';
 import { dbReady, notifyDbChange, readDbUntracked } from '@/mock/db';
 
 export interface CoreSnapshot {
@@ -147,7 +148,7 @@ export async function syncCore(businessId: Id, onCoreReady?: () => void): Promis
   await dbReady();
   mirrorSnapshot(snap);
   // График и записи — одновременно (не друг за другом). Экраны кабинета ждут ядро и график (onCoreReady →
-  // useApiIdentity.mirrored), но не записи: зеркало записей ±400 дней — 170–240 мс и 450–660 КБ.
+  // useApiIdentity.mirrored), но не записи. Зеркало записей — узкое окно около сегодня (BOOKINGS_WINDOW).
   // Записи своего бизнеса и (сеть) филиалов, доступных этому входу — «Все филиалы» журнала (F-01-006)
   const network = (apiIdentity()?.businessIds ?? []).filter((id) => id !== businessId);
   const bookings = syncBookings([businessId, ...network]).catch(() => undefined);
@@ -245,15 +246,16 @@ export interface BookingsMirror {
 }
 
 /**
- * Записи бизнеса — в ядро браузера (этап 7): журнал на сервере, но отчёты, финансы, онлайн-запись, приложение клиента
- * и сводки CRM (этапы 8–16) ещё считают по ядру и должны видеть те же записи. Записи этих бизнесов заменяются целиком
- * (удалённое на сервере и демо-записи мока уходят), доп. данные визитов — в срез journal.
+ * Записи бизнеса — в ядро браузера (этап 7). Отчёты, финансы, история клиента, лояльность и сводки считает сервер
+ * (аудит 17.11.2026); ядро нужно служебным местам около сегодня (чей это бизнес по id записи, окно записи после
+ * правки). Записи этих бизнесов в окне снимка заменяются целиком (удалённое на сервере и демо-записи мока уходят),
+ * доп. данные визитов — в срез journal.
  */
 export function mirrorBookingsSnapshot(m: BookingsMirror): void {
   const ids = new Set(m.businessIds);
   const state = readDbUntracked();
-  // Снимок покрывает только свои даты (from…to): записи вне них (старее 400 дней — их приносит список «Записи»)
-  // не выбрасываем. И ничего не пишем, если снимок тот же: раньше каждый снимок выбрасывал 4 старые записи Nuri,
+  // Снимок покрывает только свои даты (from…to): записи вне них (их приносят журнал, «Записи», карточка клиента — с
+  // сервера) не выбрасываем. И ничего не пишем, если снимок тот же: раньше каждый снимок выбрасывал 4 старые записи Nuri,
   // список «Записи» добавлял их обратно — и они перечитывали друг друга по кругу (проход кабинета 17.11.2026)
   const inSnapshot = (x: { businessId: Id; start: string }) => {
     const day = x.start.slice(0, 10);
@@ -287,13 +289,23 @@ export function mirrorBookingsSnapshot(m: BookingsMirror): void {
   }));
 }
 
+/**
+ * Окно зеркала записей около сегодня (скорость, 17.11.2026: было ±400 дней — у Nuri 471 КБ и 160–280 мс на КАЖДОЕ
+ * открытие кабинета; −30…+60 — 33 КБ и ≈30 мс). Всё, что смотрит дальше, берёт записи с сервера само: журнал, «Записи»,
+ * отчёты, финансы, карточка клиента (история, ближайшая запись), ведомость, группы, журнал отправок — и кладёт их сюда
+ * же (keepAll в journal.server.ts), так что листание журнала за край окна догружает нужные дни.
+ */
+export const BOOKINGS_WINDOW = { pastDays: 30, futureDays: 60 } as const;
+
+/** Даты окна зеркала на сегодня (по Еревану) */
+export function bookingsWindow(): { from: string; to: string } {
+  return { from: addDays(today(), -BOOKINGS_WINDOW.pastDays), to: addDays(today(), BOOKINGS_WINDOW.futureDays) };
+}
+
 export async function syncBookings(businessIds: Id[]): Promise<void> {
   const [first, ...rest] = businessIds;
   if (!first) return;
-  const d = new Date();
-  const iso = (x: Date) => x.toISOString().slice(0, 10);
-  const from = iso(new Date(d.getTime() - 400 * 86_400_000));
-  const to = iso(new Date(d.getTime() + 400 * 86_400_000));
+  const { from, to } = bookingsWindow();
   const m = await http<BookingsMirror>('GET', `/v1/biz/${first}/journal/mirror`, undefined, { query: { from, to, businessIds: rest.join(',') || undefined } });
   mirrorBookingsSnapshot(m);
 }

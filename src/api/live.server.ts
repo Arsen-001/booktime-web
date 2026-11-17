@@ -7,9 +7,9 @@
  * (их метки core.bookings / core.schedules). Несколько событий подряд — одно перечитывание.
  */
 import { API_URL } from '@/api/http';
-import { syncBookings, syncSchedule } from '@/api/mirror';
+import { bookingsWindow, syncBookings, syncSchedule } from '@/api/mirror';
 import type { Id } from '@/domain/core';
-import { readDbUntracked } from '@/mock/db';
+import { notifyDbChange, readDbUntracked } from '@/mock/db';
 
 const MAX_CHANNELS = 20;
 const DEBOUNCE_MS = 700;
@@ -24,9 +24,32 @@ export function startLive(businessId: Id, businessIds: Id[] = [businessId]): () 
   const source = new EventSource(`${API_URL}/v1/live?channels=${encodeURIComponent(channels)}`, { withCredentials: true });
   let bookingsTimer: ReturnType<typeof setTimeout> | undefined;
   let scheduleTimer: ReturnType<typeof setTimeout> | undefined;
-  const onBookings = () => {
+  const changedIds = new Set<Id>();
+  /**
+   * Зеркало держит записи только около сегодня (src/api/mirror.ts, BOOKINGS_WINDOW): правка записи за краем окна его не
+   * меняет — тогда будим читателей записей сами (журнал на дальнем дне, «Записи», карточка клиента перечитают сервер).
+   */
+  const resync = async () => {
+    const ids = [...changedIds];
+    changedIds.clear();
+    await syncBookings(businessIds);
+    const { from, to } = bookingsWindow();
+    const bookings = readDbUntracked().core.bookings;
+    const outside = ids.some((id) => {
+      const day = bookings.find((b) => b.id === id)?.start.slice(0, 10);
+      return !day || day < from || day > to;
+    });
+    if (outside) notifyDbChange('core.bookings');
+  };
+  const onBookings = (e: MessageEvent) => {
+    try {
+      const data = JSON.parse(String(e.data)) as { bookingIds?: Id[] };
+      for (const id of data.bookingIds ?? []) changedIds.add(id);
+    } catch {
+      // событие без списка записей — только перечитать окно
+    }
     clearTimeout(bookingsTimer);
-    bookingsTimer = setTimeout(() => void syncBookings(businessIds).catch(() => undefined), DEBOUNCE_MS);
+    bookingsTimer = setTimeout(() => void resync().catch(() => undefined), DEBOUNCE_MS);
   };
   const onSchedule = () => {
     clearTimeout(scheduleTimer);
