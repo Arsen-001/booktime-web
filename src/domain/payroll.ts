@@ -521,6 +521,27 @@ export function computeAssistSplit(
   return { masterAmount, assistants: assistantAmounts };
 }
 
+/**
+ * F-09-047: мастера, у которых эти сотрудники ассистировали. Доля ассистента считается по схеме МАСТЕРА строки
+ * (computeAssistSplit со ставками мастера), поэтому «Расчёт», ведомость и «Моя зарплата» ассистента читают и схему
+ * мастера — иначе в ведомости Ани-ассистента доли не было, а у Мариам она вычиталась. Ани ассистировала Мариам →
+ * ['st_mariam']. Тот же помощник на сервере — withAssistedMasters (payroll-engine.ts).
+ */
+export function assistedMasterIds(
+  bookings: readonly Pick<Booking, "id" | "services">[],
+  staffIds: readonly Id[],
+  assistantsForLine: (bookingId: Id, serviceIndex: number) => AssistantShare[],
+): Id[] {
+  const mine = new Set(staffIds);
+  const out = new Set<Id>();
+  for (const b of bookings) {
+    b.services.forEach((line, i) => {
+      if (!mine.has(line.staffId) && assistantsForLine(b.id, i).some((a) => mine.has(a.staffId))) out.add(line.staffId);
+    });
+  }
+  return [...out];
+}
+
 // ─────────────────────────── Движок: расчёт за день ───────────────────────────
 
 export interface PayoutLine {

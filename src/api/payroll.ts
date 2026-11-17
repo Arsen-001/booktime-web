@@ -13,6 +13,7 @@ import {
   applyDailyGuaranteedMinimum,
   applyMonthlyGuaranteedMinimum,
   canMarkPaid,
+  assistedMasterIds,
   computeServicesForDay,
   defaultGeneralSettings,
   emptyChart,
@@ -553,15 +554,23 @@ export function computeDay(
         (ownOnly === undefined || s.id === ownOnly),
     );
     const generalSettings = readArea("payroll").settingsByLocation[locationId];
+    // F-09-047: доля ассистента — по схеме мастера строки; мастер видит «только себя» — схемы мастеров, кому он ассистировал
+    const assistedMasters = assistedMasterIds(
+      core.bookings.filter((b) => b.locationId === locationId),
+      staffList.map((s) => s.id),
+      assistantsForLineLookup(),
+    )
+      .map((id) => core.staff.find((s) => s.id === id))
+      .filter((s): s is Staff => Boolean(s));
     const schemes = resolveEffectiveSchemes(
       location.businessId,
-      staffList,
+      [...staffList, ...assistedMasters],
       locationId,
       date,
       core.bookings,
       generalSettings,
     );
-    const anyConfigured = schemes.size > 0;
+    const anyConfigured = staffList.some((s) => schemes.has(s.id));
 
     const opsByStaff = computeServicesForDay({
       date,
@@ -906,6 +915,13 @@ function computeStaffPay(
   const dates = eachDay(from, to);
   const events = core.bookingEvents ?? [];
   const qualifyingMonths = qualifyingMonthlySalaryMonths(from, to);
+  const assistedMasters = assistedMasterIds(
+    core.bookings.filter((b) => b.locationId === locationId),
+    [staff.id],
+    ctx.assistantsForLine,
+  )
+    .map((id) => core.staff.find((s) => s.id === id))
+    .filter((s): s is Staff => Boolean(s));
   const operations: StatementOperation[] = [];
   let workDays = 0;
   let workHours = 0;
@@ -945,6 +961,12 @@ function computeStaffPay(
     hoursByMonth.set(month, roundMoney((hoursByMonth.get(month) ?? 0) + hours));
     const schemes = new Map<Id, PayrollScheme>();
     if (scheme) schemes.set(staff.id, scheme);
+    // F-09-047: доля ассистента — по схеме мастера строки (как «Расчёт за день»): без неё в ведомости ассистента доли
+    // не было, а у мастера она вычиталась
+    for (const master of assistedMasters) {
+      const masterScheme = schemeOn(ctx, master, date);
+      if (masterScheme) schemes.set(master.id, masterScheme);
+    }
     const ops =
       computeServicesForDay({
         date,
