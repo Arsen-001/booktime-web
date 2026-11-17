@@ -52,6 +52,9 @@ import { useCan, useCurrent } from "@/demo/hooks";
 import { useFormat } from "@/i18n/useFormat";
 import { useT } from "@/i18n/useT";
 import { downloadCsv, toCsv } from "@/lib/csv";
+import { pickText } from "@/lib/text";
+import { useLocale } from "next-intl";
+import type { LocaleCode } from "@/domain/core";
 import { Avatar } from "@/ui/Avatar";
 import { Badge } from "@/ui/Badge";
 import { Button, LinkButton } from "@/ui/Button";
@@ -75,11 +78,17 @@ import { useConfirm, useToast } from "@/ui/Toast";
 export function StatementScreen() {
   const t = useT("payroll");
   // F-09-007/107: строка удержания комиссии банка — служебный refId, не сырой текст на экране
+  // Услуга — на языке кабинета (сервер присылает русское имя: на en/hy было «Маникюр классический»), хвосты 17.11
+  const serviceName = (id: string) => {
+    const name = servicesQ.data?.find((sv) => sv.id === id)?.name;
+    return name ? pickText(name, locale) : undefined;
+  };
   const lineLabel = (line: { refId: string; label: string }) =>
     line.refId.startsWith("commission:")
       ? t("daily.commissionLine")
-      : line.label;
+      : (serviceName(line.refId) ?? line.label);
   const format = useFormat();
+  const locale = useLocale() as LocaleCode;
   const toast = useToast();
   const confirm = useConfirm();
   const search = useSearchParams();
@@ -107,6 +116,11 @@ export function StatementScreen() {
 
   const staffQuery = useCoreList(
     "staff",
+    { businessId },
+    { enabled: ready && Boolean(businessId) },
+  );
+  const servicesQ = useCoreList(
+    "services",
     { businessId },
     { enabled: ready && Boolean(businessId) },
   );

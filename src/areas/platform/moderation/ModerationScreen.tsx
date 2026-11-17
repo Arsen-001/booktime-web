@@ -114,7 +114,8 @@ export function ModerationScreen() {
       id: 'what',
       header: t('moderation.columnWhat'),
       mobile: 'title',
-      width: '22rem',
+      // 18rem: на компьютере 1280 с колонкой «Решение» таблица шире места — «Одобрить» уходил за край (хвосты 17.11)
+      width: '18rem',
       cell: (m) => (
         <span className="flex min-w-0 flex-col">
           <span className="truncate font-medium text-fg">{titleOf(m)}</span>
@@ -150,7 +151,7 @@ export function ModerationScreen() {
             id: 'why',
             header: tab === 'auto' ? t('moderation.columnWhyAuto') : t('moderation.columnReason'),
             mobile: 'badge' as const,
-            width: '14rem',
+            width: '11rem', // причина переносится строкой; шире — таблица не помещалась на 1280
             cell: (m: ModerationView) =>
               tab === 'auto' ? <Badge tone="info">{t(`moderation.source.${m.source}`)}</Badge> : <span className="text-sm text-muted">{m.reasonLabel ? pickText(m.reasonLabel, locale) : '—'}</span>,
           },
