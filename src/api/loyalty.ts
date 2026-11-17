@@ -3212,7 +3212,9 @@ export async function payVisitWithLoyalty({ businessId, locationId, bookingId, c
     for (const c of committed) await reverseLoyaltyLine(businessId, bookingId, c.txId);
     throw error;
   }
-  await mirrorToFinance(businessId, bookingId, committed.map((c, i) => ({ txId: c.txId, amount: c.amount, label: financeLabelOf(c, i) })));
+  // Живой сервер сам кладёт строки лояльности в оплату визита (`/bookings/:id/payments`, та же строка во вкладке
+  // «Оплата»): вторая строка-скидка отвечала 422 nothing_to_discount (проход 17.11) — зеркало нужно только моку
+  if (!isApiMode()) await mirrorToFinance(businessId, bookingId, committed.map((c, i) => ({ txId: c.txId, amount: c.amount, label: financeLabelOf(c, i) })));
   await syncBookingCashback(businessId, locationId, clientId, bookingId, await visitPaymentsForCashback(businessId, bookingId, extras.payments ?? []), visit);
   return extras;
 }

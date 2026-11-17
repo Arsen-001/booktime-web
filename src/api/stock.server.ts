@@ -12,7 +12,9 @@
  * `updateSaleOperation`, вспомогательные функции инвентаризации (`incrementInventoryActual` и т.п. — обходятся
  * через тот же `setLines`; `updateInventoryMeta` — свой PATCH `inventories/:id`, этап 21).
  */
-import { http } from '@/api/http';
+import { http as rawHttp, type HttpOptions } from '@/api/http';
+import { trackRead } from '@/api/request';
+import { notifyDbChange } from '@/mock/db';
 import { toLocalDateTime } from '@/lib/date';
 import { getBooking } from '@/api/journal.server';
 import type { Id, Money } from '@/domain/core';
@@ -79,6 +81,21 @@ import type {
   WarehouseInput,
   WriteoffInput,
 } from '@/api/stock';
+
+/**
+ * Перечитывание в режиме api (проход 17.11): чтения склада объявляют метку areas.stock, запись будит её — как
+ * read/write у settings.server.ts. Без этого экран после записи показывал старое: инвентаризация — «Не считали» и
+ * «Расхождений 0» при сохранённом факте, «Провести» не меняло статус, остатки — прежние до 60 с кэша.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET') {
+    trackRead('areas.stock');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  notifyDbChange('areas.stock');
+  return res;
+}
 
 const b = (businessId: Id) => `/v1/biz/${businessId}`;
 const sb = (businessId: Id) => `${b(businessId)}/stock`;

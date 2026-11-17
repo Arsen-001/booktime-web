@@ -16,8 +16,9 @@
 import * as ClientsServer from '@/api/clients/clients.server';
 import { currentActor } from '@/api/core';
 import { getBooking } from '@/api/journal.server';
-import { http } from '@/api/http';
-import { ApiError } from '@/api/request';
+import { http as rawHttp, type HttpOptions } from '@/api/http';
+import { ApiError, trackRead } from '@/api/request';
+import { notifyDbChange } from '@/mock/db';
 import * as ServicesServer from '@/api/services.server';
 import * as StaffServer from '@/api/staff.server';
 import { dayjs, nowDateTime, toISODateTime, toLocalDateTime } from '@/lib/date';
@@ -110,6 +111,22 @@ import type {
   OperationInput,
 } from '@/domain/finance';
 import type { AccountWithBalance, BookingPaymentSummary, CashShiftView, LoyaltySaleInput, OperationUpdate, SplitPaymentPart, TransferFundsInput, UnpaidVisitRow } from '@/api/finance';
+
+/**
+ * Перечитывание в режиме api (проход 17.11): чтения финансов объявляют метку areas.finance (и платежи визита —
+ * areas.journal.extras, их пишет и окно записи), запись будит обе. Без этого вкладка «Оплата» после оплаты
+ * абонементом во вкладке «Лояльность» показывала «К оплате 5 000 ֏ · не оплачено», а сервер — «оплачено».
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  // POST-чтение (сводки оплат по списку записей) — тоже чтение: запись из чтения перечитывала бы саму себя по кругу
+  if (method === 'GET' || (method === 'POST' && /\/bookings\/payment-briefs$/.test(path))) {
+    trackRead('areas.finance', 'areas.journal.extras');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  notifyDbChange('areas.finance', 'areas.journal.extras');
+  return res;
+}
 
 const b = (businessId: Id) => `/v1/biz/${businessId}`;
 const fb = (businessId: Id) => `${b(businessId)}/finance`;

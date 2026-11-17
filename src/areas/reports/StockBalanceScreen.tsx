@@ -133,7 +133,7 @@ export function StockBalanceScreen() {
         0,
         { id: 'cost', header: t('stockBalance.columns.cost'), cell: (r) => f.money(r.costPrice ?? 0), align: 'right' },
         { id: 'markup', header: t('stockBalance.columns.markup'), cell: (r) => f.money(r.markup ?? 0), align: 'right' },
-        { id: 'markupPct', header: t('stockBalance.columns.markupPct'), cell: (r) => `${r.markupPct ?? 0}%`, align: 'right' },
+        { id: 'markupPct', header: t('stockBalance.columns.markupPct'), cell: (r) => `${f.number(r.markupPct ?? 0)}%`, align: 'right' },
         {
           id: 'totalCost',
           header: <span data-f="F-12-120">{t('stockBalance.columns.totalCost')}</span>,

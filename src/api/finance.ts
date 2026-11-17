@@ -1826,10 +1826,14 @@ export function getClientMoneySummary(businessId: Id, clientId: Id): Promise<Cli
   if (isApiMode()) return Server.getClientMoneySummary(businessId, clientId);
   return request(() => {
     const bookings = readCore().bookings.filter((b) => b.businessId === businessId && b.clientId === clientId && b.status === 'arrived' && !b.deletedAt);
-    // Товары визита (28.09) — тоже «Продано»: платежи за них (goods) уже входят в оплаченное ниже
-    const totals = bookings.map((b) => payableTotalOf(b));
-    const bookingIds = new Set(bookings.map((b) => b.id));
     const area = readArea('finance');
+    // Товары визита (28.09) — тоже «Продано»: платежи за них (goods) уже входят в оплаченное ниже. Скидка по акции
+    // (и строки лояльности, которые мок кладёт скидкой) — не оплата: уменьшает «Продано», иначе визит выглядел долгом
+    // (как сервер, проход 17.11: там абонемент — оплата, баланс тот же)
+    const discountOf = (bookingId: Id) =>
+      area.bookingPayments.filter((p) => p.businessId === businessId && p.bookingId === bookingId && !p.cancelled && p.kind === 'discount').reduce((s, p) => s + paymentLineNet(p), 0);
+    const totals = bookings.map((b) => roundToDram(payableTotalOf(b) - discountOf(b.id)));
+    const bookingIds = new Set(bookings.map((b) => b.id));
     // + полученная мастером предоплата (F-00-097): она оплачена мимо кассы, но клиент её заплатил
     const paidFromBookings =
       area.bookingPayments.filter((p) => p.businessId === businessId && bookingIds.has(p.bookingId) && !p.cancelled && p.kind !== 'discount').reduce((s, p) => s + paymentLineNet(p), 0) +
