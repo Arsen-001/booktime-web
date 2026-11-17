@@ -34,11 +34,13 @@ import type {
   ClientRow,
   ClientsFineRights,
   ColumnsPrefs,
+  CrmSummary,
   CustomFieldDef,
   ExportLogEntry,
   ImportBatchInput,
   ImportBatchResult,
   ImportRunSummary,
+  PendingMark,
   Subscription,
 } from '@/domain/clients';
 
@@ -299,6 +301,23 @@ export interface ServerClientsSettings {
   showLoyaltySearchInBookingWindow: boolean;
   /** F-04-093, этап 21 «Сдача» */
   bookingWindowFavorites: BookingWindowSection[];
+}
+
+/**
+ * Сводка клиентов за период (F-04-123…125/163/185) — считает сервер (скорость 17.11: раньше браузер тянул все визиты
+ * салона «пришёл/не пришёл» и всех клиентов). Читает записи и клиентов — перечитывается после их правки.
+ */
+export function getCrmSummary(businessId: Id, period: { from: string; to: string }): Promise<CrmSummary> {
+  trackRead('core.bookings');
+  trackRead('areas.clients');
+  return http<CrmSummary>('GET', `${base(businessId)}/clients/summary`, undefined, { query: { from: period.from, to: period.to } });
+}
+
+/** «Отметьте визиты» (F-00-127): только прошедшие записи без отметки, с именем клиента — сервер; имя мастера — у экрана */
+export function listPendingMarks(businessId: Id): Promise<Omit<PendingMark, 'staffName'>[]> {
+  trackRead('core.bookings');
+  trackRead('areas.clients');
+  return http<Omit<PendingMark, 'staffName'>[]>('GET', `${base(businessId)}/clients/pending-marks`);
 }
 
 export function getSettings(businessId: Id): Promise<ServerClientsSettings> {

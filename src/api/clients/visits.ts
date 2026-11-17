@@ -375,108 +375,14 @@ export function getCrmSummary(businessId: Id, period: SummaryPeriod): Promise<Cr
   });
 }
 
-function groupByClient(bookings: Booking[]): Map<Id, Booking[]> {
-  const map = new Map<Id, Booking[]>();
-  bookings.forEach((b) => {
-    const id = b.clientId as Id;
-    map.set(id, [...(map.get(id) ?? []), b]);
-  });
-  return map;
-}
-
 /**
- * Этап 21 (лейн services+rest): `getCrmSummary` в режиме api — те же данные, но по-настоящему живые записи
- * (`S.listBookings`) вместо того, что уже случайно осело в зеркале браузера (правило K7 не про мгновенные
- * подборки — про честные суммы отчёта). «Есть ли телефон» (F-04-222) — по настоящему списку клиентов бизнеса
- * (`listClientRows`, этап 5), а не по зеркалу: клиенты сознательно НЕ входят в общий снимок `/core` (K8).
- * Сетевой «потерянный» (F-04-124/185) — best-effort: сеть уже есть в зеркале (этап 3, `/core`), но список
- * клиентов и записи соседних филиалов запрашиваются отдельно и требуют членства во всех них; нет доступа —
- * `networkLostClients` остаётся `undefined` (честнее выдуманного нуля), как и у мока без сети.
+ * `getCrmSummary` в режиме api — считает сервер (GET clients/summary, скорость 17.11.2026): раньше браузер тянул все
+ * визиты салона «пришёл/не пришёл» (221 КБ) и всех клиентов (43 КБ) и считал здесь. Правила — те же, что у мока выше:
+ * «есть телефон» (F-04-222), свои визиты без права на отчёты (F-00-132), «потерянные» сети — при доступе ко всем
+ * филиалам (иначе `networkLostClients` нет, как раньше).
  */
-async function apiGetCrmSummary(businessId: Id, period: SummaryPeriod): Promise<CrmSummary> {
-  const actor = currentActor();
-  const ownOnly = !canNow('reports.view') && Boolean(actor.staffId);
-
-  // Мастер без отчётов (ownOnly) — только свои визиты: с сервера берём лишь его записи, а не все визиты салона
-  // (проход 17.11, группа 4: было 1–2 МБ на открытие). «Новые / не новые / потерянные» у него — по его визитам
-  // Имена мастеров и сеть — из зеркала ядра внутри request() (вне его — шум «[mock-db] вне request()» в консоли);
-  // срок «потерянного» — настройка салона на сервере, а не из базы браузера
-  const [clientRows, allTime, settings, mirror] = await Promise.all([
-    C.listClientRows(businessId),
-    S.listBookings({ businessId, statuses: ['arrived', 'no_show'], ...(ownOnly ? { staffId: actor.staffId } : {}) }),
-    C.getSettings(businessId),
-    request(() => {
-      const core = readCore();
-      return { names: new Map(core.staff.map((st) => [st.id, st.name])), network: core.networks.find((n) => n.businessIds.includes(businessId)) };
-    }),
-  ]);
-  const phoneClientIds = new Set(clientRows.filter((c) => c.phone).map((c) => c.id));
-  const isCounted = (b: Booking) => b.status === 'arrived' && !b.deletedAt && Boolean(b.clientId) && phoneClientIds.has(b.clientId as Id);
-
-  // F-04-185: локация смотрит только свои визиты — весь расчёт «потерянных» локации идёт по одному businessId
-  const arrivedAllTime = allTime.filter(isCounted);
-  const bookings = arrivedAllTime.filter(
-    (b) => b.start.slice(0, 10) >= period.from && b.start.slice(0, 10) <= period.to && (!ownOnly || b.staffId === actor.staffId),
-  );
-
-  const revenue = bookings.reduce((sum, b) => sum + b.total, 0);
-  const clientIds = new Set(bookings.map((b) => b.clientId).filter(Boolean) as Id[]);
-
-  const byStaffMap = new Map<Id, StaffSummaryRow>();
-  bookings.forEach((b) => {
-    const row = byStaffMap.get(b.staffId) ?? { staffId: b.staffId, name: mirror.names.get(b.staffId) ?? '—', revenue: 0, hoursBooked: 0, visits: 0 };
-    row.revenue += b.total;
-    row.hoursBooked += b.durationMin / 60;
-    row.visits += 1;
-    byStaffMap.set(b.staffId, row);
-  });
-
-  // F-04-125: «Новые» — первый визит клиента (когда-либо, в этой локации) попал в период; иначе «не новый»
-  const arrivalsByClientLocal = groupByClient(arrivedAllTime);
-  let newClients = 0;
-  let repeatClients = 0;
-  clientIds.forEach((id) => {
-    const list = arrivalsByClientLocal.get(id) ?? [];
-    const first = list.reduce((min, b) => (b.start < min ? b.start : min), list[0]?.start ?? '');
-    if (first.slice(0, 10) >= period.from) newClients += 1;
-    else repeatClients += 1;
-  });
-
-  // F-04-123: срок этой локации (ClientsBizSettings.lostAfterDays), считаем «на конец периода»
-  const lostAfterDays = settings.lostAfterDays;
-  const lostClients = countLost(arrivalsByClientLocal, period.to, lostAfterDays);
-
-  // F-04-124/185 ⭐: та же формула по всей сети — best-effort, см. докстринг функции
-  // Сеть целиком мастеру не считаем: это все визиты всех филиалов, а ему — только своё
-  const network = ownOnly ? undefined : mirror.network;
-  let networkLostClients: number | undefined;
-  if (network) {
-    try {
-      const peerIds = network.businessIds.filter((id) => id !== businessId);
-      if (!peerIds.length) {
-        networkLostClients = lostClients;
-      } else {
-        const [networkBookings, peerClientRows] = await Promise.all([
-          S.listBookings({ businessId, businessIds: network.businessIds, statuses: ['arrived'] }),
-          Promise.all(peerIds.map((id) => C.listClientRows(id))),
-        ]);
-        const networkPhoneIds = new Set(phoneClientIds);
-        peerClientRows.flat().forEach((c) => {
-          if (c.phone) networkPhoneIds.add(c.id);
-        });
-        const arrivedNetwork = networkBookings.filter((b) => b.status === 'arrived' && !b.deletedAt && b.clientId && networkPhoneIds.has(b.clientId));
-        networkLostClients = countLost(groupByClient(arrivedNetwork), period.to, lostAfterDays);
-      }
-    } catch {
-      networkLostClients = undefined;
-    }
-  }
-
-  // F-04-163: клиент со статусом «Не пришёл» в бизнесе, кого в этом же периоде перезаписали и он дошёл
-  const noShowClientIds = new Set(allTime.filter((b) => b.status === 'no_show' && !b.deletedAt && b.clientId).map((b) => b.clientId as Id));
-  const rebookedNoShows = new Set(bookings.filter((b) => b.clientId && noShowClientIds.has(b.clientId)).map((b) => b.clientId)).size;
-
-  return { revenue, clientsCount: clientIds.size, visitsCount: bookings.length, byStaff: Array.from(byStaffMap.values()).sort((a, b) => b.revenue - a.revenue), ownOnly, newClients, repeatClients, lostClients, networkLostClients, rebookedNoShows };
+function apiGetCrmSummary(businessId: Id, period: SummaryPeriod): Promise<CrmSummary> {
+  return C.getCrmSummary(businessId, period);
 }
 
 /** Прошедшие по времени записи без отметки «пришёл/не пришёл» (F-00-127) */
@@ -510,33 +416,13 @@ export function listPendingMarks(businessId: Id): Promise<PendingMark[]> {
 }
 
 /**
- * Этап 21 (лейн services+rest): `listPendingMarks` в режиме api — живые записи (`S.listBookings`, ACTIVE_STATUSES
- * уже бывшие/будущие, а не история — набор небольшой) + имена клиентов из `listClientRows` (клиенты не в `/core`,
- * K8). `services` — как у мока: `l.serviceId` ровно то же значение, что и `core.services.find(...)?.id`, найден
- * сервис или нет (совпадает по построению), так что подставлять каталог не нужно.
+ * `listPendingMarks` в режиме api — отбор на сервере (GET clients/pending-marks, скорость 17.11.2026): только прошедшие
+ * записи без отметки и имена их клиентов, а не все незакрытые записи салона с будущими (82 КБ) и все клиенты (43 КБ).
+ * Имя мастера — из зеркала, как у мока.
  */
 async function apiListPendingMarks(businessId: Id): Promise<PendingMark[]> {
-  const now = nowDateTime();
-  const actor = currentActor();
-  const seeOthers = canNow('journal.others') || !actor.staffId;
-  const [bookings, clientRows] = await Promise.all([
-    S.listBookings({ businessId, statuses: [...ACTIVE_STATUSES], staffId: seeOthers ? undefined : actor.staffId }),
-    C.listClientRows(businessId),
-  ]);
-  const nameById = new Map(clientRows.map((c) => [c.id, c.name]));
-  return bookings
-    .filter((b) => !b.deletedAt && b.start < now)
-    .map((b) => ({
-      bookingId: b.id,
-      clientId: b.clientId,
-      clientName: (b.clientId && nameById.get(b.clientId)) || b.visitorName || '—',
-      staffId: b.staffId,
-      staffName: staffName(b.staffId),
-      start: b.start,
-      services: b.services.map((l) => l.serviceId).join(', '),
-      total: b.total,
-    }))
-    .sort((a, b) => a.start.localeCompare(b.start));
+  const rows = await C.listPendingMarks(businessId);
+  return rows.map((r) => ({ ...r, staffName: staffName(r.staffId) }));
 }
 
 /** Отметка «пришёл · сумма» (F-00-127, F-04-156): статус + при необходимости правка итоговой суммы */
