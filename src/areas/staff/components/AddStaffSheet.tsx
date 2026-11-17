@@ -10,7 +10,8 @@ import {
   StaffValidationError,
   type AddStaffInput,
 } from "@/api/staff";
-import { useApiMutation } from "@/api/request";
+import { useApiMutation, useApiQuery } from "@/api/request";
+import { previewPriceChange, useQuotePrice } from "@/api/settings";
 import {
   seatsFor,
   totalSeatCost,
@@ -26,6 +27,7 @@ import {
 } from "@/domain/staff";
 import Link from "next/link";
 import { useCurrent, useTerms } from "@/demo/hooks";
+import { useFormat } from "@/i18n/useFormat";
 import { useT } from "@/i18n/useT";
 import { useHideDigitalPurchases } from "@/lib/native/useNativeApp";
 import { ChoiceGroup } from "@/ui/ChoiceGroup";
@@ -90,6 +92,7 @@ export function AddStaffSheet({
   const t = useT("staff");
   const locale = useLocale();
   const hidePurchases = useHideDigitalPurchases();
+  const format = useFormat();
   const toast = useToast();
   const confirm = useConfirm();
   const { sphere } = useCurrent();
@@ -123,8 +126,28 @@ export function AddStaffSheet({
     ? [...existingStaff, draftCandidate]
     : existingStaff;
   const seats = seatsFor(previewStaff);
-  const total = totalSeatCost(seats.values());
+  // Сумма — расчётом подписки (одно правило с сервером: минимум салона 2 мастера, кто бесплатен), а не суммой мест
+  // формы: новый салон с 1 мастером видел здесь 4 000 ֏, а в «Подписке» 8 000 ֏ (проход 17.11)
+  const delta = !draft.name.trim()
+    ? { masters: 0, admins: 0 }
+    : draft.role === "admin"
+      ? { masters: 0, admins: 1 }
+      : draft.asAssistant
+        ? { masters: 0, admins: 0 }
+        : { masters: 1, admins: 0 };
+  const previewQ = useApiQuery(
+    ["settings", "price-preview", businessId, delta.masters, delta.admins],
+    () => previewPriceChange(businessId ?? "", delta),
+    { enabled: open && Boolean(businessId) },
+  );
+  const total = previewQ.data?.after ?? totalSeatCost(seats.values());
   const draftSeat = seats.get("__draft__");
+  // Платные места сейчас — тоже из подписки (владелец с услугами и графиком платный — форма этого не знает)
+  const quoteQ = useQuotePrice(businessId, 1, { enabled: open });
+  const paidNow = quoteQ.data
+    ? quoteQ.data.seats.filter((s) => s.paid).length
+    : [...seats.values()].filter((s) => s.paid && s.staffId !== "__draft__").length;
+  const paidCount = paidNow + (draftSeat?.paid ? 1 : 0);
 
   // С11: тот же номер уже у сотрудника бизнеса — приглашение ушло бы на один телефон дважды
   const phoneDigits = draft.phone.replace(/\D/g, "");
@@ -208,10 +231,7 @@ export function AddStaffSheet({
             className="flex flex-col gap-0.5 text-sm text-muted"
             data-f="F-10-017 F-10-113 F-15-051"
           >
-            {t("addStaffForm.seatCounter", {
-              count: [...seats.values()].filter((s) => s.paid).length,
-              total,
-            })}
+            {t("addStaffForm.seatCounter", { count: paidCount, total: format.money(total) })}
             {/* В приложениях iOS/Android «Подписки» нет (App Store 3.1.1) */}
             {!hidePurchases && (
               <Link href="/biz/billing" className="text-xs text-accent hover:underline">

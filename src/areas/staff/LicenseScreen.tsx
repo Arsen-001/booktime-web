@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { CircleAlert, KeyRound } from "lucide-react";
 import { listLogins, listStaffRows } from "@/api/staff";
 import { useApiQuery } from "@/api/request";
+import { useQuotePrice } from "@/api/settings";
 import { totalSeatCost } from "@/areas/staff/pricing";
 import { NoAccessState } from "@/areas/staff/components/NoAccessState";
 import { useCan, useCurrent } from "@/demo/hooks";
@@ -50,6 +51,9 @@ export function LicenseScreen() {
     () => listLogins(businessId!),
     { enabled: ready && !!businessId && canManage },
   );
+  // Сумма — из расчёта подписки (одно правило с сервером, computeSeats): там и минимум салона в 2 мастера.
+  // Сумма мест по строкам его не видела — новый салон с 1 мастером: здесь 4 000 ֏, в «Подписке» 8 000 ֏ (проход 17.11).
+  const quoteQ = useQuotePrice(businessId, 1, { enabled: ready && canManage });
 
   if (!ready) return <Skeleton lines={6} />;
   if (!canManage) return <NoAccessState />;
@@ -72,7 +76,8 @@ export function LicenseScreen() {
 
   const paid = rows.filter((r) => r.seat.paid);
   const free = rows.filter((r) => !r.seat.paid);
-  const total = totalSeatCost(rows.map((r) => r.seat));
+  const total = quoteQ.data?.monthlyTotal ?? totalSeatCost(rows.map((r) => r.seat));
+  const minimum = quoteQ.data?.breakdown.find((l) => l.labelKey === "billing.breakdown.minimum");
 
   return (
     <div data-f="F-10-111" className="flex flex-col gap-6">
@@ -85,6 +90,16 @@ export function LicenseScreen() {
       <div data-f="F-10-113" className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <SectionCard title={t("license.monthlyTotal")}>
           <p className="text-2xl font-semibold text-fg">{format.money(total)}</p>
+          {minimum && (
+            <p className="mt-1 text-sm text-muted">
+              {t("license.minimumNote", {
+                min: minimum.count + (quoteQ.data?.breakdown.find((l) => l.labelKey === "billing.breakdown.masters")?.count ?? 0),
+                count: minimum.count,
+                price: format.money(minimum.unitPrice),
+                amount: format.money(minimum.amount),
+              })}
+            </p>
+          )}
         </SectionCard>
         <SectionCard title={t("license.hintTitle")}>
           <p className="text-sm text-muted">{t("license.hint")}</p>
