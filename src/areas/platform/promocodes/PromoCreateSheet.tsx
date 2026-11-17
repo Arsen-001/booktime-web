@@ -138,7 +138,8 @@ export function PromoCreateSheet({ onClose }: { onClose: () => void }) {
           </FormField>
         )}
         <FormField label={t('promocodes.validUntil')} optional>
-          <DatePicker value={validUntil} onValueChange={setValidUntil} min={today()} clearable placeholder={t('promocodes.noLimit')} />
+          {/* Без даты код живёт 30 дней (В-13, promoValidDays сервера) — «Без срока» здесь обещало то, чего нет */}
+          <DatePicker value={validUntil} onValueChange={setValidUntil} min={today()} clearable placeholder={t('promocodes.defaultValidity')} />
         </FormField>
         <FormField label={t('promocodes.note')} optional>
           <Textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2} />
