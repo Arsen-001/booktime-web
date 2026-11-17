@@ -141,6 +141,7 @@ export function OperationsScreen() {
   const accountsQ = useApiQuery(['finance', 'accounts', businessId, activeLocationIds], () => listAccounts(businessId!, activeLocationIds), { enabled: ready && Boolean(businessId) });
   const itemsQ = useApiQuery(['finance', 'items', businessId], () => listItems(businessId!), { enabled: ready && Boolean(businessId) });
   const staffQ = useCoreList('staff', { businessId: businessId ?? '' }, { enabled: ready && Boolean(businessId) });
+  const serverFiltered = Boolean(range.from || range.to || accountId || itemId || (kind && kind !== 'transfer') || method || clientSearch.trim());
   const opsQ = useApiQuery(
     ['finance', 'operations', businessId, activeLocationIds, range, accountId, itemId, kind, method, showCancelled, clientSearch],
     () =>
@@ -155,7 +156,7 @@ export function OperationsScreen() {
         cancelled: showCancelled ? undefined : false,
         search: clientSearch.trim() || undefined,
       }),
-    { enabled: ready && Boolean(businessId) },
+    { enabled: ready && Boolean(businessId) && serverFiltered },
   );
   // «Остаток в кассе» (F-07-011) — считается по ВСЕМ операциям кассы, не только по отфильтрованной странице
   const allOpsQ = useApiQuery(
@@ -163,6 +164,13 @@ export function OperationsScreen() {
     () => listOperations(businessId!, { locationIds: activeLocationIds }),
     { enabled: ready && Boolean(businessId) },
   );
+  // Без фильтров список — те же все операции без отменённых: второй запрос за ними не нужен (Nuri: 2 × 230 КБ на
+  // каждое открытие «Финансов», проход 17.11). С фильтром — свой запрос с фильтром на сервере.
+  // Первый фильтр — пока идёт ответ, виден прежний список (как placeholder у соседних фильтров), а не скелетон
+  const unfiltered = allOpsQ.data?.filter((op) => showCancelled || !op.cancelled);
+  const opsData = serverFiltered ? (opsQ.data ?? (opsQ.isLoading ? unfiltered : undefined)) : unfiltered;
+  const opsLoading = serverFiltered ? opsQ.isLoading && !unfiltered : allOpsQ.isLoading;
+  const opsError = serverFiltered ? opsQ.isError : allOpsQ.isError;
 
   // F-07-166: «Доступ ко всем кассам» / только к выбранным — сужает и фильтр, и список
   const accounts = useMemo(() => {
@@ -192,14 +200,14 @@ export function OperationsScreen() {
     return map;
   }, [allOpsQ.data, accountById]);
 
-  if (accountsQ.isError || itemsQ.isError || opsQ.isError) {
-    return <ErrorState onRetry={() => { accountsQ.refetch(); itemsQ.refetch(); opsQ.refetch(); }} />;
+  if (accountsQ.isError || itemsQ.isError || opsError) {
+    return <ErrorState onRetry={() => { accountsQ.refetch(); itemsQ.refetch(); (serverFiltered ? opsQ : allOpsQ).refetch(); }} />;
   }
 
   // F-07-166: сужение до разрешённых касс + глубина просмотра назад («Просмотр движений средств»)
   const allowedAccountIds = rights && !rights.allAccounts ? new Set(rights.allowedAccountIds) : null;
   const now = nowDateTime();
-  const ops = (opsQ.data ?? []).filter(
+  const ops = (opsData ?? []).filter(
     (op) =>
       (!allowedAccountIds || allowedAccountIds.has(op.accountId)) &&
       (!rights || withinDepth(op.date, rights.viewDepth, now)) &&
@@ -506,7 +514,7 @@ export function OperationsScreen() {
       />
 
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <OperationsTotals ops={ops} accountFiltered={Boolean(accountId)} loading={opsQ.isLoading} />
+        <OperationsTotals ops={ops} accountFiltered={Boolean(accountId)} loading={opsLoading} />
         <Popover
           label={t('operations.columnsPick')}
           trigger={(p) => (
@@ -531,7 +539,7 @@ export function OperationsScreen() {
         // Страницы — свои (Ф17), встроенные у таблицы выключены
         pagination={false}
         rowKey={(op) => op.id}
-        loading={opsQ.isLoading || accountsQ.isLoading || itemsQ.isLoading || staffQ.isLoading}
+        loading={opsLoading || accountsQ.isLoading || itemsQ.isLoading || staffQ.isLoading}
         loadingRows={pageSize}
         label={t('operations.title')}
         empty={
