@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { coreGet, coreUpdate } from '@/api/core';
+import { coreGet } from '@/api/core';
+import { setServiceOnlineBookable } from '@/api/services';
 import { getServiceOnlineConfig, updateServiceOnlineConfig } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import type { LocaleCode, LocalizedText } from '@/domain/core';
@@ -40,7 +41,7 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
   const serviceQ = useApiQuery(['online-servicecard', serviceId], () => coreGet('services', serviceId!), { enabled: Boolean(serviceId) });
   const configQ = useApiQuery(['online-servicecard-config', serviceId], () => getServiceOnlineConfig(serviceId!), { enabled: Boolean(serviceId) });
   const readOnly = !useCan('online.manage');
-  const bookableMutation = useApiMutation((v: boolean) => coreUpdate('services', serviceId!, { onlineBookable: v }));
+  const bookableMutation = useApiMutation((v: boolean) => setServiceOnlineBookable(serviceId!, businessId, v));
   const configMutation = useApiMutation((patch: Parameters<typeof updateServiceOnlineConfig>[1]) => updateServiceOnlineConfig(serviceId!, patch));
 
   // F-03-115: онлайн-название и описание — LocalizedText (по языку виджета), а не одна строка на все языки
@@ -86,7 +87,6 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
 
   const service = serviceQ.data;
   const isPackage = false; // ⭐ в ядре пока нет типа «пакет» (Service.kind — только individual/group), см. qa/requests/online.md
-  void businessId;
 
   const saveField = async (patch: Parameters<typeof updateServiceOnlineConfig>[1], successKey: string) => {
     try {

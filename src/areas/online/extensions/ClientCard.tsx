@@ -1,7 +1,8 @@
 'use client';
 
 import { AlertTriangle, Ban } from 'lucide-react';
-import { coreGet, coreUpdate } from '@/api/core';
+import { setClientBlocked } from '@/api/clients';
+import { coreGet } from '@/api/core';
 import { getClientCustomFieldAnswers } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import type { ClientCardExtProps } from '@/extensions/types';
@@ -16,12 +17,13 @@ import { useToast } from '@/ui/Toast';
  * поля («Сохранять в карточку: Карточка клиента») и запрет онлайн-записи.
  * Посмотреть вклад без хозяина хоста: /dev/ext/clientCard/online
  */
-export default function OnlineClientCard({ clientId }: ClientCardExtProps) {
+export default function OnlineClientCard({ clientId, businessId }: ClientCardExtProps) {
   const t = useT('online');
   const toast = useToast();
   const clientQ = useApiQuery(['online-clientcard', clientId], () => coreGet('clients', clientId));
   const answersQ = useApiQuery(['online-clientcard-answers', clientId], () => getClientCustomFieldAnswers(clientId));
-  const mutation = useApiMutation((blocked: boolean) => coreUpdate('clients', clientId, { blocked }));
+  // Запрет — через раздел клиентов (на сервер; до 17.11 coreUpdate писал в режиме api только в браузер)
+  const mutation = useApiMutation((blocked: boolean) => setClientBlocked(businessId, clientId, blocked));
 
   if (!clientQ.isLoading && (clientQ.isError || !clientQ.data)) return <p className="text-sm text-muted">{t('clientCard.loadFailed')}</p>;
 

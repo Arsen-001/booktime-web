@@ -14,7 +14,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Armchair } from 'lucide-react';
-import { coreGet, coreList, coreUpdate } from '@/api/core';
+import { coreGet, coreList } from '@/api/core';
+import { patchService } from '@/api/services';
 import { countFutureGroupEventsForService, getGroupServicePayment, listResources, setGroupServicePayment, setResourceServices } from '@/api/resources';
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
 import { useCan } from '@/demo/hooks';
@@ -69,7 +70,8 @@ export default function ResourcesServiceCard({ mode, serviceId, businessId, regi
       old.map((r) => (r.id === args.resourceId ? { ...r, serviceIds: args.serviceIds } : r)),
     ),
   });
-  const saveType = useApiMutation((patch: { kind: ServiceKind; capacity?: number }) => coreUpdate('services', serviceId!, patch));
+  // Тип и места — через раздел услуг (на сервер; до 17.11 coreUpdate писал в режиме api только в браузер)
+  const saveType = useApiMutation((patch: { kind: ServiceKind; capacity?: number }) => patchService(serviceId!, businessId, patch));
 
   const [capacityDraft, setCapacityDraft] = useState<number | null>(null);
   // Черновик привязок в карточке услуги (hosted): null — нет несохранённого

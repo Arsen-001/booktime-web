@@ -202,6 +202,21 @@ export function setServiceActive(id: Id, businessId: Id, active: boolean): Promi
   }, { permission: 'services.edit' });
 }
 
+/**
+ * «Онлайн-запись услуги» во вкладке «Онлайн-запись» карточки (F-03-129) — одно поле. Право — как у вкладки:
+ * online.manage (или services.edit). До 17.11 вкладка писала coreUpdate — в режиме api только в браузер
+ */
+export function setServiceOnlineBookable(id: Id, businessId: Id, onlineBookable: boolean): Promise<Service> {
+  if (isApiMode()) return S.setServiceOnlineBookable(id, businessId, onlineBookable);
+  return request(() => {
+    if (!canNow('online.manage') && !canNow('services.edit')) throw new ApiError('forbidden');
+    const before = coreTx.get('services', id);
+    const service = coreTx.update('services', id, { onlineBookable });
+    if (before.onlineBookable !== onlineBookable) writeAudit(businessId, id, 'updated', { onlineBookable: before.onlineBookable }, { onlineBookable });
+    return service;
+  });
+}
+
 export function reorderServices(ids: Id[]): Promise<void> {
   if (isApiMode()) return S.reorderServices(ids);
   return request(() => {
@@ -993,8 +1008,8 @@ export function reportContentNow(input: ReportContentInput): Promise<void> {
 
 // ─────────────────────────── Каталог: правки прямо из списка, массовые действия (У5, У10) ───────────────────────────
 
-/** Поля, которые меняются в строке таблицы каталога и массово */
-export type ServicePatch = Partial<Pick<Service, 'priceMin' | 'priceMax' | 'durationMin' | 'durationMax' | 'onlineBookable' | 'categoryId' | 'bufferAfterMin'>>;
+/** Поля, которые меняются в строке таблицы каталога и массово; тип и число мест — вкладка «Ресурсы» карточки (F-16-028) */
+export type ServicePatch = Partial<Pick<Service, 'priceMin' | 'priceMax' | 'durationMin' | 'durationMax' | 'onlineBookable' | 'categoryId' | 'bufferAfterMin' | 'kind' | 'capacity'>>;
 
 function serviceToInput(s: Service): ServiceInput {
   const tb = bufferToTechBreak(s.bufferAfterMin);

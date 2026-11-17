@@ -167,6 +167,13 @@ export async function setServiceActive(id: Id, businessId: Id, active: boolean):
   return service;
 }
 
+/** «Онлайн-запись услуги» одним полем (вкладка «Онлайн-запись» карточки услуги, F-03-129) */
+export async function setServiceOnlineBookable(id: Id, businessId: Id, onlineBookable: boolean): Promise<Service> {
+  const service = await http<Service>('PUT', `${base(businessId)}/services/${id}/online-bookable`, { onlineBookable });
+  changedService(service);
+  return service;
+}
+
 export async function reorderServices(ids: Id[]): Promise<void> {
   if (!ids.length) return;
   const businessId = bizOfService(ids[0]);

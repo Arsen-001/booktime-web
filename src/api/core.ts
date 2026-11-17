@@ -677,7 +677,20 @@ export function coreCreate<C extends CoreCollection>(
   if (isApiMode() && collection === 'bookings') return J.createBooking(data as unknown as BookingInput) as Promise<CoreEntity<C>>;
   if (isApiMode() && collection === 'groupEvents') return J.createGroupEvent(data as unknown as GroupEventInput) as Promise<CoreEntity<C>>;
   if (isApiMode() && collection === 'clients') return apiCreateClient(data as unknown as Omit<Client, 'id'>) as Promise<CoreEntity<C>>;
+  if (isApiMode()) return browserOnlyWrite('coreCreate', collection);
   return request(() => txCreate(collection, data));
+}
+
+/**
+ * Режим api: общий CRUD ядра для коллекции, у которой нет пути на сервер, писал бы только в зеркало браузера — правка
+ * «сохранялась» и пропадала после обновления страницы (проход 17.11: онлайн-запись и тип услуги, запрет клиента,
+ * «Быстрый старт»). Теперь — честная ошибка: экран покажет «Не удалось сохранить», а писать нужно через api раздела.
+ */
+function browserOnlyWrite(op: string, collection: CoreCollection): Promise<never> {
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(`[api-mode] ${op}('${collection}') пишет только в браузер — нужна функция api раздела с запросом на сервер`);
+  }
+  return Promise.reject(new ApiError('not_supported', `${op}(${collection}) не идёт на сервер`));
 }
 
 /** Клиент из окна записи/пакета (режим api): карточка на сервере (этап 5), в ядро — зеркало */
@@ -709,6 +722,7 @@ export function coreUpdate<C extends CoreCollection>(
   // менялись на экране и пропадали после обновления страницы — запрос на сервер не уходил
   if (isApiMode() && collection === 'staff') return apiPatchStaff(id, patch as Partial<Staff>) as Promise<CoreEntity<C>>;
   if (isApiMode() && collection === 'locations') return apiPatchLocation(id, patch as Partial<CoreLocation>) as Promise<CoreEntity<C>>;
+  if (isApiMode()) return browserOnlyWrite('coreUpdate', collection);
   return request(() => txUpdate(collection, id, patch));
 }
 
@@ -731,6 +745,7 @@ async function apiPatchLocation(id: Id, patch: Partial<CoreLocation>): Promise<C
 }
 
 export function coreRemove<C extends CoreCollection>(collection: C, id: Id): Promise<void> {
+  if (isApiMode()) return browserOnlyWrite('coreRemove', collection);
   return request(() => txRemove(collection, id));
 }
 

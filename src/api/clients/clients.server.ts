@@ -144,6 +144,11 @@ export async function updateClient(businessId: Id, clientId: Id, body: Record<st
   return mirrorRow(row);
 }
 
+/** «Запретить онлайн-запись» одним полем (F-03-135) — без полной формы карточки */
+export async function setClientBlocked(businessId: Id, clientId: Id, blocked: boolean): Promise<ClientRow> {
+  return mirrorRow(await http<ClientRow>('PUT', `${base(businessId)}/clients/${clientId}/blocked`, { blocked }));
+}
+
 export function updateClientNote(businessId: Id, clientId: Id, note: string): Promise<void> {
   return http('PATCH', `${base(businessId)}/clients/${clientId}/note`, { note });
 }

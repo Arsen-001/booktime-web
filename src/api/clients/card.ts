@@ -7,7 +7,7 @@ import type { Client, Id } from '@/domain/core';
 import * as C from '@/api/clients/clients.server';
 import { isApiMode } from '@/api/http';
 import { readArea, readCore, mutateArea } from '@/api/area';
-import { assertCan, coreTx } from '@/api/core';
+import { assertCan, canNow, coreTx } from '@/api/core';
 import { ApiError, request } from '@/api/request';
 import { isOwnClient } from '@/domain/rules';
 import { nowDateTime } from '@/lib/date';
@@ -271,6 +271,23 @@ export function updateClient(input: UpdateClientInput): Promise<ClientRow> {
       }
     }
     return toRow(client, state.profiles[input.clientId], state.broadcastHistory[input.clientId] ?? []);
+  });
+}
+
+/**
+ * «Запретить онлайн-запись» во вкладке «Онлайн-запись» карточки клиента (F-03-135) — одно поле, без полной формы.
+ * Право — правка клиента или настройка онлайн-записи. До 17.11 вкладка писала coreUpdate — в режиме api только в браузер
+ */
+export function setClientBlocked(businessId: Id, clientId: Id, blocked: boolean, actorId?: Id, actorName?: string): Promise<Client> {
+  if (isApiMode()) return C.setClientBlocked(businessId, clientId, blocked).then(toClient);
+  return request(() => {
+    if (!canNow('clients.edit') && !canNow('online.manage')) throw new ApiError('forbidden');
+    const before = coreTx.get('clients', clientId);
+    const client = coreTx.update('clients', clientId, { blocked: blocked || undefined });
+    if (Boolean(before.blocked) !== blocked) {
+      logChange(businessId, { clientId, clientName: client.name, action: 'updated', changedFields: ['blocked'], authorId: actorId, authorName: actorName });
+    }
+    return client;
   });
 }
 

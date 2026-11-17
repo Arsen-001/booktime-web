@@ -2,18 +2,20 @@
 
 /**
  * /biz/onboarding/quick-start — «Настройка локации» (F-15-017…020): мастер из 3 шагов, которые реально создают
- * данные в ядре (услуга → coreCreate('services'), сотрудник → api/staff.addStaff или назначение владельцу,
- * график → api/schedule.addWorkDays на 4 недели). Готово — checklist на /biz/onboarding сам отметит шаги
+ * данные (услуга → api/services.createService, сотрудник → api/staff.addStaff или назначение владельцу —
+ * api/services.assignStaffToService, график → api/schedule.addWorkDays на 4 недели). До 17.11 услуга и мастер услуги
+ * писались coreCreate/coreUpdate — в режиме api только в браузер и пропадали после обновления страницы. Готово — checklist на /biz/onboarding сам отметит шаги
  * «сделано» (getOnboardingChecklist читает те же коллекции), здесь ничего не помечаем вручную.
  */
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Check, Scissors, Users, CalendarClock } from 'lucide-react';
-import { coreCreate, coreList, coreUpdate, useCoreGet, useCoreList } from '@/api/core';
+import { useCoreGet, useCoreList } from '@/api/core';
+import { assignStaffToService, createCategory, createService as createServiceApi, listCategories } from '@/api/services';
 import { addStaff } from '@/api/staff';
 import { addWorkDays } from '@/api/schedule';
 import { useApiMutation } from '@/api/request';
-import type { ServiceCategory, Service } from '@/domain/core';
+import type { ServiceCategory } from '@/domain/core';
 import { useCurrent, useDemo } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { dayjs, today, addDays } from '@/lib/date';
@@ -92,29 +94,21 @@ export function QuickStartScreen() {
 
   const createService = useApiMutation(async () => {
     if (!businessId) throw new Error('no business');
-    const categories = await coreList('serviceCategories', { businessId });
+    const categories = await listCategories(businessId);
     let category: ServiceCategory | undefined = categories[0];
     if (!category) {
-      category = await coreCreate('serviceCategories', { businessId, name: { ru: t('quickStart.defaultCategory') }, order: 0 });
+      category = await createCategory(businessId, { name: { ru: t('quickStart.defaultCategory') }, onlineNameEnabled: false });
     }
-    const durationMin = Number(serviceDuration) as 30 | 60 | 90;
-    const service: Service = await coreCreate('services', {
-      businessId,
+    return createServiceApi(businessId, sphere, {
       categoryId: category.id,
-      sphereId: sphere,
       name: { ru: serviceName.trim() },
       kind: 'individual',
-      durationMin,
+      durationMin: Number(serviceDuration),
       priceMin: servicePrice ?? 0,
+      techBreak: 'shared',
       photos: [],
-      materials: [],
-      staffIds: [],
-      workplaces: ['salon'],
       onlineBookable: true,
-      active: true,
-      order: 0,
     });
-    return service;
   });
 
   const addStaffMutation = useApiMutation(async () => {
@@ -134,10 +128,7 @@ export function QuickStartScreen() {
 
   const assignService = useApiMutation(async (targetStaffId: string) => {
     if (!createdServiceId || !businessId) return;
-    const svc = await coreList('services', { businessId });
-    const found = svc.find((s) => s.id === createdServiceId);
-    if (!found || found.staffIds.includes(targetStaffId)) return;
-    await coreUpdate('services', createdServiceId, { staffIds: [...found.staffIds, targetStaffId] });
+    await assignStaffToService(createdServiceId, targetStaffId, businessId);
   });
 
   const saveSchedule = useApiMutation(async () => {
