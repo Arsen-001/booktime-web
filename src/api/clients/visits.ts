@@ -96,9 +96,12 @@ export function listClientVisits(businessId: Id, clientId: Id): Promise<ClientVi
  * этапа, см. PROGRESS.md).
  */
 async function apiListClientVisits(businessId: Id, clientId: Id): Promise<ClientVisit[]> {
-  const [bookings, row] = await Promise.all([
+  // Фото визитов — файлы клиента с сервера (раньше читался моковый срез: в режиме api пусто и «[mock-db] вне
+  // request()» в консоли карточки клиента, хвосты 17.11). Нет права на файлы — визиты без фото, а не ошибка
+  const [bookings, row, files] = await Promise.all([
     S.listBookings({ businessId, clientId, statuses: [...VISIT_HISTORY_STATUSES] }),
     C.getClientRow(businessId, clientId).catch(() => undefined as ClientRow | undefined),
+    C.listFiles(businessId, clientId).catch((): ClientFile[] => []),
   ]);
   const balance = row?.balance ?? 0;
   const extras = bookings.length ? await S.listExtrasByIds(bookings.map((b) => b.id)) : {};
@@ -142,7 +145,7 @@ async function apiListClientVisits(businessId: Id, clientId: Id): Promise<Client
       status: first.status,
       manual: explicitPaid > 0 && first.source === 'phone',
       groupEvent: Boolean(first.groupEventId),
-      photoIds: (readArea('clients').files[clientId] ?? []).filter((f) => f.visitId === key).map((f) => f.id),
+      photoIds: files.filter((f) => f.visitId === key).map((f) => f.id),
       note: first.comment,
     });
   });

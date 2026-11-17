@@ -159,7 +159,7 @@ export function AccountOperationsScreen() {
         format.date(r.createdAt, 'short'),
         t(`accountOperations.types.${r.type}`),
         r.clientId ? `${r.clientName} · ${format.phone(r.clientPhone)}` : '',
-        r.amount === 0 ? '' : format.money(r.amount),
+        r.amount === 0 ? '' : r.amount, // числом, как в остальных выгрузках (хвосты 17.11)
         r.authorName ?? '',
       ]),
       [

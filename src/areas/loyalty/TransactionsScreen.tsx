@@ -128,7 +128,7 @@ export function TransactionsScreen() {
         r.promotionName ?? '',
         r.cardNumber ?? '',
         format.phone(r.clientPhone),
-        format.money(r.amount),
+        r.amount, // числом, как в остальных выгрузках (хвосты 17.11)
       ]),
       [
         t('transactions.columns.date'),

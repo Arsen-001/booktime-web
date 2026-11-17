@@ -22,7 +22,7 @@ export function useActiveNav(items: NavItem[]): { itemId?: string; childId?: str
   for (const item of items) {
     const candidates: { href: string; child?: NavChild }[] = [
       { href: item.href },
-      ...(item.children ?? []).map((child) => ({ href: child.href, child })),
+      ...(item.children ?? []).flatMap((child) => [child.href, ...(child.also ?? [])].map((href) => ({ href, child }))),
     ];
     for (const c of candidates) {
       if (!matches(pathname, c.href)) continue;

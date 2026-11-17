@@ -6,7 +6,7 @@
  * сущности ядра — только чтение через readCore() (изменения ядра — через src/api/core.ts, здесь не нужны).
  */
 import { ApiError, request } from '@/api/request';
-import { mutateArea, readArea, readCore } from '@/api/area';
+import { mutateArea, readArea, readCore, readCoreMirror } from '@/api/area';
 import { isApiMode } from '@/api/http';
 import * as LX from '@/api/loyalty.server';
 import { cancelBookingPayment, cancelPaymentLine, getBookingExtras, payBookingLines } from '@/api/journal';
@@ -3226,7 +3226,9 @@ export async function payVisitWithLoyalty({ businessId, locationId, bookingId, c
  * Строки подрезаются по порядку; если оплачивать нечего — отказ `nothing_due`.
  */
 async function capLinesToDue(businessId: Id, bookingId: Id, lines: LoyaltyPaymentLineInput[]): Promise<LoyaltyPaymentLineInput[]> {
-  const booking = readCore().bookings.find((b) => b.id === bookingId);
+  // Вне request() (async между запросами): в режиме api — зеркало журнала служебным чтением, без «[mock-db] вне
+  // request()» в консоли оплаты лояльностью (хвосты 17.11); в демо — та же база
+  const booking = (isApiMode() ? readCoreMirror() : readCore()).bookings.find((b) => b.id === bookingId);
   if (!booking) return lines;
   const extras = await getBookingExtras(bookingId).catch(() => undefined);
   const financeDue = await getBookingPaymentSummary(businessId, bookingId)

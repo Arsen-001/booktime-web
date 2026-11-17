@@ -6,8 +6,16 @@
 import type { OperationKind } from '@/domain/finance';
 import { formatMoney } from '@/lib/money';
 
+function isInflow(kind: OperationKind): boolean {
+  return kind === 'income' || kind === 'transfer_in';
+}
+
 /** «+5 000 ֏» / «−5 000 ֏» — знак по виду операции (доход/приход перевода — плюс) */
 export function formatSignedMoney(amount: number, kind: OperationKind): string {
-  const sign = kind === 'income' || kind === 'transfer_in' ? '+' : '−';
-  return `${sign}${formatMoney(Math.abs(amount))}`;
+  return `${isInflow(kind) ? '+' : '−'}${formatMoney(Math.abs(amount))}`;
+}
+
+/** То же числом — для выгрузок: 5000 / −5000 */
+export function signedAmount(amount: number, kind: OperationKind): number {
+  return isInflow(kind) ? Math.abs(amount) : -Math.abs(amount);
 }

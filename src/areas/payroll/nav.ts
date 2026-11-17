@@ -17,6 +17,8 @@ export const subnav: SubNav = {
       id: "period",
       href: "/biz/payroll/period",
       labelKey: "payroll.nav.period",
+      // Ведомость сотрудника за период (и «Новый расчёт») своего пункта не имеет — открывается из расчёта за период
+      also: ["/biz/payroll/statement"],
     },
     // F-09-001: «Взаиморасчёты» — тот же экран, что и в «Финансах» (src/areas/finance/SettlementsScreen.tsx,
     // F-07-159…167), но по адресу раздела: меню не перескакивает в «Финансы» (зарплата-ревью З21).

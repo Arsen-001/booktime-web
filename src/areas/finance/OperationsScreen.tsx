@@ -16,7 +16,7 @@ import { ImportOperationsSheet } from '@/areas/finance/operations/ImportOperatio
 import { NewOperationSheet } from '@/areas/finance/operations/NewOperationSheet';
 import { OperationsTotals } from '@/areas/finance/operations/OperationsTotals';
 import { UnpaidVisitsCard } from '@/areas/finance/operations/UnpaidVisitsCard';
-import { formatSignedMoney } from '@/areas/finance/money';
+import { formatSignedMoney, signedAmount } from '@/areas/finance/money';
 import { useCan, useCurrent } from '@/demo/hooks';
 import type { Operation, OperationKind, OperationMethod } from '@/domain/finance';
 import { accountRunningBalances, compareOperationsAsc, withinDepth } from '@/domain/finance';
@@ -252,8 +252,9 @@ export function OperationsScreen() {
         op.lineLabel ?? '',
         op.comment ?? '',
         op.createdBy === 'system' ? t('operations.systemAuthor') : (staffById.get(op.createdBy)?.name ?? op.createdBy),
-        op.cancelled ? t('operations.cancelledShort') : formatSignedMoney(op.amount, op.kind),
-        canViewBalance ? (balanceAfterById.get(op.id) !== undefined ? format.money(balanceAfterById.get(op.id) as number) : '') : '',
+        // Суммы — числами со знаком (приход +, расход −), как в остальных выгрузках: «+10 000 ֏» таблица не складывала
+        op.cancelled ? t('operations.cancelledShort') : signedAmount(op.amount, op.kind),
+        canViewBalance ? (balanceAfterById.get(op.id) ?? '') : '',
         op.source === 'booking' && op.refId ? op.refId : '',
       ]),
       [

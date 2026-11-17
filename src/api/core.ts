@@ -1055,12 +1055,13 @@ export function findClientByPhone(businessId: Id, phone: string): Promise<Client
 async function apiFindClientByPhone(businessId: Id, phone: string): Promise<Client | undefined> {
   const normalized = normalizePhone(phone);
   if (!normalized) return undefined;
-  const mirrored = core().clients.find((c) => c.businessId === businessId && c.phone === normalized && !c.deletedAt);
+  // Зеркало ядра — служебное чтение (режим api, вне request(): без «[mock-db] вне request()» в продаже абонемента)
+  const mirrored = readDbUntracked().core.clients.find((c) => c.businessId === businessId && c.phone === normalized && !c.deletedAt);
   if (mirrored) return mirrored;
   const C = await import('@/api/clients/clients.server');
   const page = await C.listClients({ businessId, search: normalized.slice(4), page: 1, pageSize: 20 } as Parameters<typeof C.listClients>[0]);
   const row = page.rows.find((r) => r.phone === normalized);
-  return row ? core().clients.find((c) => c.id === row.id) : undefined;
+  return row ? readDbUntracked().core.clients.find((c) => c.id === row.id) : undefined;
 }
 
 // ─────────────────────────── Операции с данными (F-04-126, F-04-130, F-04-206) ───────────────────────────

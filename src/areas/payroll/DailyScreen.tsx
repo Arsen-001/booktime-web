@@ -169,16 +169,17 @@ export function DailyScreen() {
     }
   };
 
-  // F-09-065: выгрузка того, что показано на экране — те же строки и суммы.
+  // F-09-065: выгрузка того, что показано на экране — те же строки и суммы. Суммы — числами, как в остальных
+  // выгрузках: «8 750 ֏» таблица не складывала (хвосты 17.11)
   const handleExport = () => {
     const csvRows = rows.map((r) => [
       r.staffName,
-      money(r.result.servicesAmount),
-      money(r.result.productsAmount),
-      money(r.result.workdayAmount),
-      money(r.result.recordsAmount),
-      money(r.result.extraAmount),
-      money(r.result.total),
+      r.result.servicesAmount,
+      r.result.productsAmount,
+      r.result.workdayAmount,
+      r.result.recordsAmount,
+      r.result.extraAmount,
+      r.result.total,
     ]);
     const csv = toCsv(csvRows, [
       t("daily.columns.staff"),

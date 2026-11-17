@@ -66,7 +66,7 @@ const toPayOf = (r: PeriodRow) => r.breakdown?.toPay ?? r.salary;
 
 export function PeriodScreen() {
   const t = useT("payroll");
-  const { money, duration } = useFormat();
+  const { money } = useFormat();
   const toast = useToast();
   const confirm = useConfirm();
   const router = useRouter();
@@ -272,22 +272,23 @@ export function PeriodScreen() {
     }
   };
 
-  // З19: заголовки по смыслу колонок; рабочие дни и часы по графику раздельно; число услуг, премии, штрафы
+  // З19: заголовки по смыслу колонок; рабочие дни и часы по графику раздельно; число услуг, премии, штрафы.
+  // Числа — числами (часы — с десятой долей), как в остальных выгрузках: «26 000 ֏», «111 ч» таблица не складывала
   const handleExport = () => {
     const csvRows = rows.map((r) => [
       r.staffName,
       r.position ?? "",
-      String(r.workDays),
-      duration(Math.round(r.workHours * 60)),
-      String(r.servicesCount),
-      money(r.servicesAmount),
-      money(r.productsAmount),
-      money(r.totalAmount),
-      money(r.paidAmount),
-      money(r.salary),
-      money(r.breakdown?.bonuses ?? 0),
-      money(r.breakdown?.penalties ?? 0),
-      money(toPayOf(r)),
+      r.workDays,
+      Math.round(r.workHours * 10) / 10,
+      r.servicesCount,
+      r.servicesAmount,
+      r.productsAmount,
+      r.totalAmount,
+      r.paidAmount,
+      r.salary,
+      r.breakdown?.bonuses ?? 0,
+      r.breakdown?.penalties ?? 0,
+      toPayOf(r),
     ]);
     const csv = toCsv(csvRows, [
       t("period.columns.staff"),

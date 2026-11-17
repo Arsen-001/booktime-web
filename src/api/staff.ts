@@ -619,7 +619,7 @@ export function listFutureBookingsFor(staffId: Id, from: ISODate): Promise<Futur
   // Режим api (этап 7): записи — на сервере; имена клиента и услуги — из зеркала ядра
   if (isApiMode()) {
     return J.listBookings({ businessId: J.bizOfStaffOrSession(staffId), staffId, from }).then((list) => {
-      const core = readCore();
+      const core = readCoreMirror(); // после ответа сервера — служебное чтение зеркала (хвосты 17.11)
       return list
         .filter(active)
         .sort((a, b) => a.start.localeCompare(b.start))

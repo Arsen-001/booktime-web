@@ -54,7 +54,7 @@ import { useT } from "@/i18n/useT";
 import { downloadCsv, toCsv } from "@/lib/csv";
 import { Avatar } from "@/ui/Avatar";
 import { Badge } from "@/ui/Badge";
-import { Button } from "@/ui/Button";
+import { Button, LinkButton } from "@/ui/Button";
 import { EmptyState } from "@/ui/EmptyState";
 import { ErrorState } from "@/ui/ErrorState";
 import { IconButton } from "@/ui/IconButton";
@@ -422,12 +422,13 @@ export function StatementScreen() {
   const handleExport = () => {
     if (!statementQ.data) return;
     const rows = statementQ.data.operations.flatMap((op) =>
+      // Дата — как в остальных выгрузках (17.11.2026), суммы — числами (хвосты 17.11)
       op.lines.map((line) => [
-        op.date,
+        format.date(op.date, "short"),
         op.time,
         lineLabel(line),
-        format.money(line.revenue),
-        format.money(line.amount),
+        line.revenue,
+        line.amount,
       ]),
     );
     const csv = toCsv(rows, [
@@ -444,9 +445,17 @@ export function StatementScreen() {
     return (
       <div className="flex w-full flex-col gap-6">
         <PageHeader title={t("statement.title")} />
+        {/* Без сотрудника и периода (открыли адрес без параметров) — не тупик: ведём туда, где ведомость выбирают */}
         <EmptyState
           icon={<AlertTriangle aria-hidden className="size-8" />}
           title={t("statement.noParams")}
+          action={
+            persona === "master" ? (
+              <LinkButton href="/biz/payroll/me">{t("nav.me")}</LinkButton>
+            ) : (
+              <LinkButton href="/biz/payroll/period">{t("nav.period")}</LinkButton>
+            )
+          }
         />
       </div>
     );

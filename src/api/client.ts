@@ -18,7 +18,7 @@ import {
   moderationHiddenIds,
   updateGroupEvent,
 } from '@/api/core';
-import { mutateArea, readArea, readCore } from '@/api/area';
+import { mutateArea, readArea, readCore, readCoreMirror } from '@/api/area';
 import * as CS from '@/api/client.server';
 import * as CLX from '@/api/clientLoyalty.server';
 import { http, isApiMode } from '@/api/http';
@@ -3030,7 +3030,8 @@ export function markMembershipReminderSeenMock(membershipId: Id): Promise<void> 
 export function listStaffBrief(businessId: Id): Promise<Array<{ id: Id; name: string }>> {
   if (isApiMode()) {
     return ST.listStaff(businessId).then((rows) => {
-      const core = readCore();
+      // Зеркало ядра — служебное чтение после ответа сервера (без «[mock-db] вне request()», хвосты 17.11)
+      const core = readCoreMirror();
       return rows.filter((r) => isStaffBookableOnline(core, r.staff)).map((r) => ({ id: r.staff.id, name: r.staff.name }));
     });
   }

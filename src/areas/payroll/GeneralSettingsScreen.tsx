@@ -574,7 +574,9 @@ function AccessRightsSection({ pending, onPendingChange }: AccessRightsSectionPr
             {staffList.map((s) => {
               const rights = rightsFor(s.id);
               return (
-                <Card key={s.id} padding="sm" className="flex min-w-0 flex-col gap-3">
+                // Группа с именем сотрудника: у каждой карточки те же подписи («Доступ к схемам расчёта»), диктор
+                // экрана называет, чьи это права (хвосты 17.11)
+                <Card key={s.id} padding="sm" role="group" aria-label={s.name} className="flex min-w-0 flex-col gap-3">
                   <p className="flex items-center gap-2 font-medium text-fg">
                     {s.name}
                     {pending[s.id] && <Badge tone="warning">•</Badge>}
