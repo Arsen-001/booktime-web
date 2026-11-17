@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Lock } from 'lucide-react';
 import { coreList, useCoreGet } from '@/api/core';
 import { useLocale } from 'next-intl';
@@ -22,6 +23,7 @@ import { pickText } from '@/lib/text';
  */
 export function FrozenBanner() {
   const t = useT('common');
+  const router = useRouter();
   const locale = useLocale();
   const { businessId, ready, locationId, locationIds, networkId } = useCurrent();
   // Сеть, «Все филиалы»: заморожен только этот филиал — остальные работают (не «весь кабинет только для просмотра»).
@@ -87,9 +89,19 @@ export function FrozenBanner() {
       )}
       {owner &&
         renewTargets.map((x) => (
-          <Link key={x.bizId} href="/biz/billing" onClick={() => setLocationId(x.locationId)} className={RENEW_CLASS}>
+          <button
+            key={x.bizId}
+            type="button"
+            // Сначала переход, затем смена филиала: полоса «Все филиалы» при смене исчезает вместе с кнопкой — ссылка
+            // успевала переключить филиал, но не открыть подписку
+            onClick={() => {
+              router.push('/biz/billing');
+              setLocationId(x.locationId);
+            }}
+            className={RENEW_CLASS}
+          >
             {renewTargets.length > 1 && x.name ? t('frozen.renewBranch', { name: x.name }) : t('frozen.renew')}
-          </Link>
+          </button>
         ))}
     </div>
   );
