@@ -9,6 +9,7 @@ import { setFrozenBusiness } from '@/api/identity';
 import { useApiQuery } from '@/api/request';
 import { subscriptionWarnings } from '@/api/settings';
 import { useCan, useCurrent } from '@/demo/hooks';
+import { setLocationId } from '@/demo/store';
 import { useT } from '@/i18n/useT';
 import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { pickText } from '@/lib/text';
@@ -60,6 +61,13 @@ export function FrozenBanner() {
   if (!frozenBranches.length) return null;
   const names = frozenBranches.map(nameOf).filter((x): x is string => Boolean(x));
   const owner = canBilling && !hidePurchases;
+  // «Все филиалы»: «Продлить» ведёт в подписку ЗАМОРОЖЕННОГО филиала, а не главного (подписка у каждого своя): кабинет
+  // переключается на филиал, затем /biz/billing. Несколько замороженных — по кнопке на каждый: «Продлить Нор-Норк»
+  const renewTargets = allBranches
+    ? frozenBranches
+        .map((bizId) => ({ bizId, locationId: locationsQ.data?.find((l) => l.businessId === bizId)?.id, name: nameOf(bizId) }))
+        .filter((x): x is { bizId: string; locationId: string; name: string | undefined } => Boolean(x.locationId))
+    : [];
   return (
     <div role="status" className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
       <Lock aria-hidden className="size-4 shrink-0" />
@@ -72,11 +80,19 @@ export function FrozenBanner() {
               ? t('frozen.owner')
               : t('frozen.staff')}
       </span>
-      {owner && (
-        <Link href="/biz/billing" className="inline-flex min-h-9 items-center rounded-lg bg-danger px-3 font-semibold text-primary-contrast hover:opacity-90">
+      {owner && !allBranches && (
+        <Link href="/biz/billing" className={RENEW_CLASS}>
           {t('frozen.renew')}
         </Link>
       )}
+      {owner &&
+        renewTargets.map((x) => (
+          <Link key={x.bizId} href="/biz/billing" onClick={() => setLocationId(x.locationId)} className={RENEW_CLASS}>
+            {renewTargets.length > 1 && x.name ? t('frozen.renewBranch', { name: x.name }) : t('frozen.renew')}
+          </Link>
+        ))}
     </div>
   );
 }
+
+const RENEW_CLASS = 'inline-flex min-h-9 items-center rounded-lg bg-danger px-3 font-semibold text-primary-contrast hover:opacity-90';
