@@ -40,7 +40,8 @@ export default function ScheduleStaffCard({ staffId, businessId }: StaffCardExtP
           <StaffAccessSection staffId={staffId} staff={staff} />
         </div>
       )}
-      {canManage && <StaffGoogleSection staffId={staffId} />}
+      {/* Google Календарь чужого мастера пишется в настройки графика (schedule.edit) — без права секции нет */}
+      {canManage && canEdit && <StaffGoogleSection staffId={staffId} />}
     </div>
   );
 }

@@ -57,17 +57,17 @@ import { Tooltip } from '@/ui/Tooltip';
 import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
 import { ArrowDown, ArrowUp, EyeOff, Lock, Plus, Trash2 } from 'lucide-react';
 
-const OWNER_LIKE = new Set(['owner', 'admin', 'network']);
 const LOCALES: LocaleCode[] = ['ru', 'en', 'hy'];
 
 /** /biz/online/settings — наши правила мастера, подтверждение, перенос/отмена, пауза (F-00-066/067/069, F-03-066/067/079/142) */
 export function SettingsScreen() {
   const t = useT('online');
   const format = useFormat();
-  const { businessId, staffId, persona, ready, activeLocationIds, locationIds } = useCurrent();
-  const ownStaffOnly = !OWNER_LIKE.has(persona);
+  const { businessId, staffId, ready, activeLocationIds, locationIds } = useCurrent();
   const locationId = activeLocationIds?.[0] ?? locationIds?.[0];
   const { full: hasFullAccess, own: hasAccess } = useOnlineAccess();
+  // Правила всех мастеров — с правом online.manage; без него (online.own) — только свои: сервер чужие не примет
+  const ownStaffOnly = !hasFullAccess;
 
   const staffQ = useApiQuery(
     ['online-settings-staff', businessId, ownStaffOnly ? staffId : undefined],

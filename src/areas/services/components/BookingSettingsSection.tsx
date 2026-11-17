@@ -34,9 +34,9 @@ export function BookingSettingsSection({ draft, set, disabled }: BookingSettings
           fullWidth
           className={WRAP_SEGMENTS}
           options={[
-            { value: 'shared', label: t('techBreak.shared') },
-            { value: 'none', label: t('techBreak.none') },
-            { value: 'custom', label: t('techBreak.custom') },
+            { value: 'shared', label: t('techBreak.shared'), disabled },
+            { value: 'none', label: t('techBreak.none'), disabled },
+            { value: 'custom', label: t('techBreak.custom'), disabled },
           ]}
           value={draft.techBreak}
           onValueChange={(v) => set('techBreak', v as TechBreakMode)}
@@ -72,9 +72,9 @@ export function BookingSettingsSection({ draft, set, disabled }: BookingSettings
           fullWidth
           className={WRAP_SEGMENTS}
           options={[
-            { value: 'off', label: t('form.shadeChoiceOff') },
-            { value: 'preferred', label: t('form.shadeChoicePreferred') },
-            { value: 'required', label: t('form.shadeChoiceRequired') },
+            { value: 'off', label: t('form.shadeChoiceOff'), disabled },
+            { value: 'preferred', label: t('form.shadeChoicePreferred'), disabled },
+            { value: 'required', label: t('form.shadeChoiceRequired'), disabled },
           ]}
           value={draft.shadeChoice}
           onValueChange={(v) => set('shadeChoice', v as ServiceDraft['shadeChoice'])}

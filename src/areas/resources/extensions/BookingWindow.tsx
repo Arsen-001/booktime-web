@@ -123,9 +123,13 @@ function AssistantsBlock({ businessId, draft, bookingId, registerAfterSave }: Pi
   const lines = draft.services ?? [];
   const [byLine, setByLine] = useState<Record<number, BookingAssistant[]>>({});
   const [loadedForBooking, setLoadedForBooking] = useState<string | undefined>(undefined);
+  // Сохраняем ассистентов, только если их меняли (проход 17.11): раньше каждое «Сохранить» записи писало ассистентов
+  // всех строк — у мастера без resources.manage сервер отвечал 403, даже когда ассистентов не трогали
+  const [dirty, setDirty] = useState(false);
+  const compensationEnabled = Boolean(settingsQ.data?.compensationEnabled);
 
   useEffect(() => {
-    if (!bookingId || loadedForBooking === bookingId || lines.length === 0) return;
+    if (!compensationEnabled || !bookingId || loadedForBooking === bookingId || lines.length === 0) return;
     let cancelled = false;
     Promise.all(lines.map((_, i) => getBookingAssistants(bookingId, i))).then((all) => {
       if (cancelled) return;
@@ -137,14 +141,16 @@ function AssistantsBlock({ businessId, draft, bookingId, registerAfterSave }: Pi
     };
     // lines — новый массив на каждый рендер (draft.services ?? []); достаточно длины, ссылку намеренно не включаем
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookingId, loadedForBooking, lines.length]);
+  }, [compensationEnabled, bookingId, loadedForBooking, lines.length]);
 
   useAfterSaveStep(registerAfterSave, async (savedBookingId) => {
+    if (!dirty || !compensationEnabled || !rights.addAssistants) return;
     const shareRule = settingsQ.data?.shareRule ?? 'split';
     await Promise.all(Object.entries(byLine).map(([i, list]) => setBookingAssistants(savedBookingId, Number(i), list, shareRule)));
+    setDirty(false);
   });
 
-  if (!settingsQ.data?.compensationEnabled || lines.length === 0) return null;
+  if (!compensationEnabled || lines.length === 0) return null;
 
   const eligible: AssistantEligibleStaff[] = (staffQ.data ?? []).filter((s) => s.eligible && s.id !== draft.staffId);
 
@@ -158,12 +164,15 @@ function AssistantsBlock({ businessId, draft, bookingId, registerAfterSave }: Pi
         ? next.map((a, i, arr) => ({ ...a, sharePercent: Math.floor(100 / arr.length) + (i < 100 % arr.length ? 1 : 0) }))
         : next;
     setByLine((prev) => ({ ...prev, [lineIndex]: normalized }));
+    setDirty(true);
   };
   const removeAssistant = (lineIndex: number, staffId: string) => {
     setByLine((prev) => ({ ...prev, [lineIndex]: (prev[lineIndex] ?? []).filter((a) => a.staffId !== staffId) }));
+    setDirty(true);
   };
   const setShare = (lineIndex: number, staffId: string, sharePercent: number) => {
     setByLine((prev) => ({ ...prev, [lineIndex]: (prev[lineIndex] ?? []).map((a) => (a.staffId === staffId ? { ...a, sharePercent } : a)) }));
+    setDirty(true);
   };
 
   return (

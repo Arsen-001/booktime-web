@@ -204,6 +204,7 @@ export function SchemeEditor({
     return (
       <SchemePromo
         compact={embedded}
+        canConfigure={canManage}
         onConfigure={() =>
           setDraft({ ...emptyScheme(staffId, nowDateTime()), effectiveFrom: minEffective && minEffective > today() ? minEffective : undefined })
         }

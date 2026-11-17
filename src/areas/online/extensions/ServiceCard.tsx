@@ -20,6 +20,8 @@ import { Select } from '@/ui/Select';
 import { Switch } from '@/ui/Switch';
 import { Textarea } from '@/ui/Textarea';
 import { useToast } from '@/ui/Toast';
+import { ViewOnlyFieldset, ViewOnlyNote } from '@/ui/ViewOnly';
+import { useCan } from '@/demo/hooks';
 
 const EMPTY_TEXT: LocalizedText = { ru: '', en: '', hy: '' };
 /** F-03-115: онлайн-название/описание переводятся отдельно на каждый язык виджета, не копируются */
@@ -37,6 +39,7 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
 
   const serviceQ = useApiQuery(['online-servicecard', serviceId], () => coreGet('services', serviceId!), { enabled: Boolean(serviceId) });
   const configQ = useApiQuery(['online-servicecard-config', serviceId], () => getServiceOnlineConfig(serviceId!), { enabled: Boolean(serviceId) });
+  const readOnly = !useCan('online.manage');
   const bookableMutation = useApiMutation((v: boolean) => coreUpdate('services', serviceId!, { onlineBookable: v }));
   const configMutation = useApiMutation((patch: Parameters<typeof updateServiceOnlineConfig>[1]) => updateServiceOnlineConfig(serviceId!, patch));
 
@@ -97,7 +100,10 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
 
   return (
     <div className="flex flex-col gap-4" data-f="F-03-129" inert={loading} aria-busy={loading || undefined}>
-      <div className="flex items-center justify-between gap-3">
+      {/* Онлайн-настройки услуги — право online.manage (сервер: PATCH online/services/:id/config); без него — только
+          просмотр: поля неактивны, языки текста переключаются */}
+      {readOnly && <ViewOnlyNote />}
+      <ViewOnlyFieldset disabled={readOnly} className="flex items-center justify-between gap-3">
         <span className="text-sm font-medium text-fg">{t('serviceCard.onlineToggle')}</span>
         <Switch
           checked={service?.onlineBookable ?? true}
@@ -112,12 +118,13 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
             }
           }}
         />
-      </div>
+      </ViewOnlyFieldset>
 
       {/* F-03-115: у названия и описания — отдельный перевод на каждый язык виджета, не одна строка на все */}
       <div className="flex flex-col gap-3" data-f="F-03-115">
         <Tabs variant="pill" value={textLocale} onValueChange={(v) => setTextLocale(v as LocaleCode)} items={CARD_LOCALES.map((l) => ({ value: l, label: l.toUpperCase() }))} />
 
+        <ViewOnlyFieldset disabled={readOnly} className="flex flex-col gap-3">
         <FormField label={t('serviceCard.onlineName')} hint={t('serviceCard.onlineNameHint')}>
           <Input
             value={onlineName[textLocale] ?? ''}
@@ -139,8 +146,10 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
             <p className="mt-1 text-right text-xs text-muted">{(description[textLocale] ?? '').length}/450</p>
           </div>
         </FormField>
+        </ViewOnlyFieldset>
       </div>
 
+      <ViewOnlyFieldset disabled={readOnly} className="flex flex-col gap-4">
       <FormField label={t('serviceCard.image')} optional>
         <ImageUpload
           value={imageUrls}
@@ -233,6 +242,7 @@ export default function OnlineServiceCard({ mode, serviceId, businessId }: Servi
           />
         </FormField>
       </div>
+      </ViewOnlyFieldset>
 
       {isPackage && <p className="text-sm text-muted">{t('serviceCard.packageOneAtATime')}</p>}
     </div>

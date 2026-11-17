@@ -1769,8 +1769,25 @@ export async function updateStaffPhoto(
 ): Promise<Staff> {
   if (isApiMode()) return S.patchStaff(staffId, { avatarUrl: avatarUrl ?? null });
   return request(async () => {
-    assertCan("staff.manage");
+    // Своё фото мастер меняет сам (как сервер: avatarUrl — среди полей «своего профиля»), чужое — staff.manage
+    if (currentActor().staffId !== staffId) assertCan("staff.manage");
     return coreUpdate("staff", staffId, { avatarUrl });
+  });
+}
+
+/**
+ * «О себе» в своей карточке без права «Сотрудники» (проход 17.11, «только просмотр»): сервер пускает сотрудника править
+ * у себя только поля своего профиля (фото, «о себе», места работы…), а имя, должность, телефон, почта и дата найма —
+ * с staff.manage. Раньше «Сохранить» отправлял всё сразу и получал 403.
+ */
+export async function updateOwnBio(
+  staffId: Id,
+  bio: { ru: string; hy?: string; en?: string } | undefined,
+): Promise<Staff> {
+  if (isApiMode()) return S.patchStaff(staffId, { bio: localizedOrNull(bio) ?? null });
+  return request(async () => {
+    if (currentActor().staffId !== staffId) assertCan("staff.manage");
+    return coreUpdate("staff", staffId, { bio: localizedOrNull(bio) });
   });
 }
 

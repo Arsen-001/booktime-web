@@ -10,6 +10,7 @@ import {
   setJournalMarkupMin,
 } from '@/api/schedule';
 import { optimistic, useApiMutation, useApiQuery } from '@/api/request';
+import { useCan } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { Checkbox } from '@/ui/Checkbox';
 import { FormField } from '@/ui/FormField';
@@ -26,6 +27,10 @@ const HISTORY_LIMIT_OPTIONS = [1, 7, 30, 90, 180] as const;
  * значения грузятся — те же поля неактивными и без значения (DESIGN.md → «The skeleton IS the page»): высота та же.
  */
 export function StaffAccessSection({ staffId, staff }: { staffId: Id; staff?: Staff }) {
+  // «Только просмотр» по праву (проход 17.11): сетка журнала мастера (скрыть, разметка) — сервер пишет только со
+  // staff.manage, срок истории и «в заполняемость» — со schedule.edit; без права поле видно, но неактивно
+  const canJournalView = useCan('staff.manage');
+  const canSettings = useCan('schedule.edit');
   const t = useT('schedule');
   const toast = useToast();
   const limitKey = ['schedule', 'history-limit', staffId] as const;
@@ -54,6 +59,7 @@ export function StaffAccessSection({ staffId, staff }: { staffId: Id; staff?: St
           ) : (
             <Select
               className="max-w-56"
+              disabled={!canSettings}
               value={limitQuery.data === undefined ? 'none' : String(limitQuery.data)}
               onValueChange={(v) => run(setLimit.mutate(v === 'none' ? undefined : Number(v)))}
               options={[
@@ -70,7 +76,7 @@ export function StaffAccessSection({ staffId, staff }: { staffId: Id; staff?: St
           <Select
             className="max-w-56"
             value={!staff ? '' : staff.journalMarkupMin === undefined ? 'none' : String(staff.journalMarkupMin)}
-            disabled={!staff}
+            disabled={!staff || !canJournalView}
             onValueChange={(v) => run(setMarkup.mutate(v === 'none' ? undefined : (Number(v) as 15 | 30 | 60 | 90 | 120)))}
             options={[
               { value: 'none', label: t('staffCard.markupNone') },
@@ -83,7 +89,7 @@ export function StaffAccessSection({ staffId, staff }: { staffId: Id; staff?: St
       <div data-f="F-02-082">
         <Checkbox
           checked={staff?.hiddenInJournal ?? false}
-          disabled={!staff}
+          disabled={!staff || !canJournalView}
           onCheckedChange={(v) => run(setHidden.mutate(v))}
           label={t('staffCard.hideInJournal')}
           description={t('staffCard.hideInJournalHint')}
@@ -96,6 +102,7 @@ export function StaffAccessSection({ staffId, staff }: { staffId: Id; staff?: St
         ) : (
           <Checkbox
             checked={fillQuery.data ?? true}
+            disabled={!canSettings}
             onCheckedChange={(v) => run(setFill.mutate(v))}
             label={t('staffCard.includeInFillRate')}
             description={t('staffCard.includeInFillRateHint')}

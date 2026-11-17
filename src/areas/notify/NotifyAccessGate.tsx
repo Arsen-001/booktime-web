@@ -46,8 +46,9 @@ function DeniedState() {
 export function NotifyAccessGate({ children, extra }: { children: ReactNode; extra?: Permission }) {
   const canManage = useCan('notify.manage');
   const canExtra = useCan(extra ?? 'notify.manage');
-  if (!canManage) return <DeniedState />;
-  if (extra && !canExtra) return <DeniedState />;
+  // Журнал отправок и рассылки открываются своим правом (notify.log / notify.mailings) — как на сервере; раньше без
+  // notify.manage право «Журнал отправленных уведомлений» ничего не открывало (проход 17.11, «только просмотр»)
+  if (extra ? !canExtra : !canManage) return <DeniedState />;
   // data-f: F-05-110 — без права notify.manage весь раздел выше уже не доходит до этой строки.
   return <div data-f="F-05-110">{children}</div>;
 }

@@ -7,6 +7,7 @@ import { useLocale } from 'next-intl';
 import { coreList, coreUpdate } from '@/api/core';
 import { getPlacesData, getStaffRules, getStaffServiceOnlineFlags, isStaffServicePairOnline, setStaffServiceOnline } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
+import { useCan } from '@/demo/hooks';
 import type { StaffCardExtProps } from '@/extensions/types';
 import { useT } from '@/i18n/useT';
 import { pickText } from '@/lib/text';
@@ -16,6 +17,7 @@ import { SkeletonText } from '@/ui/Skeleton';
 import { useSkeletonCount } from '@/ui/hooks/useSkeletonCount';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
+import { ViewOnlyFieldset, ViewOnlyNote } from '@/ui/ViewOnly';
 import { isOrderService } from '@/domain/ordersPickup';
 
 const WORKPLACE_ICON_KEYS = ['salon', 'home', 'visit', 'gym', 'online'] as const;
@@ -36,6 +38,7 @@ export default function OnlineStaffCard({ staffId, businessId }: StaffCardExtPro
   const pairsQ = useApiQuery(['online-staffcard-pairs', businessId], () => getStaffServiceOnlineFlags(businessId));
 
   const [savedId, setSavedId] = useState<string | null>(null);
+  const canManage = useCan('online.manage');
   const onlineMutation = useApiMutation((v: boolean) => coreUpdate('staff', staffId, { onlineBookingEnabled: v }));
   const loadingAll = dataQ.isLoading || rulesQ.isLoading || servicesQ.isLoading || pairsQ.isLoading;
   const ownIds = dataQ.data?.staff.serviceIds;
@@ -94,7 +97,9 @@ export default function OnlineStaffCard({ staffId, businessId }: StaffCardExtPro
   const ownServices = (servicesQ.data ?? []).filter((s) => staff.serviceIds.includes(s.id));
 
   return (
-    <div className="flex flex-col gap-4" data-f="F-00-066 F-00-073">
+    // Включить онлайн-запись мастеру и его услуги онлайн — настройки салона (online.manage); без права — только просмотр
+    <ViewOnlyFieldset disabled={!canManage} className="flex flex-col gap-4" data-f="F-00-066 F-00-073">
+      {!canManage && <ViewOnlyNote />}
       <div className="flex items-center justify-between gap-3" data-f="F-03-132">
         <span className="text-sm font-medium text-fg">{t('staffCard.onlineEnabled')}</span>
         <Switch
@@ -204,6 +209,6 @@ export default function OnlineStaffCard({ staffId, businessId }: StaffCardExtPro
       >
         {t('staffCard.editLink')}
       </Link>
-    </div>
+    </ViewOnlyFieldset>
   );
 }

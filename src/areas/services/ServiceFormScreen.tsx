@@ -22,6 +22,7 @@ import { listPriceLockedServiceIds } from '@/api/network';
 import { useApiQuery } from '@/api/request';
 import { deleteService, getServiceDeleteImpact, restoreServices } from '@/api/services';
 import { useCan } from '@/demo/hooks';
+import { ViewOnlyNote } from '@/ui/ViewOnly';
 import { useT } from '@/i18n/useT';
 import { useTDynamic } from '@/i18n/useTDynamic';
 import { pickText } from '@/lib/text';
@@ -180,6 +181,7 @@ export function ServiceFormScreen() {
         }
       />
       <>
+          {!f.isNew && !f.loading && !canEdit && <ViewOnlyNote />}
           <Tabs
             value={tab}
             onValueChange={openTab}
@@ -247,9 +249,9 @@ export function ServiceFormScreen() {
                           {
                             value: 'individual',
                             label: t('form.kindIndividual'),
-                            disabled: f.loading,
+                            disabled,
                           },
-                          { value: 'group', label: t('form.kindGroup'), disabled: f.loading },
+                          { value: 'group', label: t('form.kindGroup'), disabled },
                         ]}
                         value={draft.kind}
                         onValueChange={(v) => set('kind', v as ServiceKind)}

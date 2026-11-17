@@ -39,6 +39,7 @@ import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
 import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
 import { useResourcesRights } from '@/areas/resources/lib/rights';
+import { ViewOnlyNote } from '@/ui/ViewOnly';
 
 const FINE_RIGHT_KEYS: (keyof ResourcesFineRights)[] = ['viewResources', 'editServiceResources', 'viewWaitlist', 'addAssistants', 'editAssistantShare'];
 
@@ -133,6 +134,7 @@ export function AssistantsSettingsScreen() {
   return (
     <div data-f="F-16-136 F-16-140 F-16-141 F-16-144" className="mx-auto flex w-full max-w-[760px] flex-col gap-6">
       <PageHeader title={t('assistants.title')} description={t('assistants.description')} />
+      {!loading && !canManage && <ViewOnlyNote />}
 
       <SectionCard title={t('assistants.compensationTitle')}>
         <Switch

@@ -9,7 +9,7 @@
  */
 import { defaultResourcesFineRights, getStaffResourcesRights } from '@/api/resources';
 import { useApiQuery } from '@/api/request';
-import { useCurrent, useDemo } from '@/demo/hooks';
+import { useCan, useCurrent, useDemo } from '@/demo/hooks';
 import type { ResourcesFineRights } from '@/domain/resources';
 
 export interface UseResourcesRightsResult extends ResourcesFineRights {
@@ -25,12 +25,21 @@ export function useResourcesRights(): UseResourcesRightsResult {
   const { persona } = useDemo();
   const { staffId, ready: currentReady } = useCurrent();
   const owner = persona === 'owner' || persona === 'network' || persona === 'individual';
+  // Грубое право — верхняя граница (CONVENTIONS §7, как у «Клиентской базы»): сервер пускает изменения ресурсов,
+  // ассистентов и их долей только с resources.manage. Тонкая галочка «можно» без него давала активные кнопки и 403
+  // (проход 17.11, «только просмотр»): у мастера и администратора без права — только смотреть.
+  const canManage = useCan('resources.manage');
 
   const q = useApiQuery(['resources', 'staffRights', staffId], () => getStaffResourcesRights(staffId ?? ''), {
     enabled: currentReady && Boolean(staffId) && !owner,
   });
 
-  if (owner) return { ...defaultResourcesFineRights(), ready: true };
-  const merged: ResourcesFineRights = { ...defaultResourcesFineRights(), ...q.data };
-  return { ...merged, ready: !staffId || (currentReady && !q.isLoading) };
+  const merged: ResourcesFineRights = owner ? defaultResourcesFineRights() : { ...defaultResourcesFineRights(), ...q.data };
+  return {
+    ...merged,
+    editServiceResources: merged.editServiceResources && canManage,
+    addAssistants: merged.addAssistants && canManage,
+    editAssistantShare: merged.editAssistantShare && canManage,
+    ready: owner || !staffId || (currentReady && !q.isLoading),
+  };
 }

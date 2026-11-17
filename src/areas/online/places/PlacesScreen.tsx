@@ -5,7 +5,7 @@ import { CheckCircle2, ExternalLink, MapPin } from 'lucide-react';
 import { coreList } from '@/api/core';
 import { getPlacesData, updateLocationPlace, updateStaffPlaces, updateStaffRules, type PlacesData } from '@/api/online';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
+import { useCan, useCurrent } from '@/demo/hooks';
 import { DISTRICT_IDS } from '@/config/districts';
 import type { DistrictId, Workplace } from '@/domain/core';
 import { useT } from '@/i18n/useT';
@@ -14,6 +14,7 @@ import { HelpHint } from '@/areas/online/HelpHint';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
+import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { FormField } from '@/ui/FormField';
 import { Input } from '@/ui/Input';
@@ -25,9 +26,9 @@ import { Select } from '@/ui/Select';
 import { SkeletonText } from '@/ui/Skeleton';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
+import { ViewOnlyFieldset, ViewOnlyNote } from '@/ui/ViewOnly';
 
 const WORKPLACE_IDS: Workplace[] = ['salon', 'home', 'visit', 'gym', 'online'];
-const OWNER_LIKE = new Set(['owner', 'admin', 'network']);
 
 /**
  * /biz/online/places — места работы и выезд (F-00-073…081). О30: места у каждого мастера свои (у Ани «на дому»),
@@ -36,10 +37,11 @@ const OWNER_LIKE = new Set(['owner', 'admin', 'network']);
  */
 export function PlacesScreen() {
   const t = useT('online');
-  const { staffId, businessId, persona, locationId, ready } = useCurrent();
+  const { staffId, businessId, locationId, ready } = useCurrent();
   const { own: hasAccess } = useOnlineAccess();
   const effectiveLocationId = locationId === 'all' ? undefined : locationId;
-  const ownerLike = OWNER_LIKE.has(persona);
+  // Места других мастеров — с правом менять сотрудников (сервер: PATCH чужой карточки — staff.manage); без него — свои
+  const ownerLike = useCan('staff.manage');
 
   const staffQ = useApiQuery(
     ['online-places-staff', businessId, ownerLike ? undefined : staffId],
@@ -84,6 +86,9 @@ export function PlacesScreen() {
         />
         {!ready || staffQ.isLoading || dataQ.isLoading ? (
           <PlacesFormSkeleton />
+        ) : !staffQ.isError && masters.length === 0 ? (
+          // Администратор без права менять сотрудников и без своих услуг: показывать нечего — не «Не удалось загрузить»
+          <EmptyState icon={<MapPin aria-hidden />} title={t('places.noMasters')} />
         ) : dataQ.isError || staffQ.isError || !dataQ.data ? (
           <ErrorState onRetry={() => (staffQ.isError ? staffQ.refetch() : dataQ.refetch())} />
         ) : (
@@ -112,6 +117,8 @@ function PlacesForm({ staffId, data }: { staffId: string; data: PlacesData }) {
   const [locating, setLocating] = useState(false);
   const [justMarked, setJustMarked] = useState(false);
 
+  // Адрес салона на картах и район — настройки филиала (сервер: settings.manage); без права — только просмотр
+  const canEditLocation = useCan('settings.manage');
   const staffMutation = useApiMutation((patch: Parameters<typeof updateStaffPlaces>[1]) => updateStaffPlaces(staffId, patch));
   const locationMutation = useApiMutation((args: { id: string; patch: Parameters<typeof updateLocationPlace>[1] }) =>
     updateLocationPlace(args.id, args.patch),
@@ -133,7 +140,7 @@ function PlacesForm({ staffId, data }: { staffId: string; data: PlacesData }) {
       await rulesMutation.mutate({ travelFee, travelTimeMin });
       const locationChanged =
         location && ((yandexMapsUrl.trim() || undefined) !== location.yandexMapsUrl || (district || undefined) !== location.district);
-      if (location && workplaces.includes('salon') && locationChanged) {
+      if (canEditLocation && location && workplaces.includes('salon') && locationChanged) {
         await locationMutation.mutate({
           id: location.id,
           patch: { yandexMapsUrl: yandexMapsUrl.trim() || undefined, district: district || undefined },
@@ -194,7 +201,8 @@ function PlacesForm({ staffId, data }: { staffId: string; data: PlacesData }) {
         {workplaces.includes('salon') && location && (
           <div data-f="F-00-074 F-00-075 F-00-076 F-13-213">
             <SectionCard title={t('places.salon.title')} description={location.address ? location.address.ru : undefined}>
-              <div className="flex flex-col gap-3">
+              <ViewOnlyFieldset disabled={!canEditLocation} className="flex flex-col gap-3">
+                {!canEditLocation && <ViewOnlyNote />}
                 <FormField label={t('places.salon.yandexUrl')} optional>
                   <Input value={yandexMapsUrl} onChange={(e) => setYandexMapsUrl(e.target.value)} placeholder="https://yandex.ru/maps/..." />
                 </FormField>
@@ -229,7 +237,7 @@ function PlacesForm({ staffId, data }: { staffId: string; data: PlacesData }) {
                     <ExternalLink aria-hidden className="size-3.5" />
                   </a>
                 )}
-              </div>
+              </ViewOnlyFieldset>
             </SectionCard>
           </div>
         )}

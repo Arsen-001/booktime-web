@@ -17,6 +17,7 @@ import {
   listPositions,
   setHomeAcceptance,
   updateStaffInfo,
+  updateOwnBio,
   updateStaffPhoto,
 } from "@/api/staff";
 import { optimistic, useApiMutation, useApiQuery } from "@/api/request";
@@ -239,11 +240,15 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
     { optimistic: infoOptimistic },
   );
   const photoM = useApiMutation((a: { staffId: string; avatarUrl: string | undefined }) => updateStaffPhoto(a.staffId, a.avatarUrl));
+  // Своя карточка без права «Сотрудники»: имя, должность, телефон, почта, дата найма — только просмотр (сервер их
+  // без staff.manage не примет), фото и «о себе» — свои, сохраняются отдельно
+  const canEditAll = useCan("staff.manage");
+  const bioM = useApiMutation((a: { staffId: string; bio: InfoDraft["bio"] }) => updateOwnBio(a.staffId, a.bio));
 
   useCardSection("info", dirty, async () => {
     setErrors({});
     try {
-      const saved = await infoM.mutate({ ...draft, staffId: staff.id });
+      const saved = canEditAll ? await infoM.mutate({ ...draft, staffId: staff.id }) : await bioM.mutate({ staffId: staff.id, bio: draft.bio });
       const withPhoto =
         draft.avatarUrl !== staff.avatarUrl ? await photoM.mutate({ staffId: staff.id, avatarUrl: draft.avatarUrl }) : saved;
       const next = draftOf(withPhoto);
@@ -296,7 +301,7 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
           value={draft.nameI18n}
           auto={nameAuto}
           error={errors.name}
-          disabled={!canEdit}
+          disabled={!canEditAll}
           onChange={(lang, text) => {
             // Вписали на одном языке — остальные, ещё не правленные руками, заполняются переводом букв (владелец 17.11.2026)
             const names = { ...draft.nameI18n, [lang]: text };
@@ -324,26 +329,26 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
                 void createPosition.mutate(text);
               }}
               loading={canPositions && positionsQ.isLoading}
-              disabled={!canEdit || !canPositions}
+              disabled={!canEditAll || !canPositions}
               placeholder={t("infoTab.positionPlaceholder")}
               emptyText={t("infoTab.positionEmpty")}
             />
           </FormField>
         </div>
         <FormField label={t("infoTab.specialty")} hint={t("infoTab.specialtyHint")}>
-          <Input value={draft.specialty} disabled={!canEdit} onChange={(e) => patch({ specialty: e.target.value })} placeholder={t("infoTab.specialtyPlaceholder")} />
+          <Input value={draft.specialty} disabled={!canEditAll} onChange={(e) => patch({ specialty: e.target.value })} placeholder={t("infoTab.specialtyPlaceholder")} />
         </FormField>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div data-staff-field="phone">
           <FormField label={t("infoTab.phone")} error={errors.phone}>
-            <PhoneInput value={draft.phone} disabled={!canEdit} onValueChange={(v) => patch({ phone: v })} invalid={Boolean(errors.phone)} />
+            <PhoneInput value={draft.phone} disabled={!canEditAll} onValueChange={(v) => patch({ phone: v })} invalid={Boolean(errors.phone)} />
           </FormField>
         </div>
         <div data-staff-field="email">
           <FormField label={t("infoTab.email")} optional error={errors.email}>
-            <Input type="email" value={draft.email} disabled={!canEdit} onChange={(e) => patch({ email: e.target.value })} placeholder="name@example.com" />
+            <Input type="email" value={draft.email} disabled={!canEditAll} onChange={(e) => patch({ email: e.target.value })} placeholder="name@example.com" />
           </FormField>
         </div>
       </div>
@@ -351,7 +356,7 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
       <BioField value={draft.bio} disabled={!canEdit} onChange={(bio) => patch({ bio })} />
 
       <FormField label={t("infoTab.hiredAt")} className="max-w-56">
-        <DatePicker value={draft.hiredAt} disabled={!canEdit} onValueChange={(d) => d && patch({ hiredAt: d })} />
+        <DatePicker value={draft.hiredAt} disabled={!canEditAll} onValueChange={(d) => d && patch({ hiredAt: d })} />
       </FormField>
     </div>
   );

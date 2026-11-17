@@ -35,23 +35,27 @@ export const subnav: SubNav = {
     // F-09-049…056: классическая модель — на моках всегда доступна, но экраны сами прячутся/предупреждают,
     // когда «Основные настройки» переключены на упрощённую (F-09-002); подпункт остаётся в меню всегда,
     // чтобы владелец мог включить классику отсюда же.
-    { id: "rules", href: "/biz/payroll/rules", labelKey: "payroll.nav.rules" },
+    // Правила, критерии, схемы, фонд и быстрая настройка — только с payroll.manage (сервер их без него не отдаёт)
+    { id: "rules", href: "/biz/payroll/rules", labelKey: "payroll.nav.rules", permission: "payroll.manage" },
     {
       id: "criteria",
       href: "/biz/payroll/criteria",
       labelKey: "payroll.nav.criteria",
+      permission: "payroll.manage",
     },
     {
       id: "charts",
       href: "/biz/payroll/charts",
       labelKey: "payroll.nav.charts",
+      permission: "payroll.manage",
     },
     {
       id: "analytics",
       href: "/biz/payroll/analytics",
       labelKey: "payroll.nav.analytics",
+      permission: "payroll.manage",
     },
-    { id: "setup", href: "/biz/payroll/setup", labelKey: "payroll.nav.setup" },
+    { id: "setup", href: "/biz/payroll/setup", labelKey: "payroll.nav.setup", permission: "payroll.manage" },
     { id: "me", href: "/biz/payroll/me", labelKey: "payroll.nav.me" },
   ],
 };

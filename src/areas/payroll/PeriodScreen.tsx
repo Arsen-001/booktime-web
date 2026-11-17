@@ -76,6 +76,7 @@ export function PeriodScreen() {
   const {
     ready,
     businessId,
+    staffId: currentStaffId,
     locationId: currentLocationId,
     activeLocationIds,
   } = useCurrent();
@@ -184,9 +185,12 @@ export function PeriodScreen() {
   // F-09-063: для каждого сотрудника — уже есть ли ведомость за ВЫБРАННЫЙ период (точное совпадение
   // periodFrom/periodTo, как их пишет createSettlementSheet).
   const sheetsQuery = useApiQuery(
-    ["payroll", "periodSheets", businessId, from, to, staffIdsKey],
+    ["payroll", "periodSheets", businessId, from, to, staffIdsKey, canManagePayroll],
     async () => {
-      const ids = staffIdsKey ? staffIdsKey.split(",") : [];
+      // Чужие взаиморасчёты сервер отдаёт только с payroll.manage (свои — всем): без права — только свои, без 403
+      const ids = (staffIdsKey ? staffIdsKey.split(",") : []).filter(
+        (id) => canManagePayroll || id === currentStaffId,
+      );
       const lists = await Promise.all(
         ids.map((id) => listSettlementEntries(businessId!, id)),
       );

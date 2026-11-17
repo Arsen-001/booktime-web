@@ -50,6 +50,7 @@ export function useJournalBlockRights(): UseJournalBlockRightsResult {
   const canOthersCoarse = useCan("journal.others");
   const canRescheduleCoarse = useCan("journal.reschedule");
   const canPhonesCoarse = useCan("clients.phones");
+  const canStatsCoarse = useCan("journal.stats");
 
   const isOverridable = persona === "admin" || persona === "master";
   const q = useApiQuery(
@@ -70,6 +71,8 @@ export function useJournalBlockRights(): UseJournalBlockRightsResult {
   if (!canOthersCoarse) merged.viewStaffScope = "own";
   if (!canRescheduleCoarse) merged.reschedule = false;
   if (!canPhonesCoarse) merged.showPhones = false;
+  // Сводка дня (выручка, «Получено») — сервер отдаёт только с journal.stats: без права её нет, а не 403 в консоли
+  if (!canStatsCoarse) merged.showStatistics = false;
 
   return {
     ...merged,

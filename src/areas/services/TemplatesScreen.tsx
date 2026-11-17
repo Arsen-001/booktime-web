@@ -11,7 +11,7 @@ import { useLocale } from 'next-intl';
 import { Sparkles } from 'lucide-react';
 import { addFromTemplates, listCategories, listServiceRows, listStaffForPicker, listTemplates } from '@/api/services';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { useCurrent, useSphere } from '@/demo/hooks';
+import { useCan, useCurrent, useSphere } from '@/demo/hooks';
 import { isSameServiceName, matchCategory, type ServiceTemplateItem, type TemplatePick } from '@/domain/services';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
@@ -27,6 +27,7 @@ import { Collapse } from '@/ui/Collapse';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { PageHeader } from '@/ui/PageHeader';
+import { ViewOnlyFieldset, ViewOnlyNote } from '@/ui/ViewOnly';
 import { SectionCard } from '@/ui/SectionCard';
 import { Select } from '@/ui/Select';
 import { Skeleton } from '@/ui/Skeleton';
@@ -36,6 +37,7 @@ import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
 
 export function TemplatesScreen() {
   const t = useT('services');
+  const canEdit = useCan('services.edit');
   const router = useRouter();
   const toast = useToast();
   const format = useFormat();
@@ -95,6 +97,9 @@ export function TemplatesScreen() {
   return (
     <div data-f="F-00-083 F-00-173" className="mx-auto flex w-full max-w-[760px] flex-col gap-6">
       <PageHeader title={t('templates.title')} description={t('templates.subtitle')} back={{ href: '/biz/services', label: t('title') }} />
+      {/* Добавлять услуги — право services.edit (сервер без него отвечает 403); с одним «смотреть» — только просмотр */}
+      {!canEdit && <ViewOnlyNote />}
+      <ViewOnlyFieldset disabled={!canEdit} className="flex flex-col gap-6">
       {q.isError ? (
         <ErrorState onRetry={q.refetch} />
       ) : loading ? (
@@ -222,6 +227,7 @@ export function TemplatesScreen() {
           </Button>
         </StickyActionBar>
       )}
+      </ViewOnlyFieldset>
     </div>
   );
 }

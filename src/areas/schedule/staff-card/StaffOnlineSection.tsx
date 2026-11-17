@@ -8,11 +8,13 @@ import { Badge } from '@/ui/Badge';
 import { LinkButton } from '@/ui/Button';
 import { SkeletonText } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
+import { useCan } from '@/demo/hooks';
 import { useToast } from '@/ui/Toast';
 
 /** Онлайн-запись мастера на его карточке (F-02-041/043/079): чьи правила, закрытые дни, «к любому мастеру» */
 export function StaffOnlineSection({ staffId, businessId }: { staffId: Id; businessId: Id }) {
   const t = useT('schedule');
+  const canEdit = useCan('schedule.edit');
   const toast = useToast();
   const modeQuery = useApiQuery(['schedule', 'slot-mode', staffId], () => getSlotMode(staffId));
   const unavailableQuery = useApiQuery(['schedule', 'unavailable', 'staff', staffId], () => getUnavailableDays('staff', staffId));
@@ -72,6 +74,8 @@ export function StaffOnlineSection({ staffId, businessId }: { staffId: Id; busin
         <div data-f="F-02-079">
           <Switch
             checked={skipQuery.data ?? false}
+            // Пишется в настройки графика (schedule.edit): без права — видно, но неактивно
+            disabled={!canEdit}
             onCheckedChange={(value) =>
               void setSkip.mutate(value).then(
                 () => toast.success(t('staffCard.settingsSaved')),

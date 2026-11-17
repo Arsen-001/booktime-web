@@ -32,8 +32,15 @@ export function usePayrollAccess(): ResolvedPayrollAccess & { ready: boolean } {
   const canSeePayroll = canView || canManage;
   return useMemo(() => {
     const access = resolvePayrollAccess(persona, staffId, q.data ?? {}, canSeePayroll);
-    return { ...access, ready: ready && !q.isLoading };
-  }, [persona, staffId, q.data, q.isLoading, ready, canSeePayroll]);
+    // Грубое право — верхняя граница (проход 17.11, «только просмотр»): схемы и начисление сервер пишет только с
+    // payroll.manage — галочка в «Основных настройках» без него давала активные кнопки и 403
+    return {
+      ...access,
+      schemesAccess: access.schemesAccess && canManage,
+      accrueAccess: canManage ? access.accrueAccess : "none",
+      ready: ready && !q.isLoading,
+    };
+  }, [persona, staffId, q.data, q.isLoading, ready, canSeePayroll, canManage]);
 }
 
 /** F-09-086/094: дата разрешена при «только текущий день» — единственная допустимая дата — сегодня */
