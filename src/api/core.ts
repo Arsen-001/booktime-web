@@ -36,7 +36,9 @@ import type {
   ISODate,
   ISODateTime,
   Id,
+  Location as CoreLocation,
   SphereId,
+  Staff,
 } from '@/domain/core';
 import { canTransition, isOnlineSource, noShowDelta, occupiesTime, type StatusActor } from '@/domain/rules/booking-status';
 import {
@@ -702,7 +704,30 @@ export function coreUpdate<C extends CoreCollection>(
 ): Promise<CoreEntity<C>> {
   if (isApiMode() && collection === 'bookings') return J.updateBooking(id, patch as Partial<Booking>) as Promise<CoreEntity<C>>;
   if (isApiMode() && collection === 'groupEvents') return J.updateGroupEvent(id, patch as Partial<GroupEvent>) as Promise<CoreEntity<C>>;
+  // Живой сайт: сотрудник и филиал — на сервер, а не только в зеркало браузера (проход 17.11): «Видимость в
+  // каталоге», «Сразу / с подтверждением», «Кого принимает», «Онлайн-запись мастера», места работы и адрес салона
+  // менялись на экране и пропадали после обновления страницы — запрос на сервер не уходил
+  if (isApiMode() && collection === 'staff') return apiPatchStaff(id, patch as Partial<Staff>) as Promise<CoreEntity<C>>;
+  if (isApiMode() && collection === 'locations') return apiPatchLocation(id, patch as Partial<CoreLocation>) as Promise<CoreEntity<C>>;
   return request(() => txUpdate(collection, id, patch));
+}
+
+async function apiPatchStaff(id: Id, patch: Partial<Staff>): Promise<Staff> {
+  const S = await import('@/api/staff.server');
+  // undefined в JSON не уходит; null — «снять» (домашний адрес, район)
+  const body = Object.fromEntries(Object.entries(patch).map(([k, v]) => [k, v === undefined ? null : v]));
+  return S.patchStaff(id, body);
+}
+
+async function apiPatchLocation(id: Id, patch: Partial<CoreLocation>): Promise<CoreLocation> {
+  const loc = core().locations.find((l) => l.id === id);
+  if (!loc) throw new ApiError('not_found', `locations/${id} не найден`);
+  const { coords, ...rest } = patch;
+  // «Я сейчас на месте работы» — своя точка (любой сотрудник), остальное — настройки филиала (settings.manage)
+  if (coords) await http('POST', `/v1/biz/${loc.businessId}/locations/${id}/here`, { lat: coords.lat, lng: coords.lng });
+  const fields = Object.fromEntries(Object.entries(rest).filter(([, v]) => v !== undefined));
+  if (Object.keys(fields).length) await http('PATCH', `/v1/biz/${loc.businessId}/locations/${id}`, fields);
+  return request(() => txUpdate('locations', id, patch));
 }
 
 export function coreRemove<C extends CoreCollection>(collection: C, id: Id): Promise<void> {
