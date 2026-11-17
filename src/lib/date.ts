@@ -82,6 +82,17 @@ export function toLocalDateTime(value: string | null | undefined): ISODateTime |
 }
 
 /**
+ * Позже ли время `a`, чем `b`, с точностью до минуты. Строки бывают местным временем Еревана ('2026-11-17T16:30', как
+ * в моке и у записей) и мгновением с поясом с сервера ('2026-11-17T12:23:40.645Z'): строками их сравнивать нельзя —
+ * сдвиг на 4 часа (ведомость, 17.11: визит, правленый до начисления, светился «Изменилось после начисления»).
+ */
+export function isLaterTime(a: string | null | undefined, b: string | null | undefined): boolean {
+  const x = toLocalDateTime(a);
+  const y = toLocalDateTime(b);
+  return Boolean(x && y && x > y);
+}
+
+/**
  * «Сейчас» по Еревану как Dayjs — для арифметики (`nowYerevan().add(1, 'day')`) вместо `dayjs()`.
  * Если в среде нет данных о поясах (редкий старый браузер) — время устройства.
  */

@@ -55,6 +55,7 @@ import { useCan, useCurrent } from "@/demo/hooks";
 import { useFormat } from "@/i18n/useFormat";
 import { useT } from "@/i18n/useT";
 import { downloadCsv, toCsv } from "@/lib/csv";
+import { isLaterTime } from "@/lib/date";
 import { pickText } from "@/lib/text";
 import { useLocale } from "next-intl";
 import type { LocaleCode } from "@/domain/core";
@@ -265,7 +266,7 @@ export function StatementScreen() {
   // F-09-070: жёлтая подсветка ведомости целиком — ставку в схеме поменяли ПОСЛЕ начисления (в отличие
   // от красной — она про конкретный визит, эта про схему сотрудника).
   const schemeChangedAfterSheet = Boolean(
-    sheet && schemeQ.data && schemeQ.data.updatedAt > sheet.createdAt,
+    sheet && schemeQ.data && isLaterTime(schemeQ.data.updatedAt, sheet.createdAt),
   );
 
   const bonusesTotal = periodEntries
@@ -704,7 +705,7 @@ export function StatementScreen() {
                     : undefined;
                   // F-09-070: если визит правили ПОСЛЕ создания этой ведомости — строка устарела (красная)
                   const stale = Boolean(
-                    sheet && booking && booking.updatedAt > sheet.createdAt,
+                    sheet && booking && isLaterTime(booking.updatedAt, sheet.createdAt),
                   );
                   return (
                     <li
