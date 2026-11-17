@@ -25,6 +25,7 @@ import { costPriceAt } from '@/api/stock';
 import type { Booking, BookingStatus, Client, Id, ISODate, Staff, WorkSchedule } from '@/domain/core';
 import { operationSign } from '@/domain/finance';
 import type { Account, FinanceItem, Operation, OperationFilter, SystemItemKey } from '@/domain/finance';
+import { SYSTEM_ITEM_KEYS } from '@/domain/finance';
 import { ACCUMULATING_KINDS } from '@/domain/loyalty';
 import type {
   ActivityEntry,
@@ -1188,7 +1189,12 @@ async function financeSourceApi(businessId: Id, locationIds: Id[], from?: ISODat
     listFinanceAccounts(businessId),
     listFinanceOperations(businessId, { locationIds, ...financeWindow(from, to) }),
   ]);
+  // Системная статья — по её ключу с сервера (systemKey), догадка по источнику — только для своих статей: продажа
+  // сертификата тоже source 'sale', и «Касса за день» считала её в «Товары» (10 300 ֏ вместо 300), «Сертификаты» — 0
+  const sysKeyById = new Map(items.map((i) => [i.id, (i as FinanceItem & { systemKey?: string }).systemKey]));
   const keyOf = (o: Operation): SystemItemKey | undefined => {
+    const sys = sysKeyById.get(o.itemId);
+    if (sys && (SYSTEM_ITEM_KEYS as readonly string[]).includes(sys)) return sys as SystemItemKey;
     if (o.source === 'booking' && o.kind === 'income') return 'servicePayment';
     if (o.source === 'sale' && o.kind === 'income') return 'goodsSale';
     if (o.source === 'account' && o.kind === 'income') return 'accountTopUp';

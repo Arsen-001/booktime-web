@@ -4,6 +4,7 @@
  * F-12-050…051: «По сотрудникам» — выручка, услуги/товары суммой и количеством, будущие записи (деньги),
  * отработано часов, стоимость часа, доля в выручке; стрелка у процента открывает график по дням.
  */
+import { useLocale } from 'next-intl';
 import { ChevronRight, Users } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { CartesianGrid, Line, LineChart, Tooltip as RTooltip, XAxis, YAxis } from 'recharts';
@@ -28,6 +29,8 @@ import { Table, type TableColumn } from '@/ui/Table';
 export function SalesByStaffScreen() {
   const t = useT('reports');
   const f = useFormat();
+  const locale = useLocale();
+  const decimal = (n: number) => n.toLocaleString(locale === 'en' ? 'en-US' : locale === 'hy' ? 'hy-AM' : 'ru-RU', { maximumFractionDigits: 1 }).replace('-', '−');
   const { businessId, activeLocationIds, ready } = useCurrent();
   const range = useReportRange();
   const [openRow, setOpenRow] = useState<SalesByStaffRow | null>(null);
@@ -47,14 +50,15 @@ export function SalesByStaffScreen() {
       { id: 'services', header: t('salesByStaff.columns.services'), cell: (r) => `${f.money(r.servicesAmount)} · ${r.servicesCount}`, align: 'right' },
       { id: 'products', header: t('salesByStaff.columns.products'), cell: (r) => `${f.money(r.productsAmount)} · ${r.productsCount}`, align: 'right' },
       { id: 'future', header: <span data-f="F-12-051">{t('salesByStaff.columns.future')}</span>, cell: (r) => f.money(r.futureBookingsAmount), align: 'right' },
-      { id: 'hours', header: t('salesByStaff.columns.hours'), cell: (r) => r.workedHours, align: 'right' },
+      // Дробные часы и доля — по правилам языка («2,5», «214,3 %» в ru и hy; «2.5» в en), минус — «−»
+      { id: 'hours', header: t('salesByStaff.columns.hours'), cell: (r) => decimal(r.workedHours), align: 'right' },
       { id: 'hourCost', header: t('salesByStaff.columns.hourCost'), cell: (r) => (r.hourCost === null ? '—' : f.money(r.hourCost)), align: 'right' },
       {
         id: 'share',
         header: t('salesByStaff.columns.share'),
         cell: (r) => (
           <span className="inline-flex items-center gap-1">
-            {r.revenueSharePct}%
+            {decimal(r.revenueSharePct)}%
             <IconButton icon={<ChevronRight className="size-4" />} label={t('salesByStaff.openChart')} variant="ghost" onClick={() => setOpenRow(r)} />
           </span>
         ),
