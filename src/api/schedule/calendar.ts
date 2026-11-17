@@ -502,7 +502,7 @@ async function apiGetMasterToday(staffId: Id): Promise<MasterTodayBooking[]> {
   const businessId = St.bizOf(staffId);
   const date = today();
   const now = nowDateTime();
-  const [bookings, notices] = await Promise.all([J.listBookings({ businessId, staffId, from: date, to: date }), Promise.resolve(readArea('schedule').delayNotices)]);
+  const [bookings, notices] = await Promise.all([J.listBookings({ businessId, staffId, from: date, to: date }), request(() => readArea('schedule').delayNotices)]);
   const active = bookings.filter((b) => occupiesTime(b) && b.status !== 'no_show').sort((a, b) => a.start.localeCompare(b.start));
   const clientIds = [...new Set(active.map((b) => b.clientId).filter((id): id is Id => Boolean(id)))];
   const names = new Map(

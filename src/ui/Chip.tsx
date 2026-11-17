@@ -67,7 +67,8 @@ export function Chip({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'inline-flex min-h-11 items-center gap-1.5 rounded-full px-3.5 transition-transform md:min-h-10 active:scale-[0.97] disabled:cursor-not-allowed',
+        // min-w-0: длинная подпись обрезается многоточием внутри max-w-full, а не вылезает вбок на телефоне
+        'inline-flex min-h-11 min-w-0 items-center gap-1.5 rounded-full px-3.5 transition-transform md:min-h-10 active:scale-[0.97] disabled:cursor-not-allowed',
         !onRemove && 'hover:bg-surface-2',
         selected && !onRemove && 'hover:bg-primary-soft',
       )}
@@ -75,7 +76,7 @@ export function Chip({
       {content}
     </button>
   ) : (
-    <span className="inline-flex min-h-11 items-center gap-1.5 px-3.5 md:min-h-10">{content}</span>
+    <span className="inline-flex min-h-11 min-w-0 items-center gap-1.5 px-3.5 md:min-h-10">{content}</span>
   );
 
   return (

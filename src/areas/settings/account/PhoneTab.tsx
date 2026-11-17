@@ -7,6 +7,7 @@
 import { useState } from 'react';
 import { getLoginChannels, type LoginChannel } from '@/api/client';
 import { coreGet } from '@/api/core';
+import { isApiMode } from '@/api/http';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { confirmPhoneChange, sendPhoneChangeCode } from '@/api/settings';
 import type { Id } from '@/domain/core';
@@ -44,7 +45,8 @@ export function PhoneTab({ staffId }: { staffId: Id }) {
             onPhoneChange={setPhone}
             canSend={!sameAsCurrent}
             sendLabel={t('account.phone.changeButton')}
-            codeHint={t('account.phone.codeHint')}
+            // «В демо подойдёт код 0000» — только в демо-сборке; на живом сайте код приходит в Telegram/SMS
+            codeHint={isApiMode() ? undefined : t('account.phone.codeHint')}
             channels={channels}
             onSendCode={async ({ phone: p, channel }) => {
               await send.mutate({ phone: p, channel });

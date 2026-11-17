@@ -59,6 +59,11 @@ export function bizOf(staffId?: Id): Id {
   return id;
 }
 
+/** Роль сотрудника из зеркала ядра — служебное чтение без учёта (зовут и вне request(): права склада в меню) */
+export function mirroredStaffRole(staffId: Id): Staff['role'] | undefined {
+  return readDbUntracked().core.staff.find((s) => s.id === staffId)?.role;
+}
+
 const base = (businessId: Id) => `/v1/biz/${businessId}`;
 
 /** Ошибка полей сервера (invalid_field + fields) → та же StaffValidationError, что у мока */

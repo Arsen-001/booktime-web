@@ -3,7 +3,8 @@
 /** «Проверить на реальных данных» (F-02-072): сотрудники с онлайн-услугами и учебная запись, которая занимает окно */
 import { ApiError, request } from '@/api/request';
 import { readCore } from '@/api/area';
-import { coreTx } from '@/api/core';
+import { canNow, coreTx } from '@/api/core';
+import { apiIdentity } from '@/api/identity';
 import { isApiMode } from '@/api/http';
 import * as J from '@/api/journal.server';
 import * as St from '@/api/staff.server';
@@ -63,9 +64,11 @@ export function getLiveDemoOptions(businessId: Id, locationId: Id): Promise<Live
 }
 
 async function apiGetLiveDemoOptions(businessId: Id, locationId: Id): Promise<LiveDemoStaff[]> {
-  const [staffRows, services, resources] = await Promise.all([St.listStaff(businessId), Sv.listServices(businessId), Rs.listResources(businessId)]);
-  return staffRows
-    .map((r) => r.staff)
+  // Мастер без staff.view — только он сам: список сотрудников сервер ему не отдаёт (403 в консоли «Окон», проход 17.11)
+  const own = canNow('staff.view') ? undefined : apiIdentity()?.staffId;
+  const staffList = own ? St.getStaff(own).then((s) => [s]) : St.listStaff(businessId).then((rows) => rows.map((r) => r.staff));
+  const [staff, services, resources] = await Promise.all([staffList, Sv.listServices(businessId), Rs.listResources(businessId)]);
+  return staff
     .filter((s) => s.locationIds.includes(locationId) && s.status === 'active' && s.onlineBookingEnabled !== false)
     .map((s) => ({
       id: s.id,

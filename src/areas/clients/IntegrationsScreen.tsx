@@ -55,7 +55,9 @@ const STATUS_KEY: Record<ClientBaseIntegration['status'], string> = {
 
 export function IntegrationsScreen() {
   const t = useT('clients');
-  const canManage = useCan('clients.edit');
+  // «Подключить» ведёт в «Интеграции» — туда пускает только integrations.manage (у администратора и мастера его нет):
+  // без права карточки только рассказывают, а «Вебхук» (настройка для разработчика) не показываем вовсе
+  const canManage = useCan('integrations.manage');
   const { ready, businessId, locationIds } = useCurrent();
   const q = useApiQuery(['integrations', 'clientBase', businessId, locationIds], () => listClientBaseIntegrations(businessId!, locationIds), {
     enabled: ready && !!businessId,
@@ -69,7 +71,7 @@ export function IntegrationsScreen() {
         <ErrorState description={t('integrations.loadFailed')} onRetry={q.refetch} />
       ) : (
         <div className="flex flex-col gap-3">
-          {CARDS.map((card) => {
+          {CARDS.filter((card) => card.id !== 'webhook' || canManage).map((card) => {
             const row = byKind.get(card.id);
             return (
               <div key={card.id} data-f={card.fid} className="rounded-xl border border-border bg-surface p-4">

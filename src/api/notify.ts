@@ -59,6 +59,8 @@ import { mutateArea, readArea, readCore } from '@/api/area';
 import { changeBookingStatus, coreCreate, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import * as N from '@/api/notify.server';
+// Бизнес сотрудника — из зеркала ядра или сессии (как в staff.ts), а не currentActor().businessId! (мог быть undefined → /biz/undefined)
+import { bizOf } from '@/api/staff.server';
 // Центр уведомлений для колокольчика кабинета — в лёгком '@/api/notify-shell'; здесь демо-реализации (*Mock)
 import { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead, WEEKLY_PUSH_LIMIT } from '@/api/notify-shell';
 export { countUnreadInbox, getWebPopupSettings, listInboxEvents, listInboxPreview, markInboxRead, WEEKLY_PUSH_LIMIT };
@@ -1707,13 +1709,13 @@ export function effectiveStaffNotifyView(prefs: StaffNotifyPrefs, staffRole: str
 }
 
 export const getStaffNotifyPrefs = (staffId: Id) => {
-  if (isApiMode()) return N.getStaffNotifyPrefs(currentActor().businessId!, staffId);
+  if (isApiMode()) return N.getStaffNotifyPrefs(bizOf(staffId), staffId);
   return request(() => readArea('notify').staffNotifyPrefs[staffId] ?? defaultStaffNotifyPrefs(staffId));
 };
 
 /** F-05-059, шаг 4: хотя бы один сотрудник реально настроен во вкладке «Уведомления» карточки */
 export const anyStaffNotifyConfigured = (staffIds: Id[]) => {
-  if (isApiMode()) return N.anyStaffNotifyConfigured(currentActor().businessId!, staffIds);
+  if (isApiMode()) return N.anyStaffNotifyConfigured(bizOf(staffIds[0]), staffIds);
   return request(() => {
     const stored = readArea('notify').staffNotifyPrefs;
     return staffIds.some((id) => {
@@ -1726,7 +1728,7 @@ export const anyStaffNotifyConfigured = (staffIds: Id[]) => {
 };
 
 export const updateStaffNotifyPrefs = (input: { staffId: Id; patch: Partial<StaffNotifyPrefs> }): Promise<StaffNotifyPrefs> => {
-  if (isApiMode()) return N.updateStaffNotifyPrefs(currentActor().businessId!, input.staffId, input.patch);
+  if (isApiMode()) return N.updateStaffNotifyPrefs(bizOf(input.staffId), input.staffId, input.patch);
   // Возврат — сами обновлённые настройки этого сотрудника, не весь `NotifyState` (та же ловушка, что чинили
   // попыткой 2 у других функций этого файла — tsc не видел несовпадение, пока рядом не появилась api-ветка).
   return request<StaffNotifyPrefs>(() => {
@@ -1744,7 +1746,7 @@ export const setStaffNotifyMatrixCell = (input: {
   channel: StaffNotifyChannel;
   value: boolean;
 }): Promise<StaffNotifyPrefs> => {
-  if (isApiMode()) return N.setStaffNotifyMatrixCell(currentActor().businessId!, input.staffId, input.event, input.channel, input.value);
+  if (isApiMode()) return N.setStaffNotifyMatrixCell(bizOf(input.staffId), input.staffId, input.event, input.channel, input.value);
   return request<StaffNotifyPrefs>(() => {
     mutateArea('notify', (s) => {
       const current = s.staffNotifyPrefs[input.staffId] ?? defaultStaffNotifyPrefs(input.staffId);

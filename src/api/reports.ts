@@ -9,7 +9,7 @@
  *   считаются только записи «Клиент пришел» (status === 'arrived'); запись без телефона клиента
  *   не увеличивает число клиентов (F-12-006); проценты динамики — к предыдущему периоду той же длины (F-12-017).
  */
-import { mutateArea, readArea, readCore } from '@/api/area';
+import { mutateArea, readArea, readCore, readCoreMirror } from '@/api/area';
 import { assertCan, canNow, changeBookingStatus, coreTx, createBooking, currentActor, deleteBooking, findClientByPhone, listBookings, listBookingEvents } from '@/api/core';
 import { rowsFor as clientRowsFor } from '@/api/clients/shared';
 import { listAccounts as listFinanceAccounts, listAccountsWithBalance as listFinanceAccountsWithBalance, listItems as listFinanceItems, listOperations as listFinanceOperations } from '@/api/finance';
@@ -1427,7 +1427,8 @@ function buildCashDay(
   stockSales: ProductSaleOp[] = [],
   goodNameOf: (goodId: Id) => string = () => '',
 ): CashDayReportData {
-  const core = readCore();
+  // Режим api: зовётся после ответов сервера, вне request() — имена из зеркала служебным чтением
+  const core = isApiMode() ? readCoreMirror() : readCore();
   const clientById = new Map(core.clients.map((c) => [c.id, c] as const));
   const staffById = new Map(core.staff.map((s) => [s.id, s] as const));
   const bookingById = new Map(all.map((b) => [b.id, b] as const));
@@ -1653,7 +1654,8 @@ function buildStaffDynamics(
   /** Полученные деньги за услуги мастера за месяц (решение владельца 01.10.2026); нет — по цене записей (сервер) */
   servicesMoneyOf?: (staffId: Id, month: string) => number,
 ): StaffDynamicsData {
-  const core = readCore();
+  // Режим api: зовётся после ответов сервера, вне request() — имена из зеркала служебным чтением
+  const core = isApiMode() ? readCoreMirror() : readCore();
   const arrived = bookings.filter((b) => q.locationIds.includes(b.locationId) && b.status === 'arrived' && !b.deletedAt && months.includes(b.start.slice(0, 7)));
   let staffId = q.staffId;
   if (!staffId) {

@@ -14,7 +14,7 @@
  */
 import type { AreaId } from '@/config/areas';
 import type { CoreData } from '@/domain/core';
-import { useDb } from '@/mock/db';
+import { readDbUntracked, useDb } from '@/mock/db';
 import type { AreaStates } from '@/mock/slices';
 
 export function readArea<A extends AreaId>(area: A): AreaStates[A] {
@@ -35,4 +35,12 @@ export function mutateArea<A extends AreaId>(area: A, recipe: (draft: AreaStates
 /** Ядро только для чтения внутри request(); менять ядро — через функции src/api/core.ts */
 export function readCore(): CoreData {
   return useDb.getState().core;
+}
+
+/**
+ * Режим api: зеркало ядра (имена клиентов и мастеров) при сборке ответа сервера — служебное чтение без учёта и без
+ * предупреждения «вне request()» (как поиск «чей id» в *.server.ts). В демо-сборке — то же, что readCore().
+ */
+export function readCoreMirror(): CoreData {
+  return readDbUntracked().core;
 }

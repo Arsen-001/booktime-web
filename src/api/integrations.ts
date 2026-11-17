@@ -13,7 +13,7 @@
  */
 import { ApiError, request } from '@/api/request';
 import { mutateArea, readArea, readCore } from '@/api/area';
-import { assertCan, currentActor } from '@/api/core';
+import { assertCan, canNow, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import * as Server from '@/api/integrations.server';
 import { countInstalledForBusiness } from '@/api/integrations-shell';
@@ -1708,7 +1708,10 @@ const GOOGLE_CALENDAR_NAME = 'Google Календарь';
  * отсюда, а не держит свою копию «не подключено». Только чтение.
  */
 export async function listClientBaseIntegrations(businessId: Id, locationIds: Id[]): Promise<ClientBaseIntegration[]> {
-  const [rows, webhooks] = await Promise.all([listInstalled(locationIds), getWebhookConfig(businessId)]);
+  // Настройки вебхуков читает только тот, кто ведёт интеграции (integrations.manage): у администратора и мастера
+  // сервер отвечает 403 — карточки «Вебхук» у них нет (проход 17.11, группа 4)
+  const canWebhooks = canNow('integrations.manage');
+  const [rows, webhooks] = await Promise.all([listInstalled(locationIds), canWebhooks ? getWebhookConfig(businessId) : Promise.resolve(null)]);
   const apps = isApiMode() ? await Server.catalogAll() : await request(() => readArea(AREA).apps);
   const live = rows.filter((r) => isInstallLive(r.install.status));
   const pick = (kind: ClientBaseIntegrationKind, match: (app: CatalogApp) => boolean, fallbackHref: string): ClientBaseIntegration => {
@@ -1723,10 +1726,8 @@ export async function listClientBaseIntegrations(businessId: Id, locationIds: Id
     pick('crm', (a) => a.categoryId === 'crm', '/biz/integrations/category/crm'),
     pick('bots', (a) => a.categoryId === 'aiAssistants' || a.categoryId === 'chatbots', '/biz/integrations/category/aiAssistants'),
     pick('calendar', (a) => a.name === GOOGLE_CALENDAR_NAME, calendar ? `/biz/integrations/apps/${calendar.id}` : '/biz/integrations/category/other'),
-    {
-      kind: 'webhook',
-      status: webhooks.enabled && webhooks.addresses.length > 0 ? 'connected' : 'none',
-      href: '/biz/integrations/api?tab=webhooks',
-    },
+    ...(webhooks
+      ? [{ kind: 'webhook' as const, status: webhooks.enabled && webhooks.addresses.length > 0 ? ('connected' as const) : ('none' as const), href: '/biz/integrations/api?tab=webhooks' }]
+      : []),
   ];
 }

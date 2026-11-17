@@ -13,6 +13,11 @@ export function useReportsPermissions(): ReportsStaffPermissions {
   const { businessId, staffId } = useCurrent();
   const edit = useCan('staff.manage');
   const view = useCan('reports.view');
-  const q = useApiQuery(['reports', 'permissions', businessId, staffId], () => getReportsPermissions(businessId!, staffId!), { enabled: Boolean(businessId) && Boolean(staffId) });
+  // Галочки читает сервер только при staff.view: у мастера без него был 403 в консоли («Моя аналитика», проход 17.11);
+  // ему и так всё по умолчанию — отчёты закрыты
+  const staffView = useCan('staff.view');
+  const q = useApiQuery(['reports', 'permissions', businessId, staffId], () => getReportsPermissions(businessId!, staffId!), {
+    enabled: Boolean(businessId) && Boolean(staffId) && staffView,
+  });
   return q.data ?? defaultReportsPermissions({ edit, view });
 }

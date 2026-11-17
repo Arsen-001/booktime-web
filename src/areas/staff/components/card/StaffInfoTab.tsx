@@ -26,6 +26,7 @@ import { StaffExtraSection } from "@/areas/staff/components/card/StaffSettingsTa
 import { StaffLegalSection } from "@/areas/staff/components/card/StaffLegalTab";
 import type { StaffCardData } from "@/api/staff";
 import type { Staff } from "@/domain/core";
+import { useCan } from "@/demo/hooks";
 import { staffToInfoDraft, type StaffInfoDraft } from "@/domain/staff";
 import { useT } from "@/i18n/useT";
 import { cn } from "@/lib/cn";
@@ -207,7 +208,10 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
   const dirty = keyOf(draft) !== baseKey;
   const patch = (p: Partial<InfoDraft>) => setDraft((d) => ({ ...d, ...p }));
 
-  const positionsQ = useApiQuery(["staff", "positions", staff.businessId], () => listPositions(staff.businessId));
+  // Должности бизнеса видит и меняет тот, у кого staff.view (их выдаёт владелец); мастер в своей карточке видит свою
+  // должность без списка — раньше здесь был 403 в консоли «Моего профиля» (проход 17.11, группа 4)
+  const canPositions = useCan("staff.view");
+  const positionsQ = useApiQuery(["staff", "positions", staff.businessId], () => listPositions(staff.businessId), { enabled: canPositions });
   const createPosition = useApiMutation((name: string) => addPosition(staff.businessId, name));
   const homeAccept = useApiMutation((enabled: boolean) => setHomeAcceptance(staff.id, enabled));
   const infoM = useApiMutation(
@@ -299,8 +303,8 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
                 patch({ position: text });
                 void createPosition.mutate(text);
               }}
-              loading={positionsQ.isLoading}
-              disabled={!canEdit}
+              loading={canPositions && positionsQ.isLoading}
+              disabled={!canEdit || !canPositions}
               placeholder={t("infoTab.positionPlaceholder")}
               emptyText={t("infoTab.positionEmpty")}
             />

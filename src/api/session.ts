@@ -104,8 +104,9 @@ export async function getPlatformSession(): Promise<PlatformSessionView | null> 
   return r.session;
 }
 
-export function usePlatformSession() {
-  return useApiQuery(PLATFORM_SESSION_KEY, getPlatformSession, { enabled: isApiMode() });
+/** enabled=false — не спрашивать сервер (сессия команды нужна только на /platform: на клиентских страницах был лишний запрос) */
+export function usePlatformSession(enabled = true) {
+  return useApiQuery(PLATFORM_SESSION_KEY, getPlatformSession, { enabled: isApiMode() && enabled });
 }
 
 export function platformLogout(): Promise<void> {

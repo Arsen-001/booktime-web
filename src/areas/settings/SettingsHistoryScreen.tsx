@@ -12,7 +12,7 @@ import { History } from 'lucide-react';
 import type { SettingsChangeSection } from '@/domain/settings';
 import { getSettingsChangeLog } from '@/api/settings';
 import { useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
+import { useCan, useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { EmptyState } from '@/ui/EmptyState';
@@ -41,11 +41,13 @@ export function SettingsHistoryScreen() {
   const { businessId, ready } = useCurrent();
   const [section, setSection] = useState<SettingsChangeSection | ''>('');
 
+  const canManage = useCan('settings.manage');
   const q = useApiQuery(
     ['settings', 'changeLog', businessId, section],
     () =>
       getSettingsChangeLog(businessId ?? '', section || undefined),
-    { enabled: ready && Boolean(businessId) },
+    // Без settings.manage экран показывает «Нет прав» — и не спрашивает сервер (иначе 403 в консоли у администратора)
+    { enabled: ready && Boolean(businessId) && canManage },
   );
   // Постранично, как во всех списках (DESIGN.md → Long lists)
   const { pageItems, pager, pageSize } = usePagedList(q.data ?? [], { resetKey: section, className: 'px-4 pb-4' });

@@ -15,6 +15,7 @@ import * as Server from '@/api/stock.server';
 import { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert } from '@/api/stock-shell';
 export { listStockBellAlerts, markStockBellAlertsRead, type StockBellAlert };
 import { isApiMode } from '@/api/http';
+import { mirroredStaffRole } from '@/api/staff.server';
 import type { OperationMethod as FinanceOperationMethod } from '@/domain/finance';
 import type { Id, LocaleCode, Money } from '@/domain/core';
 import { applyDiscount } from '@/domain/rules/pricing';
@@ -2925,7 +2926,8 @@ function defaultPermissionsFor(staffId: Id): StockStaffPermissions {
   const view = isSelf ? actor.permissions.has('stock.view') : true;
   // Владелец 01.10: администратор по умолчанию ведёт склад по шаблону «Администратор» (F-08-149) — товары,
   // приход, продажа, списание, перемещение, инвентаризация; без удаления документов и правки техкарт
-  const role = readCore().staff.find((st) => st.id === staffId)?.role;
+  // Режим api: роль — из зеркала ядра служебным чтением (вызов бывает вне request() — права склада в меню)
+  const role = isApiMode() ? mirroredStaffRole(staffId) : readCore().staff.find((st) => st.id === staffId)?.role;
   if (edit && role === 'admin') return stockPermissionsForRoleTemplate('admin');
   return defaultStockPermissions({ edit, view });
 }

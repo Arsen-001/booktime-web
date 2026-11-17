@@ -5,7 +5,7 @@
  * Каталог услуг, категории, шаблоны, мастера услуги, языки/чек/выбор при записи — свой срез поверх Service/
  * ServiceCategory ядра. Каждая правка пишется в общий журнал через logChange() (⭐ F-00-040).
  */
-import { coreGet, coreTx } from '@/api/core';
+import { canNow, coreGet, coreTx } from '@/api/core';
 import { isApiMode } from '@/api/http';
 import * as S from '@/api/services.server';
 import { logChange } from '@/api/staff';
@@ -641,7 +641,14 @@ function writeAudit(businessId: Id, entityId: Id, action: string, before: unknow
 
 /** Активные сотрудники бизнеса — для селектора «чей профиль» на /biz/services/{photos,documents,materials} */
 export function listStaffForPicker(businessId: Id): Promise<Staff[]> {
-  if (isApiMode()) return serverListStaff(businessId).then((rows) => rows.map((r) => r.staff).filter((s) => s.status !== 'fired'));
+  if (isApiMode()) {
+    // Мастер без staff.view: список сотрудников сервер не отдаёт (403 в консоли «Услуг» и «Окон»), ему — только он сам
+    if (!canNow('staff.view')) {
+      const own = apiIdentity()?.staffId;
+      return own ? serverGetStaff(own).then((s) => [s]) : Promise.resolve([]);
+    }
+    return serverListStaff(businessId).then((rows) => rows.map((r) => r.staff).filter((s) => s.status !== 'fired'));
+  }
   return request(() => readCore().staff.filter((s) => s.businessId === businessId && s.status !== 'fired'));
 }
 

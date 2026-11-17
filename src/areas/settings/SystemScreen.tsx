@@ -9,15 +9,15 @@
  * регистрации. Остальные умолчания из «Готово когда» (кассы, статьи платежей, шаблоны ролей, склад) — сиды
  * других разделов, не наши.
  */
-import { Globe, Palette } from 'lucide-react';
+import { Globe, Palette, Webhook } from 'lucide-react';
 import Link from 'next/link';
 import type { SettingsLang } from '@/domain/settings';
 import { useCoreGet } from '@/api/core';
-import { saveSystemSettings, saveWebhookSettings, useSystemSettings, useWebhookSettings } from '@/api/settings';
+import { saveSystemSettings, useSystemSettings } from '@/api/settings';
 import { useApiMutation } from '@/api/request';
 import { useCan, useCurrent, useSphere } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
-import { Button } from '@/ui/Button';
+import { Button, LinkButton } from '@/ui/Button';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { FormField } from '@/ui/FormField';
@@ -29,16 +29,13 @@ import { Select } from '@/ui/Select';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { NetworkMembershipCard } from '@/areas/settings/NetworkMembershipCard';
-import { WebhookCard, type WebhookDraft } from '@/areas/settings/WebhookCard';
-import { sameValue, useSettingsDraft } from '@/areas/settings/useSettingsDraft';
-import { useRememberedFlag } from '@/areas/settings/useRememberedFlag';
+import { useSettingsDraft } from '@/areas/settings/useSettingsDraft';
 
 interface Draft {
   internalName: string;
   city: string;
   dateTimeFormat: '24' | '12';
   messageLanguage: SettingsLang;
-  webhook: WebhookDraft;
 }
 
 const LANG_OPTIONS: { value: SettingsLang; label: string }[] = [
@@ -57,36 +54,30 @@ export function SystemScreen() {
   const q = useSystemSettings(businessId, { enabled: ready });
   const bizQ = useCoreGet('businesses', businessId, { enabled: ready });
 
-  const webhookQ = useWebhookSettings(businessId, { enabled: ready });
+  // Вебхуки, которые сервер на самом деле отправляет, живут в «Интеграции → API и вебхуки»; здесь была вторая,
+  // демо-форма вебхука (с пометкой «Демо», сервер её только хранил) — теперь только ссылка туда (проход 17.11)
+  const canWebhooks = useCan('integrations.manage');
 
   // Н5/Н11: одна форма, одна кнопка. Формат времени — тот же, что читает журнал (getSystemSettings берёт его
-  // из настроек журнала), вебхук — часть этой же формы.
+  // из настроек журнала).
   const form = useSettingsDraft<Draft>(
-    q.data && bizQ.data && webhookQ.data
+    q.data && bizQ.data
       ? {
           internalName: bizQ.data.name,
           city: q.data.city,
           dateTimeFormat: q.data.dateTimeFormat,
           messageLanguage: q.data.messageLanguage,
-          webhook: {
-            enabled: webhookQ.data.enabled,
-            url: webhookQ.data.url ?? '',
-            entities: webhookQ.data.entities,
-          },
         }
       : undefined,
     ready ? businessId : undefined,
   );
   const { draft, dirty, setDraft } = form;
-  const loading = !ready || q.isLoading || bizQ.isLoading || webhookQ.isLoading || !draft;
-  // Вебхук включён — под переключателем адрес и галочки; до ответа — как было в прошлый раз (в демо выключен)
-  const webhookOn = useRememberedFlag('webhook-enabled', loading, draft?.webhook.enabled, false);
-  const d: Draft = draft ?? { internalName: '', city: 'Yerevan', dateTimeFormat: '24', messageLanguage: 'ru', webhook: { enabled: webhookOn, url: '', entities: [] } };
+  const loading = !ready || q.isLoading || bizQ.isLoading || !draft;
+  const d: Draft = draft ?? { internalName: '', city: 'Yerevan', dateTimeFormat: '24', messageLanguage: 'ru' };
   const save = useApiMutation(saveSystemSettings, {
     // Формат времени читает журнал — его настройки перечитываются сразу (в режиме api тоже)
     invalidates: [['journal']],
   });
-  const saveWebhook = useApiMutation(saveWebhookSettings);
 
   async function handleSave() {
     if (!draft || !businessId) return;
@@ -99,22 +90,6 @@ export function SystemScreen() {
         dateTimeFormat: draft.dateTimeFormat,
         messageLanguage: draft.messageLanguage,
       });
-      if (
-        webhookQ.data &&
-        !sameValue(draft.webhook, {
-          enabled: webhookQ.data.enabled,
-          url: webhookQ.data.url ?? '',
-          entities: webhookQ.data.entities,
-        })
-      ) {
-        await saveWebhook.mutate({
-          businessId,
-          staffId,
-          enabled: draft.webhook.enabled,
-          url: draft.webhook.url.trim() || undefined,
-          entities: draft.webhook.entities,
-        });
-      }
       form.markSaved();
       toast.success(t('system.saved'));
     } catch {
@@ -243,17 +218,23 @@ export function SystemScreen() {
           </SectionCard>
 
           <NetworkMembershipCard businessId={businessId} ready={ready} />
-          <WebhookCard
-            value={d.webhook}
-            onChange={(webhook) => setDraft({ ...d, webhook })}
-            canManage={canManage}
-          />
+          {canWebhooks && (
+            <SectionCard title={t('system.webhookTitle')}>
+              <div className="flex flex-wrap items-center gap-3">
+                <Webhook aria-hidden className="size-4 shrink-0 text-muted" />
+                <p className="min-w-0 flex-1 text-sm text-muted">{t('system.webhookMoved')}</p>
+                <LinkButton href="/biz/integrations/api?tab=webhooks" size="sm" variant="outline">
+                  {t('system.webhookOpen')}
+                </LinkButton>
+              </div>
+            </SectionCard>
+          )}
 
           <StickyActionBar>
             <Button
               onClick={handleSave}
               disabled={!dirty}
-              loading={save.isPending || saveWebhook.isPending}
+              loading={save.isPending}
             >
               {t('system.save')}
             </Button>

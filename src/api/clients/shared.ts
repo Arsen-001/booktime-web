@@ -4,7 +4,8 @@
 import type { ClientChangeAction, ClientChangeLogEntry, ClientProfile, ClientRow, ClientsBizSettings, FilterContext } from '@/domain/clients';
 import { clientMoney, countNoShows, defaultBizSettings, emptyProfile, visitKey } from '@/domain/clients';
 import type { Booking, Client, Id, LocaleCode } from '@/domain/core';
-import { readArea, readCore, mutateArea } from '@/api/area';
+import { readArea, readCore, readCoreMirror, mutateArea } from '@/api/area';
+import { isApiMode } from '@/api/http';
 import { coreTx, currentActor } from '@/api/core';
 import { ApiError } from '@/api/request';
 import { newId } from '@/lib/id';
@@ -311,5 +312,6 @@ export function patchBizSettings(businessId: Id, patch: Partial<ClientsBizSettin
 }
 
 export function staffName(staffId: Id): string {
-  return readCore().staff.find((s) => s.id === staffId)?.name ?? '—';
+  // Режим api: имя из зеркала служебным чтением — зовётся и после ответа сервера, вне request()
+  return (isApiMode() ? readCoreMirror() : readCore()).staff.find((s) => s.id === staffId)?.name ?? '—';
 }

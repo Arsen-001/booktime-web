@@ -394,9 +394,18 @@ async function apiGetCrmSummary(businessId: Id, period: SummaryPeriod): Promise<
   const actor = currentActor();
   const ownOnly = !canNow('reports.view') && Boolean(actor.staffId);
 
-  const [clientRows, allTime] = await Promise.all([
+  // Мастер без отчётов (ownOnly) — только свои визиты: с сервера берём лишь его записи, а не все визиты салона
+  // (проход 17.11, группа 4: было 1–2 МБ на открытие). «Новые / не новые / потерянные» у него — по его визитам
+  // Имена мастеров и сеть — из зеркала ядра внутри request() (вне его — шум «[mock-db] вне request()» в консоли);
+  // срок «потерянного» — настройка салона на сервере, а не из базы браузера
+  const [clientRows, allTime, settings, mirror] = await Promise.all([
     C.listClientRows(businessId),
-    S.listBookings({ businessId, statuses: ['arrived', 'no_show'] }),
+    S.listBookings({ businessId, statuses: ['arrived', 'no_show'], ...(ownOnly ? { staffId: actor.staffId } : {}) }),
+    C.getSettings(businessId),
+    request(() => {
+      const core = readCore();
+      return { names: new Map(core.staff.map((st) => [st.id, st.name])), network: core.networks.find((n) => n.businessIds.includes(businessId)) };
+    }),
   ]);
   const phoneClientIds = new Set(clientRows.filter((c) => c.phone).map((c) => c.id));
   const isCounted = (b: Booking) => b.status === 'arrived' && !b.deletedAt && Boolean(b.clientId) && phoneClientIds.has(b.clientId as Id);
@@ -412,7 +421,7 @@ async function apiGetCrmSummary(businessId: Id, period: SummaryPeriod): Promise<
 
   const byStaffMap = new Map<Id, StaffSummaryRow>();
   bookings.forEach((b) => {
-    const row = byStaffMap.get(b.staffId) ?? { staffId: b.staffId, name: staffName(b.staffId), revenue: 0, hoursBooked: 0, visits: 0 };
+    const row = byStaffMap.get(b.staffId) ?? { staffId: b.staffId, name: mirror.names.get(b.staffId) ?? '—', revenue: 0, hoursBooked: 0, visits: 0 };
     row.revenue += b.total;
     row.hoursBooked += b.durationMin / 60;
     row.visits += 1;
@@ -431,11 +440,12 @@ async function apiGetCrmSummary(businessId: Id, period: SummaryPeriod): Promise<
   });
 
   // F-04-123: срок этой локации (ClientsBizSettings.lostAfterDays), считаем «на конец периода»
-  const lostAfterDays = bizSettings(businessId).lostAfterDays;
+  const lostAfterDays = settings.lostAfterDays;
   const lostClients = countLost(arrivalsByClientLocal, period.to, lostAfterDays);
 
   // F-04-124/185 ⭐: та же формула по всей сети — best-effort, см. докстринг функции
-  const network = readCore().networks.find((n) => n.businessIds.includes(businessId));
+  // Сеть целиком мастеру не считаем: это все визиты всех филиалов, а ему — только своё
+  const network = ownOnly ? undefined : mirror.network;
   let networkLostClients: number | undefined;
   if (network) {
     try {

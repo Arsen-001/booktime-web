@@ -61,7 +61,7 @@ export function SessionBridge() {
   const { persona, appUser } = useDemo();
   const onPlatform = pathname.startsWith('/platform');
   const session = useSession();
-  const platform = usePlatformSession();
+  const platform = usePlatformSession(onPlatform);
 
   const q = onPlatform ? platform : session;
   const loaded = api && !q.isLoading && !q.isError;

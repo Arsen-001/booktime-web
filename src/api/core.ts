@@ -60,7 +60,7 @@ import { addMinutes, datePart, nowDateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { normalizePhone } from '@/lib/phone';
 import { slugify } from '@/lib/text';
-import { useDb } from '@/mock/db';
+import { readDbUntracked, useDb } from '@/mock/db';
 
 const ID_PREFIX: Record<CoreCollection, string> = {
   networks: 'net',
@@ -1202,10 +1202,13 @@ export function currentActor(): Actor {
   const rawSphere = readCookie(DEMO_COOKIES.sphere);
   const persona = isValidDemoValue('persona', rawPersona) ? (rawPersona as PersonaId) : DEFAULT_DEMO.persona;
   const sphere = isValidDemoValue('sphere', rawSphere) ? (rawSphere as SphereId) : DEFAULT_DEMO.sphere;
-  const ctx = resolveDemoContext(persona, sphere, core());
-  const overrides = ctx.staffId ? useDb.getState().access.staffPermissions[ctx.staffId] : undefined;
-  // Живой сайт: права вошедшего считает сервер (docs/backend/03 §2)
+  // Живой сайт: права вошедшего считает сервер (docs/backend/03 §2). «Кто я» тогда — из сессии, а база браузера
+  // (зеркало) нужна только найти бизнес филиала: служебное чтение без учёта — иначе каждое currentActor() вне
+  // request() (права склада, сводка CRM) писало в консоль «[mock-db] вне request()» (проход 17.11, группа 4)
   const server = apiIdentity();
+  const db = server ? readDbUntracked() : useDb.getState();
+  const ctx = resolveDemoContext(persona, sphere, db.core);
+  const overrides = ctx.staffId && !server ? db.access.staffPermissions[ctx.staffId] : undefined;
   const bizPersona = persona !== 'client' && persona !== 'guest' && persona !== 'platform';
   return {
     persona,

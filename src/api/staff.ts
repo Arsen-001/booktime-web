@@ -7,13 +7,14 @@
  */
 import {
   assertCan,
+  canNow,
   coreCreate,
   coreRemove,
   coreTx,
   coreUpdate,
   currentActor,
 } from "@/api/core";
-import { mutateArea, readArea, readCore } from "@/api/area";
+import { mutateArea, readArea, readCore, readCoreMirror } from "@/api/area";
 import { ApiError, request } from "@/api/request";
 import { isApiMode } from "@/api/http";
 import * as J from "@/api/journal.server";
@@ -72,6 +73,8 @@ import {
   type StaffRoleTemplateId,
 } from "@/domain/staff";
 import { seatsFor, type SeatInfo } from "@/areas/staff/pricing";
+import { getBillingSeats } from "@/api/settings.server";
+import type { SeatLine } from "@/domain/settings";
 import { getScheduleEnd } from "@/api/schedule/table";
 import { txScheduleEnd } from "@/api/schedule/shared";
 import type { Booking, DayHours, ISODate, WeekTemplate } from "@/domain/core";
@@ -106,15 +109,19 @@ export function listStaffRows(query: StaffListQuery): Promise<StaffListRow[]> {
   if (isApiMode()) {
     // Сервер отдаёт всех сотрудников бизнеса с порядком; найти, отобрать, отсортировать — той же функцией, что у мока.
     // Конец графика (С8) — отдельным чтением на сотрудника: своего поля в строке сервера пока нет (qa/requests/staff.md).
+    // Платные места — как считает подписка на сервере (одно правило с суммой к оплате): раньше сайт считал сам и
+    // владельца с графиком «без срока» записывал бесплатным — «6 платных · 24 000 ֏» против 32 000 ֏ в подписке
+    const seatsP = getBillingSeats(query.businessId).catch(() => undefined);
     return S.listStaff(query.businessId).then(async (rows) => {
       const staff = rows.map((r) => r.staff);
-      const ends = await Promise.all(staff.map((st) => getScheduleEnd(st.id).catch(() => undefined)));
+      const [ends, serverSeats] = await Promise.all([Promise.all(staff.map((st) => getScheduleEnd(st.id).catch(() => undefined))), seatsP]);
       return buildStaffRows(
         query,
         staff,
         Object.fromEntries(rows.map((r) => [r.staff.id, r.order])),
         Object.fromEntries(staff.map((st, i) => [st.id, ends[i] ?? null])),
         {},
+        serverSeats,
       );
     });
   }
@@ -138,12 +145,21 @@ function scheduleEndOf(staffId: Id): ISODate | null {
   return txScheduleEnd(staffId) ?? "9999-12-31";
 }
 
+/** Режим api: места из подписки сервера поверх расчёта сайта (уволенных и отключённых сервер не перечисляет) */
+function withServerSeats(local: Map<string, SeatInfo>, serverSeats: SeatLine[] | undefined): Map<string, SeatInfo> {
+  if (!serverSeats) return local;
+  const out = new Map(local);
+  for (const line of serverSeats) out.set(line.staffId, { staffId: line.staffId, paid: line.paid, price: line.price, reason: line.reasonKey as SeatInfo["reason"] });
+  return out;
+}
+
 function buildStaffRows(
   query: StaffListQuery,
   all: Staff[],
   order: Record<Id, number>,
   scheduleEnds: Record<Id, ISODate | null>,
   dismissals: Record<Id, StaffDismissal>,
+  serverSeats?: SeatLine[],
 ): StaffListRow[] {
   const locationIds = query.locationIds ?? [];
   const scoped = locationIds.length
@@ -154,7 +170,7 @@ function buildStaffRows(
       .filter(([, end]) => end !== null)
       .map(([id]) => id),
   );
-  const seats = seatsFor(all, scheduled);
+  const seats = withServerSeats(seatsFor(all, scheduled), serverSeats);
 
   let found = scoped;
   const search = query.search ?? "";
@@ -1558,15 +1574,20 @@ export interface StaffCardData {
 export function getStaffCard(staffId: Id): Promise<StaffCardData> {
   if (isApiMode()) {
     const businessId = S.bizOf(staffId);
+    // Без staff.view (мастер открывает «Мой профиль») список сотрудников сервер не отдаёт — 403 и пустая карточка;
+    // свою строку он читает (GET staff/:id), коллег ему и не нужно (проход 17.11, группа 4)
+    const own = !canNow("staff.view");
     return Promise.all([
-      S.listStaff(businessId),
+      own ? S.getStaff(staffId).then((st) => [{ staff: st }]) : S.listStaff(businessId),
       getScheduleEnd(staffId).catch(() => undefined),
-    ]).then(([rows, end]) => {
+      getBillingSeats(businessId).catch(() => undefined),
+    ]).then(([rows, end, serverSeats]) => {
       const siblings = rows.map((r) => r.staff);
       const staff = siblings.find((s) => s.id === staffId);
       if (!staff) throw new ApiError("not_found");
-      const businessName = readCore().businesses.find((b) => b.id === businessId)?.name ?? "";
-      return staffCardOf(staff, siblings, end ?? null, businessName, undefined);
+      // Название бизнеса — из зеркала служебным чтением (после ответа сервера, вне request())
+      const businessName = readCoreMirror().businesses.find((b) => b.id === businessId)?.name ?? "";
+      return staffCardOf(staff, siblings, end ?? null, businessName, undefined, serverSeats);
     });
   }
   return request(() => {
@@ -1588,8 +1609,9 @@ function staffCardOf(
   scheduleUntil: ISODate | null,
   businessName: string,
   dismissal: StaffDismissal | undefined,
+  serverSeats?: SeatLine[],
 ): StaffCardData {
-  const seats = seatsFor(siblings, new Set(scheduleUntil ? [staff.id] : []));
+  const seats = withServerSeats(seatsFor(siblings, new Set(scheduleUntil ? [staff.id] : [])), serverSeats);
   return {
     staff,
     positionLabel: staff.position?.ru ?? "",

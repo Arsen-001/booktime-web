@@ -25,7 +25,7 @@ export function AccessDenied({ kind }: AccessDeniedProps) {
 function LiveAccessDenied({ kind }: AccessDeniedProps) {
   const t = useT('common');
   const session = useSession();
-  const platform = usePlatformSession();
+  const platform = usePlatformSession(kind === 'platform');
   const q = kind === 'platform' ? platform : session;
   // Мост сессии сейчас уведёт или переключит режим — экран «нет доступа» здесь был бы лишним кадром
   const redirecting =
