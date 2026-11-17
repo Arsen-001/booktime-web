@@ -108,6 +108,11 @@ const ALSO_CHANGES: [RegExp, DbTag[]][] = [
  * будит её и разделы филиалов, которые она меняет. Без этого экран не видел свою запись до перезагрузки: новое
  * поле записи, должность, перенос услуг и сотрудников, ведомость сети.
  */
+/** Запись устройства сети идёт через ядро (network.ts: afterNetworkWrite) — оттуда же будим экраны сети */
+export function networkChanged(): void {
+  notifyDbChange('areas.network');
+}
+
 async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
   if (method === 'GET' || (method === 'POST' && POST_READ.test(path))) {
     trackRead('areas.network');

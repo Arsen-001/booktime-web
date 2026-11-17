@@ -57,7 +57,6 @@ import { createSettlementSheet } from "@/api/finance";
 import { ApiError, getQueryClient, request } from "@/api/request";
 import { http, isApiMode } from "@/api/http";
 import { mirrorCore, syncCore } from "@/api/mirror";
-import { notifyDbChange } from "@/mock/db";
 import { SESSION_KEY, getSession } from "@/api/session";
 import { addDays, datePart, nowDateTime, today } from "@/lib/date";
 import { newId } from "@/lib/id";
@@ -356,7 +355,7 @@ async function afterNetworkWrite(n: ServerNetwork, alsoBusinessIds: Id[] = []): 
   if (first) await syncCore(first).catch(() => undefined);
   // Экраны сети (филиалы, лицензия по филиалам, журнал изменений) перечитываются — как запись network.server (хвосты
   // 17.11: после «Добавить» в лицензии оставалось 2 филиала из 3 и «Изменений пока не было»)
-  notifyDbChange("areas.network");
+  Server.networkChanged();
   await getQueryClient().invalidateQueries({ queryKey: SESSION_KEY });
   return network;
 }
