@@ -48,6 +48,9 @@ import type {
   ManualOnlineOrder,
   Operation,
   OperationFilter,
+  OperationPage,
+  OperationPageQuery,
+  OperationRow,
   OperationInput,
   OnlineLinkSettings,
   OnlinePaymentSettings,
@@ -79,6 +82,7 @@ import type {
 } from '@/domain/finance';
 import {
   accountBalance,
+  accountRunningBalances,
   allocateAmountToLines,
   bookingAmountDue,
   bookingPaymentStatus,
@@ -87,6 +91,7 @@ import {
   cashDiscrepancy,
   compareOperationsAsc,
   groupBookingPayments,
+  operationTotals,
   type BookingRefundState,
   paymentGroupKey,
   paymentLineNet,
@@ -526,6 +531,56 @@ export function listOperations(businessId: Id, filter?: OperationFilter): Promis
     // fin-review Ф18: один порядок и для списка, и для «Остатка в кассе» — новые сверху (обратный compareOperationsAsc)
     return [...ops].sort((a, b) => compareOperationsAsc(b, a));
   });
+}
+
+/** Сколько строк за раз забирает выгрузка (сервер больше не отдаёт) */
+const EXPORT_PAGE = 1000;
+
+/**
+ * «Финансы → Операции» страницей (скорость, 17.11.2026): у Nuri список тянул все 441 операцию (235 КБ) на каждое
+ * открытие. Фильтры, итоги за весь отбор и «Остаток в кассе» считает сервер; мок — та же логика над своей базой.
+ */
+export function listOperationsPage(businessId: Id, q: OperationPageQuery): Promise<OperationPage> {
+  if (isApiMode()) return Server.listOperationsPage(businessId, q);
+  return request(() => {
+    const area = readArea('finance');
+    const allowed = q.accountIds ? new Set(q.accountIds) : null;
+    const ops = area.operations
+      .filter(
+        (op) =>
+          op.businessId === businessId &&
+          matchesFilter(op, q) &&
+          (!allowed || allowed.has(op.accountId)) &&
+          (!q.transfer || op.kind === 'transfer_in' || op.kind === 'transfer_out'),
+      )
+      // fin-review Ф18: один порядок и для списка, и для «Остатка в кассе» — новые сверху
+      .sort((a, b) => compareOperationsAsc(b, a));
+    const pageSize = Math.max(1, q.pageSize);
+    const page = Math.min(Math.max(1, q.page), Math.max(1, Math.ceil(ops.length / pageSize)));
+    const slice = ops.slice((page - 1) * pageSize, page * pageSize);
+    let items: OperationRow[] = slice;
+    if (q.withBalance) {
+      const balances = new Map<Id, number>();
+      for (const accountId of new Set(slice.map((op) => op.accountId))) {
+        const account = area.accounts.find((a) => a.id === accountId);
+        if (!account) continue;
+        const own = area.operations.filter((op) => op.accountId === accountId).sort(compareOperationsAsc);
+        accountRunningBalances(account.openingBalance, own).forEach((balance, opId) => balances.set(opId, balance));
+      }
+      items = slice.map((op) => ({ ...op, balanceAfter: balances.get(op.id) }));
+    }
+    return { items, total: ops.length, page, pageSize, totals: operationTotals(ops, Boolean(q.accountId)) };
+  });
+}
+
+/** Все строки отбора для выгрузки (F-07-016) — страницами по EXPORT_PAGE, по порядку списка */
+export async function listAllOperationRows(businessId: Id, q: Omit<OperationPageQuery, 'page' | 'pageSize'>): Promise<OperationRow[]> {
+  const rows: OperationRow[] = [];
+  for (let page = 1; ; page++) {
+    const res = await listOperationsPage(businessId, { ...q, page, pageSize: EXPORT_PAGE });
+    rows.push(...res.items);
+    if (res.page < page || rows.length >= res.total || res.items.length === 0) return rows;
+  }
 }
 
 export function getOperation(businessId: Id, id: Id): Promise<Operation> {

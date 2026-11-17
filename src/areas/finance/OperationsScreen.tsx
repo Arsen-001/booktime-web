@@ -9,7 +9,7 @@ import { useEffect, useId, useMemo, useState, useSyncExternalStore, type ReactNo
 import { Columns3, Download, ExternalLink, Landmark, Minus, Plus, Upload, Wallet, X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getDayMoneySummary, getFinanceRights, listAccounts, listItems, listOperations } from '@/api/finance';
+import { getDayMoneySummary, getFinanceRights, listAccounts, listAllOperationRows, listItems, listOperationsPage } from '@/api/finance';
 import { useCoreList } from '@/api/core';
 import { useApiQuery } from '@/api/request';
 import { ImportOperationsSheet } from '@/areas/finance/operations/ImportOperationsSheet';
@@ -18,9 +18,9 @@ import { OperationsTotals } from '@/areas/finance/operations/OperationsTotals';
 import { UnpaidVisitsCard } from '@/areas/finance/operations/UnpaidVisitsCard';
 import { formatSignedMoney, signedAmount } from '@/areas/finance/money';
 import { useCan, useCurrent } from '@/demo/hooks';
-import type { Operation, OperationKind, OperationMethod } from '@/domain/finance';
-import { accountRunningBalances, compareOperationsAsc, withinDepth } from '@/domain/finance';
-import { nowDateTime } from '@/lib/date';
+import type { OperationKind, OperationMethod, OperationPageQuery, OperationRow } from '@/domain/finance';
+import { FINANCE_DEPTH_DAYS } from '@/domain/finance';
+import { dayjs, nowDateTime } from '@/lib/date';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { downloadCsv, toCsv } from '@/lib/csv';
@@ -95,6 +95,7 @@ function subscribeColumns(listener: () => void) {
 
 export function OperationsScreen() {
   const t = useT('finance');
+  const tc = useT('common');
   const format = useFormat();
   const toast = useToast();
   const router = useRouter();
@@ -128,6 +129,7 @@ export function OperationsScreen() {
   // Ф19: «Расход» открывает ту же форму сразу на расходе
   const [createKind, setCreateKind] = useState<'income' | 'expense'>('income');
   const [importing, setImporting] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [hintDismissedOverride, setHintDismissedOverride] = useState<boolean | null>(null);
   // Сервер рисует плашку (у нового бизнеса она есть) — у тех, кто её не закрывал, она не выпрыгивает после загрузки (М1)
   const storedHintDismissed = useSyncExternalStore(noSubscribe, () => readHintDismissed(businessId), () => false);
@@ -141,36 +143,35 @@ export function OperationsScreen() {
   const accountsQ = useApiQuery(['finance', 'accounts', businessId, activeLocationIds], () => listAccounts(businessId!, activeLocationIds), { enabled: ready && Boolean(businessId) });
   const itemsQ = useApiQuery(['finance', 'items', businessId], () => listItems(businessId!), { enabled: ready && Boolean(businessId) });
   const staffQ = useCoreList('staff', { businessId: businessId ?? '' }, { enabled: ready && Boolean(businessId) });
-  const serverFiltered = Boolean(range.from || range.to || accountId || itemId || (kind && kind !== 'transfer') || method || clientSearch.trim());
-  const opsQ = useApiQuery(
-    ['finance', 'operations', businessId, activeLocationIds, range, accountId, itemId, kind, method, showCancelled, clientSearch],
-    () =>
-      listOperations(businessId!, {
-        locationIds: activeLocationIds,
-        dateFrom: range.from ? `${range.from}T00:00` : undefined,
-        dateTo: range.to ? `${range.to}T23:59` : undefined,
-        accountId: accountId || undefined,
-        itemId: itemId || undefined,
-        kind: kind && kind !== 'transfer' ? kind : undefined,
-        method: method || undefined,
-        cancelled: showCancelled ? undefined : false,
-        search: clientSearch.trim() || undefined,
-      }),
-    { enabled: ready && Boolean(businessId) && serverFiltered },
+  // F-07-166: «Доступ ко всем кассам» / только к выбранным и глубина просмотра назад («Просмотр движений средств») —
+  // частью фильтра страницы, чтобы итоги и число страниц считались по тому же, что видно
+  const depthDays = rights ? FINANCE_DEPTH_DAYS[rights.viewDepth] : null;
+  const depthFrom = depthDays === null || depthDays < 0 ? undefined : dayjs(nowDateTime()).subtract(depthDays * 24, 'hour').format('YYYY-MM-DDTHH:mm');
+  const rangeFrom = range.from ? `${range.from}T00:00` : undefined;
+  const pageFilter: Omit<OperationPageQuery, 'page' | 'pageSize'> = {
+    locationIds: activeLocationIds,
+    dateFrom: rangeFrom && depthFrom ? (rangeFrom > depthFrom ? rangeFrom : depthFrom) : (rangeFrom ?? depthFrom),
+    dateTo: range.to ? `${range.to}T23:59` : undefined,
+    accountId: accountId || undefined,
+    // «Без доступа к движениям» (none) — пустой список кассами «ни одной»
+    accountIds: depthDays !== null && depthDays < 0 ? [] : rights && !rights.allAccounts ? rights.allowedAccountIds : undefined,
+    itemId: itemId || undefined,
+    kind: kind && kind !== 'transfer' ? kind : undefined,
+    transfer: kind === 'transfer' || undefined,
+    method: method || undefined,
+    cancelled: showCancelled ? undefined : false,
+    search: clientSearch.trim() || undefined,
+    withBalance: canViewBalance,
+  };
+  // Скорость (17.11.2026): одна страница с сервера вместо всех операций бизнеса — фильтры, итоги и «Остаток в кассе»
+  // считает сервер. Смена фильтра или страницы — прежняя страница видна, пока идёт новая (не скелетон).
+  const pageQ = useApiQuery(
+    ['finance', 'operations', 'page', businessId, pageFilter, page, pageSize],
+    () => listOperationsPage(businessId!, { ...pageFilter, page, pageSize }),
+    { enabled: ready && Boolean(businessId) && (Boolean(rights) || rightsQ.isError || !staffId) },
   );
-  // «Остаток в кассе» (F-07-011) — считается по ВСЕМ операциям кассы, не только по отфильтрованной странице
-  const allOpsQ = useApiQuery(
-    ['finance', 'operations', businessId, activeLocationIds, 'allForBalance'],
-    () => listOperations(businessId!, { locationIds: activeLocationIds }),
-    { enabled: ready && Boolean(businessId) },
-  );
-  // Без фильтров список — те же все операции без отменённых: второй запрос за ними не нужен (Nuri: 2 × 230 КБ на
-  // каждое открытие «Финансов», проход 17.11). С фильтром — свой запрос с фильтром на сервере.
-  // Первый фильтр — пока идёт ответ, виден прежний список (как placeholder у соседних фильтров), а не скелетон
-  const unfiltered = allOpsQ.data?.filter((op) => showCancelled || !op.cancelled);
-  const opsData = serverFiltered ? (opsQ.data ?? (opsQ.isLoading ? unfiltered : undefined)) : unfiltered;
-  const opsLoading = serverFiltered ? opsQ.isLoading && !unfiltered : allOpsQ.isLoading;
-  const opsError = serverFiltered ? opsQ.isError : allOpsQ.isError;
+  const opsLoading = pageQ.isLoading || !pageQ.data;
+  const opsError = pageQ.isError;
 
   // F-07-166: «Доступ ко всем кассам» / только к выбранным — сужает и фильтр, и список
   const accounts = useMemo(() => {
@@ -182,42 +183,15 @@ export function OperationsScreen() {
   const itemById = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
   const accountById = useMemo(() => new Map(accounts.map((a) => [a.id, a])), [accounts]);
   const staffById = useMemo(() => new Map((staffQ.data ?? []).map((s) => [s.id, s])), [staffQ.data]);
-  const balanceAfterById = useMemo(() => {
-    const map = new Map<string, number>();
-    const byAccount = new Map<string, Operation[]>();
-    (allOpsQ.data ?? []).forEach((op) => {
-      const list = byAccount.get(op.accountId) ?? [];
-      list.push(op);
-      byAccount.set(op.accountId, list);
-    });
-    byAccount.forEach((list, accId) => {
-      const account = accountById.get(accId);
-      if (!account) return;
-      // fin-review Ф18: тот же порядок, что у списка (приход раньше своей комиссии) — остаток не скачет
-      const sorted = [...list].sort(compareOperationsAsc);
-      accountRunningBalances(account.openingBalance, sorted).forEach((balance, opId) => map.set(opId, balance));
-    });
-    return map;
-  }, [allOpsQ.data, accountById]);
-
   if (accountsQ.isError || itemsQ.isError || opsError) {
-    return <ErrorState onRetry={() => { accountsQ.refetch(); itemsQ.refetch(); (serverFiltered ? opsQ : allOpsQ).refetch(); }} />;
+    return <ErrorState onRetry={() => { accountsQ.refetch(); itemsQ.refetch(); pageQ.refetch(); }} />;
   }
 
-  // F-07-166: сужение до разрешённых касс + глубина просмотра назад («Просмотр движений средств»)
-  const allowedAccountIds = rights && !rights.allAccounts ? new Set(rights.allowedAccountIds) : null;
-  const now = nowDateTime();
-  const ops = (opsData ?? []).filter(
-    (op) =>
-      (!allowedAccountIds || allowedAccountIds.has(op.accountId)) &&
-      (!rights || withinDepth(op.date, rights.viewDepth, now)) &&
-      (kind !== 'transfer' || op.kind === 'transfer_in' || op.kind === 'transfer_out'),
-  );
-  // Ф17: постраничный вывод — страница за пределами после смены фильтра прижимается к последней
-  const pageCount = Math.max(1, Math.ceil(ops.length / pageSize));
-  const currentPage = Math.min(page, pageCount);
-  const pageOps = ops.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  const itemName = (op: Operation) => (op.kind === 'transfer_in' || op.kind === 'transfer_out' ? t('operations.transferItem') : (itemById.get(op.itemId)?.name ?? '—'));
+  const pageOps = pageQ.data?.items ?? [];
+  const total = pageQ.data?.total ?? 0;
+  // Ф17: страница за пределами после смены фильтра прижимается к последней — это делает сервер
+  const currentPage = pageQ.data?.page ?? page;
+  const itemName = (op: OperationRow) => (op.kind === 'transfer_in' || op.kind === 'transfer_out' ? t('operations.transferItem') : (itemById.get(op.itemId)?.name ?? '—'));
   const activeCount = [range.from, accountId, itemId, kind, method, showCancelled || undefined, clientSearch.trim() || undefined].filter(Boolean).length;
   const resetFilters = () => {
     setRange({});
@@ -240,9 +214,21 @@ export function OperationsScreen() {
   };
 
   // F-07-016 — выгрузка содержит ВСЕ колонки списка операций за период (все 12, не только видимые в таблице)
-  const exportCsv = () => {
+  const exportCsv = async () => {
+    if (!businessId || exporting) return;
+    setExporting(true);
+    let rows: OperationRow[];
+    try {
+      // Все строки отбора с сервера страницами — на экране только одна страница
+      rows = await listAllOperationRows(businessId, pageFilter);
+    } catch {
+      toast.error(tc('states.actionFailed'));
+      setExporting(false);
+      return;
+    }
+    setExporting(false);
     const csv = toCsv(
-      ops.map((op) => [
+      rows.map((op) => [
         `${format.date(op.date, 'short')}, ${format.time(op.date)}`,
         op.docNumber ?? '',
         itemName(op),
@@ -254,7 +240,7 @@ export function OperationsScreen() {
         op.createdBy === 'system' ? t('operations.systemAuthor') : (staffById.get(op.createdBy)?.name ?? op.createdBy),
         // Суммы — числами со знаком (приход +, расход −), как в остальных выгрузках: «+10 000 ֏» таблица не складывала
         op.cancelled ? t('operations.cancelledShort') : signedAmount(op.amount, op.kind),
-        canViewBalance ? (balanceAfterById.get(op.id) ?? '') : '',
+        canViewBalance ? (op.balanceAfter ?? '') : '',
         op.source === 'booking' && op.refId ? op.refId : '',
       ]),
       [
@@ -276,7 +262,7 @@ export function OperationsScreen() {
     toast.success(t('operations.exported'));
   };
 
-  const columns: TableColumn<Operation>[] = [
+  const columns: TableColumn<OperationRow>[] = [
     {
       id: 'date',
       header: t('operations.columns.date'),
@@ -354,7 +340,7 @@ export function OperationsScreen() {
       header: t('operations.columns.balanceAfter'),
       cell: (op) => {
         if (!canViewBalance) return <span className="tabular-nums text-muted">•••</span>;
-        const balance = balanceAfterById.get(op.id);
+        const balance = op.balanceAfter;
         return <span className="whitespace-nowrap tabular-nums">{balance === undefined ? '—' : format.money(balance)}</span>;
       },
       align: 'right',
@@ -519,7 +505,7 @@ export function OperationsScreen() {
       />
 
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <OperationsTotals ops={ops} accountFiltered={Boolean(accountId)} loading={opsLoading} />
+        <OperationsTotals totals={pageQ.data?.totals} loading={opsLoading} />
         <Popover
           label={t('operations.columnsPick')}
           trigger={(p) => (
@@ -564,11 +550,11 @@ export function OperationsScreen() {
         }
       />
 
-      {ops.length > DEFAULT_PAGE_SIZE && (
+      {total > DEFAULT_PAGE_SIZE && (
         <Pagination
           page={currentPage}
           pageSize={pageSize}
-          total={ops.length}
+          total={total}
           onPageChange={setPage}
           onPageSizeChange={(size) => {
             setPageSize(size);

@@ -205,6 +205,37 @@ export interface OperationInput {
   lineLabel?: string;
 }
 
+/**
+ * Страница списка «Финансы → Операции» (скорость, 17.11.2026): фильтры, итоги и остаток кассы считает тот, кто отдаёт
+ * данные (сервер или моковая база), — в браузер приходит одна страница, а не все операции бизнеса.
+ */
+export interface OperationPageQuery extends OperationFilter {
+  /** Только переводы между кассами — обе половины (фильтр «Переводы», fin-review Ф16) */
+  transfer?: boolean;
+  /** Кассы, доступные сотруднику (F-07-166 «только выбранные кассы»); нет — все */
+  accountIds?: Id[];
+  /** С 1; страница за пределами прижимается к последней */
+  page: number;
+  pageSize: number;
+  /** Остаток кассы после каждой строки (колонка «Остаток в кассе», F-07-011) */
+  withBalance?: boolean;
+}
+
+export interface OperationRow extends Operation {
+  /** Остаток кассы после этой операции (по всем операциям кассы, не только по фильтру) */
+  balanceAfter?: Money;
+}
+
+export interface OperationPage {
+  items: OperationRow[];
+  /** Сколько операций прошло фильтр (все страницы) */
+  total: number;
+  page: number;
+  pageSize: number;
+  /** Приход и расход по всем страницам — operationTotals */
+  totals: { income: Money; expense: Money };
+}
+
 export interface OperationFilter {
   locationIds?: Id[];
   accountId?: Id;
@@ -272,6 +303,22 @@ export function accountRunningBalances(openingBalance: Money, opsAscending: Pick
     map.set(op.id, balance);
   }
   return map;
+}
+
+/**
+ * Итоги отобранного списка операций (fin-review Ф17): приход и расход по всем страницам. Отменённые не считаются;
+ * переводы между кассами — не доход и не расход, учитываются только когда выбрана одна касса (её движение денег).
+ * Та же формула на сервере (FinOpsService.page).
+ */
+export function operationTotals(ops: Pick<Operation, 'kind' | 'amount' | 'cancelled'>[], accountFiltered: boolean): { income: Money; expense: Money } {
+  let income = 0;
+  let expense = 0;
+  for (const op of ops) {
+    if (op.cancelled) continue;
+    if (op.kind === 'income' || (accountFiltered && op.kind === 'transfer_in')) income += op.amount;
+    else if (op.kind === 'expense' || (accountFiltered && op.kind === 'transfer_out')) expense += op.amount;
+  }
+  return { income, expense };
 }
 
 /** Сальдо расчётов с контрагентом: приход контрагенту — плюс салону (контрагент нам должен), расход — минус */

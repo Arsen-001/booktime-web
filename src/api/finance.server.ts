@@ -110,6 +110,9 @@ import type {
   Operation,
   OperationFilter,
   OperationInput,
+  OperationPage,
+  OperationPageQuery,
+  OperationRow,
 } from '@/domain/finance';
 import type { AccountWithBalance, BookingPaymentSummary, CashShiftView, LoyaltySaleInput, OperationUpdate, SplitPaymentPart, TransferFundsInput, UnpaidVisitRow } from '@/api/finance';
 
@@ -216,6 +219,19 @@ function opFromServer(o: Operation): Operation {
 
 export function listOperations(businessId: Id, filter?: OperationFilter): Promise<Operation[]> {
   return http<Operation[]>('GET', `${fb(businessId)}/fin-ops`, undefined, { query: opQuery(filter) }).then((rows) => rows.map(opFromServer));
+}
+
+export function listOperationsPage(businessId: Id, q: OperationPageQuery): Promise<OperationPage> {
+  return http<OperationPage>('GET', `${fb(businessId)}/fin-ops/page`, undefined, {
+    query: {
+      ...opQuery(q),
+      accountIds: q.accountIds ? q.accountIds.join(',') : undefined,
+      transfer: q.transfer || undefined,
+      page: q.page,
+      pageSize: q.pageSize,
+      withBalance: q.withBalance || undefined,
+    },
+  }).then((res) => ({ ...res, items: res.items.map((o) => opFromServer(o) as OperationRow) }));
 }
 
 export function getOperation(businessId: Id, id: Id): Promise<Operation> {

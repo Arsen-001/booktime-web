@@ -2,36 +2,25 @@
 
 /**
  * Итоги отфильтрованного списка операций (fin-review Ф17): приход, расход, сальдо — по всем страницам, а не по
- * видимой. Отменённые не считаются. Переводы между кассами внутри бизнеса — не доход и не расход: учитываются,
- * только когда выбрана одна касса (тогда это её движение денег).
+ * видимой. Считает тот, кто отдаёт страницу (operationTotals: сервер или моковая база), — экран только показывает.
  */
-import type { Operation } from '@/domain/finance';
+import type { Money } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { SkeletonText } from '@/ui/Skeleton';
 
 export interface OperationsTotalsProps {
-  ops: Operation[];
-  accountFiltered: boolean;
+  totals: { income: Money; expense: Money } | undefined;
   loading: boolean;
 }
 
-export function operationsTotals(ops: Pick<Operation, 'kind' | 'amount' | 'cancelled'>[], accountFiltered: boolean) {
-  let income = 0;
-  let expense = 0;
-  for (const op of ops) {
-    if (op.cancelled) continue;
-    if (op.kind === 'income' || (accountFiltered && op.kind === 'transfer_in')) income += op.amount;
-    else if (op.kind === 'expense' || (accountFiltered && op.kind === 'transfer_out')) expense += op.amount;
-  }
-  return { income, expense, saldo: income - expense };
-}
-
-export function OperationsTotals({ ops, accountFiltered, loading }: OperationsTotalsProps) {
+export function OperationsTotals({ totals, loading }: OperationsTotalsProps) {
   const t = useT('finance');
   const format = useFormat();
-  const { income, expense, saldo } = operationsTotals(ops, accountFiltered);
+  const income = totals?.income ?? 0;
+  const expense = totals?.expense ?? 0;
+  const saldo = income - expense;
   const cells = [
     { id: 'income', label: t('operations.totals.income'), value: format.money(income), tone: 'text-success' },
     { id: 'expense', label: t('operations.totals.expense'), value: format.money(expense), tone: 'text-fg' },
@@ -42,7 +31,7 @@ export function OperationsTotals({ ops, accountFiltered, loading }: OperationsTo
       {cells.map((c) => (
         <div key={c.id} className="flex min-w-24 flex-col">
           <dt className="text-xs text-muted">{c.label}</dt>
-          <dd className={cn('min-h-6 text-base font-semibold tabular-nums', c.tone)}>{loading ? <SkeletonText width="10ch" /> : c.value}</dd>
+          <dd className={cn('min-h-6 text-base font-semibold tabular-nums', c.tone)}>{loading || !totals ? <SkeletonText width="10ch" /> : c.value}</dd>
         </div>
       ))}
     </dl>
