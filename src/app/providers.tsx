@@ -36,7 +36,10 @@ export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (scopeRef.current === scope) return;
     scopeRef.current = scope;
-    void client.resetQueries();
+    // Сессия сервера (['auth', …]) не зависит от персоны — персону из неё и берёт SessionBridge. Её сброс на миг
+    // «выходил» из кабинета: мост снимал зеркало и грузил его заново — /core, график и записи ±400 дней дважды при
+    // каждом открытии ссылки кабинета (проход 17.11).
+    void client.resetQueries({ predicate: (q) => q.queryKey[0] !== 'auth' });
   }, [scope, client]);
   // При гидратации — как на сервере (false), сразу после — из localStorage: без расхождения разметки
   const devtools = useSyncExternalStore(noSubscribe, devtoolsWanted, () => false);
