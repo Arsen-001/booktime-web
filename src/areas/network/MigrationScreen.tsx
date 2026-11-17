@@ -502,6 +502,7 @@ export function MigrationScreen() {
                           <Checkbox
                             checked={selected.includes(key)}
                             onCheckedChange={(checked) => toggleRow(key, checked)}
+                            aria-label={pickText(row.service.name, locale) /* галочка без подписи: имя услуги — для диктора экрана, хвосты 17.11 */}
                           />
                         </td>
                         <td className="sticky left-0 z-10 bg-surface px-4 py-2 font-medium text-fg">
