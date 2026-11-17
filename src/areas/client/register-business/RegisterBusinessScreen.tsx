@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { RegisterBusinessType } from '@/api/client';
 import { registerBusiness } from '@/api/client';
 import { HttpApiError, isApiMode } from '@/api/http';
 import { useApiMutation } from '@/api/request';
-import { SESSION_KEY } from '@/api/session';
+import { SESSION_KEY, useSession } from '@/api/session';
 import { useApplyDemo } from '@/demo/hooks';
 import { SPHERE_IDS } from '@/config/spheres';
 import type { SphereId } from '@/domain/core';
@@ -32,7 +32,18 @@ type WizardStep = 0 | 1 | 2 | 3 | 4;
  * Регистрация бизнеса: тип → сфера(ы) → промокод → название и телефон (F-00-035). Демо без
  * бэкенда — после успеха переключает демо-персону на владельца/индивидуала и ведёт в быстрый старт.
  */
+/**
+ * Гость заполнил анкету, а «Готово» отправило его на вход (сервер регистрирует только вошедшего): анкета ждёт его
+ * в sessionStorage и после входа открывается на последнем шаге уже заполненной (проход 17.11, группа 4 — раньше после
+ * входа человек видел пустую анкету и заполнял всё заново). Черновик читается после гидрации (useSyncExternalStore),
+ * анкета с ним монтируется заново по key — без расхождения с разметкой сервера.
+ */
 export function RegisterBusinessScreen() {
+  const raw = useSyncExternalStore(noSubscribe, readDraftRaw, () => null);
+  return <RegisterBusinessWizard key={raw ?? 'new'} draft={parseDraft(raw)} />;
+}
+
+function RegisterBusinessWizard({ draft }: { draft: RegisterDraft | undefined }) {
   const t = useT('client');
   const tc = useT('common');
   const router = useRouter();
@@ -41,19 +52,20 @@ export function RegisterBusinessScreen() {
   // Сфера из ссылки (/register-business?sphere=dental — плитки «Для кого» на /business, 04.10.2026) — уже отмечена
   const sphereParam = useSearchParams().get('sphere');
 
-  const [step, setStep] = useState<WizardStep>(0);
-  const [type, setType] = useState<RegisterBusinessType>('salon');
+  const [step, setStep] = useState<WizardStep>(draft?.step ?? 0);
+  const [type, setType] = useState<RegisterBusinessType>(draft?.type ?? 'salon');
   const [spheres, setSpheres] = useState<SphereId[]>(() =>
-    sphereParam && (SPHERE_IDS as readonly string[]).includes(sphereParam) ? [sphereParam as SphereId] : [],
+    draft?.spheres ?? (sphereParam && (SPHERE_IDS as readonly string[]).includes(sphereParam) ? [sphereParam as SphereId] : []),
   );
-  const [promoCode, setPromoCode] = useState('');
-  const [name, setName] = useState('');
-  const [ownerName, setOwnerName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [promoCode, setPromoCode] = useState(draft?.promoCode ?? '');
+  const [name, setName] = useState(draft?.name ?? '');
+  const [ownerName, setOwnerName] = useState(draft?.ownerName ?? '');
+  const [phone, setPhone] = useState(draft?.phone ?? '');
   const [sphereError, setSphereError] = useState<string | undefined>(undefined);
-  const [goals, setGoals] = useState<OnboardingGoalId[]>([]);
+  const [goals, setGoals] = useState<OnboardingGoalId[]>(draft?.goals ?? []);
 
   const submit = useApiMutation(registerBusiness, { invalidates: [SESSION_KEY] });
+  const session = useSession();
   // Аналитика воронки салона (src/lib/analytics.ts): анкета открыта → бизнес создан
   useTrackOnce('business_signup_started', {});
 
@@ -86,6 +98,12 @@ export function RegisterBusinessScreen() {
   const canSubmit = Boolean(name.trim()) && phoneValid && spheres.length > 0;
 
   const handleSubmit = async () => {
+    // Гость (сессии нет) — сразу на вход с сохранённой анкетой, без заведомо отклонённого запроса (401 в консоли)
+    if (isApiMode() && !session.isLoading && !session.isError && session.data === null) {
+      saveRegisterDraft({ step, type, spheres, promoCode, name, ownerName, phone, goals });
+      router.push('/login?next=/register-business');
+      return;
+    }
     try {
       const result = await submit.mutate({ type, sphereIds: spheres, promoCode: promoCode || undefined, name, phone });
       track('business_signup_completed', { businessId: result.businessId, sphere: spheres[0], type });
@@ -101,11 +119,13 @@ export function RegisterBusinessScreen() {
       // Демо: зарегистрированный бизнес — это «пустой» салон/мастер (registerBusiness заполняет BIZ.empty/emptySolo);
       // без empty:'1' кабинет открывал чужой демо-салон (qa 30.09). В режиме api бизнес берётся из сессии.
       apply({ persona: result.persona, sphere: spheres[0], ...(isApiMode() ? {} : { empty: '1' as const }) });
+      clearRegisterDraft();
       toast.success(t('registerBusiness.success'));
       router.push('/biz/onboarding');
     } catch (error) {
       // Живой сайт: регистрировать бизнес может только вошедший по коду (F-00-035) — сначала вход, потом сюда же
       if (error instanceof HttpApiError && error.status === 401) {
+        saveRegisterDraft({ step, type, spheres, promoCode, name, ownerName, phone, goals });
         router.push('/login?next=/register-business');
         return;
       }
@@ -223,4 +243,52 @@ export function RegisterBusinessScreen() {
       </Card>
     </div>
   );
+}
+
+const DRAFT_KEY = 'bt-register-business-draft';
+
+interface RegisterDraft {
+  step: WizardStep;
+  type: RegisterBusinessType;
+  spheres: SphereId[];
+  promoCode: string;
+  name: string;
+  ownerName: string;
+  phone: string;
+  goals: OnboardingGoalId[];
+}
+
+function saveRegisterDraft(d: RegisterDraft): void {
+  try {
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+  } catch {
+    /* приватное окно без хранилища — анкету придётся заполнить снова, вход всё равно откроется */
+  }
+}
+
+const noSubscribe = () => () => {};
+
+function readDraftRaw(): string | null {
+  try {
+    return sessionStorage.getItem(DRAFT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function parseDraft(raw: string | null): RegisterDraft | undefined {
+  if (!raw) return undefined;
+  try {
+    return JSON.parse(raw) as RegisterDraft;
+  } catch {
+    return undefined;
+  }
+}
+
+function clearRegisterDraft(): void {
+  try {
+    sessionStorage.removeItem(DRAFT_KEY);
+  } catch {
+    /* хранилище недоступно — черновика и не было */
+  }
 }

@@ -41,7 +41,8 @@ function identityOf(m: SessionMembership | undefined): ApiIdentity | null {
   };
 }
 
-function personaOfSession(session: SessionView | null): { persona: PersonaId; appUser: string } {
+/** Персона по сессии сервера — ещё и для экрана входа: сразу ставит верную персону, чтобы /biz открылся без лишнего круга */
+export function personaOfSession(session: SessionView | null): { persona: PersonaId; appUser: string } {
   if (!session) return { persona: 'guest', appUser: '' };
   if (session.mode === 'client') return { persona: 'client', appUser: session.user.id };
   const active = activeMembership(session);

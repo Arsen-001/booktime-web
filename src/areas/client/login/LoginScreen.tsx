@@ -15,6 +15,7 @@ import { GoogleSignIn, PendingGoogleNote, pendingTextKey } from '@/areas/client/
 import { loginErrorText } from '@/areas/client/login/loginError';
 import { useApiMutation } from '@/api/request';
 import { useApplyDemo } from '@/demo/hooks';
+import { personaOfSession } from '@/demo/SessionBridge';
 import { useT } from '@/i18n/useT';
 import { useInBusinessApp } from '@/lib/native/NativeAppKind';
 import { normalizePhone } from '@/lib/phone';
@@ -181,12 +182,19 @@ function useAfterLogin(next: string) {
   return async (hasBusiness: boolean) => {
     const target = safeNext(next);
     if (hasBusiness && !isBookingPath(target)) {
-      if (isApiMode()) await toBusiness.mutate(undefined).catch(() => undefined);
-      else apply({ persona: 'owner' });
+      if (isApiMode()) {
+        // Персона — сразу по сессии (владелец, сеть, администратор, мастер): /biz на сервере решает по ней, куда вести.
+        // Раньше cookie оставалась «клиент», и владелец после входа попадал в журнал вместо главной (проход 17.11)
+        const session = await toBusiness.mutate(undefined).catch(() => undefined);
+        if (session) apply(personaOfSession(session));
+      } else apply({ persona: 'owner' });
       router.push('/biz');
       return;
     }
-    router.push(!hasBusiness && target.startsWith('/biz') ? '/register-business' : target);
+    // Приглашение в салон и согласие клиента открываются и без своего бизнеса (их принимают на своём экране) —
+    // раньше приглашённый мастер после входа попадал на «Регистрацию бизнеса» (проход 17.11, группа 4)
+    const openWithoutBusiness = target.startsWith('/biz/onboarding/invite/') || target.startsWith('/biz/clients/consent/');
+    router.push(!hasBusiness && target.startsWith('/biz') && !openWithoutBusiness ? '/register-business' : target);
   };
 }
 
