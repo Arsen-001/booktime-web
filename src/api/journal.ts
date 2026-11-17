@@ -116,14 +116,21 @@ import { localDigits, normalizePhone } from "@/lib/phone";
 // ─────────────────────────── Настройки (F-01-014, F-01-015, F-01-021) ───────────────────────────
 
 /**
- * «Мои наборы» мастеров сотрудника (⭐ 29.09.2026) — личные, у каждого свои, на любом устройстве. Пока живут в срезе
- * журнала и в режиме api (сервер их ещё не хранит — перенос на сервер вместе с остальными настройками журнала).
+ * «Мои наборы» мастеров сотрудника (⭐ 29.09.2026) — личные, у каждого свои, на любом устройстве. В режиме api — в
+ * настройках журнала на сервере (только свои, 17.11: до этого жили лишь в браузере и пропадали на другом устройстве).
  */
 export function listStaffSets(staffId: Id): Promise<StaffSet[]> {
+  if (isApiMode()) return S.getConfig().then((c) => c.staffSets?.[staffId] ?? []);
   return request(() => readArea("journal").staffSets?.[staffId] ?? []);
 }
 
 export function saveStaffSet(input: { staffId: Id; name: string; staffIds: Id[] }): Promise<StaffSet[]> {
+  if (isApiMode()) {
+    return S.getConfig().then((c) => {
+      const next = [...(c.staffSets?.[input.staffId] ?? []), { id: newId("set"), name: input.name.trim(), staffIds: input.staffIds }];
+      return S.patchConfig({ staffSets: { [input.staffId]: next } }).then((r) => r.staffSets?.[input.staffId] ?? []);
+    });
+  }
   return request(
     () =>
       mutateArea("journal", (s) => {
@@ -134,6 +141,12 @@ export function saveStaffSet(input: { staffId: Id; name: string; staffIds: Id[] 
 }
 
 export function deleteStaffSet(input: { staffId: Id; setId: Id }): Promise<StaffSet[]> {
+  if (isApiMode()) {
+    return S.getConfig().then((c) => {
+      const next = (c.staffSets?.[input.staffId] ?? []).filter((x) => x.id !== input.setId);
+      return S.patchConfig({ staffSets: { [input.staffId]: next } }).then((r) => r.staffSets?.[input.staffId] ?? []);
+    });
+  }
   return request(
     () =>
       mutateArea("journal", (s) => {
@@ -143,12 +156,14 @@ export function deleteStaffSet(input: { staffId: Id; setId: Id }): Promise<Staff
   );
 }
 
-/** Вид дня сотрудника (⭐ 29.09.2026) — личный, хранится рядом с наборами мастеров */
+/** Вид дня сотрудника (⭐ 29.09.2026) — личный, хранится рядом с наборами мастеров (в режиме api — на сервере) */
 export function getDayLayout(staffId: Id): Promise<DayLayout> {
+  if (isApiMode()) return S.getConfig().then((c) => c.dayLayouts?.[staffId] ?? "columns");
   return request(() => readArea("journal").dayLayouts?.[staffId] ?? "columns");
 }
 
 export function setDayLayout(input: { staffId: Id; layout: DayLayout }): Promise<DayLayout> {
+  if (isApiMode()) return S.patchConfig({ dayLayouts: { [input.staffId]: input.layout } }).then((r) => r.dayLayouts?.[input.staffId] ?? input.layout);
   return request(
     () =>
       mutateArea("journal", (s) => {

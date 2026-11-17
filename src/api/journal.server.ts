@@ -33,7 +33,9 @@ import type {
   WindowRights,
   BookingCategoryDef,
   CustomFieldDef,
+  DayLayout,
   JournalZoomMin,
+  StaffSet,
 } from '@/domain/journal';
 import type { PlaceBookingInput } from '@/domain/rules/booking-flow';
 import type { StatusActor } from '@/domain/rules/booking-status';
@@ -513,6 +515,9 @@ export interface JournalConfig {
   zoomMin: JournalZoomMin;
   hiddenStatuses: string[];
   // === /этап 21 ===
+  /** «Мои наборы» мастеров и вид дня (⭐ 29.09.2026) — личные: сервер отдаёт и принимает только свои (17.11) */
+  staffSets?: Record<Id, StaffSet[]>;
+  dayLayouts?: Record<Id, DayLayout>;
 }
 
 /** Настройки журнала — в срез journal браузера: экраны и расчёты журнала читают их оттуда (то же — не трогаем) */
@@ -527,6 +532,9 @@ function mirrorConfig(c: JournalConfig): JournalConfig {
     staffJournalRights: c.staffJournalRights,
     staffWindowRights: c.staffWindowRights,
     autoWriteoffServiceIds: c.autoWriteoffServiceIds,
+    // Личное — только своё в ответе: кладём поверх, чужие записи браузера не трогаем
+    staffSets: { ...area.staffSets, ...(c.staffSets ?? {}) },
+    dayLayouts: { ...area.dayLayouts, ...(c.dayLayouts ?? {}) },
     prefs: {
       ...area.prefs,
       staffMarkupMin: c.staffMarkupMin as typeof area.prefs.staffMarkupMin,
@@ -551,6 +559,8 @@ export async function getConfig(): Promise<JournalConfig> {
     'areas.journal.staffJournalRights',
     'areas.journal.staffWindowRights',
     'areas.journal.prefs',
+    'areas.journal.staffSets',
+    'areas.journal.dayLayouts',
   );
   return mirrorConfig(await http<JournalConfig>('GET', `${b(sessionBiz())}/journal/config`));
 }
