@@ -503,7 +503,7 @@ function resolveEffectiveSchemes(
         date,
       );
       const chart = assignment ? chartsById.get(assignment.chartId) : undefined;
-      if (chart) {
+      if (assignment && chart) {
         const ruleId = pickRuleForChart(chart, (criterionId) => {
           const criterion = criteriaById.get(criterionId);
           if (!criterion) return false;
@@ -519,7 +519,7 @@ function resolveEffectiveSchemes(
         });
         const rule = ruleId ? rulesById.get(ruleId) : undefined;
         if (rule) {
-          map.set(staff.id, ruleAsScheme(rule, staff.id, nowDateTime()));
+          map.set(staff.id, ruleAsScheme(rule, staff.id, nowDateTime(), assignment.startDate));
           continue;
         }
       }

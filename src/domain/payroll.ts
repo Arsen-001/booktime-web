@@ -1889,6 +1889,7 @@ export function ruleAsScheme(
   rule: PayrollRule,
   staffId: Id,
   now: string,
+  assignmentStartDate: ISODate,
 ): PayrollScheme {
   return {
     staffId,
@@ -1899,9 +1900,21 @@ export function ruleAsScheme(
     extraServiceRevenue: rule.extraServiceRevenue,
     extraProductRevenue: rule.extraProductRevenue,
     serviceCostBasis: rule.serviceCostBasis,
-    createdAt: rule.createdAt,
+    // F-09-037 условие 3 («схема действует с начала месяца») — от дня, с которого правило действует для сотрудника
+    createdAt: classicSchemeStart(rule.createdAt, assignmentStartDate),
     updatedAt: now,
   };
+}
+
+/**
+ * F-09-037 условие 3 в классической модели (решение 17.11.2026): правило действует для сотрудника с того дня, когда
+ * оно реально начало к нему применяться, — с более поздней из двух дат: создание правила и назначение схемы сотруднику.
+ * Пример: правило создано 01.09, Ани назначена 10.10, оклад 200 000 → за октябрь оклад не начисляется, за ноябрь — да.
+ * `ruleCreatedAt` — время по Еревану ('YYYY-MM-DDTHH:mm'), ответ — 'YYYY-MM-DD'. Та же функция — в движке сервера.
+ */
+export function classicSchemeStart(ruleCreatedAt: string, assignmentStartDate: ISODate): ISODate {
+  const created = ruleCreatedAt.slice(0, 10);
+  return created > assignmentStartDate ? created : assignmentStartDate;
 }
 
 /**
