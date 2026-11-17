@@ -12,6 +12,7 @@ import { anyStaffNotifyConfigured, getWebPopupSettings, listChannels, listTypes,
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { DEFAULT_WEB_POPUP_SETTINGS, NOTIFY_CHANNELS, type NotifyChannel } from '@/domain/notify';
 import { useCurrent } from '@/demo/hooks';
+import { hiddenRouteTarget, isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -112,13 +113,16 @@ function WebPopupSettingsCard() {
             onCheckedChange={(bookingOps) => patch({ ...settings, bookingOps })}
             label={t('channelsTab.webPopups.bookingOps')}
           />
-          <Checkbox
-            checked={settings.incomingCalls}
-            disabled={loading}
-            onCheckedChange={(incomingCalls) => patch({ ...settings, incomingCalls })}
-            label={t('channelsTab.webPopups.incomingCalls')}
-            description={t('channelsTab.webPopups.incomingCallsHint')}
-          />
+          {/* Телефония скрыта до подключения (src/config/hidden.ts) */}
+          {isConnected('telephony') && (
+            <Checkbox
+              checked={settings.incomingCalls}
+              disabled={loading}
+              onCheckedChange={(incomingCalls) => patch({ ...settings, incomingCalls })}
+              label={t('channelsTab.webPopups.incomingCalls')}
+              description={t('channelsTab.webPopups.incomingCallsHint')}
+            />
+          )}
           {/* ⭐ «Закрыт день» владельцу в колокольчик (01.10.2026) — по умолчанию включено */}
           <Checkbox
             checked={settings.dayClose !== false}
@@ -161,7 +165,9 @@ export function ChannelsTab() {
 
   // Загрузка — та же страница: каналы разложены как у нового бизнеса (бесплатные подключены сразу), кнопки выключены
   const loading = !ready || q.isLoading;
-  const rows = q.data ?? NOTIFY_CHANNELS.map((channel) => ({ channel, connected: FREE_CHANNELS.includes(channel) }));
+  // SMS (нужен настоящий поставщик) и своё приложение (решение не принято) скрыты до подключения — src/config/hidden.ts
+  const shown = (channel: NotifyChannel) => (channel !== 'sms' || isConnected('sms')) && (channel !== 'brandedApp' || isConnected('brandedApp'));
+  const rows = (q.data ?? NOTIFY_CHANNELS.map((channel) => ({ channel, connected: FREE_CHANNELS.includes(channel) }))).filter((r) => shown(r.channel));
   const connected = rows.filter((r) => r.connected);
   const notConnected = rows.filter((r) => !r.connected);
 
@@ -292,14 +298,18 @@ export function ChannelsTab() {
                 {t('channelsTab.free')}
               </Badge>
             </li>
-            <li className="flex items-center justify-between py-2">
-              <span>{t('channels.sms')}</span>
-              <span className="text-muted">{t('channelsTab.smsPrice')}</span>
-            </li>
-            <li className="flex items-center justify-between py-2">
-              <span>{t('channels.brandedApp')}</span>
-              <span className="text-muted">{t('channelsTab.brandedPrice')}</span>
-            </li>
+            {isConnected('sms') && (
+              <li className="flex items-center justify-between py-2">
+                <span>{t('channels.sms')}</span>
+                <span className="text-muted">{t('channelsTab.smsPrice')}</span>
+              </li>
+            )}
+            {isConnected('brandedApp') && (
+              <li className="flex items-center justify-between py-2">
+                <span>{t('channels.brandedApp')}</span>
+                <span className="text-muted">{t('channelsTab.brandedPrice')}</span>
+              </li>
+            )}
           </ul>
         </SectionCard>
       </div>
@@ -314,7 +324,10 @@ export function ChannelsTab() {
               { href: '/biz/notifications/channels/developer', key: 'developer' },
               { href: '/biz/notifications/loyalty', key: 'loyalty' },
             ] as const
-          ).map((item) => (
+          )
+            // Каталог каналов и продвижение от партнёров — скрыты до подключения (src/config/hidden.ts)
+            .filter((item) => !hiddenRouteTarget(item.href))
+            .map((item) => (
             <button
               key={item.key}
               type="button"

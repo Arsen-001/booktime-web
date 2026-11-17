@@ -46,9 +46,12 @@ import {
 
 export class ApiError extends Error {
   readonly code: string;
-  constructor(code: string, message?: string) {
+  /** Подробности ошибки по полям — как `fields` ответа сервера (например, новые дни ведомости, ответ 27) */
+  readonly fields?: Record<string, string>;
+  constructor(code: string, message?: string, fields?: Record<string, string>) {
     super(message ?? code);
     this.code = code;
+    this.fields = fields;
     this.name = 'ApiError';
   }
 }

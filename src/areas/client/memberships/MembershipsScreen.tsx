@@ -21,7 +21,9 @@ export function MembershipCard({ membership, showBusiness = true }: { membership
   const locale = useLocale();
   const fmt = useClientFormat();
   const daysLeft = daysUntil(membership.validUntil);
-  const expiringSoon = membership.visitsLeft <= 1 || daysLeft <= 5;
+  // Заявка («ждёт подтверждения» или отклонена) ещё не абонемент — «Скоро закончится» ей не показываем (хвост 17.11)
+  const purchased = !membership.purchaseStatus || membership.purchaseStatus === 'confirmed';
+  const expiringSoon = purchased && (membership.visitsLeft <= 1 || daysLeft <= 5);
 
   return (
     <Link href={`/memberships/${membership.id}`}>

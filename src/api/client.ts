@@ -4524,7 +4524,11 @@ export interface VisitReportRow {
 }
 
 /** Z-отчёт (закрытие смены): сводка денег за день с разбивкой по визитам и фильтром по мастеру (F-14-122) */
-export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Promise<{ rows: VisitReportRow[]; total: Money; byMethod: Record<VisitPaymentMethod, Money> }> {
+/** Разбивка Z-отчёта (ответ 14, 17.11.2026): предоплата переводом и долг — отдельными строками, сумма = «Итого» */
+export type ZReportMethod = 'cash' | 'card' | 'transfer' | 'loyalty' | 'debt';
+export const Z_REPORT_METHODS: readonly ZReportMethod[] = ['cash', 'card', 'transfer', 'loyalty', 'debt'];
+
+export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Promise<{ rows: VisitReportRow[]; total: Money; byMethod: Record<ZReportMethod, Money> }> {
   if (isApiMode()) return CS.getDayZReportServer(businessId, date, staffId);
   return request(() => {
     // Z-отчёт — деньги салона за смену: как «Финансы» в вебе
@@ -4535,24 +4539,24 @@ export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Prom
       // Удалённая запись не считается и со статусом «Пришёл» — как сервер (проход 17.11)
       (b) => b.businessId === businessId && !b.deletedAt && toISODate(dayjs(b.start)) === date && b.status === 'arrived' && (!staffId || b.staffId === staffId),
     );
+    // Одно правило с сервером (app-staff.service getDayZReport): оплаты визита + предоплата переводом; чего не хватает
+    // до суммы визита — «Долг» (визит без оплат — долг целиком). «Итого» = сумма по способам.
+    const byMethod: Record<ZReportMethod, Money> = { cash: 0, card: 0, transfer: 0, loyalty: 0, debt: 0 };
     const rows: VisitReportRow[] = bookings.map((booking) => {
       const client = core.clients.find((c) => c.id === booking.clientId);
       const staff = core.staff.find((s) => s.id === booking.staffId);
       const recorded = area.visitPayments.filter((p) => p.bookingId === booking.id && !p.refundedAt);
-      // Визит из сида (ещё не проведён через оплату в приложении) — своих строк оплаты у него нет; чтобы
-      // разбивка по кассам и по визитам сходилась с «Итого», считаем его полностью оплаченным наличными (F-14-122)
-      const paidTotal = recorded.length ? recorded.reduce((s, p) => s + p.amount, 0) : booking.total;
-      return { booking, clientName: client?.name ?? booking.visitorName ?? '', staffName: staff?.name ?? '—', total: booking.total, paidTotal };
-    });
-    const byMethod: Record<VisitPaymentMethod, Money> = { cash: 0, card: 0, loyalty: 0 };
-    for (const b of bookings) {
-      const recorded = area.visitPayments.filter((p) => p.bookingId === b.id && !p.refundedAt);
-      if (recorded.length) {
-        for (const p of recorded) byMethod[p.method] += p.amount;
-      } else {
-        byMethod.cash += b.total;
+      let paid = 0;
+      for (const p of recorded) {
+        byMethod[p.method] += p.amount;
+        paid += p.amount;
       }
-    }
+      const prepaid = booking.prepayment?.paid && !booking.prepayment.refundedAt ? booking.prepayment.amount : 0;
+      byMethod.transfer += prepaid;
+      paid += prepaid;
+      byMethod.debt += Math.max(0, booking.total - paid);
+      return { booking, clientName: client?.name ?? booking.visitorName ?? '', staffName: staff?.name ?? '—', total: booking.total, paidTotal: paid };
+    });
     return { rows, total: rows.reduce((s, r) => s + r.total, 0), byMethod };
   });
 }

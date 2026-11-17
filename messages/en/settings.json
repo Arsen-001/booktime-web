@@ -305,8 +305,10 @@
       "adminFirstFree": "First admin — free",
       "adminExtra": "Admin beyond the first",
       "master": "Master",
-      "assistantFree": "Assistant without a schedule — free",
-      "invitedPending": "Invited, not signed in yet — becomes paid after the first sign-in"
+      "assistantFree": "Assistant without own services, schedule or bookings — free",
+      "invitedPending": "Invited, not signed in yet — free until sign-in, up to 14 days",
+      "assistantWorks": "Assistant with own services, schedule or bookings — paid as a master",
+      "invitedLong": "Invited over 14 days ago and not signed in — paid seat"
     },
     "free": "Free",
     "includedTitle": "What's included in the subscription",
@@ -940,7 +942,8 @@
     "webhookSave": "Save",
     "webhookSaved": "Settings saved",
     "webhookSaveFailed": "Couldn't save",
-    "dateFormatHint": "Applies to the journal, the booking window and booking lists."
+    "dateFormatHint": "Applies to the journal, the booking window and booking lists.",
+    "webhookMovedOnly": "Webhooks are set up in “Integrations → Webhooks”."
   },
   "sphere": {
     "title": "Business sphere",
@@ -1101,7 +1104,8 @@
       "newLabel": "New email",
       "changeButton": "Change email",
       "changeFailed": "Couldn't change the email",
-      "invalidEmail": "Check the email address"
+      "invalidEmail": "Check the email address",
+      "saved": "Email saved"
     },
     "password": {
       "title": "Password",

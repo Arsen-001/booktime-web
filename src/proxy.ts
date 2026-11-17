@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { hiddenRouteTarget } from '@/config/hidden';
 import { DATA_COOKIE, PLATFORM_COOKIE, SESSION_COOKIE, resolveDataMode } from '@/api/mode';
 import { BIZ_PERSONAS, COOKIE_MAX_AGE, DEMO_COOKIES, DEMO_PARAMS, DEFAULT_DEMO, isValidDemoValue, type DemoSettings, type PersonaId } from '@/demo/settings';
 import { isLocale } from '@/i18n/config';
@@ -49,6 +50,10 @@ export function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL('/platform/login', url), 307);
     }
   }
+
+  // Скрыто до настоящего подключения (владелец 17.11.2026, src/config/hidden.ts): прямая ссылка ведёт на живую страницу
+  const hiddenTo = path.startsWith('/biz') ? hiddenRouteTarget(path) : undefined;
+  if (hiddenTo) return NextResponse.redirect(new URL(hiddenTo, url), 307);
 
   // На /search «sphere» — фильтр поиска (/search?sphere=nails с главной, адреса в sitemap — SEO 03.10.2026), а не
   // демо-сфера бизнеса: не забираем его в cookie и не перенаправляем (иначе страница сферы не индексируется)

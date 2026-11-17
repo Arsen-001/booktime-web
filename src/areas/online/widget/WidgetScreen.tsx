@@ -1,6 +1,7 @@
 'use client';
 
 import { isApiMode } from '@/api/http';
+import { isConnected } from '@/config/hidden';
 import { useRef, useState, useSyncExternalStore } from 'react';
 import { Copy, Check, ExternalLink } from 'lucide-react';
 import { coreGet, coreList } from '@/api/core';
@@ -308,7 +309,9 @@ export function WidgetScreen() {
           </div>
         )}
 
-        <ChannelsCard businessId={businessId!} />
+        {/* Скрыто до настоящего подключения (владелец 17.11.2026, ответ 7): сервер ключ API нигде не принимает, площадки
+            не подключены — на живом только ссылка записи и «Виджет для сайта» (src/config/hidden.ts) */}
+        {isConnected('bookingChannels') && <ChannelsCard businessId={businessId!} />}
         <MobileAppCard businessId={businessId!} />
       </div>
     </PermissionGate>
@@ -546,6 +549,8 @@ function MobileAppCard({ businessId }: { businessId: string }) {
             </Button>
           </div>
 
+          {/* Своё приложение под брендом салона — решение не принято (src/config/hidden.ts, brandedApp) */}
+          {isConnected('brandedApp') && (
           <div className="flex flex-col gap-2 border-t border-border pt-4">
             <p className="text-sm font-medium text-fg">{t('widget.mobileApp.orderTitle')}</p>
             <p className="text-sm text-muted">{t('widget.mobileApp.orderHint')}</p>
@@ -569,6 +574,7 @@ function MobileAppCard({ businessId }: { businessId: string }) {
               </div>
             )}
           </div>
+          )}
         </div>
       </SectionCard>
     </div>

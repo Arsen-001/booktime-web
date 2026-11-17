@@ -92,6 +92,8 @@ export interface OrderInput {
   dueDate?: ISODate | null;
   price: number;
   prepaid?: number;
+  /** Ответ 12 (17.11.2026): способ оплаты предоплаты (ключ «Способов оплаты») — сумма сразу операцией в кассе */
+  prepaidMethod?: string;
   comment?: string | null;
   locationId?: Id | null;
   /** ⭐ Принять по записи на сдачу (05.10.2026): одна запись — один заказ; мастер и филиал по умолчанию — из записи */
@@ -101,7 +103,16 @@ export interface OrderInput {
 /** Что можно поменять у заказа (PATCH) */
 export type OrderPatch = Partial<
   Pick<Order, 'clientName' | 'clientPhone' | 'clientId' | 'items' | 'photos' | 'staffId' | 'dueDate' | 'price' | 'prepaid' | 'comment' | 'locationId'>
->;
+> & {
+  /** Ответ 12: предоплату поменяли — разница операцией в кассе этим способом */
+  prepaidMethod?: string;
+};
+
+/** «Выдать клиенту» (ответ 12): доплата при выдаче — сумма и способ оплаты, сразу операцией в кассе */
+export interface OrderIssuePayment {
+  amount: number;
+  methodKey: string;
+}
 
 export interface OrdersQuery {
   status?: OrderStatusFilter;

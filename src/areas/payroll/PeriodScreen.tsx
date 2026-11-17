@@ -25,7 +25,8 @@ import {
   Wallet,
 } from "lucide-react";
 import { closePayrollPeriod, computePeriod, getGeneralSettings } from "@/api/payroll";
-import { createSettlementSheet, listSettlementEntries } from "@/api/finance";
+import { listSettlementEntries } from "@/api/finance";
+import { createSheetNewDays, useSheetNewDays } from "@/areas/payroll/sheetNewDays";
 import { useApiMutation, useApiQuery } from "@/api/request";
 import { useCoreList } from "@/api/core";
 import type { Id, LocaleCode } from "@/domain/core";
@@ -70,6 +71,7 @@ export function PeriodScreen() {
   const toast = useToast();
   const confirm = useConfirm();
   const router = useRouter();
+  const sheetNewDays = useSheetNewDays();
   const locale = useLocale() as LocaleCode;
   const {
     ready,
@@ -224,28 +226,34 @@ export function PeriodScreen() {
       }
       setCreatingId(staffId);
       try {
-        await createSettlementSheet(businessId, staffId, periodFrom, periodTo);
+        // Ответ 27: дни уже начислены — спрашиваем, начислить ли только новые
+        const res = await sheetNewDays(businessId, staffId, periodFrom.slice(0, 10), periodTo.slice(0, 10));
+        if (res.status !== "created") return;
         toast.success(t("period.sheetCreated"));
-        router.push(href);
+        router.push(`/biz/payroll/statement?staffId=${staffId}&from=${res.from}&to=${res.to}`);
       } catch {
         toast.error(t("period.sheetCreateFailed"));
       } finally {
         setCreatingId(null);
       }
     },
-    [businessId, from, to, periodFrom, periodTo, sheetsData, router, toast, t],
+    [businessId, from, to, periodFrom, periodTo, sheetsData, router, toast, t, sheetNewDays],
   );
 
   const createSheetForAll = async () => {
     if (!businessId || pendingRows.length === 0) return;
     setCreatingId("all");
     try {
-      await Promise.all(
+      // Ответ 27: у кого часть дней уже начислена — только новые дни; у кого всё начислено — не начисляем и считаем
+      const results = await Promise.all(
         pendingRows.map((r) =>
-          createSettlementSheet(businessId, r.staffId, periodFrom, periodTo),
+          createSheetNewDays(businessId, r.staffId, periodFrom.slice(0, 10), periodTo.slice(0, 10)),
         ),
       );
-      toast.success(t("period.sheetCreatedAll", { count: pendingRows.length }));
+      const created = results.filter((x) => x.status === "created").length;
+      const covered = results.length - created;
+      if (created) toast.success(t("period.sheetCreatedAll", { count: created }));
+      if (covered) toast.info(t("statement.overlap.skipped", { count: covered }));
     } catch {
       toast.error(t("period.sheetCreateFailed"));
     } finally {

@@ -104,7 +104,8 @@ export function GoodsMigrationScreen() {
 
       <SectionCard title={t('goods.migration.sourceLabel')}>
         <Select
-          options={locations.map((l) => ({ value: l.business.id, label: l.business.name }))}
+          // Ответ 32: замороженный филиал в действиях сети неактивен с подписью «заморожен»
+          options={locations.map((l) => ({ value: l.business.id, label: l.business.status === 'frozen' ? t('form.frozenBranch', { name: l.business.name }) : l.business.name, disabled: l.business.status === 'frozen' }))}
           value={businessId}
           onValueChange={(v) => {
             setBusinessId(v as Id);

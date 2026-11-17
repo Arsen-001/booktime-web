@@ -11,6 +11,7 @@ import { getStockSettings, updateStockSettings } from '@/api/stock';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import type { CostMethod } from '@/domain/stock';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
@@ -90,17 +91,20 @@ export function StockSettingsScreen() {
         />
       </SectionCard>
 
-      <div data-f="F-00-165">
-        <SectionCard title={t('settings.adsTitle')}>
-          <Checkbox
-            checked={settings?.adsOptIn ?? false}
-            disabled={loading}
-            onCheckedChange={(checked) => save({ adsOptIn: checked })}
-            label={t('settings.adsLabel')}
-            description={t('settings.adsHint')}
-          />
-        </SectionCard>
-      </div>
+      {/* Предложения поставщиков — реальных поставщиков пока нет, скрыто до подключения (src/config/hidden.ts) */}
+      {isConnected('supplierOffers') && (
+        <div data-f="F-00-165">
+          <SectionCard title={t('settings.adsTitle')}>
+            <Checkbox
+              checked={settings?.adsOptIn ?? false}
+              disabled={loading}
+              onCheckedChange={(checked) => save({ adsOptIn: checked })}
+              label={t('settings.adsLabel')}
+              description={t('settings.adsHint')}
+            />
+          </SectionCard>
+        </div>
+      )}
 
       {/* F-08-109…118: мелкие права на склад по каждому сотруднику */}
       <SectionCard title={t('settings.accessTitle')} description={t('settings.accessHint')}>

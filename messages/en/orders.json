@@ -125,7 +125,10 @@
     },
     "fromBookingTitle": "Accept order from booking",
     "fromBookingHint": "Client and item come from the drop-off booking. Check the item, set the price and due date.",
-    "alreadyAccepted": "An order for this booking has already been accepted"
+    "alreadyAccepted": "An order for this booking has already been accepted",
+    "payMethod": "Payment method",
+    "payMethodNone": "No payment methods set up",
+    "prepaidMethodHint": "The prepayment goes straight to this method’s register"
   },
   "next": {
     "in_progress": "Start work",
@@ -438,5 +441,15 @@
     "noOrder": "No order",
     "issuedToast": "Order #{number} handed over",
     "failed": "Couldn’t hand over. Please try again."
+  },
+  "issue": {
+    "title": "Hand over order #{number}",
+    "titleShort": "Hand over order",
+    "hint": "We take the balance now — it goes straight to the register",
+    "amount": "Paid on handover",
+    "dueHint": "Left to pay: {amount}",
+    "confirm": "Hand over",
+    "confirmPaid": "Take {amount} and hand over",
+    "back": "Back"
   }
 }

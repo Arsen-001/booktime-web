@@ -150,9 +150,11 @@ function ExcelMigrationCard({
             <Select
               value={toId}
               onValueChange={(v) => setToId(v as Id)}
+              // Ответ 32: в замороженный филиал не загружаем — неактивен с подписью «заморожен»
               options={locations.map((l) => ({
                 value: l.business.id,
-                label: l.business.name,
+                label: l.business.status === "frozen" ? t("form.frozenBranch", { name: l.business.name }) : l.business.name,
+                disabled: l.business.status === "frozen",
               }))}
               placeholder={t("migration.excelChooseLocation")}
             />

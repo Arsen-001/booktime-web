@@ -13,6 +13,7 @@
  * тот путь уже занят стопгапом этапа 7 (`payLines`/`instantPay` в journal.server.ts, экран `PaymentSheet.tsx`) —
  * см. PROGRESS.md этапа 12, «решено по ходу».
  */
+import { prepaidAmount } from '@/domain/rules';
 import * as ClientsServer from '@/api/clients/clients.server';
 import { currentActor } from '@/api/core';
 import { getBooking } from '@/api/journal.server';
@@ -354,7 +355,10 @@ async function toSummary(businessId: Id, bookingId: Id, s: ServerBookingPaymentS
     createdAt: toLocalDateTime(l.createdAt) ?? l.createdAt,
     createdBy: l.createdBy,
   }));
-  return { booking, lineTotals: s.lineTotals, payments, due: s.due, status: s.status, note: s.note, goods: s.goods, total: s.payableTotal };
+  // Предоплата переводом (F-00-097) — своя операция кассы, не строка оплаты: сервер её в moneyLines не отдаёт, сайт
+  // берёт из записи тем же правилом, что мок (prepaidOf). Ответ 14 (17.11.2026): она отдельной строкой в «Оплачено»
+  const prepaid = Math.min(prepaidAmount(booking), s.payableTotal ?? booking.total);
+  return { booking, lineTotals: s.lineTotals, payments, due: s.due, status: s.status, note: s.note, goods: s.goods, total: s.payableTotal, prepaid: prepaid > 0 ? prepaid : undefined };
 }
 
 export async function getBookingPaymentSummary(businessId: Id, bookingId: Id): Promise<BookingPaymentSummary> {

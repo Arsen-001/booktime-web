@@ -369,6 +369,11 @@ export interface Service {
   workplaces: Workplace[];
   onlineBookable: boolean;
   active: boolean;
+  /**
+   * В архиве (владелец 17.11.2026, ответ 33): услуга с визитами при «Удалить» не стирается — не видна в списках, записи
+   * и онлайн (active = false), история и отчёты сохраняют её название. Нет поля — обычная услуга.
+   */
+  archivedAt?: ISODateTime;
   order: number;
   /** Выбор оттенка/варианта при записи (F-00-094…096): обязательно / желательно; нет поля — шага выбора нет */
   shadeChoice?: 'required' | 'preferred';

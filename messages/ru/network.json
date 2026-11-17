@@ -128,7 +128,8 @@
     "financeVisits": "Визиты",
     "financeAvgCheck": "Средний чек",
     "financeCancelled": "Отмены",
-    "financeTotal": "Итого"
+    "financeTotal": "Итого",
+    "scopeNetworkOnlyNoPhone": "Только в сети: клиенты, аналитика, планы, лояльность"
   },
   "switch": {
     "title": "Филиалы и сети",
@@ -770,7 +771,9 @@
       "historyTitle": "История начислений",
       "empty": "Ведомостей ещё не было",
       "staffCount": "Сотрудников: {count}",
-      "period": "{from} — {to}"
+      "period": "{from} — {to}",
+      "skippedFrozen": "Не начислено: {count} — филиал заморожен",
+      "skippedCovered": "Не начислено: {count} — дни уже в ведомостях"
     },
     "migrationScreen": {
       "title": "Миграция сотрудников",
@@ -1160,7 +1163,8 @@
   },
   "form": {
     "selectAll": "Выбрать все",
-    "selectNone": "Снять все"
+    "selectNone": "Снять все",
+    "frozenBranch": "{name} · заморожен"
   },
   "extensions": {
     "serviceCard": {
@@ -1249,10 +1253,16 @@
     "title": "Добавить филиал",
     "subtitle": "Новый салон или уже свой — в одну сеть",
     "newTitle": "Новый филиал",
-    "newHint": "Заведите салон с адресом, графиком и сотрудниками",
+    "newHint": "Название и адрес — остальное как у главного филиала. У филиала своя подписка",
     "newAction": "Создать",
     "existingTitle": "Уже ваш салон",
-    "failed": "Не удалось добавить филиал"
+    "failed": "Не удалось добавить филиал",
+    "nameLabel": "Название филиала",
+    "namePlaceholder": "Например: Аван",
+    "addressLabel": "Адрес",
+    "districtLabel": "Район",
+    "nameRequired": "Введите название филиала",
+    "created": "Филиал создан и добавлен в сеть"
   },
   "deletedGate": {
     "title": "Сеть «{name}» удалена",

@@ -10,7 +10,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle2, FileDown } from "lucide-react";
 import { computeDay } from "@/api/payroll";
-import { createSettlementSheet, listSettlementEntries } from "@/api/finance";
+import { listSettlementEntries } from "@/api/finance";
+import { createSheetNewDays, useSheetNewDays } from "@/areas/payroll/sheetNewDays";
 import { useApiQuery } from "@/api/request";
 import { useCoreList } from "@/api/core";
 import type { Id } from "@/domain/core";
@@ -47,6 +48,7 @@ export function DailyScreen() {
   const { money } = useFormat();
   const toast = useToast();
   const router = useRouter();
+  const sheetNewDays = useSheetNewDays();
   const {
     ready,
     businessId,
@@ -135,7 +137,9 @@ export function DailyScreen() {
     }
     setCreatingId(staffId);
     try {
-      await createSettlementSheet(businessId, staffId, periodFrom, periodTo);
+      // Ответ 27: день уже в другой ведомости (например, за период) — второй раз не начисляем
+      const res = await sheetNewDays(businessId, staffId, periodFrom.slice(0, 10), periodTo.slice(0, 10));
+      if (res.status !== "created") return;
       toast.success(t("daily.sheetCreated"));
       router.push(
         `/biz/payroll/statement?staffId=${staffId}&from=${date}&to=${date}`,
@@ -156,12 +160,15 @@ export function DailyScreen() {
     }
     setCreatingId("all");
     try {
-      await Promise.all(
+      const results = await Promise.all(
         pending.map((r) =>
-          createSettlementSheet(businessId, r.staffId, periodFrom, periodTo),
+          createSheetNewDays(businessId, r.staffId, periodFrom.slice(0, 10), periodTo.slice(0, 10)),
         ),
       );
-      toast.success(t("daily.sheetCreatedAll", { count: pending.length }));
+      const created = results.filter((x) => x.status === "created").length;
+      const covered = results.length - created;
+      if (created) toast.success(t("daily.sheetCreatedAll", { count: created }));
+      if (covered) toast.info(t("statement.overlap.skipped", { count: covered }));
     } catch {
       toast.error(t("daily.sheetCreateFailed"));
     } finally {

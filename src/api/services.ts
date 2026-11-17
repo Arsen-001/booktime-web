@@ -71,7 +71,7 @@ const notIntake = (s: Pick<Service, 'kind'>) => !isOrderService(s);
 export function listServices(businessId: Id, q: { kind?: ServiceKind } = {}): Promise<Service[]> {
   if (isApiMode()) return S.listServices(businessId, q.kind).then((rows) => (q.kind ? rows : rows.filter(notIntake)));
   return request(() =>
-    coreTx.list('services', (s) => s.businessId === businessId && (q.kind ? s.kind === q.kind : notIntake(s))).sort((a, b) => a.order - b.order),
+    coreTx.list('services', (s) => s.businessId === businessId && !s.archivedAt && (q.kind ? s.kind === q.kind : notIntake(s))).sort((a, b) => a.order - b.order),
   );
 }
 
@@ -79,7 +79,7 @@ export function listServiceRows(businessId: Id): Promise<ServiceRow[]> {
   if (isApiMode()) return S.listServiceRows(businessId).then((rows) => rows.filter((r) => notIntake(r.service)));
   return request(() => {
     const list = coreTx
-      .list('services', (s) => s.businessId === businessId && notIntake(s))
+      .list('services', (s) => s.businessId === businessId && !s.archivedAt && notIntake(s))
       .sort((a, b) => a.order - b.order);
     const extra = readArea('services').serviceExtra;
     const terms = readArea('services').staffTerms;
@@ -334,7 +334,7 @@ export function deleteService(id: Id, businessId: Id): Promise<Service> {
     readCore().staff
       .filter((st) => st.serviceIds.includes(id))
       .forEach((st) => coreTx.update('staff', st.id, { serviceIds: st.serviceIds.filter((x) => x !== id) }));
-    coreTx.remove('services', id);
+    removeOrArchiveSync(service);
     writeAudit(businessId, id, 'deleted', service, undefined);
     return service;
   }, { permission: 'services.edit' });
@@ -342,7 +342,25 @@ export function deleteService(id: Id, businessId: Id): Promise<Service> {
 
 export function restoreService(service: Service): Promise<Service> {
   if (isApiMode()) return S.restoreService(service);
-  return request(() => coreTx.create('services', service));
+  return request(() => restoreOrUnarchiveSync(service));
+}
+
+/**
+ * Ответ 33 (владелец 17.11.2026): услуга с историей (запись или групповое событие с ней) не стирается — в архив
+ * (выключена, не онлайн, без мастеров), название остаётся истории и отчётам; без истории — стирается. Как сервер.
+ */
+function removeOrArchiveSync(service: Service): void {
+  const core = readCore();
+  const used = core.bookings.some((b) => b.businessId === service.businessId && b.services.some((l) => l.serviceId === service.id)) || core.groupEvents.some((e) => e.serviceId === service.id);
+  if (used) coreTx.update('services', service.id, { archivedAt: nowDateTime(), active: false, onlineBookable: false, staffIds: [] });
+  else coreTx.remove('services', service.id);
+}
+
+/** «Отменить»: из архива — снова в работе как была; стёртая — заново тем же id */
+function restoreOrUnarchiveSync(service: Service): Service {
+  const existing = readCore().services.find((s) => s.id === service.id);
+  if (existing?.archivedAt) return coreTx.update('services', service.id, { ...service, archivedAt: undefined });
+  return coreTx.create('services', service);
 }
 
 // ─────────────────────────── Категории ───────────────────────────
@@ -1038,7 +1056,7 @@ export function bulkDeleteServices(ids: Id[], businessId: Id): Promise<Service[]
     readCore()
       .staff.filter((st) => st.serviceIds.some((x) => ids.includes(x)))
       .forEach((st) => coreTx.update('staff', st.id, { serviceIds: st.serviceIds.filter((x) => !ids.includes(x)) }));
-    ids.forEach((id) => coreTx.remove('services', id));
+    snapshots.forEach(removeOrArchiveSync);
     snapshots.forEach((s) => writeAudit(businessId, s.id, 'deleted', s, undefined));
     coreTx.logDataOperation({ businessId, kind: 'delete', area: 'services', entity: 'services', count: ids.length });
     return snapshots;
@@ -1054,7 +1072,7 @@ export function restoreServices(snapshots: Service[]): Promise<void> {
   }
   return request(() => {
     snapshots.forEach((s) => {
-      coreTx.create('services', s);
+      restoreOrUnarchiveSync(s);
       s.staffIds.forEach((staffId) => {
         const st = readCore().staff.find((x) => x.id === staffId);
         if (st && !st.serviceIds.includes(s.id)) coreTx.update('staff', staffId, { serviceIds: [...st.serviceIds, s.id] });

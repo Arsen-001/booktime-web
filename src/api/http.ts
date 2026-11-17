@@ -23,12 +23,10 @@ export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:401
 export class HttpApiError extends ApiError {
   readonly status: number;
   readonly retryAfter?: number;
-  readonly fields?: Record<string, string>;
   constructor(status: number, code: string, message?: string, retryAfter?: number, fields?: Record<string, string>) {
-    super(code, message);
+    super(code, message, fields);
     this.status = status;
     this.retryAfter = retryAfter;
-    this.fields = fields;
   }
 }
 

@@ -22,6 +22,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import type { WebhookEntity } from '@/domain/notify';
 import { WEBHOOK_ENTITIES } from '@/domain/notify';
 import { useCurrent } from '@/demo/hooks';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -238,10 +239,11 @@ export function DeveloperScreen() {
   const t = useT('notify');
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader back={{ href: '/biz/notifications/channels', label: t('tabs.channels') }} title={t('developer.title')} description={t('developer.subtitle')} />
+      <PageHeader back={{ href: '/biz/notifications/channels', label: t('tabs.channels') }} title={t('developer.title')} description={isConnected('externalAgent') ? t('developer.subtitle') : t('developer.subtitleWebhooks')} />
       <WebhooksCard />
-      <AgentFlagsCard />
-      <PartnerSummaryCard />
+      {/* «Запись через внешнего агента» и сводки от приложений партнёров — скрыты до подключения (src/config/hidden.ts) */}
+      {isConnected('externalAgent') && <AgentFlagsCard />}
+      {isConnected('appCatalog') && <PartnerSummaryCard />}
     </div>
   );
 }

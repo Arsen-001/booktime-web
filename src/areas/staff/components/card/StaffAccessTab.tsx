@@ -31,6 +31,7 @@ import {
 } from "@/domain/staff";
 import type { Id, StaffRole } from "@/domain/core";
 import { useCurrent, useTerms } from "@/demo/hooks";
+import { isConnected } from "@/config/hidden";
 import { useT } from "@/i18n/useT";
 import { Badge } from "@/ui/Badge";
 import { Button } from "@/ui/Button";
@@ -72,7 +73,9 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
     getStaffAccess(staffId),
   );
   // М2: доступ по IP читаем тут же, параллельно — вкладка появляется одним куском, без второй заглушки
-  const ipQ = useApiQuery(["staff", "ipRestriction", staffId], () => getIpRestriction(staffId));
+  // «Вход только с IP салона» скрыт до проверки на сервере (владелец 17.11.2026, ответ 22; src/config/hidden.ts)
+  const ipOn = isConnected("salonIpLogin");
+  const ipQ = useApiQuery(["staff", "ipRestriction", staffId], () => getIpRestriction(staffId), { enabled: ipOn });
   const [inviteTarget, setInviteTarget] = useState<string | null>(null);
   const [inviteError, setInviteError] = useState<string | null>(null);
   const sendInviteM = useApiMutation((a: { staffId: Id; target: string }) => sendInviteForStaff(a.staffId, a.target));
@@ -92,7 +95,7 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
   const revokeInviteM = useApiMutation(revokeInviteForStaff);
 
   if (accessQ.isError) return <ErrorState onRetry={accessQ.refetch} />;
-  if (!accessQ.data || (accessQ.data.access.enabled && !ipQ.data && !ipQ.isError))
+  if (!accessQ.data || (ipOn && accessQ.data.access.enabled && !ipQ.data && !ipQ.isError))
     return (
       <div data-skeleton className="flex flex-col gap-5" aria-busy>
         <div className="flex flex-col gap-4 rounded-2xl border border-border p-5">
@@ -318,7 +321,7 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
         <PasswordLoginSection data={accessQ.data} />
       )}
 
-      {access.enabled && (
+      {ipOn && access.enabled && (
         <IpRestrictionSection
           staffId={staffId}
           canManage={canManage}

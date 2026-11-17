@@ -49,6 +49,7 @@ import { SPHERES, SPHERE_IDS, type SphereFeature } from '@/config/spheres';
 import type { PersonaId } from '@/demo/settings';
 import type { SphereId } from '@/domain/core';
 import { CLIENT_NAV } from '@/config/nav-client';
+import { hiddenRouteTarget } from '@/config/hidden';
 import { subnav as clientSub } from '@/areas/client/nav';
 import { subnav as platformSub } from '@/areas/platform/nav';
 import { subnav as journalSub } from '@/areas/journal/nav';
@@ -222,6 +223,8 @@ export interface NavVisibilityContext {
 
 function childVisible(child: NavChild, ctx: NavVisibilityContext): boolean {
   if (ctx.hiddenHrefs?.has(child.href)) return false;
+  // Скрыто до настоящего подключения (владелец 17.11.2026) — src/config/hidden.ts
+  if (hiddenRouteTarget(child.href)) return false;
   if (child.personas && !child.personas.includes(ctx.persona)) return false;
   if (child.hiddenInSpheres?.includes(ctx.sphere)) return false;
   if (child.permission && !ctx.can(child.permission)) return false;

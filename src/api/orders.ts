@@ -11,6 +11,7 @@
 import { mutateArea, readArea, readCore } from '@/api/area';
 import { coreTx, currentActor } from '@/api/core';
 import { isApiMode } from '@/api/http';
+import { recordOrderMoneySync } from '@/api/finance';
 import { appendNotifyLogTx } from '@/api/notify';
 import * as S from '@/api/orders.server';
 import { intakeBookingForOrderTx, markIntakeArrivedTx } from '@/api/ordersIntake';
@@ -28,6 +29,7 @@ import {
   ORDER_CODE_LENGTH,
   type Order,
   type OrderInput,
+  type OrderIssuePayment,
   type OrderItem,
   type OrderPatch,
   type OrdersPage,
@@ -230,6 +232,8 @@ export function createOrder(args: { businessId: Id; input: OrderInput }): Promis
     };
     const saved = saveOrderTx(order);
     if (input.bookingId) markIntakeArrivedTx(input.bookingId);
+    // Ответ 12: предоплата — сразу в кассу выбранным способом (как сервер)
+    if (saved.prepaid > 0 && input.prepaidMethod) recordOrderMoneySync({ ...saved, locationId: saved.locationId ?? undefined, clientId: saved.clientId ?? undefined }, saved.prepaid, input.prepaidMethod, 'prepaid');
     return saved;
   });
 }
@@ -256,14 +260,18 @@ export function updateOrder(args: { businessId: Id; orderId: Id; patch: OrderPat
     if (patch.clientPhone !== undefined || patch.clientId !== undefined) {
       next.clientId = ensureClientTx(businessId, patch.clientId ?? null, next.clientName, phone);
     }
-    return saveOrderTx(next);
+    delete (next as Partial<OrderPatch>).prepaidMethod;
+    const saved = saveOrderTx(next);
+    // Ответ 12: предоплату поменяли — разница сразу в кассу (как сервер)
+    if (patch.prepaidMethod && next.prepaid !== current.prepaid) recordOrderMoneySync({ ...saved, locationId: saved.locationId ?? undefined, clientId: saved.clientId ?? undefined }, next.prepaid - current.prepaid, patch.prepaidMethod, 'prepaidChange');
+    return saved;
   });
 }
 
 /** Перевести заказ: «В работу», «Готово» (клиенту уходит уведомление само), «Выдать», «Вернуть в работу», «Отменить» */
-export function setOrderStatus(args: { businessId: Id; orderId: Id; status: OrderStatus }): Promise<Order> {
-  const { businessId, orderId, status } = args;
-  if (isApiMode()) return S.setOrderStatusServer(businessId, orderId, status);
+export function setOrderStatus(args: { businessId: Id; orderId: Id; status: OrderStatus; payment?: OrderIssuePayment }): Promise<Order> {
+  const { businessId, orderId, status, payment } = args;
+  if (isApiMode()) return S.setOrderStatusServer(businessId, orderId, status, payment);
   return request(() => {
     const current = findOrderTx(businessId, orderId);
     if (!canTransitionOrder(current.status, status, current.estimate?.status)) throw new ApiError('invalid_transition', `${current.status} → ${status}`);
@@ -282,6 +290,8 @@ export function setOrderStatus(args: { businessId: Id; orderId: Id; status: Orde
     // ⭐ Выдали заказ, на который клиент записался по времени, — запись на выдачу «Пришёл» (как сервер, best-effort)
     const pickup = status === 'issued' ? activePickupBookingTx(current) : undefined;
     if (pickup) markIntakeArrivedTx(pickup.id);
+    // Ответ 12: «Выдать клиенту» — доплата сразу в кассу выбранным способом (как сервер)
+    if (status === 'issued' && payment && payment.amount > 0) recordOrderMoneySync({ ...saved, locationId: saved.locationId ?? undefined, clientId: saved.clientId ?? undefined }, payment.amount, payment.methodKey, 'issue');
     return saved;
   });
 }

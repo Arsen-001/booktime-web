@@ -345,6 +345,14 @@ export const ALL_FINE_PERMISSIONS: FinePermissionItem[] = [
   ...medical,
 ];
 
+/**
+ * Ответ 29 (владелец 17.11.2026): «Просматривать телефоны клиентов» — главная галочка. «Телефон клиента в записи» без
+ * неё неактивен (requires) и сам права clients.phones не даёт — иначе телефоны были видны в обход главной (Kaytsak).
+ */
+export const MAIN_PHONES_ID = clients.find((p) => p.label.ru === 'Просматривать телефоны клиентов')!.id;
+const bookingPhonesView = booking.find((p) => p.label.ru === 'Просматривать телефон клиента в записи');
+if (bookingPhonesView) bookingPhonesView.requires = MAIN_PHONES_ID;
+
 /** 4 отдельных переключателя вне групп (F-10-089) */
 export const STANDALONE_PERMISSIONS: FinePermissionItem[] = [
   { id: 'standalone.reportAmounts', group: 'reports', label: { ru: 'Видеть суммы в отчётах', en: 'See amounts in reports' }, perm: 'finance.view' },
@@ -370,6 +378,8 @@ export function reduceToCoarse(fineIds: readonly string[]): Permission[] {
     const item = findFinePermission(id);
     if (item) set.add(item.perm);
   }
+  // Ответ 29: телефоны клиентов — только по главной галочке; «телефон клиента в записи» и прочие её не обходят
+  if (!fineIds.includes(MAIN_PHONES_ID)) set.delete('clients.phones');
   return [...set];
 }
 

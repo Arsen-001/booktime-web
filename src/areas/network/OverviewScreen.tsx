@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { setLocationId } from "@/demo/store";
 import { getNetworkBranchDailyStats, listNetworkLocations } from "@/api/network";
 import { useApiQuery } from "@/api/request";
+import { isConnected } from "@/config/hidden";
 import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
 import { today } from "@/lib/date";
@@ -277,7 +278,7 @@ export function OverviewScreen() {
           <ul className="flex flex-col gap-1.5 text-sm text-muted">
             <li className="flex items-center gap-2">
               <Landmark className="size-4 shrink-0 text-muted" aria-hidden />
-              {t("overview.scopeNetworkOnly")}
+              {isConnected("telephony") ? t("overview.scopeNetworkOnly") : t("overview.scopeNetworkOnlyNoPhone")}
             </li>
             <li className="flex items-center gap-2">
               <Building2 className="size-4 shrink-0 text-muted" aria-hidden />

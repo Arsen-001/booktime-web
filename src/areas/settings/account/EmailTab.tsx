@@ -10,6 +10,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { confirmEmailLinkDemo, getPersonalAccount, sendEmailConfirmation } from '@/api/settings';
 import type { Id } from '@/domain/core';
 import { useFormat } from '@/i18n/useFormat';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -44,6 +45,9 @@ export function EmailTab({ staffId }: { staffId: Id }) {
   const verified = accQ.data?.emailVerified;
   const sentAt = accQ.data?.emailConfirmSentAt;
   const invalid = touched && newEmail.trim().length > 0 && !EMAIL_RE.test(newEmail.trim());
+  // Подтверждение почты письмом скрыто, пока сервис не шлёт письма (владелец 17.11.2026, ответ 21; src/config/hidden.ts):
+  // адрес просто сохраняется — без «Подтвердить» и без пометки «не подтверждён»
+  const confirmOn = isConnected('emailConfirm');
 
   const changeEmail = async () => {
     setTouched(true);
@@ -51,7 +55,7 @@ export function EmailTab({ staffId }: { staffId: Id }) {
     if (!EMAIL_RE.test(trimmed)) return;
     try {
       await change.mutate(trimmed);
-      toast.success(t('account.email.sent'));
+      toast.success(confirmOn ? t('account.email.sent') : t('account.email.saved'));
       setNewEmail('');
       setTouched(false);
     } catch {
@@ -65,13 +69,13 @@ export function EmailTab({ staffId }: { staffId: Id }) {
         <FormField label={t('account.email.currentLabel')}>
           <div className="flex flex-wrap items-center gap-2">
             <Input value={currentEmail ?? ''} disabled readOnly placeholder={loading ? undefined : t('account.email.notSet')} className="max-w-xs" />
-            {currentEmail && (
+            {currentEmail && confirmOn && (
               <Badge tone={verified ? 'success' : 'warning'}>{verified ? t('account.email.verified') : t('account.email.notVerified')}</Badge>
             )}
           </div>
         </FormField>
 
-        {currentEmail && !verified && (
+        {confirmOn && currentEmail && !verified && (
           <div className="flex flex-wrap items-center gap-3">
             <Button
               variant="secondary"
@@ -107,7 +111,7 @@ export function EmailTab({ staffId }: { staffId: Id }) {
             </Button>
           </div>
         </FormField>
-        {sentAt && <p className="text-xs text-muted">{format.dateTime(sentAt)}</p>}
+        {confirmOn && sentAt && <p className="text-xs text-muted">{format.dateTime(sentAt)}</p>}
       </div>
     </SectionCard>
   );

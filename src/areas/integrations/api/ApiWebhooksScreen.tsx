@@ -13,13 +13,17 @@ import { KeysTab } from '@/areas/integrations/api/tabs/KeysTab';
 import { McpTab } from '@/areas/integrations/api/tabs/McpTab';
 import { OverviewTab } from '@/areas/integrations/api/tabs/OverviewTab';
 import { WebhooksTab } from '@/areas/integrations/api/tabs/WebhooksTab';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { PageHeader } from '@/ui/PageHeader';
 import { PermissionGate } from '@/ui/PermissionGate';
 import { Tabs } from '@/ui/Tabs';
 
-const VALID_TABS = ['overview', 'keys', 'identifiers', 'webhooks', 'mcp', 'docs'] as const;
-type TabId = (typeof VALID_TABS)[number];
+const ALL_TABS = ['overview', 'keys', 'identifiers', 'webhooks', 'mcp', 'docs'] as const;
+type TabId = (typeof ALL_TABS)[number];
+// Открытый API скрыт до настоящего подключения (владелец 17.11.2026, src/config/hidden.ts): сервер ключ нигде не
+// принимает — остаются только вебхуки (они живые: сервер шлёт события)
+const VALID_TABS: readonly TabId[] = isConnected('openApi') ? ALL_TABS : ['webhooks'];
 
 // b02-shared: 6 вкладок не помещаются на телефоне (390 px) — стрелка прокрутки Tabs перекрывает соседнюю
 // подпись. Полная правка — в Tabs.tsx (фундамент), просьба записана в qa/requests/integrations.md. Здесь —
@@ -32,7 +36,7 @@ const TAB_ICON: Record<TabId, typeof Eye> = { overview: Eye, keys: KeyRound, ide
 export function ApiWebhooksScreen() {
   const t = useT('integrations');
   const initial = useSearchParams().get('tab');
-  const [tab, setTab] = useState<TabId>((VALID_TABS as readonly string[]).includes(initial ?? '') ? (initial as TabId) : 'overview');
+  const [tab, setTab] = useState<TabId>((VALID_TABS as readonly string[]).includes(initial ?? '') ? (initial as TabId) : VALID_TABS[0]);
 
   const tabs = VALID_TABS.map((id) => {
     const Icon = TAB_ICON[id];
@@ -53,8 +57,14 @@ export function ApiWebhooksScreen() {
       data-f="F-13-051 F-13-052 F-13-053 F-13-054 F-13-055 F-13-056 F-13-058 F-13-060 F-13-061 F-13-062 F-13-063 F-13-064 F-13-065 F-13-068 F-13-069 F-13-071 F-13-072 F-13-024 F-13-067 F-01-202 F-01-203 F-08-138"
       className="mx-auto flex w-full max-w-5xl flex-col gap-6"
     >
-      <PageHeader title={t('api.title')} description={t('api.subtitle')} />
-      <Tabs items={tabs} value={tab} onValueChange={(v) => setTab(v as TabId)} />
+      {VALID_TABS.length > 1 ? (
+        <>
+          <PageHeader title={t('api.title')} description={t('api.subtitle')} />
+          <Tabs items={tabs} value={tab} onValueChange={(v) => setTab(v as TabId)} />
+        </>
+      ) : (
+        <PageHeader title={t('api.tabs.webhooks')} description={t('api.webhooksOnlySubtitle')} />
+      )}
 
       {tab === 'overview' && <OverviewTab onGoDocs={() => setTab('docs')} />}
       {tab === 'keys' && (

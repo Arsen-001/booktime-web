@@ -88,7 +88,7 @@ import type {
   WebhookEntity,
   WebhookSettings,
 } from '@/domain/settings';
-import { isAssistantStaff } from '@/domain/staff';
+import { seatsFor } from '@/areas/staff/pricing';
 import { dayjs, toISODate, toISODateTime } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { pickText } from '@/lib/text';
@@ -117,6 +117,20 @@ function isBillableMaster(staffId: Id): boolean {
   if (!hasService) return false;
   const monthStart = dayjs().startOf('month').format('YYYY-MM-DD');
   return core.schedules.some((w) => w.staffId === staffId && (!w.openUntil || w.openUntil >= monthStart));
+}
+
+/** У кого есть график, не закончившийся до текущего месяца (для мест ассистента — ответ 19) */
+function scheduledIds(): Id[] {
+  const monthStart = dayjs().startOf('month').format('YYYY-MM-DD');
+  return readCore().schedules.filter((w) => !w.openUntil || w.openUntil >= monthStart).map((w) => w.staffId);
+}
+
+/** У кого есть свои записи в этом месяце (ассистент с записями — платный мастер, ответ 19) */
+function bookedIds(businessId: Id): Id[] {
+  const monthStart = dayjs().startOf('month');
+  return readCore()
+    .bookings.filter((b) => b.businessId === businessId && !b.deletedAt && !b.status.startsWith('cancelled') && !dayjs(b.start).isBefore(monthStart))
+    .map((b) => b.staffId);
 }
 
 function computeSeats(biz: Business): {
@@ -193,25 +207,17 @@ function computeSeats(biz: Business): {
       });
       return;
     }
-    // master
-    // F-09-044: отдельный ассистент («Только просмотр», без графика и своих услуг) — бесплатное место,
-    // не платный мастер, даже если формально роль в ядре та же.
-    // С9 обзора «Сотрудники» (27.09.2026): ассистент — галочка ИЛИ должность «Ассистент…» (то же правило,
-    // что в строке списка сотрудников — isAssistantStaff, src/areas/staff/pricing.ts)
-    if (isAssistantStaff(s)) {
-      seats.push({
-        staffId: s.id,
-        name: s.name,
-        role: 'master',
-        paid: false,
-        price: 0,
-        reasonKey: 'assistantFree',
-      });
+    // master — ответ 19 (владелец 17.11.2026), одно правило с сервером (billing-seats.ts) и строкой списка (seatsFor):
+    // бесплатно только ассистент по галочке без своих услуг, графика и записей в этом месяце; приглашённый, не
+    // вошедший — до первого входа, но не дольше 14 дней (в моке — с даты добавления)
+    const seat = seatsFor([s], new Set(scheduledIds()), new Set(bookedIds(biz.id))).get(s.id);
+    if (seat && !seat.paid) {
+      seats.push({ staffId: s.id, name: s.name, role: 'master', paid: false, price: 0, reasonKey: seat.reason as SeatLine['reasonKey'] });
       return;
     }
-    // Приглашённый мастер, ещё не принявший приглашение, не платный до первого входа (С9)
-    if (s.status === 'invited') {
-      seats.push({ staffId: s.id, name: s.name, role: 'master', paid: false, price: 0, reasonKey: 'invitedPending' });
+    if (seat?.reason === 'assistantWorks' || seat?.reason === 'invitedLong') {
+      masterCount++;
+      seats.push({ staffId: s.id, name: s.name, role: 'master', paid: true, price: MASTER_SEAT_PRICE, reasonKey: seat.reason });
       return;
     }
     masterCount++;

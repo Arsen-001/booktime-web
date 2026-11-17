@@ -1,6 +1,7 @@
 import { countInstalledForBusiness } from '@/api/integrations-shell';
 import { useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
+import { isConnected } from '@/config/hidden';
 import type { SubNav } from '@/config/nav-types';
 
 /**
@@ -19,7 +20,8 @@ export const subnav: SubNav = {
   integrations: [
     { id: 'catalog', href: '/biz/integrations', labelKey: 'integrations.nav.catalog' },
     { id: 'installed', href: '/biz/integrations/installed', labelKey: 'integrations.nav.installed', useCount: useInstalledCount },
-    { id: 'api', href: '/biz/integrations/api', labelKey: 'integrations.nav.api' },
+    // Открытый API скрыт до подключения (src/config/hidden.ts) — пункт называется «Вебхуки»
+    { id: 'api', href: '/biz/integrations/api', labelKey: isConnected('openApi') ? 'integrations.nav.api' : 'integrations.nav.webhooks' },
     { id: 'developers', href: '/biz/integrations/developers', labelKey: 'integrations.nav.developers' },
   ],
 };

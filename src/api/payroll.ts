@@ -26,6 +26,7 @@ import {
   monthLastDay,
   monthWorkShare,
   nextApprovalStatus,
+  isStatementLocked,
   onlineWidgetRewardForDay,
   packageServiceStaffBases,
   pickRuleForChart,
@@ -2036,11 +2037,29 @@ export function advanceStatementApproval(
       };
       const next = nextApprovalStatus(current.status);
       if (!next) throw new ApiError("validation");
+      // Ответ 28 (17.11.2026): «Выплачено» ставит только сама выплата (окно «Выплатить»), как сервер
+      if (next === "paid") throw new ApiError("cannot_pay");
       saved = {
         sheetId,
         status: next,
         history: [...current.history, { status: next, at: nowDateTime(), by }],
       };
+      s.statementApprovals[sheetId] = saved;
+    });
+    return saved;
+  });
+}
+
+/** «Вернуть на проверку» (ответ 26, 17.11.2026): одобренная ведомость снова открыта для правок */
+export function reopenStatementApproval(sheetId: Id, by: Id | undefined): Promise<StatementApproval> {
+  if (isApiMode()) return Server.reopenStatementApproval(sheetId);
+  return request(() => {
+    assertCan("payroll.manage");
+    let saved!: StatementApproval;
+    mutateArea("payroll", (s) => {
+      const current = s.statementApprovals[sheetId];
+      if (!current || !isStatementLocked(current.status)) throw new ApiError("validation");
+      saved = { sheetId, status: "pendingReview", history: [...current.history, { status: "pendingReview", at: nowDateTime(), by }] };
       s.statementApprovals[sheetId] = saved;
     });
     return saved;

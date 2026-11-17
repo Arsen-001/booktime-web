@@ -98,7 +98,7 @@ export function BusinessesScreen() {
       width: '8rem',
       // Обычно бизнес работает — плашки нет; в скелетоне её тоже нет (иначе она «исчезнет» при загрузке)
       skeleton: <></>,
-      cell: (r) => (r.status === 'active' ? null : <Badge tone={r.status === 'left' ? 'danger' : 'warning'}>{t(`businesses.status.${r.status}`)}</Badge>),
+      cell: (r) => (r.status === 'active' ? null : <Badge tone={r.status === 'left' ? 'danger' : 'warning'}>{r.status === 'frozen' && r.frozenReason === 'payment' ? t('businesses.frozenPayment') : t(`businesses.status.${r.status}`)}</Badge>),
     },
   ];
 

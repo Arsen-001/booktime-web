@@ -709,7 +709,10 @@
         "sentToStaff": "Sent to staff",
         "signed": "Signed"
       },
-      "statusLabel": "Status"
+      "statusLabel": "Status",
+      "reopen": "Return for review",
+      "reopened": "Statement is back in review — edits are open",
+      "lockedHint": "The statement is approved — bonuses, penalties and deletion are closed. Return it for review to change it."
     },
     "comment": "Comment",
     "commentPlaceholder": "Optional",
@@ -775,7 +778,14 @@
     "correctionLabel": "Adjustment for {period}",
     "correctionDone": "Adjustment accrued",
     "noDifference": "No difference from the accrued amount",
-    "sheetAmount": "Accrued by statement"
+    "sheetAmount": "Accrued by statement",
+    "overlap": {
+      "title": "These days are already accrued",
+      "text": "Some days are already in another statement. Accrue only the new days — {period}?",
+      "confirm": "Accrue {period}",
+      "none": "All days of this period are already accrued — no new statement needed",
+      "skipped": "Not accrued: {count} — days already in statements"
+    }
   },
   "title": "Payroll"
 }

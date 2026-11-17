@@ -32,11 +32,20 @@ export function FrozenBanner() {
     enabled: allBranches && ready && locationIds.length > 0,
   });
   const networkQ = useCoreGet('networks', allBranches ? (networkId ?? '') : '', { enabled: allBranches && Boolean(networkId) });
-  const branchLocation = locationsQ.data?.find((l) => l.businessId === businessId);
-  const fullName = branchLocation ? pickText(branchLocation.name, locale) : businessQ.data?.name;
   // Филиалы сети называются «Manana Beauty · Нор-Норк» — в полосе только сам филиал: «Филиал Нор-Норк заморожен»
   const prefix = networkQ.data?.name ? `${networkQ.data.name} · ` : undefined;
-  const branchName = fullName && prefix && fullName.startsWith(prefix) ? fullName.slice(prefix.length) : fullName;
+  const nameOf = (bizId: string) => {
+    const loc = locationsQ.data?.find((l) => l.businessId === bizId);
+    const full = loc ? pickText(loc.name, locale) : bizId === businessId ? businessQ.data?.name : undefined;
+    return full && prefix && full.startsWith(prefix) ? full.slice(prefix.length) : full;
+  };
+  // «Все филиалы»: заморозку видно у ЛЮБОГО филиала, а не только у главного (хвост 17.11) — подписка у каждого своя
+  const branchIds = allBranches ? [...new Set((locationsQ.data ?? []).map((l) => l.businessId))].filter((id) => id !== businessId) : [];
+  const branchesQ = useApiQuery(
+    ['shell', 'billing-warnings-branches', ...branchIds],
+    () => Promise.all(branchIds.map((id) => subscriptionWarnings(id).then((w) => (w.some((x) => x.messageKey === 'billing.warning.frozen') ? id : null)).catch(() => null))),
+    { enabled: ready && branchIds.length > 0 },
+  );
   const canBilling = useCan('billing.manage');
   const hidePurchases = useHideDigitalPurchases();
   const q = useApiQuery(['shell', 'billing-warnings', businessId], () => subscriptionWarnings(businessId!), {
@@ -47,13 +56,21 @@ export function FrozenBanner() {
   useEffect(() => {
     if (businessId && q.data) setFrozenBusiness(businessId, Boolean(frozen));
   }, [businessId, q.data, frozen]);
-  if (!frozen) return null;
+  const frozenBranches = [...(frozen ? [businessId!] : []), ...((branchesQ.data ?? []).filter((x): x is string => Boolean(x)))];
+  if (!frozenBranches.length) return null;
+  const names = frozenBranches.map(nameOf).filter((x): x is string => Boolean(x));
   const owner = canBilling && !hidePurchases;
   return (
     <div role="status" className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
       <Lock aria-hidden className="size-4 shrink-0" />
       <span className="min-w-0 flex-1">
-        {allBranches && branchName ? t('frozen.branch', { name: branchName }) : owner ? t('frozen.owner') : t('frozen.staff')}
+        {allBranches && names.length > 1
+          ? t('frozen.branches', { names: names.join(', ') })
+          : allBranches && names.length === 1
+            ? t('frozen.branch', { name: names[0] })
+            : owner
+              ? t('frozen.owner')
+              : t('frozen.staff')}
       </span>
       {owner && (
         <Link href="/biz/billing" className="inline-flex min-h-9 items-center rounded-lg bg-danger px-3 font-semibold text-primary-contrast hover:opacity-90">

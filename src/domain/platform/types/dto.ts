@@ -87,6 +87,10 @@ export interface BusinessOverviewRow {
   sphereIds: SphereId[];
   district?: DistrictId;
   status: 'active' | 'frozen' | 'left';
+  /** За что заморожен (ответ 30, 17.11.2026): неуплата → «Отсрочка N дней»; вручную панелью → «Вернуть в работу» */
+  frozenReason?: 'payment' | 'manual';
+  /** Отсрочка из панели — кабинет работает до этого дня (YYYY-MM-DD) */
+  graceUntil?: string;
   staffCount: number;
   meta?: BizMeta;
 }

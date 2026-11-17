@@ -8,8 +8,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { CalendarClock, PackageCheck } from 'lucide-react';
-import { setOrderStatus } from '@/api/orders';
-import { useApiMutation } from '@/api/request';
+import { IssueOrderModal } from '@/areas/orders/detail/IssueOrderModal';
 import { useCurrent } from '@/demo/hooks';
 import type { PickupBooking } from '@/domain/orders';
 import { useFormat } from '@/i18n/useFormat';
@@ -20,18 +19,16 @@ import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
 import { SectionCard } from '@/ui/SectionCard';
 import { Skeleton, SkeletonText } from '@/ui/Skeleton';
-import { useToast } from '@/ui/Toast';
 
 export function PickupTodayCard() {
   const t = useT('orders');
   const fmt = useFormat();
-  const toast = useToast();
   const { businessId } = useCurrent();
   const [date] = useState(today);
   const settingsQ = useIntakeSettings();
   const q = usePickupBookings(date, { enabled: settingsQ.data?.serviceId != null });
-  const issueM = useApiMutation(setOrderStatus);
-  const [issuing, setIssuing] = useState<string | null>(null);
+  // Ответ 12: «Выдать» — окно доплаты (сумма и способ оплаты, сразу в кассу)
+  const [issueOrderId, setIssueOrderId] = useState<string | null>(null);
   const rows = q.data ?? [];
 
   if (settingsQ.data?.enabled && q.isLoading) {
@@ -49,17 +46,8 @@ export function PickupTodayCard() {
   if (!rows.length) return null;
   const waiting = rows.filter((r) => r.orderStatus === 'ready').length;
 
-  async function issue(r: PickupBooking) {
-    if (!r.orderId || !businessId) return;
-    setIssuing(r.bookingId);
-    try {
-      await issueM.mutate({ businessId, orderId: r.orderId, status: 'issued' });
-      toast.success(t('pickupToday.issuedToast', { number: r.orderNumber ?? '' }));
-    } catch {
-      toast.error(t('pickupToday.failed'));
-    } finally {
-      setIssuing(null);
-    }
+  function issue(r: PickupBooking) {
+    if (r.orderId) setIssueOrderId(r.orderId);
   }
 
   return (
@@ -86,9 +74,7 @@ export function PickupTodayCard() {
                   variant="secondary"
                   leftIcon={<PackageCheck aria-hidden />}
                   className="self-start sm:self-center"
-                  loading={issuing === r.bookingId}
-                  disabled={issuing !== null && issuing !== r.bookingId}
-                  onClick={() => void issue(r)}
+                  onClick={() => issue(r)}
                 >
                   {t('pickupToday.issue')}
                 </Button>
@@ -103,6 +89,7 @@ export function PickupTodayCard() {
           ))}
         </ul>
       </SectionCard>
+      <IssueOrderModal businessId={businessId ?? ''} orderId={issueOrderId} onClose={() => setIssueOrderId(null)} />
     </div>
   );
 }

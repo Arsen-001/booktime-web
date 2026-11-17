@@ -134,7 +134,8 @@ export type OperationMethod = 'cash' | 'card' | 'transfer' | 'other';
 export type OperationPartyType = 'counterparty' | 'client' | 'staff' | 'none';
 
 /** Откуда взялась операция (F-07-018) — показывается меткой источника в списке */
-export type OperationSource = 'manual' | 'booking' | 'transfer' | 'import' | 'sale' | 'payroll' | 'account';
+/** 'order' — деньги заказа (предоплата при приёме, доплата при выдаче, ответ 12 владельца 17.11.2026) */
+export type OperationSource = 'manual' | 'booking' | 'transfer' | 'import' | 'sale' | 'payroll' | 'account' | 'order';
 
 export interface OperationHistoryEntry {
   at: ISODateTime;

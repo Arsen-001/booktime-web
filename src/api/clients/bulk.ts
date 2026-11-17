@@ -222,6 +222,30 @@ export function mergeClients(businessId: Id, keepId: Id, duplicateId: Id, actorI
       delete s.calls[duplicateId];
       delete s.files[duplicateId];
     });
+    // Ответ 13 (владелец 17.11.2026): лояльность дубля — на оставшуюся карточку, как сервер (clients.service
+    // mergeLoyaltyTx): абонементы, сертификаты, история бонусов; карта/счёт того же типа — сложить, иначе переезжают
+    mutateArea('loyalty', (s) => {
+      for (const m of s.memberships) if (m.clientId === duplicateId) m.clientId = keepId;
+      for (const c of s.certificates) if (c.clientId === duplicateId) c.clientId = keepId;
+      for (const tx of s.transactions) if (tx.clientId === duplicateId) tx.clientId = keepId;
+      for (const card of s.cards.filter((c) => c.clientId === duplicateId)) {
+        const same = s.cards.find((c) => c.clientId === keepId && c.cardTypeId === card.cardTypeId);
+        if (same) {
+          same.balance += card.balance;
+          for (const tx of s.transactions) if (tx.cardId === card.id) tx.cardId = same.id;
+          s.cards = s.cards.filter((c) => c.id !== card.id);
+        } else card.clientId = keepId;
+      }
+      for (const acc of s.accounts.filter((a) => a.clientId === duplicateId)) {
+        const same = s.accounts.find((a) => a.clientId === keepId && a.accountTypeId === acc.accountTypeId);
+        if (same) {
+          same.balance += acc.balance;
+          for (const op of s.accountOperations) if (op.accountId === acc.id) op.accountId = same.id;
+          for (const tx of s.transactions) if (tx.accountId === acc.id) tx.accountId = same.id;
+          s.accounts = s.accounts.filter((a) => a.id !== acc.id);
+        } else acc.clientId = keepId;
+      }
+    });
     // Мягкое удаление дубля (core-rules №2), как при обычном удалении карточки (F-04-137)
     coreTx.update('clients', duplicateId, { deletedAt: nowDateTime() });
     // ⭐ F-00-040 → F-04-137: объединение — тоже правка клиента

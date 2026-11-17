@@ -30,6 +30,7 @@ import {
   getScheme,
   getStatementApproval,
   computeStatement,
+  reopenStatementApproval,
   listBonusPenaltyTypes,
   signStatement,
 } from "@/api/payroll";
@@ -38,11 +39,13 @@ import {
   createSettlementEntry,
   createSettlementSheet,
   deleteSettlementEntry,
+  getSettlementBalance,
   listSettlementEntries,
 } from "@/api/finance";
 import { useCoreList } from "@/api/core";
 import { useApiMutation, useApiQuery } from "@/api/request";
 import {
+  isStatementLocked,
   nextApprovalStatus,
   type BonusPenaltyType,
   type StatementApprovalStatus,
@@ -55,6 +58,7 @@ import { downloadCsv, toCsv } from "@/lib/csv";
 import { pickText } from "@/lib/text";
 import { useLocale } from "next-intl";
 import type { LocaleCode } from "@/domain/core";
+import { SalaryPayoutModal } from "@/areas/finance/SalaryPayoutModal";
 import { Avatar } from "@/ui/Avatar";
 import { Badge } from "@/ui/Badge";
 import { Button, LinkButton } from "@/ui/Button";
@@ -213,8 +217,33 @@ export function StatementScreen() {
     approvalQ.data?.status ?? "pendingReview";
   const approvalNext = nextApprovalStatus(approvalStatus);
   const isOwnStatement = persona === "master" && myStaffId === staffId;
+  // Ответ 26 (17.11.2026): одобренная ведомость закрыта для правок — премии, штрафы, удаление, пересчёт; менять —
+  // через «Вернуть на проверку». Пока статус не пришёл — тоже закрыта (кнопки правок не мигают появлением).
+  const locked = Boolean(sheet) && approvalEnabled && (approvalQ.isLoading || isStatementLocked(approvalStatus));
+  const reopenM = useApiMutation((id: string) => reopenStatementApproval(id, myStaffId));
+  const handleReopen = async () => {
+    if (!sheet) return;
+    try {
+      await reopenM.mutate(sheet.id);
+      toast.success(t("statement.approval.reopened"));
+      approvalQ.refetch();
+    } catch {
+      toast.error(t("statement.actionFailed"));
+    }
+  };
+  // Ответ 28: «Отметить выплаченным» — окно «Выплатить» (касса или перевод с карты и сумма); выплата пишется всегда
+  const balanceQ = useApiQuery(
+    ["finance", "settlementBalance", businessId, staffId],
+    () => getSettlementBalance(businessId!, staffId!),
+    { enabled: ready && Boolean(businessId) && Boolean(staffId) && canManage },
+  );
+  const [payOpen, setPayOpen] = useState(false);
   const handleAdvance = async () => {
     if (!sheet) return;
+    if (approvalNext === "paid") {
+      setPayOpen(true);
+      return;
+    }
     try {
       await advanceM.mutate(sheet.id);
       toast.success(t("statement.approval.advanced"));
@@ -609,6 +638,16 @@ export function StatementScreen() {
                     {t("statement.approval.sign")}
                   </Button>
                 )}
+                {canManage && isStatementLocked(approvalStatus) && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={handleReopen}
+                    loading={reopenM.isPending}
+                  >
+                    {t("statement.approval.reopen")}
+                  </Button>
+                )}
                 {canManage &&
                   approvalNext &&
                   approvalStatus !== "sentToStaff" && (
@@ -625,7 +664,7 @@ export function StatementScreen() {
             </div>
           )}
 
-          {schemeChangedAfterSheet && !periodClosed && (
+          {schemeChangedAfterSheet && !periodClosed && !locked && (
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-warning/50 bg-warning/10 px-3 py-2.5">
               <div className="flex items-center gap-2">
                 <AlertTriangle
@@ -750,7 +789,7 @@ export function StatementScreen() {
                         {e.kind === "penalty" ? "−" : "+"}
                         {format.money(e.amount)}
                       </span>
-                      {canManage && (
+                      {canManage && !locked && (
                         <IconButton
                           icon={<Trash2 aria-hidden className="size-4" />}
                           label={t("statement.deleteEntry")}
@@ -763,7 +802,10 @@ export function StatementScreen() {
               </ul>
             )}
             {entriesPager && <div className="mb-3">{entriesPager}</div>}
-            {canManage && (
+            {canManage && locked && (
+              <p className="text-sm text-muted">{t("statement.approval.lockedHint")}</p>
+            )}
+            {canManage && !locked && (
               <div className="flex flex-wrap gap-2">
                 <Button
                   size="sm"
@@ -785,7 +827,7 @@ export function StatementScreen() {
             )}
           </SectionCard>
 
-          {sheet && canManage && !periodClosed && (
+          {sheet && canManage && !periodClosed && !locked && (
             <Button
               variant="danger"
               size="sm"
@@ -797,6 +839,24 @@ export function StatementScreen() {
             </Button>
           )}
         </>
+      )}
+
+      {sheet && staffId && businessId && (
+        <SalaryPayoutModal
+          open={payOpen}
+          onOpenChange={setPayOpen}
+          businessId={businessId}
+          locationId={staff?.locationIds[0] ?? locationId ?? ""}
+          staffId={staffId}
+          balance={balanceQ.data ?? 0}
+          defaultAmount={(balanceQ.data ?? 0) > 0 ? balanceQ.data : grandTotal}
+          sheetId={sheet.id}
+          onDone={() => {
+            approvalQ.refetch();
+            entriesQ.refetch();
+            balanceQ.refetch();
+          }}
+        />
       )}
 
       <Modal

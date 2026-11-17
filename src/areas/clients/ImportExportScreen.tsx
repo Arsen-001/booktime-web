@@ -17,6 +17,7 @@ import { downloadCsv } from '@/lib/csv';
 import { today } from '@/lib/date';
 import { useCurrent } from '@/demo/hooks';
 import { useClientsRights } from '@/areas/clients/lib/rights';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
 import { EmptyState } from '@/ui/EmptyState';
@@ -171,8 +172,8 @@ export function ImportExportScreen() {
         </div>
       )}
 
-      {/* F-04-133, F-04-107 — 🔒 демо мобильного приложения */}
-      {canImport && !importBusy && (
+      {/* F-04-133, F-04-107 — 🔒 демо мобильного приложения: скрыто до подключения (src/config/hidden.ts, phonebook) */}
+      {canImport && !importBusy && isConnected('phonebook') && (
         <div data-f="F-04-133 F-04-107 F-14-105">
           <SectionCard title={t('importPage.phoneBook.sectionTitle')} description={t('importPage.phoneBook.sectionDescription')}>
             <Button variant="outline" leftIcon={<BookUser aria-hidden />} onClick={() => setPhoneBookOpen(true)}>

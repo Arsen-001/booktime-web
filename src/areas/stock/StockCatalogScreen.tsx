@@ -12,7 +12,7 @@ import { AlertTriangle, Archive, ArchiveRestore, Boxes, Camera, CalendarClock, D
 import { archiveGoods, countBelowCritical, exportGoodsCsv, listCategoryTree, listExpiredGoods, listGoods, searchGoods, type CategoryNode } from '@/api/stock';
 import { downloadCsv } from '@/lib/csv';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { useCurrent, useDemo } from '@/demo/hooks';
+import { useCan, useCurrent, useDemo } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
 import type { Category } from '@/domain/stock';
 import { expiryFlag, unitById } from '@/domain/stock';
@@ -57,6 +57,7 @@ export function StockCatalogScreen() {
   const { lang } = useDemo();
   // F-08-116: создание/архивация товаров — только с правом «Доступ к управлению товарами»
   const perm = useStockPermissions();
+  const canStockEdit = useCan('stock.edit');
   const { ready, businessId, locationId: rawLocationId, activeLocationIds } = useCurrent();
   const locationId = rawLocationId === 'all' ? activeLocationIds[0] : rawLocationId;
   const enabled = ready && Boolean(businessId) && Boolean(locationId);
@@ -181,7 +182,8 @@ export function StockCatalogScreen() {
           <div className="flex items-center gap-2">
             <HelpArticleButton titleKey="help.catalog.title" bodyKey="help.catalog.body" />
             <IconButton icon={<Camera aria-hidden />} label={t('goodPicker.scan')} variant="outline" onClick={() => setScannerOpen(true)} />
-            <DropdownMenu
+            {/* Ответ 17: только «смотреть склад» — без выгрузки, загрузки и архива (только товары и остатки) */}
+            {canStockEdit && <DropdownMenu
               trigger={(props) => <IconButton {...props} icon={<FileSpreadsheet aria-hidden />} variant="outline" label={t('catalog.excelMenu')} />}
               items={[
                 { id: 'export', label: t('catalog.exportExcel'), icon: <Download aria-hidden />, onSelect: exportExcel },
@@ -194,7 +196,7 @@ export function StockCatalogScreen() {
                 { id: 'sep', separator: true },
                 { id: 'archive', label: t('catalog.archiveLink'), icon: <ArchiveRestore aria-hidden />, onSelect: () => router.push('/biz/stock/archive') },
               ]}
-            />
+            />}
             {perm.manageGoods && <LinkButton href={`/biz/stock/goods/new${categoryId !== 'all' ? `?category=${categoryId}` : ''}`}>{t('catalog.addGood')}</LinkButton>}
           </div>
         }
@@ -220,7 +222,7 @@ export function StockCatalogScreen() {
         {criticalQ.isLoading ? (
           // Чаще всего есть товары ниже критичного — пока грузится, карточка уже той высоты, что с подсказкой
           <StatCard label={t('catalog.stats.critical')} value="" icon={<AlertTriangle aria-hidden />} hint={t('catalog.criticalHint')} loading />
-        ) : criticalQ.data && criticalQ.data > 0 ? (
+        ) : criticalQ.data && criticalQ.data > 0 && canStockEdit ? (
           <Link href="/biz/stock/order" className="block">
             <StatCard
               label={t('catalog.stats.critical')}

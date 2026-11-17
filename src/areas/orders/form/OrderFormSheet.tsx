@@ -17,6 +17,7 @@ import { useT } from '@/i18n/useT';
 import { today } from '@/lib/date';
 import { ClientField } from '@/areas/orders/form/ClientField';
 import { ItemsField } from '@/areas/orders/form/ItemsField';
+import { PayMethodField } from '@/areas/orders/form/PayMethodField';
 import { draftFromBooking, draftFromOrder, draftToInput, emptyDraft, sameDraft, validateDraft, type OrderDraft, type OrderFormErrors } from '@/areas/orders/form/orderForm';
 import { Button } from '@/ui/Button';
 import { DatePicker } from '@/ui/DatePicker';
@@ -71,6 +72,10 @@ export function OrderFormSheet({ order, fromBooking, onClose }: OrderFormSheetPr
   const [draft, setDraft] = useState<OrderDraft>(initial);
   const [errors, setErrors] = useState<OrderFormErrors>({});
   const [tried, setTried] = useState(false);
+  // Ответ 12: способ оплаты предоплаты — сумма сразу в кассу (при правке — только если предоплату поменяли)
+  const [prepaidMethod, setPrepaidMethod] = useState<string | undefined>(undefined);
+  const prepaidChanged = (draft.prepaid ?? 0) !== (order?.prepaid ?? 0);
+  const needsMethod = (draft.prepaid ?? 0) > 0 ? prepaidChanged : Boolean(order) && prepaidChanged;
   const dirty = !sameDraft(initial, draft);
   const { confirmLeave } = useUnsavedGuard(dirty);
   const create = useApiMutation(createOrder);
@@ -94,7 +99,11 @@ export function OrderFormSheet({ order, fromBooking, onClose }: OrderFormSheetPr
     const found = validateDraft(draft);
     setErrors(found);
     if (Object.keys(found).length) return;
-    const input = { ...draftToInput(draft), ...(fromBooking ? { bookingId: fromBooking.bookingId } : {}) };
+    const input = {
+      ...draftToInput(draft),
+      ...(fromBooking ? { bookingId: fromBooking.bookingId } : {}),
+      ...(needsMethod && prepaidMethod ? { prepaidMethod } : {}),
+    };
     try {
       if (order) {
         await update.mutate({ businessId, orderId: order.id, patch: input });
@@ -182,6 +191,12 @@ export function OrderFormSheet({ order, fromBooking, onClose }: OrderFormSheetPr
               <MoneyInput value={draft.prepaid} onValueChange={(prepaid) => change({ prepaid })} min={0} />
             </FormField>
           </div>
+          {needsMethod && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <PayMethodField businessId={businessId} value={prepaidMethod} onChange={setPrepaidMethod} />
+              <p className="self-end pb-2 text-sm text-muted">{t('form.prepaidMethodHint')}</p>
+            </div>
+          )}
           {(draft.price ?? 0) > 0 && (
             <p className="text-sm text-muted">
               {t('form.remaining')} <span className="font-semibold text-fg tabular-nums">{fmt.money(left)}</span>

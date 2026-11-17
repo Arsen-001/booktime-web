@@ -11,7 +11,8 @@ import { useState } from 'react';
 import { Ban, MoreHorizontal, PackageX, Pencil, ReceiptText, Send, Undo2 } from 'lucide-react';
 import { useCoreGet } from '@/api/core';
 import { useCurrent } from '@/demo/hooks';
-import { canTransitionOrder, isEstimateDeclined, isEstimatePending, isStatusEntry, nextOrderStep, skippedOrderSteps, orderReadyAt, type Order, type OrderStatus } from '@/domain/orders';
+import { canTransitionOrder, isEstimateDeclined, isEstimatePending, isStatusEntry, nextOrderStep, skippedOrderSteps, orderReadyAt, orderRemaining, type Order, type OrderStatus } from '@/domain/orders';
+import { IssueOrderModal } from '@/areas/orders/detail/IssueOrderModal';
 import { useFormat } from '@/i18n/useFormat';
 import { addDays, today } from '@/lib/date';
 import { useT } from '@/i18n/useT';
@@ -60,6 +61,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
   const staffName = useStaffNames(businessId ?? '');
   const actions = useOrderActions(businessId ?? '', order);
   const [editing, setEditing] = useState(false);
+  const [issueOpen, setIssueOpen] = useState(false);
   usePickupRemindersTick();
   const origin = useOrigin();
   const nav = useNavigate();
@@ -125,7 +127,8 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
         size="lg"
         fullWidth
         loading={actions.moving}
-        onClick={() => void actions.move(next, estimateDeclined ? 'toast.issuedWithoutRepair' : undefined)}
+        // Ответ 12: «Выдать клиенту» с остатком к оплате — окно доплаты (сумма и способ, сразу в кассу)
+        onClick={() => (next === 'issued' && orderRemaining(order) > 0 ? setIssueOpen(true) : void actions.move(next, estimateDeclined ? 'toast.issuedWithoutRepair' : undefined))}
       >
         {t(estimateDeclined ? 'next.issuedWithoutRepair' : ((compact && NEXT_LABEL_SHORT[next]) || NEXT_LABEL[next] || 'next.ready'))}
       </Button>
@@ -204,6 +207,12 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
       )}
 
       <ExitHold value={editing ? order : null}>{(o: Order) => <OrderFormSheet order={o} onClose={() => setEditing(false)} />}</ExitHold>
+      <IssueOrderModal
+        businessId={businessId ?? ''}
+        orderId={issueOpen ? order.id : null}
+        onClose={() => setIssueOpen(false)}
+        toastKey={estimateDeclined ? 'toast.issuedWithoutRepair' : 'toast.issued'}
+      />
     </div>
   );
 }

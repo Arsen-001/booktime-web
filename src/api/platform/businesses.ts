@@ -28,6 +28,8 @@ export function listBusinessesOverview(): Promise<BusinessOverviewRow[]> {
           sphereIds: b.sphereIds,
           district: core.locations.find((l) => l.businessId === b.id)?.district,
           status: m?.leftAt ? 'left' : b.status === 'frozen' ? 'frozen' : 'active',
+          // Мок без подписок: заморозить может только панель — значит, вручную (ответ 30)
+          frozenReason: !m?.leftAt && b.status === 'frozen' ? 'manual' : undefined,
           staffCount: core.staff.filter((s) => s.businessId === b.id && s.status !== 'fired').length,
           meta: m,
         };
@@ -121,6 +123,18 @@ export function setBusinessBlocked(businessId: Id, blocked: boolean): Promise<vo
 }
 
 /** Есть ли «Приостановить / Вернуть» в этой сборке — с этапа 21 есть в обоих режимах */
+/**
+ * «Отсрочка N дней» (владелец 17.11.2026, ответ 30): салон заморожен за неуплату — кабинет снова работает до даты,
+ * не оплатят — заморозится снова. Мок без подписок: просто снова работает.
+ */
+export function grantBusinessGrace(businessId: Id, days: number): Promise<void> {
+  if (isApiMode()) return S.grantBusinessGrace(businessId, days);
+  return request(() => {
+    coreTx.get('businesses', businessId);
+    coreTx.update('businesses', businessId, { status: 'active' });
+  }, PANEL);
+}
+
 export function canBlockBusinesses(): boolean {
   return true;
 }

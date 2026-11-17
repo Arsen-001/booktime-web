@@ -70,7 +70,9 @@ export function MembershipDetailScreen({ membershipId }: { membershipId: Id }) {
     );
 
   const daysLeft = daysUntil(m.validUntil);
-  const expiringSoon = m.visitsLeft <= 1 || daysLeft <= 5;
+  // Заявка («ждёт подтверждения» или отклонена) ещё не абонемент — «Скоро закончится» ей не показываем (хвост 17.11)
+  const purchased = !m.purchaseStatus || m.purchaseStatus === 'confirmed';
+  const expiringSoon = purchased && (m.visitsLeft <= 1 || daysLeft <= 5);
   const canFreeze = m.frozen || m.freezeDaysAvailable !== undefined;
 
   const handleFreeze = async () => {

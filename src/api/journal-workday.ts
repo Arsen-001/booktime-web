@@ -10,7 +10,6 @@
 import { readArea, readCore } from '@/api/area';
 import { canNow, currentActor } from '@/api/core';
 import { bookingPaymentBriefSync } from '@/api/finance';
-import { receivedMoneyTotalSync } from '@/api/reports';
 import { isApiMode } from '@/api/http';
 import * as S from '@/api/journal-workday.server';
 import { request } from '@/api/request';
@@ -181,16 +180,24 @@ export function dayMoneySync(businessId: Id, date: ISODate): DayMoney {
 }
 
 /**
- * «Пульс дня» журнала (владелец 17.11.2026, DESIGN.md №18): «Получено 5 000 ֏ из 36 000» — деньги, правда полученные
- * в этот день, как во всех отчётах с 01.10 (оплаты услуг минус возвраты, оплаченные товары; без абонементов,
- * сертификатов, пополнений и оплат лояльностью). Мастеру без «чужих записей» — только свои.
+ * «Пульс дня» журнала (владелец 17.11.2026, DESIGN.md №18 и уточнение «К 18»): «Получено 5 000 ֏ из 36 000» — деньги
+ * ЗА ВИЗИТЫ ЭТОГО ДНЯ, когда бы они ни пришли: предоплата вчера за сегодняшний визит — в X, предоплата сегодня за
+ * завтрашний — завтра. Тот же набор визитов, что «из 36 000» (живые записи дня). Деньги — оплаты деньгами за вычетом
+ * возвратов и предоплата переводом; без скидок, личного счёта, сертификатов и абонементов. Мастеру — только свои.
+ * Одно правило с сервером (workday.service.ts received).
  */
 export function getDayReceived(businessId: Id, date: ISODate, locationIds: Id[]): Promise<number> {
   if (isApiMode()) return S.received(businessId, date, locationIds);
   return request(
     () => {
-      const ids = locationIds.length ? locationIds : readCore().locations.filter((l) => l.businessId === businessId).map((l) => l.id);
-      return receivedMoneyTotalSync(businessId, ids, date, date, ownStaffSync());
+      const ids = new Set(locationIds.length ? locationIds : readCore().locations.filter((l) => l.businessId === businessId).map((l) => l.id));
+      const day = bizBookingsSync(businessId, ownStaffSync()).filter((b) => b.start.startsWith(date) && !CANCELLED_STATUSES.includes(b.status) && ids.has(b.locationId));
+      const dayIds = new Set(day.map((b) => b.id));
+      const paid = readArea('finance')
+        .bookingPayments.filter((p) => dayIds.has(p.bookingId) && p.kind === 'money' && !p.cancelled)
+        .reduce((s, p) => s + p.amount - (p.refundedAmount ?? 0), 0);
+      const prepaid = day.reduce((s, b) => s + (b.prepayment?.paid && !b.prepayment.refundedAt ? b.prepayment.amount : 0), 0);
+      return paid + prepaid;
     },
     { permission: 'journal.stats' },
   );

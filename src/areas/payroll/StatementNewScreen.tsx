@@ -10,7 +10,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, UserRound } from 'lucide-react';
-import { createSettlementSheet } from '@/api/finance';
+import { useSheetNewDays } from '@/areas/payroll/sheetNewDays';
 import { useCoreList } from '@/api/core';
 import { useApiMutation } from '@/api/request';
 import type { DateRange } from '@/ui/Calendar';
@@ -96,8 +96,10 @@ export function StatementNewScreen() {
   const [range, setRange] = useState<DateRange>(() => ({ from: toISODate(dayjs().startOf('month')), to: today() }));
   const [comment, setComment] = useState('');
 
+  // Ответ 27: дни уже начислены — спрашиваем, начислить ли только новые
+  const sheetNewDays = useSheetNewDays();
   const createM = useApiMutation((args: { staffId: string; from: string; to: string; comment: string; draft: boolean }) =>
-    createSettlementSheet(businessId!, args.staffId, `${args.from}T00:00`, `${args.to}T23:59`, args.comment, args.draft),
+    sheetNewDays(businessId!, args.staffId, args.from, args.to, { comment: args.comment, draft: args.draft }),
   );
 
   const canSubmit = Boolean(staffId) && Boolean(range.from) && Boolean(range.to);
@@ -106,9 +108,10 @@ export function StatementNewScreen() {
   const handleSubmit = async (draft: boolean) => {
     if (!staffId || !range.from || !range.to) return;
     try {
-      await createM.mutate({ staffId, from: range.from, to: range.to, comment, draft });
+      const res = await createM.mutate({ staffId, from: range.from, to: range.to, comment, draft });
+      if (res.status !== 'created') return;
       toast.success(draft ? t('statement.draftCreated') : t('statement.created'));
-      router.push(`/biz/payroll/statement?staffId=${staffId}&from=${range.from}&to=${range.to}`);
+      router.push(`/biz/payroll/statement?staffId=${staffId}&from=${res.from}&to=${res.to}`);
     } catch {
       toast.error(t('statement.createFailed'));
     }

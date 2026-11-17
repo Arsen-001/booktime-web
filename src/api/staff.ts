@@ -146,6 +146,18 @@ function scheduleEndOf(staffId: Id): ISODate | null {
 }
 
 /** Режим api: места из подписки сервера поверх расчёта сайта (уволенных и отключённых сервер не перечисляет) */
+/** Сотрудники со своими записями в этом месяце — ассистент с записями занимает платное место (ответ 19, мок) */
+function bookedThisMonth(staff: Staff[]): Set<Id> {
+  if (isApiMode()) return new Set();
+  const ids = new Set(staff.map((s) => s.id));
+  const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
+  return new Set(
+    readCore()
+      .bookings.filter((b) => ids.has(b.staffId) && !b.deletedAt && !b.status.startsWith("cancelled") && new Date(b.start).getTime() >= monthStart)
+      .map((b) => b.staffId),
+  );
+}
+
 function withServerSeats(local: Map<string, SeatInfo>, serverSeats: SeatLine[] | undefined): Map<string, SeatInfo> {
   if (!serverSeats) return local;
   const out = new Map(local);
@@ -170,7 +182,7 @@ function buildStaffRows(
       .filter(([, end]) => end !== null)
       .map(([id]) => id),
   );
-  const seats = withServerSeats(seatsFor(all, scheduled), serverSeats);
+  const seats = withServerSeats(seatsFor(all, scheduled, bookedThisMonth(all)), serverSeats);
 
   let found = scoped;
   const search = query.search ?? "";
@@ -1611,7 +1623,7 @@ function staffCardOf(
   dismissal: StaffDismissal | undefined,
   serverSeats?: SeatLine[],
 ): StaffCardData {
-  const seats = withServerSeats(seatsFor(siblings, new Set(scheduleUntil ? [staff.id] : [])), serverSeats);
+  const seats = withServerSeats(seatsFor(siblings, new Set(scheduleUntil ? [staff.id] : []), bookedThisMonth(siblings)), serverSeats);
   return {
     staff,
     positionLabel: staff.position?.ru ?? "",

@@ -128,7 +128,8 @@
     "financeVisits": "Visits",
     "financeAvgCheck": "Average check",
     "financeCancelled": "Cancelled",
-    "financeTotal": "Total"
+    "financeTotal": "Total",
+    "scopeNetworkOnlyNoPhone": "Network only: clients, analytics, plans, loyalty"
   },
   "switch": {
     "title": "Branches and networks",
@@ -770,7 +771,9 @@
       "historyTitle": "Accrual history",
       "empty": "No payroll runs yet",
       "staffCount": "Staff: {count}",
-      "period": "{from} – {to}"
+      "period": "{from} – {to}",
+      "skippedFrozen": "Not accrued: {count} — location frozen",
+      "skippedCovered": "Not accrued: {count} — days already in statements"
     },
     "migrationScreen": {
       "title": "Staff migration",
@@ -1160,7 +1163,8 @@
   },
   "form": {
     "selectAll": "Select all",
-    "selectNone": "Clear all"
+    "selectNone": "Clear all",
+    "frozenBranch": "{name} · frozen"
   },
   "extensions": {
     "serviceCard": {
@@ -1249,10 +1253,16 @@
     "title": "Add a branch",
     "subtitle": "A new salon or one you already have — into this network",
     "newTitle": "New branch",
-    "newHint": "Set up a salon with its address, hours and staff",
+    "newHint": "Name and address — the rest as in the main branch. The branch has its own subscription",
     "newAction": "Create",
     "existingTitle": "A salon you already own",
-    "failed": "Couldn't add the branch"
+    "failed": "Couldn't add the branch",
+    "nameLabel": "Branch name",
+    "namePlaceholder": "For example: Avan",
+    "addressLabel": "Address",
+    "districtLabel": "District",
+    "nameRequired": "Enter the branch name",
+    "created": "Branch created and added to the network"
   },
   "deletedGate": {
     "title": "Network “{name}” is deleted",

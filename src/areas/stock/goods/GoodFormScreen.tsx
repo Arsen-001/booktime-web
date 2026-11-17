@@ -266,7 +266,7 @@ function GoodFormBody({
         </div>
       )}
 
-      <GoodFormFields form={form} setForm={setForm} categories={categories} nameError={nameError} />
+      <GoodFormFields form={form} setForm={setForm} categories={categories} nameError={nameError} showCost={perm.viewCost} />
 
       {isEdit && (
         <GoodSavedPanel

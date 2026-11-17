@@ -12,6 +12,7 @@ import { addWebhookAddress, removeWebhookAddress, rotateWebhookSecret } from '@/
 import { ApiError, useApiMutation } from '@/api/request';
 import { CopyRow } from '@/areas/integrations/components/CopyRow';
 import { isValidWebhookUrl, type WebhookConfig } from '@/domain/integrations';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -154,6 +155,8 @@ export function WebhookAddressesCard({ businessId, cfg, canEdit }: { businessId:
         </div>
       )}
 
+      {/* Адрес приложения каталога — в его частном приложении; кабинет разработчика скрыт до подключения (src/config/hidden.ts) */}
+      {isConnected('appCatalog') && (
       <div data-f="F-13-065 F-01-202 F-01-203" className="mt-3 flex items-start gap-2 rounded-lg border border-border bg-surface-2 p-3 text-sm text-muted">
         <Info className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
         <span>
@@ -166,6 +169,7 @@ export function WebhookAddressesCard({ businessId, cfg, canEdit }: { businessId:
           </Link>
         </span>
       </div>
+      )}
 
       <Modal
         open={Boolean(secret)}

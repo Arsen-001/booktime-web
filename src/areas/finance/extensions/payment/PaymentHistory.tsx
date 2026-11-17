@@ -24,6 +24,12 @@ export interface PaymentHistoryProps {
   onCancel: (group: BookingPaymentGroup) => void;
   /** Платежи-зеркала строк лояльности: отменяются только во вкладке «Лояльность» (там вернутся бонусы/сертификат) */
   loyaltyKeys: string[];
+  /**
+   * Предоплата переводом (F-00-097) — отдельной строкой первой (ответ 14 владельца 17.11.2026): визит 6 000 ֏,
+   * предоплата 1 800 переводом, 3 000 наличными, 1 200 картой — в списке три строки, сумма 6 000. Правят её в
+   * «Предоплате» записи («Вернул»), здесь без кнопок.
+   */
+  prepaid?: { amount: number; label: string; at?: string };
 }
 
 /** «Скидка по акции «Списание бонусов»» → «Списание бонусов»: у строк лояльности своя подпись */
@@ -32,12 +38,21 @@ function loyaltyLabel(label: string): string {
   return m ? m[1] : label;
 }
 
-export function PaymentHistory({ groups, canRefund, canCancel, cancelling, onRefund, onCancel, loyaltyKeys }: PaymentHistoryProps) {
+export function PaymentHistory({ groups, canRefund, canCancel, cancelling, onRefund, onCancel, loyaltyKeys, prepaid }: PaymentHistoryProps) {
   const t = useT('finance');
   const format = useFormat();
 
   return (
     <ul data-f="F-07-039" className="flex flex-col gap-2">
+      {prepaid && prepaid.amount > 0 && (
+        <li data-f="F-00-097" className="flex min-h-[3.25rem] items-center justify-between gap-3 rounded-lg border border-border px-3 py-2">
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <span className="truncate text-sm font-medium">{prepaid.label}</span>
+            {prepaid.at && <span className="text-xs text-muted">{format.dateTime(prepaid.at)}</span>}
+          </div>
+          <span className="mr-1 shrink-0 text-sm font-medium tabular-nums">{format.money(prepaid.amount)}</span>
+        </li>
+      )}
       {groups.map((g) => {
         const net = Math.max(0, g.amount - g.refunded);
         const refundable = canRefund && g.kind !== 'discount' && net > 0;

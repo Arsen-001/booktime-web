@@ -27,6 +27,7 @@ import { getCashbackVisibleForBusiness, setCashbackVisibleForBusiness } from '@/
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { qrPreviewSvg } from '@/areas/client/apps/qrPreview';
 import { useCurrent } from '@/demo/hooks';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
 import { Badge } from '@/ui/Badge';
@@ -96,23 +97,28 @@ export function AppsHubScreen() {
           <p className="text-xs font-medium text-muted">{t('apps.hub.threeApps.business.title')}</p>
           <p className="text-sm text-fg">{t('apps.hub.threeApps.business.text')}</p>
         </Card>
-        <Card padding="sm" className="flex flex-col gap-1 bg-surface-2">
-          <p className="text-xs font-medium text-muted">{t('apps.hub.threeApps.branded.title')}</p>
-          <p className="text-sm text-fg">{t('apps.hub.threeApps.branded.text')}</p>
-        </Card>
+        {/* Своё приложение под брендом салона — решение не принято, скрыто до подключения (src/config/hidden.ts) */}
+        {isConnected('brandedApp') && (
+          <Card padding="sm" className="flex flex-col gap-1 bg-surface-2">
+            <p className="text-xs font-medium text-muted">{t('apps.hub.threeApps.branded.title')}</p>
+            <p className="text-sm text-fg">{t('apps.hub.threeApps.branded.text')}</p>
+          </Card>
+        )}
         <p className="col-span-full text-xs text-muted">{t('apps.hub.positioningHint')}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <PermissionGate permission="billing.manage">
-          <Card data-f="F-14-142 F-14-144" href="/biz/apps/branded" interactive padding="md" className="flex items-start gap-3">
-            <Rocket aria-hidden className="size-6 shrink-0 text-primary-text" />
-            <div>
-              <p className="font-medium text-fg">{t('apps.hub.tileBrandedTitle')}</p>
-              <p className="text-sm text-muted">{t('apps.hub.tileBrandedHint')}</p>
-            </div>
-          </Card>
-        </PermissionGate>
+        {isConnected('brandedApp') && (
+          <PermissionGate permission="billing.manage">
+            <Card data-f="F-14-142 F-14-144" href="/biz/apps/branded" interactive padding="md" className="flex items-start gap-3">
+              <Rocket aria-hidden className="size-6 shrink-0 text-primary-text" />
+              <div>
+                <p className="font-medium text-fg">{t('apps.hub.tileBrandedTitle')}</p>
+                <p className="text-sm text-muted">{t('apps.hub.tileBrandedHint')}</p>
+              </div>
+            </Card>
+          </PermissionGate>
+        )}
         {/* Сторис публикует и мастер салона — свои (владелец, 01.10.2026) */}
         {!hidePurchases && (
           <PermissionGate permission="journal.view">
@@ -284,7 +290,8 @@ export function AppsHubScreen() {
         <div data-f="F-14-140">
           <SectionCard title={t('apps.hub.appOnlyTitle')}>
             <ul className="flex flex-col gap-1.5 text-sm text-muted">
-              {(t.raw('apps.hub.appOnlyList') as string[]).map((line, i) => (
+              {/* Третья строка — телефонная книга: скрыта до подключения (src/config/hidden.ts, phonebook) */}
+              {(t.raw('apps.hub.appOnlyList') as string[]).filter((_, i) => i !== 2 || isConnected('phonebook')).map((line, i) => (
                 <li key={i}>{line}</li>
               ))}
             </ul>

@@ -30,6 +30,9 @@ export const exportBusinessData = (businessId: Id, what: ExportWhat, headers: st
 
 export const setBusinessBlocked = (businessId: Id, blocked: boolean) => write(() => http<void>('POST', `/v1/platform/businesses/${businessId}/block`, { blocked }));
 
+/** «Отсрочка N дней» салону, замороженному за неуплату (ответ 30) — подписка снова работает до даты */
+export const grantBusinessGrace = (businessId: Id, days: number) => write(() => http<unknown>('POST', `/v1/platform/businesses/${businessId}/grace`, { days }).then(() => undefined));
+
 export const markBusinessLeft = (businessId: Id, dataHanded: boolean) => write(() => http<void>('POST', `/v1/platform/businesses/${businessId}/leave`, { dataHanded }));
 
 /** listBizMeta мока (Record<Id,BizMeta>) — на сервере то же значение уже лежит в каждой строке overview (meta) */

@@ -20,6 +20,7 @@ import {
   type IntakeSettingsInput,
   type Order,
   type OrderInput,
+  type OrderIssuePayment,
   type OrderPatch,
   type OrdersPage,
   type OrdersQuery,
@@ -82,8 +83,8 @@ export const createOrderServer = (businessId: Id, input: OrderInput) => write(()
 export const updateOrderServer = (businessId: Id, orderId: Id, patch: OrderPatch) =>
   write(() => http<Order>('PATCH', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}`, patch));
 
-export const setOrderStatusServer = (businessId: Id, orderId: Id, status: OrderStatus) =>
-  write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/status`, { status }));
+export const setOrderStatusServer = (businessId: Id, orderId: Id, status: OrderStatus, payment?: OrderIssuePayment) =>
+  write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/status`, { status, ...(payment && payment.amount > 0 ? { payment } : {}) }));
 
 export const notifyOrderReadyServer = (businessId: Id, orderId: Id) =>
   write(() => http<Order>('POST', `${ORDERS_BASE(businessId)}/${encodeURIComponent(orderId)}/notify`));

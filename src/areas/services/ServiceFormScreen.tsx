@@ -143,9 +143,10 @@ export function ServiceFormScreen() {
     if (!ok) return;
     const snapshot = f.snapshot;
     try {
-      await deleteService(f.serviceId, f.businessId ?? '');
+      // Ответ 33 (17.11.2026): у услуги есть визиты — она ушла в архив (история и отчёты сохраняют название)
+      const removed = await deleteService(f.serviceId, f.businessId ?? '');
       f.markSaved();
-      toast.success(t('delete.done', { name }), {
+      toast.success(removed.archivedAt ? t('delete.archived', { name }) : t('delete.done', { name }), {
         action: {
           label: t('delete.undo'),
           onClick: () => void restoreServices([snapshot]),

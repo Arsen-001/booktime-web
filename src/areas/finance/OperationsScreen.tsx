@@ -370,6 +370,10 @@ export function OperationsScreen() {
           <Link href={`/biz/journal?booking=${op.refId}`} className="inline-flex min-h-10 items-center gap-1 whitespace-nowrap text-primary-text underline decoration-border-strong underline-offset-2">
             {t('operations.openVisit')} <ExternalLink aria-hidden className="size-3.5" />
           </Link>
+        ) : op.source === 'order' && op.refId ? (
+          <Link href={`/biz/orders/${op.refId}`} className="inline-flex min-h-10 items-center gap-1 whitespace-nowrap text-primary-text underline decoration-border-strong underline-offset-2">
+            {t('operations.openOrder')} <ExternalLink aria-hidden className="size-3.5" />
+          </Link>
         ) : (
           '—'
         ),

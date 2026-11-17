@@ -14,6 +14,7 @@ import { useApiQuery } from '@/api/request';
 import { useCan, useCurrent, useDemo } from '@/demo/hooks';
 import type { LocaleCode } from '@/domain/core';
 import type { Id } from '@/domain/core';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
@@ -190,7 +191,7 @@ export function OrderScreen() {
                       </div>
                     </div>
                     {/* F-00-165: предложение поставщика рядом с товаром на исходе — только у мастеров, включивших приём предложений */}
-                    {businessId && <SupplierOfferCard businessId={businessId} productName={i.name} />}
+                    {businessId && isConnected('supplierOffers') && <SupplierOfferCard businessId={businessId} productName={i.name} />}
                   </li>
                 );
               })}

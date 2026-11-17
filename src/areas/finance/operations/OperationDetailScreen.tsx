@@ -138,7 +138,7 @@ export function OperationDetailScreen({ operationId }: OperationDetailScreenProp
   const refundRemaining = Math.round(op.amount - refundedSoFar);
   // F-07-014: оплату визита (и её комиссию/возврат) и пополнение счёта клиента правят и отменяют там, где их провели, —
   // иначе визит остаётся «Оплачено», а денег в кассе уже нет (или счёт клиента расходится с кассой)
-  const linkedElsewhere = op.source === 'booking' || op.source === 'account';
+  const linkedElsewhere = op.source === 'booking' || op.source === 'account' || op.source === 'order';
   const canRefund = Boolean(saleKind) && !op.cancelled && refundRemaining > 0 && canEdit;
   // Разные F-id по контексту продажи: абонемент / сертификат / товар из визита / товар вне визита.
 
@@ -196,7 +196,7 @@ export function OperationDetailScreen({ operationId }: OperationDetailScreenProp
         }
       />
 
-      {linkedElsewhere && !op.cancelled && canEdit && <p className="-mt-3 text-sm text-muted">{op.source === 'booking' ? t('operationDetail.linkedBooking') : t('operationDetail.linkedAccount')}</p>}
+      {linkedElsewhere && !op.cancelled && canEdit && <p className="-mt-3 text-sm text-muted">{op.source === 'booking' ? t('operationDetail.linkedBooking') : op.source === 'order' ? t('operationDetail.linkedOrder') : t('operationDetail.linkedAccount')}</p>}
 
       <SectionCard title={t('operationDetail.details')}>
         {editing ? (

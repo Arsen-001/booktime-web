@@ -44,6 +44,7 @@ import { useCan, useCurrent } from '@/demo/hooks';
 import { ExtensionSlot } from '@/extensions/ExtensionSlot';
 import { useExtensions } from '@/extensions/useExtensions';
 import { useFormat } from '@/i18n/useFormat';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { useTDynamic } from '@/i18n/useTDynamic';
 import { cn } from '@/lib/cn';
@@ -202,7 +203,8 @@ export function ClientCardScreen() {
     { value: 'stats', label: t('card.tabs.stats'), icon: <BarChart3 aria-hidden /> },
   ];
   const overflowTabs: TabItem[] = [
-    { value: 'calls', label: t('card.tabs.calls'), icon: <Phone aria-hidden /> },
+    // История звонков — только с подключённой телефонией (src/config/hidden.ts), без неё список был демо
+    ...(isConnected('telephony') ? [{ value: 'calls', label: t('card.tabs.calls'), icon: <Phone aria-hidden /> }] : []),
     ...(rights.viewFiles ? [{ value: 'files', label: t('card.tabs.files'), icon: <FolderOpen aria-hidden /> }] : []),
     ...visibleExtensions.map((e) => ({ value: `${e.host}:${e.area}`, label: tDyn(e.labelKey) })),
   ];

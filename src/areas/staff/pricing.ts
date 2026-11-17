@@ -3,20 +3,25 @@
  * «Сотрудники», 27.09.2026) — у каждого места есть причина, и строка показывает её словом: «Платно · мастер»,
  * «Бесплатно · без доступа», «Станет платным после входа».
  *
- * Правило (наше решение, совпадает с расчётом подписки в settings — computeSeats):
+ * Правило (владелец 17.11.2026, ответ 19 — одно правило с сервером, в режиме api места считает сервер
+ * billing-seats.ts; здесь — мок и черновик формы добавления):
  *  - уволенный и отключённый («доступ отключён») — бесплатно, места не занимают;
  *  - владелец — бесплатно, пока у него нет своих услуг И графика (тогда он работает как мастер — платно);
  *  - первый администратор — бесплатно, следующие — ADMIN_EXTRA_SEAT_PRICE;
- *  - ассистент (галочка в карточке или должность «Ассистент…», isAssistantStaff) — бесплатно;
- *  - приглашённый мастер, который ещё не принял приглашение, — бесплатно до первого входа;
+ *  - ассистент по галочке «Ассистент» (только галочка — должность «Ассистент…» места не освобождает) без своих услуг,
+ *    графика и записей в этом месяце — бесплатно; со своей услугой, графиком или записями — платный мастер;
+ *  - приглашённый, ещё не вошедший мастер — бесплатно до первого входа, но не дольше INVITED_FREE_DAYS дней
+ *    с приглашения (в моке — с даты добавления hiredAt);
  *  - остальные мастера — MASTER_SEAT_PRICE.
  */
+import dayjs from "dayjs";
 import type { Staff, StaffRole, StaffStatus, Workplace } from "@/domain/core";
-import { isAssistantStaff } from "@/domain/staff";
 
 export const MASTER_SEAT_PRICE = 4000;
 export const ADMIN_EXTRA_SEAT_PRICE = 2000;
 export const MIN_PAID_MASTERS = 2;
+/** Сколько дней приглашённый, ещё не вошедший мастер не занимает платное место (ответ 19, как сервер) */
+export const INVITED_FREE_DAYS = 14;
 
 export type SeatReason =
   | "fired"
@@ -26,7 +31,9 @@ export type SeatReason =
   | "adminFirstFree"
   | "adminExtra"
   | "assistantFree"
+  | "assistantWorks"
   | "invitedPending"
+  | "invitedLong"
   | "master";
 
 export interface SeatInfo {
@@ -52,11 +59,13 @@ const free = (staffId: string, reason: SeatReason): SeatInfo => ({ staffId, paid
 
 /**
  * Считает место каждого сотрудника бизнеса разом (порядок по hiredAt задаёт «кто первый администратор»).
- * scheduled — у кого есть график (нужно только для владельца, работающего мастером); не знаем — считаем, что нет.
+ * scheduled — у кого есть график (владелец, работающий мастером, и ассистент); не знаем — считаем, что нет.
+ * withBookings — у кого есть свои записи в этом месяце (ассистент с записями — платный мастер).
  */
 export function seatsFor(
   staffOfBusiness: (Staff | SeatCandidate)[],
   scheduled: ReadonlySet<string> = new Set(),
+  withBookings: ReadonlySet<string> = new Set(),
 ): Map<string, SeatInfo> {
   const result = new Map<string, SeatInfo>();
   const admins = staffOfBusiness
@@ -79,8 +88,14 @@ export function seatsFor(
         isFirst ? free(s.id, "adminFirstFree") : { staffId: s.id, paid: true, price: ADMIN_EXTRA_SEAT_PRICE, reason: "adminExtra" },
       );
     }
-    if (isAssistantStaff(s)) return void result.set(s.id, free(s.id, "assistantFree"));
-    if (s.status === "invited") return void result.set(s.id, free(s.id, "invitedPending"));
+    if (s.assistantOnly) {
+      const works = s.serviceIds.length > 0 || scheduled.has(s.id) || withBookings.has(s.id);
+      return void result.set(s.id, works ? { staffId: s.id, paid: true, price: MASTER_SEAT_PRICE, reason: "assistantWorks" } : free(s.id, "assistantFree"));
+    }
+    if (s.status === "invited") {
+      const fresh = dayjs().diff(dayjs(s.hiredAt), "day", true) < INVITED_FREE_DAYS;
+      return void result.set(s.id, fresh ? free(s.id, "invitedPending") : { staffId: s.id, paid: true, price: MASTER_SEAT_PRICE, reason: "invitedLong" });
+    }
     result.set(s.id, { staffId: s.id, paid: true, price: MASTER_SEAT_PRICE, reason: "master" });
   });
   return result;

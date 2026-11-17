@@ -12,6 +12,7 @@ import * as Server from '@/api/finance.server';
 import { isApiMode } from '@/api/http';
 import { recordDayCloseNoticeSync } from '@/api/notify-dayclose';
 import * as PayrollServer from '@/api/payroll.server';
+import { isStatementLocked, newDaysRange } from '@/domain/payroll';
 import { ApiError, request } from '@/api/request';
 import type { Booking, Id, ISODateTime, LocalizedText, Money } from '@/domain/core';
 import { isOrderService } from '@/domain/ordersPickup';
@@ -1088,6 +1089,53 @@ export function recordPrepaymentReceivedSync(bookingId: Id): void {
       source: 'booking',
       refId: booking.id,
       lineLabel: PREPAYMENT_LINE_LABEL,
+      createdBy: by,
+      createdAt: at,
+      history: [{ at, by, action: 'created' }],
+    });
+  });
+}
+
+/**
+ * Ответ 12 (владелец 17.11.2026): деньги заказа — сразу операцией в кассе способом оплаты, как у записи (мок; сервер —
+ * booktime-backend orders.service.ts orderMoneyTx). Пример: пальто 12 000 ֏ — предоплата 3 000 наличными при приёме,
+ * доплата 9 000 картой при выдаче. `amount` < 0 — возврат (предоплату уменьшили). Только внутри request() вызывающего.
+ */
+export function recordOrderMoneySync(
+  order: { id: Id; businessId: Id; locationId?: Id; number: number; clientId?: Id; clientName: string },
+  amount: Money,
+  methodKey: string,
+  stage: 'prepaid' | 'issue' | 'prepaidChange',
+): void {
+  if (!amount) return;
+  const area = readArea('finance');
+  const settings = area.paymentMethods?.[order.businessId];
+  const tile = settings ? paymentMethodTiles(settings).find((t) => t.key === methodKey) : undefined;
+  const income = amount > 0;
+  const itemId = area.itemBySystemKey[order.businessId]?.[income ? 'servicePayment' : 'refund'];
+  const accountId = tile?.accountId ?? area.accounts.find((a) => a.businessId === order.businessId && a.kind === (methodKey === 'cash' ? 'cash' : 'card'))?.id;
+  if (!itemId || !accountId) throw new ApiError('validation', 'payment_method_has_no_account');
+  const account = area.accounts.find((a) => a.id === accountId);
+  const by = currentActorId();
+  const at = nowDateTime();
+  const what = stage === 'prepaid' ? 'предоплата' : stage === 'issue' ? 'оплата при выдаче' : income ? 'доплата предоплаты' : 'возврат предоплаты';
+  mutateArea('finance', (s) => {
+    s.operations.push({
+      id: newId('op'),
+      businessId: order.businessId,
+      locationId: order.locationId ?? account?.locationId ?? '',
+      accountId,
+      itemId,
+      kind: income ? 'income' : 'expense',
+      amount: roundToDram(Math.abs(amount)),
+      date: at,
+      method: tile?.kind === 'cash' ? 'cash' : tile?.kind === 'card' ? 'card' : 'other',
+      partyType: order.clientId ? 'client' : 'none',
+      partyId: order.clientId,
+      partyName: order.clientName,
+      source: 'order',
+      refId: order.id,
+      lineLabel: `Заказ №${order.number} · ${what}`,
       createdBy: by,
       createdAt: at,
       history: [{ at, by, action: 'created' }],
@@ -2403,6 +2451,12 @@ export function createSettlementSheet(businessId: Id, staffId: Id, periodFrom: s
     assertCan('finance.edit');
     const from = periodFrom.slice(0, 10);
     const to = periodTo.slice(0, 10);
+    // Ответ 27 (17.11.2026): уже начисленные дни второй раз не начисляем — как сервер, ошибка с новыми днями
+    const taken = sheetDaysOf(businessId, staffId);
+    if (taken.some((x) => x.from <= to && from <= x.to)) {
+      const fresh = newDaysRange(taken, from, to);
+      throw new ApiError('period_overlaps', undefined, fresh ? { newFrom: fresh.from, newTo: fresh.to } : {});
+    }
     // зарплата-ревью З1: сумма ведомости — ЗАРПЛАТА по схеме (тот же расчёт, что «Расчёт за период» раздела
     // «Зарплата»: строки услуг этого мастера, ставки, минимум, филиалы), а не выручка его визитов. Ленивый
     // импорт — api/payroll сам импортирует этот файл.
@@ -2448,6 +2502,68 @@ export function accrueSettlementSheet(businessId: Id, entryId: Id): Promise<Sett
   });
 }
 
+/**
+ * Ответ 27 (владелец 17.11.2026): ведомость только на ещё не начисленные дни. Сначала смотрит ведомости сотрудника
+ * (пересечение видно до запроса — без ошибки 409); сервер всё равно проверяет сам (двое начислили разом — catch).
+ * `ask` — спросить человека «начислить только новые дни?»; без него (начисление всем) — сразу только новые дни.
+ */
+export type SheetNewDaysResult =
+  /** Создана: за весь период или только за новые дни (trimmed) */
+  | { status: 'created'; from: string; to: string; trimmed: boolean }
+  /** Все дни уже в ведомостях — создавать нечего */
+  | { status: 'covered' }
+  /** Человек отказался начислять только новые дни */
+  | { status: 'cancelled' };
+
+export async function createSheetNewDays(
+  businessId: string,
+  staffId: string,
+  from: string,
+  to: string,
+  opts: { comment?: string; draft?: boolean; ask?: (fresh: { from: string; to: string }) => Promise<boolean> } = {},
+): Promise<SheetNewDaysResult> {
+  const create = (f: string, t: string) => createSettlementSheet(businessId, staffId, `${f}T00:00`, `${t}T23:59`, opts.comment, opts.draft);
+  // Сначала смотрим свои ведомости сотрудника — пересечение видно до запроса (без ошибки 409 в консоли); сервер всё
+  // равно проверит сам (двое начислили одновременно — сработает ветка catch ниже)
+  const taken = (await listSettlementEntries(businessId, staffId))
+    .filter((e) => e.kind === 'sheet' && e.periodFrom && e.periodTo)
+    .map((e) => ({ from: e.periodFrom!.slice(0, 10), to: e.periodTo!.slice(0, 10) }));
+  if (taken.some((x) => x.from <= to && from <= x.to)) {
+    const fresh = newDaysRange(taken, from, to);
+    if (!fresh) return { status: 'covered' };
+    if (opts.ask && !(await opts.ask(fresh))) return { status: 'cancelled' };
+    await create(fresh.from, fresh.to);
+    return { status: 'created', ...fresh, trimmed: true };
+  }
+  try {
+    await create(from, to);
+    return { status: 'created', from, to, trimmed: false };
+  } catch (e) {
+    if (!(e instanceof ApiError) || e.code !== 'period_overlaps') throw e;
+    const fresh = e.fields?.newFrom && e.fields?.newTo ? { from: e.fields.newFrom, to: e.fields.newTo } : null;
+    if (!fresh) return { status: 'covered' };
+    if (opts.ask && !(await opts.ask(fresh))) return { status: 'cancelled' };
+    await create(fresh.from, fresh.to);
+    return { status: 'created', ...fresh, trimmed: true };
+  }
+}
+
+
+/** Дни ведомостей сотрудника 'YYYY-MM-DD' (ответы 26, 27) */
+function sheetDaysOf(businessId: Id, staffId: Id): { id: Id; from: string; to: string }[] {
+  return readArea('finance')
+    .settlementEntries.filter((e) => e.businessId === businessId && e.staffId === staffId && e.kind === 'sheet' && e.periodFrom && e.periodTo)
+    .map((e) => ({ id: e.id, from: e.periodFrom!.slice(0, 10), to: e.periodTo!.slice(0, 10) }));
+}
+
+/** Ответ 26: день `at` — в одобренной ведомости сотрудника? Тогда премию/штраф не добавить и не удалить (как сервер) */
+function assertDayOpenSync(businessId: Id, staffId: Id, at: string): void {
+  const approvals = readArea('payroll').statementApprovals;
+  const day = at.slice(0, 10);
+  const hit = sheetDaysOf(businessId, staffId).find((x) => isStatementLocked(approvals[x.id]?.status) && x.from <= day && day <= x.to);
+  if (hit) throw new ApiError('statement_locked', undefined, { sheetId: hit.id });
+}
+
 /** Премия / штраф / внеочередное начисление сотруднику (F-07-161) */
 export function createSettlementEntry(businessId: Id, staffId: Id, kind: Extract<SettlementEntryKind, 'bonus' | 'penalty' | 'adjustment'>, label: string, amount: Money, comment?: string): Promise<SettlementEntry> {
   if (isApiMode()) return PayrollServer.createEntry(businessId, staffId, kind, label, amount, comment) as Promise<SettlementEntry>;
@@ -2455,6 +2571,7 @@ export function createSettlementEntry(businessId: Id, staffId: Id, kind: Extract
     assertCan('finance.edit');
     const by = currentActorId();
     const at = nowDateTime();
+    assertDayOpenSync(businessId, staffId, at);
     const entry: SettlementEntry = { id: newId('set'), businessId, staffId, kind, amount: roundToDram(Math.abs(amount)), label, comment: comment?.trim() || undefined, createdAt: at, createdBy: by };
     mutateArea('finance', (s) => {
       s.settlementEntries.push(entry);
@@ -2468,6 +2585,10 @@ export function deleteSettlementEntry(businessId: Id, entryId: Id): Promise<void
   if (isApiMode()) return PayrollServer.deleteEntry(businessId, entryId);
   return request(() => {
     assertCan('finance.edit');
+    const found = readArea('finance').settlementEntries.find((e) => e.id === entryId && e.businessId === businessId);
+    // Ответ 26: одобренную ведомость и премии/штрафы в её днях не удаляем — сначала «Вернуть на проверку» (как сервер)
+    if (found?.kind === 'sheet' && isStatementLocked(readArea('payroll').statementApprovals[found.id]?.status)) throw new ApiError('statement_locked', undefined, { sheetId: found.id });
+    if (found && found.kind !== 'sheet' && found.kind !== 'payout') assertDayOpenSync(businessId, found.staffId, found.createdAt);
     mutateArea('finance', (s) => {
       const entry = s.settlementEntries.find((e) => e.id === entryId && e.businessId === businessId);
       if (!entry || entry.kind === 'payout') return;
@@ -2489,9 +2610,10 @@ export function payoutSalary(
   accountId: Id,
   amount: Money,
   comment?: string,
-  options?: { method?: Operation['method']; date?: ISODateTime; allowOverdraft?: boolean },
+  options?: { method?: Operation['method']; date?: ISODateTime; allowOverdraft?: boolean; sheetId?: Id },
 ): Promise<SettlementEntry> {
-  if (isApiMode()) return PayrollServer.payout(businessId, locationId, staffId, accountId, amount, comment) as Promise<SettlementEntry>;
+  // Способ, дата и ведомость уходят на сервер (ответ 28, 17.11.2026: раньше сервер всегда писал «наличные» и «сейчас»)
+  if (isApiMode()) return PayrollServer.payout(businessId, locationId, staffId, accountId, amount, comment, { method: options?.method, date: options?.date, sheetId: options?.sheetId }) as Promise<SettlementEntry>;
   return request(() => {
     assertCan('finance.edit');
     const area = readArea('finance');
@@ -2528,6 +2650,13 @@ export function payoutSalary(
       });
       s.settlementEntries.push(entry);
     });
+    // Ответ 28: выплата по подписанной ведомости переводит её в «Выплачено» (как сервер)
+    if (options?.sheetId) {
+      mutateArea('payroll', (p) => {
+        const approval = p.statementApprovals[options.sheetId!];
+        if (approval?.status === 'signed') p.statementApprovals[options.sheetId!] = { ...approval, status: 'paid', history: [...approval.history, { status: 'paid', at, by }] };
+      });
+    }
     return entry;
   });
 }

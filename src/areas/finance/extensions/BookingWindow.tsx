@@ -50,6 +50,7 @@ import { useCurrent } from '@/demo/hooks';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import type { BookingWindowExtProps } from '@/extensions/types';
 import { useFormat } from '@/i18n/useFormat';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -486,12 +487,6 @@ export default function FinanceBookingWindow({ mode, bookingId, businessId }: Bo
           <Badge tone={statusTone}>{statusLabel}</Badge>
         </div>
         <VisitLines businessId={businessId} booking={booking} lineTotals={lineTotals} goods={goods} />
-        {prepaid > 0 && (
-          <p data-f="F-00-097" className="flex items-center justify-between gap-3 border-t border-border pt-2 text-sm">
-            <span className="text-muted">{booking.prepayment?.full ? t('bookingPayment.prepaidFull') : t('bookingPayment.prepaid')}</span>
-            <span className="font-medium tabular-nums">{format.money(prepaid)}</span>
-          </p>
-        )}
         {refunded > 0 && (
           <p className="flex items-center justify-between gap-3 border-t border-border pt-2 text-sm">
             <span className="flex items-center gap-1.5 text-muted">
@@ -737,7 +732,8 @@ export default function FinanceBookingWindow({ mode, bookingId, businessId }: Bo
 
       {/* М3: «Оплачено» и примечание — только когда платежи есть, и проявляются (fade) на месте ушедших способов оплаты:
           блок способов снимается сразу, а не «тает» под вставкой сверху — так ничего не едет (CLS после оплаты 0,106 → 0) */}
-      {groups.length > 0 && (
+      {/* Ответ 14 (17.11.2026): предоплата переводом — строкой в «Оплачено», а не над списком */}
+      {(groups.length > 0 || prepaid > 0) && (
         <div className="flex animate-fade-in flex-col gap-4">
         {/* F-07-039/181/043 — платежи визита: один платёж — одна строка (Ф11), возврат — отдельно (Ф7/Ф8) */}
         <SectionCard
@@ -763,10 +759,11 @@ export default function FinanceBookingWindow({ mode, bookingId, businessId }: Bo
             ) : undefined
           }
         >
-          {groups.length === 0 ? (
+          {groups.length === 0 && prepaid <= 0 ? (
             <p className="py-2 text-sm text-muted">{t('bookingPayment.nothingPaidYet')}</p>
           ) : (
             <PaymentHistory
+              prepaid={prepaid > 0 ? { amount: prepaid, label: booking.prepayment?.full ? t('bookingPayment.prepaidFull') : t('bookingPayment.prepaidRow') } : undefined}
               groups={groups}
               canRefund={canEditPayments}
               canCancel={canEditPayments}
@@ -813,7 +810,8 @@ export default function FinanceBookingWindow({ mode, bookingId, businessId }: Bo
 
       {/* b05 — F-07-113/114/117/118/121: снимок и решения политики оплаты этой записи. Внизу — поздняя загрузка не
           сдвигает оплату (fin-review М2) */}
-      <PolicyBookingBlock
+      {/* Политика оплаты картой (Adyen) скрыта до подключения провайдера (src/config/hidden.ts, cardPayments) */}
+      {isConnected('cardPayments') && <PolicyBookingBlock
         bookingId={bookingId}
         businessId={businessId}
         clientId={clientId}
@@ -821,7 +819,7 @@ export default function FinanceBookingWindow({ mode, bookingId, businessId }: Bo
         cancelledLate={booking.cancelledLate}
         noShow={noShow}
         hasPrepayment={Boolean(booking.prepayment)}
-      />
+      />}
 
       <QuickPayModal tile={quickTile} amount={due} pending={quickM.isPending} onClose={() => setQuickTile(null)} onConfirm={handleQuickPay} />
 

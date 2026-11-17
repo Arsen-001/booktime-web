@@ -19,6 +19,7 @@ import type { LoyaltyNotifyEventCode } from '@/domain/notify';
 import { LOYALTY_NOTIFY_DEFS } from '@/areas/notify/lib/loyaltyNotify';
 import type { Locale } from '@/i18n/config';
 import { useCurrent } from '@/demo/hooks';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Checkbox } from '@/ui/Checkbox';
@@ -134,13 +135,25 @@ function RuleRow({ code }: { code: LoyaltyNotifyEventCode }) {
 
 type GroupTitleKey = 'loyalty.groupCards' | 'loyalty.groupPromo' | 'loyalty.groupSubscriptions' | 'loyalty.groupOnline' | 'loyalty.groupAutoRenewal';
 
-const GROUPS: { titleKey: GroupTitleKey; codes: LoyaltyNotifyEventCode[] }[] = [
+const ALL_GROUPS: { titleKey: GroupTitleKey; codes: LoyaltyNotifyEventCode[] }[] = [
   { titleKey: 'loyalty.groupCards', codes: ['cardIssued', 'pointsEarned', 'pointsSpent'] },
   { titleKey: 'loyalty.groupPromo', codes: ['promoDiscountChanged', 'promoDiscountEndingSoon', 'promoCashbackEarned', 'promoBonusBurningSoon'] },
   { titleKey: 'loyalty.groupSubscriptions', codes: ['subscriptionEndingSoon', 'subscriptionCharge'] },
   { titleKey: 'loyalty.groupOnline', codes: ['onlinePurchaseReceipt', 'formLinkAfterBooking'] },
   { titleKey: 'loyalty.groupAutoRenewal', codes: ['autoRenewalUpcoming', 'autoRenewalCharged', 'autoRenewalCancelled', 'autoRenewalFailed'] },
 ];
+
+/**
+ * Владелец 17.11.2026 (ответ 16): письма «только Бразилия / Казахстан» (автопродление AltPay) убираем, анкета
+ * FastSign (партнёрское приложение, было «демо-механизм») — скрыта с каталогом партнёров (src/config/hidden.ts).
+ */
+function letterShown(code: LoyaltyNotifyEventCode): boolean {
+  const def = LOYALTY_NOTIFY_DEFS.find((d) => d.code === code);
+  if (def?.regionOnly && !isConnected('foreignMembershipLetters')) return false;
+  if (code === 'formLinkAfterBooking' && !isConnected('appCatalog')) return false;
+  return true;
+}
+const GROUPS = ALL_GROUPS.map((g) => ({ ...g, codes: g.codes.filter(letterShown) })).filter((g) => g.codes.length > 0);
 
 export function LoyaltyNotifyScreen() {
   const t = useT('notify');

@@ -35,6 +35,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { SupportChatModal } from '@/areas/notify/components/SupportChatModal';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useFormat } from '@/i18n/useFormat';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { waLink } from '@/lib/phone';
 import { Badge } from '@/ui/Badge';
@@ -133,7 +134,7 @@ export function InboxScreen() {
   const callsQ = useApiQuery(
     ['notify', 'inboxCalls', networkId, businessId],
     () => listNetworkCalls(networkId!, businessId),
-    { enabled: ready && !!networkId && canNetwork },
+    { enabled: ready && !!networkId && canNetwork && isConnected('telephony') },
   );
   // F-05-058: галочка «Операции с записями» (/biz/notifications/channels) — выключена, значит новые записи
   // не всплывают попапом и не попадают в центр уведомлений вовсе (то же правило для попапа и для колокольчика).
@@ -192,7 +193,8 @@ export function InboxScreen() {
         onValueChange={(v) => setTab(v as 'events' | 'calls' | 'news')}
         items={[
           { value: 'events', label: t('inbox.tabs.events'), icon: <CalendarPlus aria-hidden /> },
-          { value: 'calls', label: t('inbox.tabs.calls'), icon: <Phone aria-hidden /> },
+          // Телефония скрыта до подключения (src/config/hidden.ts)
+          ...(isConnected('telephony') ? [{ value: 'calls', label: t('inbox.tabs.calls'), icon: <Phone aria-hidden /> }] : []),
           { value: 'news', label: t('inbox.tabs.news'), icon: <Newspaper aria-hidden /> },
         ]}
       />

@@ -26,11 +26,14 @@ export function GoodFormFields({
   setForm,
   categories,
   nameError,
+  showCost = true,
 }: {
   form: GoodInput;
   setForm: Dispatch<SetStateAction<GoodInput>>;
   categories: { id: Id; name: string }[];
   nameError?: string;
+  /** Себестоимость — сумма салона: без права её видеть (только «смотреть склад», ответ 17) поле скрыто */
+  showCost?: boolean;
 }) {
   const t = useT('stock');
   const { has } = useSphere();
@@ -123,9 +126,11 @@ export function GoodFormFields({
             <FormField label={t('goodForm.salePrice')}>
               <MoneyInput value={form.salePrice} onValueChange={(v) => set('salePrice', v ?? 0)} />
             </FormField>
-            <FormField label={t('goodForm.costPrice')} hint={t('goodForm.costPriceHint')}>
-              <MoneyInput value={form.costPrice} onValueChange={(v) => set('costPrice', v ?? 0)} />
-            </FormField>
+            {showCost && (
+              <FormField label={t('goodForm.costPrice')} hint={t('goodForm.costPriceHint')}>
+                <MoneyInput value={form.costPrice} onValueChange={(v) => set('costPrice', v ?? 0)} />
+              </FormField>
+            )}
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <FormField label={t('goodForm.taxSystem')}>

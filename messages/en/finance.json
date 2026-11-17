@@ -91,7 +91,8 @@
       "import": "Import",
       "sale": "Sale",
       "payroll": "Payroll",
-      "account": "Client account"
+      "account": "Client account",
+      "order": "Order"
     },
     "addExpense": "Expense",
     "transferItem": "Transfer between desks",
@@ -100,7 +101,8 @@
       "income": "Income",
       "expense": "Expenses",
       "saldo": "Net"
-    }
+    },
+    "openOrder": "Open order"
   },
   "operationForm": {
     "title": "New payment",
@@ -176,7 +178,8 @@
     "refundStockNote": "Update stock / subscription visits left / certificate balance on their own screen — the money side of the refund is already recorded",
     "notFoundTitle": "Transaction not found",
     "notFoundText": "The link may be outdated — the demo data was recreated. Find the transaction in the list.",
-    "backToList": "To transactions"
+    "backToList": "To transactions",
+    "linkedOrder": "This is order money — the prepayment is changed in the order, the rest is taken when it is handed over"
   },
   "importOperations": {
     "hint": "A CSV file (in Excel: “Save as → CSV”) with columns “Date; Category; Cash desk; Amount; Comment”. A negative amount is an expense.",
@@ -608,7 +611,8 @@
     "fromLoyalty": "Loyalty",
     "cancelInLoyalty": "Cancel this line in the Loyalty tab — the client gets the bonuses or gift card back there",
     "prepaid": "Prepayment received by transfer",
-    "prepaidFull": "Paid in advance by transfer"
+    "prepaidFull": "Paid in advance by transfer",
+    "prepaidRow": "Prepayment by transfer"
   },
   "clientMoney": {
     "title": "Client balance",
@@ -700,7 +704,14 @@
     "overAccruedHint": "{amount} more than accrued — this will be an advance",
     "overAccruedTitle": "Pay out more than accrued?",
     "overAccruedText": "Accrued {accrued}, paying {amount}. The difference becomes the employee's debt to the salon (an advance).",
-    "overAccruedConfirm": "Pay the advance"
+    "overAccruedConfirm": "Pay the advance",
+    "payoutWay": {
+      "cash": "Cash",
+      "transfer": "Card transfer",
+      "cashAccount": "Till",
+      "transferAccount": "From account",
+      "noAccount": "No matching till or account"
+    }
   },
   "settingsPage": {
     "subtitle": "Receipts, online cash registers and «Finance» section rights",

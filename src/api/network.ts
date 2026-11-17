@@ -12,6 +12,7 @@ import type {
   Booking,
   Business,
   Client,
+  DistrictId,
   Id,
   ISODate,
   ISODateTime,
@@ -51,9 +52,10 @@ import {
   coreUpdate,
   currentActor,
   listBookings,
+  uniqueBusinessSlug,
 } from "@/api/core";
 import { mutateArea, readArea, readCore, readCoreMirror } from "@/api/area";
-import { createSettlementSheet } from "@/api/finance";
+import { createSheetNewDays } from "@/api/finance";
 import { ApiError, getQueryClient, request } from "@/api/request";
 import { http, isApiMode } from "@/api/http";
 import { mirrorCore, syncCore } from "@/api/mirror";
@@ -514,6 +516,47 @@ export async function addLocationToNetwork(
       extras.order = [...extras.order, businessId];
     }),
   );
+}
+
+/**
+ * «Новый филиал» одним шагом внутри сети (владелец 17.11.2026, ответ 31): название филиала и адрес — сферы и телефон
+ * как у главного, имя «Сеть · Филиал»; без повторной анкеты регистрации и без второго шага «Уже ваш салон».
+ * Новый филиал — свой бизнес со своей подпиской. Возвращает id нового бизнеса.
+ */
+export async function createNetworkBranch(
+  networkId: Id,
+  input: { name: string; address?: string; district?: DistrictId },
+): Promise<Id> {
+  if (!input.name.trim()) throw new ApiError("bad_name");
+  if (isApiMode()) {
+    const res = await http<{ network: ServerNetwork; businessId: Id }>("POST", `/v1/net/${networkId}/branches`, input);
+    await afterNetworkWrite(res.network, [res.businessId]);
+    await request(() =>
+      mutateArea("network", (s) => {
+        const extras = (s.extras[networkId] ??= { order: [] });
+        if (!extras.order.includes(res.businessId)) extras.order = [...extras.order, res.businessId];
+      }),
+    );
+    return res.businessId;
+  }
+  // Мок: копия главного филиала (сферы, телефон, вид) с новым именем и своей локацией
+  const network = await getNetwork(networkId);
+  const mainId = network.mainBusinessId ?? network.businessIds[0];
+  const main = readCore().businesses.find((b) => b.id === mainId);
+  if (!main) throw new ApiError("not_found");
+  const branch = input.name.trim();
+  const name = branch.startsWith(network.name) ? branch : `${network.name} · ${branch}`;
+  const slug = await uniqueBusinessSlug(name);
+  const business = await coreCreate("businesses", { ...main, name, slug, status: "draft", locationIds: [], networkId } as Omit<Business, "id">);
+  const location = await coreCreate("locations", {
+    businessId: business.id,
+    name: { ru: branch, hy: branch, en: branch },
+    address: input.address?.trim() ?? "",
+    district: input.district ?? "kentron",
+  } as unknown as Omit<Location, "id">);
+  await coreUpdate("businesses", business.id, { locationIds: [location.id] });
+  await addLocationToNetwork(networkId, business.id);
+  return business.id;
 }
 
 /** Выход локации из сети (F-11-013): пропадает из сетевых отчётов, счета клиентов и история остаются */
@@ -3563,54 +3606,63 @@ export function listNetworkPayrollRuns(
  * или без визитов за период не должен остановить весь сетевой прогон — ошибка по нему проглатывается,
  * остальные ведомости всё равно создаются.
  */
+/** Итог запуска ведомости сети: кого не начислили и почему (ответ 34, владелец 17.11.2026) */
+export interface NetworkPayrollRunResult extends NetworkPayrollRun {
+  /** Сотрудники замороженных филиалов — их не начисляем («Не начислено: 4 — филиал заморожен») */
+  skippedFrozen: number;
+  /** Все дни периода у сотрудника уже в ведомостях (ответ 27) */
+  skippedCovered: number;
+}
+
 export function createNetworkPayrollRun(
   networkId: Id,
   input: { from: ISODate; to: ISODate; businessIds: Id[]; authorName: string },
-): Promise<NetworkPayrollRun> {
+): Promise<NetworkPayrollRunResult> {
   return request(async () => {
     if (!input.businessIds.length)
       throw new ApiError("validation", "no locations");
+    // Ответ 34: замороженные филиалы выключены — их сотрудников не начисляем и считаем отдельно
+    const locations = await listNetworkLocations(networkId);
+    const frozen = new Set(locations.filter((l) => l.business.status === "frozen").map((l) => l.business.id));
     // api: readCore() зеркалит только те бизнесы, чьи экраны уже открывали в этой сессии — для чужого филиала
     // сети список сотрудников там может быть пуст. listNetworkStaff бьёт в сервер напрямую (F-11-097).
-    const staffList = isApiMode()
-      ? (await Server.listNetworkStaff(networkId, { status: "active" })).filter(
-          (s) => input.businessIds.includes(s.businessId),
-        )
+    const allStaff = isApiMode()
+      ? await Server.listNetworkStaff(networkId, { status: "active" })
       : readCore().staff.filter(
           (s) =>
-            input.businessIds.includes(s.businessId) &&
+            locations.some((l) => l.business.id === s.businessId) &&
             s.status !== "disabled" &&
             s.status !== "fired",
         );
+    const skippedFrozen = allStaff.filter((s) => frozen.has(s.businessId)).length;
+    const staffList = allStaff.filter((s) => input.businessIds.includes(s.businessId) && !frozen.has(s.businessId));
+    const comment = input.authorName ? `${input.authorName} · /group_payroll` : undefined;
     let staffCount = 0;
+    let skippedCovered = 0;
     for (const s of staffList) {
       try {
-        await createSettlementSheet(
-          s.businessId,
-          s.id,
-          `${input.from}T00:00`,
-          `${input.to}T23:59`,
-          input.authorName ? `${input.authorName} · /group_payroll` : undefined,
-          false,
-        );
-        staffCount += 1;
+        // Ответ 27: дни уже начислены — только новые; всё начислено — «дни уже в ведомостях»
+        const res = await createSheetNewDays(s.businessId, s.id, input.from, input.to, { comment, draft: false });
+        if (res.status === "created") staffCount += 1;
+        else skippedCovered += 1;
       } catch {
         // не роняем весь сетевой прогон из-за одного сотрудника — см. комментарий выше
       }
     }
+    const businessIds = input.businessIds.filter((id) => !frozen.has(id));
     if (isApiMode())
       return Server.addNetworkPayrollRun(networkId, {
         from: input.from,
         to: input.to,
-        businessIds: input.businessIds,
+        businessIds,
         staffCount,
         authorName: input.authorName,
-      });
+      }).then((run) => ({ ...run, skippedFrozen, skippedCovered }));
     const run: NetworkPayrollRun = {
       id: newId("netpay"),
       networkId,
       period: { from: input.from, to: input.to },
-      businessIds: input.businessIds,
+      businessIds,
       staffCount,
       createdAt: nowDateTime(),
       authorName: input.authorName,
@@ -3618,7 +3670,7 @@ export function createNetworkPayrollRun(
     mutateArea("network", (s) => {
       s.payrollRuns = [run, ...s.payrollRuns];
     });
-    return run;
+    return { ...run, skippedFrozen, skippedCovered };
   });
 }
 

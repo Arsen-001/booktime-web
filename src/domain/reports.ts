@@ -6,6 +6,7 @@
  * (используется в витрине, в переключателе шапки F-12-003 и в заголовке страницы) — единственный
  * источник этих названий REPORT_CATALOG, ключ i18n на группу/пункт лежит в messages/<lang>/reports.json.
  */
+import { hiddenRouteTarget } from '@/config/hidden';
 import type { Id, ISODate, ISODateTime } from '@/domain/core';
 
 export type ReportGroupId = 'attendance' | 'finance' | 'sales' | 'stock' | 'marketing' | 'security';
@@ -26,7 +27,7 @@ export interface ReportCatalogItem {
 }
 
 /** F-12-002: 24 отчёта, 6 групп — порядок и состав 1:1 с ТЗ */
-export const REPORT_CATALOG: ReportCatalogItem[] = [
+const ALL_REPORTS: ReportCatalogItem[] = [
   // Посещаемость
   { slug: 'visits', group: 'attendance', topNav: true, state: 'built', href: '/biz/reports/visits' },
   { slug: 'appointments', group: 'attendance', state: 'built', href: '/biz/reports/r/appointments' },
@@ -58,6 +59,9 @@ export const REPORT_CATALOG: ReportCatalogItem[] = [
   { slug: 'dataExports', group: 'security', state: 'built', href: '/biz/reports/r/dataExports' },
   { slug: 'dataChanges', group: 'security', state: 'built', href: '/biz/reports/r/dataChanges' },
 ];
+
+/** Отчёты витрины; спрятанное до настоящего подключения («Звонки» — телефония, src/config/hidden.ts) не показываем */
+export const REPORT_CATALOG: ReportCatalogItem[] = ALL_REPORTS.filter((r) => !hiddenRouteTarget(r.href));
 
 /** F-12-009: «Основные показатели» — тоже в переключателе/витрине, отдельный slug вне 24 групп */
 export const DASHBOARD_SLUG = 'dashboard';

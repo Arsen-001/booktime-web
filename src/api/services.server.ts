@@ -211,7 +211,10 @@ export function getServiceDeleteImpact(id: Id): Promise<ServerServiceDeleteImpac
 
 export async function deleteService(id: Id, businessId: Id): Promise<Service> {
   const service = await http<Service>('DELETE', `${base(businessId)}/services/${id}`);
-  unmirror('services', id);
+  // Ответ 33: услуга с визитами ушла в архив — в зеркале остаётся (выключенной, с archivedAt), чтобы журнал и история
+  // по-прежнему показывали её название; без визитов — стёрта
+  if (service.archivedAt) changedService({ ...service, active: false, onlineBookable: false, staffIds: [] });
+  else unmirror('services', id);
   notifyDbChange('areas.services', 'core.services');
   return service;
 }

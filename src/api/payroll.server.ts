@@ -297,6 +297,11 @@ export function advanceStatementApproval(sheetId: Id): Promise<StatementApproval
   return http<StatementApproval>('POST', `${b(currentBusinessId())}/payroll/statements/${sheetId}/approval/advance`);
 }
 
+/** «Вернуть на проверку» (ответ 26, 17.11.2026) */
+export function reopenStatementApproval(sheetId: Id): Promise<StatementApproval> {
+  return http<StatementApproval>('POST', `${b(currentBusinessId())}/payroll/statements/${sheetId}/approval/reopen`);
+}
+
 /** Сотрудник подписывает свою ведомость из «Моя зарплата» (без payroll.view, проход 17.11) */
 export function signOwnStatement(businessId: Id, staffId: Id, sheetId: Id): Promise<StatementApproval> {
   return http<StatementApproval>('POST', `${b(businessId)}/staff/${staffId}/statements/${sheetId}/sign`);
@@ -339,6 +344,7 @@ export function deleteEntry(businessId: Id, id: Id) {
   return http('DELETE', `${b(businessId)}/payroll/settlements/${id}`).then(() => undefined);
 }
 
-export function payout(businessId: Id, locationId: Id, staffId: Id, accountId: Id, amount: number, comment?: string) {
-  return http('POST', `${b(businessId)}/payroll/payouts`, { staffId, locationId, accountId, amount, comment });
+/** Выплата зарплаты: способ, момент ('YYYY-MM-DDTHH:mm' по Еревану) и ведомость, по которой платим (ответ 28) */
+export function payout(businessId: Id, locationId: Id, staffId: Id, accountId: Id, amount: number, comment?: string, options?: { method?: 'cash' | 'card' | 'transfer' | 'other'; date?: string; sheetId?: Id }) {
+  return http('POST', `${b(businessId)}/payroll/payouts`, { staffId, locationId, accountId, amount, comment, method: options?.method, date: options?.date?.slice(0, 16), sheetId: options?.sheetId });
 }

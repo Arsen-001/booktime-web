@@ -16,6 +16,7 @@ import { useCoreGet } from '@/api/core';
 import { saveSystemSettings, useSystemSettings } from '@/api/settings';
 import { useApiMutation } from '@/api/request';
 import { useCan, useCurrent, useSphere } from '@/demo/hooks';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Button, LinkButton } from '@/ui/Button';
 import { EmptyState } from '@/ui/EmptyState';
@@ -222,7 +223,7 @@ export function SystemScreen() {
             <SectionCard title={t('system.webhookTitle')}>
               <div className="flex flex-wrap items-center gap-3">
                 <Webhook aria-hidden className="size-4 shrink-0 text-muted" />
-                <p className="min-w-0 flex-1 text-sm text-muted">{t('system.webhookMoved')}</p>
+                <p className="min-w-0 flex-1 text-sm text-muted">{isConnected('openApi') ? t('system.webhookMoved') : t('system.webhookMovedOnly')}</p>
                 <LinkButton href="/biz/integrations/api?tab=webhooks" size="sm" variant="outline">
                   {t('system.webhookOpen')}
                 </LinkButton>

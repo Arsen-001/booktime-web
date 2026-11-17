@@ -11,21 +11,18 @@ import { Banknote, Gift, Minus, Plus, Trash2, Users } from 'lucide-react';
 import {
   cancelSalaryPayout,
   createSettlementEntry,
-  createSettlementSheet,
   deleteSettlementEntry,
   getFinanceRights,
   listAccountsWithBalance,
-  payoutSalary,
 } from '@/api/finance';
 import { useCoreList } from '@/api/core';
-import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
+import { useApiMutation, useApiQuery } from '@/api/request';
 import type { DateRange } from '@/ui/Calendar';
 import { useCan, useCurrent } from '@/demo/hooks';
-import { combine, nowYerevan, today } from '@/lib/date';
+import { today } from '@/lib/date';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
-import { DatePicker } from '@/ui/DatePicker';
 import { DateRangePicker } from '@/ui/DateRangePicker';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
@@ -41,8 +38,10 @@ import { SkeletonText } from '@/ui/Skeleton';
 import { StatCard } from '@/ui/StatCard';
 import { Textarea } from '@/ui/Textarea';
 import { useConfirm, useToast } from '@/ui/Toast';
+import { SalaryPayoutModal } from '@/areas/finance/SalaryPayoutModal';
+import { useSheetNewDays } from '@/areas/payroll/sheetNewDays';
 import { listSettlementEntries, getSettlementBalance } from '@/api/finance';
-import type { OperationMethod, SettlementEntryKind } from '@/domain/finance';
+import type { SettlementEntryKind } from '@/domain/finance';
 
 const KIND_ICON: Record<SettlementEntryKind, typeof Banknote> = { sheet: Users, bonus: Gift, penalty: Minus, adjustment: Plus, payout: Banknote };
 
@@ -69,12 +68,6 @@ export function SettlementsScreen() {
   const [entryAmount, setEntryAmount] = useState<number | undefined>(undefined);
   const [entryComment, setEntryComment] = useState('');
   const [payoutOpen, setPayoutOpen] = useState(false);
-  const [payoutAmount, setPayoutAmount] = useState<number | undefined>(undefined);
-  const [payoutAccountId, setPayoutAccountId] = useState<string | undefined>(undefined);
-  // payroll-review З5: способ, дата и комментарий выплаты (раньше — всегда «наличные», «сейчас», без комментария)
-  const [payoutMethod, setPayoutMethod] = useState<OperationMethod>('cash');
-  const [payoutDate, setPayoutDate] = useState(() => today());
-  const [payoutComment, setPayoutComment] = useState('');
 
   const effectiveStaffId = ownOnly ? myStaffId : (staffId ?? myStaffId);
   const staff = (staffQ.data ?? []).find((s) => s.id === effectiveStaffId);
@@ -96,8 +89,10 @@ export function SettlementsScreen() {
 
   const canAccrue = canEditBlanket && (rights ? rights.canAccruePayroll : true) && !ownOnly;
 
+  // Ответ 27 (17.11.2026): дни уже начислены — спрашиваем, начислить ли только новые
+  const sheetNewDays = useSheetNewDays();
   const sheetM = useApiMutation((args: { from: string; to: string; comment: string }) =>
-    createSettlementSheet(businessId!, effectiveStaffId!, `${args.from}T00:00`, `${args.to}T23:59`, args.comment),
+    sheetNewDays(businessId!, effectiveStaffId!, args.from, args.to, { comment: args.comment }),
   );
   const entryM = useApiMutation(
     (args: { kind: Extract<SettlementEntryKind, 'bonus' | 'penalty' | 'adjustment'>; label: string; amount: number; comment: string }) =>
@@ -105,14 +100,6 @@ export function SettlementsScreen() {
   );
   const deleteM = useApiMutation((entryId: string) => deleteSettlementEntry(businessId!, entryId));
   const cancelPayoutM = useApiMutation((entryId: string) => cancelSalaryPayout(businessId!, entryId));
-  const payoutM = useApiMutation((args: { amount: number; accountId: string; method: OperationMethod; date: string; comment: string; allowOverdraft: boolean }) =>
-    payoutSalary(businessId!, staff?.locationIds[0] ?? '', effectiveStaffId!, args.accountId, args.amount, args.comment, {
-      method: args.method,
-      date: args.date,
-      allowOverdraft: args.allowOverdraft,
-    }),
-  );
-
   const refetchAll = () => {
     entriesQ.refetch();
     balanceQ.refetch();
@@ -121,7 +108,8 @@ export function SettlementsScreen() {
   const handleSheet = async () => {
     if (!range.from || !range.to) return;
     try {
-      await sheetM.mutate({ from: range.from, to: range.to, comment: '' });
+      const res = await sheetM.mutate({ from: range.from, to: range.to, comment: '' });
+      if (res.status !== 'created') return;
       toast.success(t('settlements.sheetCreated'));
       setSheetOpen(false);
       refetchAll();
@@ -186,76 +174,7 @@ export function SettlementsScreen() {
   };
 
   const balance = balanceQ.data ?? 0;
-  const payoutAccount = (accountsQ.data ?? []).find((a) => a.id === payoutAccountId);
-  // З5 / Ф2: из наличного ящика нельзя выдать больше, чем в нём лежит — видно до нажатия
-  const payoutCashShort = Boolean(payoutAccount && payoutAccount.kind === 'cash' && payoutAmount && payoutAmount > payoutAccount.balance);
-
-  const handlePayout = async () => {
-    if (!payoutAmount || payoutAmount <= 0 || !payoutAccountId || payoutCashShort) return;
-    // З5: больше начисленного — это аванс, спрашиваем явно
-    if (payoutAmount > balance) {
-      const ok = await confirm({
-        title: t('settlements.overAccruedTitle'),
-        description: t('settlements.overAccruedText', { amount: format.money(payoutAmount), accrued: format.money(Math.max(0, balance)) }),
-        confirmLabel: t('settlements.overAccruedConfirm'),
-        tone: 'danger',
-      });
-      if (!ok) return;
-    }
-    let allowOverdraft = false;
-    if (payoutAccount && payoutAccount.kind !== 'cash' && payoutAmount > payoutAccount.balance) {
-      const ok = await confirm({
-        title: t('operationForm.overdraftTitle'),
-        description: t('operationForm.overdraftText', { amount: format.money(payoutAccount.balance) }),
-        confirmLabel: t('operationForm.overdraftConfirm'),
-        tone: 'danger',
-      });
-      if (!ok) return;
-      allowOverdraft = true;
-    }
-    try {
-      await payoutM.mutate({
-        amount: payoutAmount,
-        accountId: payoutAccountId,
-        method: payoutMethod,
-        date: combine(payoutDate, nowYerevan().format('HH:mm')),
-        comment: payoutComment.trim(),
-        allowOverdraft,
-      });
-      toast.success(t('settlements.payoutDone'));
-      setPayoutOpen(false);
-      setPayoutAmount(undefined);
-      refetchAll();
-      accountsQ.refetch();
-    } catch (e) {
-      toast.error(e instanceof ApiError && e.code === 'insufficient_funds' ? t('transferForm.insufficientCash', { amount: format.money(Number(e.message) || 0) }) : t('settlements.actionFailed'));
-    }
-  };
-
-  const openPayout = () => {
-    setPayoutAmount(balance > 0 ? balance : undefined);
-    const cash = (accountsQ.data ?? []).find((a) => a.kind === 'cash') ?? accountsQ.data?.[0];
-    setPayoutAccountId(cash?.id);
-    setPayoutMethod(cash && cash.kind !== 'cash' ? 'transfer' : 'cash');
-    setPayoutDate(today());
-    setPayoutComment('');
-    setPayoutOpen(true);
-  };
-
-  // Способ следует за кассой и наоборот (как в «Новом платеже», Ф19)
-  const choosePayoutMethod = (m: OperationMethod) => {
-    setPayoutMethod(m);
-    const wantCash = m === 'cash';
-    if (payoutAccount && (payoutAccount.kind === 'cash') !== wantCash) {
-      const match = (accountsQ.data ?? []).find((a) => (a.kind === 'cash') === wantCash);
-      if (match) setPayoutAccountId(match.id);
-    }
-  };
-  const choosePayoutAccount = (id: string) => {
-    setPayoutAccountId(id);
-    const acc = (accountsQ.data ?? []).find((a) => a.id === id);
-    if (acc) setPayoutMethod(acc.kind === 'cash' ? 'cash' : payoutMethod === 'cash' ? 'transfer' : payoutMethod);
-  };
+  const openPayout = () => setPayoutOpen(true);
 
   // Пока грузится список сотрудников — та же страница (шапка, карточка баланса, журнал), серые места вместо данных
   const staffLoading = !ready || staffQ.isLoading;
@@ -443,63 +362,21 @@ export function SettlementsScreen() {
         </div>
       </Modal>
 
-      {/* F-07-160 — выдать зарплату */}
-      <Modal
-        open={payoutOpen}
-        onOpenChange={setPayoutOpen}
-        title={t('settlements.payout')}
-        description={t('settlements.payoutHint', { amount: format.money(balance) })}
-      >
-        <div data-f="F-07-160 F-09-078" className="flex flex-col gap-3">
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium">{t('settlements.amount')}</span>
-            <MoneyInput value={payoutAmount} onValueChange={setPayoutAmount} invalid={payoutCashShort} />
-            {payoutCashShort && payoutAccount ? (
-              <span className="text-xs text-danger">{t('transferForm.insufficientCash', { amount: format.money(Math.max(0, payoutAccount.balance)) })}</span>
-            ) : payoutAmount && payoutAmount > balance ? (
-              <span className="text-xs text-warning-text">{t('settlements.overAccruedHint', { amount: format.money(payoutAmount - Math.max(0, balance)) })}</span>
-            ) : null}
-          </label>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <label className="flex flex-col gap-1.5">
-              <span className="text-sm font-medium">{t('settlements.payoutMethod')}</span>
-              <Select
-                value={payoutMethod}
-                onValueChange={(v) => choosePayoutMethod(v as OperationMethod)}
-                options={[
-                  { value: 'cash', label: t('operations.method.cash') },
-                  { value: 'card', label: t('operations.method.card') },
-                  { value: 'transfer', label: t('operations.method.transfer') },
-                ]}
-              />
-            </label>
-            <label className="flex flex-col gap-1.5">
-              <span className="text-sm font-medium">{t('clientMoney.account')}</span>
-              <Select
-                value={payoutAccountId}
-                onValueChange={choosePayoutAccount}
-                options={(accountsQ.data ?? []).map((a) => ({ value: a.id, label: `${a.name} · ${format.money(a.balance)}` }))}
-              />
-            </label>
-          </div>
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium">{t('settlements.payoutDate')}</span>
-            <DatePicker value={payoutDate} onValueChange={(v) => v && setPayoutDate(v)} max={today()} />
-          </label>
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium">{t('settlements.comment')}</span>
-            <Textarea value={payoutComment} onChange={(e) => setPayoutComment(e.target.value)} rows={2} placeholder={t('settlements.payoutCommentPlaceholder')} />
-          </label>
-          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-            <Button variant="secondary" onClick={() => setPayoutOpen(false)}>
-              {t('settlements.payoutCancel')}
-            </Button>
-            <Button loading={payoutM.isPending} disabled={!payoutAmount || payoutAmount <= 0 || !payoutAccountId || payoutCashShort} onClick={handlePayout}>
-              {t('settlements.payoutConfirm')}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      {/* F-07-160 — выдать зарплату: одно окно с ведомостью (ответ 28, 17.11.2026) */}
+      {effectiveStaffId && (
+        <SalaryPayoutModal
+          open={payoutOpen}
+          onOpenChange={setPayoutOpen}
+          businessId={businessId!}
+          locationId={staff?.locationIds[0] ?? ''}
+          staffId={effectiveStaffId}
+          balance={balance}
+          onDone={() => {
+            refetchAll();
+            accountsQ.refetch();
+          }}
+        />
+      )}
     </div>
   );
 }

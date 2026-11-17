@@ -11,6 +11,7 @@ import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { DASHBOARD_SLUG, nextWeeklyReportAt, REPORT_CATALOG, REPORT_GROUP_IDS, reportHref } from '@/domain/reports';
 import { useFormat } from '@/i18n/useFormat';
+import { isConnected } from '@/config/hidden';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { PageHeader } from '@/ui/PageHeader';
@@ -125,6 +126,8 @@ export function AllReportsScreen() {
             </span>
             <span className="text-sm text-muted">{t('catalog.items.myAnalytics.desc')}</span>
           </Link>
+          {/* «Внешняя аналитика» скрыта до подключения (src/config/hidden.ts) */}
+          {isConnected('externalAnalytics') && (
           <Link
             href="/biz/reports/r/external"
             className="flex flex-col gap-1.5 rounded-xl border border-border bg-surface p-4 shadow-xs transition-[box-shadow,border-color,transform] duration-200 hover:border-border-strong/60 hover:shadow-md motion-safe:hover:-translate-y-0.5"
@@ -135,6 +138,7 @@ export function AllReportsScreen() {
             </span>
             <span className="text-sm text-muted">{t('catalog.items.external.desc')}</span>
           </Link>
+          )}
           <Link
             href="/biz/reports/r/dataIntegrity"
             className="flex flex-col gap-1.5 rounded-xl border border-border bg-surface p-4 shadow-xs transition-[box-shadow,border-color,transform] duration-200 hover:border-border-strong/60 hover:shadow-md motion-safe:hover:-translate-y-0.5"

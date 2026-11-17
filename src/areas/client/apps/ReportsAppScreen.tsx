@@ -7,7 +7,7 @@
  */
 import { useState } from 'react';
 import { Banknote, Building2, Lock, TrendingDown, TrendingUp } from 'lucide-react';
-import { getDailyReport, getDayZReport, getMyAnalytics, getNetworkDayStats, getPeriodReport, listAppStaff } from '@/api/client';
+import { getDailyReport, getDayZReport, getMyAnalytics, getNetworkDayStats, getPeriodReport, listAppStaff, Z_REPORT_METHODS } from '@/api/client';
 import { useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import type { ISODate } from '@/domain/core';
@@ -144,11 +144,12 @@ function ZReportTab({ businessId }: { businessId: string }) {
         <span className="text-lg font-semibold text-fg">{fmt.money(q.data.total)}</span>
       </Card>
 
-      <div className="grid grid-cols-3 gap-2">
-        {(['cash', 'card', 'loyalty'] as const).map((m) => (
+      {/* Ответ 14 (17.11.2026): предоплата переводом и долг — отдельными строками; сумма плиток = «Итого» */}
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+        {Z_REPORT_METHODS.map((m) => (
           <Card key={m} padding="sm" className="flex flex-col gap-1">
-            <span className="text-xs text-muted">{t(`apps.visit.method.${m}` as 'apps.visit.method.cash')}</span>
-            <span className="text-sm font-semibold text-fg">{fmt.money(q.data!.byMethod[m])}</span>
+            <span className="text-xs text-muted">{t(`apps.reports.zMethod.${m}`)}</span>
+            <span className={m === 'debt' && q.data!.byMethod[m] > 0 ? 'text-sm font-semibold text-danger' : 'text-sm font-semibold text-fg'}>{fmt.money(q.data!.byMethod[m] ?? 0)}</span>
           </Card>
         ))}
       </div>

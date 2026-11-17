@@ -51,6 +51,8 @@ export function PayrollScreen() {
   const [from, setFrom] = useState(addDays(todayDate, -30));
   const [to, setTo] = useState(todayDate);
   const [businessIds, setBusinessIds] = useState<string[]>([]);
+  // Ответ 34: кого не начислили и почему — под кнопкой после запуска
+  const [result, setResult] = useState<{ staffCount: number; skippedFrozen: number; skippedCovered: number } | null>(null);
 
   const mutation = useApiMutation((_: void) =>
     createNetworkPayrollRun(networkId!, {
@@ -73,7 +75,8 @@ export function PayrollScreen() {
       return;
     }
     try {
-      await mutation.mutate();
+      const res = await mutation.mutate();
+      setResult({ staffCount: res.staffCount, skippedFrozen: res.skippedFrozen, skippedCovered: res.skippedCovered });
       toast.success(t("staff.payroll.created"));
       runsQ.refetch();
     } catch {
@@ -112,6 +115,17 @@ export function PayrollScreen() {
           <Button loading={mutation.isPending} onClick={run}>
             {t("staff.payroll.createButton")}
           </Button>
+          {result && (
+            <div role="status" className="flex flex-col gap-1 rounded-lg bg-surface-2 px-3 py-2.5 text-sm">
+              <span className="text-fg">{t("staff.payroll.staffCount", { count: result.staffCount })}</span>
+              {result.skippedFrozen > 0 && (
+                <span className="text-warning-text">{t("staff.payroll.skippedFrozen", { count: result.skippedFrozen })}</span>
+              )}
+              {result.skippedCovered > 0 && (
+                <span className="text-muted">{t("staff.payroll.skippedCovered", { count: result.skippedCovered })}</span>
+              )}
+            </div>
+          )}
         </div>
       </SectionCard>
 
