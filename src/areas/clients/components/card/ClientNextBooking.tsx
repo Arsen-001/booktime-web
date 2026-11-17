@@ -7,7 +7,8 @@
 import { CalendarClock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import { useCoreList } from '@/api/core';
+import { listBookings, useCoreList } from '@/api/core';
+import { useApiQuery } from '@/api/request';
 import type { Id, Service } from '@/domain/core';
 import { splitClientBookings } from '@/domain/rules';
 import { useFormat } from '@/i18n/useFormat';
@@ -27,7 +28,10 @@ export function ClientNextBooking({ clientId, businessId, services }: ClientNext
   const t = useT('clients');
   const fmt = useFormat();
   const locale = useLocale();
-  const bookingsQ = useCoreList('bookings', { clientId, businessId });
+  // Записи клиента с сегодняшнего дня — с сервера: браузер держит записи только около сегодня (src/api/mirror.ts),
+  // а следующая запись бывает и через полгода
+  const fromDay = nowDateTime().slice(0, 10);
+  const bookingsQ = useApiQuery(['clients', 'next-booking', businessId, clientId, fromDay], () => listBookings({ businessId, clientId, from: fromDay }));
   const staffQ = useCoreList('staff', { businessId });
   // Пока записи клиента читаются — место под плашку той же высоты: приехавшая «Следующая запись» не сдвигает
   // деньги и вкладки ниже (scripts/flicker.mjs, clients-open)

@@ -5,9 +5,10 @@
  * раскрыта сразу; в заголовке группы — сколько условий в ней уже выбрано (ux-r1 №14, ux-r5 №23). Выбор — чипами, а не
  * столбиками радиокнопок (ux-r1 №12). Статусы записей — из ядра (core-rules №3).
  */
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { countClientsMatching } from '@/api/clients';
+import { useApiQuery } from '@/api/request';
 import type { ClientsFilterState, FilterGroupId } from '@/domain/clients';
 import { emptyFilterState } from '@/domain/clients';
 import type { Id, LocalizedText } from '@/domain/core';
@@ -31,6 +32,8 @@ export interface FilterBuilderSheetProps {
   /** Для живого счётчика «Показать N клиентов» на кнопке применения (ux-r5) */
   businessId?: Id;
   locationIds?: Id[];
+  /** Без права «все клиенты» (F-04-199) — счёт по тем же клиентам, что покажет список */
+  onlyStaffId?: Id;
 }
 
 /** Сколько условий выбрано в группе — для счётчика в заголовке */
@@ -54,16 +57,19 @@ export function FilterBuilderSheet({
   categoryOptions,
   businessId,
   locationIds,
+  onlyStaffId,
 }: FilterBuilderSheetProps) {
   const t = useT('clients');
   const [draft, setDraft] = useState<ClientsFilterState>(value);
 
-  // Живой счётчик на кнопке «Показать N клиентов» (ux-r5): пересчитывается на каждое изменение черновика,
-  // без симулированной задержки — countClientsMatching не идёт через request().
-  const matchCount = useMemo(() => {
-    if (!open || !businessId) return undefined;
-    return countClientsMatching({ businessId, locationIds, filters: draft });
-  }, [open, businessId, locationIds, draft]);
+  // Живой счётчик на кнопке «Показать N клиентов» (ux-r5): пересчитывается на каждое изменение черновика — тот же
+  // отбор, что покажет список (режим api — сервер); пока считается новый, видно прежнее число
+  const countQ = useApiQuery(
+    ['clients', 'filter-count', businessId, locationIds, onlyStaffId, draft],
+    () => countClientsMatching({ businessId: businessId ?? '', locationIds, filters: draft, onlyStaffId }),
+    { enabled: open && Boolean(businessId) },
+  );
+  const matchCount = open ? countQ.data : undefined;
 
   // Черновик синхронизируется с уже применёнными фильтрами при каждом открытии
   const [wasOpen, setWasOpen] = useState(open);

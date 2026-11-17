@@ -17,7 +17,7 @@ import { dayTypeById, isScheduleStaff } from '@/domain/schedule';
 import { closeWaitlistEntry, getStaffResourcesRights } from '@/api/resources';
 import { getStaffDayInfo } from '@/api/schedule';
 import { useTDynamic } from '@/i18n/useTDynamic';
-import { coreGet, coreList, listBookings, listGroupEvents, releaseExpiredPrepayments } from '@/api/core';
+import { coreGet, coreList, getBookingById, listBookings, listGroupEvents, releaseExpiredPrepayments } from '@/api/core';
 import { listEventSeriesDefsByIds } from '@/api/resources';
 import {
   getBookingCategories,
@@ -290,7 +290,7 @@ export function JournalScreen() {
   // запись отдельно и переключаем день на её дату; если её вовсе нет (удалена/неверный id) — тост и
   // закрываем окно вместо пустого черновика.
   const bookingNotInDay = Boolean(bookingId) && !bookingsQuery.isLoading && !(bookingsQuery.data ?? []).some((b) => b.id === bookingId);
-  const bookingLookupQuery = useApiQuery(['journal', 'booking-lookup', bookingId], () => coreGet('bookings', bookingId!), {
+  const bookingLookupQuery = useApiQuery(['journal', 'booking-by-id', bookingId], () => getBookingById(bookingId!), {
     enabled: ready && bookingNotInDay,
   });
   // Эффекты ниже зовут useEffectEvent вместо «eslint-disable exhaustive-deps»: любая такая подавленная
@@ -559,7 +559,7 @@ export function JournalScreen() {
 
   // ⭐ «Записать на следующий визит»: тот же клиент, мастер и услуги через интервал повтора — в ближайшее окно
   const nextVisitHandler = useEffectEvent(async (bookingId: Id) => {
-    const b = (bookingsData ?? []).find((x) => x.id === bookingId) ?? (await coreGet('bookings', bookingId).catch(() => undefined));
+    const b = (bookingsData ?? []).find((x) => x.id === bookingId) ?? (await getBookingById(bookingId).catch(() => undefined));
     if (!b) return;
     const slot = await findNextVisitSlot(b, servicesQuery.data ?? []);
     const target = slot?.date ?? addDays(b.start.slice(0, 10), repeatDaysOf(b, servicesQuery.data ?? []));

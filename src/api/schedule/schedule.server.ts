@@ -88,9 +88,19 @@ interface AffectedRef {
   durationMin: number;
 }
 
-/** Ответ сервера — ссылки на записи; сами записи экран берёт из ядра (записи переезжают на сервер на этапе 7) */
-function toAffected(refs: AffectedRef[]): AffectedBooking[] {
-  const bookings = useDb.getState().core.bookings;
+/**
+ * Ответ сервера — ссылки на записи; сами записи — из ядра браузера, а которых там нет (браузер держит записи только около
+ * сегодня, src/api/mirror.ts: отпуск через три месяца задевает записи дальше) — одним запросом по id с сервера.
+ */
+async function toAffected(refs: AffectedRef[]): Promise<AffectedBooking[]> {
+  const known = useDb.getState().core.bookings;
+  const missing = refs.filter((r) => !known.some((x) => x.id === r.bookingId));
+  const fetched: Booking[] = [];
+  for (const businessId of new Set(missing.map((r) => r.businessId))) {
+    const J = await import('@/api/journal.server');
+    fetched.push(...(await J.listBookings({ businessId, ids: missing.filter((r) => r.businessId === businessId).map((r) => r.bookingId) })));
+  }
+  const bookings = [...known, ...fetched];
   return refs.map((r) => {
     const booking =
       bookings.find((x) => x.id === r.bookingId) ??
@@ -175,7 +185,7 @@ type ApplyWire = ({ ok: true } & CellsEditResult) | { ok: false; affected: Affec
 export async function applyCells(input: SetCellsInput & { force?: boolean }): Promise<CellsApplyResult> {
   const businessId = bizOfStaff(input.staffIds[0]);
   const res = await http<ApplyWire>('POST', `${b(businessId)}/schedule/cells/apply`, cellsBody(input));
-  if (!res.ok) return { ok: false, affected: toAffected(res.affected) };
+  if (!res.ok) return { ok: false, affected: await toAffected(res.affected) };
   return changed(businessId, res);
 }
 

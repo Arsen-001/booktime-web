@@ -70,13 +70,13 @@ export function listClientRows(businessId: Id): Promise<ClientRow[]> {
  * Сколько клиентов подойдёт под черновик фильтров (ux-r5 «Показать N клиентов») — синхронно, без
  * симулированной задержки `request()`, чтобы счётчик в кнопке «Показать» обновлялся на каждый чип/поле.
  */
-export function countClientsMatching(query: { businessId: Id; locationIds?: Id[]; filters: ClientListQuery['filters'] }): number {
-  const businessIds = businessIdsFor(query.businessId, query.locationIds);
-  const settings = bizSettings(query.businessId);
-  const ctx = filterContext(businessIds, settings.lostAfterDays);
-  const base = rowsFor(businessIds);
-  if (!query.filters) return base.length;
-  return base.filter((r) => matchesFilters(r, query.filters!, ctx)).length;
+/**
+ * Живой счётчик «Показать N клиентов» конструктора фильтра (ux-r5) — тот же отбор, что получит список после «Применить»
+ * (listClients: в режиме api считает сервер по всей базе; раньше счёт шёл по зеркалу браузера — только клиентам, которых
+ * браузер уже видел, и записям около сегодня).
+ */
+export function countClientsMatching(query: { businessId: Id; locationIds?: Id[]; filters: ClientListQuery['filters']; onlyStaffId?: Id }): Promise<number> {
+  return listClients({ businessId: query.businessId, locationIds: query.locationIds, filters: query.filters, onlyStaffId: query.onlyStaffId, page: 1, pageSize: 1 }).then((p) => p.total);
 }
 
 // ─────────────────────────── Настройки таблицы (F-04-004, F-04-005) ───────────────────────────

@@ -27,7 +27,7 @@ import {
   Users,
   Wallet,
 } from 'lucide-react';
-import { coreList, updateBooking, updateGroupEvent } from '@/api/core';
+import { coreList, listGroupEvents, updateBooking, updateGroupEvent } from '@/api/core';
 import {
   addParticipant,
   addParticipantExtra,
@@ -131,10 +131,12 @@ export function EventWindowScreen({ eventId }: EventWindowScreenProps) {
   const format = useFormat();
   const router = useRouter();
   const toast = useToast();
-  const { ready, businessId, locationId } = useCurrent();
+  const { ready, businessId, businessIds, locationId } = useCurrent();
   const canManage = useCan('resources.manage');
 
-  const eventQ = useApiQuery(['resources', 'group-event', eventId], () => coreList('groupEvents', (e) => e.id === eventId), { enabled: ready });
+  // Событие по id — с сервера (в сети — по всем филиалам входа): по ссылке открывается и событие далеко от сегодня
+  const eventBusinessIds = businessId ? [businessId, ...businessIds.filter((id) => id !== businessId)] : businessIds;
+  const eventQ = useApiQuery(['resources', 'group-event', eventId], () => listGroupEvents({ businessIds: eventBusinessIds, ids: [eventId] }), { enabled: ready });
   const event = eventQ.data?.[0];
   // Сотрудники и услуги — бизнеса САМОГО события (владелец сети видит события разных филиалов; businessId
   // из useCurrent — это «где я сейчас в кабинете», а не обязательно бизнес события)

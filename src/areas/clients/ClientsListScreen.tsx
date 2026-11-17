@@ -466,6 +466,7 @@ export function ClientsListScreen() {
         categoryOptions={categoriesQ.data ?? []}
         businessId={businessId ?? undefined}
         locationIds={activeLocationIds}
+        onlyStaffId={onlyStaffId}
       />
 
       <AddClientSheet

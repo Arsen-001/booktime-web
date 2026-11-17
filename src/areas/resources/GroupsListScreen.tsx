@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { CalendarPlus, Repeat, Settings, Trash2, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { coreList } from '@/api/core';
+import { coreList, listGroupEvents } from '@/api/core';
 import { deleteGroupEvents, listGroupServices, restoreGroupEvents } from '@/api/resources';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { useCan, useCurrent, useSphere } from '@/demo/hooks';
@@ -28,6 +28,7 @@ import { StatCard } from '@/ui/StatCard';
 import { EmptyStateHint } from '@/ui/onboarding/EmptyStateHint';
 import { EmptyState } from '@/ui/EmptyState';
 import { useToast } from '@/ui/Toast';
+import { addDays, today } from '@/lib/date';
 
 export function GroupsListScreen() {
   const t = useT('resources');
@@ -49,7 +50,8 @@ export function GroupsListScreen() {
   });
   const eventsQ = useApiQuery(
     ['resources', 'upcoming-events', businessId],
-    () => coreList('groupEvents', (e) => e.businessId === businessId && e.status === 'scheduled'),
+    // С сервера, с вчерашнего дня и без конца: браузер держит события только около сегодня (src/api/mirror.ts)
+    () => listGroupEvents({ businessId, statuses: ['scheduled'], from: addDays(today(), -1) }),
     { enabled: ready && Boolean(businessId) },
   );
 

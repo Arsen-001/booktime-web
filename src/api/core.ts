@@ -845,6 +845,8 @@ export interface BookingQuery {
   includeDeleted?: boolean;
   /** Только участники этого группового события */
   groupEventId?: Id;
+  /** Только эти записи (ведомость, ссылка на запись) — без чтения всего журнала */
+  ids?: Id[];
 }
 
 export function listBookings(q: BookingQuery = {}): Promise<Booking[]> {
@@ -864,10 +866,28 @@ export function listBookings(q: BookingQuery = {}): Promise<Booking[]> {
         if (q.to && day > q.to) return false;
         if (q.statuses && !q.statuses.includes(b.status)) return false;
         if (q.groupEventId && b.groupEventId !== q.groupEventId) return false;
+        if (q.ids && !q.ids.includes(b.id)) return false;
         return true;
       })
       .sort((a, b) => a.start.localeCompare(b.start)),
   );
+}
+
+/**
+ * Одна запись по id — где бы она ни была по дате (ссылка «Открыть визит» из финансов, журнал отправок, `?booking=`).
+ * Режим api — с сервера (браузер держит записи только около сегодня, src/api/mirror.ts), по всем бизнесам входа
+ * (сеть: запись другого филиала); удалённая — «не найдено». Мок — из базы браузера.
+ */
+export function getBookingById(id: Id): Promise<Booking> {
+  if (!isApiMode()) return coreGet('bookings', id);
+  const own = apiIdentity()?.businessId;
+  const all = apiIdentity()?.businessIds ?? [];
+  const businessIds = own ? [own, ...all.filter((x) => x !== own)] : all;
+  return J.listBookings({ businessIds: businessIds.length ? businessIds : undefined, ids: [id] }).then((list) => {
+    const booking = list[0];
+    if (!booking) throw new ApiError('not_found', 'booking_not_found');
+    return booking;
+  });
 }
 
 export type BookingInput = Omit<Booking, 'id' | 'total' | 'durationMin' | 'createdAt' | 'updatedAt'> & {
@@ -1044,6 +1064,8 @@ export interface GroupEventQuery {
   to?: ISODate;
   /** По умолчанию отменённые тоже в списке — фильтруйте сами или передайте ['scheduled'] */
   statuses?: GroupEvent['status'][];
+  /** Только эти события (окно события по ссылке) */
+  ids?: Id[];
 }
 
 /** События по фильтру, по времени начала. Участники — listBookings({ groupEventId }) */
@@ -1061,6 +1083,7 @@ export function listGroupEvents(q: GroupEventQuery = {}): Promise<GroupEvent[]> 
         if (q.from && day < q.from) return false;
         if (q.to && day > q.to) return false;
         if (q.statuses && !q.statuses.includes(e.status)) return false;
+        if (q.ids && !q.ids.includes(e.id)) return false;
         return true;
       })
       .sort((a, b) => a.start.localeCompare(b.start)),

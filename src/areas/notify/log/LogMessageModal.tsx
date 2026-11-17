@@ -6,7 +6,8 @@
  */
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { useCoreGet } from '@/api/core';
+import { getBookingById } from '@/api/core';
+import { useApiQuery } from '@/api/request';
 import { channelLabel } from '@/areas/notify/lib/registry';
 import { sentText, typeLabelIn } from '@/areas/notify/lib/logText';
 import { NOTIFY_LANGUAGE_OPTIONS } from '@/areas/notify/types/NotifySettingsCard';
@@ -33,7 +34,9 @@ export function LogMessageModal({ message, open, onOpenChange, statusTone, mask 
   const format = useFormat();
   const router = useRouter();
   const locale = useLocale() as Locale;
-  const bookingQ = useCoreGet('bookings', message?.bookingId, { enabled: open && !!message?.bookingId });
+  // Запись сообщения — по id с сервера: она бывает и старше того, что браузер держит около сегодня
+  const messageBookingId = message?.bookingId;
+  const bookingQ = useApiQuery(['journal', 'booking-by-id', messageBookingId], () => getBookingById(messageBookingId ?? ''), { enabled: open && Boolean(messageBookingId) });
 
   if (!message) return null;
 

@@ -42,7 +42,7 @@ import {
   getSettlementBalance,
   listSettlementEntries,
 } from "@/api/finance";
-import { useCoreList } from "@/api/core";
+import { listBookings, useCoreList } from "@/api/core";
 import { useApiMutation, useApiQuery } from "@/api/request";
 import {
   isStatementLocked,
@@ -148,11 +148,20 @@ export function StatementScreen() {
     () => listSettlementEntries(businessId!, staffId!),
     { enabled: ready && Boolean(businessId) && Boolean(staffId) },
   );
-  const bookingsQ = useCoreList(
-    "bookings",
-    { staffId: staffId ?? "" },
-    { enabled: ready && Boolean(staffId) },
+  // F-09-070: записи строк ведомости — по их id с сервера (визит бывает старше того, что браузер держит около сегодня)
+  const statementBookingIds = [
+    ...new Set(
+      (statementQ.data?.operations ?? [])
+        .map((op) => op.bookingId)
+        .filter((id): id is string => Boolean(id)),
+    ),
+  ].sort();
+  const bookingsQ = useApiQuery(
+    ["payroll", "statement-bookings", businessId, statementBookingIds],
+    () => listBookings({ businessId, ids: statementBookingIds, includeDeleted: true }),
+    { enabled: ready && Boolean(businessId) && Boolean(statementQ.data) },
   );
+
   const bonusTypesQ = useApiQuery(
     ["payroll", "bonusPenaltyTypes", businessId, "bonus"],
     () => listBonusPenaltyTypes(businessId!, "bonus"),

@@ -100,10 +100,13 @@ export interface ServerBookingQuery {
   groupEventId?: Id;
   seriesId?: Id;
   visitId?: Id;
+  ids?: Id[];
 }
 
 export async function listBookings(q: ServerBookingQuery): Promise<Booking[]> {
   reads();
+  // Пустой список id — пустой ответ (без параметра сервер отдал бы весь журнал)
+  if (q.ids && !q.ids.length) return [];
   const businessId = q.businessId ?? q.businessIds?.[0] ?? sessionBiz();
   const others = (q.businessIds ?? []).filter((id) => id !== businessId);
   const list = await http<Booking[]>('GET', `${b(businessId)}/bookings`, undefined, {
@@ -120,6 +123,7 @@ export async function listBookings(q: ServerBookingQuery): Promise<Booking[]> {
       groupEventId: q.groupEventId,
       seriesId: q.seriesId,
       visitId: q.visitId,
+      ids: q.ids?.join(','),
     },
   });
   return keepAll(list);
@@ -272,10 +276,12 @@ export interface ServerGroupEventQuery {
   from?: ISODate;
   to?: ISODate;
   statuses?: GroupEvent['status'][];
+  ids?: Id[];
 }
 
 export async function listGroupEvents(q: ServerGroupEventQuery): Promise<GroupEvent[]> {
   trackRead('core.groupEvents');
+  if (q.ids && !q.ids.length) return [];
   const businessId = q.businessId ?? q.businessIds?.[0] ?? sessionBiz();
   const list = await http<GroupEvent[]>('GET', `${b(businessId)}/events`, undefined, {
     query: {
@@ -286,6 +292,7 @@ export async function listGroupEvents(q: ServerGroupEventQuery): Promise<GroupEv
       from: q.from,
       to: q.to,
       statuses: q.statuses?.join(','),
+      ids: q.ids?.join(','),
     },
   });
   mirrorGroupEvents(list);
