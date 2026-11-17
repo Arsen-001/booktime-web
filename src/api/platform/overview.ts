@@ -5,16 +5,31 @@ import { isApiMode } from '@/api/http';
 import { request } from '@/api/request';
 import { readArea, readCore } from '@/api/area';
 import { isCancelled } from '@/domain/rules';
-import { callbackOverdueDays, callbackState, sortVisitsForWork, type OverviewSummary, type WaveNo } from '@/domain/platform';
+import { callbackOverdueDays, callbackState, sortVisitsForWork, type OverviewSummary, type WaveItem, type WaveNo } from '@/domain/platform';
 import { addDays, today } from '@/lib/date';
 import { AREA, PANEL } from '@/api/platform/shared';
 import * as S from '@/api/platform/overview.server';
+import { listWaveItems } from '@/api/platform/plan';
 
 /** Заметки в плане (без функций) в прогресс не входят */
 const isWaveNote = (item: { fids: string[]; id: string }) => item.fids.length === 0 && item.id.includes('_note_');
 
+/** Прогресс по волнам: сколько пунктов плана прошло из всех (заметки не считаются) */
+function wavesOf(all: WaveItem[]): OverviewSummary['waves'] {
+  return ([1, 2, 3] as WaveNo[]).map((wave) => {
+    const items = all.filter((w) => w.wave === wave && !isWaveNote(w));
+    return { wave, passed: items.filter((w) => w.status === 'passed').length, total: items.length };
+  });
+}
+
 export function getOverview(): Promise<OverviewSummary> {
-  if (isApiMode()) return S.getOverview();
+  if (isApiMode()) {
+    // Прогресс по волнам сервер в обзор не кладёт (waves: []) — карточка «План запуска» была пустой. Считаем из тех же
+    // пунктов плана, что показывает «План запуска» (проход 17.11, группа 4)
+    return Promise.all([S.getOverview(), listWaveItems().catch(() => [])]).then(([summary, items]) =>
+      summary.waves.length || !items.length ? summary : { ...summary, waves: wavesOf(items) },
+    );
+  }
   return request(() => {
     const t = today();
     const weekFrom = addDays(t, -6);
@@ -42,10 +57,7 @@ export function getOverview(): Promise<OverviewSummary> {
       overdueDays: callbackOverdueDays(v.callbackDate ?? t, t),
     }));
 
-    const waves = ([1, 2, 3] as WaveNo[]).map((wave) => {
-      const items = area.waveItems.filter((w) => w.wave === wave && !isWaveNote(w));
-      return { wave, passed: items.filter((w) => w.status === 'passed').length, total: items.length };
-    });
+    const waves = wavesOf(area.waveItems);
 
     // «Ищут, а у нас нет»: запросы недели, у которых хотя бы в одном районе нет бизнеса этой сферы
     const offerDistricts = new Map<string, Set<string>>();
