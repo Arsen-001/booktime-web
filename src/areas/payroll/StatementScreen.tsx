@@ -264,9 +264,15 @@ export function StatementScreen() {
     }
   };
   // F-09-070: жёлтая подсветка ведомости целиком — ставку в схеме поменяли ПОСЛЕ начисления (в отличие
-  // от красной — она про конкретный визит, эта про схему сотрудника).
+  // от красной — она про конкретный визит, эта про схему сотрудника). Только если пересчёт сейчас даст другую
+  // сумму: схему вернули как была или правка не задела этот период — полосы нет (ведомость Мариам 0 ֏, 17.11).
+  const sheetAmountNow = statementQ.data?.sheetAmount;
   const schemeChangedAfterSheet = Boolean(
-    sheet && schemeQ.data && isLaterTime(schemeQ.data.updatedAt, sheet.createdAt),
+    sheet &&
+      schemeQ.data &&
+      isLaterTime(schemeQ.data.updatedAt, sheet.createdAt) &&
+      sheetAmountNow !== undefined &&
+      sheetAmountNow !== sheet.amount,
   );
 
   const bonusesTotal = periodEntries

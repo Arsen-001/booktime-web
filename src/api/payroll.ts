@@ -1333,6 +1333,8 @@ export function computeStatement(
       operations,
       total,
       breakdown: row.breakdown,
+      // Сумма «Начислить» сейчас — та же функция, что у createSettlementSheet мока
+      sheetAmount: staffSalaryForSheetSync(staff.businessId, staffId, from, to),
       workDays: row.workDays,
       workHours: row.workHours,
       scheduledAheadDays: row.scheduledAheadDays,
