@@ -14,6 +14,7 @@ import { assertCan, canNow, changeBookingStatus, coreTx, createBooking, currentA
 import { rowsFor as clientRowsFor } from '@/api/clients/shared';
 import { listAccounts as listFinanceAccounts, listAccountsWithBalance as listFinanceAccountsWithBalance, listItems as listFinanceItems, listOperations as listFinanceOperations } from '@/api/finance';
 import { isApiMode } from '@/api/http';
+import { logDataOp } from '@/api/data-ops';
 import { apiIdentity } from '@/api/identity';
 import { listPromotions } from '@/api/loyalty';
 import { getNetworkTelephony, listNetworkCalls } from '@/api/network';
@@ -780,6 +781,8 @@ export function bulkDeleteAppointments(ids: Id[]): Promise<number> {
  * «Операции с данными» под area 'reports' / entity 'appointments' (совпадает с типом в F-12-074/075).
  */
 export function logAppointmentsExport(businessId: Id, count: number, fileName: string): Promise<void> {
+  // Режим api — журнал сервера (до 17.11 строка ложилась только в браузер и в «Операциях с данными» её не было)
+  if (isApiMode()) return logDataOp({ businessId, kind: 'export', area: 'reports', entity: 'appointments', count, fileName }).then(() => undefined);
   return request(() => {
     coreTx.logDataOperation({ businessId, kind: 'export', area: 'reports', entity: 'appointments', count, fileName });
   });
