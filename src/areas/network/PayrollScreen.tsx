@@ -93,11 +93,12 @@ export function PayrollScreen() {
 
       <SectionCard title={t("staff.payroll.periodLabel")}>
         <div className="flex flex-col gap-4">
-          <div className="flex gap-3">
-            <FormField label={t("staff.payroll.periodFrom")} className="flex-1">
+          {/* Телефон: даты одна под другой (рядом «17 ноября 2026» вылезали вбок на 73px), с sm — в ряд */}
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <FormField label={t("staff.payroll.periodFrom")} className="min-w-0 flex-1">
               <DatePicker value={from} onValueChange={(v) => v && setFrom(v)} />
             </FormField>
-            <FormField label={t("staff.payroll.periodTo")} className="flex-1">
+            <FormField label={t("staff.payroll.periodTo")} className="min-w-0 flex-1">
               <DatePicker value={to} onValueChange={(v) => v && setTo(v)} />
             </FormField>
           </div>

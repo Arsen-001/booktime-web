@@ -52,7 +52,7 @@ import {
   currentActor,
   listBookings,
 } from "@/api/core";
-import { mutateArea, readArea, readCore } from "@/api/area";
+import { mutateArea, readArea, readCore, readCoreMirror } from "@/api/area";
 import { createSettlementSheet } from "@/api/finance";
 import { ApiError, getQueryClient, request } from "@/api/request";
 import { http, isApiMode } from "@/api/http";
@@ -308,7 +308,8 @@ export function listMyBranches(
 ): Promise<{ business: Business; until?: ISODate }[]> {
   if (isApiMode()) {
     // Этап 21 (сдача): бизнесы — зеркало сервера (снимок своих бизнесов), срок — подписка каждого с сервера
-    const own = readCore().businesses.filter((b) => b.status !== "draft" && (b.ownerStaffId === ownerStaffId || businessIds?.includes(b.id)));
+    // Зеркало — служебным чтением: функция зовётся вне request() (раньше «[mock-db] вне request()» в консоли)
+    const own = readCoreMirror().businesses.filter((b) => b.status !== "draft" && (b.ownerStaffId === ownerStaffId || businessIds?.includes(b.id)));
     return Promise.all(
       own.map((business) =>
         SettingsServer.getSubscription(business.id)
@@ -620,14 +621,24 @@ export interface NetworkLicenseRow {
 /** F-11-012: лицензия по каждому филиалу сети отдельно — сумма и число мастеров, взятых в расчёт */
 export function getNetworkLicenseSummary(networkId: Id): Promise<NetworkLicenseRow[]> {
   if (isApiMode()) {
-    // Этап 21 (сдача): филиалы в сохранённом порядке — сервер; мастера — зеркало сотрудников своих бизнесов
-    return Server.listNetworkLocations(networkId).then((rows) => {
-      const staff = readCore().staff;
-      return rows.map(({ business }) => {
-        const mastersCount = staff.filter((s) => s.businessId === business.id && s.role === "master" && s.status !== "fired").length;
-        return { businessId: business.id, businessName: business.name, locationNumber: business.id, mastersCount, monthly: LOCATION_LICENSE_UNIT_PRICE * Math.max(mastersCount, 2) };
-      });
-    });
+    // Филиалы в сохранённом порядке — сервер; мастера и сумма — расчёт подписки каждого филиала на сервере (как в
+    // «Подписке»). Раньше считали по зеркалу сотрудников, а в зеркале только сотрудники открытого филиала — у второго
+    // филиала выходило «0 мастеров», и чтение шло вне request() (шум в консоли, проход 17.11, группа 4)
+    return Server.listNetworkLocations(networkId).then((rows) =>
+      Promise.all(
+        rows.map(({ business }) =>
+          SettingsServer.getSubscription(business.id)
+            .then((sub) => ({
+              businessId: business.id,
+              businessName: business.name,
+              locationNumber: business.id,
+              mastersCount: sub.quote.seats.filter((st) => st.paid && st.role !== "admin").length,
+              monthly: sub.quote.monthlyTotal,
+            }))
+            .catch(() => ({ businessId: business.id, businessName: business.name, locationNumber: business.id, mastersCount: 0, monthly: 0 })),
+        ),
+      ),
+    );
   }
   return netRequestIn("settings", networkId, () => {
     const core = readCore();
