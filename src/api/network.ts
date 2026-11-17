@@ -57,7 +57,8 @@ import { createSettlementSheet } from "@/api/finance";
 import { ApiError, getQueryClient, request } from "@/api/request";
 import { http, isApiMode } from "@/api/http";
 import { mirrorCore, syncCore } from "@/api/mirror";
-import { SESSION_KEY } from "@/api/session";
+import { notifyDbChange } from "@/mock/db";
+import { SESSION_KEY, getSession } from "@/api/session";
 import { addDays, datePart, nowDateTime, today } from "@/lib/date";
 import { newId } from "@/lib/id";
 import * as stockApi from "@/api/stock";
@@ -353,6 +354,9 @@ async function afterNetworkWrite(n: ServerNetwork, alsoBusinessIds: Id[] = []): 
   mirrorCore({ networks: [network] });
   const first = n.businessIds[0] ?? alsoBusinessIds[0];
   if (first) await syncCore(first).catch(() => undefined);
+  // Экраны сети (филиалы, лицензия по филиалам, журнал изменений) перечитываются — как запись network.server (хвосты
+  // 17.11: после «Добавить» в лицензии оставалось 2 филиала из 3 и «Изменений пока не было»)
+  notifyDbChange("areas.network");
   await getQueryClient().invalidateQueries({ queryKey: SESSION_KEY });
   return network;
 }
@@ -455,20 +459,21 @@ export function listAddableLocations(
   ownerStaffId?: Id,
 ): Promise<Business[]> {
   if (isApiMode())
-    // Этап 21 (лейн network): ядро браузера в api-режиме уже зеркалит Business/Network с сервера (afterNetworkWrite,
-    // syncCore) — тот же читатель, что мок-ветка ниже, отмечен явно ради аудита фасадов.
-    return request(() => {
-      const core = readCore();
-      const network = networkId
-        ? core.networks.find((n) => n.id === networkId)
-        : undefined;
-      const already = new Set(network?.businessIds ?? []);
-      return core.businesses.filter(
-        (b) =>
-          b.status !== "draft" &&
-          b.ownerStaffId === ownerStaffId &&
-          !already.has(b.id),
-      );
+    // Хвосты 17.11: свои салоны — из сессии (все бизнесы, где вошедший владелец), а не из зеркала ядра: там только
+    // филиалы текущей сети, а у каждого салона своя строка владельца (ownerStaffId не совпадал) — «Уже ваш салон»
+    // всегда был пуст, новый филиал было не добавить. Салон в чужой сети из нескольких филиалов — не предлагаем;
+    // одиночную «свою» сеть (её заводит сам кабинет) сервер снимает при добавлении.
+    return getSession().then((s) => {
+      const seen = new Set<Id>();
+      const out: Business[] = [];
+      for (const m of s?.memberships ?? []) {
+        if (m.role !== "owner" && m.role !== "network") continue;
+        if ((networkId && m.networkId === networkId) || (m.networkId && m.businessIds.length > 1) || seen.has(m.businessId)) continue;
+        seen.add(m.businessId);
+        const mirrored = readCoreMirror().businesses.find((b) => b.id === m.businessId);
+        out.push(mirrored ?? ({ id: m.businessId, name: m.businessName, kind: m.kind } as unknown as Business));
+      }
+      return out;
     });
   return request(() => {
     const core = readCore();

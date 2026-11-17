@@ -52,7 +52,7 @@ export function AddBranchDialog({ open, onOpenChange, networkId, staffId, onAdde
             <p className="text-sm font-medium text-fg">{t("addBranch.newTitle")}</p>
             <p className="text-xs text-muted">{t("addBranch.newHint")}</p>
           </div>
-          <LinkButton href="/biz/onboarding" size="sm" leftIcon={<Plus aria-hidden />} className="shrink-0">
+          <LinkButton href="/register-business" size="sm" leftIcon={<Plus aria-hidden />} className="shrink-0">
             {t("addBranch.newAction")}
           </LinkButton>
         </div>
