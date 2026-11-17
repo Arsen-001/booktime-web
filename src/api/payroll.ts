@@ -1471,14 +1471,7 @@ export function applySchemeToStaff(
   staffIds: Id[],
   effectiveFrom: ISODate,
 ): Promise<number> {
-  if (isApiMode())
-    return Server.getScheme(sourceStaffId).then(async (source) => {
-      if (!source) throw new ApiError("not_found");
-      const targets = staffIds.filter((id) => id !== sourceStaffId);
-      for (const staffId of targets)
-        await Server.saveScheme({ ...source, history: undefined, staffId, effectiveFrom });
-      return targets.length;
-    });
+  if (isApiMode()) return Server.applySchemeToStaff(sourceStaffId, staffIds, effectiveFrom);
   return request(() => {
     assertCan("payroll.manage");
     const area = readArea("payroll");

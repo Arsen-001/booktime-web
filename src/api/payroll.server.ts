@@ -119,6 +119,11 @@ export function saveScheme(scheme: PayrollScheme): Promise<PayrollScheme> {
   return http<PayrollScheme>('PATCH', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`, body).then(schemeFromServer);
 }
 
+/** З12 «Применить к…»: одна операция на сервере — отказ на любом сотруднике не сохраняет схему ни у кого (как мок) */
+export function applySchemeToStaff(sourceStaffId: Id, staffIds: Id[], effectiveFrom: ISODate): Promise<number> {
+  return http<{ applied: number }>('POST', `${b(bizOf(sourceStaffId))}/payroll/schemes/apply`, { sourceStaffId, staffIds, effectiveFrom }).then((r) => r.applied);
+}
+
 export function copyScheme(fromStaffId: Id, toStaffId: Id): Promise<PayrollScheme> {
   return http<PayrollScheme>('POST', `${b(bizOf(toStaffId))}/staff/${toStaffId}/payroll-scheme/copy-from/${fromStaffId}`).then(schemeFromServer);
 }
