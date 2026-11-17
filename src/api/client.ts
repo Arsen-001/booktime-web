@@ -4528,7 +4528,34 @@ export interface VisitReportRow {
 export type ZReportMethod = 'cash' | 'card' | 'transfer' | 'loyalty' | 'debt';
 export const Z_REPORT_METHODS: readonly ZReportMethod[] = ['cash', 'card', 'transfer', 'loyalty', 'debt'];
 
-export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Promise<{ rows: VisitReportRow[]; total: Money; byMethod: Record<ZReportMethod, Money> }> {
+/**
+ * Деньги заказа за день (ответ 12, 17.11.2026): операция кассы «Заказ №1004 · предоплата» — как в смене кассы.
+ * Возврат предоплаты — с минусом. Способ — как у визита: карта, перевод, остальное к наличным.
+ */
+export interface OrderMoneyRow {
+  operationId: Id;
+  orderId: Id;
+  number: number;
+  clientName: string;
+  stage: 'prepaid' | 'issue' | 'prepaidChange' | 'refund';
+  method: ZReportMethod;
+  amount: Money;
+}
+
+/** Способ операции кассы → строка Z-отчёта: карта, перевод, остальное (наличные, свои способы, рассрочка) — наличные */
+export function zMethodOfOperation(method: string): ZReportMethod {
+  return method === 'card' ? 'card' : method === 'transfer' ? 'transfer' : 'cash';
+}
+
+/** Этап денег заказа по подписи операции кассы («Заказ №1004 · оплата при выдаче») — одна запись с сервером */
+export function orderMoneyStage(lineLabel: string | undefined, income: boolean): OrderMoneyRow['stage'] {
+  if (!income) return 'refund';
+  if (lineLabel?.includes('оплата при выдаче')) return 'issue';
+  if (lineLabel?.includes('· доплата')) return 'prepaidChange';
+  return 'prepaid';
+}
+
+export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Promise<{ rows: VisitReportRow[]; orders: OrderMoneyRow[]; total: Money; byMethod: Record<ZReportMethod, Money> }> {
   if (isApiMode()) return CS.getDayZReportServer(businessId, date, staffId);
   return request(() => {
     // Z-отчёт — деньги салона за смену: как «Финансы» в вебе
@@ -4557,7 +4584,22 @@ export function getDayZReport(businessId: Id, date: ISODate, staffId?: Id): Prom
       byMethod.debt += Math.max(0, booking.total - paid);
       return { booking, clientName: client?.name ?? booking.visitorName ?? '', staffName: staff?.name ?? '—', total: booking.total, paidTotal: paid };
     });
-    return { rows, total: rows.reduce((s, r) => s + r.total, 0), byMethod };
+    // Деньги заказов (ответ 12): в смене кассы они были, а в Z-отчёте дня — нет, и он не сходился со сменой. Пальто
+    // 12 000 ֏: в день приёма — 3 000 наличными, в день выдачи — 9 000 картой. Мастер в фильтре — мастер заказа.
+    const ordersById = new Map(readArea('orders').orders.filter((o) => o.businessId === businessId).map((o) => [o.id, o]));
+    const orders: OrderMoneyRow[] = readArea('finance')
+      .operations.filter((op) => op.businessId === businessId && op.source === 'order' && !op.cancelled && op.date.slice(0, 10) === date)
+      .flatMap((op) => {
+        const order = op.refId ? ordersById.get(op.refId) : undefined;
+        if (!order || (staffId && order.staffId !== staffId)) return [];
+        const income = op.kind === 'income';
+        const amount = income ? op.amount : -op.amount;
+        const method = zMethodOfOperation(op.method);
+        byMethod[method] += amount;
+        return [{ operationId: op.id, orderId: order.id, number: order.number, clientName: order.clientName, stage: orderMoneyStage(op.lineLabel, income), method, amount }];
+      });
+    // «Итого» = визиты + деньги заказов = сумма по способам
+    return { rows, orders, total: rows.reduce((s, r) => s + r.total, 0) + orders.reduce((s, o) => s + o.amount, 0), byMethod };
   });
 }
 

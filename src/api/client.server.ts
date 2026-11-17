@@ -388,7 +388,7 @@ export function getDayZReportServer(
   businessId: Id,
   date: ISODate,
   staffId?: Id,
-): Promise<{ rows: import('@/api/client').VisitReportRow[]; total: number; byMethod: Record<import('@/api/client').ZReportMethod, number> }> {
+): Promise<{ rows: import('@/api/client').VisitReportRow[]; orders: import('@/api/client').OrderMoneyRow[]; total: number; byMethod: Record<import('@/api/client').ZReportMethod, number> }> {
   return http('GET', `/v1/biz/${businessId}/app-staff/z-report`, undefined, { query: { date, staffId } });
 }
 

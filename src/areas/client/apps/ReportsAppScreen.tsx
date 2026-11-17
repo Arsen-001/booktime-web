@@ -119,14 +119,31 @@ function DailyReportTab({ businessId }: { businessId: string }) {
   );
 }
 
+/** Строка списка Z-отчёта: визит «Пришёл» или деньги заказа */
+interface ZListItem {
+  key: string;
+  title: string;
+  subtitle: string;
+  amount: number;
+}
+
 function ZReportTab({ businessId }: { businessId: string }) {
   const t = useT('client');
   const fmt = useClientFormat();
   const [staffId, setStaffId] = useState<string>('');
   const staffQ = useApiQuery(['app-staff-brief', businessId], () => listAppStaff(businessId, false));
   const q = useApiQuery(['z-report', businessId, staffId], () => getDayZReport(businessId, todayISO(), staffId || undefined));
-  // Постранично, как во всех списках (DESIGN.md → Long lists)
-  const { pageItems, pager } = usePagedList(q.data?.rows ?? [], { resetKey: staffId });
+  // Визиты и деньги заказов дня (ответ 12) — одним списком, постранично, как во всех списках (DESIGN.md → Long lists)
+  const items: ZListItem[] = [
+    ...(q.data?.rows ?? []).map((row) => ({ key: row.booking.id, title: row.clientName || t('apps.visit.guest'), subtitle: row.staffName, amount: row.paidTotal })),
+    ...(q.data?.orders ?? []).map((o) => ({
+      key: o.operationId,
+      title: o.clientName || t('apps.visit.guest'),
+      subtitle: t('apps.reports.zOrder', { number: o.number, stage: t(`apps.reports.zOrderStage.${o.stage}`) }),
+      amount: o.amount,
+    })),
+  ];
+  const { pageItems, pager } = usePagedList(items, { resetKey: staffId });
 
   if (q.isLoading || staffQ.isLoading) return <Skeleton lines={3} />;
   if (q.isError || !q.data) return <ErrorState onRetry={() => void q.refetch()} />;
@@ -154,19 +171,19 @@ function ZReportTab({ businessId }: { businessId: string }) {
         ))}
       </div>
 
-      {q.data.rows.length === 0 ? (
+      {items.length === 0 ? (
         <EmptyState icon={<Banknote aria-hidden className="size-8 text-muted" />} title={t('apps.reports.zEmpty')} />
       ) : (
         <>
           <ul className="flex flex-col gap-2">
             {pageItems.map((row) => (
-              <li key={row.booking.id}>
-                <Card padding="sm" className="flex items-center justify-between">
+              <li key={row.key}>
+                <Card padding="sm" className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-fg">{row.clientName || t('apps.visit.guest')}</p>
-                    <p className="text-xs text-muted">{row.staffName}</p>
+                    <p className="truncate text-sm font-medium text-fg">{row.title}</p>
+                    <p className="truncate text-xs text-muted">{row.subtitle}</p>
                   </div>
-                  <span className="text-sm font-medium text-fg">{fmt.money(row.paidTotal)}</span>
+                  <span className="shrink-0 text-sm font-medium text-fg">{fmt.money(row.amount)}</span>
                 </Card>
               </li>
             ))}
