@@ -291,7 +291,7 @@ export function StatementScreen() {
     .filter((e) => e.kind === "penalty")
     .reduce((s, e) => s + e.amount, 0);
   // З2: «К выплате» — та же раскладка, что «Расчёт за период» (зарплата по схеме + премии − штрафы), а не
-  // только услуги; без раскладки (ответ сервера в режиме api) — прежняя сумма услуг с премиями.
+  // только услуги; раскладку отдают и мок, и сервер (с 17.11), запасной вариант — сумма услуг с премиями.
   const breakdown = statementQ.data?.breakdown;
   const grandTotal =
     breakdown?.toPay ??
@@ -309,9 +309,12 @@ export function StatementScreen() {
   const correctedSum = (entriesQ.data ?? [])
     .filter((e) => e.label === correctionLabel)
     .reduce((s, e) => s + (e.kind === "penalty" ? -e.amount : e.amount), 0);
+  // Разница — с тем, что «Начислить» дало бы сейчас (sheetAmount: та же формула, все филиалы сотрудника, целые
+  // драмы), а не с зарплатой одного филиала: иначе у мастера двух филиалов или с копейками была ложная корректировка
+  const amountNow = sheetAmountNow ?? breakdown?.salary;
   const difference =
-    sheet && breakdown
-      ? Math.round((breakdown.salary - sheet.amount - correctedSum) * 100) / 100
+    sheet && amountNow !== undefined
+      ? Math.round((amountNow - sheet.amount - correctedSum) * 100) / 100
       : 0;
   const [correcting, setCorrecting] = useState(false);
   const handleCorrection = async () => {

@@ -1609,7 +1609,7 @@ export interface StatementComputation {
   operations: StatementOperation[];
   /** Сумма всех payout-строк (без премий/штрафов — те приходят из взаиморасчётов, F-09-068) */
   total: number;
-  /** З2: полная раскладка — та же, что в «Расчёте за период» (нет у ответа сервера в режиме api) */
+  /** З2: полная раскладка — та же, что в «Расчёте за период» (мок и сервер) */
   breakdown?: PayBreakdown;
   workDays?: number;
   workHours?: number;

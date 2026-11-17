@@ -1157,7 +1157,7 @@ function computeStaffPay(
 /**
  * З1: зарплата сотрудника за период по всем его филиалам бизнеса — сумма для ведомости во
  * «Взаиморасчётах» (finance createSettlementSheet зовёт это ленивым импортом, не свою копию расчёта).
- * Синхронно: вызывающий уже внутри request().
+ * В целых драмах — как staffSalaryForSheet сервера (сумма ведомости там целая). Синхронно: вызывающий уже внутри request().
  */
 export function staffSalaryForSheetSync(
   businessId: Id,
@@ -1174,7 +1174,7 @@ export function staffSalaryForSheetSync(
     if (!location || location.businessId !== businessId) continue;
     total = roundMoney(total + computeStaffPay(payContext(locationId), staff, from, to).row.salary);
   }
-  return total;
+  return Math.round(total);
 }
 
 export interface ProductCatalogItem {
