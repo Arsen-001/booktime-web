@@ -138,6 +138,23 @@ export async function createService(businessId: Id, sphereId: string, input: Ser
   return service;
 }
 
+/** «Добавить из шаблона» — все выбранные услуги одним запросом (было 5+ запросов на услугу, проход 17.11) */
+export interface ServerTemplateItem {
+  categoryId?: Id;
+  categoryName: LocalizedText;
+  name: LocalizedText;
+  kind: 'individual' | 'group';
+  durationMin: number;
+  priceMin: number;
+  staffIds: Id[];
+}
+export async function createFromTemplates(businessId: Id, sphereId: string, items: ServerTemplateItem[]): Promise<Service[]> {
+  const res = await http<{ services: Service[]; categories: ServiceCategory[] }>('POST', `${base(businessId)}/services/from-templates`, { sphereId, items });
+  mirrorCore({ services: res.services, serviceCategories: res.categories });
+  notifyDbChange('areas.services', 'areas.staff', 'core.services', 'core.serviceCategories', 'core.staff');
+  return res.services;
+}
+
 export async function updateService(id: Id, businessId: Id, input: ServerServiceInput, version?: number): Promise<Service> {
   const service = await http<Service>('PATCH', `${base(businessId)}/services/${id}`, input, { version });
   changedService(service);

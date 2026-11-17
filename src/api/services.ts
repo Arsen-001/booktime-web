@@ -430,31 +430,21 @@ function normalizePicks(sphereId: SphereId, picks: string[] | TemplatePick[]): {
   });
 }
 
-async function addFromTemplatesApi(businessId: Id, sphereId: SphereId, picks: string[] | TemplatePick[]): Promise<Service[]> {
-  const categories = await listCategories(businessId);
-  const created: Service[] = [];
-  const active = await listStaffForPicker(businessId);
-  const soleStaff = active.length === 1 ? [active[0].id] : [];
-  for (const { tpl, pick } of normalizePicks(sphereId, picks)) {
-    let category = pick.categoryId ? categories.find((c) => c.id === pick.categoryId) : categories.find((c) => c.name.ru === tpl.categoryName.ru);
-    if (!category) {
-      category = await createCategory(businessId, { name: tpl.categoryName, onlineNameEnabled: false });
-      categories.push(category);
-    }
-    const service = await createService(businessId, sphereId, {
-      categoryId: category.id,
+function addFromTemplatesApi(businessId: Id, sphereId: SphereId, picks: string[] | TemplatePick[]): Promise<Service[]> {
+  // Одна операция — один запрос (CONVENTIONS §16.2): категория, услуга и мастера — в одной транзакции сервера
+  return S.createFromTemplates(
+    businessId,
+    sphereId,
+    normalizePicks(sphereId, picks).map(({ tpl, pick }) => ({
+      categoryId: pick.categoryId,
+      categoryName: tpl.categoryName,
       name: tpl.name,
       kind: tpl.kind ?? 'individual',
       durationMin: pick.durationMin,
       priceMin: pick.priceMin,
-      techBreak: 'shared',
-      photos: [],
-      onlineBookable: true,
-    });
-    for (const staffId of pick.staffIds.length ? pick.staffIds : soleStaff) await S.assignStaffToService(service.id, staffId, businessId);
-    created.push(service);
-  }
-  return created;
+      staffIds: pick.staffIds,
+    })),
+  );
 }
 
 export function addFromTemplates(businessId: Id, sphereId: SphereId, picks: string[] | TemplatePick[]): Promise<Service[]> {
