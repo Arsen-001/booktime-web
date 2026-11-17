@@ -8,7 +8,9 @@
  * - finance/pnl/cashDay, 6 отчётов склада, отзывы, звонки, «по сотрудникам в динамике», «Моя аналитика»,
  *   еженедельный отчёт/расписание на почту/план по месяцам — сервер их не строил в этом этапе, остаются на моке.
  */
-import { http } from '@/api/http';
+import { http as rawHttp, type HttpOptions } from '@/api/http';
+import { trackRead } from '@/api/request';
+import { notifyDbChange, type DbTag } from '@/mock/db';
 import type { AppointmentImportRow } from '@/api/reports';
 import type { AppointmentsQuery, ClientVisitExportRow, DashboardQuery, EventsQuery, MonthlyPlanData, OwnerHomeQuery, RetentionQuery, SalesByClientsQuery, SalesByServicesQuery, SalesByStaffQuery, StockBalanceQuery, VisitsQuery, WorkloadQuery } from '@/api/reports';
 import type { Id, ISODate } from '@/domain/core';
@@ -56,6 +58,24 @@ import { WEEKLY_REPORT_DEFAULT } from '@/domain/reports';
 import { dayjs, today, toISODate } from '@/lib/date';
 
 const b = (businessId: Id) => `/v1/biz/${businessId}/reports`;
+
+/**
+ * Перечитывание в режиме api (проход 17.11, как finance.server): чтения отчётов объявляют метку areas.reports (и
+ * кассу: отчёты о деньгах считают её операции), запись будит её. Без этого экран не видел свою запись до
+ * перезагрузки: избранный отчёт, срок «потерянного клиента», план месяца, скрытый отзыв, доступ к отчётам.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET') {
+    trackRead('areas.reports', 'areas.finance');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  const tags: DbTag[] = ['areas.reports'];
+  if (/\/reviews\//.test(path)) tags.push('areas.online');
+  if (/\/import-appointments$/.test(path)) tags.push('core.bookings');
+  notifyDbChange(...tags);
+  return res;
+}
 const csv = (ids?: Id[]) => (ids?.length ? ids.join(',') : undefined);
 
 export function getChurnDays(businessId: Id): Promise<number> {

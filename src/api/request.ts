@@ -117,8 +117,10 @@ function syncFallback(): void {
  */
 export function trackRead(...tags: DbTag[]): void {
   const ctx = currentCtx;
-  if (ctx?.kind !== 'query') return;
-  for (const tag of tags) ctx.add(tag);
+  // Без контекста — продолжение после await в функции чтения (второй запрос к серверу): метки — всем идущим
+  // сейчас чтениям, как у мока (orphanTracker): лишний раз перечитать можно, пропустить — нельзя
+  const targets = ctx ? (ctx.kind === 'query' ? [ctx] : []) : openQueries;
+  for (const target of targets) for (const tag of tags) target.add(tag);
 }
 
 export interface RequestOptions {

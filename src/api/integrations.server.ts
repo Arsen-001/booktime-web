@@ -4,7 +4,9 @@
  * (сдача, попытка 6) маркетплейс целиком — каталог, отзывы, подписки, настройки конкретных приложений,
  * промоблоки, кабинет разработчика, заявки партнёрам (Р19: без настоящего обмена с чужими приложениями).
  */
-import { http } from '@/api/http';
+import { http as rawHttp, type HttpOptions } from '@/api/http';
+import { trackRead } from '@/api/request';
+import { notifyDbChange } from '@/mock/db';
 import type { Id } from '@/domain/core';
 import type {
   AiAssistantToken,
@@ -27,6 +29,21 @@ import type {
   WebhookDelivery,
   WebhookEntity,
 } from '@/domain/integrations';
+
+/**
+ * Перечитывание в режиме api (проход 17.11, как finance.server): чтения интеграций объявляют метку
+ * areas.integrations, запись будит её. Без этого экран не видел свою запись до перезагрузки: новый адрес вебхука,
+ * выпущенный ключ, подключённое приложение, промоблок.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET') {
+    trackRead('areas.integrations');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  notifyDbChange('areas.integrations');
+  return res;
+}
 
 const b = (businessId: Id) => `/v1/biz/${businessId}/integrations`;
 const csv = (ids: Id[]) => ids.join(',');

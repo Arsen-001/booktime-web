@@ -18,8 +18,9 @@
  * `/service-categories`, `/services`, `/goods…`, `/positions`, `/staff`) — переключение экрана на них требует
  * либо переписать сами экраны под новый контракт, либо расширить сервер под мок; отдельный проход.
  */
-import { HttpApiError, http } from '@/api/http';
-import { ApiError } from '@/api/request';
+import { HttpApiError, http as rawHttp, type HttpOptions } from '@/api/http';
+import { ApiError, trackRead } from '@/api/request';
+import { notifyDbChange, type DbTag } from '@/mock/db';
 import { bizOf as bizOfStaff, addStaff, patchStaff, dismiss as dismissStaff, restore as restoreStaff, remove as removeStaffForever, undelete as undeleteStaff } from '@/api/staff.server';
 import { bizOfService } from '@/api/services.server';
 import { today } from '@/lib/date';
@@ -90,6 +91,32 @@ import type { PlanEmailSchedule } from '@/domain/reports';
 
 const n = (networkId: Id) => `/v1/net/${networkId}`;
 const bizNet = (businessId: Id) => `/v1/biz/${businessId}/network`;
+
+/** POST, которые только читают: общая база клиентов с фильтрами и предпросмотр сохранения услуги по филиалам */
+const POST_READ = /\/clients\/list$|\/services\/preview$/;
+/** Что ещё меняет запись сети в филиалах: перенос и копирование сотрудников, услуг, товаров, клиентов, ведомости */
+const ALSO_CHANGES: [RegExp, DbTag[]][] = [
+  [/\/staff\b/, ['areas.staff', 'core.staff']],
+  [/\/(services|service-categories|packages|copy-branch|services-csv-import)\b/, ['areas.services', 'core.services', 'core.serviceCategories']],
+  [/\/(goods|copy-branch)\b/, ['areas.stock']],
+  [/\/clients\b/, ['areas.clients', 'core.clients']],
+  [/\/payroll-runs\b/, ['areas.payroll']],
+];
+
+/**
+ * Перечитывание в режиме api (проход 17.11, как finance.server): чтения сети объявляют метку areas.network, запись
+ * будит её и разделы филиалов, которые она меняет. Без этого экран не видел свою запись до перезагрузки: новое
+ * поле записи, должность, перенос услуг и сотрудников, ведомость сети.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET' || (method === 'POST' && POST_READ.test(path))) {
+    trackRead('areas.network');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  notifyDbChange('areas.network', ...ALSO_CHANGES.filter(([re]) => re.test(path)).flatMap(([, tags]) => tags));
+  return res;
+}
 
 /** Этап 21 «network+reports»: сеть ЭТОГО бизнеса, если есть (0 или 1 — Business.networkId один) */
 export function listMyNetworks(businessId: Id): Promise<Network[]> {

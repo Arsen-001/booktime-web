@@ -9,10 +9,11 @@
  * `apiIdentity()` — эти экраны никогда не редактируют чужой бизнес, поэтому лишний lookup-по-мирору не нужен
  * (тот же приём упрощения, что у `staff.server.ts`/`services.server.ts` для businessId-фолбэка).
  */
-import { http } from '@/api/http';
+import { http as rawHttp, type HttpOptions } from '@/api/http';
 import type { TelegramLinkInfo } from '@/domain/client';
 import { apiIdentity } from '@/api/identity';
-import { ApiError } from '@/api/request';
+import { ApiError, trackRead } from '@/api/request';
+import { notifyDbChange } from '@/mock/db';
 import type { FreeSlot } from '@/api/schedule';
 import type { Id, ISODate } from '@/domain/core';
 import type { BookingLink, BusinessOnlineRules, OnlineBookingMeta, StaffOnlineRules } from '@/domain/online';
@@ -28,6 +29,21 @@ import type {
   UpdateLinkPatch,
   WidgetSlotQuery,
 } from '@/api/online';
+
+/**
+ * Перечитывание в режиме api (проход 17.11, как finance.server): чтения онлайн-записи объявляют метку areas.online,
+ * запись будит её. Без этого экран не видел свою запись до перезагрузки: новая ссылка записи, правила, отзыв скрыт.
+ * Счётчик просмотров виджета (`/public/track`) — не запись для экранов: зовётся при открытии страницы записи.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET') {
+    trackRead('areas.online');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  if (path !== '/v1/public/track') notifyDbChange('areas.online');
+  return res;
+}
 
 function biz(): Id {
   const id = apiIdentity()?.businessId;

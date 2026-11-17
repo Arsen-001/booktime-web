@@ -18,10 +18,10 @@
  * плановой схемы — админский инструмент, не движение денег), `computePackageBases`/`serviceCostBasisPayout`
  * (чистая клиентская математика пакетов, сервера не требует), `getStaffWorkedHours` отдельным вызовом.
  */
-import { HttpApiError, http } from '@/api/http';
+import { HttpApiError, http as rawHttp, type HttpOptions } from '@/api/http';
 import { apiIdentity } from '@/api/identity';
 import { bizOf } from '@/api/staff.server';
-import { ApiError } from '@/api/request';
+import { ApiError, trackRead } from '@/api/request';
 import type { Id, ISODate } from '@/domain/core';
 import { defaultAssistRates } from '@/domain/payroll';
 import type {
@@ -39,8 +39,24 @@ import type {
   StatementApproval,
   StatementComputation,
 } from '@/domain/payroll';
-import { readDbUntracked } from '@/mock/db';
+import { notifyDbChange, readDbUntracked } from '@/mock/db';
 import { toLocalDateTime } from '@/lib/date';
+
+/**
+ * Перечитывание в режиме api (проход 17.11, как finance.server): чтения зарплаты объявляют метку areas.payroll (и
+ * areas.finance — ведомость считает оплаченные визиты, «Выплачено» — из кассы), запись будит её; выплата будит и
+ * кассу. Без этого экран не видел свою запись до перезагрузки: новая ведомость, премия, утверждение, схема мастера.
+ */
+async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown, opts?: HttpOptions): Promise<T> {
+  if (method === 'GET') {
+    trackRead('areas.payroll', 'areas.finance');
+    return rawHttp<T>(method, path, body, opts);
+  }
+  const res = await rawHttp<T>(method, path, body, opts);
+  if (/\/payroll\/payouts$/.test(path)) notifyDbChange('areas.payroll', 'areas.finance');
+  else notifyDbChange('areas.payroll');
+  return res;
+}
 
 function currentBusinessId(): Id {
   const id = apiIdentity()?.businessId;
