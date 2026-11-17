@@ -1443,13 +1443,7 @@ export function closePayrollPeriod(
   locationId: Id,
   through: ISODate,
 ): Promise<GeneralSettings> {
-  if (isApiMode())
-    return Server.getGeneralSettings(locationId).then((current) =>
-      Server.saveGeneralSettings({
-        ...(current ?? defaultGeneralSettings(locationId, nowDateTime())),
-        closedThrough: through,
-      }),
-    );
+  if (isApiMode()) return Server.closePeriod(locationId, through);
   return request(() => {
     assertCan("payroll.manage");
     const now = nowDateTime();

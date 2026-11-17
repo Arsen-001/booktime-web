@@ -84,8 +84,13 @@ export function getGeneralSettings(locationId: Id): Promise<GeneralSettings | un
 }
 
 export function saveGeneralSettings(settings: GeneralSettings): Promise<GeneralSettings> {
-  const { locationId, updatedAt: _updatedAt, ...body } = settings;
+  const { locationId, updatedAt: _updatedAt, closedThrough: _closedThrough, ...body } = settings;
   return http<GeneralSettings>('PATCH', `${b(currentBusinessId())}/payroll/settings`, body, { query: { locationId } });
+}
+
+/** З11: «Закрыть период» по этот день включительно — сервер двигает дату только вперёд (как мок) */
+export function closePeriod(locationId: Id, through: ISODate): Promise<GeneralSettings> {
+  return http<GeneralSettings>('POST', `${b(currentBusinessId())}/payroll/settings/close-period`, { through }, { query: { locationId } });
 }
 
 // ─────────────────────────── Схема сотрудника ───────────────────────────
@@ -105,8 +110,12 @@ export function getScheme(staffId: Id): Promise<PayrollScheme | undefined> {
   return http<PayrollScheme | null>('GET', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`).then((v) => (v ? schemeFromServer(v) : undefined));
 }
 
+/**
+ * З6: блоки и «Действует с» — сервер сам решает, правка это текущей версии или новая (applySchemeVersion, как мок), и
+ * ведёт историю версий; `history` черновика не отправляем.
+ */
 export function saveScheme(scheme: PayrollScheme): Promise<PayrollScheme> {
-  const { staffId, createdAt: _createdAt, updatedAt: _updatedAt, ...body } = scheme;
+  const { staffId, createdAt: _createdAt, updatedAt: _updatedAt, history: _history, ...body } = scheme;
   return http<PayrollScheme>('PATCH', `${b(bizOf(staffId))}/staff/${staffId}/payroll-scheme`, body).then(schemeFromServer);
 }
 
