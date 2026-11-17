@@ -833,12 +833,34 @@ export function cancelMoveOperation(businessId: Id, docId: Id): Promise<void> {
 }
 
 /** F-08-053: выгрузка журнала складских операций в CSV (Excel) — у нас сразу файлом, без почты (обсудить) */
-export function exportOperationsCsv(businessId: Id, locationId: Id, filters: OperationFilters = {}): Promise<string> {
+/** Подписи выгрузки на языке кабинета: заголовки, тип, единица («флак.», а не «bottle»), дата, «да/нет» */
+export interface OperationsCsvLabels {
+  headers: string[];
+  type: (type: OperationRow['type']) => string;
+  unit: (unitId: string) => string;
+  date: (value: string) => string;
+  yes: string;
+  no: string;
+}
+
+export function exportOperationsCsv(businessId: Id, locationId: Id, filters: OperationFilters = {}, labels?: OperationsCsvLabels): Promise<string> {
   return request(async () => {
     const { items } = await listOperations(businessId, locationId, { ...filters, page: 1, pageSize: 10000 });
     return toCsv(
-      items.map((r) => [r.number, r.date, OPERATION_TYPE_LABELS[r.type].ru, r.warehouseName, r.goodName, r.qtySale, r.saleUnit, r.costTotal, r.counterpartyOrClient, r.paid ? 'Да' : 'Нет', r.comment ?? '']),
-      ['№', 'Дата', 'Тип', 'Склад', 'Товар', 'Количество', 'Единица', 'Сумма', 'Контрагент/клиент', 'Оплачено', 'Комментарий'],
+      items.map((r) => [
+        r.number,
+        labels ? labels.date(r.date) : r.date,
+        labels ? labels.type(r.type) : OPERATION_TYPE_LABELS[r.type].ru,
+        r.warehouseName,
+        r.goodName,
+        r.qtySale,
+        labels ? labels.unit(r.saleUnit) : r.saleUnit,
+        r.costTotal,
+        r.counterpartyOrClient,
+        r.paid ? (labels?.yes ?? 'Да') : (labels?.no ?? 'Нет'),
+        r.comment ?? '',
+      ]),
+      labels?.headers ?? ['№', 'Дата', 'Тип', 'Склад', 'Товар', 'Количество', 'Единица', 'Сумма', 'Контрагент/клиент', 'Оплачено', 'Комментарий'],
     );
   });
 }

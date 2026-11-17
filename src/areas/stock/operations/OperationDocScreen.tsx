@@ -20,7 +20,8 @@ import {
   type SalePaymentMethod,
 } from '@/api/stock';
 import { useApiMutation, useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
+import { useCurrent, useDemo } from '@/demo/hooks';
+import { pickText } from '@/lib/text';
 import type { Id } from '@/domain/core';
 import { OPERATION_TYPE_LABELS, WRITEOFF_REASON_LABELS, type WriteoffReason } from '@/domain/stock';
 import { useT } from '@/i18n/useT';
@@ -53,6 +54,7 @@ import { useToast } from '@/ui/Toast';
 const EDITABLE_TYPES = new Set(['income', 'writeoffProduct', 'writeoffService', 'sale']);
 
 export function OperationDocScreen({ docId }: { docId: Id }) {
+  const { lang } = useDemo();
   const unitShort = useUnitShort();
   const t = useT('stock');
   const toast = useToast();
@@ -238,7 +240,7 @@ export function OperationDocScreen({ docId }: { docId: Id }) {
                 {t('operationDoc.receipt')}
               </LinkButton>
             )}
-            <Badge tone="neutral">{OPERATION_TYPE_LABELS[doc.type].ru}</Badge>
+            <Badge tone="neutral">{pickText(OPERATION_TYPE_LABELS[doc.type], lang)}</Badge>
           </div>
         }
       />

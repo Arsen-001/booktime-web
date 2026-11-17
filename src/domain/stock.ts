@@ -269,11 +269,11 @@ export interface OperationDoc {
 }
 
 export const OPERATION_TYPE_LABELS: Record<OperationType, LocalizedText> = {
-  income: { ru: 'Приход товара', en: 'Stock income' },
-  sale: { ru: 'Продажа товара', en: 'Product sale' },
-  writeoffService: { ru: 'Списание расходников', en: 'Consumables write-off' },
-  writeoffProduct: { ru: 'Списание товара', en: 'Product write-off' },
-  move: { ru: 'Перемещение товара', en: 'Stock transfer' },
+  income: { ru: 'Приход товара', en: 'Stock income', hy: 'Ապրանքի մուտք' },
+  sale: { ru: 'Продажа товара', en: 'Product sale', hy: 'Ապրանքի վաճառք' },
+  writeoffService: { ru: 'Списание расходников', en: 'Consumables write-off', hy: 'Ծախսանյութերի դուրսգրում' },
+  writeoffProduct: { ru: 'Списание товара', en: 'Product write-off', hy: 'Ապրանքի դուրսգրում' },
+  move: { ru: 'Перемещение товара', en: 'Stock transfer', hy: 'Ապրանքի տեղափոխում' },
 };
 
 export function docLineTotal(doc: OperationDoc): Money {

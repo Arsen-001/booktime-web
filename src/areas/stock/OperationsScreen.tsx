@@ -167,7 +167,15 @@ export function OperationsScreen() {
   };
 
   const exportExcel = async () => {
-    const csv = await exportOperationsCsv(businessId!, locationId!, filters);
+    const c = (k: 'number' | 'date' | 'type' | 'warehouse' | 'good' | 'qty' | 'unit' | 'sum' | 'counterparty' | 'paid' | 'comment') => t(`operations.csv.${k}`);
+    const csv = await exportOperationsCsv(businessId!, locationId!, filters, {
+      headers: [c('number'), c('date'), c('type'), c('warehouse'), c('good'), c('qty'), c('unit'), c('sum'), c('counterparty'), c('paid'), c('comment')],
+      type: (type) => pickText(OPERATION_TYPE_LABELS[type], lang),
+      unit: (unitId) => pickText(unitById(unitId).short, lang),
+      date: (value) => `${format.date(value, 'short')} ${format.time(value)}`,
+      yes: t('operations.csv.yes'),
+      no: t('operations.csv.no'),
+    });
     downloadCsv('stock-operations.csv', csv);
   };
 
@@ -179,7 +187,7 @@ export function OperationsScreen() {
       width: '13.5rem',
       cell: (r) => (
         <Badge tone={TYPE_TONE[r.type]} size="sm">
-          {OPERATION_TYPE_LABELS[r.type].ru}
+          {pickText(OPERATION_TYPE_LABELS[r.type], lang)}
         </Badge>
       ),
       // Плашка типа — той же высоты и типичной ширины («Списание расходников»)

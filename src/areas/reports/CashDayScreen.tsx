@@ -98,7 +98,7 @@ export function CashDayScreen() {
     q.data.summary.totalRecords.count === 0 &&
     q.data.operations.length === 0 &&
     q.data.registers.every((r) => r.openingBalance === 0 && r.closingBalance === 0);
-  const exportRows = (q.data?.operations ?? []).map((o) => [o.time, o.clientName ?? '', o.staffName, o.lineLabel, o.total, o.accountName, o.method]);
+  const exportRows = (q.data?.operations ?? []).map((o) => [o.time, o.clientName ?? '', o.staffName, o.lineLabel, o.total, o.accountName, methodLabel(t, o.method)]);
 
   return (
     <PermissionGate permission="reports.view" fallback="message">
