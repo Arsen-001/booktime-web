@@ -91,8 +91,11 @@ const FROZEN_BLOCKED: ReadonlySet<Permission> = new Set<Permission>([
 
 /** Кабинет только для просмотра: подписка текущего бизнеса заморожена */
 export function useReadOnly(): boolean {
-  const { businessId } = useCurrent();
-  return useFrozenBusiness((s) => Boolean(businessId) && s.businessId === businessId);
+  const { businessId, locationId } = useCurrent();
+  const frozen = useFrozenBusiness((s) => Boolean(businessId) && s.businessId === businessId);
+  // Сеть, «Все филиалы»: текущий бизнес — главный филиал, но записывать можно в любой незамороженный — кнопки
+  // остаются, а замороженный филиал ответит понятным 423 (Manana: Нор-Норк заморожен, Шенгавит работает)
+  return frozen && locationId !== 'all';
 }
 
 function useBasePermissions(): readonly Permission[] {

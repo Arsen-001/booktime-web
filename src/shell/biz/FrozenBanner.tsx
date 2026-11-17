@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { Lock } from 'lucide-react';
+import { useCoreGet } from '@/api/core';
 import { setFrozenBusiness } from '@/api/identity';
 import { useApiQuery } from '@/api/request';
 import { subscriptionWarnings } from '@/api/settings';
@@ -18,7 +19,10 @@ import { useHideDigitalPurchases } from '@/lib/native/useNativeApp';
  */
 export function FrozenBanner() {
   const t = useT('common');
-  const { businessId, ready } = useCurrent();
+  const { businessId, ready, locationId } = useCurrent();
+  // Сеть, «Все филиалы»: заморожен только этот филиал — остальные работают (не «весь кабинет только для просмотра»)
+  const allBranches = locationId === 'all';
+  const businessQ = useCoreGet('businesses', allBranches ? (businessId ?? '') : '', { enabled: allBranches && Boolean(businessId) });
   const canBilling = useCan('billing.manage');
   const hidePurchases = useHideDigitalPurchases();
   const q = useApiQuery(['shell', 'billing-warnings', businessId], () => subscriptionWarnings(businessId!), {
@@ -34,7 +38,9 @@ export function FrozenBanner() {
   return (
     <div role="status" className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-danger-soft px-4 py-3 text-sm text-danger">
       <Lock aria-hidden className="size-4 shrink-0" />
-      <span className="min-w-0 flex-1">{owner ? t('frozen.owner') : t('frozen.staff')}</span>
+      <span className="min-w-0 flex-1">
+        {allBranches && businessQ.data ? t('frozen.branch', { name: businessQ.data.name }) : owner ? t('frozen.owner') : t('frozen.staff')}
+      </span>
       {owner && (
         <Link href="/biz/billing" className="inline-flex min-h-9 items-center rounded-lg bg-danger px-3 font-semibold text-primary-contrast hover:opacity-90">
           {t('frozen.renew')}
