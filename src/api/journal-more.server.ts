@@ -7,6 +7,7 @@
  */
 import { apiIdentity } from '@/api/identity';
 import { readDbUntracked } from '@/mock/db';
+import type { JournalSearchQuery, JournalSearchResult, RecordsPage, RecordsQuery } from '@/domain/records';
 import { http } from '@/api/http';
 import { ApiError, trackRead } from '@/api/request';
 import type { DayHours, ISODate, ISODateTime, Id, Money } from '@/domain/core';
@@ -184,4 +185,41 @@ export function createLedger(input: Omit<JournalLedgerEntry, 'id'>): Promise<Jou
 
 export function cancelLedger(entryId: Id): Promise<void> {
   return http('POST', `${j()}/ledger/${entryId}/cancel`);
+}
+
+// ─────────────────────────── «Записи» страницей и поиск журнала (скорость, 17.11.2026) ───────────────────────────
+
+/** «Записи» (F-01-181): одна страница отбора и итоги «Показано / Выручка / Удалено» — считает сервер */
+export async function recordsPage(businessId: Id, q: RecordsQuery): Promise<RecordsPage> {
+  reads();
+  trackRead('areas.journal.extras');
+  trackRead('areas.finance');
+  const page = await http<Omit<RecordsPage, 'clients'> & { clients: Record<Id, { id: Id; name: string; clientPhone: string }> }>('GET', `${j(businessId)}/records`, undefined, {
+    query: {
+      cancel: q.cancel,
+      source: q.source,
+      paid: q.paid,
+      categoryId: q.categoryId,
+      resourceId: q.resourceId,
+      staffId: q.staffId,
+      from: q.from,
+      sort: q.sort,
+      dir: q.sort ? q.dir : undefined,
+      page: String(q.page),
+      pageSize: String(q.pageSize),
+    },
+  });
+  // В зеркало браузера не кладём: окно записи по «?booking=» берёт запись с сервера по id, а запись в зеркало
+  // разбудила бы этот же запрос второй раз (он читает записи). Телефон клиента без права clients.phones — скрытым.
+  return { ...page, clients: Object.fromEntries(Object.entries(page.clients).map(([id, c]) => [id, { id: c.id, name: c.name, phone: c.clientPhone }])) };
+}
+
+/** Поиск журнала (F-01-163): клиенты и их записи — сервер; телефон без права clients.phones приходит скрытым */
+export async function journalSearch(q: JournalSearchQuery): Promise<JournalSearchResult> {
+  reads();
+  trackRead('areas.clients');
+  const r = await http<Omit<JournalSearchResult, 'clients'> & { clients: { id: Id; name: string; clientPhone: string }[] }>('GET', `${j(q.businessId)}/search`, undefined, {
+    query: { q: q.query, staffId: q.staffId, from: q.from, clientsLimit: String(q.clientsLimit) },
+  });
+  return { ...r, clients: r.clients.map((c) => ({ id: c.id, name: c.name, phone: c.clientPhone })) };
 }

@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import styles from '@/areas/journal/records.module.css';
 import { Ban, Info, Pencil, RotateCcw, Trash2 } from 'lucide-react';
 import type { Booking } from '@/domain/core';
-import { listBookings, coreList } from '@/api/core';
+import { coreList } from '@/api/core';
 import {
   bulkDeleteBookings,
   createExternalBooking,
@@ -20,6 +20,7 @@ import {
   listBookingExtrasByIds,
   getDataOpsLog,
   importBookingRows,
+  listRecordsPage,
   logBookingHistory,
   restoreDeletedBooking,
   type ImportRow,
@@ -31,9 +32,10 @@ import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { useT } from '@/i18n/useT';
 import { useFormat } from '@/i18n/useFormat';
-import { canDeleteBooking, isBeyondHistoryLimit, maskPhone, useJournalBlockRights, useWindowRights } from '@/areas/journal/lib/rights';
+import { canDeleteBooking, historyLimitDays, maskPhone, useJournalBlockRights, useWindowRights } from '@/areas/journal/lib/rights';
 import { useJournalHourFormat } from '@/areas/journal/lib/useJournalHourFormat';
-import { combine, today } from '@/lib/date';
+import { addDays, combine, today } from '@/lib/date';
+import type { RecordsQuery } from '@/domain/records';
 import { pickText } from '@/lib/text';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -43,6 +45,7 @@ import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { FilterBar } from '@/ui/FilterBar';
 import { FormField } from '@/ui/FormField';
+import { DEFAULT_PAGE_SIZE, Pagination } from '@/ui/Pagination';
 import { IconButton } from '@/ui/IconButton';
 import { Input } from '@/ui/Input';
 import { Modal } from '@/ui/Modal';
@@ -53,17 +56,16 @@ import { SegmentedControl } from '@/ui/SegmentedControl';
 import { cn } from '@/lib/cn';
 import { SkeletonText } from '@/ui/Skeleton';
 import { StatCard } from '@/ui/StatCard';
-import { Table, type TableColumn } from '@/ui/Table';
+import { Table, type TableColumn, type TableSort } from '@/ui/Table';
 import { Textarea } from '@/ui/Textarea';
 import { TimePicker } from '@/ui/TimePicker';
 import { Tooltip } from '@/ui/Tooltip';
 import { useConfirm, useToast } from '@/ui/Toast';
 import { startNavPending } from '@/ui/navigation/navPending';
 
-type CancelFilter = 'all' | 'cancelled' | 'notCancelled' | 'deleted';
-type SourceFilter = 'all' | 'online' | 'offline';
-type PaidFilter = 'all' | 'paid' | 'unpaid';
-const ONLINE_SOURCES = new Set(['app', 'link', 'widget']);
+type CancelFilter = RecordsQuery['cancel'];
+type SourceFilter = RecordsQuery['source'];
+type PaidFilter = RecordsQuery['paid'];
 
 const CANCELLED_STATUSES = new Set(['no_show', 'cancelled_by_client', 'cancelled_by_master']);
 
@@ -126,7 +128,12 @@ export function RecordsScreen() {
   // F-16-025: «У нас: 1:1 + фильтр по ресурсу в списке записей делаем» — своё решение раздела resources,
   // так как Altegio показывает такой фильтр только в обзоре отчётов, не в самой статье/кабинете.
   const [resourceFilter, setResourceFilter] = useState<string>('all');
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  // Выбранные строки — сами записи, а не только id: на другой странице их уже нет в ответе сервера
+  const [selectedRows, setSelectedRows] = useState<Booking[]>([]);
+  const selectedIds = selectedRows.map((b) => b.id);
+  const setSelectedIds = (ids: string[]) => setSelectedRows(ids.length ? selectedRows.filter((b) => ids.includes(b.id)) : []);
+  // Сортировка колонки (по умолчанию — время, свежие первыми) и страница — их считает сервер
+  const [sort, setSort] = useState<TableSort | null>({ columnId: 'when', dir: 'desc' });
   const [importOpen, setImportOpen] = useState(false);
   const [exportOpen, setExportOpen] = useState(false);
   const [importText, setImportText] = useState('');
@@ -144,9 +151,31 @@ export function RecordsScreen() {
   const [externalTime, setExternalTime] = useState('10:00');
   const [externalError, setExternalError] = useState<string | null>(null);
 
-  const bookingsQuery = useApiQuery(['journal', 'records', businessId], () => listBookings({ businessId, includeDeleted: true }), {
-    enabled: ready && Boolean(businessId),
+  // Скорость (17.11.2026): одна страница с сервера с итогами по всему отбору — не все записи бизнеса с удалёнными.
+  // Свои записи (без права на чужие) и окно истории (F-01-178) — частью отбора, чтобы итоги считались по видимому.
+  const historyDays = historyLimitDays(journalRights.historyLimit);
+  const filter: Omit<RecordsQuery, 'page' | 'pageSize'> = {
+    cancel: cancelFilter,
+    source: sourceFilter,
+    paid: paidFilter,
+    categoryId: categoryFilter === 'all' ? undefined : categoryFilter,
+    resourceId: resourceFilter === 'all' ? undefined : resourceFilter,
+    staffId: canSeeOtherStaffRecords ? undefined : (ownStaffId ?? undefined),
+    from: historyDays === null ? undefined : addDays(todayIso, -historyDays),
+    sort: sort?.columnId === 'when' || sort?.columnId === 'total' ? sort.columnId : undefined,
+    dir: sort?.dir ?? 'desc',
+  };
+  // Сменился отбор или сортировка — снова первая страница (подстройка во время рендера, как у Table)
+  const filterKey = JSON.stringify(filter);
+  const [paging, setPaging] = useState({ key: filterKey, page: 1, pageSize: DEFAULT_PAGE_SIZE });
+  if (paging.key !== filterKey) setPaging({ key: filterKey, page: 1, pageSize: paging.pageSize });
+  const page = paging.key === filterKey ? paging.page : 1;
+  const pageSize = paging.pageSize;
+  const query: RecordsQuery = { ...filter, page, pageSize };
+  const bookingsQuery = useApiQuery(['journal', 'records', businessId, query], () => listRecordsPage(businessId!, query), {
+    enabled: ready && Boolean(businessId) && journalRights.ready,
   });
+  const pageRows = bookingsQuery.data?.items ?? [];
   const clientsQuery = useApiQuery(['journal', 'records-clients', businessId], () => coreList('clients', { businessId: businessId! }), {
     enabled: ready && Boolean(businessId),
   });
@@ -162,24 +191,25 @@ export function RecordsScreen() {
   });
   // F-01-119: карточка удаления (автор, время), оплата и категории записи хранятся у нас — одним запросом на весь
   // список (listBookingExtrasByIds), а не отдельным запросом на каждую из ~2000 записей, как было
-  const extrasQuery = useApiQuery(
-    ['journal', 'records-extras', bookingsQuery.data?.map((b) => b.id).join(',')],
-    () => listBookingExtrasByIds((bookingsQuery.data ?? []).map((b) => b.id)),
-    { enabled: Boolean(bookingsQuery.data) },
-  );
+  const pageIds = pageRows.map((b) => b.id);
+  const extrasQuery = useApiQuery(['journal', 'records-extras', pageIds.join(',')], () => listBookingExtrasByIds(pageIds), {
+    enabled: Boolean(bookingsQuery.data),
+  });
   // «Оплачено» — из финансов (тот же источник, что окно оплаты и касса; journal.md), одним запросом на весь список
-  const paymentsQuery = useApiQuery(
-    ['journal', 'records-payments', businessId, bookingsQuery.data?.map((b) => b.id).join(',')],
-    () => listBookingPaymentSummaries(businessId!, (bookingsQuery.data ?? []).map((b) => b.id)),
-    { enabled: Boolean(bookingsQuery.data) && Boolean(businessId) },
-  );
+  const paymentsQuery = useApiQuery(['journal', 'records-payments', businessId, pageIds.join(',')], () => listBookingPaymentSummaries(businessId!, pageIds), {
+    enabled: Boolean(bookingsQuery.data) && Boolean(businessId),
+  });
   /** Оплачено по записи: сумма записи − остаток к оплате (предоплата переводом уже учтена) */
   const paidOf = (b: Booking) => {
     const brief = paymentsQuery.data?.[b.id];
     return brief ? Math.max(0, b.total - brief.due) : 0;
   };
 
-  const clientsById = useMemo(() => Object.fromEntries((clientsQuery.data ?? []).map((c) => [c.id, c])), [clientsQuery.data]);
+  // Клиенты строк страницы: из зеркала браузера, а кого там нет (старые записи) — из ответа страницы
+  const clientsById = useMemo(
+    () => ({ ...(bookingsQuery.data?.clients ?? {}), ...Object.fromEntries((clientsQuery.data ?? []).map((c) => [c.id, c])) }),
+    [clientsQuery.data, bookingsQuery.data?.clients],
+  );
   const bulkDeleteMutation = useApiMutation((input: { items: { id: string; status: Booking['status']; paidAmount: number }[]; authorName: string }) =>
     bulkDeleteBookings(input.items, input.authorName),
   );
@@ -214,49 +244,11 @@ export function RecordsScreen() {
     );
   }
 
-  const allRaw = bookingsQuery.data ?? [];
-  const all = allRaw.filter(
-    (b) =>
-      (canSeeOtherStaffRecords || b.staffId === ownStaffId) &&
-      !isBeyondHistoryLimit(b.start.slice(0, 10), journalRights.historyLimit, todayIso),
-  );
-  const rows = all
-    .filter((b) => {
-      // F-01-181: «Удалённые» — только мягко удалённые (deletedAt), как в Altegio. «Отменённые» (01.10.2026) — ещё и
-      // отменённые статусом («Отменил клиент/мастер»): иначе запись с «Верните клиенту …» не находилась никаким фильтром
-      const isDeleted = Boolean(b.deletedAt);
-      const isCancelled = isDeleted || b.status === 'cancelled_by_client' || b.status === 'cancelled_by_master';
-      if (cancelFilter === 'deleted' && !isDeleted) return false;
-      if (cancelFilter === 'cancelled' && !isCancelled) return false;
-      if (cancelFilter === 'notCancelled' && isCancelled) return false;
-      if (sourceFilter !== 'all') {
-        const isOnline = ONLINE_SOURCES.has(b.source);
-        if (sourceFilter === 'online' && !isOnline) return false;
-        if (sourceFilter === 'offline' && isOnline) return false;
-      }
-      if (paidFilter !== 'all') {
-        const paidAmount = paidOf(b);
-        const isPaid = paidAmount > 0 && paidAmount >= b.total;
-        if (paidFilter === 'paid' && !isPaid) return false;
-        if (paidFilter === 'unpaid' && isPaid) return false;
-      }
-      if (categoryFilter !== 'all') {
-        const categoryIds = extrasQuery.data?.[b.id]?.categoryIds ?? [];
-        if (!categoryIds.includes(categoryFilter)) return false;
-      }
-      if (resourceFilter !== 'all') {
-        const resource = (resourcesQuery.data ?? []).find((r) => r.id === resourceFilter);
-        const instanceIds = new Set(resource?.instances.map((i) => i.id) ?? []);
-        if (!b.resourceIds.some((id) => instanceIds.has(id))) return false;
-      }
-      return true;
-    })
-    .sort((a, b) => b.start.localeCompare(a.start));
-
-  // Сводка над таблицей (DESIGN.md «headline» карточки — крупное число): считается по уже
-  // отфильтрованным `rows`, а не по всем записям бизнеса.
-  const deletedCount = rows.filter((b) => b.deletedAt).length;
-  const revenueTotal = rows.filter((b) => !b.deletedAt).reduce((sum, b) => sum + b.total, 0);
+  // Строки страницы — уже отобраны и упорядочены сервером; итоги — по всему отбору, а не по странице
+  const rows = pageRows;
+  const totalCount = bookingsQuery.data?.total ?? 0;
+  const deletedCount = bookingsQuery.data?.deleted ?? 0;
+  const revenueTotal = bookingsQuery.data?.revenue ?? 0;
   const filtersActiveCount = [sourceFilter, paidFilter, categoryFilter, resourceFilter].filter((v) => v !== 'all').length;
   const resetFieldFilters = () => {
     setSourceFilter('all');
@@ -272,10 +264,7 @@ export function RecordsScreen() {
     canDeleteBooking(b, paidOf(b), windowRights);
 
   const handleBulkDelete = async () => {
-    const items = selectedIds
-      .map((id) => all.find((b) => b.id === id))
-      .filter((b): b is Booking => Boolean(b))
-      .map((b) => ({ id: b.id, status: b.status, paidAmount: paidOf(b) }));
+    const items = selectedRows.map((b) => ({ id: b.id, status: b.status, paidAmount: paidOf(b) }));
     const ok = await confirm({
       title: t('records.bulkDeleteConfirmTitle'),
       description: t('records.bulkDeleteConfirmText', { count: items.length }),
@@ -588,7 +577,7 @@ export function RecordsScreen() {
 
       {/* Телефон: выручка — во всю ширину сверху, «Показано» и «Удалено» — парой под ней (три плитки столбиком занимали экран) */}
       <div className={cn('grid grid-cols-2 gap-3', journalRights.showStatistics ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
-        <StatCard label={t('records.stats.count')} value={format.number(rows.length)} loading={loading} />
+        <StatCard label={t('records.stats.count')} value={format.number(totalCount)} loading={loading} />
         {/* F-01-178 «Показывать статистику»: без права — без выручки */}
         {journalRights.showStatistics && <StatCard className="max-sm:order-first max-sm:col-span-2" label={t('records.stats.revenue')} value={format.money(revenueTotal)} loading={loading} />}
         <StatCard label={t('records.stats.deleted')} value={format.number(deletedCount)} loading={loading} />
@@ -689,7 +678,9 @@ export function RecordsScreen() {
         // Постранично (owner 29.09.2026: «почему вся дата сразу грузится») — встроенный вывод Table: 10 на странице,
         // выбор 10/20/50/100, а не все ~2000 записей за полтора года разом
         rows={rows}
-        defaultSort={{ columnId: 'when', dir: 'desc' }}
+        manualSort
+        sort={sort}
+        onSortChange={setSort}
         rowKey={(b) => b.id}
         loading={loading}
         loadingRows={10}
@@ -708,7 +699,16 @@ export function RecordsScreen() {
         }}
         selectable={windowRights.deleteBookings}
         selected={selectedIds}
-        onSelectedChange={(ids) => setSelectedIds(ids.filter((id) => canDeleteRow(all.find((b) => b.id === id)!)))}
+        onSelectedChange={(ids) =>
+          setSelectedRows(
+            ids.flatMap((id) => {
+              const kept = selectedRows.find((b) => b.id === id);
+              if (kept) return [kept];
+              const row = rows.find((b) => b.id === id);
+              return row && canDeleteRow(row) ? [row] : [];
+            }),
+          )
+        }
         empty={
           cancelFilter === 'all' && filtersActiveCount === 0 ? (
             <EmptyState icon={<Ban aria-hidden />} title={t('records.emptyTitle')} description={t('records.emptyText')} />
@@ -723,6 +723,17 @@ export function RecordsScreen() {
           )
         }
       />
+
+      {totalCount > DEFAULT_PAGE_SIZE && (
+        <Pagination
+          page={bookingsQuery.data?.page ?? page}
+          pageSize={pageSize}
+          total={totalCount}
+          onPageChange={(p) => setPaging({ key: filterKey, page: p, pageSize })}
+          onPageSizeChange={(size) => setPaging({ key: filterKey, page: 1, pageSize: size })}
+          className="-mt-2"
+        />
+      )}
 
       <Modal open={importOpen} onOpenChange={setImportOpen} title={t('records.importModal.title')} size="md">
         <div data-f="F-01-182 F-07-180 F-04-131" className="flex flex-col gap-3">
@@ -776,7 +787,7 @@ export function RecordsScreen() {
 
       <Modal open={exportOpen} onOpenChange={setExportOpen} title={t('records.exportModal.title')} size="sm">
         <div data-f="F-01-183" className="flex flex-col gap-3">
-          <p className="text-sm text-muted">{t('records.exportModal.help', { count: rows.length })}</p>
+          <p className="text-sm text-muted">{t('records.exportModal.help', { count: totalCount })}</p>
           <Input
             type="email"
             value={exportEmail}
@@ -802,7 +813,7 @@ export function RecordsScreen() {
               disabled={!exportEmail}
               loading={exportMutation.isPending}
               onClick={async () => {
-                await exportMutation.mutate(rows.length);
+                await exportMutation.mutate(totalCount);
                 toast.success(t('records.exportModal.sentToast', { email: exportEmail }));
                 setExportOpen(false);
               }}

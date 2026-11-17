@@ -7,6 +7,7 @@
  */
 import { mutateArea, readArea, readCore } from "@/api/area";
 import {
+  bookingPaymentBriefSync,
   getBookingPaymentSummary,
   payBookingQuick,
   payBookingSplit,
@@ -42,6 +43,14 @@ import {
 import { isApiMode } from "@/api/http";
 import * as S from "@/api/journal.server";
 import * as JM from "@/api/journal-more.server";
+import {
+  journalSearchOf,
+  recordsPageOf,
+  type JournalSearchQuery,
+  type JournalSearchResult,
+  type RecordsPage,
+  type RecordsQuery,
+} from "@/domain/records";
 import { listServices as serverListServices } from "@/api/services.server";
 import * as StockServer from "@/api/stock.server";
 import type {
@@ -3552,4 +3561,42 @@ async function apiSearchClients(businessId: Id, query: string): Promise<Client[]
   const page = await C.listClients({ businessId, search: digits || query, page: 1, pageSize: 6 });
   const ids = new Set(page.rows.map((r) => r.id));
   return request(() => readCore().clients.filter((c) => ids.has(c.id)).slice(0, 6));
+}
+
+// ─────────────────────────── «Записи» страницей и поиск журнала (скорость, 17.11.2026) ───────────────────────────
+
+/**
+ * «Записи» (F-01-181) одной страницей с итогами по всему отбору — экран больше не держит все записи бизнеса с
+ * удалёнными (574 КБ у Nuri). Отбор и порядок — recordsPageOf (src/domain/records.ts); сервер считает так же.
+ * «Оплачено» = сумма записи − остаток к оплате (та же сводка, что у окна оплаты), категории — доп. данные записи.
+ */
+export function listRecordsPage(businessId: Id, q: RecordsQuery): Promise<RecordsPage> {
+  if (isApiMode()) return JM.recordsPage(businessId, q);
+  return request(() => {
+    const core = readCore();
+    const all = core.bookings.filter((b) => b.businessId === businessId);
+    const extras = readArea("journal").extras;
+    const resource = q.resourceId ? core.resources.find((r) => r.id === q.resourceId) : undefined;
+    return recordsPageOf(all, q, {
+      paidOf: (b) => {
+        if (q.paid === "all") return 0;
+        const brief = bookingPaymentBriefSync(businessId, b);
+        return Math.max(0, b.total - brief.due);
+      },
+      categoryIdsOf: (b) => extras[b.id]?.categoryIds ?? [],
+      resourceInstanceIds: resource ? new Set(resource.instances.map((i) => i.id)) : undefined,
+    }, (ids) => core.clients.filter((c) => ids.includes(c.id)));
+  });
+}
+
+/**
+ * Поиск журнала (F-01-163): клиенты бизнеса по имени или части номера и их записи — на сервере, а не по всем записям
+ * бизнеса в браузере (350 КБ у Nuri). Мок — journalSearchOf по своей базе (те же правила).
+ */
+export function searchJournal(q: JournalSearchQuery): Promise<JournalSearchResult> {
+  if (isApiMode()) return JM.journalSearch(q);
+  return request(() => {
+    const core = readCore();
+    return journalSearchOf(core.clients, core.bookings, q, nowDateTime());
+  });
 }
