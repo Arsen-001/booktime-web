@@ -178,7 +178,7 @@ function NotificationRow({ entry, appUserId, onChanged }: { entry: NotificationE
   const when = whenAt ? `${fmt.relativeDay(whenAt)}, ${fmt.time(whenAt)}` : undefined;
   const serviceName = entry.service ? pickText(entry.service.name, locale) : undefined;
   // Отправитель пуша — имя мастера/название бизнеса (F-14-065); без имени — наш продукт
-  const sender = nameOf(entry.staff?.name ?? entry.business.name) || t('notifications.senderFallback');
+  const sender = (entry.staff ? nameOf(entry.staff) : nameOf(entry.business.name)) || t('notifications.senderFallback');
   // Не `entry.staff!.id`: React Compiler по «!» считает entry.staff не-null и выносит чтение поля в рендер.
   const staffId = entry.staff?.id;
   const text =

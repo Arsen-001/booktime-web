@@ -288,30 +288,13 @@ function ProfileBody({ appUserId, onLogout }: { appUserId: Id | undefined; onLog
             <ChevronRight aria-hidden className="size-4 text-muted" />
           </Link>
 
+          {/* Владелец 17.11.2026 (DESIGN.md №4): одна ссылка вместо трёх («Абонементы», «Сертификаты», «Карты лояльности») */}
           <Link
-            href="/memberships"
-            data-f="F-14-037"
+            href="/cards"
+            data-f="F-14-037 F-14-040 F-14-054"
             className="flex min-h-11 items-center justify-between rounded-lg px-1 text-sm font-medium text-fg hover:bg-surface-2"
           >
-            {t('profile.membershipsLink')}
-            <ChevronRight aria-hidden className="size-4 text-muted" />
-          </Link>
-
-          <Link
-            href="/certificates"
-            data-f="F-14-040"
-            className="flex min-h-11 items-center justify-between rounded-lg px-1 text-sm font-medium text-fg hover:bg-surface-2"
-          >
-            {t('profile.certificatesLink')}
-            <ChevronRight aria-hidden className="size-4 text-muted" />
-          </Link>
-
-          <Link
-            href="/loyalty-cards"
-            data-f="F-14-054"
-            className="flex min-h-11 items-center justify-between rounded-lg px-1 text-sm font-medium text-fg hover:bg-surface-2"
-          >
-            {t('profile.loyaltyCardsLink')}
+            {t('profile.walletLink')}
             <ChevronRight aria-hidden className="size-4 text-muted" />
           </Link>
 

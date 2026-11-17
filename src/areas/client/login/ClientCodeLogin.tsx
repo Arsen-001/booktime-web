@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import type { LoginChannel, PendingGoogle, VerifiedAppUser } from '@/api/client';
-import { pendingLinkTokens, sendLoginCode, verifyLoginCode } from '@/api/client-auth';
+import { pendingLinkTokens, sendLoginCode, setLoginName, verifyLoginCode } from '@/api/client-auth';
 import { useApiMutation } from '@/api/request';
 import { ChannelPicker, channelName, codeSentText, OtherChannelButtons, useLoginChannels } from '@/areas/client/login/CodeChannels';
 import { loginErrorText } from '@/areas/client/login/loginError';
@@ -37,7 +37,9 @@ export interface ClientCodeLoginProps {
 
 /**
  * Вход клиента по номеру и коду — один вид на экране «Вход» и прямо в записи (F-00-032, F-14-006…F-14-008).
- * Шаг 1: имя, номер, куда прислать код (Telegram / WhatsApp — из включённых на сервере; SMS — запасной, на шаге кода,
+ * Владелец 17.11.2026 (DESIGN.md №23): имя спрашиваем только у нового номера и только после кода — шаг 3 «Как вас
+ * зовут?», если сервер ответил needsName (у Kaytsak поле имени было при каждом входе).
+ * Шаг 1: номер, куда прислать код (Telegram / WhatsApp — из включённых на сервере; SMS — запасной, на шаге кода,
  * decision-c1 №9), согласие. Кнопка не бледнеет молча: нажали — под полями видно, чего не хватает; Enter отправляет форму.
  * Шаг 2: код клетками — четвёртая цифра сама проверяет код. «Код отправлен в …» — по каналу, куда код ушёл на самом
  * деле (сервер сам шлёт в запасной, если Telegram не доставил); «Отправить ещё раз» и «Прислать в WhatsApp / SMS» —
@@ -55,7 +57,11 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
   const [sent, setSent] = useState<{ channel: LoginChannel; requested: LoginChannel; channels: LoginChannel[] } | undefined>(undefined);
   const [pendingChannel, setPendingChannel] = useState<LoginChannel | undefined>(undefined);
   const [consent, setConsent] = useState(Boolean(google));
-  const [step, setStep] = useState<'form' | 'code'>('form');
+  const [step, setStep] = useState<'form' | 'code' | 'name'>('form');
+  /** Вошли, но номер новый — ждём имя (шаг 3) */
+  const [newUser, setNewUser] = useState<VerifiedAppUser | undefined>(undefined);
+  const [nameError, setNameError] = useState<string | undefined>(undefined);
+  const saveName = useApiMutation(({ id, n }: { id: string; n: string }) => setLoginName(id, n), { invalidates: [SESSION_KEY] });
   const [code, setCode] = useState('');
   const [showErrors, setShowErrors] = useState(false);
   const [sendError, setSendError] = useState<string | undefined>(undefined);
@@ -78,7 +84,6 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
 
   const normalized = normalizePhone(phone);
   const errors = {
-    name: !name.trim() ? t('login.errorName') : undefined,
     phone: !normalized ? t('login.errorPhone') : undefined,
     consent: !consent ? t('login.consentRequired') : undefined,
   };
@@ -104,7 +109,7 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
 
   const onSubmitForm = (e: FormEvent) => {
     e.preventDefault();
-    if (errors.name || errors.phone || errors.consent) {
+    if (errors.phone || errors.consent) {
       setShowErrors(true);
       return;
     }
@@ -119,8 +124,13 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
     if (verify.isPending || busy) return;
     setCodeError(undefined);
     try {
-      const user = await verify.mutate({ name: name.trim(), phone, code: value, consent, ...pendingLinkTokens(google) });
+      const user = await verify.mutate({ name: google?.name?.trim() || undefined, phone, code: value, consent, ...pendingLinkTokens(google) });
       track('login_completed', { method: google && google.provider !== 'apple' ? 'google' : 'code' });
+      if (user.needsName) {
+        setNewUser(user);
+        setStep('name');
+        return;
+      }
       await onVerified(user);
     } catch (e) {
       setCodeError(loginErrorText(t, e, t('login.codeWrong')));
@@ -129,6 +139,44 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
   };
 
   const mmss = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+
+  // Шаг 3 — только у нового номера: «Как вас зовут?» после кода, потом вход продолжается как обычно
+  if (step === 'name' && newUser) {
+    const submitName = async (e: FormEvent) => {
+      e.preventDefault();
+      if (!name.trim()) {
+        setNameError(t('login.errorName'));
+        return;
+      }
+      setNameError(undefined);
+      try {
+        await saveName.mutate({ id: newUser.id, n: name });
+        await onVerified({ ...newUser, name: name.trim(), needsName: false });
+      } catch (err) {
+        setNameError(loginErrorText(t, err, t('login.nameSaveFailed')));
+      }
+    };
+    return (
+      <form noValidate onSubmit={(e) => void submitName(e)} className="flex flex-col gap-4">
+        <p className="text-sm text-muted">{t('login.newNameHint')}</p>
+        <FormField label={t('login.nameLabel')} error={nameError}>
+          <Input
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (nameError) setNameError(undefined);
+            }}
+            placeholder={t('login.namePlaceholder')}
+            autoComplete="given-name"
+            autoFocus
+          />
+        </FormField>
+        <Button type="submit" size="lg" fullWidth loading={saveName.isPending || busy}>
+          {submitLabel}
+        </Button>
+      </form>
+    );
+  }
 
   if (step === 'code' && sent) {
     const shownPhone = normalized ? fmt.phone(normalized) : phone;
@@ -191,9 +239,6 @@ export function ClientCodeLogin({ onVerified, submitLabel, busy = false, agreeme
 
   return (
     <form noValidate onSubmit={onSubmitForm} className="flex flex-col gap-4">
-      <FormField label={t('login.nameLabel')} error={showErrors ? errors.name : undefined}>
-        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={t('login.namePlaceholder')} autoComplete="given-name" />
-      </FormField>
       <FormField label={t('login.phoneLabel')} error={showErrors ? errors.phone : sendError}>
         <PhoneInput value={phone} onValueChange={setPhone} />
       </FormField>

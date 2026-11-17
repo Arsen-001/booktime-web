@@ -10,6 +10,7 @@ import type {
   StaffRole,
 } from "@/domain/core";
 import { nowYerevan, parse } from "@/lib/date";
+import { nameScript, translitName, type NameLocale } from "@/lib/translit";
 
 // ─────────────────────────── Должности (F-10-008, F-10-015) ───────────────────────────
 
@@ -95,7 +96,13 @@ export function emptyStaffCardSettings(): StaffCardSettings {
 
 /** Черновик редактируемых полей карточки (вкладка «Информация», F-10-025) */
 export interface StaffInfoDraft {
+  /** Имя как вписали (кабинет, поиск) — значение поля на языке, которым имя вписали впервые */
   name: string;
+  /**
+   * Имя на трёх языках для клиентов (владелец 17.11.2026): пустые языки при открытии карточки заполнены переводом букв
+   * из `name` — их можно поправить (staffNameDraft)
+   */
+  nameI18n: Record<NameLocale, string>;
   specialty: string;
   position: string;
   phone: string;
@@ -105,9 +112,31 @@ export interface StaffInfoDraft {
   hiredAt: ISODate;
 }
 
+export const NAME_LOCALES: readonly NameLocale[] = ["ru", "hy", "en"];
+
+/** Имя на трёх языках для карточки: вписанное в nameI18n, иначе перевод букв из `name` (auto — что заполнено само) */
+export function staffNameDraft(s: Pick<Staff, "name" | "nameI18n">): { names: Record<NameLocale, string>; auto: Record<NameLocale, boolean> } {
+  const source = nameScript(s.name) ?? "ru";
+  const names = {} as Record<NameLocale, string>;
+  const auto = {} as Record<NameLocale, boolean>;
+  for (const l of NAME_LOCALES) {
+    const own = l === source ? s.name : s.nameI18n?.[l]?.trim();
+    names[l] = own || translitName(s.name, l);
+    auto[l] = !own;
+  }
+  return { names, auto };
+}
+
+/** Какое из трёх имён — «как вписали» (Staff.name): язык прежнего имени, пустое — первое заполненное ru → hy → en */
+export function mainStaffName(prevName: string, names: Record<NameLocale, string>): string {
+  const source = nameScript(prevName) ?? "ru";
+  return names[source].trim() || NAME_LOCALES.map((l) => names[l].trim()).find(Boolean) || "";
+}
+
 export function staffToInfoDraft(s: Staff): StaffInfoDraft {
   return {
     name: s.name,
+    nameI18n: staffNameDraft(s).names,
     specialty: s.specialty?.ru ?? "",
     position: s.position?.ru ?? "",
     phone: s.phone,

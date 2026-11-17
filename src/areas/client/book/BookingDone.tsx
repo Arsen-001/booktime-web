@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
 import { Avatar } from '@/ui/Avatar';
 import { LinkButton } from '@/ui/Button';
 import { Card } from '@/ui/Card';
+import { useDisplayName } from '@/areas/client/useDisplayName';
 
 /**
  * Экран «Готово» после записи (ux-r1 №34, ux-r2 улучшение 1, ux-best-c1 №3): что будет дальше — словами по статусу,
@@ -32,6 +33,7 @@ export function BookingDone({
   const t = useT('client');
   const fmt = useClientFormat();
   const locale = useLocale();
+  const nameOf = useDisplayName();
   const kind = booking.status === 'awaiting_prepayment' ? 'prepayment' : booking.status === 'awaiting_confirmation' ? 'pending' : 'booked';
   const Icon = kind === 'booked' ? CircleCheck : kind === 'pending' ? Hourglass : Wallet;
   const tone = kind === 'booked' ? 'bg-success-soft text-success' : 'bg-warning-soft text-warning';
@@ -71,7 +73,7 @@ export function BookingDone({
               .join(' + ')}
           </p>
           <p className="line-clamp-1 text-sm text-muted">
-            {card.staff.name}
+            {nameOf(card.staff)}
             {place && !('isHome' in place && place.isHome) && pickText(place.address, locale) ? ` · ${pickText(place.address, locale)}` : ''}
           </p>
         </div>

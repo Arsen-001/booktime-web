@@ -1639,6 +1639,8 @@ export function staffCardFromRow(row: StaffListRow, businessName: string): Staff
 export interface UpdateStaffInfoInput {
   staffId: Id;
   name: string;
+  /** Имя на трёх языках для клиентов (владелец 17.11.2026); пустые языки не хранятся — их покажет перевод букв */
+  nameI18n?: { ru?: string; hy?: string; en?: string };
   specialty?: string;
   /** Название должности; если не совпадает с каталогом — создаётся новая (F-10-048) */
   position?: string;
@@ -1659,6 +1661,12 @@ function localizedOrNull(text: { ru: string; hy?: string; en?: string } | undefi
 }
 
 /** Вкладка «Информация» (F-10-025): правка не заводит новую сущность (F-10-039) — тот же Staff.id везде */
+/** Пустые языки имени не храним (как сервер): их клиенту покажет перевод букв на лету */
+function tidyNameI18n(v: { ru?: string; hy?: string; en?: string }): Staff["nameI18n"] {
+  const out = Object.fromEntries(Object.entries(v).map(([k, x]) => [k, (x ?? "").trim()]).filter(([, x]) => x));
+  return Object.keys(out).length ? out : undefined;
+}
+
 export async function updateStaffInfo(
   input: UpdateStaffInfoInput,
 ): Promise<Staff> {
@@ -1667,6 +1675,7 @@ export async function updateStaffInfo(
     const patch: Record<string, unknown> = {
       name: input.name,
       specialty: input.specialty?.trim() ? { ru: input.specialty.trim() } : null,
+      ...(input.nameI18n !== undefined ? { nameI18n: tidyNameI18n(input.nameI18n) ?? null } : {}),
       bio: localizedOrNull(input.bio) ?? null,
       email: input.email?.trim() || null,
     };
@@ -1710,6 +1719,7 @@ export async function updateStaffInfo(
 
     const patch: Partial<Staff> = {
       name: input.name.trim(),
+      ...(input.nameI18n !== undefined ? { nameI18n: tidyNameI18n(input.nameI18n) } : {}),
       specialty: input.specialty?.trim()
         ? { ru: input.specialty.trim() }
         : undefined,

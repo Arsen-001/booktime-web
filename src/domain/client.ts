@@ -387,6 +387,9 @@ export interface CashbackCard {
   earnRules: CashbackEarnRule[];
   /** Текстовая скидка/акция карты, показывается в блоке «Discounts» (F-14-054) */
   discountText?: string;
+  /** Скидка карты числом — «карта −5 %» в строке салона «Карт и абонементов» (17.11.2026); нет — из discountText */
+  discountValue?: number;
+  discountIsPercent?: boolean;
 }
 
 /** Строка списания лояльности в оплате записи (F-14-019) */

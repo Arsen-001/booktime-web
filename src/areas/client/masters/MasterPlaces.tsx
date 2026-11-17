@@ -36,14 +36,17 @@ export function MasterPlaces({ card }: { card: MasterCard }) {
               ) : (
                 <p className="font-medium text-fg">{loc.isHome ? tc('workplace.home') : pickText(loc.name, locale)}</p>
               )}
-              <p className="flex items-start gap-2 text-sm text-muted">
-                <MapPin aria-hidden className="mt-0.5 size-4 shrink-0" />
-                <span>
-                  {address ? `${address} · ` : ''}
-                  {tc(`districts.${loc.district}`)}
-                  {loc.isHome && !address ? ` · ${t('master.homeAddressLater')}` : ''}
-                </span>
-              </p>
+              {/* Район салона — только с адресом (17.11.2026): без адреса строки нет; «дома» — район, который мастер выбрал сам */}
+              {(address || loc.isHome) && (
+                <p className="flex items-start gap-2 text-sm text-muted">
+                  <MapPin aria-hidden className="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    {address ? `${address} · ` : ''}
+                    {tc(`districts.${loc.district}`)}
+                    {loc.isHome && !address ? ` · ${t('master.homeAddressLater')}` : ''}
+                  </span>
+                </p>
+              )}
               {loc.yandexMapsUrl && (
                 <a
                   href={loc.yandexMapsUrl}

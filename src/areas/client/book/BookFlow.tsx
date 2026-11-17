@@ -205,7 +205,7 @@ export function BookFlow({
       <AcceptsNotice
         accepts={staff.accepts}
         sphereId={staff.sphereIds[0]}
-        staffName={nameOf(staff.name).split(' ')[0]}
+        staffName={nameOf(staff).split(' ')[0]}
         viewerGender={profileQ.data?.appUser.gender}
         pending={Boolean(appUserId) && !profileQ.data}
       />
@@ -225,7 +225,7 @@ export function BookFlow({
             {t('book.back')}
           </Button>
         )}
-        <PageHeader title={t('book.titleWith', { name: nameOf(staff.name).split(' ')[0] })} />
+        <PageHeader title={t('book.titleWith', { name: nameOf(staff).split(' ')[0] })} />
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">

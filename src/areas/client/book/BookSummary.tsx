@@ -46,7 +46,7 @@ export function BookSummary({
       <div className="flex items-center gap-3">
         <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="md" />
         <div className="min-w-0">
-          <p className="font-semibold text-fg">{nameOf(staff.name)}</p>
+          <p className="font-semibold text-fg">{nameOf(staff)}</p>
           <p className="truncate text-sm text-muted">{business.kind === 'individual' ? t('master.individual') : nameOf(business.name)}</p>
         </div>
       </div>

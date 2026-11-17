@@ -15,7 +15,7 @@ import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { telLink } from '@/lib/phone';
-import { pickText } from '@/lib/text';
+import { hasAddress, pickText } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { Button, LinkButton, buttonClasses } from '@/ui/Button';
@@ -30,6 +30,7 @@ import { StickyActionBar } from '@/ui/StickyActionBar';
 import type { PromoBlock } from '@/domain/online';
 import { dropOffOf, isIntakeService } from '@/domain/ordersIntake';
 import { useTrackOnce } from '@/lib/analytics';
+import { localizedName } from '@/lib/translit';
 
 /**
  * Публичная страница салона/мастера по ссылке /b/<slug>[/f/<formId>] (F-00-006, F-00-007, раздел 03).
@@ -242,6 +243,8 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
         {business.description && <p className="text-muted">{pickText(business.description, locale)}</p>}
         {location && (
           <div className="flex flex-col gap-2 text-sm" data-f={addressHidden ? 'F-00-077' : undefined}>
+            {/* Район — только вместе с адресом (17.11.2026): у салона без адреса нет строки «Кентрон» по умолчанию */}
+            {(addressHidden || hasAddress(location.address)) && (
             <p className="flex items-start gap-2 text-fg">
               <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
               {addressHidden ? (
@@ -255,6 +258,7 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
                 </span>
               )}
             </p>
+            )}
             <div className="flex flex-wrap gap-2">
               {!addressHidden && location.yandexMapsUrl && (
                 <a
@@ -425,7 +429,7 @@ export function PublicBusinessPage({ slug, formId, initialData }: { slug: string
                 <Link href={bookHref(undefined, m.id)} className="flex items-center gap-3 rounded-lg bg-surface-2 p-3 hover:bg-surface-3">
                   <Avatar name={m.name} src={m.avatarUrl} colorIndex={m.colorIndex} />
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-fg">{m.name}</p>
+                    <p className="truncate font-medium text-fg">{localizedName(m.name, m.nameI18n, locale)}</p>
                     {m.position && <p className="truncate text-sm text-muted">{pickText(m.position, locale)}</p>}
                     <div className="mt-1 flex flex-wrap gap-1">
                       {m.accepts !== 'all' && (

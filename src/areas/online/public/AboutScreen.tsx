@@ -8,7 +8,7 @@ import { useFormat } from '@/i18n/useFormat';
 import { UnpublishedNotice } from '@/areas/online/public/UnpublishedNotice';
 import { useT } from '@/i18n/useT';
 import { telLink } from '@/lib/phone';
-import { pickText } from '@/lib/text';
+import { hasAddress, pickText } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { LinkButton } from '@/ui/Button';
 import { Card } from '@/ui/Card';
@@ -75,7 +75,8 @@ export function AboutScreen({ slug }: { slug: string }) {
 
       <SectionCard title={t('about.contacts')}>
         <div className="flex flex-col gap-2 text-sm">
-          {location && (
+          {/* Без адреса строки нет (17.11.2026) — район без адреса не показываем */}
+          {location && (addressHidden || hasAddress(location.address)) && (
             <p className="flex items-start gap-2 text-fg" data-f="F-00-077">
               <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
               {addressHidden ? (

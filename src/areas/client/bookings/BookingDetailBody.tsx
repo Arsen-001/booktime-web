@@ -179,7 +179,7 @@ export function BookingDetailBody({ detail, appUserId }: { detail: BookingDetail
           <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="lg" />
           <div className="min-w-0 flex-1">
             <Link href={`/masters/${staff.id}`} className="inline-flex min-h-11 items-center font-semibold text-fg hover:underline">
-              {nameOf(staff.name)}
+              {nameOf(staff)}
             </Link>
             {business.kind !== 'individual' && (
               <Link href={`/places/${business.id}`} className="-mt-2 flex min-h-11 items-center gap-1 text-sm text-primary-text hover:underline">
@@ -371,7 +371,7 @@ export function BookingDetailBody({ detail, appUserId }: { detail: BookingDetail
         title={t('bookingDetail.cancelConfirmTitle')}
         description={
           <>
-            {t('bookingDetail.cancelWhat', { service: serviceName, master: nameOf(staff.name), when: whenInline })}
+            {t('bookingDetail.cancelWhat', { service: serviceName, master: nameOf(staff), when: whenInline })}
             <br />
             {detail.canCancelFree ? t('bookingDetail.cancelConfirmFree') : t('bookingDetail.cancelConfirmLate')}
             {prepaid > 0 && (

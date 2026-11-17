@@ -35,7 +35,7 @@ import { hasExactPrice, hasPrepayment, normalizeNoShowRule, prepaymentAmount, pr
 import { DEFAULT_CLIENT_FIELDS, DEFAULT_MAX_DAYS_AHEAD, SHORT_STEPWISE_ORDER, STEP_KEYS, type ClientFieldsConfig, type StepKey } from '@/domain/online';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
-import { addDays, addMinutes, diffMinutes, today } from '@/lib/date';
+import { addDays, addMinutes, today } from '@/lib/date';
 import { normalizePhone } from '@/lib/phone';
 import { pickText } from '@/lib/text';
 import { useIsMobile } from '@/ui/hooks/useMediaQuery';
@@ -50,6 +50,7 @@ import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
 import { forgetReferral, readReferral } from '@/lib/referralCapture';
 import { track, useTrackOnce, type BookingSource } from '@/lib/analytics';
+import { localizedName } from '@/lib/translit';
 
 /** Публичный путь записи /b/<slug>/book (и /embed): услуги → мастер → время → детали (F-03-081…F-03-098) */
 export function BookingWizard({ slug, formId }: { slug: string; formId?: string }) {
@@ -93,17 +94,6 @@ export function WizardSkeleton({ slug }: { slug: string }) {
 }
 
 const STEP_BY_KEY: Record<StepKey, Step> = { service: 'services', staff: 'staff', time: 'time' };
-
-/** О15: «утром в день визита» — в 9:00; если визит раньше 10:00 — за час */
-function reminderMinutes(value: DetailsForm['reminder'], start: string): number | undefined {
-  if (value === '0') return undefined;
-  if (value === 'morning') {
-    const morning = `${start.slice(0, 10)}T09:00`;
-    const diff = diffMinutes(morning, start);
-    return diff >= 60 ? diff : 60;
-  }
-  return Number(value);
-}
 
 function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusinessData; formId: string | undefined }) {
   const t = useT('online');
@@ -439,7 +429,6 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
       visitDistrict: sel.district || undefined,
       visitAddress: workplace === 'visit' ? form.visitAddress.trim() || undefined : undefined,
       forWhom: form.forWhom,
-      reminderMinutesBefore: reminderMinutes(form.reminder, legs[0].start),
       phoneVerified: true,
       anySpecialist: plan.anyStaff || (plan.mode === 'chain' && selectedServices.some((s) => (sel.legStaff[s.id] ?? ANY_STAFF) === ANY_STAFF)),
       email: form.email.trim() || undefined,
@@ -734,7 +723,7 @@ function WizardBody({ slug, data, formId }: { slug: string; data: PublicBusiness
         {(() => {
           const s = staff.find((x) => x.id === genderModalStaffId);
           if (!s) return null;
-          return <p className="text-sm text-fg">{t(s.accepts === 'women' ? 'booking.genderModal.womenOnly' : 'booking.genderModal.menOnly', { name: s.name })}</p>;
+          return <p className="text-sm text-fg">{t(s.accepts === 'women' ? 'booking.genderModal.womenOnly' : 'booking.genderModal.menOnly', { name: localizedName(s.name, s.nameI18n, locale) })}</p>;
         })()}
       </Modal>
     </div>

@@ -24,6 +24,7 @@ import { Skeleton } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
 import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
+import { localizedName } from '@/lib/translit';
 
 /** Групповая запись: список событий, места, «Записаться ещё» (F-03-101, F-03-076, F-03-102) */
 export function GroupBookingFlow({
@@ -124,7 +125,7 @@ export function GroupBookingFlow({
         <span className="min-w-0">
           <span className="block font-medium text-fg">{e.service ? pickText(e.service.name, locale) : ''}</span>
           <span className="block text-sm text-muted">
-            {format.dateTime(e.event.start)} · {e.staff?.name}
+            {format.dateTime(e.event.start)} · {localizedName(e.staff?.name, e.staff?.nameI18n, locale)}
           </span>
         </span>
         <Badge tone={e.seatsLeft <= 2 ? 'warning' : 'neutral'} size="sm">

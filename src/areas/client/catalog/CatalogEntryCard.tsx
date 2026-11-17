@@ -51,7 +51,7 @@ function MasterEntryCard({ entry }: { entry: CatalogEntry }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <Link href={masterHref} className="-my-2.5 min-w-0 py-2.5 font-semibold text-fg hover:underline focus-visible:outline-2 focus-visible:outline-focus">
-              <span className="line-clamp-1">{nameOf(staff.name)}</span>
+              <span className="line-clamp-1">{nameOf(staff)}</span>
             </Link>
             {entry.distanceKm !== undefined && (
               <span className="flex shrink-0 items-center gap-0.5 text-sm text-muted">

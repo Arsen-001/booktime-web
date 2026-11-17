@@ -13,7 +13,7 @@ import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
-import { pickText } from '@/lib/text';
+import { pickText, shownDistrict } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { buttonClasses, LinkButton } from '@/ui/Button';
@@ -29,7 +29,9 @@ export function OrdersPlaceCard({ entry }: { entry: CatalogEntry }) {
   const href = localized(`/b/${business.slug}`);
   const phone = location?.phone || business.phone;
   const spheres = business.sphereIds.map((s) => tc(`spheres.${s}`)).join(', ');
-  const district = location ? tc(`districts.${location.district}`) : '';
+  // Район — только у места с адресом (17.11.2026)
+  const shown = shownDistrict(location);
+  const district = shown ? tc(`districts.${shown}`) : '';
 
   return (
     <Card as="li" padding="md" data-f="client-orders-place" className="flex min-w-0 list-none flex-col gap-3">

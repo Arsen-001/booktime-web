@@ -39,7 +39,7 @@ export function CertificateDetailScreen({ certificateId }: { certificateId: Id }
     return (
       <EmptyState
         title={t('certificates.notFound')}
-        action={<LinkButton href="/certificates">{t('certificates.title')}</LinkButton>}
+        action={<LinkButton href="/cards">{t('wallet.title')}</LinkButton>}
       />
     );
 
@@ -48,7 +48,7 @@ export function CertificateDetailScreen({ certificateId }: { certificateId: Id }
 
   return (
     <div data-f="F-14-040" className="flex flex-col gap-5 pb-6">
-      <PageHeader back={{ href: '/certificates' }} title={fmt.money(c.faceValue)} />
+      <PageHeader back={{ href: `/cards/${c.businessId}` }} title={fmt.money(c.faceValue)} />
       {c.imageUrl && (
         <div data-f="F-14-041" className="relative h-40 w-full overflow-hidden rounded-2xl">
           <Image src={c.imageUrl} alt="" fill sizes="(max-width: 640px) 100vw, 480px" className="object-cover" unoptimized />

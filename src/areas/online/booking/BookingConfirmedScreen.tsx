@@ -23,7 +23,7 @@ import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { CancelBookingDialog } from '@/areas/online/booking/CancelBookingDialog';
 import { InviteFriendCard } from '@/areas/online/booking/InviteFriendCard';
 import { TelegramRemindersCard } from '@/areas/online/booking/TelegramRemindersCard';
-import { googleCalendarHref, icsHref, type CalendarEventInput } from '@/areas/online/booking/calendarFile';
+import { downloadCalendarFile, googleCalendarHref, type CalendarEventInput } from '@/areas/online/booking/calendarFile';
 import { RescheduleSheet } from '@/areas/online/booking/RescheduleSheet';
 import { useBookingDecisionBroadcast, type BookingDecisionMessage } from '@/areas/online/lib/bookingDecisionChannel';
 import { useFormat } from '@/i18n/useFormat';
@@ -35,10 +35,12 @@ import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { Button, LinkButton, buttonClasses } from '@/ui/Button';
 import { Card } from '@/ui/Card';
+import { DropdownMenu } from '@/ui/DropdownMenu';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { Skeleton } from '@/ui/Skeleton';
 import { useToast } from '@/ui/Toast';
+import { localizedName } from '@/lib/translit';
 
 const STATUS_TONE = {
   awaiting_confirmation: 'warning',
@@ -211,11 +213,12 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
     end: visitEnd,
     title: `${serviceNames || t('confirmed.services')} — ${business.name}`,
     location: address,
-    description: [serviceNames, staff ? t('confirmed.calendar.master', { name: staff.name }) : '', t('confirmed.calendar.manage', { url: manageUrl })]
+    description: [serviceNames, staff ? t('confirmed.calendar.master', { name: localizedName(staff.name, staff.nameI18n, locale) }) : '', t('confirmed.calendar.manage', { url: manageUrl })]
       .filter(Boolean)
       .join('\n'),
     url: manageUrl,
-    reminderMinutes: meta?.reminderMinutesBefore ?? 60,
+    // Владелец 17.11.2026 (DESIGN.md №3): поле «Напомнить перед записью» убрано — календарь телефона напомнит за 1 час
+    reminderMinutes: 60,
     stampUtc: new Date(now).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''),
   };
   // Визит из нескольких мастеров подряд переносом одной части не сдвинуть — перенос по ссылке только у одиночной записи
@@ -253,7 +256,7 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
           {staff && parts.length === 0 && (
             <div className="flex items-center gap-2">
               <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="sm" />
-              <span className="text-sm font-medium text-fg">{staff.name}</span>
+              <span className="text-sm font-medium text-fg">{localizedName(staff.name, staff.nameI18n, locale)}</span>
             </div>
           )}
           {parts.length > 0 && (
@@ -262,7 +265,7 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
                 <li key={p.bookingId} className="flex items-start justify-between gap-3 text-sm">
                   <span className="text-fg">
                     {p.serviceNames.map((n) => pickText(n, locale)).join(', ')}
-                    <span className="block text-muted">{p.staffName}</span>
+                    <span className="block text-muted">{localizedName(p.staffName, undefined, locale)}</span>
                   </span>
                   <span className="shrink-0 text-muted tabular-nums">
                     {format.time(p.start)} – {format.time(addMinutes(p.start, p.durationMin))}
@@ -376,15 +379,36 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
             <Link href={againHref} className="flex min-h-11 flex-col items-center justify-center rounded-lg bg-surface-2 px-2 py-2 text-center text-xs font-medium text-fg hover:bg-surface-3">
               {t('confirmed.bookAgain')}
             </Link>
-            <a
-              data-f="F-13-077"
-              href={icsHref(calendarEvent)}
-              download="booking.ics"
-              className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg bg-surface-2 px-2 py-2 text-center text-xs font-medium text-fg hover:bg-surface-3"
-            >
-              <CalendarPlus aria-hidden className="size-4" />
-              {t('confirmed.addToCalendar')}
-            </a>
+            {/* Владелец 17.11.2026 (DESIGN.md №2): одна плитка «В календарь» с выбором — календарь телефона (.ics) или Google */}
+            <DropdownMenu
+              align="start"
+              label={t('confirmed.addToCalendar')}
+              trigger={(p) => (
+                <button
+                  {...p}
+                  type="button"
+                  data-f="F-13-077"
+                  className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg bg-surface-2 px-2 py-2 text-center text-xs font-medium text-fg hover:bg-surface-3"
+                >
+                  <CalendarPlus aria-hidden className="size-4" />
+                  {t('confirmed.addToCalendar')}
+                </button>
+              )}
+              items={[
+                {
+                  id: 'phone',
+                  icon: <Smartphone aria-hidden />,
+                  label: t('confirmed.calendar.phone'),
+                  onSelect: () => downloadCalendarFile(calendarEvent),
+                },
+                {
+                  id: 'google',
+                  icon: <ExternalLink aria-hidden />,
+                  label: t('confirmed.calendar.googleShort'),
+                  onSelect: () => window.open(googleCalendarHref(calendarEvent), '_blank', 'noopener,noreferrer'),
+                },
+              ]}
+            />
             {canRescheduleByLink && !finished && (
               <button
                 type="button"
@@ -420,18 +444,6 @@ export function BookingConfirmedScreen({ slug, bookingId, hash }: { slug: string
 
         {/* ⭐ Напоминания в Telegram — для будущей активной записи с клиентом */}
         {!cancelled && hash && booking.clientId && booking.start > nowDateTime() && <TelegramRemindersCard bookingId={bookingId} hash={hash} />}
-
-        {!cancelled && (
-          <a
-            href={googleCalendarHref(calendarEvent)}
-            target="_blank"
-            rel="noreferrer"
-            className="-mt-2 inline-flex min-h-10 items-center justify-center gap-1.5 text-sm font-medium text-primary-text hover:underline"
-          >
-            {t('confirmed.calendar.google')}
-            <ExternalLink aria-hidden className="size-3.5" />
-          </a>
-        )}
 
         {!cancelled && !finished && windowQ.data && (
           <div className="flex flex-col gap-1 text-center text-xs text-muted">

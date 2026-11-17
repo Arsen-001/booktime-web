@@ -15,6 +15,7 @@ import { useLastSearchHref } from '@/areas/client/search/useLastSearchHref';
 import { clientKeys } from '@/areas/client/ui/clientKeys';
 import { ServiceRow } from '@/areas/client/ui/ServiceRow';
 import { useClientFormat } from '@/areas/client/useClientFormat';
+import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useCurrent } from '@/demo/hooks';
 import { useTrackOnce } from '@/lib/analytics';
 import type { Id } from '@/domain/core';
@@ -68,6 +69,7 @@ export function MasterCardScreen({ staffId, serviceId }: { staffId: Id; /** Из
 function MasterCardBody({ card }: { card: MasterCard }) {
   const t = useT('client');
   const fmt = useClientFormat();
+  const nameOf = useDisplayName();
   const { staff, business, services, nearestSlots, slotService } = card;
   const backHref = useLastSearchHref();
   // Аналитика воронки: карточка мастера открыта (src/lib/analytics.ts)
@@ -79,7 +81,7 @@ function MasterCardBody({ card }: { card: MasterCard }) {
 
   return (
     <div data-f="F-00-123" className="flex flex-col gap-5">
-      <PageHeader back={{ href: backHref, label: t('master.backToSearch') }} title={<span className="sr-only">{staff.name}</span>} className="-mb-3" />
+      <PageHeader back={{ href: backHref, label: t('master.backToSearch') }} title={<span className="sr-only">{nameOf(staff)}</span>} className="-mb-3" />
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
         <div className="flex min-w-0 flex-col gap-5">

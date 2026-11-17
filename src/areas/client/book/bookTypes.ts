@@ -16,8 +16,6 @@ export interface BookDraft {
   visitorName: string;
   comment: string;
   useMembership: boolean;
-  /** F-05-083: время напоминания, которое клиент выбрал сам при записи; null — «не отправлять» */
-  reminderHours: number | null;
   /** ⭐ «Оплатить всё сразу» вместо предоплаты мастера (процентом) */
   payInFull: boolean;
 }
@@ -28,6 +26,5 @@ export const EMPTY_DRAFT: BookDraft = {
   visitorName: '',
   comment: '',
   useMembership: true,
-  reminderHours: 1,
   payInFull: false,
 };

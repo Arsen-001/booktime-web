@@ -1,6 +1,6 @@
-import { CertificatesScreen } from '@/areas/client/certificates/CertificatesScreen';
+import { redirect } from 'next/navigation';
 
-// /certificates — сертификаты клиента (F-14-040)
+// /certificates — с 17.11.2026 одна страница «Карты и абонементы» (/cards): старый адрес (закладки, ссылки в приложениях) ведёт туда
 export default function Page() {
-  return <CertificatesScreen />;
+  redirect('/cards');
 }

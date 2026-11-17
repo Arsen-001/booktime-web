@@ -16,6 +16,7 @@ import { SectionCard } from '@/ui/SectionCard';
 import { Skeleton } from '@/ui/Skeleton';
 import { Switch } from '@/ui/Switch';
 import { useToast } from '@/ui/Toast';
+import { useDisplayName } from '@/areas/client/useDisplayName';
 
 /**
  * Настройки уведомлений (F-14-058, F-14-060): переключатель по каждой подписанной компании — тот же
@@ -50,6 +51,7 @@ export function NotificationSettingsScreen() {
 
 function NotificationSettingsBody({ appUserId }: { appUserId: Id }) {
   const t = useT('client');
+  const nameOf = useDisplayName();
   const toast = useToast();
   const q = useApiQuery(['favorites', appUserId], () => listFavorites(appUserId));
   const mute = useApiMutation((input: { id: Id; muted: boolean }) => setFavoriteNewsMuted(input.id, input.muted));
@@ -118,7 +120,7 @@ function NotificationSettingsBody({ appUserId }: { appUserId: Id }) {
         ) : (
           <ul className="flex flex-col divide-y divide-border">
             {q.data.map((entry) => {
-              const name = entry.staff ? entry.staff.name : entry.business.name;
+              const name = entry.staff ? nameOf(entry.staff) : nameOf(entry.business.name);
               return (
                 <li key={entry.favorite.id} className="flex items-center gap-3 py-3">
                   <Avatar name={name} src={entry.staff?.avatarUrl ?? entry.business.logoUrl} colorIndex={entry.staff?.colorIndex} size="sm" />

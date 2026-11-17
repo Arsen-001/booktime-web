@@ -8,7 +8,7 @@
 import { http, isApiMode } from '@/api/http';
 import { ApiError, viaMock } from '@/api/request';
 import type { AdminLoginInput, AdminLoginResult, GoogleSignInResult, LoginChannel, LoginCodeSent, PendingGoogle, VerifiedAppUser, VerifyLoginInput } from '@/api/client';
-import type { SecondFactorChallenge, SessionView } from '@/api/session';
+import { getAccount, patchAccount, type SecondFactorChallenge, type SessionView } from '@/api/session';
 import type { AppUser } from '@/domain/core';
 import { nowDateTime } from '@/lib/date';
 
@@ -59,7 +59,7 @@ export async function sendLoginCode(phone: string, channel: LoginChannel): Promi
 
 export async function verifyLoginCode(input: VerifyLoginInput): Promise<VerifiedAppUser> {
   if (isApiMode()) {
-    const session = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean }>('POST', '/v1/auth/verify', {
+    const session = await http<SessionView & { googleLinked?: boolean; appleLinked?: boolean; needsName?: boolean }>('POST', '/v1/auth/verify', {
       phone: input.phone,
       code: input.code,
       app: 'client',
@@ -68,9 +68,27 @@ export async function verifyLoginCode(input: VerifyLoginInput): Promise<Verified
       pendingGoogle: input.pendingGoogle,
       pendingApple: input.pendingApple,
     });
-    return { ...appUserOfSession(session), googleLinked: session.googleLinked ?? session.appleLinked, hasBusiness: session.memberships.length > 0 };
+    return {
+      ...appUserOfSession(session),
+      googleLinked: session.googleLinked ?? session.appleLinked,
+      hasBusiness: session.memberships.length > 0,
+      ...(session.needsName ? { needsName: true } : {}),
+    };
   }
   return viaMock(client, (m) => m.verifyLoginCodeMock(input));
+}
+
+/**
+ * Имя нового человека — шагом после кода (владелец 17.11.2026, DESIGN.md №23: имя спрашиваем только у нового номера
+ * и только после кода). Сервер — /v1/me/account, демо — профиль приложения.
+ */
+export async function setLoginName(appUserId: string, name: string): Promise<void> {
+  if (isApiMode()) {
+    const current = await getAccount();
+    await patchAccount({ name: name.trim() }, current.version);
+    return;
+  }
+  await viaMock(client, (m) => m.updateProfileName(appUserId, name.trim()));
 }
 
 /**

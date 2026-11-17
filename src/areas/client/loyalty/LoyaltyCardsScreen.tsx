@@ -1,21 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { CreditCard } from 'lucide-react';
-import { listLoyaltyCards, type LoyaltyCardRow } from '@/api/client';
-import { useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
-import { LoginGate } from '@/areas/client/ui/GuestGate';
+import type { LoyaltyCardRow } from '@/api/client';
 import type { CashbackEarnRule } from '@/domain/client';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useT } from '@/i18n/useT';
 import { Avatar } from '@/ui/Avatar';
 import { Card } from '@/ui/Card';
-import { EmptyState } from '@/ui/EmptyState';
-import { ErrorState } from '@/ui/ErrorState';
-import { PageHeader } from '@/ui/PageHeader';
-import { usePagedList } from '@/ui/Pagination';
-import { Skeleton } from '@/ui/Skeleton';
 import { useToast } from '@/ui/Toast';
 
 function earnRuleText(t: ReturnType<typeof useT<'client'>>, fmt: ReturnType<typeof useClientFormat>, rule: CashbackEarnRule): string {
@@ -28,44 +19,8 @@ function earnRuleText(t: ReturnType<typeof useT<'client'>>, fmt: ReturnType<type
   return t('cashback.earnPerSpend', { rate: rule.rate, amount: fmt.money(rule.toNextLevel ?? 0) });
 }
 
-/** Карты лояльности клиента, вкладка «Loyalty cards» (F-14-054) */
-export function LoyaltyCardsScreen() {
-  const t = useT('client');
-  const { ready, appUserId } = useCurrent();
-  const q = useApiQuery(['loyalty-cards', appUserId], () => listLoyaltyCards(appUserId!), {
-    enabled: ready && Boolean(appUserId),
-  });
-  // Постранично, как во всех списках (DESIGN.md → Long lists)
-  const { pageItems, pager } = usePagedList(q.data ?? []);
-
-  return (
-    <div data-f="F-14-054" className="flex flex-col gap-5 pb-6">
-      <PageHeader title={t('loyalty.cardsTitle')} />
-      {ready && !appUserId ? (
-        <LoginGate icon={<CreditCard aria-hidden className="size-8 text-muted" />} next="/loyalty-cards" />
-      ) : !ready || q.isLoading ? (
-        <div className="flex flex-col gap-3" aria-busy="true">
-          <Skeleton variant="rect" className="h-32 rounded-2xl" />
-        </div>
-      ) : q.isError ? (
-        <ErrorState onRetry={q.refetch} />
-      ) : !q.data?.length ? (
-        <EmptyState icon={<CreditCard aria-hidden className="size-8 text-muted" />} title={t('loyalty.emptyTitle')} description={t('loyalty.emptyHint')} />
-      ) : (
-        <>
-          <div className="flex flex-col gap-3">
-            {pageItems.map((card) => (
-              <LoyaltyCardRowItem key={card.id} card={card} />
-            ))}
-          </div>
-          {pager}
-        </>
-      )}
-    </div>
-  );
-}
-
-function LoyaltyCardRowItem({ card }: { card: LoyaltyCardRow }) {
+/** Карта лояльности: номер (нажать — скопировать), бонусы, скидки — на странице салона в «Картах и абонементах» (17.11.2026) */
+export function LoyaltyCardRowItem({ card, showBusiness = true }: { card: LoyaltyCardRow; showBusiness?: boolean }) {
   const t = useT('client');
   const fmt = useClientFormat();
   const toast = useToast();
@@ -85,11 +40,13 @@ function LoyaltyCardRowItem({ card }: { card: LoyaltyCardRow }) {
   return (
     <Card padding="md" className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
-        <span data-f="F-14-042">
-          <Avatar name={card.businessName} src={card.businessLogoUrl} size="md" />
-        </span>
+        {showBusiness && (
+          <span data-f="F-14-042">
+            <Avatar name={card.businessName} src={card.businessLogoUrl} size="md" />
+          </span>
+        )}
         <div className="min-w-0 flex-1">
-          <p className="truncate font-medium text-fg">{card.businessName}</p>
+          {showBusiness && <p className="truncate font-medium text-fg">{card.businessName}</p>}
           <button
             type="button"
             onClick={() => void handleCopy()}

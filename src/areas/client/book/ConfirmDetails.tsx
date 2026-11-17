@@ -23,12 +23,8 @@ import { ChoiceGroup } from '@/ui/ChoiceGroup';
 import { FormField } from '@/ui/FormField';
 import { Input } from '@/ui/Input';
 import { SegmentedControl } from '@/ui/SegmentedControl';
-import { Select } from '@/ui/Select';
 import { Textarea } from '@/ui/Textarea';
-
-/** F-05-083: варианты напоминания клиенту при онлайн-записи — часы как в ручной правке (BookingWindow), плюс дни */
-const REMINDER_HOUR_OPTIONS = [1, 2, 3, 4, 5, 6, 9, 12, 15, 18, 21, 24];
-const REMINDER_DAY_OPTIONS_HOURS = [48, 72, 120, 168];
+import { useDisplayName } from '@/areas/client/useDisplayName';
 
 /**
  * Шаг «Подтверждение»: только то, что нужно решить сейчас (ux-r1 №31): оттенок (если услуга просит), адрес выезда,
@@ -60,6 +56,7 @@ export function ConfirmDetails({
   const fmt = useClientFormat();
   const locale = useLocale();
   const [commentOpen, setCommentOpen] = useState(Boolean(draft.comment));
+  const nameOf = useDisplayName();
   // У клиента уже есть запись, которая пересекается с этим окном (сценарии 30.09: 17:00 у Эрика и массаж в 17:00) —
   // предупреждаем, но не запрещаем: бывает, что записывают другого человека или переносят сами
   const { ready, appUserId } = useCurrent();
@@ -100,7 +97,7 @@ export function ConfirmDetails({
             {t('book.overlapWarning', {
               when: `${fmt.relativeDay(overlap.start)}, ${fmt.time(overlap.start)}`,
               service: overlap.service ? pickText(overlap.service.name, locale) : '',
-              master: overlap.staff.name,
+              master: nameOf(overlap.staff),
             })}
           </p>
         </div>
@@ -193,22 +190,6 @@ export function ConfirmDetails({
           )}
         </section>
       )}
-
-      <div data-f="F-05-083">
-        <FormField label={t('book.reminderLabel')}>
-          <Select
-            className="max-w-xs"
-            aria-label={t('book.reminderLabel')}
-            value={draft.reminderHours === null ? 'off' : String(draft.reminderHours)}
-            onValueChange={(v) => onChange({ reminderHours: v === 'off' ? null : Number(v) })}
-            options={[
-              { value: 'off', label: t('book.reminderOff') },
-              ...REMINDER_HOUR_OPTIONS.map((h) => ({ value: String(h), label: t('book.reminderHours', { h }) })),
-              ...REMINDER_DAY_OPTIONS_HOURS.map((h) => ({ value: String(h), label: t('book.reminderDays', { d: h / 24 }) })),
-            ]}
-          />
-        </FormField>
-      </div>
 
       {commentOpen ? (
         <FormField label={t('book.commentLabel')} optional>

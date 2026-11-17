@@ -233,7 +233,7 @@ import type {
 import { addDays, addMinutes, dayjs, diffMinutes, eachDay, nowDateTime, today, toISODate, toISODateTime, toMinutes } from '@/lib/date';
 import { newId } from '@/lib/id';
 import { normalizePhone, waLink } from '@/lib/phone';
-import { normalizeSearch, pickText } from '@/lib/text';
+import { hasAddress, normalizeSearch, pickText } from '@/lib/text';
 
 /** Публичные DTO ядра, в которых экраны клиента получают мастера, место и услугу (arch-a1 №6) */
 export type { PublicBusiness, PublicLocation, PublicService, PublicStaff } from '@/domain/rules/public';
@@ -410,7 +410,8 @@ export function listCatalogMock(q: CatalogQuery = {}): Promise<CatalogEntry[]> {
           locations.some((l) => normalizeSearch(l.name.ru).includes(search) || (l.name.en ? normalizeSearch(l.name.en).includes(search) : false));
         if (!normalizeSearch(staff.name).includes(search) && !matched.length && !placeHit) continue;
       }
-      if (q.district && !locations.some((l) => l.district === q.district)) continue;
+      // Район без адреса — не факт (17.11.2026, как сервер): в фильтр района не входит
+      if (q.district && !locations.some((l) => l.district === q.district && hasAddress(l.address))) continue;
 
       const exact = matched.filter((s) => [s.name.ru, s.name.en, s.name.hy].some((n) => (n ? normalizeSearch(n) === search : false)));
       // Из найденных — та, что мастер делает чаще всего («Мужская стрижка», а не «Детская стрижка до 12 лет»), при равенстве —
@@ -494,7 +495,7 @@ function ordersPlacesTx(core: CoreSnapshot, q: CatalogQuery, search: string, sea
       const hit = normalizeSearch(business.brandName || business.name).includes(search) || locations.some((l) => normalizeSearch(l.name.ru).includes(search));
       if (!hit) continue;
     }
-    if (q.district && !locations.some((l) => l.district === q.district)) continue;
+    if (q.district && !locations.some((l) => l.district === q.district && hasAddress(l.address))) continue;
     const owner = core.staff.find((st) => st.id === business.ownerStaffId) ?? core.staff.find((st) => st.businessId === business.id);
     if (!owner) continue;
     const location = (q.district ? locations.find((l) => l.district === q.district) : undefined) ?? locations[0];
@@ -912,7 +913,8 @@ export async function sendLoginCodeMock(phone: string, channel: LoginChannel): P
 }
 
 export interface VerifyLoginInput {
-  name: string;
+  /** Имя спрашивается только у нового номера и только после кода (владелец 17.11.2026) — здесь только имя из Google */
+  name?: string;
   phone: string;
   code: string;
   /** Принято пользовательское соглашение и разрешена обработка данных (F-14-008) — без него вход не завершается */
@@ -925,7 +927,8 @@ export interface VerifyLoginInput {
 
 /** Вошли по коду; с pendingGoogle/pendingApple — привязался ли Google/Apple (false — ожидание истекло или он уже у другого) */
 /** hasBusiness — за номером есть салон (владелец или сотрудник): вход на сайте ведёт в кабинет (DESIGN.md, 17.11.2026) */
-export type VerifiedAppUser = AppUser & { googleLinked?: boolean; hasBusiness?: boolean };
+/** needsName — номер новый (или вместо имени номер): экран входа спросит имя следующим шагом (17.11.2026) */
+export type VerifiedAppUser = AppUser & { googleLinked?: boolean; hasBusiness?: boolean; needsName?: boolean };
 
 const DEMO_CODE = '0000';
 
@@ -943,7 +946,9 @@ export async function verifyLoginCodeMock(input: VerifyLoginInput): Promise<Veri
     const now = nowDateTime();
     const user =
       readCore().appUsers.find((u) => u.phone === normalized) ??
-      coreTx.create('appUsers', { phone: normalized, name: input.name.trim() || normalized, gender: 'unknown', locale: 'ru', createdAt: now });
+      coreTx.create('appUsers', { phone: normalized, name: input.name?.trim() || normalized, gender: 'unknown', locale: 'ru', createdAt: now });
+    // Как сервер: имени нет (новый номер или вместо имени номер) — экран входа спросит его после кода
+    const needsName = user.name === normalized;
     mutateArea('client', (s) => {
       s.consents[user.id] = now;
     });
@@ -957,7 +962,7 @@ export async function verifyLoginCodeMock(input: VerifyLoginInput): Promise<Veri
     for (const b of c.bookings) {
       if (!b.appUserId && !b.deletedAt && b.createdBy === 'client' && b.clientId && cardIds.has(b.clientId)) coreTx.update('bookings', b.id, { appUserId: user.id });
     }
-    return { ...user, hasBusiness: c.staff.some((s) => s.phone === normalized) };
+    return { ...user, hasBusiness: c.staff.some((s) => s.phone === normalized), ...(needsName ? { needsName } : {}) };
   });
 }
 
@@ -2692,6 +2697,71 @@ export function listLoyaltyCards(appUserId: Id): Promise<LoyaltyCardRow[]> {
       .cashbackCards.filter((c) => c.appUserId === appUserId)
       .map((c) => attachBusiness(core, c));
   });
+}
+
+/** Личный счёт клиента в салоне (F-06-136…140) — для «Карт и абонементов» (владелец 17.11.2026) */
+export interface ClientAccountRow {
+  id: Id;
+  appUserId: Id;
+  businessId: Id;
+  /** Тип счёта, который завёл салон («Депозит») */
+  name: string;
+  balance: number;
+  businessName: string;
+  businessLogoUrl?: string;
+  network?: NetworkLocationsInfo;
+}
+
+/** Личные счета клиента во всех салонах — только свои (карточка клиента салона привязана к appUserId) */
+export function listClientAccounts(appUserId: Id): Promise<ClientAccountRow[]> {
+  if (isApiMode()) return CLX.me('listAccounts');
+  return request(() => {
+    const core = readCore();
+    const mine = new Map(core.clients.filter((c) => c.appUserId === appUserId && !c.deletedAt).map((c) => [c.id, c.businessId] as const));
+    const loyalty = readArea('loyalty');
+    return loyalty.accounts
+      .filter((a) => mine.get(a.clientId) === a.businessId)
+      .map((a) => attachBusiness(core, { id: a.id, appUserId, businessId: a.businessId, name: loyalty.accountTypes.find((t) => t.id === a.accountTypeId)?.name ?? '', balance: a.balance }));
+  });
+}
+
+/** Всё, что у клиента есть в одном салоне: абонементы, сертификаты, карта, счёт («Карты и абонементы», 17.11.2026) */
+export interface WalletPlace {
+  businessId: Id;
+  businessName: string;
+  businessLogoUrl?: string;
+  memberships: MembershipWithBusiness[];
+  certificates: GiftCertificateWithBusiness[];
+  cards: LoyaltyCardRow[];
+  accounts: ClientAccountRow[];
+}
+
+/**
+ * «Карты и абонементы» — одна страница вместо трёх (владелец 17.11.2026, DESIGN.md №4): строка на салон. Четыре
+ * списка читаются вместе и раскладываются по салонам; порядок — по имени салона.
+ */
+export async function listWallet(appUserId: Id): Promise<WalletPlace[]> {
+  const [memberships, certificates, cards, accounts] = await Promise.all([
+    listMemberships(appUserId),
+    listCertificates(appUserId),
+    listLoyaltyCards(appUserId),
+    listClientAccounts(appUserId),
+  ]);
+  const byId = new Map<Id, WalletPlace>();
+  const place = (x: { businessId: Id; businessName: string; businessLogoUrl?: string }): WalletPlace => {
+    let p = byId.get(x.businessId);
+    if (!p) {
+      p = { businessId: x.businessId, businessName: x.businessName, businessLogoUrl: x.businessLogoUrl, memberships: [], certificates: [], cards: [], accounts: [] };
+      byId.set(x.businessId, p);
+    }
+    return p;
+  };
+  for (const m of memberships) place(m).memberships.push(m);
+  for (const c of certificates) place(c).certificates.push(c);
+  for (const c of cards) place(c).cards.push(c);
+  // Счёт с нулём — пустая строка без смысла для клиента: показываем только счёт с деньгами (или долгом)
+  for (const a of accounts) if (a.balance !== 0) place(a).accounts.push(a);
+  return [...byId.values()].sort((a, b) => a.businessName.localeCompare(b.businessName));
 }
 
 function pickCashbackCard(cards: CashbackCard[]): CashbackCard | undefined {

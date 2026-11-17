@@ -12,6 +12,7 @@ import { pickText } from '@/lib/text';
 import { Badge } from '@/ui/Badge';
 import { IconButton } from '@/ui/IconButton';
 import { useToast } from '@/ui/Toast';
+import { useDisplayName } from '@/areas/client/useDisplayName';
 
 /**
  * Мой лист ожидания (F-00-102) — компактными строками над предстоящими записями. Пусто или ошибка — блока нет
@@ -19,6 +20,7 @@ import { useToast } from '@/ui/Toast';
  */
 export function WaitlistStrip({ appUserId }: { appUserId: Id }) {
   const t = useT('client');
+  const nameOf = useDisplayName();
   const fmt = useClientFormat();
   const locale = useLocale();
   const toast = useToast();
@@ -44,7 +46,7 @@ export function WaitlistStrip({ appUserId }: { appUserId: Id }) {
             <BellRing aria-hidden className="size-4 shrink-0 text-primary-text" />
             <div className="min-w-0 flex-1">
               <p className="line-clamp-1 text-sm font-medium text-fg">
-                {e.staff.name}
+                {nameOf(e.staff)}
                 {e.service ? ` · ${pickText(e.service.name, locale)}` : ''}
               </p>
               <p className="text-sm text-muted">{e.date === 'any' ? t('bookings.waitlistAnyDay') : fmt.relativeDay(e.date)}</p>

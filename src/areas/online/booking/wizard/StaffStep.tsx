@@ -17,6 +17,7 @@ import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { EmptyState } from '@/ui/EmptyState';
 import { Skeleton } from '@/ui/Skeleton';
+import { localizedName } from '@/lib/translit';
 
 /**
  * Шаг «Мастер» (F-03-087, F-03-017, F-03-021). О23: у каждого мастера всегда видно, когда он свободен
@@ -95,7 +96,7 @@ export function StaffStep({
             >
               <Avatar name={s.name} src={s.avatarUrl} colorIndex={s.colorIndex} />
               <span className="min-w-0 flex-1">
-                <span className="block font-medium text-fg">{s.name}</span>
+                <span className="block font-medium text-fg">{localizedName(s.name, s.nameI18n, locale)}</span>
                 {secondary && <span className="block text-sm text-muted">{secondary}</span>}
                 {(s.accepts !== 'all' || (s.prepayment && s.prepayment.amount > 0)) && (
                   <span className="mt-1 flex flex-wrap gap-1">

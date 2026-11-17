@@ -13,6 +13,7 @@ import { pickText } from '@/lib/text';
 import { Card } from '@/ui/Card';
 import { FormField } from '@/ui/FormField';
 import { Select } from '@/ui/Select';
+import { localizedName } from '@/lib/translit';
 
 /**
  * О4: услуги делают разные мастера — не тупик «Мастера не найдены», а «Разные мастера подряд»: на каждую услугу
@@ -55,7 +56,7 @@ export function ChainStaffStep({
               onValueChange={(v) => onChange(service.id, v)}
               options={[
                 { value: ANY_STAFF, label: t('booking.staffStep.any', terms) },
-                ...eligible.map((s) => ({ value: s.id, label: s.name })),
+                ...eligible.map((s) => ({ value: s.id, label: localizedName(s.name, s.nameI18n, locale) })),
               ]}
             />
           </FormField>

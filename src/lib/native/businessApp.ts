@@ -14,6 +14,7 @@ const CLIENT_ONLY_PATHS = [
   '/certificates',
   '/memberships',
   '/loyalty-cards',
+  '/cards',
   '/diary',
 ];
 

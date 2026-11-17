@@ -1,6 +1,6 @@
-import { MembershipsScreen } from '@/areas/client/memberships/MembershipsScreen';
+import { redirect } from 'next/navigation';
 
-// /memberships — абонементы клиента (F-14-037)
+// /memberships — с 17.11.2026 одна страница «Карты и абонементы» (/cards): старый адрес (закладки, ссылки в приложениях) ведёт туда
 export default function Page() {
-  return <MembershipsScreen />;
+  redirect('/cards');
 }

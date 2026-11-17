@@ -3,11 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
-import { Snowflake, Flame, User } from 'lucide-react';
-import { listMemberships, type MembershipWithBusiness } from '@/api/client';
-import { useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
-import { LoginGate } from '@/areas/client/ui/GuestGate';
+import { Snowflake, Flame } from 'lucide-react';
+import type { MembershipWithBusiness } from '@/api/client';
 import { useClientFormat } from '@/areas/client/useClientFormat';
 import { daysUntil } from '@/areas/client/loyalty/loyaltyDates';
 import { PurchaseStatusBadge } from '@/areas/client/purchases/PurchaseStatusCard';
@@ -16,55 +13,10 @@ import { pickText } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { Card } from '@/ui/Card';
-import { EmptyState } from '@/ui/EmptyState';
-import { ErrorState } from '@/ui/ErrorState';
-import { PageHeader } from '@/ui/PageHeader';
-import { usePagedList } from '@/ui/Pagination';
-import { Skeleton } from '@/ui/Skeleton';
 
-/** Абонементы клиента — карточками (F-14-037) */
-export function MembershipsScreen() {
-  const t = useT('client');
-  const { ready, appUserId } = useCurrent();
-  const q = useApiQuery(['memberships', appUserId], () => listMemberships(appUserId!), {
-    enabled: ready && Boolean(appUserId),
-  });
-  // Постранично, как во всех списках (DESIGN.md → Long lists)
-  const { pageItems, pager } = usePagedList(q.data ?? []);
-
-  return (
-    <div data-f="F-14-037" className="flex flex-col gap-5 pb-6">
-      <PageHeader title={t('memberships.title')} />
-      {ready && !appUserId ? (
-        <LoginGate icon={<User aria-hidden className="size-8 text-muted" />} next="/memberships" />
-      ) : !ready || q.isLoading ? (
-        <div className="flex flex-col gap-3" aria-busy="true">
-          <Skeleton variant="rect" className="h-40 rounded-2xl" />
-          <Skeleton variant="rect" className="h-40 rounded-2xl" />
-        </div>
-      ) : q.isError ? (
-        <ErrorState onRetry={q.refetch} />
-      ) : !q.data?.length ? (
-        <EmptyState
-          icon={<User aria-hidden className="size-8 text-muted" />}
-          title={t('memberships.emptyTitle')}
-          description={t('memberships.emptyHint')}
-        />
-      ) : (
-        <>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {pageItems.map((m) => (
-              <MembershipCard key={m.id} membership={m} />
-            ))}
-          </div>
-          {pager}
-        </>
-      )}
-    </div>
-  );
-}
-
-export function MembershipCard({ membership }: { membership: MembershipWithBusiness }) {
+/** Абонемент карточкой — на странице салона в «Картах и абонементах» (/cards/<салон>, 17.11.2026) */
+/** showBusiness=false — на странице салона: его имя уже в заголовке */
+export function MembershipCard({ membership, showBusiness = true }: { membership: MembershipWithBusiness; showBusiness?: boolean }) {
   const t = useT('client');
   const locale = useLocale();
   const fmt = useClientFormat();
@@ -81,12 +33,14 @@ export function MembershipCard({ membership }: { membership: MembershipWithBusin
         )}
         <div className={`flex flex-col gap-3 ${membership.imageUrl ? 'px-4 pb-4' : 'p-4'}`}>
           <div className="flex items-center gap-3">
-            <span data-f="F-14-042">
-              <Avatar name={membership.businessName} src={membership.businessLogoUrl} size="md" />
-            </span>
+            {showBusiness && (
+              <span data-f="F-14-042">
+                <Avatar name={membership.businessName} src={membership.businessLogoUrl} size="md" />
+              </span>
+            )}
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-fg">{pickText(membership.title, locale)}</p>
-              <p className="truncate text-sm text-muted">{membership.businessName}</p>
+              {showBusiness && <p className="truncate text-sm text-muted">{membership.businessName}</p>}
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-1.5">

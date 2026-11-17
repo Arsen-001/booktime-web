@@ -19,14 +19,9 @@ import { FormField } from '@/ui/FormField';
 import { Input } from '@/ui/Input';
 import { PhoneInput } from '@/ui/PhoneInput';
 import { SegmentedControl } from '@/ui/SegmentedControl';
-import { Select } from '@/ui/Select';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { Textarea } from '@/ui/Textarea';
 import { legalLinkTags } from '@/areas/client/legal/LegalDocLink';
-
-/** О15: напоминание словами, а не минутами; «утром в день визита» и «за 2 дня» — как у Altegio */
-export const REMINDER_VALUES = ['0', '60', '180', '1440', '2880', 'morning'] as const;
-export type ReminderValue = (typeof REMINDER_VALUES)[number];
 
 export interface DetailsForm {
   /** undefined — поле не трогали: показываем имя/номер, запомненные в этом браузере (О14) */
@@ -39,7 +34,6 @@ export interface DetailsForm {
   lastName: string;
   patronymic: string;
   custom: Record<string, string>;
-  reminder: ReminderValue;
   visitAddress: string;
   depositAgree: boolean;
   /** ⭐ «Оплатить всё сразу» вместо предоплаты мастера */
@@ -54,7 +48,6 @@ export const EMPTY_DETAILS: DetailsForm = {
   lastName: '',
   patronymic: '',
   custom: {},
-  reminder: '60',
   visitAddress: '',
   depositAgree: false,
   payInFull: false,
@@ -239,16 +232,6 @@ export function DetailsStep({
           onForget={onForgetPhone}
           error={errors.code}
         />
-
-        <div data-f="F-03-092">
-          <FormField label={t('booking.details.reminder')} hint={t('booking.details.reminderWhere')}>
-            <Select
-              value={form.reminder}
-              onValueChange={(v) => onPatch({ reminder: v as ReminderValue })}
-              options={REMINDER_VALUES.map((v) => ({ value: v, label: t(`booking.details.reminderOpt.${v}` as 'booking.details.reminderOpt.0') }))}
-            />
-          </FormField>
-        </div>
 
         {!clientFields.emailHidden && (
           <div data-f="F-03-071">

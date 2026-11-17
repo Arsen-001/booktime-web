@@ -32,7 +32,7 @@ export function MasterHeader({ card }: { card: MasterCard }) {
         <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="xl" />
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h1 className="text-2xl leading-tight font-semibold text-fg">{nameOf(staff.name)}</h1>
+            <h1 className="text-2xl leading-tight font-semibold text-fg">{nameOf(staff)}</h1>
             <FavoriteButton appUserId={appUserId} targetType="staff" targetId={staff.id} className="-mt-1 shrink-0" />
           </div>
           {staff.position && <p className="text-muted">{pickText(staff.position, locale)}</p>}

@@ -12,6 +12,7 @@ import { pickText } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { Card } from '@/ui/Card';
+import { localizedName } from '@/lib/translit';
 
 /**
  * Итог визита на шаге «Детали» (F-03-090). О17: цены и итог «от–до» — не нижней границей молча («9 000–11 000 ֏»,
@@ -70,7 +71,7 @@ export function VisitSummary({
               <div className="flex items-center gap-3">
                 {st && <Avatar name={st.name} src={st.avatarUrl} colorIndex={st.colorIndex} size="sm" />}
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-fg">{st?.name}</p>
+                  <p className="truncate text-sm font-medium text-fg">{localizedName(st?.name, st?.nameI18n, locale)}</p>
                   {legs.length > 1 && <p className="text-xs text-muted">{t('booking.details.legTime', { start: format.time(leg.start), end: format.time(addMinutes(leg.start, leg.durationMin)) })}</p>}
                 </div>
                 {anySpecialist && (

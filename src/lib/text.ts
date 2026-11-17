@@ -6,6 +6,19 @@ export function pickText(text: LocalizedText | undefined, locale: LocaleCode): s
   return text[locale]?.trim() ? (text[locale] as string) : text.ru;
 }
 
+/**
+ * Адрес заполнен хоть на одном языке. Без адреса район — не факт (при регистрации он «Кентрон» по умолчанию):
+ * клиенту район показываем только вместе с адресом (владелец 17.11.2026, DESIGN.md №24).
+ */
+export function hasAddress(address: Partial<LocalizedText> | undefined | null): boolean {
+  return Boolean(address && Object.values(address).some((v) => typeof v === 'string' && v.trim()));
+}
+
+/** Район места для клиента — только если у места есть адрес; иначе undefined */
+export function shownDistrict<T extends string>(location: { district: T; address?: Partial<LocalizedText> } | undefined | null): T | undefined {
+  return location && hasAddress(location.address) ? location.district : undefined;
+}
+
 /** Инициалы для аватара: «Анна Саргсян» → «АС» */
 export function initials(name: string): string {
   return name

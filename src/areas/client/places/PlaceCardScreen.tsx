@@ -17,7 +17,7 @@ import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useT } from '@/i18n/useT';
 import { telLink, waLink } from '@/lib/phone';
-import { pickText } from '@/lib/text';
+import { hasAddress, pickText } from '@/lib/text';
 import { AutoTranslatedText } from '@/areas/client/AutoTranslatedText';
 import { BookingCard } from '@/areas/client/bookings/BookingCard';
 import { FirstBadge } from '@/areas/client/masters/MasterTrust';
@@ -194,7 +194,8 @@ function PlaceCardBody({ card }: { card: NonNullable<Awaited<ReturnType<typeof g
               />
             </div>
           )}
-          {location && (
+          {/* Район — только вместе с адресом (17.11.2026): у салона без адреса строки нет, а не «Кентрон» по умолчанию */}
+          {location && hasAddress(location.address) && (
             <p className="flex items-start gap-2 text-fg">
               <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
               <span>

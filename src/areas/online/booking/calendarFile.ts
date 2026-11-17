@@ -76,6 +76,20 @@ export function icsHref(e: CalendarEventInput): string {
   return `data:text/calendar;charset=utf-8,${encodeURIComponent(buildIcs(e))}`;
 }
 
+/**
+ * «Календарь телефона»: скачать файл .ics (iPhone и Android открывают его календарём). Пункт меню — кнопка, а не
+ * ссылка, поэтому файл отдаётся временной ссылкой с download (как раньше плиткой-ссылкой).
+ */
+export function downloadCalendarFile(e: CalendarEventInput): void {
+  const a = document.createElement('a');
+  a.href = icsHref(e);
+  a.download = 'booking.ics';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
 /** «Google Календарь» — ссылка на форму нового события с теми же данными */
 export function googleCalendarHref(e: CalendarEventInput): string {
   const params = new URLSearchParams({

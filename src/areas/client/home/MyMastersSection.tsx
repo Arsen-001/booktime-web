@@ -8,7 +8,7 @@ import { InlineError } from '@/areas/client/ui/InlineError';
 import { SectionHeader } from '@/areas/client/ui/SectionHeader';
 import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useClientFormat } from '@/areas/client/useClientFormat';
-import type { Id } from '@/domain/core';
+import type { Id, Staff } from '@/domain/core';
 import { useLocalizedHref } from '@/i18n/useLocalizedHref';
 import { useT } from '@/i18n/useT';
 import { Avatar } from '@/ui/Avatar';
@@ -47,7 +47,7 @@ export function MyMastersSection({ appUserId }: { appUserId: Id | undefined }) {
       <SectionHeader title={t('home.myMasters.title')} href="/favorites" linkLabel={t('home.myMasters.all')} />
       <ScrollRow bleed gap="md" aria-label={t('home.myMasters.title')}>
         {q.data.map((m) => (
-          <MyMasterItem key={m.id} staffId={m.id} businessId={m.businessId} name={m.name} avatarUrl={m.avatarUrl} colorIndex={m.colorIndex} appUserId={appUserId} />
+          <MyMasterItem key={m.id} staffId={m.id} businessId={m.businessId} name={m.name} nameI18n={m.nameI18n} avatarUrl={m.avatarUrl} colorIndex={m.colorIndex} appUserId={appUserId} />
         ))}
       </ScrollRow>
     </section>
@@ -59,6 +59,7 @@ function MyMasterItem({
   staffId,
   businessId,
   name,
+  nameI18n,
   avatarUrl,
   colorIndex,
   appUserId,
@@ -66,6 +67,7 @@ function MyMasterItem({
   staffId: Id;
   businessId: Id;
   name: string;
+  nameI18n?: Staff['nameI18n'];
   avatarUrl?: string;
   colorIndex?: number;
   appUserId: Id;
@@ -81,7 +83,7 @@ function MyMasterItem({
       className="flex w-20 flex-col items-center gap-1.5 rounded-xl py-1 text-center focus-visible:outline-2 focus-visible:outline-focus"
     >
       <Avatar name={name} src={avatarUrl} colorIndex={colorIndex} size="lg" />
-      <span className="w-full truncate text-sm font-medium text-fg">{nameOf(name).split(' ')[0]}</span>
+      <span className="w-full truncate text-sm font-medium text-fg">{nameOf({ name, nameI18n }).split(' ')[0]}</span>
       {cashback !== undefined && (
         <span data-f="F-14-048" className="w-full truncate text-xs font-medium text-success">
           {fmt.money(cashback)}

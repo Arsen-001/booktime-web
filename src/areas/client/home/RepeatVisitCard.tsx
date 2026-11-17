@@ -30,7 +30,7 @@ export function RepeatVisitCard({ appUserId }: { appUserId: Id | undefined }) {
   const { booking, nextSlot } = s;
   const serviceId = booking.services[0]?.serviceId ?? '';
   const href = `/book?staff=${booking.staff.id}&service=${serviceId}${nextSlot ? `&slot=${encodeURIComponent(nextSlot.start)}` : ''}`;
-  const firstName = nameOf(booking.staff.name).split(' ')[0];
+  const firstName = nameOf(booking.staff).split(' ')[0];
 
   return (
     <Card data-f="F-00-118" padding="md" className="flex flex-wrap items-center gap-3">

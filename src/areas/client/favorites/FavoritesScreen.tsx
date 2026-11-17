@@ -144,7 +144,7 @@ function SubscriptionsTab({ appUserId }: { appUserId: Id | undefined }) {
     <>
       <div data-f="F-00-113 F-14-031" className="flex flex-col gap-2 pt-3">
         {pageItems.map((entry) => {
-          const name = nameOf(entry.staff ? entry.staff.name : entry.business.name);
+          const name = entry.staff ? nameOf(entry.staff) : nameOf(entry.business.name);
           const href = entry.staff ? `/masters/${entry.staff.id}` : `/places/${entry.business.id}`;
           const subtitle = entry.staff
             ? entry.staff.position
@@ -248,7 +248,7 @@ function MyMastersTab({ appUserId }: { appUserId: Id | undefined }) {
             <Card href={`/masters/${staff.id}`} padding="sm" className="flex items-center gap-3">
               <Avatar name={staff.name} src={staff.avatarUrl} colorIndex={staff.colorIndex} size="md" />
               <div className="min-w-0">
-                <p className="truncate font-medium text-fg">{nameOf(staff.name)}</p>
+                <p className="truncate font-medium text-fg">{nameOf(staff)}</p>
                 {staff.position && <p className="truncate text-sm text-muted">{pickText(staff.position, locale)}</p>}
               </div>
             </Card>

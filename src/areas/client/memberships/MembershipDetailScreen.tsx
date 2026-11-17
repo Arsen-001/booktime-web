@@ -65,7 +65,7 @@ export function MembershipDetailScreen({ membershipId }: { membershipId: Id }) {
     return (
       <EmptyState
         title={t('memberships.notFound')}
-        action={<LinkButton href="/memberships">{t('memberships.title')}</LinkButton>}
+        action={<LinkButton href="/cards">{t('wallet.title')}</LinkButton>}
       />
     );
 
@@ -125,7 +125,7 @@ export function MembershipDetailScreen({ membershipId }: { membershipId: Id }) {
 
   return (
     <div data-f="F-14-038" className="flex flex-col gap-5 pb-6">
-      <PageHeader back={{ href: '/memberships' }} title={pickText(m.title, locale)} />
+      <PageHeader back={{ href: `/cards/${m.businessId}` }} title={pickText(m.title, locale)} />
 
       {m.imageUrl && (
         <div data-f="F-14-041" className="relative h-40 w-full overflow-hidden rounded-2xl">

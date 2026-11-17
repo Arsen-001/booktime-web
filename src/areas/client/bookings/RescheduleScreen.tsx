@@ -23,6 +23,7 @@ import { PageHeader } from '@/ui/PageHeader';
 import { Skeleton } from '@/ui/Skeleton';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useToast } from '@/ui/Toast';
+import { useDisplayName } from '@/areas/client/useDisplayName';
 
 /**
  * Перенос записи клиентом (F-00-099, F-14-016): окна того же мастера на ту же услугу. Перенос одним касанием —
@@ -66,6 +67,7 @@ export function RescheduleScreen({ bookingId }: { bookingId: Id }) {
 function RescheduleBody({ detail, appUserId }: { detail: NonNullable<Awaited<ReturnType<typeof getBooking>>>; appUserId: Id }) {
   const { booking, staff, service } = detail;
   const t = useT('client');
+  const nameOf = useDisplayName();
   const tc = useT('common');
   const fmt = useClientFormat();
   const locale = useLocale();
@@ -105,7 +107,7 @@ function RescheduleBody({ detail, appUserId }: { detail: NonNullable<Awaited<Ret
         <div className="min-w-0">
           <p className="font-medium text-fg">{service ? pickText(service.name, locale) : t('bookings.serviceRemoved')}</p>
           <p className="text-sm text-muted">
-            {t('reschedule.currentLine', { name: staff.name, when: `${fmt.relativeDayInline(booking.start)}, ${fmt.time(booking.start)}` })}
+            {t('reschedule.currentLine', { name: nameOf(staff), when: `${fmt.relativeDayInline(booking.start)}, ${fmt.time(booking.start)}` })}
           </p>
         </div>
       </Card>

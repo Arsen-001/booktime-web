@@ -42,7 +42,7 @@ export function CashbackDetailScreen({ businessId }: { businessId: Id }) {
   const card = cardQ.data;
   const place = placeQ.data;
   if (!place)
-    return <EmptyState title={t('place.notFound')} action={<LinkButton href="/loyalty-cards">{t('loyalty.cardsTitle')}</LinkButton>} />;
+    return <EmptyState title={t('place.notFound')} action={<LinkButton href="/cards">{t('wallet.title')}</LinkButton>} />;
   if (!card) {
     return (
       <div data-f="F-14-049" className="flex flex-col gap-5 pb-6">

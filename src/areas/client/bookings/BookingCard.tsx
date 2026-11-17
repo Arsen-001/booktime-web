@@ -13,7 +13,7 @@ import { useClientFormat } from '@/areas/client/useClientFormat';
 import { useDisplayName } from '@/areas/client/useDisplayName';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
-import { pickText } from '@/lib/text';
+import { pickText, shownDistrict } from '@/lib/text';
 import { Avatar } from '@/ui/Avatar';
 import { Badge } from '@/ui/Badge';
 import { ClientStatusBadge } from '@/areas/client/ui/ClientStatusBadge';
@@ -46,10 +46,12 @@ export function BookingCard({ booking, variant = 'full' }: { booking: EnrichedBo
   const isInactive = INACTIVE.includes(status);
   const isAwaiting = AWAITING.includes(status);
   // У частного мастера название бизнеса = его имя — вместо него район (ux-r2 №18: «Лусине Погосян · Лусине Погосян»)
+  // Район — только у места с адресом (17.11.2026)
+  const district = shownDistrict(location);
   const who =
     business.kind === 'individual'
-      ? [nameOf(staff.name), location ? tc(`districts.${location.district}`) : undefined].filter(Boolean).join(' · ')
-      : `${nameOf(staff.name)} · ${placeLine(business, location)}`;
+      ? [nameOf(staff), district ? tc(`districts.${district}`) : undefined].filter(Boolean).join(' · ')
+      : `${nameOf(staff)} · ${placeLine(business, location)}`;
 
   const tone = bookingCardTone(status, service?.categoryId);
   const toneVars = {

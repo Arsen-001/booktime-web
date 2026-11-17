@@ -27,7 +27,8 @@ import { StaffLegalSection } from "@/areas/staff/components/card/StaffLegalTab";
 import type { StaffCardData } from "@/api/staff";
 import type { Staff } from "@/domain/core";
 import { useCan } from "@/demo/hooks";
-import { staffToInfoDraft, type StaffInfoDraft } from "@/domain/staff";
+import { NAME_LOCALES, mainStaffName, staffNameDraft, staffToInfoDraft, type StaffInfoDraft } from "@/domain/staff";
+import { translitName, type NameLocale } from "@/lib/translit";
 import { useT } from "@/i18n/useT";
 import { cn } from "@/lib/cn";
 import { Avatar } from "@/ui/Avatar";
@@ -103,9 +104,7 @@ export function StaffInfoTabSkeleton({ canEdit, showExtra, showLegal }: { canEdi
             </span>
           )}
         </div>
-        <FormField label={t("infoTab.name")} required hint={t("infoTab.nameHint")}>
-          <Input value="" disabled onChange={noop} />
-        </FormField>
+        <StaffNameFields value={{ ru: "", hy: "", en: "" }} auto={{ ru: false, hy: false, en: false }} disabled onChange={noop} />
         <p className="-mt-3 text-xs text-muted">{t("infoTab.replaceHint")}</p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField label={t("infoTab.position")} hint={t("infoTab.positionHint")}>
@@ -183,6 +182,7 @@ const infoOptimistic = [
       staff: {
         ...old.staff,
         name: a.name.trim(),
+        nameI18n: a.nameI18n,
         phone: a.phone,
         email: a.email.trim() || undefined,
         specialty: a.specialty.trim() ? { ...old.staff.specialty, ru: a.specialty.trim() } : undefined,
@@ -204,10 +204,15 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
   const [draft, setDraft] = useState<InfoDraft>(base);
   const [seenKey, setSeenKey] = useState(baseKey);
   const [errors, setErrors] = useState<Partial<Record<"name" | "phone" | "email", string>>>({});
+  // Какие языки имени заполнены переводом букв и ещё не правились руками — их обновляет ввод на другом языке
+  const [nameAuto, setNameAuto] = useState(() => staffNameDraft(staff).auto);
   // Данные сотрудника поменялись снаружи (сохранили, другой человек) — черновик без правок идёт за ними
   if (baseKey !== seenKey) {
     setSeenKey(baseKey);
-    if (keyOf(draft) === seenKey) setDraft(base);
+    if (keyOf(draft) === seenKey) {
+      setDraft(base);
+      setNameAuto(staffNameDraft(staff).auto);
+    }
   }
   const dirty = keyOf(draft) !== baseKey;
   const patch = (p: Partial<InfoDraft>) => setDraft((d) => ({ ...d, ...p }));
@@ -223,6 +228,7 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
       updateStaffInfo({
         staffId: a.staffId,
         name: a.name,
+        nameI18n: a.nameI18n,
         specialty: a.specialty,
         position: a.position,
         phone: a.phone,
@@ -286,9 +292,19 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
       <PhotoField name={draft.name || staff.name} colorIndex={staff.colorIndex} value={draft.avatarUrl} disabled={!canEdit} onChange={(url) => patch({ avatarUrl: url })} />
 
       <div data-staff-field="name">
-        <FormField label={t("infoTab.name")} required error={errors.name} hint={t("infoTab.nameHint")}>
-          <Input value={draft.name} disabled={!canEdit} onChange={(e) => patch({ name: e.target.value })} placeholder={t("infoTab.namePlaceholder")} />
-        </FormField>
+        <StaffNameFields
+          value={draft.nameI18n}
+          auto={nameAuto}
+          error={errors.name}
+          disabled={!canEdit}
+          onChange={(lang, text) => {
+            // Вписали на одном языке — остальные, ещё не правленные руками, заполняются переводом букв (владелец 17.11.2026)
+            const names = { ...draft.nameI18n, [lang]: text };
+            for (const l of NAME_LOCALES) if (l !== lang && (nameAuto[l] || !names[l].trim())) names[l] = translitName(text, l);
+            setNameAuto((a) => Object.fromEntries(NAME_LOCALES.map((l) => [l, l === lang ? false : a[l] || !draft.nameI18n[l].trim()])) as Record<NameLocale, boolean>);
+            patch({ nameI18n: names, name: mainStaffName(staff.name, names) });
+          }}
+        />
       </div>
       <p data-f="F-10-039" className="-mt-3 text-xs text-muted">
         {t("infoTab.replaceHint")}
@@ -342,6 +358,60 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
 }
 
 /** «О себе» на трёх языках (С18): вкладки языка над одним полем, у заполненных — отметка */
+/**
+ * Имя на трёх языках (владелец 17.11.2026, DESIGN.md «Ответы…» №8): РУС / ՀԱՅ / ENG одной группой под подписью «Имя».
+ * Вписали на одном — остальные заполнились переводом букв (метка «переводом букв»), поправили руками — метка ушла.
+ */
+function StaffNameFields({
+  value,
+  auto,
+  error,
+  disabled,
+  onChange,
+}: {
+  value: Record<NameLocale, string>;
+  auto: Record<NameLocale, boolean>;
+  error?: string;
+  disabled: boolean;
+  onChange: (lang: NameLocale, text: string) => void;
+}) {
+  const t = useT("staff");
+  const labelId = useId();
+  return (
+    <div role="group" aria-labelledby={labelId} data-f="F-10-025" className="flex flex-col gap-1.5">
+      <span id={labelId} className="text-sm font-medium text-fg">
+        {t("infoTab.name")}
+        <span className="ml-0.5 text-danger">*</span>
+      </span>
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+        {NAME_LOCALES.map((l) => (
+          <div key={l} className="flex min-w-0 flex-col gap-1">
+            <Input
+              aria-label={`${t("infoTab.name")} · ${t(`infoTab.bioLang.${l}`)}`}
+              lang={l}
+              value={value[l]}
+              disabled={disabled}
+              invalid={Boolean(error)}
+              onChange={(e) => onChange(l, e.target.value)}
+              placeholder={t(`infoTab.namePlaceholderI18n.${l}`)}
+              leftIcon={<span className="text-xs font-semibold text-muted">{t(`infoTab.nameLangShort.${l}`)}</span>}
+            />
+            {/* Метка держит место всегда — поле не прыгает, когда она появляется или уходит */}
+            <span className={cn("min-h-4 text-xs leading-4 text-muted", !(auto[l] && value[l].trim()) && "invisible")}>{t("infoTab.nameAuto")}</span>
+          </div>
+        ))}
+      </div>
+      {error ? (
+        <p role="alert" className="text-sm text-danger">
+          {error}
+        </p>
+      ) : (
+        <p className="text-sm text-muted">{t("infoTab.nameHint")}</p>
+      )}
+    </div>
+  );
+}
+
 function BioField({ value, onChange, disabled }: { value: InfoDraft["bio"]; onChange: (v: InfoDraft["bio"]) => void; disabled: boolean }) {
   const t = useT("staff");
   const [lang, setLang] = useState<"ru" | "hy" | "en">("ru");

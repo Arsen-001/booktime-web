@@ -36,6 +36,7 @@ export default function robots(): MetadataRoute.Robots {
         '/certificates',
         '/memberships',
         '/loyalty-cards',
+        '/cards',
         '/claim/',
         '/stories/',
         '/places/*/cashback',

@@ -6,7 +6,7 @@ import type { DistrictId, LocaleCode, Service, SphereId, WeekTemplate } from '@/
 import { isLocale } from '@/i18n/config';
 import { formatMoney } from '@/lib/money';
 import { absoluteUrl } from '@/lib/seo/site';
-import { pickText } from '@/lib/text';
+import { pickText, shownDistrict } from '@/lib/text';
 
 /**
  * Тексты и разметка schema.org для поисковиков (SEO, 03.10.2026). Слова — common.seo / common.districts на языке
@@ -78,7 +78,8 @@ export function describeBusiness(ctx: SeoContext, data: PublicBusinessData): Bus
   const { business, location, services } = data;
   const name = business.name.trim() || business.slug;
   const phrase = servicesPhrase(ctx, business.sphereIds);
-  const district = districtLabel(ctx, location?.district);
+  // Район — только у места с адресом (17.11.2026): «Кентрон» по умолчанию у салона без адреса — неправда
+  const district = districtLabel(ctx, shownDistrict(location));
   const title = district
     ? t('seo.business.title', { name, services: lowerFirst(phrase, locale), district })
     : t('seo.business.titleNoDistrict', { name, services: lowerFirst(phrase, locale) });
@@ -116,7 +117,7 @@ export function describeMaster(ctx: SeoContext, card: MasterCard): MasterSeo {
   const { t, locale } = ctx;
   const { staff, business, locations } = card;
   const position = pickText(staff.position, locale) || servicesPhrase(ctx, staff.sphereIds);
-  const district = districtLabel(ctx, locations[0]?.district);
+  const district = districtLabel(ctx, shownDistrict(locations[0]));
   const city = t('seo.city');
   const businessName = business.name.trim() || business.slug;
   // Мастер-одиночка (ИП): его бизнес и есть он — без повтора имени
