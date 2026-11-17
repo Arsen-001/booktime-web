@@ -223,6 +223,20 @@ export function restoreAfterRemoveFromSchedule(staffId: Id, snapshot: RemoveFrom
 }
 
 /**
+ * «Открыть окна до …» (владелец 17.11.2026, DESIGN.md №11): до какого дня клиенты видят окна мастера
+ * (WorkSchedule.openUntil, F-00-055) — для всех его графиков; undefined — без срока.
+ */
+export function setScheduleOpenUntil(staffId: Id, openUntil: ISODate | undefined): Promise<void> {
+  if (isApiMode()) return S.setScheduleOpenUntil(staffId, openUntil);
+  return request(() => {
+    assertCanEditSchedule([staffId]);
+    for (const schedule of readCore().schedules.filter((s) => s.staffId === staffId)) {
+      coreTx.update('schedules', schedule.id, { openUntil });
+    }
+  });
+}
+
+/**
  * «Убрать из графика» одним запросом (F-02-020): есть будущие записи и нет force — ничего не меняем, отвечаем их числом
  * (экран спросит подтверждение); иначе снимаем и возвращаем слепок для «Отменить» (F-00-061).
  */

@@ -812,8 +812,9 @@ export function DayGrid({
                               {format.duration(g.to - g.from)}
                               {hot ? ` — ${t("board.live.hot")}` : g.waiting > 0 && ` · ${t("board.live.waitingFit", { n: g.waiting })}`}
                             </span>
-                            {/* Как в макете: длинное окно сегодня — две большие кнопки сразу под текстом и «можно заработать до …»
-                                внизу; обычное — «Предложить» и «+ сумма» в строку. Нажатие на само окно — запись на его начало */}
+                            {/* Длинное окно сегодня — одна большая кнопка «Предложить окно» (при листе ожидания — «· N»; владелец
+                                17.11.2026, DESIGN.md №6: две кнопки открывали один и тот же лист) и «можно заработать до …» внизу;
+                                обычное — «Предложить» и «+ сумма» в строку. Нажатие на само окно — запись на его начало */}
                             {canCreate && onOfferGap && column.kind === "staff" && (hot && gapHeight >= 150 ? (
                               <>
                                 <span className="mt-2 flex w-full flex-col gap-1.5">
@@ -825,17 +826,7 @@ export function DayGrid({
                                     }}
                                     className="inline-flex min-h-8 w-full items-center rounded-full bg-danger px-3 text-left font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
                                   >
-                                    {t("board.live.hotOffer")}
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      onOfferGap({ staffId: column.staff.id, from: g.from, to: g.to });
-                                    }}
-                                    className="inline-flex min-h-8 w-full items-center rounded-full bg-primary px-3 text-left font-semibold text-primary-contrast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
-                                  >
-                                    {g.waiting > 0 ? t("board.live.offerWaiting", { n: g.waiting }) : t("board.live.offer")}
+                                    {g.waiting > 0 ? t("board.live.offerGapWaiting", { n: g.waiting }) : t("board.live.offerTitle")}
                                   </button>
                                 </span>
                                 {g.potential > 0 && <span className="mt-auto text-[11px] font-medium">{t("board.live.canEarn", { money: format.money(g.potential) })}</span>}

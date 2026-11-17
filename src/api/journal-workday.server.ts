@@ -32,3 +32,10 @@ export function dayClose(businessId: Id, date: ISODate): Promise<DayCloseSummary
   reads();
   return http<DayCloseSummary>('GET', `${base(businessId)}/day-close`, undefined, { query: { date } });
 }
+
+/** «Пульс дня»: деньги, полученные в этот день (как в отчётах с 01.10); мастеру — свои */
+export async function received(businessId: Id, date: ISODate, locationIds: Id[]): Promise<number> {
+  trackRead('core.bookings', 'areas.finance', 'areas.journal.extras');
+  const r = await http<{ received: number }>('GET', `${base(businessId)}/received`, undefined, { query: { date, locationIds: locationIds.join(',') || undefined } });
+  return r.received;
+}

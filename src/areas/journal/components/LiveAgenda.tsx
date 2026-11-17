@@ -191,7 +191,7 @@ export function LiveAgenda({
                       onClick={() => onOfferGap({ staffId: selected.id, from: row.gap.from, to: row.gap.to })}
                       className="inline-flex h-10 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-primary-contrast"
                     >
-                      {t('board.live.offer')}
+                      {row.gap.waiting > 0 ? t('board.live.offerGapWaiting', { n: row.gap.waiting }) : t('board.live.offerTitle')}
                     </button>
                   )}
                   <button

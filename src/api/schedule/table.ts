@@ -73,6 +73,11 @@ export interface ScheduleCell {
   locationId?: Id;
   /** e2e-q1 №1: второй график мастера (дома / выезд) — клиенты по нему записываются, мастер должен его видеть */
   elsewhere?: ScheduleCellElsewhere[];
+  /**
+   * Рабочий день после «окна открыты до» (WorkSchedule.openUntil): клиенты его не видят — штриховка
+   * «клиенты не видят» (владелец 17.11.2026, DESIGN.md №11)
+   */
+  closedForClients?: boolean;
 }
 
 export interface ScheduleRow {
@@ -81,6 +86,8 @@ export interface ScheduleRow {
   /** Рабочих дней и суммарных часов за период по ВСЕМ местам работы (F-02-002 «Итого») */
   totalDays: number;
   totalMinutes: Minutes;
+  /** До какого дня клиенты видят окна мастера (основной график); нет — без срока */
+  openUntil?: ISODate;
 }
 
 export interface ScheduleTableInput {
@@ -150,6 +157,7 @@ export function getScheduleTable(input: ScheduleTableInput): Promise<ScheduleRow
         }
         const bookings = bookingsByDay.get(dayKey(staff.id, date)) ?? 0;
         const note = days[dayKey(staff.id, date)]?.note;
+        const closedForClients = mainWorks && Boolean(main?.openUntil) && date > main!.openUntil!;
         return {
           date,
           hours,
@@ -159,9 +167,10 @@ export function getScheduleTable(input: ScheduleTableInput): Promise<ScheduleRow
           ...(note ? { note } : {}),
           ...(multiLocation && main ? { locationId: main.locationId } : {}),
           ...(elsewhere.length ? { elsewhere } : {}),
+          ...(closedForClients ? { closedForClients } : {}),
         };
       });
-      return { staff, cells, totalDays, totalMinutes };
+      return { staff, cells, totalDays, totalMinutes, ...(main?.openUntil ? { openUntil: main.openUntil } : {}) };
     });
 
     const filtered =

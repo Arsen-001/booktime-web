@@ -50,6 +50,8 @@ export interface ScheduleTableProps {
   onCopy: (staffId: Id) => void;
   onAddTomorrow: (staffId: Id) => void;
   onRepeatWeek: (staffId: Id) => void;
+  /** «Открыть окна до …» у мастера, чьи дни после срока заштрихованы «клиенты не видят» (17.11.2026) */
+  onOpenWindows?: (row: ScheduleRow) => void;
   totalsText: (row: ScheduleRow) => string;
   locationLabel: (id: Id | undefined) => string | undefined;
   customTypes?: NetworkOffDayType[];
@@ -111,6 +113,15 @@ export function ScheduleTable(p: ScheduleTableProps) {
             compact={month}
           />
         </div>
+        {p.canEdit && p.onOpenWindows && row.cells.some((c) => c.closedForClients) && (
+          <button
+            type="button"
+            onClick={() => p.onOpenWindows?.(row)}
+            className="-mt-1 mb-1 ml-10 flex min-h-8 max-w-full items-center truncate rounded-md px-1 text-left text-xs font-semibold text-primary-text hover:underline focus-visible:outline-2 focus-visible:outline-focus max-sm:ml-0"
+          >
+            {t('openWindows.button')}
+          </button>
+        )}
       </th>
       {p.dates.map((date) => {
         const cell = row.cells.find((c) => c.date === date);

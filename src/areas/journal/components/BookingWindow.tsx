@@ -450,6 +450,37 @@ export function BookingWindow({
       await decidePrepayment(booking.id, !waived, 'no_show', actorName, false).catch(() => {});
       refetchExtras();
     }
+    // Владелец 17.11.2026 (DESIGN.md №10): «Не пришёл» у сохранённой записи сохраняется сразу, как «Пришёл», —
+    // внизу на 5 секунд «Отмечено «Не пришёл» · Отменить»; «Сохранить изменения» ждать не нужно
+    if (next === 'no_show' && isEdit && booking && booking.status !== 'no_show' && !touched) {
+      const prev = booking.status;
+      try {
+        await changeBookingStatus(booking.id, 'no_show', 'business');
+        await syncArrivedConsequences(booking.id, 'no_show');
+        setStatus('no_show');
+        toast.show({
+          title: t('window.noShowSaved'),
+          tone: 'success',
+          durationMs: 5000,
+          ...(prev === 'awaiting_prepayment'
+            ? {}
+            : {
+                action: {
+                  label: t('board.list.undo'),
+                  onClick: () => {
+                    void changeBookingStatus(booking.id, prev, 'business')
+                      .then(() => syncArrivedConsequences(booking.id, prev))
+                      .then(() => setStatus(prev))
+                      .catch(() => toast.error(tc('states.actionFailed')));
+                  },
+                },
+              }),
+        });
+      } catch {
+        toast.error(tc('states.actionFailed'));
+      }
+      return;
+    }
     withTouch(setStatus)(next);
   };
 

@@ -106,6 +106,7 @@ export function ScheduleCellView({
     elsewhere ? `${t(`table.workplace.${elsewhere.workplace}` as 'table.workplace.home')} ${spanText(elsewhere.hours)}` : '',
     offWithBookings ? t('table.offWithBookings', { n: cell.bookings ?? 0 }) : cell.hasBookings ? t('table.hasBookings') : '',
     cell.note ? t('table.noteLabel', { note: cell.note }) : '',
+    cell.closedForClients ? t('table.closedForClients') : '',
   ]
     .filter(Boolean)
     .join(' · ');
@@ -144,6 +145,13 @@ export function ScheduleCellView({
           {Number(cell.date.slice(8, 10))}
         </span>
       )}
+      {/* Владелец 17.11.2026 (DESIGN.md №11): рабочий день после «окна открыты до» — штриховка «клиенты не видят» */}
+      {cell.closedForClients && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[4px] bg-[repeating-linear-gradient(135deg,transparent_0_5px,color-mix(in_srgb,var(--color-muted)_28%,transparent)_5px_7px)]"
+        />
+      )}
       {cell.note && <span aria-hidden className="absolute top-0 left-0 size-0 border-t-[7px] border-r-[7px] border-t-info border-r-transparent" />}
       {breaks.length > 0 && <span aria-hidden className="absolute top-1 right-1 size-1.5 rounded-full bg-warning" />}
       {locationLabel && !compact && (
@@ -181,6 +189,11 @@ export function ScheduleCellView({
         )}
         {works && elsewhere && !compact && <House className="size-3.5 text-info" />}
       </span>
+      {cell.closedForClients && !compact && !showDate && (
+        <span aria-hidden className="relative max-w-full truncate px-0.5 text-[10px] leading-none font-medium text-muted">
+          {t('table.closedForClients')}
+        </span>
+      )}
       {offWithBookings ? (
         <span aria-hidden className={cn('font-semibold text-warning tabular-nums', compact ? 'text-[10px] leading-none' : 'text-[11px] leading-none')}>
           {cell.bookings}

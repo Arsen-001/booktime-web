@@ -31,6 +31,7 @@ import {
   type PlanEntry,
 } from '@/api/schedule';
 import { AbsenceModal } from '@/areas/schedule/components/AbsenceModal';
+import { OpenWindowsModal } from '@/areas/schedule/components/OpenWindowsModal';
 import { CopyScheduleModal } from '@/areas/schedule/components/CopyScheduleModal';
 import { PdfExportModal } from '@/areas/schedule/components/PdfExportModal';
 import { RepeatWeekModal } from '@/areas/schedule/components/RepeatWeekModal';
@@ -81,6 +82,8 @@ export function ScheduleScreen() {
   const { ready, businessId, staffId: ownStaffId, activeLocationIds } = useCurrent();
   const customDayTypes = useCustomDayTypes(businessId);
   const canEdit = useCan('schedule.edit');
+  // «Открыть окна до …» (владелец 17.11.2026, DESIGN.md №11): у кого двигаем срок окон для клиентов
+  const [openWindowsFor, setOpenWindowsFor] = useState<{ id: Id; name: string; openUntil?: ISODate } | null>(null);
   // Чужие графики видит тот, у кого есть право на чужие записи; остальные (мастер) — только себя (arch-a1 №3)
   const canOthers = useCan('journal.others');
   const restrictedToSelf = !canOthers;
@@ -400,6 +403,7 @@ export function ScheduleScreen() {
             }}
             onAddTomorrow={doAddTomorrow}
             onRepeatWeek={(staffId) => openOverlay({ kind: 'repeat', staffIds: [staffId], who: nameOf(staffId) })}
+            onOpenWindows={(row) => setOpenWindowsFor({ id: row.staff.id, name: row.staff.name, openUntil: row.openUntil })}
             customTypes={customDayTypes}
             loading={tableLoading}
             skeletonRows={skeleton.rows}
@@ -526,6 +530,7 @@ export function ScheduleScreen() {
       )}
 
       <PdfExportModal open={pdfOpen} onOpenChange={setPdfOpen} rows={rows} from={from} to={to} positions={positions} />
+      <OpenWindowsModal staff={openWindowsFor} onClose={() => setOpenWindowsFor(null)} />
     </div>
   );
 }

@@ -1,9 +1,10 @@
 'use client';
 
 /**
- * «Пульс дня» над сеткой в стиле «Живой день» (owner 08.10.2026, lib/journalStyle) — вместо строки итогов: выручка
- * сделанного из плана дня с полосой, сколько мастеров сейчас с клиентом, свободные окна от часа, ждут ответа,
- * опаздывают. Сделанное — записи, которые уже закончились или идут с отметкой «Пришёл»; день в прошлом — весь план.
+ * «Пульс дня» над сеткой в стиле «Живой день» (owner 08.10.2026, lib/journalStyle) — вместо строки итогов: «Получено
+ * 5 000 ֏ из 36 000» с полосой (владелец 17.11.2026, DESIGN.md №18: деньги, правда полученные в этот день, как во всех
+ * отчётах с 01.10, а не цена закончившихся по времени визитов), сколько мастеров сейчас с клиентом, свободные окна от
+ * часа, ждут ответа, опаздывают.
  */
 import type { Booking, DayHours, Id, ISODate, Staff } from '@/domain/core';
 import { computeWaitlistStatus, useWaitlist, waitlistWantsDay } from '@/api/resources';
@@ -15,6 +16,10 @@ import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { cn } from '@/lib/cn';
 import { today } from '@/lib/date';
+import { getDayReceived } from '@/api/journal-workday';
+import { useApiQuery } from '@/api/request';
+import { useCurrent } from '@/demo/hooks';
+import { SkeletonText } from '@/ui/Skeleton';
 
 export interface LivePulseProps {
   date: ISODate;
@@ -36,13 +41,13 @@ export function LivePulse({ date, bookings, totals, staff, hoursByStaff, busines
   const nowMin = useNowMinuteYerevan(date);
   const active = bookings.filter((b) => isActiveBooking(b) && b.status !== 'no_show');
   const dayPast = date < today();
-  const done = dayPast
-    ? totals.revenue
-    : nowMin === null
-      ? 0
-      : active
-          .filter((b) => startMinutes(b) + b.durationMin <= nowMin || (b.status === 'arrived' && startMinutes(b) <= nowMin))
-          .reduce((sum, b) => sum + b.total, 0);
+  const { activeLocationIds } = useCurrent();
+  const receivedQuery = useApiQuery(
+    ['journal', 'day-received', businessId, date, activeLocationIds.join(',')],
+    () => getDayReceived(businessId!, date, activeLocationIds),
+    { enabled: Boolean(businessId) && showStatistics },
+  );
+  const done = receivedQuery.data ?? 0;
   const busy =
     nowMin === null
       ? 0
@@ -69,7 +74,9 @@ export function LivePulse({ date, bookings, totals, staff, hoursByStaff, busines
     >
       {showStatistics && (
         <span className="flex items-center gap-2.5 whitespace-nowrap">
-          {t('board.live.revenue')} <b className="font-bold text-fg tabular-nums">{format.money(done)}</b> {t('board.live.revenueOf', { total: format.money(totals.revenue) })}
+          {t('board.live.received')}{' '}
+          <b className="font-bold text-fg tabular-nums">{receivedQuery.isLoading ? <SkeletonText width="5ch" /> : format.money(done)}</b>{' '}
+          {t('board.live.revenueOf', { total: format.money(totals.revenue) })}
           <span aria-hidden className="block h-2 w-36 overflow-hidden rounded-full bg-surface-3">
             <span className="block h-full rounded-full bg-gradient-to-r from-primary to-primary/60" style={{ width: `${pct}%` }} />
           </span>

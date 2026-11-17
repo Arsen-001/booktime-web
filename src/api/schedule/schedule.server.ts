@@ -389,6 +389,12 @@ export async function restoreAfterRemoveFromSchedule(staffId: Id, snapshot: Remo
   await changed(businessId, undefined);
 }
 
+export async function setScheduleOpenUntil(staffId: Id, openUntil: ISODate | undefined): Promise<void> {
+  const businessId = bizOfStaff(staffId);
+  await http<{ openUntil: ISODate | null }>('PUT', `${b(businessId)}/staff/${staffId}/open-until`, { openUntil: openUntil ?? null });
+  await changed(businessId, undefined);
+}
+
 // ─────────── «Мой календарь» ───────────
 
 export function getCalendarMode(staffId: Id): Promise<Staff['calendarMode'] | undefined> {

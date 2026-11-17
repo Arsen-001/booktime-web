@@ -35,6 +35,8 @@ export interface ScheduleGridProps {
   onCopy: (staffId: Id) => void;
   onAddTomorrow: (staffId: Id) => void;
   onRepeatWeek: (staffId: Id) => void;
+  /** «Открыть окна до …» (17.11.2026) */
+  onOpenWindows?: (row: ScheduleRow) => void;
   /** Первая загрузка: скелет ровно этой формы (М2) */
   loading: boolean;
   skeletonRows: number;
@@ -120,6 +122,7 @@ export function ScheduleGrid(p: ScheduleGridProps) {
     onCopy: p.onCopy,
     onAddTomorrow: p.onAddTomorrow,
     onRepeatWeek: p.onRepeatWeek,
+    onOpenWindows: p.onOpenWindows,
     totalsText,
     locationLabel: p.locationLabel,
     customTypes: p.customTypes,

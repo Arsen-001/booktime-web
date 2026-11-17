@@ -10,6 +10,7 @@
 import { readArea, readCore } from '@/api/area';
 import { canNow, currentActor } from '@/api/core';
 import { bookingPaymentBriefSync } from '@/api/finance';
+import { receivedMoneyTotalSync } from '@/api/reports';
 import { isApiMode } from '@/api/http';
 import * as S from '@/api/journal-workday.server';
 import { request } from '@/api/request';
@@ -177,6 +178,22 @@ export function dayMoneySync(businessId: Id, date: ISODate): DayMoney {
     refundItemId: fin.itemBySystemKey[businessId]?.refund,
     adjustmentIds: new Set((fin.cashShifts ?? []).flatMap((sh) => sh.adjustmentOperationIds ?? [])),
   });
+}
+
+/**
+ * «Пульс дня» журнала (владелец 17.11.2026, DESIGN.md №18): «Получено 5 000 ֏ из 36 000» — деньги, правда полученные
+ * в этот день, как во всех отчётах с 01.10 (оплаты услуг минус возвраты, оплаченные товары; без абонементов,
+ * сертификатов, пополнений и оплат лояльностью). Мастеру без «чужих записей» — только свои.
+ */
+export function getDayReceived(businessId: Id, date: ISODate, locationIds: Id[]): Promise<number> {
+  if (isApiMode()) return S.received(businessId, date, locationIds);
+  return request(
+    () => {
+      const ids = locationIds.length ? locationIds : readCore().locations.filter((l) => l.businessId === businessId).map((l) => l.id);
+      return receivedMoneyTotalSync(businessId, ids, date, date, ownStaffSync());
+    },
+    { permission: 'journal.stats' },
+  );
 }
 
 export function getDayClose(businessId: Id, date: ISODate): Promise<DayCloseSummary> {

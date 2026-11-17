@@ -28,6 +28,8 @@ export interface ScheduleStaffCardsProps {
   onCopy: (staffId: Id) => void;
   onAddTomorrow: (staffId: Id) => void;
   onRepeatWeek: (staffId: Id) => void;
+  /** «Открыть окна до …» у мастера, чьи дни после срока заштрихованы «клиенты не видят» (17.11.2026) */
+  onOpenWindows?: (row: ScheduleRow) => void;
   totalsText: (row: ScheduleRow) => string;
   locationLabel: (id: Id | undefined) => string | undefined;
   customTypes?: NetworkOffDayType[];
@@ -93,6 +95,26 @@ export function ScheduleStaffCards(p: ScheduleStaffCardsProps) {
           );
         })}
       </div>
+      {row.cells.some((c) => c.closedForClients) && (
+        <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+          <span className="flex min-w-0 items-start gap-2">
+            <span
+              aria-hidden
+              className="mt-0.5 inline-block size-4 shrink-0 rounded-[4px] border border-border bg-[repeating-linear-gradient(135deg,transparent_0_3px,color-mix(in_srgb,var(--color-muted)_40%,transparent)_3px_5px)]"
+            />
+            <span>{t('table.closedForClientsLegend')}</span>
+          </span>
+          {p.canEdit && p.onOpenWindows && (
+            <button
+              type="button"
+              onClick={() => p.onOpenWindows?.(row)}
+              className="flex min-h-10 items-center rounded-md px-1 font-semibold text-primary-text hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+            >
+              {t('openWindows.button')}
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 

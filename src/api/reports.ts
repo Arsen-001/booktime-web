@@ -350,6 +350,17 @@ function sumMoney(items: readonly ReceivedMoney[]): number {
 }
 
 /**
+ * Полученные деньги за дни from…to — то же правило, что во всех отчётах (receivedMoneyMock): «Пульс дня» журнала
+ * («Получено 5 000 ֏ из 36 000», владелец 17.11.2026). staffId — мастеру только свои визиты и продажи.
+ * Только внутри request() соседа (синхронное чтение мок-базы).
+ */
+export function receivedMoneyTotalSync(businessId: Id, locationIds: Id[], from: ISODate, to: ISODate, staffId?: Id): number {
+  const bookingById = new Map(readCore().bookings.filter((b) => b.businessId === businessId).map((b) => [b.id, b] as const));
+  const money = receivedMoneyMock(businessId, locationIds, from, to, bookingById);
+  return sumMoney(staffId ? money.filter((m) => m.staffId === staffId) : money);
+}
+
+/**
  * Отч13 «Доля перезаписи» — одно правило для «Основных показателей» и главной владельца: из клиентов, пришедших в
  * периоде, у кого уже есть следующая запись (не отменённая, день позже последнего визита периода).
  */
