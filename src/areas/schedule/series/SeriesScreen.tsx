@@ -10,6 +10,7 @@ import { Plus, Repeat } from 'lucide-react';
 import { useCoreList } from '@/api/core';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import { extendDueSeries, listSeries } from '@/api/schedule';
+import { subscriptionWarnings } from '@/api/settings';
 import { useActorName } from '@/areas/schedule/lib/actor';
 import { NewSeriesModal } from '@/areas/schedule/series/NewSeriesModal';
 import { SeriesCard, SeriesCardSkeleton, seriesSkeletonRows } from '@/areas/schedule/series/SeriesCard';
@@ -39,13 +40,20 @@ export function SeriesScreen() {
   );
   const staffQuery = useCoreList('staff', { businessId: businessId ?? '' }, { enabled: ready && Boolean(businessId) && canOthers });
   const extend = useApiMutation(extendDueSeries);
+  // Замороженная подписка — кабинет только для просмотра: продлевать серии нельзя (сервер ответит 423, а экран показал
+  // бы «Не удалось продлить»). Тот же запрос, что у полосы «Подписка заморожена» в каркасе (общий кэш)
+  const warningsQ = useApiQuery(['shell', 'billing-warnings', businessId], () => subscriptionWarnings(businessId!), {
+    enabled: ready && Boolean(businessId),
+  });
+  const frozen = warningsQ.data?.some((w) => w.messageKey === 'billing.warning.frozen');
+  const warningsLoaded = warningsQ.data !== undefined || warningsQ.isError;
 
   // F-00-064 «продлевает их сама»: при открытии экрана добираем горизонт у серий, которые к нему подошли — одним запросом
   useEffect(() => {
-    if (!businessId || !ready) return;
+    if (!businessId || !ready || !warningsLoaded || frozen) return;
     extend.mutate(businessId).catch(() => toast.error(t('series.extendFailed')));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [businessId, ready]);
+  }, [businessId, ready, warningsLoaded, frozen]);
 
   const rules = seriesQuery.data ?? [];
   const loading = !ready || seriesQuery.isLoading;
