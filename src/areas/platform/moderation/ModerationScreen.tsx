@@ -178,7 +178,12 @@ export function ModerationScreen() {
                 <DropdownMenu
                   label={t('moderation.rejectWithReason')}
                   trigger={(p) => <IconButton {...p} icon={<X />} label={t('moderation.rejectWithReason')} variant="outline" size="sm" />}
-                  items={(reasonsQ.data ?? []).map((r) => ({ id: r.id, label: pickText(r.label, locale), onSelect: () => void decisions.reject(m.id, r.id, undefined, m.paidCoins) }))}
+                  items={
+                    reasonsQ.data?.length
+                      ? reasonsQ.data.map((r) => ({ id: r.id, label: pickText(r.label, locale), onSelect: () => void decisions.reject(m.id, r.id, undefined, m.paidCoins) }))
+                      : // Причин нет — не тупик «Пока пусто»: ведём в справочник причин (хвосты 17.11)
+                        [{ id: 'reasons', label: t('moderation.reasonsTitle'), onSelect: () => setReasonsOpen(true) }]
+                  }
                 />
                 <IconButton icon={<Check />} label={t('moderation.approve')} variant="primary" size="sm" onClick={() => void decisions.approve(m.id)} />
               </span>

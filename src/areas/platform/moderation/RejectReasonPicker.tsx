@@ -29,6 +29,9 @@ export function RejectReasonPicker({ reasonId, note, paidCoins, showError, onRea
       <FormField label={t('moderation.reasonLabel')} required error={showError && !reasonId ? t('moderation.reasonRequired') : undefined}>
         {q.isLoading ? (
           <Skeleton lines={2} />
+        ) : !q.data?.length ? (
+          // Справочник причин пуст — подсказываем, где их завести (без причины отказ не отправить), хвосты 17.11
+          <p className="text-sm text-muted">{t('moderation.reasonsEmpty')}</p>
         ) : (
           // Длинные причины — карточками в столбик (одно касание, текст переносится), а не чипами в строку
           <ChoiceGroup value={reasonId} onValueChange={onReasonChange} options={(q.data ?? []).map((r) => ({ value: r.id, title: pickText(r.label, locale) }))} />
