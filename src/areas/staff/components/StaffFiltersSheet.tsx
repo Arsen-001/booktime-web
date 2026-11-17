@@ -8,6 +8,9 @@ import { Button } from "@/ui/Button";
 import { FormField } from "@/ui/FormField";
 import { Select } from "@/ui/Select";
 import { Sheet } from "@/ui/Sheet";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export interface StaffFiltersSheetProps {
   open: boolean;
@@ -25,6 +28,7 @@ export function StaffFiltersSheet({
   positions,
 }: StaffFiltersSheetProps) {
   const t = useT("staff");
+  const locale = useLocale();
   return (
     <Sheet
       open={open}
@@ -70,7 +74,7 @@ export function StaffFiltersSheet({
             }
             options={[
               { value: "", label: t("filters.positionAll") },
-              ...positions.map((p) => ({ value: p.name.ru, label: p.name.ru })),
+              ...positions.map((p) => ({ value: p.name.ru, label: pickText(p.name, locale as LocaleCode) })),
             ]}
           />
         </FormField>

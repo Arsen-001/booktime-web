@@ -12,6 +12,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import type { LocaleCode } from "@/domain/core";
+import { pickText } from "@/lib/text";
 import { BadgeCheck, ListPlus, Plus, SlidersHorizontal, UserPlus, Users } from "lucide-react";
 import {
   applyDueDismissals,
@@ -171,7 +173,9 @@ export function StaffListScreen() {
     const ib = catalog.indexOf(b);
     return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || a.localeCompare(b, locale);
   });
-  const groups: StaffGroup[] = groupKeys.map((key) => ({ key: key || "—", label: key || noPosition, ids: groupMap.get(key) ?? [] }));
+  // Ключ группы — русское название (так должность хранится у сотрудника), подпись — на языке кабинета
+  const positionName = (ru: string) => pickText((positionsQ.data ?? []).find((p) => p.name.ru === ru)?.name, locale as LocaleCode) || ru;
+  const groups: StaffGroup[] = groupKeys.map((key) => ({ key: key || "—", label: key ? positionName(key) : noPosition, ids: groupMap.get(key) ?? [] }));
 
   const businessName = businessQ.data?.name ?? "";
   const open = (row: StaffListRow) => {

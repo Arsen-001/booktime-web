@@ -30,9 +30,13 @@ import { Reveal } from "@/ui/Reveal";
 import { SkeletonText } from "@/ui/Skeleton";
 import { useSkeletonCount } from "@/ui/hooks/useSkeletonCount";
 import { useConfirm, useToast } from "@/ui/Toast";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export function PositionsScreen() {
   const t = useT("staff");
+  const locale = useLocale();
   const toast = useToast();
   const confirm = useConfirm();
   const { ready, businessId } = useCurrent();
@@ -149,7 +153,7 @@ export function PositionsScreen() {
                     className="flex min-h-11 min-w-0 flex-1 flex-col items-start rounded-md text-left focus-visible:outline-2 focus-visible:outline-focus disabled:cursor-default"
                     onClick={() => openEdit(p)}
                   >
-                    <span className="font-medium text-fg">{p.name.ru}</span>
+                    <span className="font-medium text-fg">{pickText(p.name, locale as LocaleCode)}</span>
                     {p.description && (
                       <span className="truncate text-xs text-muted">
                         {p.description}

@@ -25,9 +25,12 @@ import { ErrorState } from "@/ui/ErrorState";
 import { PageHeader } from "@/ui/PageHeader";
 import { SectionCard } from "@/ui/SectionCard";
 import { Skeleton } from "@/ui/Skeleton";
+import { useLocale } from "next-intl";
+import type { LocaleCode } from "@/domain/core";
 
 export function LicenseScreen() {
   const t = useT("staff");
+  const locale = useLocale();
   const format = useFormat();
   const router = useRouter();
   const { ready, businessId } = useCurrent();
@@ -121,7 +124,7 @@ export function LicenseScreen() {
                 key={r.staff.id}
                 name={r.staff.name}
                 avatarUrl={r.staff.avatarUrl}
-                position={pickText(r.staff.position, "ru") || r.positionLabel}
+                position={pickText(r.staff.position, locale as LocaleCode) || r.positionLabel}
                 lastLogin={lastLoginByStaff.get(r.staff.id)}
                 price={r.seat.price}
                 onOpen={() => router.push(`/biz/staff?staff=${r.staff.id}`)}
@@ -146,7 +149,7 @@ export function LicenseScreen() {
                 key={r.staff.id}
                 name={r.staff.name}
                 avatarUrl={r.staff.avatarUrl}
-                position={pickText(r.staff.position, "ru") || r.positionLabel}
+                position={pickText(r.staff.position, locale as LocaleCode) || r.positionLabel}
                 lastLogin={lastLoginByStaff.get(r.staff.id)}
                 price={0}
                 onOpen={() => router.push(`/biz/staff?staff=${r.staff.id}`)}

@@ -16,9 +16,13 @@ import { Badge } from "@/ui/Badge";
 import { Button } from "@/ui/Button";
 import { PageHeader } from "@/ui/PageHeader";
 import { Skeleton, SkeletonText } from "@/ui/Skeleton";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export function StaffCardHeader({ card, onSetup }: { card: StaffCardData | undefined; onSetup: () => void }) {
   const t = useT("staff");
+  const locale = useLocale();
   const fmt = useFormat();
   const back = { href: "/biz/staff", label: t("cardView.back") };
   if (!card)
@@ -44,7 +48,7 @@ export function StaffCardHeader({ card, onSetup }: { card: StaffCardData | undef
       />
     );
   const { staff } = card;
-  const position = staff.position?.ru || staff.specialty?.ru || t(`role.${staff.role}` as never);
+  const position = pickText(staff.position, locale as LocaleCode) || pickText(staff.specialty, locale as LocaleCode) || t(`role.${staff.role}` as never);
   const needsServices = staff.role === "master" && !staff.assistantOnly && staff.serviceIds.length === 0;
   const needsSchedule = staff.role === "master" && !staff.assistantOnly && card.scheduleUntil === null;
   const dismissal = card.dismissal;

@@ -44,6 +44,9 @@ import { uploadErrorKey, useImageUploader } from "@/ui/useImageUploader";
 import { Textarea } from "@/ui/Textarea";
 import { Skeleton, SkeletonText } from "@/ui/Skeleton";
 import { useToast } from "@/ui/Toast";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export interface StaffInfoTabProps {
   staff: Staff;
@@ -193,6 +196,7 @@ const infoOptimistic = [
 
 function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessName: string; canEdit: boolean }) {
   const t = useT("staff");
+  const locale = useLocale();
   const toast = useToast();
   const formId = useId();
   const base = draftOf(staff);
@@ -250,7 +254,7 @@ function InfoSection({ staff, businessName, canEdit }: { staff: Staff; businessN
     }
   });
 
-  const positionOptions: ComboboxOption[] = (positionsQ.data ?? []).map((p) => ({ value: p.name.ru, label: p.name.ru }));
+  const positionOptions: ComboboxOption[] = (positionsQ.data ?? []).map((p) => ({ value: p.name.ru, label: pickText(p.name, locale as LocaleCode) }));
   const isSalon = staff.workplaces.includes("salon");
   const canOfferHome = staff.role === "master" && isSalon;
 

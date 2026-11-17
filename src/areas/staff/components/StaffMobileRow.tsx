@@ -6,6 +6,9 @@ import { useT } from "@/i18n/useT";
 import { useFormat } from "@/i18n/useFormat";
 import { Avatar } from "@/ui/Avatar";
 import { Badge } from "@/ui/Badge";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export interface StaffMobileRowProps {
   row: StaffListRow;
@@ -13,6 +16,7 @@ export interface StaffMobileRowProps {
 
 export function StaffMobileRow({ row }: StaffMobileRowProps) {
   const t = useT("staff");
+  const locale = useLocale();
   const fmt = useFormat();
   const { staff, seat, positionLabel } = row;
   return (
@@ -29,7 +33,7 @@ export function StaffMobileRow({ row }: StaffMobileRowProps) {
             {staff.name}
           </span>
           <span className="shrink-0 text-sm text-muted">
-            {positionLabel || t("table.noPosition")}
+            {pickText(staff.position, locale as LocaleCode) || positionLabel || t("table.noPosition")}
           </span>
         </div>
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-2 gap-y-1">

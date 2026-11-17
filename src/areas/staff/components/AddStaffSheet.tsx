@@ -37,6 +37,9 @@ import { Select } from "@/ui/Select";
 import { Sheet } from "@/ui/Sheet";
 import { Switch } from "@/ui/Switch";
 import { useConfirm, useToast } from "@/ui/Toast";
+import { useLocale } from "next-intl";
+import { pickText } from "@/lib/text";
+import type { LocaleCode } from "@/domain/core";
 
 export interface AddStaffSheetProps {
   open: boolean;
@@ -85,6 +88,7 @@ export function AddStaffSheet({
   onCreated,
 }: AddStaffSheetProps) {
   const t = useT("staff");
+  const locale = useLocale();
   const hidePurchases = useHideDigitalPurchases();
   const toast = useToast();
   const confirm = useConfirm();
@@ -317,7 +321,7 @@ export function AddStaffSheet({
                 { value: "", label: t("addStaffForm.positionNone") },
                 ...positions.map((p) => ({
                   value: p.name.ru,
-                  label: p.name.ru,
+                  label: pickText(p.name, locale as LocaleCode),
                 })),
               ]}
               value={

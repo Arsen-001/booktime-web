@@ -21,7 +21,7 @@ const RECONCILIATION_ROWS = [
   { reportKey: 'mainTotalShort', period: '26.08–24.09', amount: '4 130 ֏' },
   { reportKey: 'mainTotalLong', period: '01.09–31.10', amount: '4 340 ֏' },
   { reportKey: 'financeReport', period: '17–24.09', amount: '4 234 ֏' },
-  { reportKey: 'pnl', period: 'Сен’26', amount: '4 234 ֏' },
+  { reportKey: 'pnl', period: '09.2026', amount: '4 234 ֏' },
   { reportKey: 'byStaff', period: '24.08–24.09', amount: '4 134 ֏' },
   { reportKey: 'byClients', period: '24.08–24.09', amount: '4 134 ֏' },
   { reportKey: 'byServices', period: '01.09–31.10', amount: '944.6 ֏' },
