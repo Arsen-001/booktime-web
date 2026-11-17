@@ -10,7 +10,7 @@
  */
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { useApiIdentity } from '@/api/identity';
+import { useApiIdentity, useFrozenBusiness } from '@/api/identity';
 import { dataMode } from '@/api/mode';
 import { PERSONA_PERMISSIONS, type Permission } from '@/config/permissions';
 import { SPHERES, type SphereFeature } from '@/config/spheres';
@@ -70,17 +70,55 @@ export function useCurrent(): CurrentContext {
   }, [ctxJson, selected, dbReady, identityResolved, apiBusinessId, mirrored]);
 }
 
-export function usePermissions(): ReadonlySet<Permission> {
+/**
+ * Права изменений, которые снимает заморозка подписки (кабинет «только просмотр», сервер отвечает 423): только те,
+ * что закрывают кнопки и формы, а не целые разделы меню (loyalty.manage, notify.*, payroll.manage, staff.manage
+ * открывают и сами страницы — там остаётся подпись полосы заморозки и понятный ответ сервера). journal.edit не
+ * снимаем: «Пришёл / Не пришёл» в заморозке можно (06 §3.4) — остальное в окне записи закрывает useWindowRights.
+ */
+const FROZEN_BLOCKED: ReadonlySet<Permission> = new Set<Permission>([
+  'journal.create',
+  'journal.reschedule',
+  'clients.edit',
+  'clients.delete',
+  'schedule.edit',
+  'services.edit',
+  'stock.edit',
+  'finance.edit',
+  'loyalty.applyWithoutCode',
+  'network.addLocation',
+]);
+
+/** Кабинет только для просмотра: подписка текущего бизнеса заморожена */
+export function useReadOnly(): boolean {
+  const { businessId } = useCurrent();
+  return useFrozenBusiness((s) => Boolean(businessId) && s.businessId === businessId);
+}
+
+function useBasePermissions(): readonly Permission[] {
   const { persona } = useDemo();
   const { staffId } = useCurrent();
   const override = useDb((s) => (staffId ? s.access.staffPermissions[staffId] : undefined));
   // Живой сайт: права считает сервер (шаблон роли + галочки владельца, docs/backend/03 §2)
   const serverPermissions = useApiIdentity((s) => s.identity?.permissions);
-  return useMemo(() => {
-    if (serverPermissions && persona !== 'client' && persona !== 'guest' && persona !== 'platform') return new Set(serverPermissions);
-    const list = persona === 'admin' && override ? override : PERSONA_PERMISSIONS[persona];
-    return new Set(list);
-  }, [persona, override, serverPermissions]);
+  if (serverPermissions && persona !== 'client' && persona !== 'guest' && persona !== 'platform') return serverPermissions;
+  return persona === 'admin' && override ? override : PERSONA_PERMISSIONS[persona];
+}
+
+export function usePermissions(): ReadonlySet<Permission> {
+  const base = useBasePermissions();
+  const frozen = useReadOnly();
+  return useMemo(() => new Set(frozen ? base.filter((p) => !FROZEN_BLOCKED.has(p)) : base), [base, frozen]);
+}
+
+/**
+ * Право есть, но заморозка его сняла: такую кнопку показываем неактивной с подписью «только просмотр»
+ * (журнал: «Записать»), а не прячем — человек видит, почему не может.
+ */
+export function useBlockedByFreeze(permission: Permission): boolean {
+  const base = useBasePermissions();
+  const frozen = useReadOnly();
+  return frozen && FROZEN_BLOCKED.has(permission) && base.includes(permission);
 }
 
 export function useCan(permission: Permission): boolean {

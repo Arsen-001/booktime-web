@@ -63,7 +63,8 @@ import { getClientRow } from '@/api/clients/card';
 import { cancelVisitPayments } from '@/api/loyalty';
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { listUpsellConfigs } from '@/api/services-upsell';
-import { useCurrent } from '@/demo/hooks';
+import { useCurrent, useReadOnly } from '@/demo/hooks';
+import { Tooltip } from '@/ui/Tooltip';
 import { useExtensions } from '@/extensions/useExtensions';
 import { ExtensionSlot } from '@/extensions/ExtensionSlot';
 import { useSaveSteps } from '@/extensions/saveHooks';
@@ -189,6 +190,8 @@ export function BookingWindow({
   }, []);
   const router = useRouter();
   const tc = useT('common');
+  // Подписка заморожена — окно только для просмотра: «Сохранить» неактивна с подписью почему
+  const readOnly = useReadOnly();
   const format = useFormat({ hourCycle: useJournalHourFormat() });
   const tDyn = useTDynamic();
   const locale = useLocale();
@@ -2070,9 +2073,17 @@ export function BookingWindow({
           <Button type="button" variant="outline" onClick={cancelWindow}>
             {tc('actions.cancel')}
           </Button>
-          <Button type="button" data-f="F-01-116 F-16-128" loading={saving} disabled={isEdit ? !touched || !canEditNow : !canEditNow} onClick={handleSave}>
-            {saveLabel}
-          </Button>
+          {readOnly ? (
+            <Tooltip content={tc('frozen.readOnly')}>
+              <Button type="button" data-f="F-01-116 F-16-128" disabled>
+                {saveLabel}
+              </Button>
+            </Tooltip>
+          ) : (
+            <Button type="button" data-f="F-01-116 F-16-128" loading={saving} disabled={isEdit ? !touched || !canEditNow : !canEditNow} onClick={handleSave}>
+              {saveLabel}
+            </Button>
+          )}
         </div>
       }
     >

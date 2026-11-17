@@ -45,3 +45,16 @@ export function setApiIdentity(identity: ApiIdentity | null): void {
   if (prev.resolved && JSON.stringify(prev.identity) === JSON.stringify(identity)) return;
   useApiIdentity.setState({ identity, resolved: true });
 }
+
+/**
+ * Подписка бизнеса заморожена (В-02, сервер отвечает 423 `frozen` на любую запись, кроме оплаты, настроек и статуса
+ * записи): кабинет «только просмотр». Ставит FrozenBanner каркаса по /billing/warnings (один запрос на кабинет);
+ * читают usePermissions (снимает права изменений) и экраны, которым нужна подпись «почему неактивно» (useReadOnly).
+ */
+export const useFrozenBusiness = create<{ businessId: Id | null }>(() => ({ businessId: null }));
+
+export function setFrozenBusiness(businessId: Id, frozen: boolean): void {
+  const cur = useFrozenBusiness.getState().businessId;
+  if (frozen && cur !== businessId) useFrozenBusiness.setState({ businessId });
+  if (!frozen && cur === businessId) useFrozenBusiness.setState({ businessId: null });
+}

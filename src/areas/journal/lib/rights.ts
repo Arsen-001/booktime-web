@@ -13,7 +13,7 @@ import {
   getStaffWindowRights,
 } from "@/api/journal";
 import { useApiQuery } from "@/api/request";
-import { useCan, useCurrent, useDemo } from "@/demo/hooks";
+import { useCan, useCurrent, useDemo, useReadOnly } from "@/demo/hooks";
 import type { Booking } from "@/domain/core";
 import { today } from "@/lib/date";
 import {
@@ -93,6 +93,7 @@ export function useWindowRights(): UseWindowRightsResult {
   const canFinanceCoarse = useCan("finance.edit");
   const canStockCoarse = useCan("stock.edit");
   const canLoyaltyCoarse = useCan("loyalty.manage");
+  const frozen = useReadOnly();
 
   const isOverridable = persona === "admin" || persona === "master";
   const q = useApiQuery(
@@ -137,6 +138,12 @@ export function useWindowRights(): UseWindowRightsResult {
     merged.editGoodsDiscount = false;
   }
   if (!canLoyaltyCoarse) merged.takePaymentFromClientAccount = false;
+  // Подписка заморожена — «только просмотр»: окно записи без правок (сервер ответил бы 423). «Пришёл» у сохранённой
+  // записи отмечается сразу своим запросом статуса — его сервер в заморозке принимает (06 §3.4)
+  if (frozen) {
+    const VIEW: (keyof WindowRights)[] = ["clientAccess", "clientDropdown", "showPhones", "clientAccessNetwork", "viewCustomFields"];
+    for (const key of Object.keys(merged) as (keyof WindowRights)[]) if (!VIEW.includes(key)) merged[key] = false;
+  }
 
   return {
     ...merged,

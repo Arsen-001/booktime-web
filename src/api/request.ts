@@ -28,6 +28,7 @@ import {
 } from '@tanstack/react-query';
 import { useCallback, useSyncExternalStore } from 'react';
 import { useDemoStore } from '@/demo/store';
+import { toast } from '@/ui/Toast';
 import type { Id } from '@/domain/core';
 import type { Permission } from '@/config/permissions';
 import {
@@ -674,13 +675,31 @@ function keyFor<A>(key: KeyOf<A>, args: A): readonly unknown[] {
   return typeof key === 'function' ? key(args) : key;
 }
 
+/**
+ * Подписка заморожена — сервер отвечает 423 `frozen` на запись (кабинет «только просмотр»). Экран сам показал бы
+ * «Не получилось. Попробуйте ещё раз» — вместо этого один понятный тост с текстом сервера (на языке человека).
+ * Кнопки изменений в заморозке и так неактивны (usePermissions, useReadOnly) — это запасной путь для остального.
+ */
+function notifyFrozen(e: unknown): void {
+  if (!(e instanceof ApiError) || e.code !== 'frozen') return;
+  toast.error(e.message && e.message !== 'frozen' ? e.message : 'Subscription is frozen: view-only');
+  toast.suppressErrors();
+}
+
 export function useApiMutation<A, R>(fn: (args: A) => Promise<R>, options?: MutationOptions<A>): MutationResult<A, R> {
   const client = getQueryClient();
   const list = options?.optimistic ? (Array.isArray(options.optimistic) ? options.optimistic : [options.optimistic]) : [];
   const invalidates = options?.invalidates;
   const m = useMutation<R, unknown, A, MutationContext | undefined>(
     {
-      mutationFn: (args) => withCtx(MUTATION_CTX, () => fn(args)),
+      mutationFn: async (args) => {
+        try {
+          return await withCtx(MUTATION_CTX, () => fn(args));
+        } catch (e) {
+          notifyFrozen(e);
+          throw e;
+        }
+      },
       onMutate: async (args) => {
         if (!list.length) return undefined;
         const snapshots: [QueryKey, unknown][] = [];

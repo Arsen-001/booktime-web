@@ -15,5 +15,21 @@ export function useStockPermissions(): StockStaffPermissions {
   const edit = useCan('stock.edit');
   const view = useCan('stock.view');
   const q = useApiQuery(['stock', 'permissions', businessId, staffId], () => getStockPermissions(businessId!, staffId!), { enabled: Boolean(businessId) && Boolean(staffId) });
-  return q.data ?? defaultStockPermissions({ edit, view });
+  const fine = q.data ?? defaultStockPermissions({ edit, view });
+  // Грубое право строже тонких (нет stock.edit — например, подписка заморожена, кабинет «только просмотр»):
+  // приход, списание, перемещение, инвентаризация и товары закрыты, просмотр остаётся
+  if (edit || !q.data) return fine;
+  return {
+    ...fine,
+    canCreateOps: false,
+    canEditOps: false,
+    canDeleteOps: false,
+    canMoveOps: false,
+    inventoryCreate: false,
+    inventoryEdit: false,
+    inventoryDelete: false,
+    manageGoods: false,
+    bookingWindowEdit: false,
+    techCardEdit: false,
+  };
 }

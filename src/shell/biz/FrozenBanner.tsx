@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { Lock } from 'lucide-react';
+import { setFrozenBusiness } from '@/api/identity';
 import { useApiQuery } from '@/api/request';
 import { subscriptionWarnings } from '@/api/settings';
 import { useCan, useCurrent } from '@/demo/hooks';
@@ -23,6 +25,10 @@ export function FrozenBanner() {
     enabled: ready && Boolean(businessId),
   });
   const frozen = q.data?.some((w) => w.messageKey === 'billing.warning.frozen');
+  // Кабинет «только просмотр» для всех экранов (usePermissions, useReadOnly): кнопки изменений неактивны или скрыты
+  useEffect(() => {
+    if (businessId && q.data) setFrozenBusiness(businessId, Boolean(frozen));
+  }, [businessId, q.data, frozen]);
   if (!frozen) return null;
   const owner = canBilling && !hidePurchases;
   return (

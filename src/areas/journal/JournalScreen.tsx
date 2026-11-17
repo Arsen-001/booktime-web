@@ -36,7 +36,7 @@ import {
 import { prefetchApiQuery, useApiMutation, useApiQuery } from '@/api/request';
 import { useFormat } from '@/i18n/useFormat';
 import { useJournalHourFormat } from '@/areas/journal/lib/useJournalHourFormat';
-import { useCan, useCurrent, useSphere } from '@/demo/hooks';
+import { useBlockedByFreeze, useCan, useCurrent, useSphere } from '@/demo/hooks';
 import { useDenseScreen, requestShellDrawerOpen } from '@/shell/workspace/useDenseScreen';
 import { LocationSwitcher } from '@/shell/biz/LocationSwitcher';
 import { startNavPending } from '@/ui/navigation/navPending';
@@ -137,6 +137,9 @@ export function JournalScreen() {
   );
   const canSeeOthers = useCan('journal.others');
   const canCreate = useCan('journal.create');
+  // Подписка заморожена: «Записать» видна, но неактивна с подписью — сервер не примет запись (423 frozen)
+  const createFrozen = useBlockedByFreeze('journal.create');
+  const tCommon = useT('common');
   const { has: sphereHas } = useSphere();
   // F-01-115: право «Перенос записи» в СЕТКЕ разделено от прав окна (WindowRights.changeStaffAndTime)
   const journalRights = useJournalBlockRights();
@@ -882,7 +885,13 @@ export function JournalScreen() {
       loading={loading}
     />
   );
-  const newBookingButton =
+  const newBookingButton = createFrozen ? (
+    <Tooltip content={tCommon('frozen.readOnly')}>
+      <Button data-f="F-01-184" leftIcon={<Plus aria-hidden />} disabled>
+        <span className="md:max-xl:sr-only">{t('newBooking')}</span>
+      </Button>
+    </Tooltip>
+  ) : (
     canCreate &&
     // qa/measure/journal/empty-d1.md #1: в пустом бизнесе (нет услуг или графика) кнопка неактивна с подсказкой почему
     (canCreateBooking || loading ? (
@@ -901,7 +910,8 @@ export function JournalScreen() {
           {t('newBooking')}
         </Button>
       </Tooltip>
-    ));
+    ))
+  );
 
   // BookTime («Живой день») на телефоне: вместо сетки на 2 колонки — день одного мастера списком (LiveAgenda)
   const phoneAgenda = isMobile && journalStyle === 'live' && view === 'day' && dayLayout === 'columns';
@@ -1185,8 +1195,8 @@ export function JournalScreen() {
             onHiddenStaffChange={setHiddenStaffIds}
             weekStaffId={weekStaff?.id ?? ''}
             onWeekStaffChange={setWeekStaffId}
-            onCreate={canCreate ? () => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter(staffWithSchedule[0]?.id)) : undefined}
-            createDisabledReason={!canCreateBooking && !loading ? newBookingDisabledReason : undefined}
+            onCreate={canCreate || createFrozen ? () => startCreate(staffWithSchedule[0]?.id ?? '', nextQuarter(staffWithSchedule[0]?.id)) : undefined}
+            createDisabledReason={createFrozen ? tCommon('frozen.readOnly') : !canCreateBooking && !loading ? newBookingDisabledReason : undefined}
             createLoading={loading}
           />
         )}

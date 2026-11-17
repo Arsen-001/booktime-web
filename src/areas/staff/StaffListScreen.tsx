@@ -50,7 +50,7 @@ import {
   type StaffGroupTab,
   type StaffListFilters,
 } from "@/domain/staff";
-import { useCan, useCurrent } from "@/demo/hooks";
+import { useCan, useCurrent, useReadOnly } from "@/demo/hooks";
 import { useFormat } from "@/i18n/useFormat";
 import { useT } from "@/i18n/useT";
 import { cn } from "@/lib/cn";
@@ -94,7 +94,9 @@ export function StaffListScreen() {
   const router = useRouter();
   const locale = useLocale();
   const { ready, businessId, activeLocationIds } = useCurrent();
-  const canManage = useCan("staff.manage");
+  // Подписка заморожена — список только для просмотра: «Добавить», увольнение и правки неактивны (сервер ответит 423)
+  const readOnly = useReadOnly();
+  const canManage = useCan("staff.manage") && !readOnly;
   const canView = useCan("staff.view");
 
   const [tab, setTab] = useState<StaffGroupTab>("team");

@@ -245,17 +245,17 @@ export function StockCatalogScreen() {
               tree={tree}
               selectedId={categoryId}
               onSelect={setCategoryId}
-              onEdit={(node) => {
+              onEdit={perm.manageGoods ? (node) => {
                 setEditingCategory(node);
                 setFormSeq((n) => n + 1);
                 setModalOpen(true);
-              }}
-              onAddChild={(parentId) => {
+              } : undefined}
+              onAddChild={perm.manageGoods ? (parentId) => {
                 setEditingCategory(undefined);
                 setNewCategoryParent(parentId);
                 setFormSeq((n) => n + 1);
                 setModalOpen(true);
-              }}
+              } : undefined}
               allGoodsCount={totalGoodsInLocation}
             />
           )}
@@ -350,17 +350,17 @@ export function StockCatalogScreen() {
           tree={tree}
           selectedId={categoryId}
           onSelect={(id) => { setCategoryId(id); setTreeOpen(false); }}
-          onEdit={(node) => {
+          onEdit={perm.manageGoods ? (node) => {
             setEditingCategory(node);
             setFormSeq((n) => n + 1);
             setModalOpen(true);
-          }}
-          onAddChild={(parentId) => {
+          } : undefined}
+          onAddChild={perm.manageGoods ? (parentId) => {
             setEditingCategory(undefined);
             setNewCategoryParent(parentId);
             setFormSeq((n) => n + 1);
             setModalOpen(true);
-          }}
+          } : undefined}
           allGoodsCount={totalGoodsInLocation}
         />
       </Sheet>

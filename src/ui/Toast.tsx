@@ -53,8 +53,11 @@ interface UiRootStore {
 const useUiRoot = create<UiRootStore>(() => ({ toasts: [], confirm: null, closing: false, queued: null }));
 
 let counter = 0;
+/** До этого времени общие тосты ошибок не показываются: причина уже показана своим тостом (suppressErrors) */
+let errorsMutedUntil = 0;
 
 function show(options: ToastOptions): string {
+  if (options.tone === 'error' && Date.now() < errorsMutedUntil) return '';
   counter += 1;
   const id = `toast-${counter}`;
   const tone = options.tone ?? 'info';
@@ -82,6 +85,13 @@ export const toast = {
   error: (title: ReactNode, opts?: ShortOptions) => show({ ...opts, title, tone: 'error' }),
   info: (title: ReactNode, opts?: ShortOptions) => show({ ...opts, title, tone: 'info' }),
   warning: (title: ReactNode, opts?: ShortOptions) => show({ ...opts, title, tone: 'warning' }),
+  /**
+   * Причина ошибки уже показана (например, «Подписка заморожена» из useApiMutation) — общий тост экрана
+   * «Не получилось» в ближайшие ms не показывать, чтобы не было двух тостов про одно.
+   */
+  suppressErrors: (ms = 1500) => {
+    errorsMutedUntil = Date.now() + ms;
+  },
 };
 
 /**

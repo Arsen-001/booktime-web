@@ -20,9 +20,10 @@ function Row({
   depth: number;
   selectedId: string;
   onSelect: (id: string) => void;
-  onEdit: (node: CategoryNode) => void;
-  onAddChild: (parentId: string) => void;
+  onEdit?: (node: CategoryNode) => void;
+  onAddChild?: (parentId: string) => void;
 }) {
+  const t = useT('stock');
   const active = selectedId === node.id;
   return (
     <div>
@@ -37,15 +38,20 @@ function Row({
           {node.name}
           {node.goodsCount > 0 && <span className="ml-1.5 text-xs text-muted">({node.goodsCount})</span>}
         </button>
-        <IconButton
-          icon={<Plus aria-hidden />}
-          size="sm"
-          variant="ghost"
-          label={`Добавить категорию в «${node.name}»`}
-          onClick={() => onAddChild(node.id)}
-          className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
-        />
-        <IconButton icon={<Pencil aria-hidden />} size="sm" variant="ghost" label={`Изменить «${node.name}»`} onClick={() => onEdit(node)} className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100" />
+        {/* Без права «Товары» (или подписка заморожена) — только выбор категории, без «+» и «Изменить» */}
+        {onAddChild && (
+          <IconButton
+            icon={<Plus aria-hidden />}
+            size="sm"
+            variant="ghost"
+            label={t('catalog.addCategoryIn', { name: node.name })}
+            onClick={() => onAddChild(node.id)}
+            className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+          />
+        )}
+        {onEdit && (
+          <IconButton icon={<Pencil aria-hidden />} size="sm" variant="ghost" label={t('catalog.editCategoryNamed', { name: node.name })} onClick={() => onEdit(node)} className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100" />
+        )}
       </div>
       {node.children.map((child) => (
         <Row key={child.id} node={child} depth={depth + 1} selectedId={selectedId} onSelect={onSelect} onEdit={onEdit} onAddChild={onAddChild} />
@@ -65,8 +71,8 @@ export function CategoryTree({
   tree: CategoryNode[];
   selectedId: string;
   onSelect: (id: string) => void;
-  onEdit: (node: CategoryNode) => void;
-  onAddChild: (parentId?: string) => void;
+  onEdit?: (node: CategoryNode) => void;
+  onAddChild?: (parentId?: string) => void;
   allGoodsCount: number;
 }) {
   const t = useT('stock');
@@ -86,14 +92,16 @@ export function CategoryTree({
       {tree.map((node) => (
         <Row key={node.id} node={node} depth={0} selectedId={selectedId} onSelect={onSelect} onEdit={onEdit} onAddChild={onAddChild} />
       ))}
-      <button
-        type="button"
-        onClick={() => onAddChild(undefined)}
-        className="mt-2 flex min-h-10 items-center gap-1.5 rounded-lg px-2 text-left text-sm text-primary-text hover:bg-primary-soft"
-      >
-        <Plus aria-hidden className="size-4" />
-        {t('catalog.addCategory')}
-      </button>
+      {onAddChild && (
+        <button
+          type="button"
+          onClick={() => onAddChild(undefined)}
+          className="mt-2 flex min-h-10 items-center gap-1.5 rounded-lg px-2 text-left text-sm text-primary-text hover:bg-primary-soft"
+        >
+          <Plus aria-hidden className="size-4" />
+          {t('catalog.addCategory')}
+        </button>
+      )}
     </div>
   );
 }
