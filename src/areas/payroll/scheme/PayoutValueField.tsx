@@ -49,6 +49,8 @@ export function PayoutValueField({ label, hint, value, onValueChange, amountAllo
           invalid={!check.valid}
           onChange={(e) => onValueChange({ ...value, value: e.target.value === '' ? Number.NaN : Number(e.target.value) })}
           className="min-w-[120px] flex-1"
+          // Подпись FormField достаётся обёртке ряда (число и единица), а не полю — имя для диктора экрана по ней же
+          aria-label={typeof label === 'string' ? label : undefined}
         />
         <SegmentedControl
           size="sm"

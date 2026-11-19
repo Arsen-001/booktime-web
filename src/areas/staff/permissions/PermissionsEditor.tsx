@@ -66,6 +66,7 @@ import { Skeleton } from "@/ui/Skeleton";
 import { TagInput } from "@/ui/TagInput";
 import { Timeline } from "@/ui/Timeline";
 import { useToast } from "@/ui/Toast";
+import { useIsMobile } from "@/ui/hooks/useMediaQuery";
 
 export interface PermissionsEditorProps {
   staffId: Id;
@@ -90,6 +91,9 @@ function highlight(text: string, query: string) {
   );
 }
 
+/** Подпись сегмента «Кто может менять права», которой разрешён перенос строки (на телефоне сегменты поровну) */
+const WRAP_SEGMENT = "whitespace-normal py-1.5 text-center leading-snug";
+
 export function PermissionsEditor({
   staffId,
   businessId,
@@ -100,6 +104,7 @@ export function PermissionsEditor({
   const t = useT("staff");
   const toast = useToast();
   const sphere = useSphere();
+  const isMobile = useIsMobile();
   const canManageOthersRights = useCan("staff.manage"); // F-10-075: «в пределах своего набора» — упрощённо: полное право staff.manage
 
   const rightsQ = useApiQuery(["staff", "rights", staffId], () =>
@@ -560,9 +565,12 @@ export function PermissionsEditor({
               value={(scopes.__manageScope__?.target ?? "all") === "selected" ? "own" : "all"}
               onValueChange={(v) => setScope("__manageScope__", { target: v === "own" ? "selected" : "all" })}
               aria-label={t("permissions.whoCanManageTitle")}
+              // Телефон (360–411 px): оба варианта видны сразу — сегменты поровну на всю ширину, длинная подпись
+              // переносится внутри сегмента, а не прячется за прокруткой ряда. Компьютер — как раньше, по ширине подписей
+              fullWidth={isMobile}
               options={[
-                { value: "all", label: t("permissions.whoCanManageAll") },
-                { value: "own", label: t("permissions.whoCanManageOwn") },
+                { value: "all", label: <span className={WRAP_SEGMENT}>{t("permissions.whoCanManageAll")}</span> },
+                { value: "own", label: <span className={WRAP_SEGMENT}>{t("permissions.whoCanManageOwn")}</span> },
               ]}
             />
             <p className="text-sm text-muted">{t("permissions.whoCanManageHint")}</p>
