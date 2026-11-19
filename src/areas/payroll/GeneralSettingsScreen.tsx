@@ -40,6 +40,7 @@ import { Checkbox } from "@/ui/Checkbox";
 import { ChoiceGroup } from "@/ui/ChoiceGroup";
 import { EmptyState } from "@/ui/EmptyState";
 import { ErrorState } from "@/ui/ErrorState";
+import { FormField } from "@/ui/FormField";
 import { Input } from "@/ui/Input";
 import { PageHeader } from "@/ui/PageHeader";
 import { SectionCard } from "@/ui/SectionCard";
@@ -361,6 +362,7 @@ export function GeneralSettingsScreen() {
                   onValueChange={(v) =>
                     setDraft({ ...d, payrollModel: v as PayrollModel })
                   }
+                  aria-label={t("settings.model.title")}
                   options={[
                     {
                       value: "simplified",
@@ -483,6 +485,13 @@ export function GeneralSettingsScreen() {
  * Зарплата-ревью З14/М2: одно правило со всей страницей — правки копятся в черновике и сохраняются кнопкой
  * одним запросом; кэш прав правится на месте (optimistic), список не перечитывается и не мигает.
  */
+/**
+ * Подпись списков «Доступ к расчёту / к начислению» — вид как у полей «Фонд оплаты труда» на этой странице. FormField,
+ * а не обёртка <label>: внутри Select первым лежит скрытый системный select, и обёртка называла его, а не кнопку —
+ * у списка не было имени для диктора экрана (хвосты 17.11)
+ */
+const ACCESS_LABEL = "font-normal text-muted";
+
 interface AccessRightsSectionProps {
   pending: Record<string, PayrollStaffRights>;
   onPendingChange: (staffId: string, next: PayrollStaffRights | undefined) => void;
@@ -555,14 +564,12 @@ function AccessRightsSection({ pending, onPendingChange }: AccessRightsSectionPr
                   <Checkbox checked={false} disabled label={t("access.ownOnly")} />
                 </div>
                 <div className="grid min-w-0 gap-3 sm:grid-cols-2">
-                  <label className="flex min-w-0 flex-col gap-1 text-sm text-muted">
-                    {t("access.calcLabel")}
+                  <FormField label={t("access.calcLabel")} className="min-w-0 gap-1" classNames={{ label: ACCESS_LABEL }}>
                     <Select options={scopeOptions} value="none" onValueChange={() => {}} disabled />
-                  </label>
-                  <label className="flex min-w-0 flex-col gap-1 text-sm text-muted">
-                    {t("access.accrueLabel")}
+                  </FormField>
+                  <FormField label={t("access.accrueLabel")} className="min-w-0 gap-1" classNames={{ label: ACCESS_LABEL }}>
                     <Select options={scopeOptions} value="none" onValueChange={() => {}} disabled />
-                  </label>
+                  </FormField>
                 </div>
               </Card>
             ))}
@@ -598,8 +605,7 @@ function AccessRightsSection({ pending, onPendingChange }: AccessRightsSectionPr
                     />
                   </div>
                   <div className="grid min-w-0 gap-3 sm:grid-cols-2">
-                    <label className="flex min-w-0 flex-col gap-1 text-sm text-muted">
-                      {t("access.calcLabel")}
+                    <FormField label={t("access.calcLabel")} className="min-w-0 gap-1" classNames={{ label: ACCESS_LABEL }}>
                       <Select
                         options={scopeOptions}
                         value={rights.calcAccess}
@@ -607,9 +613,8 @@ function AccessRightsSection({ pending, onPendingChange }: AccessRightsSectionPr
                           update(s.id, { calcAccess: v as PayrollScopeAccess })
                         }
                       />
-                    </label>
-                    <label className="flex min-w-0 flex-col gap-1 text-sm text-muted">
-                      {t("access.accrueLabel")}
+                    </FormField>
+                    <FormField label={t("access.accrueLabel")} className="min-w-0 gap-1" classNames={{ label: ACCESS_LABEL }}>
                       <Select
                         options={scopeOptions}
                         value={rights.accrueAccess}
@@ -619,7 +624,7 @@ function AccessRightsSection({ pending, onPendingChange }: AccessRightsSectionPr
                           })
                         }
                       />
-                    </label>
+                    </FormField>
                   </div>
                 </Card>
               );

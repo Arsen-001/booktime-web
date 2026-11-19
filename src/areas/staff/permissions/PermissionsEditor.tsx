@@ -559,6 +559,7 @@ export function PermissionsEditor({
             <SegmentedControl
               value={(scopes.__manageScope__?.target ?? "all") === "selected" ? "own" : "all"}
               onValueChange={(v) => setScope("__manageScope__", { target: v === "own" ? "selected" : "all" })}
+              aria-label={t("permissions.whoCanManageTitle")}
               options={[
                 { value: "all", label: t("permissions.whoCanManageAll") },
                 { value: "own", label: t("permissions.whoCanManageOwn") },

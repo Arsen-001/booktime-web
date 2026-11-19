@@ -266,6 +266,8 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
                       }))}
                       className="sm:max-w-xs"
                       data-f="F-10-151"
+                      // Подпись FormField достаётся обёртке ряда (список и кнопка), а не списку — имя для диктора экрана
+                      aria-label={t("accessTab.role")}
                     />
                     <Button
                       variant="outline"

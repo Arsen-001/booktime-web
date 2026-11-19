@@ -149,6 +149,7 @@ export default function NotifyStaffCard({ staffId, businessId }: StaffCardExtPro
             className="max-w-72"
             value={prefs.view}
             disabled={loading}
+            aria-label={t('staffCard.notify.viewTitle')}
             onValueChange={(v) => void handleView(v as StaffNotifyView)}
             options={STAFF_NOTIFY_VIEWS.map((v) => ({ value: v, label: t(`staffCard.notify.view.${v}`) }))}
           />
