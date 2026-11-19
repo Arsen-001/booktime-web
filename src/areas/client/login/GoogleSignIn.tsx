@@ -187,7 +187,8 @@ export function GisButton({ onCredential, busy }: { onCredential: (token: string
 
   return (
     <div className="relative min-h-12 md:min-h-11" aria-busy={busy || undefined}>
-      <div ref={ref} className="flex min-h-12 items-center justify-center md:min-h-11" />
+      {/* colorScheme light: в тёмной теме рамка Google (iframe) иначе рисуется на белом фоне — белые края вокруг кнопки */}
+      <div ref={ref} className="flex min-h-12 items-center justify-center md:min-h-11" style={{ colorScheme: 'light' }} />
       {busy && (
         <div className="absolute inset-0 flex items-center justify-center rounded-md bg-surface/80">
           <Spinner size="sm" label={t('login.google.checking')} />
