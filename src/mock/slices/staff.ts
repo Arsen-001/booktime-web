@@ -13,6 +13,7 @@ import type {
   StaffLoginEntry,
   StaffPosition,
   StaffSystemUser,
+  SalonIpAttempt,
 } from "@/domain/staff";
 import {
   emptyStaffAccess,
@@ -64,6 +65,10 @@ export interface StaffState {
    * есть (сервер — только хеш); нет записи — прежнее демо-правило входа (пароль = логин, просим сменить).
    */
   passwordLogins: Record<Id, StaffMockPasswordLogin>;
+  /** «Вход только с IP салона» (ответ 22): адреса салона — ключ Business.id (сервер: businesses.salon_ips) */
+  salonIps: Record<Id, string[]>;
+  /** Попытки не с адреса салона — одна на сотрудника и адрес (сервер: salon_ip_attempts) */
+  salonIpAttempts: (Omit<SalonIpAttempt, "staffName"> & { businessId: Id })[];
 }
 
 export interface StaffMockPasswordLogin {
@@ -224,6 +229,8 @@ function seed(core: CoreData, now: Date): StaffState {
     logins,
     businessSettings,
     passwordLogins: {},
+    salonIps: {},
+    salonIpAttempts: [],
   };
 }
 

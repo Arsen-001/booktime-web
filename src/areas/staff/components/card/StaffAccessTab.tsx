@@ -9,7 +9,7 @@ import { useState } from "react";
 import { ChevronDown, Check, Copy, Crown, RefreshCw, Settings2, XCircle } from "lucide-react";
 import {
   StaffValidationError,
-  getIpRestriction,
+  getSalonIps,
   getStaffAccess,
   inviteLinkFor,
   sendInviteForStaff,
@@ -20,7 +20,7 @@ import {
   setStaffRoleTemplate,
 } from "@/api/staff";
 import { useApiMutation, useApiQuery } from "@/api/request";
-import { IpRestrictionSection } from "@/areas/staff/components/IpRestrictionSection";
+import { SalonIpSection } from "@/areas/staff/components/SalonIpSection";
 import { PasswordLoginSection } from "@/areas/staff/components/PasswordLoginSection";
 import { TransferOwnerModal } from "@/areas/staff/components/TransferOwnerModal";
 import { PermissionsEditor } from "@/areas/staff/permissions/PermissionsEditor";
@@ -31,7 +31,6 @@ import {
 } from "@/domain/staff";
 import type { Id, StaffRole } from "@/domain/core";
 import { useCurrent, useTerms } from "@/demo/hooks";
-import { isConnected } from "@/config/hidden";
 import { useT } from "@/i18n/useT";
 import { Badge } from "@/ui/Badge";
 import { Button } from "@/ui/Button";
@@ -72,10 +71,11 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
   const accessQ = useApiQuery(["staff", "access", staffId], () =>
     getStaffAccess(staffId),
   );
-  // М2: доступ по IP читаем тут же, параллельно — вкладка появляется одним куском, без второй заглушки
-  // «Вход только с IP салона» скрыт до проверки на сервере (владелец 17.11.2026, ответ 22; src/config/hidden.ts)
-  const ipOn = isConnected("salonIpLogin");
-  const ipQ = useApiQuery(["staff", "ipRestriction", staffId], () => getIpRestriction(staffId), { enabled: ipOn });
+  // М2: адреса салона («Вход только с IP салона», ответ 22) читаем тут же, параллельно — вкладка появляется одним
+  // куском, без второй заглушки. Список и попытки — только с правом staff.manage (canManage)
+  const ipQ = useApiQuery(["staff", "salonIps", current.businessId], () => getSalonIps(current.businessId ?? ""), {
+    enabled: canManage && Boolean(current.businessId),
+  });
   const [inviteTarget, setInviteTarget] = useState<string | null>(null);
   const [inviteError, setInviteError] = useState<string | null>(null);
   const sendInviteM = useApiMutation((a: { staffId: Id; target: string }) => sendInviteForStaff(a.staffId, a.target));
@@ -95,7 +95,8 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
   const revokeInviteM = useApiMutation(revokeInviteForStaff);
 
   if (accessQ.isError) return <ErrorState onRetry={accessQ.refetch} />;
-  if (!accessQ.data || (ipOn && accessQ.data.access.enabled && !ipQ.data && !ipQ.isError))
+  const ipPending = canManage && accessQ.data?.access.enabled && accessQ.data.staff.role !== "owner" && !ipQ.data && !ipQ.isError;
+  if (!accessQ.data || ipPending)
     return (
       <div data-skeleton className="flex flex-col gap-5" aria-busy>
         <div className="flex flex-col gap-4 rounded-2xl border border-border p-5">
@@ -323,9 +324,12 @@ export function StaffAccessTab({ staffId, canManage, onOpenInfo }: StaffAccessTa
         <PasswordLoginSection data={accessQ.data} />
       )}
 
-      {ipOn && access.enabled && (
-        <IpRestrictionSection
+      {access.enabled && (
+        <SalonIpSection
           staffId={staffId}
+          businessId={staff.businessId}
+          enabled={Boolean(access.salonIpOnly)}
+          settings={ipQ.data}
           canManage={canManage}
           isSelf={current.staffId === staffId}
         />

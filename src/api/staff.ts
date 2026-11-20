@@ -32,12 +32,14 @@ import {
   DEFAULT_STAFF_SORT,
   defaultRoleTemplateFor,
   emptyBusinessSecuritySettings,
-  emptyIpRestriction,
   emptyStaffAccess,
   emptyStaffCardSettings,
   emptyStaffLegalInfo,
-  ipAllowed,
+  DEMO_CLIENT_IP,
+  ipAllowedBy,
   isValidIpRange,
+  normalizeIp,
+  salonAddressFor,
   matchesStaffLicenseFilter,
   matchesStaffSearch,
   matchesStaffStatusFilter,
@@ -64,7 +66,8 @@ import {
   type StaffExportOperationType,
   type StaffExportReportType,
   type StaffInvite,
-  type StaffIpRestriction,
+  type SalonIpAttempt,
+  type SalonIpSettings,
   type StaffLegalInfo,
   type StaffListFilters,
   type StaffListSort,
@@ -1330,53 +1333,141 @@ export function listLogins(businessId: Id): Promise<StaffLoginEntry[]> {
   });
 }
 
-// ─────────────────────────── Доступ по IP-адресам (F-10-091) ───────────────────────────
+// ─────────────────── «Вход только с IP салона» (F-10-091, ответ 22, 20.11.2026) ───────────────────
+// Сервер проверяет адрес на КАЖДОМ запросе кабинета (BizGuard): не с адреса салона — 403 ip_not_allowed, попытка
+// запоминается, «кто я» приходит с blockedIp. Мок повторяет: адрес браузера в демо — DEMO_CLIENT_IP.
 
-export function getIpRestriction(staffId: Id): Promise<StaffIpRestriction> {
-  if (isApiMode()) return S.getAccess(staffId).then((r) => r.access.ipRestriction ?? emptyIpRestriction());
-  return request(
-    () => readArea("staff").access[staffId]?.ipRestriction ?? emptyIpRestriction(),
-  );
-}
-
-/** Владелец задаёт список масок; невалидные адреса отклоняются до сохранения */
-export async function setIpRestriction(
-  staffId: Id,
-  restriction: StaffIpRestriction,
-): Promise<StaffIpRestriction> {
-  if (isApiMode()) return S.setIpRestriction(staffId, restriction);
-  return request(async () => {
+/** Галочка сотрудника. Владельцу — forbidden: его не закрывает никогда (как сервер) */
+export function setSalonIpOnly(staffId: Id, enabled: boolean): Promise<boolean> {
+  if (isApiMode()) return S.setSalonIpOnly(staffId, enabled).then((r) => Boolean(r.access.salonIpOnly));
+  return request(() => {
     assertCan("staff.manage");
     const staff = readCore().staff.find((s) => s.id === staffId);
     if (!staff) throw new ApiError("not_found");
-    if (restriction.enabled) {
-      const bad = restriction.ranges.find((r) => !isValidIpRange(r));
-      if (bad) throw new ApiError("invalid_ip_range");
-    }
-    let result!: StaffIpRestriction;
+    if (staff.role === "owner") throw new ApiError("forbidden");
+    const before = Boolean(readArea("staff").access[staffId]?.salonIpOnly);
+    if (before === enabled) return enabled;
     mutateArea("staff", (s) => {
       const current = s.access[staffId] ?? emptyStaffAccess(staff.role);
-      current.ipRestriction = restriction;
+      current.salonIpOnly = enabled;
       s.access[staffId] = current;
-      result = restriction;
     });
     writeAudit({
       businessId: staff.businessId,
       entity: "staff",
       entityId: staffId,
-      action: "ipRestrictionChanged",
-      after: { enabled: restriction.enabled, ranges: restriction.ranges },
+      action: "salonIpOnlyChanged",
+      before: { salonIpOnly: before },
+      after: { salonIpOnly: enabled },
     });
-    return result;
+    return enabled;
   });
 }
 
-/** Демо-проверка (нет настоящего входа, F-10-091): «войдёт ли сотрудник с этого адреса сейчас» */
-export function checkIpAllowed(staffId: Id, ip: string): Promise<boolean> {
-  if (isApiMode()) return getIpRestriction(staffId).then((r) => ipAllowed(r, ip));
+/** Мок: адреса салона + попытки, ещё закрытые, сотрудников с галочкой (30 дней, новые сверху, до 20) — как сервер */
+function mockSalonIps(businessId: Id): SalonIpSettings {
+  const area = readArea("staff");
+  const ips = area.salonIps?.[businessId] ?? [];
+  const staff = new Map(readCore().staff.filter((x) => x.businessId === businessId).map((x) => [x.id, x]));
+  const since = addDays(today(), -30);
+  const attempts = (area.salonIpAttempts ?? [])
+    .filter((a) => a.businessId === businessId && a.lastAt.slice(0, 10) >= since && !ipAllowedBy(ips, a.ip))
+    .filter((a) => {
+      const st = staff.get(a.staffId);
+      return st && st.role !== "owner" && area.access[a.staffId]?.salonIpOnly;
+    })
+    .sort((a, b) => b.lastAt.localeCompare(a.lastAt))
+    .slice(0, 20)
+    .map(({ businessId: _b, ...a }): SalonIpAttempt => ({ ...a, staffName: staff.get(a.staffId)!.name }));
+  return { ips, currentIp: DEMO_CLIENT_IP, attempts };
+}
+
+export function getSalonIps(businessId: Id): Promise<SalonIpSettings> {
+  if (isApiMode()) return S.getSalonIps(businessId);
   return request(() => {
-    const restriction = readArea("staff").access[staffId]?.ipRestriction;
-    return ipAllowed(restriction, ip);
+    assertCan("staff.manage");
+    return mockSalonIps(businessId);
+  });
+}
+
+function writeMockSalonIps(businessId: Id, action: string, next: string[]): void {
+  const before = readArea("staff").salonIps?.[businessId] ?? [];
+  if (next.length === before.length && next.every((x, i) => x === before[i])) return;
+  mutateArea("staff", (s) => {
+    s.salonIps = { ...(s.salonIps ?? {}), [businessId]: next };
+  });
+  writeAudit({ businessId, entity: "business", entityId: businessId, action, before: { salonIps: before }, after: { salonIps: next } });
+}
+
+/** Ошибка в адресе: value — строка, которую не приняли (как fields.value сервера) */
+export class SalonIpError extends ApiError {
+  readonly value: string;
+  constructor(value: string) {
+    super("invalid_ip_range", undefined, { value });
+    this.value = value;
+  }
+}
+
+/** Список адресов салона целиком: без пустых и повторов; ошибка — SalonIpError с этой строкой */
+export async function setSalonIps(businessId: Id, ips: string[]): Promise<SalonIpSettings> {
+  if (isApiMode()) {
+    try {
+      return await S.setSalonIps(businessId, ips);
+    } catch (e) {
+      if (e instanceof ApiError && e.code === "invalid_ip_range") throw new SalonIpError(e.fields?.value ?? "");
+      throw e;
+    }
+  }
+  return request(() => {
+    assertCan("staff.manage");
+    const next = [...new Set(ips.map(normalizeIp).filter(Boolean))];
+    const bad = next.find((x) => !isValidIpRange(x));
+    if (bad) throw new SalonIpError(bad);
+    writeMockSalonIps(businessId, "salonIpsChanged", next);
+    return mockSalonIps(businessId);
+  });
+}
+
+/** «Добавить этот адрес» одной кнопкой: IPv4 — сам адрес, IPv6 — сеть /64; уже пускает — без изменений */
+export function addSalonIp(businessId: Id, ip: string): Promise<SalonIpSettings> {
+  if (isApiMode()) return S.addSalonIp(businessId, ip);
+  return request(() => {
+    assertCan("staff.manage");
+    const address = salonAddressFor(ip);
+    if (!address) throw new SalonIpError(ip);
+    const current = readArea("staff").salonIps?.[businessId] ?? [];
+    if (!ipAllowedBy(current, ip)) writeMockSalonIps(businessId, "salonIpAdded", [...current, address]);
+    return mockSalonIps(businessId);
+  });
+}
+
+/**
+ * Демо: закрыт ли кабинет текущей персоне по адресу (как blockedIp в «кто я» сервера) — адрес или null. Закрыт —
+ * попытка запоминается (одна строка на сотрудника и адрес, не чаще раза в минуту). В режиме api не зовётся: там это
+ * blockedIp сессии (src/shell/biz/SalonIpGate.tsx)
+ */
+export function getCabinetIpBlock(): Promise<string | null> {
+  return request(() => {
+    const actor = currentActor();
+    const staff = actor.staffId ? readCore().staff.find((x) => x.id === actor.staffId) : undefined;
+    if (!staff || staff.role === "owner" || actor.persona === "network") return null;
+    const area = readArea("staff");
+    if (!area.access[staff.id]?.salonIpOnly) return null;
+    const ip = DEMO_CLIENT_IP;
+    if (ipAllowedBy(area.salonIps?.[staff.businessId] ?? [], ip)) return null;
+    const now = nowDateTime();
+    const prev = (area.salonIpAttempts ?? []).find((a) => a.businessId === staff.businessId && a.staffId === staff.id && a.ip === ip);
+    if (!prev || prev.lastAt !== now) {
+      mutateArea("staff", (s) => {
+        const list = (s.salonIpAttempts ??= []);
+        const row = list.find((a) => a.businessId === staff.businessId && a.staffId === staff.id && a.ip === ip);
+        if (row) {
+          row.attempts += 1;
+          row.lastAt = now;
+        } else list.push({ id: newId("sipa"), businessId: staff.businessId, staffId: staff.id, ip, attempts: 1, firstAt: now, lastAt: now });
+      });
+    }
+    return ip;
   });
 }
 

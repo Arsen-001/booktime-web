@@ -25,12 +25,12 @@ import type {
   StaffExportEntry,
   StaffExportFilter,
   StaffInvite,
-  StaffIpRestriction,
   StaffLegalInfo,
   StaffLoginEntry,
   StaffPasswordLogin,
   StaffPosition,
   StaffRoleTemplateId,
+  SalonIpSettings,
 } from '@/domain/staff';
 import { readDbUntracked, notifyDbChange } from '@/mock/db';
 
@@ -232,8 +232,28 @@ export async function setRoleTemplate(staffId: Id, roleTemplateId: StaffRoleTemp
   return res;
 }
 
-export async function setIpRestriction(staffId: Id, restriction: StaffIpRestriction): Promise<StaffIpRestriction> {
-  const res = await http<StaffIpRestriction>('PUT', `${base(bizOf(staffId))}/staff/${staffId}/ip-restriction`, restriction);
+// ─────────── «Вход только с IP салона» (F-10-091, ответ 22, 20.11.2026) ───────────
+
+export async function setSalonIpOnly(staffId: Id, enabled: boolean): Promise<ServerAccess> {
+  const res = await http<ServerAccess>('PUT', `${base(bizOf(staffId))}/staff/${staffId}/salon-ip-only`, { enabled });
+  notifyDbChange('areas.staff');
+  return res;
+}
+
+export function getSalonIps(businessId: Id): Promise<SalonIpSettings> {
+  trackRead('areas.staff');
+  return http<SalonIpSettings>('GET', `${base(businessId)}/salon-ips`);
+}
+
+export async function setSalonIps(businessId: Id, ips: string[]): Promise<SalonIpSettings> {
+  const res = await http<SalonIpSettings>('PUT', `${base(businessId)}/salon-ips`, { ips });
+  notifyDbChange('areas.staff');
+  return res;
+}
+
+/** «Добавить этот адрес»: IPv6 сервер добавит сетью /64 */
+export async function addSalonIp(businessId: Id, ip: string): Promise<SalonIpSettings> {
+  const res = await http<SalonIpSettings>('POST', `${base(businessId)}/salon-ips`, { ip });
   notifyDbChange('areas.staff');
   return res;
 }

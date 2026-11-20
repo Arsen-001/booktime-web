@@ -316,6 +316,7 @@ function makeQueryClient(): QueryClient {
     queryCache: new QueryCache({
       onError: (error, query) => {
         if (LOG_ERRORS) console.warn('[api] запрос не удался', JSON.stringify(query.queryKey), error);
+        notifyIpNotAllowed(error);
       },
     }),
     defaultOptions: {
@@ -681,6 +682,18 @@ function keyFor<A>(key: KeyOf<A>, args: A): readonly unknown[] {
 }
 
 /**
+ * «Вход только с IP салона» (ответ 22): сервер закрыл кабинет посреди работы — адрес сменился, а сессия началась в
+ * салоне — 403 `ip_not_allowed` на любом запросе кабинета. Перечитать «кто я»: в нём придёт blockedIp, и кабинет покажет
+ * «Вход закрыт: адрес не салона» (src/areas/staff/components/SalonIpGate.tsx) вместо «Не удалось загрузить» на экранах.
+ */
+function notifyIpNotAllowed(e: unknown): void {
+  if (!(e instanceof ApiError) || e.code !== 'ip_not_allowed' || typeof window === 'undefined') return;
+  // Ключ «кто я» — SESSION_KEY из src/api/session.ts (тот импортирует этот файл — здесь строкой). Уже читается — не
+  // начинать заново: при смене адреса падают сразу все запросы экрана
+  void getQueryClient().invalidateQueries({ queryKey: ['auth', 'session'] }, { cancelRefetch: false });
+}
+
+/**
  * Подписка заморожена — сервер отвечает 423 `frozen` на запись (кабинет «только просмотр»). Экран сам показал бы
  * «Не получилось. Попробуйте ещё раз» — вместо этого один понятный тост с текстом сервера (на языке человека).
  * Кнопки изменений в заморозке и так неактивны (usePermissions, useReadOnly) — это запасной путь для остального.
@@ -702,6 +715,7 @@ export function useApiMutation<A, R>(fn: (args: A) => Promise<R>, options?: Muta
           return await withCtx(MUTATION_CTX, () => fn(args));
         } catch (e) {
           notifyFrozen(e);
+          notifyIpNotAllowed(e);
           throw e;
         }
       },

@@ -13,6 +13,7 @@ import { TopSearch } from '@/shell/biz/TopSearch';
 import { WorkspaceShell } from '@/shell/workspace/WorkspaceShell';
 import { useNetworkAccess } from '@/areas/network/lib/useNetworkAccess';
 import { useOrdersEnabled } from '@/areas/orders/lib/useOrdersShell';
+import { SalonIpGate } from '@/areas/staff/components/SalonIpGate';
 
 const HIDE_ORDERS: ReadonlySet<string> = new Set(['orders']);
 // В приложениях iOS/Android цифровое не продаётся (App Store 3.1.1): нет «Подписки», «Монет» и того, что за монеты
@@ -50,24 +51,27 @@ export function BizShell({ children }: { children: ReactNode }) {
     return <div className="flex min-h-dvh items-center justify-center bg-bg px-4 py-10">{children}</div>;
   }
 
+  // «Вход только с IP салона» (ответ 22): сотрудник не из интернета салона видит «Вход закрыт: адрес не салона»
   return (
-    <WorkspaceShell
-      kind="biz"
-      allowed={BIZ_PERSONAS.includes(persona)}
-      items={items}
-      groups={BIZ_NAV_GROUPS}
-      caption={t('app.bizCabinet')}
-      logoHref="/biz"
-      topBarStart={
-        <>
-          <LocationSwitcher inTopBar className="hidden sm:flex" />
-          <TopSearch />
-        </>
-      }
-      drawerTop={<LocationSwitcher className="w-full max-w-none" />}
-      topBanner={<FrozenBanner />}
-    >
-      {children}
-    </WorkspaceShell>
+    <SalonIpGate>
+      <WorkspaceShell
+        kind="biz"
+        allowed={BIZ_PERSONAS.includes(persona)}
+        items={items}
+        groups={BIZ_NAV_GROUPS}
+        caption={t('app.bizCabinet')}
+        logoHref="/biz"
+        topBarStart={
+          <>
+            <LocationSwitcher inTopBar className="hidden sm:flex" />
+            <TopSearch />
+          </>
+        }
+        drawerTop={<LocationSwitcher className="w-full max-w-none" />}
+        topBanner={<FrozenBanner />}
+      >
+        {children}
+      </WorkspaceShell>
+    </SalonIpGate>
   );
 }

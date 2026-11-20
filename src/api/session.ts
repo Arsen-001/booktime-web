@@ -26,6 +26,11 @@ export interface SessionMembership {
   businessIds: string[];
   /** Итоговые права — считает сервер */
   permissions: string[];
+  /**
+   * «Вход только с IP салона» (ответ 22): кабинет этого бизнеса закрыт для адреса, с которого пришёл запрос, — сам
+   * адрес. Кабинет показывает «Вход закрыт: адрес не салона» (src/areas/staff/components/SalonIpGate.tsx)
+   */
+  blockedIp?: string;
 }
 
 export interface SessionView {

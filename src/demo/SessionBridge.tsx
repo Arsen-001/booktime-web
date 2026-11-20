@@ -24,7 +24,7 @@ import type { PersonaId } from '@/demo/settings';
  * сервера в ядро браузера (src/api/mirror.ts), чтобы разделы, ещё работающие с моковой базой, видели те же данные.
  * Бизнеса у человека нет — кабинет ведёт на регистрацию бизнеса, а не в демо-бизнес.
  */
-function activeMembership(session: SessionView | null): SessionMembership | undefined {
+export function activeMembership(session: SessionView | null): SessionMembership | undefined {
   if (!session || session.mode === 'client') return undefined;
   return session.memberships.find((m) => m.businessId === session.activeBusinessId) ?? session.memberships[0];
 }
@@ -83,7 +83,9 @@ export function SessionBridge() {
   const canSwitchToBusiness = clientOnBiz && (session.data?.memberships.length ?? 0) > 0;
   const switching = useRef(false);
   const identityJson = JSON.stringify(identityOf(membership));
-  const mirrorFor = membership?.businessId;
+  // «Вход только с IP салона» закрыл кабинет (blockedIp) — зеркало и живые события не грузим: сервер ответит 403
+  // ip_not_allowed, а кабинет и так показывает «Вход закрыт» (SalonIpGate). «Проверить снова» открыл — грузим
+  const mirrorFor = membership?.blockedIp ? undefined : membership?.businessId;
   const target: { persona: PersonaId; appUser: string } | undefined = !loaded
     ? undefined
     : onPlatform

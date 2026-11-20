@@ -328,8 +328,11 @@ export interface StaffAccessInfo {
   enabled: boolean;
   info?: string;
   roleTemplateId?: StaffRoleTemplateId;
-  /** Доступ к локации только с доверенных IP (F-10-091) */
-  ipRestriction?: StaffIpRestriction;
+  /**
+   * «Вход только с IP салона» (F-10-091, ответ 22, 20.11.2026): кабинет этого салона — только с адресов салона
+   * (SalonIpSettings.ips), проверка на каждом запросе. Владельца не касается никогда
+   */
+  salonIpOnly?: boolean;
 }
 
 /**
@@ -365,54 +368,118 @@ export function emptyStaffAccess(role: StaffRole): StaffAccessInfo {
   };
 }
 
-// ─────────────────────────── Доступ по IP-адресам (F-10-091) ───────────────────────────
+// ─────────────────────────── «Вход только с IP салона» (F-10-091, ответ 22) ───────────────────────────
+// Те же правила, что у сервера (booktime-backend src/common/http/salon-ip.ts) — тесты с обеих сторон на одних примерах.
 
-export interface StaffIpRestriction {
-  enabled: boolean;
-  /** Через запятую, как ввёл владелец: '192.57.11.33', '192.57.11.33/8', IPv4 или IPv6 */
-  ranges: string[];
+/** Попытка открыть кабинет не с адреса салона: одна на сотрудника и адрес — сколько раз и когда последняя */
+export interface SalonIpAttempt {
+  id: Id;
+  staffId: Id;
+  staffName: string;
+  ip: string;
+  attempts: number;
+  /** 'YYYY-MM-DDTHH:mm', Ереван */
+  firstAt: string;
+  lastAt: string;
 }
 
-export function emptyIpRestriction(): StaffIpRestriction {
-  return { enabled: false, ranges: [] };
+/** Адреса салона (общие для всех с галочкой), адрес смотрящего сейчас и ещё закрытые попытки за 30 дней */
+export interface SalonIpSettings {
+  ips: string[];
+  currentIp: string;
+  attempts: SalonIpAttempt[];
 }
 
-/** Разбор поля «через запятую» в список масок, без пустых элементов и с обрезкой пробелов */
-export function parseIpRanges(input: string): string[] {
-  return input
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+/** Демо без сервера: «адрес», с которого открыт кабинет в этом браузере (настоящий знает только сервер) */
+export const DEMO_CLIENT_IP = '46.70.12.34';
+
+/** '::ffff:37.252.64.10' → '37.252.64.10'; IPv6 — строчными; пробелы по краям прочь */
+export function normalizeIp(raw: string): string {
+  const ip = raw.trim().toLowerCase();
+  const mapped = /^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/.exec(ip);
+  return mapped ? mapped[1] : ip;
 }
 
-/** Простая проверка формы адреса/маски: IPv4 (с необязательным /8../32) или IPv6 (грубо) */
-export function isValidIpRange(range: string): boolean {
-  const ipv4 = /^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/;
-  const ipv6 = /^[0-9a-fA-F:]+(\/\d{1,3})?$/;
-  if (ipv4.test(range)) return range.split("/")[0].split(".").every((n) => Number(n) <= 255);
-  return ipv6.test(range) && range.includes(":");
+function ipv4Bytes(ip: string): number[] | null {
+  const parts = ip.split('.');
+  if (parts.length !== 4 || !parts.every((p) => /^\d{1,3}$/.test(p) && Number(p) <= 255)) return null;
+  return parts.map(Number);
 }
 
-/** Адрес входит в маску: полное совпадение или совпадение по первым /8, /16, /24 байтам (F-10-091 подсказка) */
-export function ipMatchesRange(ip: string, range: string): boolean {
-  const [base, prefixStr] = range.split("/");
-  if (!prefixStr) return ip === base;
-  const prefix = Number(prefixStr);
-  const octets = (s: string) => s.split(".").map(Number);
-  if (base.includes(".") && ip.includes(".")) {
-    const bytes = Math.floor(prefix / 8);
-    const a = octets(base);
-    const b = octets(ip);
-    for (let i = 0; i < bytes; i++) if (a[i] !== b[i]) return false;
-    return true;
+/** IPv6 → 16 байт ('2a00:cc0::1', хвост IPv4 тоже); не IPv6 — null */
+function ipv6Bytes(ip: string): number[] | null {
+  if (!ip.includes(':') || !/^[0-9a-f:.]+$/.test(ip)) return null;
+  let s = ip;
+  const v4 = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/.exec(s);
+  let tail4: number[] = [];
+  if (v4) {
+    const b = ipv4Bytes(v4[1]);
+    if (!b) return null;
+    tail4 = b;
+    s = s.slice(0, v4.index);
+    if (s.endsWith(':') && !s.endsWith('::')) s = s.slice(0, -1);
   }
-  return ip.startsWith(base);
+  const halves = s.split('::');
+  if (halves.length > 2) return null;
+  const groups = (x: string) => (x ? x.split(':') : []);
+  const head = groups(halves[0]);
+  const tail = halves.length === 2 ? groups(halves[1]) : [];
+  const total = 8 - tail4.length / 2;
+  const fill = halves.length === 2 ? total - head.length - tail.length : 0;
+  if (fill < (halves.length === 2 ? 1 : 0) || head.length + tail.length + fill !== total) return null;
+  const all = [...head, ...Array<string>(fill).fill('0'), ...tail];
+  if (!all.every((g) => /^[0-9a-f]{1,4}$/.test(g))) return null;
+  return [...all.flatMap((g) => [parseInt(g, 16) >> 8, parseInt(g, 16) & 255]), ...tail4];
 }
 
-export function ipAllowed(restriction: StaffIpRestriction | undefined, ip: string): boolean {
-  if (!restriction?.enabled) return true;
-  if (restriction.ranges.length === 0) return false;
-  return restriction.ranges.some((r) => ipMatchesRange(ip, r));
+function ipBytes(raw: string): number[] | null {
+  const ip = normalizeIp(raw);
+  return ipv4Bytes(ip) ?? ipv6Bytes(ip);
+}
+
+/** Адрес или сеть: '37.252.64.10', '37.252.64.0/24', '2a00:cc0:1:2::/64' (как isValidIpRange сервера) */
+export function isValidIpRange(range: string): boolean {
+  const parts = range.trim().split('/');
+  if (parts.length > 2) return false;
+  const bytes = ipBytes(parts[0]);
+  if (!bytes) return false;
+  if (parts.length === 1) return true;
+  return /^\d{1,3}$/.test(parts[1]) && Number(parts[1]) <= bytes.length * 8;
+}
+
+/** Адрес внутри сети: первые N бит совпадают (без /N — точное совпадение) */
+function inRange(ip: number[], range: string): boolean {
+  const [base, prefixStr] = range.trim().split('/');
+  const net = ipBytes(base);
+  if (!net || net.length !== ip.length) return false;
+  const bits = prefixStr === undefined ? net.length * 8 : Number(prefixStr);
+  for (let i = 0; i < net.length; i++) {
+    const take = Math.max(0, Math.min(8, bits - i * 8));
+    if (take === 0) break;
+    const mask = (0xff << (8 - take)) & 0xff;
+    if ((net[i] & mask) !== (ip[i] & mask)) return false;
+  }
+  return true;
+}
+
+/** Пускает ли список салона этот адрес; пустой список — закрыто для всех адресов; ошибочные строки пропускаются */
+export function ipAllowedBy(ranges: readonly string[], rawIp: string): boolean {
+  const ip = ipBytes(rawIp);
+  if (!ip) return false;
+  return ranges.some((r) => isValidIpRange(r) && inRange(ip, r));
+}
+
+/**
+ * Что добавить по кнопке «Добавить этот адрес»: IPv4 — сам адрес; IPv6 — его сеть /64 (последние 64 бита адреса
+ * телефон и ноутбук меняют каждый день, сеть салона — одна). '2a00:cc0:1:2:a:b:c:d' → '2a00:cc0:1:2::/64'
+ */
+export function salonAddressFor(rawIp: string): string | null {
+  const ip = normalizeIp(rawIp);
+  if (ipv4Bytes(ip)) return ip;
+  const b = ipv6Bytes(ip);
+  if (!b) return null;
+  const groups = [0, 1, 2, 3].map((i) => ((b[i * 2] << 8) | b[i * 2 + 1]).toString(16));
+  return `${groups.join(':')}::/64`;
 }
 
 // ─────────────────────────── 8 шаблонов ролей (F-10-053…064) ───────────────────────────
