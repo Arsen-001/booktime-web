@@ -6,7 +6,7 @@
  * (F-09-073/074, экран finance — см. qa/requests/payroll.md о подключении этого справочника туда).
  */
 import { useState } from "react";
-import { Gift, Minus, Plus, Trash2 } from "lucide-react";
+import { Gift, Minus, Plus, Trash2, X } from "lucide-react";
 import {
   deleteBonusPenaltyType,
   listBonusPenaltyTypes,
@@ -29,6 +29,49 @@ import { usePagedList } from "@/ui/Pagination";
 import { SectionCard } from "@/ui/SectionCard";
 import { SkeletonText } from "@/ui/Skeleton";
 import { useConfirm, useToast } from "@/ui/Toast";
+
+/**
+ * Сумма и кнопки строки правки. На телефоне — своей строкой под названием: сумма растягивается, «Сохранить» —
+ * подписью, «Отмена» — крестиком (по-армянски обе подписи и сумма в 360 px не помещаются; так сумме остаётся
+ * не меньше прежних 112 px). С sm — как было: обе кнопки подписями в одну строку с названием.
+ */
+function AmountActions({
+  amount,
+  onAmountChange,
+  saving,
+  canSave,
+  onSave,
+  onCancel,
+}: {
+  amount: number | undefined;
+  onAmountChange: (value: number | undefined) => void;
+  saving: boolean;
+  canSave: boolean;
+  onSave: () => void;
+  onCancel: () => void;
+}) {
+  const t = useT("payroll");
+  return (
+    <div className="flex min-w-0 basis-full items-center gap-1.5 sm:contents">
+      <div className="min-w-0 flex-1 sm:w-28 sm:flex-none">
+        <MoneyInput value={amount} onValueChange={onAmountChange} />
+      </div>
+      <Button size="sm" loading={saving} disabled={!canSave} onClick={onSave} className="shrink-0 max-sm:px-3">
+        {t("bonuses.save")}
+      </Button>
+      <Button size="sm" variant="ghost" onClick={onCancel} className="shrink-0 max-sm:hidden">
+        {t("bonuses.cancel")}
+      </Button>
+      <IconButton
+        size="sm"
+        icon={<X aria-hidden />}
+        label={t("bonuses.cancel")}
+        onClick={onCancel}
+        className="sm:hidden"
+      />
+    </div>
+  );
+}
 
 function KindList({ kind }: { kind: BonusPenaltyKind }) {
   const t = useT("payroll");
@@ -169,34 +212,20 @@ function KindList({ kind }: { kind: BonusPenaltyKind }) {
               >
                 {editingId === row.id ? (
                   <>
-                    {/* На телефоне название — на всю строку, сумма и кнопки — под ним (иначе поле сжимается до нуля) */}
                     <Input
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
                       placeholder={t("bonuses.namePlaceholder")}
                       className="min-w-0 flex-1 basis-full sm:basis-0"
                     />
-                    <div className="w-28 shrink-0">
-                      <MoneyInput
-                        value={editAmount}
-                        onValueChange={setEditAmount}
-                      />
-                    </div>
-                    <Button
-                      size="sm"
-                      loading={saveM.isPending}
-                      disabled={!editName.trim()}
-                      onClick={() => handleEditSave(row.id)}
-                    >
-                      {t("bonuses.save")}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => setEditingId(null)}
-                    >
-                      {t("bonuses.cancel")}
-                    </Button>
+                    <AmountActions
+                      amount={editAmount}
+                      onAmountChange={setEditAmount}
+                      saving={saveM.isPending}
+                      canSave={Boolean(editName.trim())}
+                      onSave={() => handleEditSave(row.id)}
+                      onCancel={() => setEditingId(null)}
+                    />
                   </>
                 ) : (
                   <>
@@ -236,28 +265,18 @@ function KindList({ kind }: { kind: BonusPenaltyKind }) {
                   className="min-w-0 flex-1 basis-full sm:basis-0"
                   autoFocus
                 />
-                <div className="w-28 shrink-0">
-                  <MoneyInput value={amount} onValueChange={setAmount} />
-                </div>
-                <Button
-                  size="sm"
-                  loading={saveM.isPending}
-                  disabled={!name.trim()}
-                  onClick={handleAdd}
-                >
-                  {t("bonuses.save")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => {
+                <AmountActions
+                  amount={amount}
+                  onAmountChange={setAmount}
+                  saving={saveM.isPending}
+                  canSave={Boolean(name.trim())}
+                  onSave={handleAdd}
+                  onCancel={() => {
                     setAdding(false);
                     setName("");
                     setAmount(undefined);
                   }}
-                >
-                  {t("bonuses.cancel")}
-                </Button>
+                />
               </div>
             ) : (
               <Button
