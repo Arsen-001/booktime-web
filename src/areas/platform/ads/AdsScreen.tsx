@@ -180,6 +180,7 @@ export function AdsScreen() {
  */
 function AdMobileCard({ ad }: { ad?: AdView }) {
   const t = useT('platform');
+  const format = useFormat();
   const text = useAdText();
   return (
     <div className="flex min-w-0 gap-3">
@@ -190,7 +191,7 @@ function AdMobileCard({ ad }: { ad?: AdView }) {
         <div className="mt-1.5 flex items-center justify-between gap-2">
           {/* Цифры — только когда показы уже были (ноль — не результат) */}
           <span className="min-w-0 truncate text-sm text-muted">
-            {!ad ? <SkeletonText width="16ch" /> : ad.views > 0 ? t('ads.statsLine', { views: ad.views, clicks: ad.clicks }) : null}
+            {!ad ? <SkeletonText width="16ch" /> : ad.views > 0 ? t('ads.statsLine', { views: ad.views, clicks: ad.clicks, viewsText: format.number(ad.views), clicksText: format.number(ad.clicks) }) : null}
           </span>
           {ad ? (
             <Badge tone={AD_TONE[ad.state]}>{t(`ads.state.${ad.state}`)}</Badge>

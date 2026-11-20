@@ -105,7 +105,7 @@ export function OnlinePaymentsScreen() {
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-3">
         {ways.map(({ way, title, description, href, external }) => {
           const Icon = WAY_ICON[way];
           const provider = settingsQ.data?.providerByWay[way];

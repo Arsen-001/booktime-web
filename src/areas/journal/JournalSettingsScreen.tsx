@@ -346,7 +346,7 @@ function ElsewhereRow({ text, href, linkText }: { text: ReactNode; href: string;
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-surface-2 px-3.5 py-3">
       <p className="min-w-0 flex-1 text-muted">{text}</p>
-      <Link href={href} className="shrink-0 inline-flex min-h-10 items-center py-2 text-sm font-medium text-primary-text hover:underline">
+      <Link href={href} className="max-w-full shrink-0 inline-flex min-h-10 items-center py-2 text-sm font-medium text-primary-text hover:underline">
         {linkText}
       </Link>
     </div>

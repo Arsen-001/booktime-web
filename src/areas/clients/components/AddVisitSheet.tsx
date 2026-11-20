@@ -16,6 +16,7 @@ import type { ClientVisitService } from '@/domain/clients';
 import { newId } from '@/lib/id';
 import { nowYerevan, today } from '@/lib/date';
 import { pickText } from '@/lib/text';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Button } from '@/ui/Button';
 import { Combobox } from '@/ui/Combobox';
@@ -63,6 +64,7 @@ function lastHalfHour(): string {
 
 export function AddVisitSheet({ open, onOpenChange, businessId, locationId, clientId }: AddVisitSheetProps) {
   const t = useT('clients');
+  const format = useFormat();
   const toast = useToast();
   const locale = useLocale();
   const enabled = open && Boolean(businessId);
@@ -281,7 +283,7 @@ export function AddVisitSheet({ open, onOpenChange, businessId, locationId, clie
           </div>
         </FormField>
 
-        <FormField label={t('history.addVisitSheet.paid')} hint={t('history.addVisitSheet.paidHint', { total })}>
+        <FormField label={t('history.addVisitSheet.paid')} hint={t('history.addVisitSheet.paidHint', { total: format.number(total) })}>
           <MoneyInput value={paidAmount} onValueChange={setPaidAmount} placeholder={String(total)} />
         </FormField>
 

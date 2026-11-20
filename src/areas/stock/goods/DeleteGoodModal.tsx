@@ -10,8 +10,6 @@ import { Button } from '@/ui/Button';
 import { Input } from '@/ui/Input';
 import { Modal } from '@/ui/Modal';
 
-const CONFIRM_WORD = 'Удалить';
-
 export function DeleteGoodModal({
   open,
   onOpenChange,
@@ -24,6 +22,8 @@ export function DeleteGoodModal({
   onConfirm: () => void | Promise<void>;
 }) {
   const t = useT('stock');
+  // Слово подтверждения — на языке кабинета (hy «Ջնջել», en «Delete»), а не всегда русское «Удалить»
+  const CONFIRM_WORD = t('goodForm.delete');
   const [value, setValue] = useState('');
   const [pending, setPending] = useState(false);
   const ready = value.trim() === CONFIRM_WORD;

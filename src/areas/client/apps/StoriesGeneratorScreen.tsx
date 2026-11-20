@@ -31,6 +31,7 @@ import {
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { useCan, useCurrent } from '@/demo/hooks';
 import type { Story, StoryLang } from '@/domain/client';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -59,6 +60,7 @@ const STAFF_CHIP_WIDTHS = ['10.7ch', '15.8ch', '12.7ch', '13.6ch'];
 
 export function StoriesGeneratorScreen() {
   const t = useT('client');
+  const format = useFormat();
   const { ready, businessId } = useCurrent();
   // С billing.manage — сторис салона: видны и удаляются все; мастер без него публикует и видит свои (владелец, 01.10.2026)
   const canManage = useCan('billing.manage');
@@ -84,7 +86,7 @@ export function StoriesGeneratorScreen() {
         actions={
           canManage ? (
             <Badge tone="accent" variant="soft">
-              {balanceQ.isLoading ? <SkeletonText width="10ch" /> : t('apps.stories.balance', { amount: balanceQ.data ?? 0 })}
+              {balanceQ.isLoading ? <SkeletonText width="10ch" /> : t('apps.stories.balance', { amount: format.number(balanceQ.data ?? 0) })}
             </Badge>
           ) : undefined
         }
@@ -234,6 +236,7 @@ const MIN_STORY_PHOTO_HEIGHT = 375;
 
 function Generator({ businessId, ownOnly, onPublished }: { businessId: string; ownOnly: boolean; onPublished: () => void }) {
   const t = useT('client');
+  const format = useFormat();
   const toast = useToast();
   const [tab, setTab] = useState<'generated' | 'photo'>('generated');
   const [period, setPeriod] = useState<'today' | 'tomorrow'>('today');
@@ -427,7 +430,7 @@ function Generator({ businessId, ownOnly, onPublished }: { businessId: string; o
                   disabled={preview.windows.length === 0}
                   leftIcon={<Wand2 aria-hidden />}
                 >
-                  {t('apps.stories.publishFor', { price })}
+                  {t('apps.stories.publishFor', { price: format.number(price) })}
                 </Button>
               </div>
             </div>
@@ -463,7 +466,7 @@ function Generator({ businessId, ownOnly, onPublished }: { businessId: string; o
             disabled={!photoUrl.length}
             leftIcon={<Camera aria-hidden />}
           >
-            {t('apps.stories.sendForReviewFor', { price })}
+            {t('apps.stories.sendForReviewFor', { price: format.number(price) })}
           </Button>
         </div>
       )}

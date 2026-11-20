@@ -6,6 +6,7 @@ import { useApiQuery } from '@/api/request';
 import { useSpecialistTerms } from '@/areas/online/booking/wizard/specialistTerms';
 import { DISTRICT_IDS } from '@/config/districts';
 import type { DistrictId, SphereId, Staff, Workplace } from '@/domain/core';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { FormField } from '@/ui/FormField';
@@ -34,6 +35,7 @@ export function WorkplaceStep({
   sphereIds?: SphereId[];
 }) {
   const t = useT('online');
+  const format = useFormat();
   const tc = useT('common');
   const terms = useSpecialistTerms(sphereIds);
   const rulesQ = useApiQuery(['online-staff-travel', staff.id], () => getStaffRules(staff.id));
@@ -65,7 +67,7 @@ export function WorkplaceStep({
           {rulesQ.data && (rulesQ.data.travelFee || rulesQ.data.travelTimeMin) && (
             <p className="text-sm text-muted">
               {[
-                rulesQ.data.travelFee ? t('booking.workplaceStep.fee', { fee: rulesQ.data.travelFee }) : undefined,
+                rulesQ.data.travelFee ? t('booking.workplaceStep.fee', { fee: format.number(rulesQ.data.travelFee) }) : undefined,
                 rulesQ.data.travelTimeMin ? t('booking.workplaceStep.time', { min: rulesQ.data.travelTimeMin }) : undefined,
               ]
                 .filter(Boolean)

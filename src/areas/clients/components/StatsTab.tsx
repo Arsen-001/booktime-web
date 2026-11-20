@@ -128,7 +128,7 @@ export function StatsTab({ businessId, clientId, services, canViewAccounts }: St
         </ChartCard>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2">
         {[
           { id: 'services', title: t('card.stats.topServices'), rows: topServices },
           { id: 'staff', title: t('card.stats.topStaff'), rows: topStaff },

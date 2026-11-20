@@ -57,28 +57,28 @@ export interface UnitOption {
 
 /** Справочник единиц — представительный набор (ТЗ называет ~37-38, полный список не решён — assumed) */
 export const UNIT_OPTIONS: UnitOption[] = [
-  { id: 'pcs', label: { ru: 'Штука', en: 'Piece' }, short: { ru: 'шт.', en: 'pc', hy: 'հատ' } },
-  { id: 'ml', label: { ru: 'Миллилитр', en: 'Millilitre' }, short: { ru: 'мл', en: 'ml', hy: 'մլ' } },
-  { id: 'l', label: { ru: 'Литр', en: 'Litre' }, short: { ru: 'л', en: 'l', hy: 'լ' } },
-  { id: 'g', label: { ru: 'Грамм', en: 'Gram' }, short: { ru: 'г', en: 'g', hy: 'գ' } },
-  { id: 'kg', label: { ru: 'Килограмм', en: 'Kilogram' }, short: { ru: 'кг', en: 'kg', hy: 'կգ' } },
-  { id: 'bottle', label: { ru: 'Флакон', en: 'Bottle' }, short: { ru: 'флак.', en: 'btl', hy: 'շիշ' } },
-  { id: 'tube', label: { ru: 'Тюбик', en: 'Tube' }, short: { ru: 'тюб.', en: 'tube', hy: 'տուբ' } },
-  { id: 'jar', label: { ru: 'Банка', en: 'Jar' }, short: { ru: 'банк.', en: 'jar', hy: 'բանկա' } },
-  { id: 'pack', label: { ru: 'Упаковка', en: 'Pack' }, short: { ru: 'уп.', en: 'pack', hy: 'փաթեթ' } },
-  { id: 'box', label: { ru: 'Коробка', en: 'Box' }, short: { ru: 'кор.', en: 'box', hy: 'տուփ' } },
-  { id: 'set', label: { ru: 'Набор', en: 'Set' }, short: { ru: 'наб.', en: 'set', hy: 'հավաքածու' } },
-  { id: 'pair', label: { ru: 'Пара', en: 'Pair' }, short: { ru: 'пар.', en: 'pair', hy: 'զույգ' } },
-  { id: 'roll', label: { ru: 'Рулон', en: 'Roll' }, short: { ru: 'рул.', en: 'roll', hy: 'գլան' } },
-  { id: 'ampoule', label: { ru: 'Ампула', en: 'Ampoule' }, short: { ru: 'амп.', en: 'amp', hy: 'սրվակ' } },
-  { id: 'capsule', label: { ru: 'Капсула', en: 'Capsule' }, short: { ru: 'капс.', en: 'cap', hy: 'պատիճ' } },
-  { id: 'dose', label: { ru: 'Доза', en: 'Dose' }, short: { ru: 'доз.', en: 'dose', hy: 'դեղաչափ' } },
-  { id: 'syringe', label: { ru: 'Шприц', en: 'Syringe' }, short: { ru: 'шпр.', en: 'syr', hy: 'ներարկիչ' } },
-  { id: 'portion', label: { ru: 'Порция', en: 'Portion' }, short: { ru: 'порц.', en: 'ptn', hy: 'բաժին' } },
-  { id: 'procedure', label: { ru: 'Процедура', en: 'Procedure' }, short: { ru: 'проц.', en: 'proc', hy: 'պրոց.' } },
-  { id: 'cm', label: { ru: 'Сантиметр', en: 'Centimetre' }, short: { ru: 'см', en: 'cm', hy: 'սմ' } },
-  { id: 'm', label: { ru: 'Метр', en: 'Metre' }, short: { ru: 'м', en: 'm', hy: 'մ' } },
-  { id: 'other', label: { ru: 'Другое', en: 'Other' }, short: { ru: '—', en: '—', hy: '—' } },
+  { id: 'pcs', label: { ru: 'Штука', en: 'Piece', hy: 'Հատ' }, short: { ru: 'шт.', en: 'pc', hy: 'հատ' } },
+  { id: 'ml', label: { ru: 'Миллилитр', en: 'Millilitre', hy: 'Միլիլիտր' }, short: { ru: 'мл', en: 'ml', hy: 'մլ' } },
+  { id: 'l', label: { ru: 'Литр', en: 'Litre', hy: 'Լիտր' }, short: { ru: 'л', en: 'l', hy: 'լ' } },
+  { id: 'g', label: { ru: 'Грамм', en: 'Gram', hy: 'Գրամ' }, short: { ru: 'г', en: 'g', hy: 'գ' } },
+  { id: 'kg', label: { ru: 'Килограмм', en: 'Kilogram', hy: 'Կիլոգրամ' }, short: { ru: 'кг', en: 'kg', hy: 'կգ' } },
+  { id: 'bottle', label: { ru: 'Флакон', en: 'Bottle', hy: 'Շիշ' }, short: { ru: 'флак.', en: 'btl', hy: 'շիշ' } },
+  { id: 'tube', label: { ru: 'Тюбик', en: 'Tube', hy: 'Տուբ' }, short: { ru: 'тюб.', en: 'tube', hy: 'տուբ' } },
+  { id: 'jar', label: { ru: 'Банка', en: 'Jar', hy: 'Բանկա' }, short: { ru: 'банк.', en: 'jar', hy: 'բանկա' } },
+  { id: 'pack', label: { ru: 'Упаковка', en: 'Pack', hy: 'Փաթեթ' }, short: { ru: 'уп.', en: 'pack', hy: 'փաթեթ' } },
+  { id: 'box', label: { ru: 'Коробка', en: 'Box', hy: 'Տուփ' }, short: { ru: 'кор.', en: 'box', hy: 'տուփ' } },
+  { id: 'set', label: { ru: 'Набор', en: 'Set', hy: 'Հավաքածու' }, short: { ru: 'наб.', en: 'set', hy: 'հավաքածու' } },
+  { id: 'pair', label: { ru: 'Пара', en: 'Pair', hy: 'Զույգ' }, short: { ru: 'пар.', en: 'pair', hy: 'զույգ' } },
+  { id: 'roll', label: { ru: 'Рулон', en: 'Roll', hy: 'Գլան' }, short: { ru: 'рул.', en: 'roll', hy: 'գլան' } },
+  { id: 'ampoule', label: { ru: 'Ампула', en: 'Ampoule', hy: 'Սրվակ' }, short: { ru: 'амп.', en: 'amp', hy: 'սրվակ' } },
+  { id: 'capsule', label: { ru: 'Капсула', en: 'Capsule', hy: 'Պատիճ' }, short: { ru: 'капс.', en: 'cap', hy: 'պատիճ' } },
+  { id: 'dose', label: { ru: 'Доза', en: 'Dose', hy: 'Դեղաչափ' }, short: { ru: 'доз.', en: 'dose', hy: 'դեղաչափ' } },
+  { id: 'syringe', label: { ru: 'Шприц', en: 'Syringe', hy: 'Ներարկիչ' }, short: { ru: 'шпр.', en: 'syr', hy: 'ներարկիչ' } },
+  { id: 'portion', label: { ru: 'Порция', en: 'Portion', hy: 'Բաժին' }, short: { ru: 'порц.', en: 'ptn', hy: 'բաժին' } },
+  { id: 'procedure', label: { ru: 'Процедура', en: 'Procedure', hy: 'Պրոցեդուրա' }, short: { ru: 'проц.', en: 'proc', hy: 'պրոց.' } },
+  { id: 'cm', label: { ru: 'Сантиметр', en: 'Centimetre', hy: 'Սանտիմետր' }, short: { ru: 'см', en: 'cm', hy: 'սմ' } },
+  { id: 'm', label: { ru: 'Метр', en: 'Metre', hy: 'Մետր' }, short: { ru: 'м', en: 'm', hy: 'մ' } },
+  { id: 'other', label: { ru: 'Другое', en: 'Other', hy: 'Այլ' }, short: { ru: '—', en: '—', hy: '—' } },
 ];
 
 /**
@@ -194,10 +194,10 @@ export type OperationType = 'income' | 'sale' | 'writeoffService' | 'writeoffPro
 export type WriteoffReason = 'norm' | 'manual' | 'defect' | 'expired';
 
 export const WRITEOFF_REASON_LABELS: Record<WriteoffReason, LocalizedText> = {
-  norm: { ru: 'По норме с услуги', en: 'By service norm' },
-  manual: { ru: 'Вручную', en: 'Manual' },
-  defect: { ru: 'Брак', en: 'Defect' },
-  expired: { ru: 'Просрочка', en: 'Expired' },
+  norm: { ru: 'По норме с услуги', en: 'By service norm', hy: 'Ըստ ծառայության նորմայի' },
+  manual: { ru: 'Вручную', en: 'Manual', hy: 'Ձեռքով' },
+  defect: { ru: 'Брак', en: 'Defect', hy: 'Խոտան' },
+  expired: { ru: 'Просрочка', en: 'Expired', hy: 'Ժամկետանց' },
 };
 
 export interface OperationLine {

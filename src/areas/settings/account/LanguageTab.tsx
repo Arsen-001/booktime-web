@@ -41,7 +41,7 @@ export function LanguageTab() {
             options={LOCALES.map((l) => ({ value: l, label: LANG_LABEL[l] }))}
           />
         </FormField>
-        <Badge tone="info" className="self-start">
+        <Badge tone="info" className="max-w-full self-start rounded-lg py-1 whitespace-normal">
           {t('account.language.note')}
         </Badge>
         <Button className="self-start" disabled={value === lang} onClick={save}>

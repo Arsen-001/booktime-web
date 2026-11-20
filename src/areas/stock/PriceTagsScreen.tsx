@@ -30,10 +30,11 @@ import { SkeletonText } from '@/ui/Skeleton';
 import { useSkeletonCount } from '@/ui/hooks/useSkeletonCount';
 import { HelpArticleButton } from '@/areas/stock/HelpArticleButton';
 
-const SIZE_OPTIONS: { value: PriceTagSize; label: string }[] = [
-  { value: 'small', label: '30×20 мм' },
-  { value: 'medium', label: '58×40 мм' },
-  { value: 'large', label: '90×50 мм' },
+/** Размеры ценника в мм; подпись «30×20 мм» — из словаря (единица на языке кабинета) */
+const SIZES: { value: PriceTagSize; w: number; h: number }[] = [
+  { value: 'small', w: 30, h: 20 },
+  { value: 'medium', w: 58, h: 40 },
+  { value: 'large', w: 90, h: 50 },
 ];
 
 export function PriceTagsScreen() {
@@ -93,7 +94,7 @@ export function PriceTagsScreen() {
         <SectionCard title={t('priceTags.layoutTitle')} className="print:hidden">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <FormField label={t('priceTags.size')}>
-              <Select value={layout?.size} onValueChange={(v) => layoutMutation.mutate({ size: v as PriceTagSize })} options={SIZE_OPTIONS} disabled={!layout} placeholder={layout ? undefined : ''} />
+              <Select value={layout?.size} onValueChange={(v) => layoutMutation.mutate({ size: v as PriceTagSize })} options={SIZES.map(({ value, w, h }) => ({ value, label: t('priceTags.sizeMm', { w, h }) }))} disabled={!layout} placeholder={layout ? undefined : ''} />
             </FormField>
             <FormField label={t('priceTags.orientation')}>
               <Select

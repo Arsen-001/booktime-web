@@ -7,6 +7,7 @@ import { createNewsPost, getCoinBalance, getNewsWeekStatus, listNewsPosts, NEWS_
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useClientFormat } from '@/areas/client/useClientFormat';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -23,6 +24,7 @@ import { useToast } from '@/ui/Toast';
 
 export function NewsScreen() {
   const t = useT('client');
+  const format = useFormat();
   const fmt = useClientFormat();
   const toast = useToast();
   const { ready, businessId } = useCurrent();
@@ -74,7 +76,7 @@ export function NewsScreen() {
                 <SkeletonText width="40ch" />
               ) : weekQ.data
                 ? overFree
-                  ? t('apps.news.overFreeHint', { price: NEWS_EXTRA_PRICE })
+                  ? t('apps.news.overFreeHint', { price: format.number(NEWS_EXTRA_PRICE) })
                   : t('apps.news.weekStatus', { used: weekQ.data.used, free: weekQ.data.free })
                 : null}
             </p>

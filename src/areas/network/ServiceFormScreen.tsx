@@ -280,12 +280,12 @@ export function ServiceFormScreen() {
               <div className="flex gap-3">
                 <FormField
                   label={priceRange ? t("services.form.priceFrom") : t("services.form.priceLabel")}
-                  className="flex-1"
+                  className="min-w-0 flex-1"
                 >
                   <MoneyInput value={priceMin} onValueChange={setPriceMin} />
                 </FormField>
                 {priceRange && (
-                  <FormField label={t("services.form.priceTo")} className="flex-1">
+                  <FormField label={t("services.form.priceTo")} className="min-w-0 flex-1">
                     <MoneyInput value={priceMax} onValueChange={setPriceMax} />
                   </FormField>
                 )}

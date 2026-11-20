@@ -288,7 +288,7 @@ export function OperationDocScreen({ docId }: { docId: Id }) {
               )}
               {doc.reason && (
                 <FormField label={t('operationForm.reason')}>
-                  <Select options={Object.entries(WRITEOFF_REASON_LABELS).map(([v, l]) => ({ value: v, label: l.ru }))} value={reason ?? doc.reason} onValueChange={(v) => setReason(v as WriteoffReason)} disabled={!editable} />
+                  <Select options={Object.entries(WRITEOFF_REASON_LABELS).map(([v, l]) => ({ value: v, label: pickText(l, lang) }))} value={reason ?? doc.reason} onValueChange={(v) => setReason(v as WriteoffReason)} disabled={!editable} />
                 </FormField>
               )}
             </div>

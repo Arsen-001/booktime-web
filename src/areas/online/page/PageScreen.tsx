@@ -126,7 +126,7 @@ export function PageScreen() {
                   </li>
                 ))}
               {(listabilityQ.data ?? []).map(({ staff, check }) => (
-                <li key={staff.id} className="flex items-center justify-between gap-3 py-2.5">
+                <li key={staff.id} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-2.5">
                   <span className="text-sm font-medium text-fg">{staff.name}</span>
                   {check.listable ? (
                     <Badge tone="success" size="sm" icon={<CheckCircle2 aria-hidden />}>

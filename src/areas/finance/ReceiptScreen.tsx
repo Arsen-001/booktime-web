@@ -34,7 +34,8 @@ function downloadHtml(filename: string, content: string): void {
   URL.revokeObjectURL(url);
 }
 
-function receiptHtml(data: ReceiptData, format: ReturnType<typeof useFormat>, requisiteLabel: (key: keyof OrgRequisiteValues) => string): string {
+/** Слова чека на языке кабинета: «Чек», «Итого» (раньше были вшиты по-русски — hy/en скачивали русский чек) */
+function receiptHtml(data: ReceiptData, format: ReturnType<typeof useFormat>, requisiteLabel: (key: keyof OrgRequisiteValues) => string, words: { title: string; total: string }): string {
   const req = Object.entries(data.requisites)
     .filter(([key, on]) => on && isArmenianRequisite(key) && data.orgRequisites[key as keyof typeof data.orgRequisites])
     .map(([key]) => `<div>${requisiteLabel(key as keyof OrgRequisiteValues)}: ${data.orgRequisites[key as keyof typeof data.orgRequisites]}</div>`)
@@ -43,7 +44,7 @@ function receiptHtml(data: ReceiptData, format: ReturnType<typeof useFormat>, re
     .map((l) => `<tr><td>${l.label}</td><td style="text-align:right">${format.money(l.amount)}</td>${l.vat !== undefined ? `<td style="text-align:right">${format.money(l.vat)}</td>` : ''}</tr>`)
     .join('');
   const payments = data.paymentLines.map((p) => `<div>${p.label}: ${p.kind === 'money' ? '' : '-'}${format.money(p.amount)}</div>`).join('');
-  return `<!doctype html><html><head><meta charset="utf-8"><title>Чек ${data.docNumber ?? ''}</title>
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${words.title} ${data.docNumber ?? ''}</title>
   <style>body{font-family:sans-serif;max-width:420px;margin:24px auto;padding:16px}table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px solid color-mix(in srgb,currentColor 7%,transparent)}h1{font-size:16px}</style>
   </head><body>
   <h1>${data.businessName}</h1>
@@ -51,7 +52,7 @@ function receiptHtml(data: ReceiptData, format: ReturnType<typeof useFormat>, re
   <p>${data.docNumber ?? ''} · ${data.date}</p>
   <!-- data-f="F-04-229" --> ${data.clientName ? `<p>${data.clientName} ${data.clientPhone ?? ''} ${data.clientEmail ?? ''}</p>` : ''}
   <table>${lines}</table>
-  <p><b>Итого: ${format.money(data.total)}</b></p>
+  <p><b>${words.total}: ${format.money(data.total)}</b></p>
   ${payments}
   ${data.comment ? `<p>${data.comment}</p>` : ''}
   ${data.extraInfoText ? `<p>${data.extraInfoText}</p>` : ''}
@@ -126,7 +127,7 @@ export function ReceiptScreen({ bookingId }: ReceiptScreenProps) {
         {data.comment && <p className="mt-3 text-sm text-muted">{data.comment}</p>}
         {data.extraInfoText && <p className="mt-3 text-xs text-muted">{data.extraInfoText}</p>}
       </SectionCard>
-      <Button leftIcon={<Download aria-hidden className="size-4" />} onClick={() => downloadHtml(`receipt-${data.docNumber ?? bookingId}.html`, receiptHtml(data, format, requisiteLabel))}>
+      <Button leftIcon={<Download aria-hidden className="size-4" />} onClick={() => downloadHtml(`receipt-${data.docNumber ?? bookingId}.html`, receiptHtml(data, format, requisiteLabel, { title: t('receipt.title'), total: t('receipt.total') }))}>
         {t('receipt.download')}
       </Button>
     </div>

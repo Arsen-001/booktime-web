@@ -258,6 +258,28 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
   },
 ];
 
+/**
+ * Армянские название и пояснение правила (проход hy 20.11.2026): экран показывал на hy английские «Loyalty card
+ * issued»… Нет строки — экран берёт русскую (как словари: нет hy — ru).
+ */
+export const LOYALTY_NOTIFY_HY: Partial<Record<LoyaltyNotifyEventCode, { name: string; hint: string }>> = {
+  cardIssued: { name: 'Հավատարմության քարտի թողարկում', hint: 'Հաճախորդը SMS է ստանում ցանցի նոր քարտի մասին։' },
+  pointsEarned: { name: 'Բոնուսների կուտակում', hint: 'Հաճախորդը SMS է ստանում քարտին նոր բոնուսների մասին։' },
+  pointsSpent: { name: 'Բոնուսների դուրսգրում', hint: 'Հաճախորդը SMS է ստանում բոնուսների դուրսգրման մասին։' },
+  promoDiscountChanged: { name: 'Ակցիայի զեղչի փոփոխություն', hint: 'Ուղարկվում է կուտակային զեղչի չափը փոխվելիս։' },
+  promoDiscountEndingSoon: { name: 'Զեղչի մոտալուտ ավարտ', hint: 'Միայն այն ակցիաների համար, որոնց զեղչը զրոյանում է երկար բացակայության դեպքում։' },
+  promoCashbackEarned: { name: 'Քեշբեքի կուտակում', hint: 'Ուղարկվում է, երբ բոնուսային ծրագիրը քեշբեք է կուտակում։' },
+  promoBonusBurningSoon: { name: 'Բոնուսների մոտալուտ այրում', hint: 'Միայն այն բոնուսային ակցիաների համար, որոնք այրում են չօգտագործված բոնուսները։' },
+  subscriptionEndingSoon: { name: 'Աբոնեմենտի ավարտ', hint: 'Ուղարկվում է գործարկումից 24 ժամ հետո՝ 9:00–21:00 մասնաճյուղի ժամանակով։' },
+  subscriptionCharge: { name: 'Դուրսգրում աբոնեմենտից', hint: 'Ուղարկվում է անմիջապես, երբ այցը վճարվում է աբոնեմենտով կամ ավտոմատ դուրսգրմամբ։' },
+  onlinePurchaseReceipt: { name: 'Աբոնեմենտի կամ նվեր-քարտի առցանց գնում', hint: 'Նամակ հաճախորդին գնման մասին և ծանուցում բիզնեսին նոր պատվերի մասին։' },
+  autoRenewalUpcoming: { name: 'Ինքնաերկարացման մոտալուտ գանձում', hint: 'Գանձումից 3 օր առաջ՝ չեղարկման կոճակով։ ⭐ դեմո — միայն Բրազիլիայում (AltPay)։' },
+  autoRenewalCharged: { name: 'Չեկ ինքնաերկարացումից հետո', hint: 'Գնումից անմիջապես հետո՝ չեկ և չեղարկման կոճակ։ ⭐ դեմո — միայն Բրազիլիայում։' },
+  autoRenewalCancelled: { name: 'Ինքնաերկարացումը չեղարկված է', hint: 'Չեղարկումից հետո աբոնեմենտը գործում է մինչև ժամկետի ավարտը։ ⭐ դեմո — միայն Բրազիլիայում։' },
+  autoRenewalFailed: { name: 'Ինքնաերկարացման անհաջող գանձում', hint: 'Անհաջող գանձման դեպքում աբոնեմենտը չեղարկվում է։ ⭐ դեմո — միայն Բրազիլիայում։' },
+  formLinkAfterBooking: { name: 'Հարցաթերթիկի հղում գրանցումից հետո', hint: 'Հաճախորդին՝ առաջին այցի ժամանակ, կրկնակի այցելուները չեն ստանում։ ⭐ դեմո մեխանիզմ (FastSign/QR Forms — 1:1)։' },
+};
+
 export function loyaltyNotifyLabel(code: LoyaltyNotifyEventCode): { nameRu: string; nameEn: string } {
   const def = LOYALTY_NOTIFY_DEFS.find((d) => d.code === code);
   return def ? { nameRu: def.nameRu, nameEn: def.nameEn } : { nameRu: code, nameEn: code };

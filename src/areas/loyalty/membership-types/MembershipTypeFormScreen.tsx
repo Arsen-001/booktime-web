@@ -459,7 +459,7 @@ function MembershipTypeFormBody({
                 {recalcPriceOnPay && (
                   <div className="rounded-lg bg-surface-2 p-3 text-sm text-muted">
                     <p className="font-medium text-fg">{t('membershipTypeForm.recalcPreviewTitle')}</p>
-                    <p>{t('membershipTypeForm.recalcPreviewText', { price: price ?? 0, visits: totalVisits || 1, perVisit })}</p>
+                    <p>{t('membershipTypeForm.recalcPreviewText', { price: format.number(price ?? 0), visits: totalVisits || 1, perVisit: format.number(perVisit) })}</p>
                   </div>
                 )}
               </div>

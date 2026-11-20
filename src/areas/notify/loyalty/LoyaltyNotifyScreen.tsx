@@ -16,7 +16,7 @@ import { listLoyaltyNotifyRules, updateLoyaltyNotifyRule } from '@/api/notify';
 import type { LoyaltyNotifyRulePatch } from '@/api/notify';
 import { useApiMutation, useApiQuery } from '@/api/request';
 import type { LoyaltyNotifyEventCode } from '@/domain/notify';
-import { LOYALTY_NOTIFY_DEFS } from '@/areas/notify/lib/loyaltyNotify';
+import { LOYALTY_NOTIFY_DEFS, LOYALTY_NOTIFY_HY } from '@/areas/notify/lib/loyaltyNotify';
 import type { Locale } from '@/i18n/config';
 import { useCurrent } from '@/demo/hooks';
 import { isConnected } from '@/config/hidden';
@@ -71,9 +71,9 @@ function RuleRow({ code }: { code: LoyaltyNotifyEventCode }) {
             className="flex min-h-10 items-center gap-2 py-2 text-left font-medium text-fg"
           >
             <ChevronDown aria-hidden className={`size-4 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
-            {locale === 'ru' ? def.nameRu : def.nameEn}
+            {locale === 'en' ? def.nameEn : locale === 'hy' ? (LOYALTY_NOTIFY_HY[def.code]?.name ?? def.nameRu) : def.nameRu}
           </button>
-          <p className="pl-6 text-xs text-muted">{locale === 'ru' ? def.hintRu : def.hintEn}</p>
+          <p className="pl-6 text-xs text-muted">{locale === 'en' ? def.hintEn : locale === 'hy' ? (LOYALTY_NOTIFY_HY[def.code]?.hint ?? def.hintRu) : def.hintRu}</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {def.regionOnly && (

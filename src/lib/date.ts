@@ -38,7 +38,9 @@ const hyMonths = Object.assign(
   (d: Dayjs, format: string) => (/D[oD]?(\[[^[\]]*\]|\s)+MMMM?/.test(format) ? HY_MONTHS_GENITIVE : HY_MONTHS_STANDALONE)[d.month()],
   { s: HY_MONTHS_STANDALONE, f: HY_MONTHS_GENITIVE },
 );
-dayjs.updateLocale('hy-am', { months: hyMonths });
+// Короткие месяцы — как в CLDR и TEXT-STYLE §4 («26 սեպ», «20 նոյ»): у dayjs свои «սպտ», «հկտ», «նմբ», «դկտ», «փտր»
+const HY_MONTHS_SHORT = 'հնվ_փտվ_մրտ_ապր_մյս_հնս_հլս_օգս_սեպ_հոկ_նոյ_դեկ'.split('_');
+dayjs.updateLocale('hy-am', { months: hyMonths, monthsShort: HY_MONTHS_SHORT });
 
 export { dayjs, type Dayjs };
 

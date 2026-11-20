@@ -680,8 +680,8 @@ export function ClientsScreen() {
             {broadcast.channel === "sms" && !smsBlocked && (
               <p className="text-xs text-muted">
                 {t("clients.broadcastCost", {
-                  cost: broadcastCost,
-                  balance: smsBalance,
+                  cost: format.number(broadcastCost),
+                  balance: format.number(smsBalance),
                 })}
               </p>
             )}

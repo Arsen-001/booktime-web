@@ -213,7 +213,7 @@ export function ModerationScreen() {
         items={TABS.map((s) => ({ value: s, label: t(`moderation.tab.${s}`), badge: counts ? <Badge size="sm" tone={s === 'pending' && counts.pending > 0 ? 'warning' : 'neutral'}>{counts[s]}</Badge> : <TabCountSkeleton typical={TYPICAL_COUNTS[s]} /> }))}
       />
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Select
           aria-label={t('moderation.filterKind')}
           value={kind}
@@ -223,7 +223,7 @@ export function ModerationScreen() {
             setPage(1);
           }}
           options={[{ value: 'all', label: t('moderation.allKinds') }, ...KINDS.map((k) => ({ value: k, label: t(`moderation.kind.${k}`) }))]}
-          className="min-w-0 flex-1 sm:max-w-xs"
+          className="min-w-40 flex-1 sm:max-w-xs"
         />
         {/* Справочник причин — настройка, а не вкладка очереди */}
         <Button variant="ghost" leftIcon={<ListX aria-hidden />} onClick={() => setReasonsOpen(true)} className="ml-auto shrink-0">

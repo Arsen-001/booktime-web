@@ -60,7 +60,7 @@ export function TableCardBody<T>({ columns, row, skeleton }: TableCardBodyProps<
               ))}
             </div>
             {badges.length > 0 && (
-              <div className="flex shrink-0 flex-wrap justify-end gap-1">
+              <div className="flex max-w-full shrink-0 flex-wrap justify-end gap-1">
                 {badges.map((c) => (
                   <span key={c.id}>{c.node}</span>
                 ))}

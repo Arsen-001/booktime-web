@@ -13,11 +13,12 @@ import { listCategoriesFlat, listWarehouses } from '@/api/stock';
 import { ExportExcelButton } from '@/areas/reports/components/ExportExcelButton';
 import { ReportHeader } from '@/areas/reports/components/ReportHeader';
 import { useStockPermissions } from '@/areas/stock/useStockPermissions';
-import { useCurrent } from '@/demo/hooks';
+import { useDemo, useCurrent } from '@/demo/hooks';
 import type { StockBalanceRow } from '@/domain/reports';
 import { unitById } from '@/domain/stock';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
+import { pickText } from '@/lib/text';
 import { today } from '@/lib/date';
 import { Checkbox } from '@/ui/Checkbox';
 import { DatePicker } from '@/ui/DatePicker';
@@ -30,6 +31,7 @@ import { Table, type TableColumn } from '@/ui/Table';
 
 export function StockBalanceScreen() {
   const t = useT('reports');
+  const { lang } = useDemo();
   const f = useFormat();
   const { businessId, locationId: rawLocationId, activeLocationIds, ready } = useCurrent();
   const locationId = rawLocationId === 'all' ? activeLocationIds[0] : rawLocationId;
@@ -105,14 +107,14 @@ export function StockBalanceScreen() {
       {
         id: 'qty',
         header: t('stockBalance.columns.qty'),
-        cell: (r) => `${f.number(r.qtySale)} ${unitById(r.saleUnit).short.ru}`,
+        cell: (r) => `${f.number(r.qtySale)} ${pickText(unitById(r.saleUnit).short, lang)}`,
         align: 'right',
         mobile: 'aside',
       },
       {
         id: 'qtyWriteoff',
         header: t('stockBalance.columns.qtyWriteoff'),
-        cell: (r) => `${f.number(r.qtyWriteoff)} ${unitById(r.writeoffUnit).short.ru}`,
+        cell: (r) => `${f.number(r.qtyWriteoff)} ${pickText(unitById(r.writeoffUnit).short, lang)}`,
         align: 'right',
         mobile: 'subtitle',
       },
@@ -143,7 +145,7 @@ export function StockBalanceScreen() {
       );
     }
     return base;
-  }, [t, f, canViewCost]);
+  }, [t, f, canViewCost, lang]);
 
   const exportRows = rows.map((r) => [
     r.sku ?? '',

@@ -24,7 +24,7 @@ const ITEM_NAMES: Record<string, Names> = {
   otherExpense: { ru: 'Прочий расход', hy: 'Այլ ծախս', en: 'Other expense', alt: ['Прочие расходы'] },
   accountTopUp: { ru: 'Пополнение счёта', hy: 'Հաշվի համալրում', en: 'Account top-up', alt: ['Пополнение счета'] },
   acquiringFee: { ru: 'Комиссия эквайринга', hy: 'Էքվայրինգի միջնորդավճար', en: 'Acquiring fee', alt: ['Комиссия за эквайринг'] },
-  certificateSale: { ru: 'Продажа сертификата', hy: 'Սերտիֆիկատի վաճառք', en: 'Certificate sale', alt: ['Продажа сертификатов'] },
+  certificateSale: { ru: 'Продажа сертификата', hy: 'Նվեր-քարտի վաճառք', en: 'Certificate sale', alt: ['Продажа сертификатов'] },
   penaltyCharge: { ru: 'Штраф', hy: 'Տուգանք', en: 'Penalty', alt: ['Списание штрафа'] },
   depositRetained: { ru: 'Удержанный депозит', hy: 'Պահված դեպոզիտ', en: 'Retained deposit' },
   refund: { ru: 'Возврат', hy: 'Վերադարձ', en: 'Refund' },

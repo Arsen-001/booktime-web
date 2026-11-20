@@ -184,12 +184,12 @@ export function LiveAgenda({
                 {row.gap.waiting > 0 && ` · ${t('board.live.waitingFit', { n: row.gap.waiting })}`}
               </span>
               {canCreate && (
-                <span className="mt-2 flex items-center gap-2">
+                <span className="mt-2 flex flex-wrap items-center gap-2">
                   {onOfferGap && (
                     <button
                       type="button"
                       onClick={() => onOfferGap({ staffId: selected.id, from: row.gap.from, to: row.gap.to })}
-                      className="inline-flex h-10 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-primary-contrast"
+                      className="inline-flex h-10 items-center whitespace-nowrap rounded-xl bg-primary px-4 text-sm font-semibold text-primary-contrast"
                     >
                       {row.gap.waiting > 0 ? t('board.live.offerGapWaiting', { n: row.gap.waiting }) : t('board.live.offerTitle')}
                     </button>
@@ -202,7 +202,7 @@ export function LiveAgenda({
                   >
                     <Plus aria-hidden className="size-5" strokeWidth={2.5} />
                   </button>
-                  {row.gap.potential > 0 && <span className="ml-auto text-xs font-medium">+ {format.money(row.gap.potential)}</span>}
+                  {row.gap.potential > 0 && <span className="ml-auto whitespace-nowrap text-xs font-medium">+ {format.money(row.gap.potential)}</span>}
                 </span>
               )}
             </div>

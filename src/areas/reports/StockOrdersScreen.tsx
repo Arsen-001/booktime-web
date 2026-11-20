@@ -10,11 +10,12 @@ import { useApiQuery } from '@/api/request';
 import { listCategoriesFlat } from '@/api/stock';
 import { ExportExcelButton } from '@/areas/reports/components/ExportExcelButton';
 import { ReportHeader } from '@/areas/reports/components/ReportHeader';
-import { useCurrent } from '@/demo/hooks';
+import { useDemo, useCurrent } from '@/demo/hooks';
 import type { StockOrderRow } from '@/domain/reports';
 import { unitById } from '@/domain/stock';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
+import { pickText } from '@/lib/text';
 import { Checkbox } from '@/ui/Checkbox';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
@@ -24,6 +25,7 @@ import { Table, type TableColumn } from '@/ui/Table';
 
 export function StockOrdersScreen() {
   const t = useT('reports');
+  const { lang } = useDemo();
   const f = useFormat();
   const { businessId, locationId: rawLocationId, activeLocationIds, ready } = useCurrent();
   const locationId = rawLocationId === 'all' ? activeLocationIds[0] : rawLocationId;
@@ -49,12 +51,12 @@ export function StockOrdersScreen() {
             <span className="text-xs text-muted">{r.categoryName}</span>
           </span>
         ), mobile: 'title' },
-      { id: 'stock', header: t('stockOrders.columns.stock'), cell: (r) => `${f.number(r.stock)} ${unitById(r.unit).short.ru}`, align: 'right', mobile: 'aside' },
+      { id: 'stock', header: t('stockOrders.columns.stock'), cell: (r) => `${f.number(r.stock)} ${pickText(unitById(r.unit).short, lang)}`, align: 'right', mobile: 'aside' },
       { id: 'critical', header: t('stockOrders.columns.critical'), cell: (r) => f.number(r.criticalStock), align: 'right', mobile: 'hidden' },
       { id: 'desired', header: t('stockOrders.columns.desired'), cell: (r) => f.number(r.desiredStock), align: 'right', mobile: 'subtitle' },
-      { id: 'shortage', header: t('stockOrders.columns.shortage'), cell: (r) => `${f.number(r.shortage)} ${unitById(r.unit).short.ru}`, align: 'right', sortable: true, sortValue: (r) => r.shortage, mobile: 'meta' },
+      { id: 'shortage', header: t('stockOrders.columns.shortage'), cell: (r) => `${f.number(r.shortage)} ${pickText(unitById(r.unit).short, lang)}`, align: 'right', sortable: true, sortValue: (r) => r.shortage, mobile: 'meta' },
     ],
-    [t, f],
+    [t, f, lang],
   );
 
   const exportRows = rows.map((r) => [r.sku ?? '', r.goodName, r.categoryName, r.stock, r.criticalStock, r.desiredStock, r.shortage]);

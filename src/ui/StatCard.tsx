@@ -49,7 +49,7 @@ export function StatCard({ label, value, delta, hint, keepHint = false, icon, lo
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="min-w-0 pt-0.5 text-sm leading-snug font-medium text-muted">{label}</p>
+        <p className="min-w-0 pt-0.5 text-sm leading-snug font-medium break-words text-muted">{label}</p>
         {icon && (
           <span className="-mt-0.5 -mr-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-text [&_svg]:size-[18px]">
             {icon}

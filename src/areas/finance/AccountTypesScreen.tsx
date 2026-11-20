@@ -15,6 +15,7 @@ import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import type { AccountType, AccountTypeInput } from '@/domain/finance';
 import { useCan, useCurrent } from '@/demo/hooks';
 import { pickText } from '@/lib/text';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -34,6 +35,7 @@ import { ExitHold } from '@/ui/ExitHold';
 
 export function AccountTypesScreen() {
   const t = useT('finance');
+  const format = useFormat();
   const toast = useToast();
   const confirm = useConfirm();
   const { ready, businessId } = useCurrent();
@@ -114,7 +116,7 @@ export function AccountTypesScreen() {
                 {row.allowNegative && (
                   <span className="mt-1 inline-block">
                     <Badge tone="warning" size="sm">
-                      {t('accountTypes.negativeAllowed', { limit: row.negativeLimit })}
+                      {t('accountTypes.negativeAllowed', { limit: format.number(row.negativeLimit) })}
                     </Badge>
                   </span>
                 )}

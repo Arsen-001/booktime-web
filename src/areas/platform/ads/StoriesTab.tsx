@@ -7,6 +7,7 @@ import type { DistrictId } from '@/domain/core';
 import { StoryDayRow } from '@/areas/platform/ads/StoryDayRow';
 import { StoryStatsList } from '@/areas/platform/ads/StoryStatsList';
 import { useStoryBoard } from '@/areas/platform/hooks/usePlatformData';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { ErrorState } from '@/ui/ErrorState';
 import { SectionCard } from '@/ui/SectionCard';
@@ -15,6 +16,7 @@ import { SkeletonList } from '@/ui/Skeleton';
 
 export function StoriesTab() {
   const t = useT('platform');
+  const format = useFormat();
   const tc = useT('common');
   const [district, setDistrict] = useState<DistrictId | 'all'>('all');
   const q = useStoryBoard(district);
@@ -28,7 +30,7 @@ export function StoriesTab() {
     <div data-f="F-00-160" className="flex flex-col gap-6">
       <SectionCard
         title={t('ads.boardTitle')}
-        description={t('ads.boardHint', { places: board.config.places, price: board.config.pricePerDay })}
+        description={t('ads.boardHint', { places: board.config.places, price: board.config.pricePerDay, priceText: format.number(board.config.pricePerDay) })}
         padding="none"
           classNames={{ body: 'mt-4 border-t border-border' }}
         actions={

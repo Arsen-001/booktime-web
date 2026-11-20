@@ -195,7 +195,7 @@ export function OverviewScreen() {
                     <Building2 className="size-[18px]" aria-hidden />
                   </span>
                   <div className="min-w-0 flex-1 basis-40">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                       <p className="truncate text-sm font-medium text-fg">
                         {row.business.name}
                       </p>

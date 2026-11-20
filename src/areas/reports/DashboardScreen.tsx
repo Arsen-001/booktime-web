@@ -492,7 +492,7 @@ function ExtrasSection({ data, loading }: Pick<SectionProps, 'data' | 'loading'>
         <MetricTile
           label={t('dashboard.extra.revenuePerHour')}
           value={x ? (x.revenuePerScheduledHour === null ? '—' : f.money(x.revenuePerScheduledHour)) : ''}
-          sub={x ? t('dashboard.extra.revenuePerHourSub', { n: x.scheduledHours }) : ''}
+          sub={x ? t('dashboard.extra.revenuePerHourSub', { n: x.scheduledHours, hours: f.number(x.scheduledHours) }) : ''}
           hint={t('help.tiles.revenuePerHour')}
           loading={loading}
           noTrend

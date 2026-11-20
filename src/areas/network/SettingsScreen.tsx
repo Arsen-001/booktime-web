@@ -482,7 +482,7 @@ export function SettingsScreen() {
         <StatCard
           loading={licenseLoading}
           label={t("settings.statLicenseMonthly")}
-          value={`${(licenseQ.data ?? []).reduce((sum, r) => sum + r.monthly, 0).toLocaleString("ru-RU")} ֏`}
+          value={format.money((licenseQ.data ?? []).reduce((sum, r) => sum + r.monthly, 0))}
           icon={<Receipt aria-hidden />}
         />
       </div>
@@ -652,14 +652,14 @@ export function SettingsScreen() {
                     <tr key={row.businessId} className="border-b border-border last:border-0">
                       <td className="py-2 font-medium text-fg">{row.businessName}</td>
                       <td className="py-2 text-right">{row.mastersCount}</td>
-                      <td className="py-2 text-right">{row.monthly.toLocaleString("ru-RU")} ֏</td>
+                      <td className="py-2 text-right">{format.money(row.monthly)}</td>
                     </tr>
                   ))}
                   <tr>
                     <td className="pt-2 font-medium text-fg">{t("settings.licenseTotal")}</td>
                     <td className="pt-2" />
                     <td className="pt-2 text-right font-semibold text-fg">
-                      {licenseQ.data.reduce((sum, r) => sum + r.monthly, 0).toLocaleString("ru-RU")} ֏
+                      {format.money(licenseQ.data.reduce((sum, r) => sum + r.monthly, 0))}
                     </td>
                   </tr>
                 </tbody>
@@ -667,7 +667,7 @@ export function SettingsScreen() {
             </div>
           )}
           <p className="mt-3 text-xs text-muted">
-            {t("settings.licenseHint", { price: LOCATION_LICENSE_UNIT_PRICE })}
+            {t("settings.licenseHint", { price: format.number(LOCATION_LICENSE_UNIT_PRICE) })}
           </p>
         </SectionCard>
       </div>

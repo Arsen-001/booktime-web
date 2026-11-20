@@ -120,7 +120,7 @@ export function DeskScreen() {
           {title}
           <span className="text-base font-medium text-muted tabular-nums">{list.length}</span>
         </h2>
-        <ul className="grid gap-3 xl:grid-cols-2">{list.map((b) => card(b, tone))}</ul>
+        <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 xl:grid-cols-2">{list.map((b) => card(b, tone))}</ul>
         {after}
       </section>
     );
@@ -200,7 +200,7 @@ export function DeskScreen() {
           <h2 className="text-lg font-semibold">
             <SkeletonText width="16ch" />
           </h2>
-          <ul className="grid gap-3 xl:grid-cols-2">
+          <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 xl:grid-cols-2">
             {Array.from({ length: 4 }, (_, i) => (
               <DeskVisitCardSkeleton key={i} />
             ))}
@@ -216,7 +216,7 @@ export function DeskScreen() {
                 {t('desk.groups.later')}
                 <span className="text-base font-medium text-muted tabular-nums">{groups.later.length}</span>
               </h2>
-              <ul className="grid gap-3 xl:grid-cols-2">{laterPage.map((b) => card(b, 'later'))}</ul>
+              <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 xl:grid-cols-2">{laterPage.map((b) => card(b, 'later'))}</ul>
               {laterPager}
             </section>
           )}

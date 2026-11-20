@@ -795,7 +795,7 @@
     "reachTitle": "Advertiser report",
     "reachHint": "Views and clicks only — no specialist data",
     "boardTitle": "Story slots by day",
-    "boardHint": "{places, plural, one {# slot a day} other {# slots a day}} · {price, plural, one {from # coin} other {from # coins}}",
+    "boardHint": "{places, plural, one {# slot a day} other {# slots a day}} · {price, plural, one {from {priceText} coin} other {from {priceText} coins}}",
     "boardTakenAria": "{taken} of {total} taken",
     "placesFree": "{n, plural, one {# slot free} other {# slots free}}",
     "placesFull": "full — queue",
@@ -825,7 +825,7 @@
     "storyViews": "Views",
     "storyClicks": "Clicks",
     "storyBookings": "Bookings",
-    "statsLine": "{views, plural, one {# view} other {# views}} · {clicks, plural, one {# click} other {# clicks}}"
+    "statsLine": "{views, plural, one {{viewsText} view} other {{viewsText} views}} · {clicks, plural, one {{clicksText} click} other {{clicksText} clicks}}"
   },
   "businesses": {
     "title": "Businesses",

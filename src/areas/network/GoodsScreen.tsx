@@ -30,7 +30,7 @@ import { NetworkPageActions } from '@/areas/network/NetworkPageHelp';
 import { useNetwork } from '@/areas/network/lib/useNetwork';
 
 const GOOD_ROW = 'flex items-center gap-3 rounded-lg border border-border px-3 py-2';
-const GOOD_LINK = 'h-auto min-h-11 flex-1 justify-between gap-3 px-0 py-1.5 text-left md:h-auto';
+const GOOD_LINK = 'h-auto min-h-11 min-w-0 flex-1 justify-between gap-3 px-0 py-1.5 text-left md:h-auto';
 const CATEGORY_LINK = 'h-auto w-full justify-start rounded-lg border border-border px-3 py-2 text-left text-sm text-fg';
 
 /** Скелетон строки товара — та же разметка: галочка, название и артикул, цена */

@@ -4,10 +4,11 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Camera } from 'lucide-react';
 import { generateBarcode, type GoodInput } from '@/api/stock';
-import { useSphere } from '@/demo/hooks';
+import { useDemo, useSphere } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
 import { UNIT_OPTIONS, type TaxRate, type TaxSystem } from '@/domain/stock';
 import { useT } from '@/i18n/useT';
+import { pickText } from '@/lib/text';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
 import { ColorPicker } from '@/ui/ColorPicker';
@@ -36,12 +37,13 @@ export function GoodFormFields({
   showCost?: boolean;
 }) {
   const t = useT('stock');
+  const { lang } = useDemo();
   const { has } = useSphere();
   // ⭐ F-08-001: части склада показываются по сфере — у сфер без has('palette') (например, стоматология) оттенка/палитры нет
   const hasPalette = has('palette');
   const [scannerOpen, setScannerOpen] = useState(false);
   const set = <K extends keyof GoodInput>(key: K, value: GoodInput[K]) => setForm((f) => ({ ...f, [key]: value }));
-  const unitOptions = UNIT_OPTIONS.map((u) => ({ value: u.id, label: u.label.ru }));
+  const unitOptions = UNIT_OPTIONS.map((u) => ({ value: u.id, label: pickText(u.label, lang) }));
 
   return (
     <>

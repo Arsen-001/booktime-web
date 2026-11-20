@@ -10,6 +10,7 @@ import { BOOST_DAYS, BOOST_PRICE, getCoinBalance, getPromotionSettings, purchase
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
 import { useCurrent } from '@/demo/hooks';
 import { useClientFormat } from '@/areas/client/useClientFormat';
+import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
 import { Button } from '@/ui/Button';
@@ -23,6 +24,7 @@ const DISCOUNT_OPTIONS = [10, 15, 20, 25];
 
 export function PromotionScreen() {
   const t = useT('client');
+  const format = useFormat();
   const fmt = useClientFormat();
   const toast = useToast();
   const { ready, businessId } = useCurrent();
@@ -98,7 +100,7 @@ export function PromotionScreen() {
       <div data-f="F-00-167" className="grid gap-4 sm:grid-cols-2">
         <SectionCard
           title={t('apps.promotion.boostSearchTitle')}
-          description={t('apps.promotion.boostHint', { days: BOOST_DAYS, price: BOOST_PRICE.search })}
+          description={t('apps.promotion.boostHint', { days: BOOST_DAYS, price: format.number(BOOST_PRICE.search) })}
         >
           {boostSearch?.active && boostSearch.expiresAt > now ? (
             <Badge tone="success" variant="soft" icon={<ArrowUp aria-hidden />}>
@@ -106,13 +108,13 @@ export function PromotionScreen() {
             </Badge>
           ) : (
             <Button size="sm" disabled={loading} onClick={() => void handleBoost('search')} loading={boost.isPending && pendingKind === 'search'}>
-              {t('apps.promotion.buy', { price: BOOST_PRICE.search })}
+              {t('apps.promotion.buy', { price: format.number(BOOST_PRICE.search) })}
             </Button>
           )}
         </SectionCard>
         <SectionCard
           title={t('apps.promotion.boostHomeTitle')}
-          description={t('apps.promotion.boostHint', { days: BOOST_DAYS, price: BOOST_PRICE.home })}
+          description={t('apps.promotion.boostHint', { days: BOOST_DAYS, price: format.number(BOOST_PRICE.home) })}
         >
           {boostHome?.active && boostHome.expiresAt > now ? (
             <Badge tone="success" variant="soft" icon={<Home aria-hidden />}>
@@ -120,7 +122,7 @@ export function PromotionScreen() {
             </Badge>
           ) : (
             <Button size="sm" disabled={loading} onClick={() => void handleBoost('home')} loading={boost.isPending && pendingKind === 'home'}>
-              {t('apps.promotion.buy', { price: BOOST_PRICE.home })}
+              {t('apps.promotion.buy', { price: format.number(BOOST_PRICE.home) })}
             </Button>
           )}
         </SectionCard>
@@ -131,7 +133,7 @@ export function PromotionScreen() {
         {balanceQ.data === undefined && balanceQ.isLoading ? (
           <SkeletonText width="24ch" />
         ) : (
-          t('apps.promotion.balanceHint', { amount: balanceQ.data ?? 0 })
+          t('apps.promotion.balanceHint', { amount: format.number(balanceQ.data ?? 0) })
         )}
       </p>
     </div>

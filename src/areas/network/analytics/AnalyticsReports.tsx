@@ -44,11 +44,12 @@ import { useToast } from "@/ui/Toast";
 const KINDS: NetworkPlanKind[] = ["revenue", "clients", "avgCheck"];
 
 /** Наши окна и поля, не системные (CONVENTIONS §0.3): месяц выбираем Select'ом, не `<input type="month">` */
-function monthOptions(): { value: string; label: string }[] {
+/** Подпись месяца — на языке кабинета (было всегда по-русски: «ноябрь 2026» на hy/en) */
+function monthOptions(label: (d: Date) => string): { value: string; label: string }[] {
   const start = dayjs().subtract(3, "month");
   return Array.from({ length: 10 }, (_, i) => {
     const d = start.add(i, "month");
-    return { value: d.format("YYYY-MM"), label: d.locale("ru").format("MMMM YYYY") };
+    return { value: d.format("YYYY-MM"), label: label(d.toDate()) };
   });
 }
 
@@ -341,7 +342,7 @@ export function PlanExecutionTab({ networkId }: { networkId: Id }) {
     </div>
     <SectionCard title={t("analytics.tabs.plan")}>
       <div className="mb-4 flex flex-wrap gap-3">
-        <Select options={monthOptions()} value={month} onValueChange={setMonth} className="w-40" />
+        <Select options={monthOptions((d) => format.date(d, "monthYear"))} value={month} onValueChange={setMonth} className="w-40" />
         <SegmentedControl
           options={KINDS.map((k) => ({ value: k, label: t(`analytics.kind.${k}` as const) }))}
           value={kind}

@@ -124,7 +124,7 @@ export function ClientAboutTab({ row, businessId, staffId, authorName, rights }:
           title={t('card.consent.title')}
           actions={
             row.consent ? (
-              <Badge tone={row.consent.given ? 'success' : 'neutral'}>
+              <Badge tone={row.consent.given ? 'success' : 'neutral'} className="max-w-full whitespace-normal">
                 {t(row.consent.given ? 'card.consent.given' : 'card.consent.refused', { date: fmt.date(row.consent.at.slice(0, 10), 'long') })}
               </Badge>
             ) : (

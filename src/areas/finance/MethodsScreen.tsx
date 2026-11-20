@@ -133,7 +133,7 @@ function OnlineCardTab({ businessId }: { businessId: string }) {
     <div data-f="F-07-031 F-13-186" className="mx-auto flex w-full max-w-[760px] flex-col gap-4">
       <SectionCard title={t('methods.online.title')} description={t('methods.online.description')}>
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-3 rounded-lg border border-border px-3.5 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-lg border border-border px-3.5 py-3">
             <span className="text-sm text-fg">{t('methods.online.provider')}</span>
             <Badge tone={provider ? 'primary' : 'neutral'}>{provider ? t(`online.provider.${provider.key}`) : t('online.providerNone')}</Badge>
           </div>

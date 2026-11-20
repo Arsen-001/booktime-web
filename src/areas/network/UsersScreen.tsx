@@ -510,7 +510,7 @@ export function UsersScreen() {
           <CircleAlert className="mt-0.5 size-4 shrink-0 text-muted" aria-hidden />
           <p>
             {canAdd
-              ? t('settingsUsers.pricingRule', { free: pricingQ.data.freeCount, price: pricingQ.data.pricePerExtra })
+              ? t('settingsUsers.pricingRule', { free: pricingQ.data.freeCount, price: format.number(pricingQ.data.pricePerExtra) })
               : t('settingsUsers.noPaidLocation')}
           </p>
         </div>

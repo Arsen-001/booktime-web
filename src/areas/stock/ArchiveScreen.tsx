@@ -35,10 +35,10 @@ import { Table, type TableColumn } from '@/ui/Table';
 import { Tabs } from '@/ui/Tabs';
 import { useConfirm, useToast } from '@/ui/Toast';
 
-const CONFIRM_WORD = 'Удалить';
-
 export function ArchiveScreen() {
   const t = useT('stock');
+  // Слово подтверждения — на языке кабинета (hy «Ջնջել», en «Delete»), а не всегда русское «Удалить»
+  const CONFIRM_WORD = t('goodForm.delete');
   const router = useRouter();
   const format = useFormat();
   const toast = useToast();

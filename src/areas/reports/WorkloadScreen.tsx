@@ -5,6 +5,7 @@
  * будущие записи (число); кнопка в конце строки открывает график заполненности по дням.
  */
 import { BarChart3, ChevronRight, Clock } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { useMemo, useState } from 'react';
 import { CartesianGrid, Line, LineChart, Tooltip as RTooltip, XAxis, YAxis } from 'recharts';
 import { getWorkloadReport, setWorkloadIncluded } from '@/api/reports';
@@ -28,9 +29,17 @@ import { Table, type TableColumn } from '@/ui/Table';
 import { Tooltip } from '@/ui/Tooltip';
 import { useToast } from '@/ui/Toast';
 
+/** Часы с десятыми: «1 083», «201,3» (en — «201.3») — сырое число в строке давало «201.3» и «1083» на ru/hy */
+function formatHours(n: number, num: (v: number) => string, locale: string): string {
+  const r = Math.round(n * 10) / 10;
+  const frac = Math.round(Math.abs(r % 1) * 10);
+  return frac ? `${num(Math.trunc(r))}${locale === 'en' ? '.' : ','}${frac}` : num(r);
+}
+
 export function WorkloadScreen() {
   const t = useT('reports');
   const f = useFormat();
+  const locale = useLocale();
   const toast = useToast();
   const { businessId, activeLocationIds, ready } = useCurrent();
   const range = useReportRange();
@@ -62,7 +71,7 @@ export function WorkloadScreen() {
       {
         id: 'occupancy',
         header: t('workload.columns.occupancy'),
-        cell: (r) => (r.occupancyPct === null ? t('workload.noSchedule') : `${r.workedHours}/${r.scheduledHours} ${r.occupancyPct}%`),
+        cell: (r) => (r.occupancyPct === null ? t('workload.noSchedule') : `${formatHours(r.workedHours, f.number, locale)}/${formatHours(r.scheduledHours ?? 0, f.number, locale)} ${r.occupancyPct}%`),
         align: 'right',
       },
       { id: 'future', header: <span data-f="F-12-042">{t('workload.columns.future')}</span>, cell: (r) => r.futureBookings, align: 'right' },
@@ -98,7 +107,7 @@ export function WorkloadScreen() {
         mobile: 'hidden',
       },
     ],
-    [t, f, setIncluded, toast],
+    [t, f, locale, setIncluded, toast],
   );
 
   const exportRows = rows.map((r) => [r.staffName, r.workedDays, r.scheduledHours ?? '', r.workedHours, r.idleHours ?? '', r.occupancyPct ?? '', r.futureBookings]);
@@ -138,7 +147,7 @@ export function WorkloadScreen() {
         ) : (
           <>
             <Table columns={columns} rows={rows} rowKey={(r) => r.staffId} loading={q.isLoading} label={t('catalog.items.workload.title')} />
-            <p className="text-sm text-muted">{t('workload.total', { worked: q.data?.totalWorkedHours ?? 0, scheduled: q.data?.totalScheduledHours ?? 0 })}</p>
+            <p className="text-sm text-muted">{t('workload.total', { worked: formatHours(q.data?.totalWorkedHours ?? 0, f.number, locale), scheduled: formatHours(q.data?.totalScheduledHours ?? 0, f.number, locale) })}</p>
           </>
         )}
       </div>

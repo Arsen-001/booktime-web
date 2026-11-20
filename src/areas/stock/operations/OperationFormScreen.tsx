@@ -19,10 +19,11 @@ import {
   type SalePaymentMethod,
 } from '@/api/stock';
 import { ApiError, useApiMutation, useApiQuery } from '@/api/request';
-import { useCurrent } from '@/demo/hooks';
+import { useDemo, useCurrent } from '@/demo/hooks';
 import type { Id } from '@/domain/core';
 import { WRITEOFF_REASON_LABELS, type WriteoffReason } from '@/domain/stock';
 import { useT } from '@/i18n/useT';
+import { pickText } from '@/lib/text';
 import { formatQty, parseQty, stockAtWarehouse, warehouseLabel, warehouseWithMostStock, useUnitShort } from '@/areas/stock/warehouse.utils';
 import { useFormat } from '@/i18n/useFormat';
 import { combine, datePart, timePart, nowDateTime } from '@/lib/date';
@@ -65,6 +66,7 @@ function lineSum(l: Line): number {
 export function OperationFormScreen({ mode }: { mode: 'income' | 'writeoff' }) {
   const unitShort = useUnitShort();
   const t = useT('stock');
+  const { lang } = useDemo();
   const toast = useToast();
   const confirm = useConfirm();
   const router = useRouter();
@@ -295,7 +297,7 @@ export function OperationFormScreen({ mode }: { mode: 'income' | 'writeoff' }) {
           ) : (
             <FormField label={t('operationForm.reason')}>
               <Select
-                options={Object.entries(WRITEOFF_REASON_LABELS).map(([v, l]) => ({ value: v, label: l.ru }))}
+                options={Object.entries(WRITEOFF_REASON_LABELS).map(([v, l]) => ({ value: v, label: pickText(l, lang) }))}
                 value={reason}
                 onValueChange={(v) => setReason(v as WriteoffReason)}
               />

@@ -211,7 +211,7 @@ function CertificateTypeFormBody({ typeId, initial, onDeleted }: { typeId?: Id; 
             />
             <div className="rounded-lg bg-surface-2 p-3 text-sm text-muted">
               <p className="font-medium text-fg">{t('certificateTypeForm.chargePreviewTitle')}</p>
-              <p>{t('certificateTypeForm.chargePreviewText', { nominal: nominal ?? 0, charged: charge.charged, remaining: charge.remainingBalance })}</p>
+              <p>{t('certificateTypeForm.chargePreviewText', { nominal: format.number(nominal ?? 0), charged: format.number(charge.charged), remaining: format.number(charge.remainingBalance) })}</p>
             </div>
           </div>
         </SectionCard>

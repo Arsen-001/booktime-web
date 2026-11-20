@@ -21,10 +21,10 @@ export function OverviewTile({ href, label, value, hint, icon, loading, attentio
   return (
     <Card interactive href={href} className="group flex min-h-32 flex-col justify-between gap-3">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-sm font-medium text-muted">{label}</span>
+        <span className="min-w-0 text-sm font-medium break-words text-muted">{label}</span>
         <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-text [&_svg]:size-[18px]">{icon}</span>
       </div>
-      <div className="flex items-end justify-between gap-2">
+      <div className="flex flex-wrap items-end justify-between gap-x-2 gap-y-1">
         {/* Скелетон — внутри того же элемента, что и число: высота строки та же, ничего не прыгает */}
         <span className={attention && value > 0 ? 'text-3xl font-semibold text-fg tabular-nums' : 'text-3xl font-semibold text-muted tabular-nums'}>
           {loading ? <SkeletonText width="2ch" /> : value}
