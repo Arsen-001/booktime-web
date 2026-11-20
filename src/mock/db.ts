@@ -29,6 +29,7 @@ import type { AreaId } from '@/config/areas';
 import { AREA_IDS } from '@/config/areas';
 import type { Permission } from '@/config/permissions';
 import { dataMode } from '@/api/mode';
+import { packJson, unpackJson } from '@/mock/packJson';
 import type { CoreCollection, CoreData, Id, LocaleCode } from '@/domain/core';
 import type { AreaStates } from '@/mock/slices';
 
@@ -262,7 +263,7 @@ async function createSeedDataInSteps(now: Date): Promise<DbData> {
 function readJSON<T>(key: string): T | undefined {
   try {
     const raw = localStorage.getItem(key);
-    return raw === null ? undefined : (JSON.parse(raw) as T);
+    return raw === null ? undefined : unpackJson<T>(raw);
   } catch (e) {
     console.warn(`[mock-db] не удалось прочитать ${key} из localStorage`, e);
     return undefined;
@@ -271,7 +272,8 @@ function readJSON<T>(key: string): T | undefined {
 
 function writeJSON(key: string, value: unknown): void {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    // Компактно (src/mock/packJson.ts): свежий сид целиком — 63 % квоты вместо 143 %; обычный JSON читается как раньше
+    localStorage.setItem(key, packJson(value));
   } catch (e) {
     // Квота бьёт по ОДНОМУ ключу (одна коллекция/один срез), а не по всей базе — остальные уже
     // записанные ключи не откатываются (qa/requests/*.md, «quota»: раньше один общий блоб ронял всё).
@@ -775,7 +777,7 @@ if (typeof window !== 'undefined') {
     const rest = e.key.slice(prefix.length);
     let value: unknown;
     try {
-      value = JSON.parse(e.newValue);
+      value = unpackJson(e.newValue);
     } catch (err) {
       console.warn('[mock-db] чужая вкладка записала невалидный JSON', err);
       return;
