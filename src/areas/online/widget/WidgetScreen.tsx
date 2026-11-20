@@ -26,6 +26,7 @@ import { useT } from '@/i18n/useT';
 import { useFormat } from '@/i18n/useFormat';
 import { useOnlineAccess } from '@/areas/online/access';
 import { copyText } from '@/areas/online/links/copyText';
+import { useLinkName } from '@/areas/online/links/useLinkName';
 import { HelpHint } from '@/areas/online/HelpHint';
 import { Accordion } from '@/ui/Accordion';
 import { Badge } from '@/ui/Badge';
@@ -99,6 +100,7 @@ const noopSubscribe = () => () => {};
 
 export function WidgetScreen() {
   const t = useT('online');
+  const linkName = useLinkName();
   const toast = useToast();
   const { businessId, ready } = useCurrent();
   const { full: hasAccess } = useOnlineAccess();
@@ -183,7 +185,7 @@ export function WidgetScreen() {
   const customButtonSnippet = `<a href="${bookingUrl}" target="_blank" rel="noopener">${buttonLabel}</a>`;
   const iframeSnippet = `<iframe src="${bookingUrl}/embed" width="545" height="780" frameborder="0"></iframe>`;
   const multiFormSnippet = (linksQ.data ?? [])
-    .map((l) => `<a href="${linkUrl(l.formId, l.primary)}" target="_blank" rel="noopener">${l.name}</a>`)
+    .map((l) => `<a href="${linkUrl(l.formId, l.primary)}" target="_blank" rel="noopener">${linkName(l)}</a>`)
     .join('\n');
 
   return (
@@ -288,7 +290,7 @@ export function WidgetScreen() {
                       <div className="flex flex-col gap-4" data-f="F-03-013">
                         <IdSearchList
                           groups={[
-                            { title: t('widget.ids.forms'), items: (linksQ.data ?? []).map((l) => ({ id: l.formId, label: l.name })) },
+                            { title: t('widget.ids.forms'), items: (linksQ.data ?? []).map((l) => ({ id: l.formId, label: linkName(l) })) },
                             {
                               title: t('widget.ids.staff'),
                               items: (staffQ.data ?? [])

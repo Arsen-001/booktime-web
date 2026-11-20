@@ -74,6 +74,8 @@ import {
   DEFAULT_MAX_DAYS_AHEAD,
   DEFAULT_WEBSITE_BUTTON,
   INTEGRATION_CATALOG,
+  linkNameToStore,
+  linkWithName,
   staffServicePairKey,
 } from '@/domain/online';
 import { addDays, addMinutes, nowDateTime, toISODate, today, weekdayIndex } from '@/lib/date';
@@ -173,9 +175,18 @@ function sharedHourCycle(legacy: '24' | '12' | undefined): '24' | '12' {
   return readArea('journal').settings?.hourFormat ?? legacy ?? '24';
 }
 
+/**
+ * Ссылка, как её отдаёт сервер (linkView): без своего названия — подпись на языке «запроса» и nameDefault (20.11.2026).
+ * Язык запроса мока — язык страницы (у сервера — Accept-Language); вне браузера — ru.
+ */
+function linkOut(link: BookingLink): BookingLink {
+  const lang = typeof document === 'undefined' ? '' : document.documentElement.lang;
+  return linkWithName(link, lang === 'hy' || lang === 'en' ? lang : 'ru');
+}
+
 export function listLinks(businessId: Id): Promise<BookingLink[]> {
   if (isApiMode()) return OnlineServer.listLinksServer();
-  return request(() => readArea('online').links.filter((l) => l.businessId === businessId));
+  return request(() => readArea('online').links.filter((l) => l.businessId === businessId).map(linkOut));
 }
 
 export function getLink(id: Id): Promise<BookingLink> {
@@ -183,7 +194,7 @@ export function getLink(id: Id): Promise<BookingLink> {
   return request(() => {
     const found = readArea('online').links.find((l) => l.id === id);
     if (!found) throw new ApiError('not_found', `Ссылка ${id} не найдена`);
-    return found;
+    return linkOut(found);
   });
 }
 
@@ -193,7 +204,7 @@ export function getLinkByFormId(businessId: Id, formId: string): Promise<Booking
   return request(() => {
     const found = readArea('online').links.find((l) => l.businessId === businessId && l.formId === formId);
     if (!found) throw new ApiError('not_found', `Форма ${formId} не найдена`);
-    return found;
+    return linkOut(found);
   });
 }
 
@@ -248,12 +259,12 @@ export function createLink(input: CreateLinkInput): Promise<BookingLink> {
       s.links.push(link);
     });
     if (input.primary) void setPrimaryLink(input.businessId, link.id);
-    return link;
+    return linkOut(link);
   });
 }
 
 export type UpdateLinkPatch = Partial<
-  Omit<BookingLink, 'id' | 'businessId' | 'createdAt' | 'formId' | 'primary' | 'kind'>
+  Omit<BookingLink, 'id' | 'businessId' | 'createdAt' | 'formId' | 'primary' | 'kind' | 'nameDefault'>
 >;
 
 export function updateLink(id: Id, patch: UpdateLinkPatch): Promise<BookingLink> {
@@ -263,12 +274,13 @@ export function updateLink(id: Id, patch: UpdateLinkPatch): Promise<BookingLink>
     mutateArea('online', (s) => {
       s.links = s.links.map((l) => {
         if (l.id !== id) return l;
-        updated = { ...l, ...patch };
+        // Как сервер: ссылке без названия прислали её же подпись — названия по-прежнему нет
+        updated = { ...l, ...patch, ...(patch.name !== undefined ? { name: linkNameToStore(l, patch.name) } : {}) };
         return updated;
       });
     });
     if (!updated) throw new ApiError('not_found', `Ссылка ${id} не найдена`);
-    return updated;
+    return linkOut(updated);
   });
 }
 
@@ -325,7 +337,7 @@ export function setPrimaryLink(businessId: Id, id: Id): Promise<BookingLink> {
       });
     });
     if (!updated) throw new ApiError('not_found', `Ссылка ${id} не найдена`);
-    return updated;
+    return linkOut(updated);
   });
 }
 
@@ -543,7 +555,7 @@ export function getPublicBusinessDataMock(slug: string, formId?: string): Promis
       categories,
       services,
       staff,
-      link,
+      link: link && linkOut(link),
       regularsCount: countBusinessRegulars(core, business.id),
       serviceConfigs,
       staffServiceOnline: online.staffServiceOnline ?? {},

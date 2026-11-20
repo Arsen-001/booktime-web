@@ -227,6 +227,46 @@ export interface WebsiteButtonConfig {
   animation: boolean;
 }
 
+/**
+ * Название ссылки онлайн-записи без своего названия (20.11.2026). Раньше сервер и демо-данные заводили основную
+ * ссылку с «Форма компании» — по-русски на hy/en и словом Altegio (docs/TEXT-STYLE.md). Теперь название пустое, а
+ * сервер (booktime-backend online.service linkView) и мок (src/api/online.ts) отдают подпись на языке запроса — те же
+ * слова, что в словаре сервера (link.primaryName / link.unnamedName) и глоссарии. Старое «Форма компании» — ровно
+ * это значение — тоже «без названия»; своё название владельца показывается как есть.
+ */
+export const LEGACY_DEFAULT_LINK_NAME = 'Форма компании';
+
+/** Подпись ссылки без названия: основная — «Основная ссылка», другая — «Ссылка на запись» (как у сервера) */
+export const DEFAULT_LINK_NAMES: Record<LocaleCode, { primary: string; other: string }> = {
+  ru: { primary: 'Основная ссылка', other: 'Ссылка на запись' },
+  hy: { primary: 'Հիմնական հղում', other: 'Գրանցման հղում' },
+  en: { primary: 'Main link', other: 'Booking link' },
+};
+
+/** Своё название — то, что задал владелец: не пусто и не старое «Форма компании» */
+export function hasOwnLinkName(name: string | undefined): boolean {
+  const n = (name ?? '').trim();
+  return n !== '' && n !== LEGACY_DEFAULT_LINK_NAME;
+}
+
+/** Прислали подпись по умолчанию (на любом языке) или старое «Форма компании», а не своё название */
+export function isDefaultLinkName(name: string): boolean {
+  const n = name.trim();
+  return n === LEGACY_DEFAULT_LINK_NAME || Object.values(DEFAULT_LINK_NAMES).some((l) => l.primary === n || l.other === n);
+}
+
+/** Ссылка в ответе (как linkView сервера): без своего названия — подпись на языке запроса и nameDefault: true */
+export function linkWithName(link: BookingLink, locale: LocaleCode): BookingLink {
+  const own = hasOwnLinkName(link.name);
+  const labels = DEFAULT_LINK_NAMES[locale] ?? DEFAULT_LINK_NAMES.ru;
+  return { ...link, name: own ? link.name : link.primary ? labels.primary : labels.other, nameDefault: !own };
+}
+
+/** Название для сохранения: у ссылки без названия её же подпись (на любом языке) — по-прежнему без названия */
+export function linkNameToStore(before: BookingLink, name: string): string {
+  return !hasOwnLinkName(before.name) && isDefaultLinkName(name) ? '' : name;
+}
+
 export const DEFAULT_WEBSITE_BUTTON: WebsiteButtonConfig = {
   show: true,
   position: 'br',
@@ -246,8 +286,13 @@ export interface BookingLink {
   locationId?: Id;
   /** Сеть, чьи филиалы клиент выбирает первым шагом — только при kind==='network' (F-03-008) */
   networkId?: Id;
-  /** Видно только сотрудникам кабинета, не клиентам (F-03-006) */
+  /**
+   * Видно только сотрудникам кабинета, не клиентам (F-03-006). У ссылки без своего названия (новая основная — пустое,
+   * старая — «Форма компании») сервер и мок отдают здесь подпись на языке запроса и nameDefault: true.
+   */
   name: string;
+  /** Своего названия нет (20.11.2026): кабинет пишет подпись на своём языке — useLinkName (src/areas/online/links) */
+  nameDefault?: boolean;
   description?: string;
   kind: LinkKind;
   bookingType: LinkBookingType;

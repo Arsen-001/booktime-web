@@ -56,6 +56,7 @@ import { useScrollToHash } from '@/areas/online/lib/useScrollToHash';
 import { StickyActionBar } from '@/ui/StickyActionBar';
 import { useUnsavedGuard } from '@/ui/hooks/useUnsavedGuard';
 import { DragReorderList } from '@/areas/online/links/DragReorderList';
+import { useLinkName } from '@/areas/online/links/useLinkName';
 import { isOrderService } from '@/domain/ordersPickup';
 
 const PACKAGE_TEXT_LOCALES: LocaleCode[] = ['ru', 'en', 'hy'];
@@ -72,6 +73,7 @@ const EMPTY_PACKAGE_TEXT: LocalizedText = { ru: '', en: '', hy: '' };
  */
 export function LinkSettingsScreen({ linkId }: { linkId: string }) {
   const t = useT('online');
+  const linkName = useLinkName();
   const toast = useToast();
   const router = useRouter();
   const { full: hasAccess } = useOnlineAccess();
@@ -112,7 +114,8 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
   const [loadedLinkId, setLoadedLinkId] = useState<string | null>(null);
   if (linkQ.data && linkQ.data.id !== loadedLinkId) {
     const l = linkQ.data;
-    setName(l.name);
+    // Без своего названия — поле пустое, подпись «Основная ссылка» на языке кабинета (useLinkName)
+    setName(l.nameDefault ? '' : l.name);
     setDescription(l.description ?? '');
     setBookingType(l.bookingType);
     setDefaultLocale(l.defaultLocale);
@@ -206,7 +209,8 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
       await saveMutation.mutate({
         id: link.id,
         patch: {
-          name: name.trim() || link.name,
+          // Пустое поле: своё название остаётся прежним, у ссылки без названия name не шлём — остаётся без названия
+          ...(name.trim() || !link.nameDefault ? { name: name.trim() || link.name } : {}),
           description: description.trim() || undefined,
           bookingType,
           defaultLocale,
@@ -244,6 +248,7 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
               <div className="flex items-center gap-2">
                 <Input
                   value={name}
+                  placeholder={linkName(link)}
                   onChange={(e) => markDirty(setName)(e.target.value)}
                   onBlur={() => setEditingName(false)}
                   autoFocus
@@ -252,7 +257,7 @@ export function LinkSettingsScreen({ linkId }: { linkId: string }) {
               </div>
             ) : (
               <button type="button" className="inline-flex items-center gap-2 hover:underline" onClick={() => setEditingName(true)}>
-                {name}
+                {name || linkName(link)}
                 <Pencil aria-hidden className="size-4 text-muted" />
               </button>
             )

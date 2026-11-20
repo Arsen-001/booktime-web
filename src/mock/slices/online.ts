@@ -82,16 +82,18 @@ export interface BookingStatusLogEntry {
 }
 
 export const onlineSlice = defineSlice<OnlineState>({
-  version: 12,
+  // 13 (20.11.2026): основная ссылка без названия вместо «Форма компании»
+  version: 13,
   seed: (core, now) => {
-    // Основная ссылка сразу у каждого бизнеса (F-03-004): «Форма компании», не сетевая, все услуги.
+    // Основная ссылка сразу у каждого бизнеса (F-03-004): не сетевая, все услуги, без названия — кабинет и приложения
+    // показывают «Основная ссылка» на языке человека (linkWithName, src/domain/online.ts; как сервер).
     // По ТЗ у ссылки, созданной в приложении бизнеса, формат по умолчанию «Меню» (1432); у первой
     // (пробной) ссылки — «Пошаговый» (05) — держим так же, остальные заводим «Меню».
     const links: BookingLink[] = core.businesses.map((b, i) => ({
       id: newId('lnk'),
       businessId: b.id,
       locationId: b.locationIds[0],
-      name: 'Форма компании',
+      name: '',
       kind: 'normal',
       bookingType: 'mixed',
       defaultLocale: 'ru',

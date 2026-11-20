@@ -5,6 +5,7 @@ import { Copy, Eye, QrCode, Star, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { copyText } from '@/areas/online/links/copyText';
 import { LinkQrModal } from '@/areas/online/links/LinkQrModal';
+import { useLinkName } from '@/areas/online/links/useLinkName';
 import type { BookingLink } from '@/domain/online';
 import { useT } from '@/i18n/useT';
 import { Badge } from '@/ui/Badge';
@@ -13,9 +14,6 @@ import { Card } from '@/ui/Card';
 import { IconButton } from '@/ui/IconButton';
 import { SkeletonText } from '@/ui/Skeleton';
 import { useToast } from '@/ui/Toast';
-
-/** Имя основной ссылки, которое заводят сервер и демо-данные (online.service ensurePrimaryLink, mock/slices/online) */
-const DEFAULT_LINK_NAME = 'Форма компании';
 
 export interface LinkCardProps {
   link: BookingLink;
@@ -31,6 +29,7 @@ export interface LinkCardProps {
 /** Карточка ссылки в списке (F-03-003) */
 export function LinkCard({ link, locationName, staffName, publicUrl, onDelete, onMakePrimary, unpublished = false }: LinkCardProps) {
   const t = useT('online');
+  const linkName = useLinkName();
   const toast = useToast();
   const [qrOpen, setQrOpen] = useState(false);
 
@@ -51,8 +50,7 @@ export function LinkCard({ link, locationName, staffName, publicUrl, onDelete, o
             href={`/biz/online/links/${link.id}`}
             className="inline-flex min-h-10 items-center text-base font-semibold text-fg hover:underline"
           >
-            {/* Основную ссылку заводит сервер с именем «Форма компании» по-русски — на hy/en кабинете показываем перевод */}
-            {link.primary && link.name === DEFAULT_LINK_NAME ? t('links.defaultName') : link.name}
+            {linkName(link)}
           </Link>
           {locationName && <p className="mt-0.5 text-sm text-muted">{t('links.card.forLocation', { name: locationName })}</p>}
         </div>
@@ -97,7 +95,7 @@ export function LinkCard({ link, locationName, staffName, publicUrl, onDelete, o
         />
       </div>
 
-      <LinkQrModal open={qrOpen} onOpenChange={setQrOpen} url={publicUrl} title={link.primary && link.name === DEFAULT_LINK_NAME ? t('links.defaultName') : link.name} />
+      <LinkQrModal open={qrOpen} onOpenChange={setQrOpen} url={publicUrl} title={linkName(link)} />
 
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
