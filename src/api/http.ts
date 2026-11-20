@@ -63,6 +63,9 @@ export async function http<T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE
   const url = new URL(API_URL + path);
   for (const [k, v] of Object.entries(opts.query ?? {})) if (v !== undefined) url.searchParams.set(k, String(v));
   const headers: Record<string, string> = { Accept: 'application/json' };
+  // Язык кабинета, а не браузера: подписи и тексты ошибок сервера — на языке, который человек выбрал на сайте (20.11.2026)
+  const pageLang = typeof document !== 'undefined' ? document.documentElement.lang : '';
+  if (pageLang === 'hy' || pageLang === 'ru' || pageLang === 'en') headers['Accept-Language'] = pageLang;
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   if (opts.version !== undefined) headers['If-Match'] = String(opts.version);
   if (opts.idempotencyKey) headers['Idempotency-Key'] = opts.idempotencyKey;
