@@ -9,6 +9,65 @@
 
 ---
 
+## iOS: что готово и что сделать после оплаты Apple Developer (20.11.2026)
+
+Нативные приложения `~/WebstormProjects/booktime-ios`, версия **2.0.4 (104)** у обоих — как Android.
+
+**Готово, делать не нужно:**
+- Вход по номеру и коду, «Войти через Google» и «Продолжить с Apple» — в BookTime и BookTime Business (App Store 4.8).
+  Сервер `POST /v1/auth/apple` принимает оба приложения.
+- Возможности в сборке: пуши и Sign in with Apple — у обоих, ссылки `applinks:booktime.am` — у BookTime. Подпись
+  автоматическая, Team ID — в одном месте (`booktime-mobile/config/signing.xcconfig`).
+- Манифест приватности `PrivacyInfo.xcprivacy` в обоих приложениях (без него App Store Connect не примет сборку);
+  `ITSAppUsesNonExemptEncryption = NO` — вопроса про шифрование при загрузке не будет.
+- BookTime — только iPhone, BookTime Business — iPhone и iPad.
+- Скриншоты BookTime сняты с приложения на production под входом проверяющих: `screenshots/client/<hy|ru|en>/iphone69`, 7 штук.
+- Тексты карточек, App Privacy, заметки проверяющим (с входом Apple и Google), вход проверяющих на production, fastlane.
+
+**Не готово — можно сделать и до оплаты:**
+- Скриншоты Business (iPhone 6,9″ и iPad 13″). У «BookTime Demo» на production нет ни одной действующей записи —
+  журнал пустой. Сначала демо-данные (шаг 18 ниже, `seed-review-demo.mjs … --production`), потом в booktime-ios
+  `bash scripts/store-shots.sh business` (≈40 минут; вход переносится из другого симулятора, код не тратится).
+  Старые снимки Business `iphone69` hy и ru уже удалены, en и `ipad13` — ещё старые, с сайта.
+- В «BookTime Demo» адрес «Ереван» и должность мастеров «Мастер маникюра» — только по-русски: на армянских и английских
+  экранах они по-русски (и у проверяющих тоже). Адресу филиала дописать hy и en в кабинете; должность сервер
+  хранит одной строкой — оставить или убрать.
+
+**После оплаты — по порядку, за один заход:**
+1. developer.apple.com → Membership → **Team ID**. Его — в три места:
+   - `DEVELOPMENT_TEAM = …` в `booktime-mobile/config/signing.xcconfig`;
+   - Vercel → Production → `APPLE_TEAM_ID` → Redeploy (сейчас `/.well-known/apple-app-site-association` — 404, ссылки
+     booktime.am приложение не открывают);
+   - Railway api и worker → `APPLE_TEAM_ID`.
+2. Identifiers → App IDs:
+   - `am.booktime.app` — Push Notifications, Associated Domains, Sign in with Apple → **Enable as a primary App ID**;
+   - `am.booktime.business` — Push Notifications, Sign in with Apple → **Group with an existing primary App ID** →
+     `am.booktime.app` (один ключ Apple на оба приложения, у человека один и тот же Apple ID в обоих).
+3. Keys → «+» (каждый `.p8` скачивается один раз → `~/.booktime-secrets/` и в менеджер паролей):
+   - **APNs** → Firebase `booktime-47539` → Cloud Messaging → оба iOS-приложения (Key ID, Team ID). Без него пуши на
+     iPhone не приходят;
+   - **Sign in with Apple** (Primary App ID `am.booktime.app`) → Railway api и worker, production и staging:
+     `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`, `SECRETS_KEY` (`openssl rand -base64 32`) и
+     **`APPLE_CLIENT_IDS=am.booktime.app,am.booktime.business`**. Сейчас на production он пустой — кнопка Apple отвечает
+     «Вход через Apple сейчас недоступен».
+4. Xcode → Settings → Accounts → войти Apple ID команды (info@aiswitch.am).
+5. App Store Connect: два приложения (шаг 6 ниже), ключ API → `~/.booktime-secrets/asc-api-key.json` (шаг 7), контакт
+   для звонка проверяющего → `~/.booktime-secrets/review-contact.env` (шаг 20).
+6. Сборки → TestFlight:
+   ```bash
+   cd ~/WebstormProjects/booktime-ios && bash scripts/archive.sh     # build/ipa/client.ipa и business.ipa
+   cd ~/WebstormProjects/booktime-mobile && fastlane ios upload app:client && fastlane ios upload app:business
+   ```
+   На своём iPhone (TestFlight → Internal Testing): вход по номеру, через Apple и Google; пуш; ссылка
+   `https://booktime.am/b/booktime-demo` из Заметок; удаление аккаунта.
+7. `fastlane ios metadata app:client` и `app:business` — тексты, скриншоты, данные для проверяющих.
+8. Руками в App Store Connect: App Privacy ([privacy-answers.md](privacy-answers.md)), Age Rating, Content Rights,
+   Pricing — Free. «Что нового» у первой версии не нужно.
+9. «BookTime Demo» — бесплатные дни на 12 месяцев (шаг 19) и свежие записи на неделю (шаг 18) — накануне отправки.
+10. `fastlane ios submit app:client build:104` и `app:business build:104`.
+
+---
+
 ## Apple (≈1 час + ожидание одобрения аккаунта, обычно 1–2 дня)
 
 1. **Apple Developer Program как организация.** developer.apple.com/programs/enroll → Organization →
@@ -69,7 +128,7 @@
     npm run sync                    # Team ID и файлы Firebase → проекты
     npm run build:android-release   # оба AAB, должно быть «подписан ключом загрузки»
     ```
-    iOS — нативные приложения `~/WebstormProjects/booktime-ios` (с 26.10.2026, версия 2.0.1, сборка 101; Release
+    iOS — нативные приложения `~/WebstormProjects/booktime-ios` (с 26.10.2026; сейчас версия 2.0.4, сборка 104; Release
     проверен — собирается):
     ```bash
     cd ~/WebstormProjects/booktime-ios
@@ -125,6 +184,6 @@
     - **iPad:** BookTime — только iPhone, BookTime Business — iPhone и iPad (свой вид журнала с колонками мастеров),
       скриншоты iPad 13″ для Business загружаются.
 23. **Отправка:**
-    - App Store: `fastlane ios submit app:client build:101` и `app:business build:101` (или кнопка Add for Review).
+    - App Store: `fastlane ios submit app:client build:104` и `app:business build:104` (или кнопка Add for Review).
     - Google Play: Internal testing проверен → Production → Create release → тот же AAB → Countries → Send for review.
 24. После одобрения: если «BookTime Demo» публиковали в каталоге — снимите; вход проверяющих оставьте.

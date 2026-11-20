@@ -89,6 +89,8 @@ BookTime is an online booking service for salons and professionals in Armenia (b
 
 Sign in: tap "Profile" → enter phone +374 00 000 101 → the app asks for a 4-digit code → enter <CODE>. This review number does not receive real messages; the code is fixed for review.
 
+Sign in with Apple and Sign in with Google are also on the sign-in screen. The first time, they ask to confirm a phone number with a code once (you can use the review number and code above); after that, signing in is one tap.
+
 To make a test booking: open https://booktime.am/b/booktime-demo (the demo salon is hidden from search on purpose) → pick a service → "Any master" → a time → confirm.
 
 Native app (Kotlin / Swift): push notifications (booking reminders and status changes), links to booktime.am/b/* and /bookings open in the app, native share sheet, offline screen.
@@ -106,6 +108,8 @@ BookTime Business is a booking calendar and client base for salons, clinics, ind
 
 Sign in: enter phone +374 00 000 102 → code <CODE> (fixed review number, no real messages are sent). You will see the demo salon "BookTime Demo" with staff, services, clients and bookings.
 
+Sign in with Apple and Sign in with Google are also on the sign-in screen. The first time, they ask to confirm the phone number with a code once (use the review number and code above).
+
 Try: Journal → tap a booking (booking window: status, payment, client); "+" to create one; Clients; More → Schedule, Finance.
 
 Native app (Kotlin / Swift): push notifications for new, moved and cancelled bookings that open the booking in the app, tablet layout with a column per professional, share sheet.
@@ -114,7 +118,7 @@ Account deletion: Profile → "Delete account". It happens 25 days after the req
 
 No digital goods are sold in the app. Business subscriptions are invoiced to companies outside the app, and the app has no purchase buttons or links to them.
 ```
-> Тексты выше — для нативных приложений (`booktime-ios`, `booktime-android`, с 26.10.2026): входа Apple/Google, камеры и сканера в них пока нет. В нативном Business с версии 2.0.1 нет пунктов «Подписка» и «Монеты» и удаление аккаунта есть в профиле. Появится вход Apple/Google (iOS) — допишите его сюда.
+> Тексты выше — для нативных приложений (`booktime-ios`, `booktime-android`, с 26.10.2026). С 2.0.4 (20.11.2026) в обоих iOS-приложениях на входе «Продолжить с Apple» и «Войти через Google» (в Android — Google); камеры и сканера нет. В нативном Business с версии 2.0.1 нет пунктов «Подписка» и «Монеты» и удаление аккаунта есть в профиле.
 
 **Contact information:** имя, телефон и почта владельца — для звонка проверяющего (поля Contact First/Last Name, Phone, Email).
 
@@ -129,7 +133,7 @@ No digital goods are sold in the app. Business subscriptions are invoiced to com
 | Правило | Как у нас |
 |---|---|
 | 4.2 Minimum functionality («просто сайт») | Нативные приложения (Swift, Kotlin), пуши, App Links, «Поделиться», офлайн-экран |
-| 4.8 Sign in with Apple | Нужен только при входе через Google; сейчас вход только по телефону |
+| 4.8 Sign in with Apple | Вход через Google есть в обоих iOS-приложениях — рядом «Продолжить с Apple» (BookTime и BookTime Business, 2.0.4); на сервере включается env `APPLE_CLIENT_IDS` |
 | 5.1.1(v) удаление аккаунта | В приложении; отзыв токена Apple на сервере (код готов, нужны env `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`, `SECRETS_KEY`) |
 | 5.1.1 подписи разрешений | Камера, фото, место — en/ru/hy (`scripts/native.mjs`, 04.10.2026) |
 | 2.3.10 другие платформы в тексте | В текстах iOS нет Android и Google Play |
