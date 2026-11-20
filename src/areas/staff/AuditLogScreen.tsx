@@ -117,7 +117,7 @@ export function AuditLogScreen() {
     {
       id: 'operationType',
       header: t('log.columns.operationType'),
-      cell: (r) => <Badge tone="neutral">{t(`log.operationType.${r.operationType}` as never)}</Badge>,
+      cell: (r) => <Badge tone="neutral" className="max-w-full whitespace-normal">{t(`log.operationType.${r.operationType}` as never)}</Badge>,
     },
     { id: 'actor', header: t('log.columns.actor'), cell: (r) => r.actorLabel, mobile: 'meta' },
   ];

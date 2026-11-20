@@ -15,6 +15,7 @@ import { useApiMutation, useApiQuery } from "@/api/request";
 import { NoAccessState } from "@/areas/staff/components/NoAccessState";
 import { ROLE_TEMPLATE_COARSE } from "@/areas/staff/permissions/roleDefaults";
 import { ALL_FINE_PERMISSIONS, STANDALONE_PERMISSIONS } from "@/areas/staff/permissions/catalog";
+import { permLabel } from "@/areas/staff/permissions/labels";
 import { PERMISSIONS, type Permission } from "@/config/permissions";
 import { useCan, useCurrent, useTerms } from "@/demo/hooks";
 import { ROLE_TEMPLATES, roleTemplateLabel, type StaffRoleTemplateId } from "@/domain/staff";
@@ -51,7 +52,7 @@ const ROLE_PERMISSIONS = PERMISSIONS.filter((p) => p !== "platform.access");
 
 function labelOf(perm: Permission, locale: string): string {
   const items = [...ALL_FINE_PERMISSIONS, ...STANDALONE_PERMISSIONS].filter((i) => i.perm === perm);
-  const pick = (i: (typeof items)[number]) => (locale === "en" ? i.label.en : i.label.ru);
+  const pick = (i: (typeof items)[number]) => permLabel(i, locale);
   if (!items.length) return perm;
   return items.length > 1 ? `${pick(items[0])} +${items.length - 1}` : pick(items[0]);
 }

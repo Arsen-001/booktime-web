@@ -6,6 +6,7 @@
  * переключателя (F-10-089). При «Сохранить» тонкий набор сводится к грубому (reduceToCoarse) и уходит в
  * ядро через setStaffRights → setStaffPermissions — PermissionGate во всех разделах видит изменение сразу.
  */
+import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
 import {
   ChevronDown,
@@ -36,6 +37,7 @@ import {
   type FinePermissionItem,
   type PermGroupId,
 } from "@/areas/staff/permissions/catalog";
+import { permLabel } from "@/areas/staff/permissions/labels";
 import { ROLE_TEMPLATE_COARSE } from "@/areas/staff/permissions/roleDefaults";
 import {
   defaultRightScope,
@@ -102,6 +104,8 @@ export function PermissionsEditor({
   canManage,
 }: PermissionsEditorProps) {
   const t = useT("staff");
+  const locale = useLocale();
+  const permLabelOf = (p: Parameters<typeof permLabel>[0] | undefined) => (p ? permLabel(p, locale) : undefined);
   const toast = useToast();
   const sphere = useSphere();
   const isMobile = useIsMobile();
@@ -294,7 +298,7 @@ export function PermissionsEditor({
 
   const searchResults = query.trim()
     ? [...ALL_FINE_PERMISSIONS, ...STANDALONE_PERMISSIONS].filter((i) =>
-        i.label.ru.toLowerCase().includes(query.toLowerCase()),
+        permLabel(i, locale).toLowerCase().includes(query.toLowerCase()),
       )
     : null;
 
@@ -388,7 +392,7 @@ export function PermissionsEditor({
                 checked={selected.has(item.id)}
                 disabled={readOnly || !canActivate(item, selected)}
                 requiresLabel={
-                  item.requires ? findFinePermission(item.requires)?.label.ru : undefined
+                  item.requires ? permLabelOf(findFinePermission(item.requires)) : undefined
                 }
                 onChange={(v) => toggleOne(item, v)}
                 query={query}
@@ -483,7 +487,7 @@ export function PermissionsEditor({
                         checked={selected.has(item.id)}
                         disabled={readOnly || !canActivate(item, selected)}
                         requiresLabel={
-                          item.requires ? findFinePermission(item.requires)?.label.ru : undefined
+                          item.requires ? permLabelOf(findFinePermission(item.requires)) : undefined
                         }
                         onChange={(v) => toggleOne(item, v)}
                         scope={scopes[item.id]}
@@ -511,7 +515,7 @@ export function PermissionsEditor({
                               checked={selected.has(item.id)}
                               disabled={readOnly || !canActivate(item, selected)}
                               requiresLabel={
-                                item.requires ? findFinePermission(item.requires)?.label.ru : undefined
+                                item.requires ? permLabelOf(findFinePermission(item.requires)) : undefined
                               }
                               onChange={(v) => toggleOne(item, v)}
                               scope={scopes[item.id]}
@@ -678,6 +682,7 @@ function PermissionRow({
   readOnly: boolean;
 }) {
   const t = useT("staff");
+  const locale = useLocale();
   const current = scope ?? defaultRightScope();
   return (
     <div className="flex min-h-11 items-center gap-2 px-4 py-1.5">
@@ -685,7 +690,7 @@ function PermissionRow({
         checked={checked}
         disabled={disabled}
         onCheckedChange={onChange}
-        label={query ? highlight(item.label.ru, query) : item.label.ru}
+        label={query ? highlight(permLabel(item, locale), query) : permLabel(item, locale)}
         description={
           disabled && requiresLabel
             ? t("permissions.needsParent", { name: requiresLabel })
