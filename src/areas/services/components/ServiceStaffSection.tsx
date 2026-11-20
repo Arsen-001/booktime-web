@@ -74,7 +74,7 @@ export function ServiceStaffSection({ staffList, value, onValueChange, base, can
 
   return (
     <div data-f="F-10-156 F-02-058 F-16-030" className="flex flex-col gap-2">
-      <div className="grid grid-cols-[minmax(0,1fr)_10rem_7.5rem_2.5rem] items-center gap-2 px-1 text-xs font-medium text-muted max-sm:hidden">
+      <div className="grid grid-cols-[minmax(0,1fr)_11rem_7.5rem_2.5rem] items-center gap-2 px-1 text-xs font-medium text-muted max-sm:hidden">
         <span>{t('staffTab.colStaff')}</span>
         <span>{t('staffTab.colPrice')}</span>
         <span>{t('staffTab.colDuration')}</span>
@@ -84,9 +84,16 @@ export function ServiceStaffSection({ staffList, value, onValueChange, base, can
         {staffList.map((staff) => {
           const entry = value.find((e) => e.staffId === staff.id);
           const own = entry && (entry.price != null || entry.durationMin != null);
+          const canReset = Boolean(own && canEdit);
           return (
-            <li key={staff.id} className="grid grid-cols-1 items-center gap-2 px-3 py-2.5 sm:grid-cols-[minmax(0,1fr)_10rem_7.5rem_2.5rem]">
+            // Телефон: имя и «сбросить» — первой строкой, цена и минуты — второй; цене — вся ширина, кроме минут, чтобы
+            // влезла подсказка-диапазон «15 000–20 000» (было ~50 px под текст). С sm — одна строка: имя · цена · минуты · сбросить
+            <li
+              key={staff.id}
+              className="grid grid-cols-[minmax(0,1fr)_2.875rem_2.5rem] items-center gap-2 px-3 py-2.5 sm:grid-cols-[minmax(0,1fr)_11rem_7.5rem_2.5rem]"
+            >
               <Checkbox
+                className={canReset ? 'max-sm:col-span-2' : 'max-sm:col-span-3'}
                 checked={Boolean(entry)}
                 onCheckedChange={(on) => toggle(staff.id, on)}
                 disabled={!canEdit}
@@ -99,44 +106,45 @@ export function ServiceStaffSection({ staffList, value, onValueChange, base, can
               />
               {entry ? (
                 <>
-                  <div className="grid grid-cols-[1fr_1fr_2.5rem] gap-2 sm:contents">
-                    <CommitInput
-                      kind="money"
+                  <CommitInput
+                    kind="money"
+                    size="sm"
+                    value={entry.price}
+                    onCommit={(v) => patch(staff.id, { price: v })}
+                    placeholder={basePriceHint}
+                    emphasized={entry.price != null}
+                    disabled={!canEdit}
+                    aria-label={`${staff.name}: ${t('staffTab.colPrice')}`}
+                    className="max-sm:col-start-1 max-sm:row-start-2"
+                  />
+                  <CommitInput
+                    kind="minutes"
+                    size="sm"
+                    value={entry.durationMin}
+                    onCommit={(v) => patch(staff.id, { durationMin: v })}
+                    placeholder={baseMinutes}
+                    emphasized={entry.durationMin != null}
+                    disabled={!canEdit}
+                    aria-label={`${staff.name}: ${t('staffTab.colDurationMin')}`}
+                    className="max-sm:col-span-2 max-sm:col-start-2 max-sm:row-start-2"
+                  />
+                  {canReset ? (
+                    <IconButton
                       size="sm"
-                      value={entry.price}
-                      onCommit={(v) => patch(staff.id, { price: v })}
-                      placeholder={basePriceHint}
-                      emphasized={entry.price != null}
-                      disabled={!canEdit}
-                      aria-label={`${staff.name}: ${t('staffTab.colPrice')}`}
+                      variant="ghost"
+                      icon={<RotateCcw aria-hidden />}
+                      label={t('staffTab.resetToBase')}
+                      onClick={() =>
+                        patch(staff.id, {
+                          price: undefined,
+                          durationMin: undefined,
+                        })
+                      }
+                      className="max-sm:col-start-3 max-sm:row-start-1"
                     />
-                    <CommitInput
-                      kind="minutes"
-                      size="sm"
-                      value={entry.durationMin}
-                      onCommit={(v) => patch(staff.id, { durationMin: v })}
-                      placeholder={baseMinutes}
-                      emphasized={entry.durationMin != null}
-                      disabled={!canEdit}
-                      aria-label={`${staff.name}: ${t('staffTab.colDurationMin')}`}
-                    />
-                    {own && canEdit ? (
-                      <IconButton
-                        size="sm"
-                        variant="ghost"
-                        icon={<RotateCcw aria-hidden />}
-                        label={t('staffTab.resetToBase')}
-                        onClick={() =>
-                          patch(staff.id, {
-                            price: undefined,
-                            durationMin: undefined,
-                          })
-                        }
-                      />
-                    ) : (
-                      <span />
-                    )}
-                  </div>
+                  ) : (
+                    <span className="max-sm:hidden" />
+                  )}
                 </>
               ) : (
                 <span className="text-sm text-muted max-sm:hidden sm:col-span-3">{t('staffTab.notDoing')}</span>
