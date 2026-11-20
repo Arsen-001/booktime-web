@@ -11,7 +11,7 @@ import type { Staff } from '@/domain/core';
 import type { ServiceStaffEntry } from '@/domain/services';
 import { useFormat } from '@/i18n/useFormat';
 import { useT } from '@/i18n/useT';
-import { formatMoneyRange } from '@/lib/money';
+import { formatMoneyRange, formatNumber } from '@/lib/money';
 import { CommitInput } from '@/areas/services/components/CommitInput';
 import { Avatar } from '@/ui/Avatar';
 import { Checkbox } from '@/ui/Checkbox';
@@ -37,6 +37,13 @@ export function ServiceStaffSection({ staffList, value, onValueChange, base, can
   const t = useT('services');
   const format = useFormat();
   const basePrice = base.priceMin != null ? formatMoneyRange(base.priceMin, base.priceMax) : '';
+  // Подсказка в поле цены — без «֏»: знак уже стоит в самом поле (иначе на 360 подсказка обрезается)
+  const basePriceHint =
+    base.priceMin != null
+      ? base.priceMax != null && base.priceMax > base.priceMin
+        ? `${formatNumber(base.priceMin)}–${formatNumber(base.priceMax)}`
+        : formatNumber(base.priceMin)
+      : '';
   const baseDuration = base.durationMin != null ? format.durationRange(base.durationMin, base.durationMax) : '';
   const baseMinutes =
     base.durationMin != null
@@ -98,7 +105,7 @@ export function ServiceStaffSection({ staffList, value, onValueChange, base, can
                       size="sm"
                       value={entry.price}
                       onCommit={(v) => patch(staff.id, { price: v })}
-                      placeholder={basePrice}
+                      placeholder={basePriceHint}
                       emphasized={entry.price != null}
                       disabled={!canEdit}
                       aria-label={`${staff.name}: ${t('staffTab.colPrice')}`}

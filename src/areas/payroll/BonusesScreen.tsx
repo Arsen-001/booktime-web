@@ -165,15 +165,16 @@ function KindList({ kind }: { kind: BonusPenaltyKind }) {
             {pageItems.map((row) => (
               <li
                 key={row.id}
-                className="flex items-center gap-2 rounded-lg border border-border px-3 py-2"
+                className="flex flex-wrap items-center gap-2 rounded-lg border border-border px-3 py-2 sm:flex-nowrap"
               >
                 {editingId === row.id ? (
                   <>
+                    {/* На телефоне название — на всю строку, сумма и кнопки — под ним (иначе поле сжимается до нуля) */}
                     <Input
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
                       placeholder={t("bonuses.namePlaceholder")}
-                      className="min-w-0 flex-1"
+                      className="min-w-0 flex-1 basis-full sm:basis-0"
                     />
                     <div className="w-28 shrink-0">
                       <MoneyInput
@@ -227,12 +228,12 @@ function KindList({ kind }: { kind: BonusPenaltyKind }) {
 
           {canManage &&
             (adding ? (
-              <div className="flex items-center gap-2 rounded-lg border border-dashed border-border px-3 py-2">
+              <div className="flex flex-wrap items-center gap-2 rounded-lg border border-dashed border-border px-3 py-2 sm:flex-nowrap">
                 <Input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t("bonuses.namePlaceholder")}
-                  className="min-w-0 flex-1"
+                  className="min-w-0 flex-1 basis-full sm:basis-0"
                   autoFocus
                 />
                 <div className="w-28 shrink-0">

@@ -145,7 +145,7 @@ export function WebhookAddressesCard({ businessId, cfg, canEdit }: { businessId:
                 setUrl(e.target.value);
                 if (error) setError(undefined);
               }}
-              placeholder="https://example.am/hooks/booking"
+              placeholder="https://example.am/hook"
               className="font-mono"
             />
           </FormField>
