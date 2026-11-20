@@ -5,7 +5,7 @@ import type { useT } from '@/i18n/useT';
 /** «пт, 3 окт · 10:00–12:00, 16:00–18:00», «Любой день · 18:00», «пт, 3 окт · Любое время» — одна строка желания */
 export function wishText(wish: WaitlistWish, format: ReturnType<typeof useFormat>, t: ReturnType<typeof useT>): string {
   // Желание без даты — «любой день, но с 10 до 12»
-  const datePart = wish.date ? format.date(wish.date, 'short') : t('waitlist.anyDay');
+  const datePart = wish.date ? format.date(wish.date, 'weekdayShort') : t('waitlist.anyDay');
   if (wish.intervals && wish.intervals.length > 0) {
     return `${datePart} · ${wish.intervals.map((iv) => (iv.from === iv.to ? iv.from : `${iv.from}–${iv.to}`)).join(', ')}`;
   }

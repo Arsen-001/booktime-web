@@ -17,5 +17,5 @@ export function WaitlistNotified({ entryId }: { entryId: Id }) {
   const notifiedAt = q.data ?? [];
   if (notifiedAt.length === 0) return null;
   const last = notifiedAt[notifiedAt.length - 1];
-  return <p className="text-xs text-success">{t('waitlist.notifiedAt', { count: notifiedAt.length, date: format.date(last, 'short'), time: format.time(last) })}</p>;
+  return <p className="text-xs text-success">{t('waitlist.notifiedAt', { count: notifiedAt.length, date: format.relativeDayInline(last), time: format.time(last) })}</p>;
 }

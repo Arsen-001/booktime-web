@@ -114,7 +114,7 @@ export function WaitlistEntryCard({
           {row.comment && <p className="text-muted">{row.comment}</p>}
           {selfLabel && <p className="text-xs text-muted">{selfLabel}</p>}
           <p className="text-xs text-muted">
-            {t('waitlist.createdAt')}: {format.date(row.createdAt, 'short')} {format.time(row.createdAt)}
+            {t('waitlist.createdAt')}: {format.relativeDayInline(row.createdAt)}, {format.time(row.createdAt)}
           </p>
           {active && <WaitlistNotified entryId={row.id} />}
 

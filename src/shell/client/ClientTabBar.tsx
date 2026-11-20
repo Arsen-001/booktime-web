@@ -99,7 +99,8 @@ function ClientTabs() {
                 aria-current={item.active ? 'page' : undefined}
                 className={cn(
                   // Подпись — фиксированный компактный размер (не растёт с «крупным шрифтом») и в одну строку: короткие подписи
-                  // (navShort, hy «Այցեր») влезают в 1/5 полосы на 360px; две строки — только запас для нового длинного языка
+                  // (navShort, hy «Գրանցումներ» — 10px, плотнее и в одну строку, по ширине ячейки) влезают в 1/5 полосы на 360px; две
+                  // строки — только запас для нового длинного языка
                   'group flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-[1.5rem] px-0.5 text-[11px] leading-[1.15] font-medium text-muted transition-colors duration-200 active:text-text',
                   item.active && 'font-semibold text-primary-text',
                 )}
@@ -113,7 +114,7 @@ function ClientTabs() {
                     strokeWidth={item.active ? 2.4 : 2}
                   />
                 </span>
-                <span className="line-clamp-2 max-w-full text-center break-words [:lang(hy)_&]:text-[10px] [:lang(hy)_&]:font-medium [:lang(hy)_&]:tracking-tight">
+                <span className="line-clamp-2 max-w-full text-center break-words [:lang(hy)_&]:w-max [:lang(hy)_&]:max-w-none [:lang(hy)_&]:overflow-visible [:lang(hy)_&]:text-[10px] [:lang(hy)_&]:font-medium [:lang(hy)_&]:tracking-tighter [:lang(hy)_&]:whitespace-nowrap">
                   {tDyn(item.shortLabelKey ?? item.labelKey)}
                 </span>
               </Link>

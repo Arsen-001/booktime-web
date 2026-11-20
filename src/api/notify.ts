@@ -459,8 +459,8 @@ export const createMailing = (input: CreateMailingInput) =>
         // Название типа — наш ярлык (переводим); текст рассылки — то, что реально ввёл владелец
         // бизнеса (обычно по-русски) — не выдумываем перевод, en просто покажет ru (LocalizedText).
         typeLabel: input.network
-          ? { ru: 'Сетевая рассылка', en: 'Network mailing', hy: 'Ցանցային առաքում' }
-          : { ru: 'Рассылка', en: 'Mailing', hy: 'Առաքում' },
+          ? { ru: 'Сетевая рассылка', en: 'Network mailing', hy: 'Ցանցային ուղարկում' }
+          : { ru: 'Рассылка', en: 'Mailing', hy: 'Ուղարկում' },
         channel: input.channel === 'sms' ? 'sms' : 'push',
         status: 'sent',
         contact: String(recipients.length),
@@ -493,7 +493,7 @@ export const sendTestMailing = (input: { businessId: Id; channel: MailingChannel
       id: newId('lg'),
       businessId: input.businessId,
       createdAt: toISODateTime(new Date()),
-      typeLabel: { ru: 'Тестовая рассылка', en: 'Test mailing', hy: 'Փորձնական առաքում' },
+      typeLabel: { ru: 'Тестовая рассылка', en: 'Test mailing', hy: 'Փորձնական ուղարկում' },
       channel,
       status: 'sent',
       contact: phone,
@@ -624,7 +624,7 @@ export const listLog = (businessId: Id) =>
         businessId,
         createdAt: m.scheduledAt!,
         typeCode: m.network ? 22 : undefined,
-        typeLabel: m.network ? { ru: 'Сетевая рассылка', en: 'Network mailing', hy: 'Ցանցային առաքում' } : { ru: 'Рассылка', en: 'Mailing', hy: 'Առաքում' },
+        typeLabel: m.network ? { ru: 'Сетевая рассылка', en: 'Network mailing', hy: 'Ցանցային ուղարկում' } : { ru: 'Рассылка', en: 'Mailing', hy: 'Ուղարկում' },
         channel: m.channel === 'sms' ? 'sms' : 'push',
         status: 'sent',
         contact: String(m.recipientsCount),
@@ -718,7 +718,7 @@ export const listScheduledLog = (businessId: Id) =>
         id: `lg_sched_${m.id}`,
         businessId,
         createdAt: m.scheduledAt!,
-        typeLabel: { ru: 'Рассылка', en: 'Mailing', hy: 'Առաքում' },
+        typeLabel: { ru: 'Рассылка', en: 'Mailing', hy: 'Ուղարկում' },
         channel: m.channel === 'sms' ? 'sms' : 'push',
         status: 'sending',
         contact: String(m.recipientsCount),

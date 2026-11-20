@@ -48,13 +48,15 @@ export function StatCard({ label, value, delta, hint, keepHint = false, icon, lo
         className,
       )}
     >
-      <div className="flex items-start justify-between gap-2">
-        <p className="min-w-0 pt-0.5 text-sm leading-snug font-medium break-words text-muted">{label}</p>
+      {/* Значок — справа, подпись обтекает его: длинное слово (hy «Գրանցումներ» в узкой плитке) уходит строкой ниже,
+          а не рвётся посередине и не залезает под значок */}
+      <div className="flow-root">
         {icon && (
-          <span className="-mt-0.5 -mr-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-text [&_svg]:size-[18px]">
+          <span className="float-right -mt-0.5 -mr-0.5 mb-1 ml-2 inline-flex size-8 items-center justify-center rounded-lg bg-primary-soft text-primary-text [&_svg]:size-[18px]">
             {icon}
           </span>
         )}
+        <p className="pt-0.5 text-sm leading-snug font-medium text-muted">{label}</p>
       </div>
       {/* Скелетон — в тех же элементах, что значение и подпись: высота строк та же, плитка не подрастает */}
       <p className="num-headline pt-1 text-fg">{loading ? <SkeletonText width="5ch" /> : value}</p>

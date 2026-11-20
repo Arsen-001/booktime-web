@@ -10,7 +10,7 @@
  */
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Gift, Plus, Trash2 } from 'lucide-react';
+import { Gift, LoaderCircle, MoreHorizontal, Plus, Trash2 } from 'lucide-react';
 import {
   createMembershipType,
   deleteMembershipType,
@@ -46,6 +46,7 @@ import { NotifyTemplateField } from '@/areas/loyalty/NotifyTemplateField';
 import { OnlineSaleFields } from '@/areas/loyalty/OnlineSaleFields';
 import { Button } from '@/ui/Button';
 import { Checkbox } from '@/ui/Checkbox';
+import { DropdownMenu } from '@/ui/DropdownMenu';
 import { EmptyState } from '@/ui/EmptyState';
 import { ErrorState } from '@/ui/ErrorState';
 import { FormField } from '@/ui/FormField';
@@ -115,6 +116,7 @@ function MembershipTypeFormBody({
   onDeleted: () => void;
 }) {
   const t = useT('loyalty');
+  const tc = useT('common');
   const format = useFormat();
   const toast = useToast();
   const confirm = useConfirm();
@@ -489,19 +491,27 @@ function MembershipTypeFormBody({
             </SectionCard>
           </div>
 
+          {/* Одна главная кнопка + «⋯» (CONVENTIONS §0): четыре кнопки в нижней панели телефона не помещались ни на одном языке */}
           <StickyActionBar>
             {isEdit && (
-              <>
-                <Button variant="danger" onClick={remove}>
-                  {t('membershipTypeForm.delete')}
-                </Button>
-                <Button variant="secondary" onClick={duplicate} loading={duplicateMutation.isPending}>
-                  {t('membershipTypeForm.duplicate')}
-                </Button>
-                <Button variant="secondary" onClick={toggleArchive} loading={archiveMutation.isPending}>
-                  {initial?.archived ? t('membershipTypeForm.restore') : t('membershipTypeForm.archive')}
-                </Button>
-              </>
+              <DropdownMenu
+                align="start"
+                label={tc('actions.more')}
+                trigger={(p) => (
+                  <IconButton
+                    {...p}
+                    variant="outline"
+                    className="max-md:!flex-none"
+                    icon={duplicateMutation.isPending || archiveMutation.isPending ? <LoaderCircle aria-hidden className="animate-spin" /> : <MoreHorizontal aria-hidden />}
+                    label={tc('actions.more')}
+                  />
+                )}
+                items={[
+                  { id: 'duplicate', label: t('membershipTypeForm.duplicate'), onSelect: () => void duplicate(), disabled: duplicateMutation.isPending },
+                  { id: 'archive', label: initial?.archived ? t('membershipTypeForm.restore') : t('membershipTypeForm.archive'), onSelect: () => void toggleArchive(), disabled: archiveMutation.isPending },
+                  { id: 'delete', label: t('membershipTypeForm.delete'), onSelect: () => void remove(), danger: true },
+                ]}
+              />
             )}
             <Button onClick={save} loading={isSaving}>
               {t('membershipTypeForm.save')}

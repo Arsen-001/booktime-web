@@ -22,8 +22,8 @@ export interface LoyaltyNotifyDef {
   regionOnly?: 'KZ' | 'BR';
 }
 
-function preset(id: string, ru: string, en: string): LoyaltyNotifyTemplateOption {
-  return { id, text: { ru, en } };
+function preset(id: string, ru: string, en: string, hy?: string): LoyaltyNotifyTemplateOption {
+  return { id, text: { ru, en, ...(hy && { hy }) } };
 }
 
 export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
@@ -37,9 +37,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: true,
     presets: [
-      preset('p1', 'Вам выпущена карта {CARD_TITLE} №{CARD_NUMBER} в сети {GROUP_TITLE}.', 'Your card {CARD_TITLE} #{CARD_NUMBER} in {GROUP_TITLE} is ready.'),
-      preset('p2', 'Добро пожаловать в программу лояльности {GROUP_TITLE}! Карта: {CARD_TITLE}.', 'Welcome to the {GROUP_TITLE} loyalty programme! Card: {CARD_TITLE}.'),
-      preset('p3', 'Карта {CARD_TITLE} готова. Показывайте номер {CARD_NUMBER} при визите.', 'Card {CARD_TITLE} is ready. Show number {CARD_NUMBER} on your visit.'),
+      preset('p1', 'Вам выпущена карта {CARD_TITLE} №{CARD_NUMBER} в сети {GROUP_TITLE}.', 'Your card {CARD_TITLE} #{CARD_NUMBER} in {GROUP_TITLE} is ready.', 'Ձեզ թողարկվել է {CARD_TITLE} №{CARD_NUMBER} քարտը {GROUP_TITLE} ցանցում։'),
+      preset('p2', 'Добро пожаловать в программу лояльности {GROUP_TITLE}! Карта: {CARD_TITLE}.', 'Welcome to the {GROUP_TITLE} loyalty programme! Card: {CARD_TITLE}.', 'Բարի գալուստ {GROUP_TITLE}-ի հավատարմության ծրագիր։ Քարտ՝ {CARD_TITLE}։'),
+      preset('p3', 'Карта {CARD_TITLE} готова. Показывайте номер {CARD_NUMBER} при визите.', 'Card {CARD_TITLE} is ready. Show number {CARD_NUMBER} on your visit.', '{CARD_TITLE} քարտը պատրաստ է։ Այցի ժամանակ ցույց տվեք {CARD_NUMBER} համարը։'),
     ],
   },
   {
@@ -52,9 +52,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: true,
     presets: [
-      preset('p1', 'Начислено {BONUS} бонусов на карту {CARD_TITLE}. Баланс: {CARD_BALANCE}.', '{BONUS} points added to card {CARD_TITLE}. Balance: {CARD_BALANCE}.'),
-      preset('p2', 'Спасибо за визит! +{BONUS} бонусов, баланс {CARD_BALANCE}.', 'Thanks for your visit! +{BONUS} points, balance {CARD_BALANCE}.'),
-      preset('p3', 'На карте {CARD_NUMBER} теперь {CARD_BALANCE} бонусов (+{BONUS}).', 'Card {CARD_NUMBER} now has {CARD_BALANCE} points (+{BONUS}).'),
+      preset('p1', 'Начислено {BONUS} бонусов на карту {CARD_TITLE}. Баланс: {CARD_BALANCE}.', '{BONUS} points added to card {CARD_TITLE}. Balance: {CARD_BALANCE}.', '{CARD_TITLE} քարտին կուտակվել է {BONUS} բոնուս։ Մնացորդ՝ {CARD_BALANCE}։'),
+      preset('p2', 'Спасибо за визит! +{BONUS} бонусов, баланс {CARD_BALANCE}.', 'Thanks for your visit! +{BONUS} points, balance {CARD_BALANCE}.', 'Շնորհակալություն այցի համար։ +{BONUS} բոնուս, մնացորդ՝ {CARD_BALANCE}։'),
+      preset('p3', 'На карте {CARD_NUMBER} теперь {CARD_BALANCE} бонусов (+{BONUS}).', 'Card {CARD_NUMBER} now has {CARD_BALANCE} points (+{BONUS}).', '{CARD_NUMBER} քարտին այժմ {CARD_BALANCE} բոնուս է (+{BONUS})։'),
     ],
   },
   {
@@ -67,9 +67,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: true,
     presets: [
-      preset('p1', 'Списано {BONUS} бонусов с карты {CARD_TITLE}. Остаток: {CARD_BALANCE}.', '{BONUS} points spent from card {CARD_TITLE}. Remaining: {CARD_BALANCE}.'),
-      preset('p2', 'Оплата бонусами: -{BONUS}, баланс {CARD_BALANCE}.', 'Paid with points: -{BONUS}, balance {CARD_BALANCE}.'),
-      preset('p3', 'Списание {BONUS} бонусов на карте {CARD_NUMBER}. Осталось {CARD_BALANCE}.', '{BONUS} points spent on card {CARD_NUMBER}. {CARD_BALANCE} left.'),
+      preset('p1', 'Списано {BONUS} бонусов с карты {CARD_TITLE}. Остаток: {CARD_BALANCE}.', '{BONUS} points spent from card {CARD_TITLE}. Remaining: {CARD_BALANCE}.', '{CARD_TITLE} քարտից դուրս է գրվել {BONUS} բոնուս։ Մնացորդ՝ {CARD_BALANCE}։'),
+      preset('p2', 'Оплата бонусами: -{BONUS}, баланс {CARD_BALANCE}.', 'Paid with points: -{BONUS}, balance {CARD_BALANCE}.', 'Վճարում բոնուսներով՝ -{BONUS}, մնացորդ՝ {CARD_BALANCE}։'),
+      preset('p3', 'Списание {BONUS} бонусов на карте {CARD_NUMBER}. Осталось {CARD_BALANCE}.', '{BONUS} points spent on card {CARD_NUMBER}. {CARD_BALANCE} left.', '{CARD_NUMBER} քարտից դուրս է գրվել {BONUS} բոնուս։ Մնաց {CARD_BALANCE}։'),
     ],
   },
   {
@@ -82,9 +82,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: false,
     presets: [
-      preset('p1', 'Ваша скидка по {GROUP_TITLE} теперь {DISCOUNT}%.', 'Your discount at {GROUP_TITLE} is now {DISCOUNT}%.'),
-      preset('p2', 'Скидка карты {CARD_TITLE} изменена: {DISCOUNT}%.', 'Card {CARD_TITLE} discount changed: {DISCOUNT}%.'),
-      preset('p3', 'Новый размер скидки: {DISCOUNT}%. Спасибо, что вы с нами!', 'New discount size: {DISCOUNT}%. Thanks for staying with us!'),
+      preset('p1', 'Ваша скидка по {GROUP_TITLE} теперь {DISCOUNT}%.', 'Your discount at {GROUP_TITLE} is now {DISCOUNT}%.', '{GROUP_TITLE}-ում ձեր զեղչն այժմ {DISCOUNT}% է։'),
+      preset('p2', 'Скидка карты {CARD_TITLE} изменена: {DISCOUNT}%.', 'Card {CARD_TITLE} discount changed: {DISCOUNT}%.', '{CARD_TITLE} քարտի զեղչը փոխվել է՝ {DISCOUNT}%։'),
+      preset('p3', 'Новый размер скидки: {DISCOUNT}%. Спасибо, что вы с нами!', 'New discount size: {DISCOUNT}%. Thanks for staying with us!', 'Զեղչի նոր չափը՝ {DISCOUNT}%։ Շնորհակալություն, որ մեզ հետ եք։'),
     ],
   },
   {
@@ -98,9 +98,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     enabledDefault: false,
     daysBeforeDefault: 7,
     presets: [
-      preset('p1', 'Скидка {DISCOUNT}% сгорит {BURN_DATE} — успейте записаться.', 'Your {DISCOUNT}% discount expires on {BURN_DATE} — book in time.'),
-      preset('p2', 'Через {DAYS} дн. скидка {DISCOUNT}% сбросится. Ждём вас!', 'In {DAYS} days your {DISCOUNT}% discount resets. See you soon!'),
-      preset('p3', 'Не теряйте скидку {DISCOUNT}% — она действует до {BURN_DATE}.', "Don't lose your {DISCOUNT}% discount — valid until {BURN_DATE}."),
+      preset('p1', 'Скидка {DISCOUNT}% сгорит {BURN_DATE} — успейте записаться.', 'Your {DISCOUNT}% discount expires on {BURN_DATE} — book in time.', '{DISCOUNT}% զեղչը կայրվի {BURN_DATE}-ին — հասցրեք գրանցվել։'),
+      preset('p2', 'Через {DAYS} дн. скидка {DISCOUNT}% сбросится. Ждём вас!', 'In {DAYS} days your {DISCOUNT}% discount resets. See you soon!', '{DAYS} օրից {DISCOUNT}% զեղչը կզրոյանա։ Սպասում ենք ձեզ։'),
+      preset('p3', 'Не теряйте скидку {DISCOUNT}% — она действует до {BURN_DATE}.', "Don't lose your {DISCOUNT}% discount — valid until {BURN_DATE}.", 'Մի կորցրեք {DISCOUNT}% զեղչը — այն գործում է մինչև {BURN_DATE}։'),
     ],
   },
   {
@@ -113,9 +113,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: false,
     presets: [
-      preset('p1', 'Начислен кэшбэк {CASHBACK}%. Спасибо за визит!', 'Cashback {CASHBACK}% credited. Thanks for your visit!'),
-      preset('p2', 'Вам вернулось {CASHBACK}% бонусами.', "You've got {CASHBACK}% back as points."),
-      preset('p3', 'Кэшбэк {CASHBACK}% уже на карте.', 'Your {CASHBACK}% cashback is already on the card.'),
+      preset('p1', 'Начислен кэшбэк {CASHBACK}%. Спасибо за визит!', 'Cashback {CASHBACK}% credited. Thanks for your visit!', 'Կուտակվել է {CASHBACK}% քեշբեք։ Շնորհակալություն այցի համար։'),
+      preset('p2', 'Вам вернулось {CASHBACK}% бонусами.', "You've got {CASHBACK}% back as points.", 'Ձեզ վերադարձվել է {CASHBACK}% բոնուսներով։'),
+      preset('p3', 'Кэшбэк {CASHBACK}% уже на карте.', 'Your {CASHBACK}% cashback is already on the card.', '{CASHBACK}% քեշբեքն արդեն քարտին է։'),
     ],
   },
   {
@@ -129,9 +129,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     enabledDefault: false,
     daysBeforeDefault: 5,
     presets: [
-      preset('p1', '{BONUS} бонусов сгорят {BURN_DATE}. Успейте использовать.', '{BONUS} points expire on {BURN_DATE}. Use them in time.'),
-      preset('p2', 'Через {DAYS} дн. сгорит {BONUS} бонусов.', '{BONUS} points expire in {DAYS} days.'),
-      preset('p3', 'Не забудьте использовать {BONUS} бонусов до {BURN_DATE}.', "Don't forget to use {BONUS} points before {BURN_DATE}."),
+      preset('p1', '{BONUS} бонусов сгорят {BURN_DATE}. Успейте использовать.', '{BONUS} points expire on {BURN_DATE}. Use them in time.', '{BONUS} բոնուսը կայրվի {BURN_DATE}-ին։ Հասցրեք օգտագործել։'),
+      preset('p2', 'Через {DAYS} дн. сгорит {BONUS} бонусов.', '{BONUS} points expire in {DAYS} days.', '{DAYS} օրից կայրվի {BONUS} բոնուս։'),
+      preset('p3', 'Не забудьте использовать {BONUS} бонусов до {BURN_DATE}.', "Don't forget to use {BONUS} points before {BURN_DATE}.", 'Մի մոռացեք օգտագործել {BONUS} բոնուսը մինչև {BURN_DATE}։'),
     ],
   },
   {
@@ -146,9 +146,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     daysBeforeDefault: 5,
     visitsLeftDefault: 1,
     presets: [
-      preset('p1', 'Абонемент {CARD_TITLE} закончится {EXPIRATION_DATE}. Осталось визитов: {VISITS_LEFT}.', 'Subscription {CARD_TITLE} ends on {EXPIRATION_DATE}. Visits left: {VISITS_LEFT}.'),
-      preset('p2', 'Остался {VISITS_LEFT} визит по абонементу — успейте продлить.', '{VISITS_LEFT} visit left on your subscription — renew in time.'),
-      preset('p3', 'Срок абонемента истекает {EXPIRATION_DATE}.', 'Your subscription expires on {EXPIRATION_DATE}.'),
+      preset('p1', 'Абонемент {CARD_TITLE} закончится {EXPIRATION_DATE}. Осталось визитов: {VISITS_LEFT}.', 'Subscription {CARD_TITLE} ends on {EXPIRATION_DATE}. Visits left: {VISITS_LEFT}.', '{CARD_TITLE} աբոնեմենտը կավարտվի {EXPIRATION_DATE}-ին։ Մնացած այցեր՝ {VISITS_LEFT}։'),
+      preset('p2', 'Остался {VISITS_LEFT} визит по абонементу — успейте продлить.', '{VISITS_LEFT} visit left on your subscription — renew in time.', 'Աբոնեմենտով մնացել է {VISITS_LEFT} այց — հասցրեք երկարացնել։'),
+      preset('p3', 'Срок абонемента истекает {EXPIRATION_DATE}.', 'Your subscription expires on {EXPIRATION_DATE}.', 'Աբոնեմենտի ժամկետը լրանում է {EXPIRATION_DATE}-ին։'),
     ],
   },
   {
@@ -161,9 +161,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: true,
     presets: [
-      preset('p1', 'Списан 1 визит по абонементу {CARD_TITLE}. Осталось: {VISITS_LEFT}.', '1 visit charged from subscription {CARD_TITLE}. Left: {VISITS_LEFT}.'),
-      preset('p2', 'Визит {VISIT_DATE} оплачен абонементом. Остаток визитов: {VISITS_LEFT}.', 'Visit on {VISIT_DATE} paid from the subscription. Visits left: {VISITS_LEFT}.'),
-      preset('p3', 'Абонемент {CARD_TITLE}: списано {VISITS}, осталось {VISITS_LEFT}.', 'Subscription {CARD_TITLE}: {VISITS} charged, {VISITS_LEFT} left.'),
+      preset('p1', 'Списан 1 визит по абонементу {CARD_TITLE}. Осталось: {VISITS_LEFT}.', '1 visit charged from subscription {CARD_TITLE}. Left: {VISITS_LEFT}.', '{CARD_TITLE} աբոնեմենտից դուրս է գրվել 1 այց։ Մնաց՝ {VISITS_LEFT}։'),
+      preset('p2', 'Визит {VISIT_DATE} оплачен абонементом. Остаток визитов: {VISITS_LEFT}.', 'Visit on {VISIT_DATE} paid from the subscription. Visits left: {VISITS_LEFT}.', '{VISIT_DATE}-ի այցը վճարվել է աբոնեմենտով։ Մնացած այցեր՝ {VISITS_LEFT}։'),
+      preset('p3', 'Абонемент {CARD_TITLE}: списано {VISITS}, осталось {VISITS_LEFT}.', 'Subscription {CARD_TITLE}: {VISITS} charged, {VISITS_LEFT} left.', '{CARD_TITLE} աբոնեմենտ՝ դուրս է գրվել {VISITS}, մնաց {VISITS_LEFT}։'),
     ],
   },
   {
@@ -176,9 +176,9 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'email',
     enabledDefault: true,
     presets: [
-      preset('p1', 'Спасибо за покупку! Ваш абонемент/сертификат {CARD_TITLE} готов к использованию.', 'Thanks for your purchase! Your subscription/certificate {CARD_TITLE} is ready to use.'),
-      preset('p2', 'Оплата получена. Детали покупки — во вложении.', 'Payment received. Purchase details are attached.'),
-      preset('p3', 'Ваш заказ {CARD_TITLE} оформлен и оплачен.', 'Your order {CARD_TITLE} is placed and paid.'),
+      preset('p1', 'Спасибо за покупку! Ваш абонемент/сертификат {CARD_TITLE} готов к использованию.', 'Thanks for your purchase! Your subscription/certificate {CARD_TITLE} is ready to use.', 'Շնորհակալություն գնման համար։ Ձեր {CARD_TITLE} աբոնեմենտը/նվեր-քարտը պատրաստ է օգտագործման։'),
+      preset('p2', 'Оплата получена. Детали покупки — во вложении.', 'Payment received. Purchase details are attached.', 'Վճարումը ստացվել է։ Գնման մանրամասները՝ կցված ֆայլում։'),
+      preset('p3', 'Ваш заказ {CARD_TITLE} оформлен и оплачен.', 'Your order {CARD_TITLE} is placed and paid.', 'Ձեր {CARD_TITLE} պատվերը ձևակերպված և վճարված է։'),
     ],
   },
   {
@@ -193,8 +193,8 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     daysBeforeDefault: 3,
     regionOnly: 'BR',
     presets: [
-      preset('p1', 'Через 3 дня со счёта спишется оплата за абонемент {CARD_TITLE}. Отменить можно в любой момент.', 'In 3 days your card will be charged for subscription {CARD_TITLE}. You can cancel any time.'),
-      preset('p2', 'Скоро автопродление {CARD_TITLE}. Не хотите продлевать — отмените сейчас.', 'Auto-renewal for {CARD_TITLE} is coming up. Cancel now if you don’t want it.'),
+      preset('p1', 'Через 3 дня со счёта спишется оплата за абонемент {CARD_TITLE}. Отменить можно в любой момент.', 'In 3 days your card will be charged for subscription {CARD_TITLE}. You can cancel any time.', '3 օրից կգանձվի {CARD_TITLE} աբոնեմենտի վճարը։ Չեղարկել կարող եք ցանկացած պահի։'),
+      preset('p2', 'Скоро автопродление {CARD_TITLE}. Не хотите продлевать — отмените сейчас.', 'Auto-renewal for {CARD_TITLE} is coming up. Cancel now if you don’t want it.', 'Շուտով {CARD_TITLE}-ի ինքնաերկարացումն է։ Չեք ուզում երկարացնել՝ չեղարկեք հիմա։'),
     ],
   },
   {
@@ -208,8 +208,8 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     enabledDefault: false,
     regionOnly: 'BR',
     presets: [
-      preset('p1', 'Оплата за абонемент {CARD_TITLE} прошла. Чек во вложении.', 'Payment for subscription {CARD_TITLE} went through. Receipt attached.'),
-      preset('p2', 'Списание выполнено. Отменить автопродление можно в любой момент.', 'Charge completed. You can cancel auto-renewal any time.'),
+      preset('p1', 'Оплата за абонемент {CARD_TITLE} прошла. Чек во вложении.', 'Payment for subscription {CARD_TITLE} went through. Receipt attached.', '{CARD_TITLE} աբոնեմենտի վճարումը կատարված է։ Չեկը՝ կցված ֆայլում։'),
+      preset('p2', 'Списание выполнено. Отменить автопродление можно в любой момент.', 'Charge completed. You can cancel auto-renewal any time.', 'Գանձումը կատարված է։ Ինքնաերկարացումը կարող եք չեղարկել ցանկացած պահի։'),
     ],
   },
   {
@@ -223,8 +223,8 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     enabledDefault: false,
     regionOnly: 'BR',
     presets: [
-      preset('p1', 'Автопродление {CARD_TITLE} отменено. Абонемент действует до конца срока.', 'Auto-renewal for {CARD_TITLE} is cancelled. The subscription stays active until it expires.'),
-      preset('p2', 'Готово — больше не будем списывать за {CARD_TITLE}.', "Done — we won't charge you for {CARD_TITLE} anymore."),
+      preset('p1', 'Автопродление {CARD_TITLE} отменено. Абонемент действует до конца срока.', 'Auto-renewal for {CARD_TITLE} is cancelled. The subscription stays active until it expires.', '{CARD_TITLE}-ի ինքնաերկարացումը չեղարկված է։ Աբոնեմենտը գործում է մինչև ժամկետի ավարտը։'),
+      preset('p2', 'Готово — больше не будем списывать за {CARD_TITLE}.', "Done — we won't charge you for {CARD_TITLE} anymore.", 'Պատրաստ է — այլևս չենք գանձի {CARD_TITLE}-ի համար։'),
     ],
   },
   {
@@ -238,8 +238,8 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     enabledDefault: false,
     regionOnly: 'BR',
     presets: [
-      preset('p1', 'Не удалось списать оплату за {CARD_TITLE} — абонемент отменён.', 'Could not charge for {CARD_TITLE} — the subscription was cancelled.'),
-      preset('p2', 'Проверьте карту: списание за {CARD_TITLE} не прошло.', 'Please check your card: the charge for {CARD_TITLE} failed.'),
+      preset('p1', 'Не удалось списать оплату за {CARD_TITLE} — абонемент отменён.', 'Could not charge for {CARD_TITLE} — the subscription was cancelled.', 'Չհաջողվեց գանձել {CARD_TITLE}-ի վճարը — աբոնեմենտը չեղարկված է։'),
+      preset('p2', 'Проверьте карту: списание за {CARD_TITLE} не прошло.', 'Please check your card: the charge for {CARD_TITLE} failed.', 'Ստուգեք քարտը՝ {CARD_TITLE}-ի գանձումը չի կատարվել։'),
     ],
   },
   {
@@ -252,8 +252,8 @@ export const LOYALTY_NOTIFY_DEFS: LoyaltyNotifyDef[] = [
     channel: 'sms',
     enabledDefault: false,
     presets: [
-      preset('p1', 'Заполните короткую анкету перед визитом: {FORM_LINK}', 'Please fill in a short form before your visit: {FORM_LINK}'),
-      preset('p2', 'Нужно ваше согласие — заполните форму: {FORM_LINK}', 'We need your consent — fill in the form: {FORM_LINK}'),
+      preset('p1', 'Заполните короткую анкету перед визитом: {FORM_LINK}', 'Please fill in a short form before your visit: {FORM_LINK}', 'Լրացրեք կարճ հարցաթերթիկը այցից առաջ՝ {FORM_LINK}'),
+      preset('p2', 'Нужно ваше согласие — заполните форму: {FORM_LINK}', 'We need your consent — fill in the form: {FORM_LINK}', 'Անհրաժեշտ է ձեր համաձայնությունը — լրացրեք ձևը՝ {FORM_LINK}'),
     ],
   },
 ];
